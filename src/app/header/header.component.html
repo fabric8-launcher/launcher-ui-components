@@ -1,0 +1,51 @@
+<nav id="header_wrapper" class="navbar navbar-default navbar-pf navbar-fixed-top" role="navigation">
+  <div id="header_nav" class="navbar-header">
+
+    <div class="dropdown nav navbar-nav navbar-right navbar-iconic navbar-toggle nav-item-iconic" dropdown >
+        <div dropdown-open>
+          <a class="nav-item-iconic dropdown-toggle no-link pull-left">
+            <span title="Username" class="fa pficon-user"></span>
+            <span class="caret"></span>
+          </a>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li *ngIf="loggedInUser">
+              <a> {{loggedInUser.fullName}} </a>
+            </li>
+            <li>
+              <a *ngIf="loggedIn" (click)='logout();'>Logout</a>
+              <a *ngIf="!loggedIn" (click)='login();'>Login</a>
+            </li>
+        </ul>
+    </div>
+
+    <a class="navbar-brand fl">
+      <img class="header-logo" src="../../assets/img/brand.svg" alt="Obsidian" />
+    </a>
+    <p class="navbar-text">Obsidian</p>
+  </div>
+  <div class="collapse navbar-collapse navbar-collapse-1">
+    <ul id="header_rightDropdown" class="nav navbar-nav navbar-utility">
+        <li *ngIf="loggedIn">
+          <a *ngIf="loggedInUser" id="header_dropdownToggle">
+            <span *ngIf="!imgLoaded" class="pficon pficon-user"></span>
+            <img src="{{ loggedInUser.imageURL }}"
+              class="pull-left marginR10" />
+            {{loggedInUser.fullName}}
+          </a>
+      </li>
+      <li>
+          <a *ngIf="loggedIn" (click)='logout();'>Logout</a>
+          <a *ngIf="!loggedIn" (click)='login();'>Login</a>
+      </li>
+    </ul>
+    <ul id="header_menuList" class="nav navbar-nav navbar-primary pull-left dn">
+      <li>
+        <a [routerLink]="['/work-item-list']" id="header_menuWorkItemList" routerLinkActive="active">Work Item List</a>
+      </li>
+      <li>
+        <a [routerLink]="['/board']" id="header_menuBoard" routerLinkActive="active">Board</a>
+      </li>
+    </ul>
+  </div>
+</nav>
