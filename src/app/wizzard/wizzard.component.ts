@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router }    from '@angular/router';
 
 @Component({
-  selector: 'step1-form',
-  templateUrl: './step1.component.html',
-  styleUrls: ['./step1.component.scss'],
+  selector: 'wizzard-step1',
+  templateUrl: './wizzard.component.html',
+  styleUrls: ['./wizzard.component.scss'],
 })
 export class Step1Component implements OnInit {
   showError: boolean = false;

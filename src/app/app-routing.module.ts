@@ -1,15 +1,15 @@
 import { NgModule }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Step1Component } from './step1/step1.component';
+import { Step1Component } from './wizzard/wizzard.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/step1',
+    redirectTo: '/wizzard',
     pathMatch: 'full'
   },
   {
-    path: 'step1',
+    path: 'wizzard',
     component: Step1Component
   }
 ];
