@@ -10,6 +10,7 @@ export class Step1Component implements OnInit {
   showError: boolean = false;
   feedbackMessage: string = '';
   statusCode: number = 0;
+  subSection: string = '1A';
 
   constructor(
     private router: Router) {

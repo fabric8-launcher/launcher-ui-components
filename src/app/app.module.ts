@@ -27,6 +27,7 @@ import { HeaderComponent } from './header/header.component';
 
 import { Step1Component } from './wizzard/wizzard.component';
 import { WizzardHeaderComponent } from './wizzard/wizzard-title/wizzard-title.component';
+import { WizzardSidebarComponent } from './wizzard/wizzard-sidebar/wizzard-sidebar.component';
 
 // conditionally import the inmemory resource module
 var moduleImports: Array<any[] | any | ModuleWithProviders>;
@@ -58,6 +59,7 @@ if (process.env.ENV == 'inmemory') {
     FooterComponent,
     HeaderComponent,
     WizzardHeaderComponent,
+    WizzardSidebarComponent,
     Step1Component
   ],
   providers: [

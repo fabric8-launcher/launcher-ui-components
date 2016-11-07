@@ -2,50 +2,8 @@
 </wizzard-title>
 <div class="modal-body wizard-pf-body clearfix">
   <div class="wizard-pf-row">
-    <div class="wizard-pf-sidebar">
-      <ul class="list-group">
-        <li class="list-group-item active">
-          <a href="#">
-            <span class="wizard-pf-substep-number">1A.</span>
-            <span class="wizard-pf-substep-title">Details</span>
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a href="#">
-            <span class="wizard-pf-substep-number">1B.</span>
-            <span class="wizard-pf-substep-title">Settings</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="list-group hidden">
-        <li class="list-group-item">
-          <a href="#">
-            <span class="wizard-pf-substep-number">2A.</span>
-            <span class="wizard-pf-substep-title">Details</span>
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a href="#">
-            <span class="wizard-pf-substep-number">2B.</span>
-            <span class="wizard-pf-substep-title">Settings</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="list-group hidden">
-        <li class="list-group-item">
-          <a>
-            <span class="wizard-pf-substep-number">3A.</span>
-            <span class="wizard-pf-substep-title">Summary</span>
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a>
-            <span class="wizard-pf-substep-number">3B.</span>
-            <span class="wizard-pf-substep-title">Progress</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <wizzard-sidebar [activeStep]="subSection">
+    </wizzard-sidebar>
     <!-- /.wizard-pf-sidebar -->
     <div class="wizard-pf-main">
       <div class="wizard-pf-contents">
