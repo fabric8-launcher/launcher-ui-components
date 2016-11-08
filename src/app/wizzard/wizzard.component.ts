@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ListService } from './list.service'
+import { ForgeService } from './list.service'
 import { ProjectSettings } from './project-settings';
 
 @Component({
@@ -11,7 +11,7 @@ import { ProjectSettings } from './project-settings';
     ProjectSettings
   ]
 })
-export class Step1Component implements OnInit {
+export class FormComponent implements OnInit {
   showError: boolean = false;
   feedbackMessage: string = '';
   statusCode: number = 0;
@@ -21,7 +21,7 @@ export class Step1Component implements OnInit {
 
   constructor(
     private router: Router,
-    private listService: ListService,
+    private listService: ForgeService,
     private settings: ProjectSettings) {
   }
 

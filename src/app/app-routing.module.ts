@@ -1,6 +1,6 @@
 import { NgModule }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Step1Component } from './wizzard/wizzard.component';
+import { FormComponent } from './wizzard/wizzard.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'wizzard',
-    component: Step1Component
+    component: FormComponent
   }
 ];
 
