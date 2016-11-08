@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { FormComponent } from './wizzard.component';
 
-import { ForgeService } from './list.service'
+import { ForgeService } from './forge.service'
 
 @NgModule({
   imports: [

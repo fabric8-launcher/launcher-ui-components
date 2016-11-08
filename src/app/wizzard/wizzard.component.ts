@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ForgeService } from './list.service'
+import { ForgeService } from './forge.service'
 import { ProjectSettings } from './project-settings';
 
 @Component({
