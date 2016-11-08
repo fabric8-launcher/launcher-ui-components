@@ -29,6 +29,8 @@ import { Step1Component } from './wizzard/wizzard.component';
 import { WizzardHeaderComponent } from './wizzard/wizzard-title/wizzard-title.component';
 import { WizzardSidebarComponent } from './wizzard/wizzard-sidebar/wizzard-sidebar.component';
 
+import { ListService } from './wizzard/list.service'
+
 // conditionally import the inmemory resource module
 var moduleImports: Array<any[] | any | ModuleWithProviders>;
 
@@ -63,7 +65,8 @@ if (process.env.ENV == 'inmemory') {
     Step1Component
   ],
   providers: [
-    Logger
+    Logger,
+    ListService
   ],
   bootstrap: [ AppComponent ]
 })

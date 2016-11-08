@@ -6,24 +6,33 @@
     </wizzard-sidebar>
     <!-- /.wizard-pf-sidebar -->
     <div class="wizard-pf-main">
-      <div class="wizard-pf-contents">
+      <div class="wizard-pf-contents" [class.hidden]="isNotActive('1A')">
         <form class="form-horizontal">
           <!-- replacing id with data-id to pass build errors -->
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="textInput-markup">Name</label>
+            <label class="col-sm-2 control-label" for="textInput-markup">Select Language Runtime</label>
             <div class="col-sm-10">
-              <input type="text" data-id="textInput-markup" class="form-control">
+              <select class="form-control" [(ngModel)]="settings.runtime" name="runtime">
+                <option>Select a Language Runtime</option>
+                <option value="{{runtime}}" *ngFor="let runtime of languageRuntimes">
+                  {{runtime}}
+                </option>
+              </select>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="descriptionInput-markup">Description (Optional)</label>
+            <label class="col-sm-2 control-label" for="descriptionInput-markup">Select features</label>
             <div class="col-sm-10">
-              <textarea data-id="descriptionInput-markup" class="form-control" rows="2"></textarea>
+              <select multiple class="form-control" [(ngModel)]="settings.features" name="features">
+                <option *ngFor="let feature of features">
+                  {{feature}}
+                </option>
+              </select>
             </div>
           </div>
         </form>
       </div>
-      <div class="wizard-pf-contents hidden">
+      <div class="wizard-pf-contents" [class.hidden]="isNotActive('1B')">
         <form class="form-horizontal">
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="lorem">Lorem ipsum</label>
@@ -179,20 +188,17 @@
 <!-- /.wizard-pf-body -->
 
 <div class="modal-footer wizard-pf-footer">
-  <button type="button" class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss">Cancel</button>
-  <button type="button" class="btn btn-default wizard-pf-back disabled">
+  <button type="button" class="btn btn-default wizard-pf-back" [class.disabled]="!isNotActive('1A')">
       <span class="i fa fa-angle-left"></span>
       Back
     </button>
-  <button type="button" class="btn btn-primary wizard-pf-next">
+  <button type="button" class="btn btn-primary wizard-pf-next" (click)="next()">
       Next
       <span class="i fa fa-angle-right"></span>
     </button>
   <button type="button" class="btn btn-primary hidden wizard-pf-finish">
-      Deploy
+      Download
       <span class="i fa fa-angle-right"></span>
     </button>
-  <button type="button" class="btn btn-primary hidden wizard-pf-close wizard-pf-dismiss">Close</button>
-
 </div>
 <!-- /.wizard-pf-footer -->
