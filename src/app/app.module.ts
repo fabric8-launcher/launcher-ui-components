@@ -25,33 +25,21 @@ import { FooterComponent } from './footer/footer.component';
 // Header
 import { HeaderComponent } from './header/header.component';
 
-import { Step1Component } from './wizzard/wizzard.component';
-import { WizzardHeaderComponent } from './wizzard/wizzard-title/wizzard-title.component';
-import { WizzardSidebarComponent } from './wizzard/wizzard-sidebar/wizzard-sidebar.component';
-
-import { ListService } from './wizzard/list.service'
+import { WizzardModule } from './wizzard/wizzard.module'
 
 // conditionally import the inmemory resource module
-var moduleImports: Array<any[] | any | ModuleWithProviders>;
+var moduleImports: Array<any[] | any | ModuleWithProviders> = [
+  BrowserModule,
+  DropdownModule,
+  FormsModule,
+  HttpModule,
+  AppRoutingModule,
+  WizzardModule
+];
 
 // The inmemory environment variable is checked and if present then the in-memory dataset is added.
 if (process.env.ENV == 'inmemory') {
-  moduleImports = [
-    BrowserModule,
-    DropdownModule,
-    FormsModule,
-    HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
-    AppRoutingModule
-  ];
-} else {
-  moduleImports = [
-    BrowserModule,
-    DropdownModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule
-  ];
+  moduleImports.push(InMemoryWebApiModule.forRoot(InMemoryDataService));
 }
 
 @NgModule({
@@ -59,14 +47,10 @@ if (process.env.ENV == 'inmemory') {
   declarations: [
     AppComponent,
     FooterComponent,
-    HeaderComponent,
-    WizzardHeaderComponent,
-    WizzardSidebarComponent,
-    Step1Component
+    HeaderComponent
   ],
   providers: [
-    Logger,
-    ListService
+    Logger
   ],
   bootstrap: [ AppComponent ]
 })
