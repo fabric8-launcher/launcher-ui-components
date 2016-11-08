@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ForgeService } from './forge.service'
-import { ProjectSettings } from './project-settings';
+import { Gui, ProjectSettings } from './model';
 
 @Component({
   selector: 'wizzard-step1',
@@ -11,29 +11,18 @@ import { ProjectSettings } from './project-settings';
     ProjectSettings
   ]
 })
-export class FormComponent implements OnInit {
+export class FormComponent {
   showError: boolean = false;
   feedbackMessage: string = '';
-  statusCode: number = 0;
-  subSection: string = '1A';
-  languageRuntimes: string[] = this.listService.LanguageRuntimes;
-  features: string[] = this.listService.ListOfFeatures;
+  currentGui: Gui = new Gui();
 
   constructor(
     private router: Router,
-    private listService: ForgeService,
+    private forgeService: ForgeService,
     private settings: ProjectSettings) {
-  }
-
-  ngOnInit(): void {
-  }
-
-  next(): void {
-    this.subSection = '1B';
-  }
-
-  isNotActive(section: string): boolean {
-    return this.subSection != section;
+    this.forgeService.executeAction().then((gui) => {
+      this.currentGui = gui;
+    });
   }
 
   closeAlert() {

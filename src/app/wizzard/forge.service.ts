@@ -1,23 +1,35 @@
 import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/toPromise';
+import { Gui } from './model';
 
 @Injectable()
 export class ForgeService {
-  executeAction(): Object {
-    return {
+  executeAction(): Promise<Gui> {
+    return Promise.resolve({
       "metadata": {
         "deprecated": false,
         "category": "Project/Generation",
         "name": "Project: New",
         "description": "Createanewproject"
-      }, "state": {
-        "valid": false, "canExecute": false, "wizard": true, "canMoveToNextStep": false, "canMoveToPreviousStep": false
+      },
+      "state": {
+        "valid": false,
+        "canExecute": false,
+        "wizard": true,
+        "canMoveToNextStep": false,
+        "canMoveToPreviousStep": false
       },
       "inputs": [
         {
           "name": "named",
           "shortName": " ",
           "valueType": "java.lang.String",
-          "inputType": "org.jboss.forge.inputType.DEFAULT", "enabled": true, "required": true, "deprecated": false, "label": "Projectname", "class": "UIInput"
+          "inputType": "org.jboss.forge.inputType.DEFAULT",
+          "enabled": true,
+          "required": true,
+          "deprecated": false,
+          "label": "Projectname",
+          "class": "UIInput"
         },
         {
           "name": "topLevelPackage",
@@ -97,6 +109,6 @@ export class ForgeService {
           "value": "None"
         }
       ]
-    };
+    } as Gui);
   }
 }

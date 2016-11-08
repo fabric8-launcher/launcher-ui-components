@@ -2,25 +2,10 @@
   <div class="wizard-pf-main">
     <div class="wizard-pf-contents">
       <form class="form-horizontal">
-        <div class="form-group required">
-          <label class="col-sm-2 control-label" for="textInput-markup">Select Language Runtime</label>
+        <div class="form-group required" *ngFor="let input of currentGui.inputs">
+          <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
           <div class="col-sm-10">
-            <select class="form-control" [(ngModel)]="settings.runtime" name="runtime">
-                <option>Select a Language Runtime</option>
-                <option value="{{runtime}}" *ngFor="let runtime of languageRuntimes">
-                  {{runtime}}
-                </option>
-              </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="descriptionInput-markup">Select features</label>
-          <div class="col-sm-10">
-            <select multiple class="form-control" [(ngModel)]="settings.features" name="features">
-                <option *ngFor="let feature of features">
-                  {{feature}}
-                </option>
-              </select>
+            {{input.name}}
           </div>
         </div>
       </form>
@@ -32,11 +17,11 @@
 <!-- /.wizard-pf-body -->
 
 <div class="modal-footer wizard-pf-footer">
-  <button type="button" class="btn btn-default wizard-pf-back" [class.disabled]="!isNotActive('1A')">
+  <button type="button" class="btn btn-default wizard-pf-back" [class.disabled]="!currentGui.state.canMoveToPreviousStep">
       <span class="i fa fa-angle-left"></span>
       Back
     </button>
-  <button type="button" class="btn btn-primary wizard-pf-next" (click)="next()">
+  <button type="button" class="btn btn-primary wizard-pf-next" [class.disabled]="!currentGui.state.canMoveToNextStep">
       Next
       <span class="i fa fa-angle-right"></span>
     </button>
