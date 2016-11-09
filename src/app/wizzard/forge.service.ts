@@ -80,6 +80,13 @@ export class ForgeService {
           "value": "Java Web Application (WAR)"
         },
         {
+          "name": "type2",
+          "shortName": " ",
+          "valueType": "org.jboss.forge.addon.projects.ProjectType",
+          "inputType": "org.jboss.forge.inputType.DEFAULT", "enabled": true, "required": true, "deprecated": false, "label": "Projecttype", "valueChoices": ["JavaWebApplication(WAR)", "WildFlySwarmMicroservice(WAR+JAR)", "JavaLibrary(JAR)", "Parent", "ForgeAddon(JAR)", "JavaResources(JAR)", "JavaEnterpriseArchive(EAR)", "FromArchetype", "Generic"], "class": "UISelectMany",
+          "value": "Java Web Application (WAR)"
+        },
+        {
           "name": "buildSystem",
           "shortName": " ",
           "valueType": "org.jboss.forge.addon.projects.ProjectProvider",
