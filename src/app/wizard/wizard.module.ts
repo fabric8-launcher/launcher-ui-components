@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { FormComponent } from './wizzard.component';
+import { FormComponent } from './wizard.component';
 
 import { ForgeService } from './forge.service'
 
@@ -18,4 +18,4 @@ import { ForgeService } from './forge.service'
       ForgeService
   ]
 })
-export class WizzardModule { }
+export class WizardModule { }

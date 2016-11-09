@@ -1,15 +1,15 @@
 import { NgModule }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormComponent } from './wizzard/wizzard.component';
+import { FormComponent } from './wizard/wizard.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/wizzard',
+    redirectTo: '/wizard',
     pathMatch: 'full'
   },
   {
-    path: 'wizzard',
+    path: 'wizard',
     component: FormComponent
   }
 ];

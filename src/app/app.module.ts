@@ -25,7 +25,7 @@ import { FooterComponent } from './footer/footer.component';
 // Header
 import { HeaderComponent } from './header/header.component';
 
-import { WizzardModule } from './wizzard/wizzard.module'
+import { WizardModule } from './wizard/wizard.module'
 
 // conditionally import the inmemory resource module
 var moduleImports: Array<any[] | any | ModuleWithProviders> = [
@@ -34,7 +34,7 @@ var moduleImports: Array<any[] | any | ModuleWithProviders> = [
   FormsModule,
   HttpModule,
   AppRoutingModule,
-  WizzardModule
+  WizardModule
 ];
 
 // The inmemory environment variable is checked and if present then the in-memory dataset is added.

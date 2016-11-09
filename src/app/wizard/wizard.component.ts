@@ -4,9 +4,9 @@ import { ForgeService } from './forge.service'
 import { Gui, Input, ProjectSettings } from './model';
 
 @Component({
-  selector: 'wizzard-step1',
-  templateUrl: './wizzard.component.html',
-  styleUrls: ['./wizzard.component.scss'],
+  selector: 'wizard',
+  templateUrl: './wizard.component.html',
+  styleUrls: ['./wizard.component.scss'],
   providers: [
     ProjectSettings
   ]
