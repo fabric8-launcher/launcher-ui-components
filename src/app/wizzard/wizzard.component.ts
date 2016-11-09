@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ForgeService } from './forge.service'
-import { Gui, ProjectSettings } from './model';
+import { Gui, Input, ProjectSettings } from './model';
 
 @Component({
   selector: 'wizzard-step1',
@@ -23,6 +23,15 @@ export class FormComponent {
     this.forgeService.executeAction().then((gui) => {
       this.currentGui = gui;
     });
+  }
+
+  getInputType(input: Input):string {
+    if (input.valueType == 'java.lang.String') {
+      return 'text';
+    } else if (input.valueType == 'java.lang.Boolean') {
+      return 'checkbox';
+    }
+    return 'text';
   }
 
   closeAlert() {

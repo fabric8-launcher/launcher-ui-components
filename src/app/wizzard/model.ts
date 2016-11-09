@@ -1,6 +1,6 @@
 
 export class ProjectSettings {
-
+    values: Object = {};
 }
 
 export class Gui {
@@ -29,6 +29,7 @@ export class Input {
     shortName: string;
     label: string;
     valueType: string;
+    valueChoices: string[];
     inputType: string;
     enabled: boolean;
     required: boolean;

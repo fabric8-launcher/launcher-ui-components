@@ -1,33 +1,38 @@
-<div class="modal-body wizard-pf-body clearfix">
-  <div class="wizard-pf-main">
-    <div class="wizard-pf-contents">
-      <form class="form-horizontal">
-        <div class="form-group required" *ngFor="let input of currentGui.inputs">
-          <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
-          <div class="col-sm-10">
-            {{input.name}}
-          </div>
-        </div>
-      </form>
+<div class="container-fluid">
+<form class="form-horizontal">
+  <div class="form-group" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
+    <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
+    <div class="col-sm-10">
+      <span *ngIf="input.class == 'UIInput'">
+        <input [type]="getInputType(input)" name="{{input.name}}" [(ngModel)]="settings.values[input.name]" class="form-control"
+        [required]="input.required" [disabled]="!input.enabled">
+      </span>
+      <span *ngIf="input.class == 'UISelectOne' || input.class == 'UISelectMany'">
+        <select class="form-control" [(ngModel)]="settings.values[input.name]" name="{{input.name}}"
+        #type="ngModel" [multiple]="input.class == 'UISelectMany'">
+          <option *ngFor="let option of input.valueChoices">
+              {{option}}
+          </option>
+        </select>
+      </span>
     </div>
   </div>
-  <!-- /.wizard-pf-main -->
 
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="btn btn-default" [class.disabled]="!currentGui.state.canMoveToPreviousStep">
+          <span class="i fa fa-angle-left"></span>
+          Back
+        </button>
+      <button type="button" class="btn btn-primary" [class.disabled]="!currentGui.state.canMoveToNextStep">
+          Next
+          <span class="i fa fa-angle-right"></span>
+        </button>
+      <button type="button" class="btn btn-primary hidden">
+          Download
+          <span class="i fa fa-angle-right"></span>
+        </button>
+    </div>
+  </div>
+</form>
 </div>
-<!-- /.wizard-pf-body -->
-
-<div class="modal-footer wizard-pf-footer">
-  <button type="button" class="btn btn-default wizard-pf-back" [class.disabled]="!currentGui.state.canMoveToPreviousStep">
-      <span class="i fa fa-angle-left"></span>
-      Back
-    </button>
-  <button type="button" class="btn btn-primary wizard-pf-next" [class.disabled]="!currentGui.state.canMoveToNextStep">
-      Next
-      <span class="i fa fa-angle-right"></span>
-    </button>
-  <button type="button" class="btn btn-primary hidden wizard-pf-finish">
-      Download
-      <span class="i fa fa-angle-right"></span>
-    </button>
-</div>
-<!-- /.wizard-pf-footer -->
