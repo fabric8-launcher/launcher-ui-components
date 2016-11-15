@@ -1,15 +1,25 @@
 <div class="container-fluid">
-<form class="form-horizontal">
+<span *ngFor="let error of currentGui.messages">
+  <div class="alert alert-{{error.severity == 'ERROR' ? 'danger' : 'warning'}} alert-dismissable" *ngIf="!error.showError">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="closeAlert(error)">
+      <span class="pficon pficon-close"></span>
+    </button>
+    <span class="pficon pficon-error-circle-o"></span>
+    {{error.description}}.
+  </div>
+</span>
+<form class="form-horizontal" (ngSubmit)="onSubmit(this)" #wizard="ngForm">
   <div class="form-group" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
     <div class="col-sm-10">
       <span *ngIf="input.class == 'UIInput'">
-        <input [type]="getInputType(input)" name="{{input.name}}" [(ngModel)]="settings.values[input.name]" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled">
+        <input [type]="getInputType(input)" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
+        [required]="input.required" [disabled]="!input.enabled"
+        (blur)="changed(wizard)">
       </span>
       <span *ngIf="input.class == 'UISelectOne' || input.class == 'UISelectMany'">
-        <select class="form-control" [(ngModel)]="settings.values[input.name]" name="{{input.name}}"
-        #type="ngModel" [multiple]="input.class == 'UISelectMany'">
+        <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}"
+        #type="ngModel" [attr.multiple]="input.class == 'UISelectMany' ? true : null" (blur)="changed()">
           <option *ngFor="let option of input.valueChoices">
               {{option}}
           </option>
@@ -24,12 +34,14 @@
           <span class="i fa fa-angle-left"></span>
           Back
         </button>
-      <button type="button" class="btn btn-primary" [class.disabled]="!currentGui.state.canMoveToNextStep">
+      <button type="button" class="btn btn-primary"
+        [class.disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
           Next
           <span class="i fa fa-angle-right"></span>
         </button>
-      <button type="button" class="btn btn-primary hidden">
-          Download
+      <button type="button" class="btn btn-primary"
+        [class.disabled]="!currentGui.state.canExecute" (click)="onSubmit()">
+          Finish
           <span class="i fa fa-angle-right"></span>
         </button>
     </div>

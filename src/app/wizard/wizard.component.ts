@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ForgeService } from './forge.service'
-import { Gui, Input, ProjectSettings } from './model';
+import { Gui, Input, ProjectSettings, Message } from './model';
 
 @Component({
   selector: 'wizard',
@@ -12,15 +12,13 @@ import { Gui, Input, ProjectSettings } from './model';
   ]
 })
 export class FormComponent {
-  showError: boolean = false;
-  feedbackMessage: string = '';
   currentGui: Gui = new Gui();
 
   constructor(
     private router: Router,
     private forgeService: ForgeService,
     private settings: ProjectSettings) {
-    this.forgeService.executeAction().then((gui) => {
+    this.forgeService.commandInfo().then((gui) => {
       this.currentGui = gui;
     });
   }
@@ -34,7 +32,19 @@ export class FormComponent {
     return 'text';
   }
 
-  closeAlert() {
-    this.showError = false;
+  changed() {
+    this.forgeService.validate(this.currentGui).then(gui => this.currentGui = gui);
+  }
+
+  next() {
+    this.forgeService.executeCommand(this.currentGui).then(gui => this.currentGui = gui);
+  }
+
+  onSubmit() {
+    this.forgeService.executeCommand(this.currentGui).then(result => console.log(result));
+  }
+
+  closeAlert(error: Message) {
+    error.showError = true;
   }
 }

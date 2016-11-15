@@ -7,6 +7,7 @@ export class Gui {
     metadata: MetaData;
     state: State = new State();
     inputs: Input[];
+    messages: Message[];
 }
 
 export class MetaData {
@@ -35,4 +36,25 @@ export class Input {
     required: boolean;
     deprecated: boolean;
     class: string;
+}
+
+export class ExecutionResult {
+    messages: Message[];
+    results: Result[];
+}
+
+export class Result {
+    message: string;
+    status: string;
+}
+
+export class Message {
+    description: string;
+    input: string;
+    severity: string;
+    showError: boolean;
+}
+
+export enum Error {
+    ERROR, WARN, INFO
 }
