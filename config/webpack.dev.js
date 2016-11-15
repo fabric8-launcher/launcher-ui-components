@@ -7,12 +7,14 @@ var helpers = require('./helpers');
 const ENV = process.env.ENV || process.env.NODE_ENV || 'development';
 // if env is 'inmemory', the inmemory debug resource is used
 const API_URL = process.env.API_URL || (ENV==='inmemory'?'app/':'http://localhost:8080/api/');
+const FORGE_URL = process.env.FORGE_URL || 'http://localhost:8080/forge';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
   API_URL: API_URL,
   ENV: ENV,
-  PUBLIC_PATH: PUBLIC_PATH
+  PUBLIC_PATH: PUBLIC_PATH,
+  FORGE_URL: FORGE_URL
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -43,6 +45,7 @@ module.exports = webpackMerge(commonConfig, {
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
         'API_URL' : JSON.stringify(METADATA.API_URL),
+        'FORGE_URL' : JSON.stringify(METADATA.FORGE_URL),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH)
       }
     })
