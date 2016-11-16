@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ForgeService } from './forge.service'
 import { Gui, Input, ProjectSettings, Message } from './model';
@@ -32,16 +33,18 @@ export class FormComponent {
     return 'text';
   }
 
-  changed() {
-    this.forgeService.validate(this.currentGui).then(gui => this.currentGui = gui);
+  changed(form: NgForm) {
+    if (form.dirty && form.valid) {
+      this.forgeService.validate(this.currentGui).then(gui => this.currentGui = gui);
+    }
   }
 
   next() {
-    this.forgeService.executeCommand(this.currentGui).then(gui => this.currentGui = gui);
+    this.forgeService.nextStep(this.currentGui).then(gui => this.currentGui = gui);
   }
 
   onSubmit() {
-    this.forgeService.executeCommand(this.currentGui).then(result => console.log(result));
+    this.forgeService.executeCommand(this.currentGui).then(gui => this.currentGui = gui);
   }
 
   closeAlert(error: Message) {

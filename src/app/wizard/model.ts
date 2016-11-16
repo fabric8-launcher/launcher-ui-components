@@ -8,6 +8,7 @@ export class Gui {
     state: State = new State();
     inputs: Input[];
     messages: Message[];
+    results: Result[];
 }
 
 export class MetaData {
@@ -36,11 +37,6 @@ export class Input {
     required: boolean;
     deprecated: boolean;
     class: string;
-}
-
-export class ExecutionResult {
-    messages: Message[];
-    results: Result[];
 }
 
 export class Result {

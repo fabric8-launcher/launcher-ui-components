@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http } from '@angular/http';
-import { Gui, ExecutionResult } from './model';
+import { Gui } from './model';
 
 @Injectable()
 export class ForgeService {
@@ -23,13 +23,13 @@ export class ForgeService {
     return this.post(gui, '/next');
   }
 
-  executeCommand(gui: Gui): Promise<ExecutionResult> {
+  executeCommand(gui: Gui): Promise<Gui> {
     return this.post(gui, '/execute');
   }
 
-  private post(gui: Gui, action:string): Promise<any> {
+  private post(gui: Gui, action:string): Promise<Gui> {
     return this.http.post(this.apiUrl + action, gui).toPromise()
-      .then(response => response.json())
+      .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
 
