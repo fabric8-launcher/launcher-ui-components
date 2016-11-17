@@ -1,8 +1,3 @@
-
-export class ProjectSettings {
-    values: Object = {};
-}
-
 export class Gui {
     metadata: MetaData;
     state: State = new State();
