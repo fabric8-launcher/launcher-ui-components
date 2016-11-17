@@ -21,6 +21,7 @@ export class FormComponent {
     private settings: ProjectSettings) {
     this.forgeService.commandInfo().then((gui) => {
       this.currentGui = gui;
+      this.currentGui.messages = [];
     });
   }
 
@@ -35,16 +36,19 @@ export class FormComponent {
 
   changed(form: NgForm) {
     if (form.dirty && form.valid) {
-      this.forgeService.validate(this.currentGui).then(gui => this.currentGui = gui);
+      this.forgeService.validate(this.currentGui).then(gui => this.currentGui = gui)
+        .catch(error => this.currentGui.messages.push(new Message(error)));
     }
   }
 
   next() {
-    this.forgeService.nextStep(this.currentGui).then(gui => this.currentGui = gui);
+    this.forgeService.nextStep(this.currentGui).then(gui => this.currentGui = gui)
+      .catch(error => this.currentGui.messages.push(new Message(error)));
   }
 
   onSubmit() {
-    this.forgeService.executeCommand(this.currentGui).then(gui => this.currentGui = gui);
+    this.forgeService.executeCommand(this.currentGui).then(gui => this.currentGui = gui)
+      .catch(error => this.currentGui.messages.push(new Message(error)));
   }
 
   closeAlert(error: Message) {

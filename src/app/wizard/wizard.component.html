@@ -5,7 +5,7 @@
       <span class="pficon pficon-close"></span>
     </button>
     <span class="pficon pficon-error-circle-o"></span>
-    {{error.description}}.
+    {{error.description}}
   </div>
 </span>
 <div class="wizard-pf-complete blank-slate-pf" *ngIf="currentGui.results">
@@ -19,6 +19,13 @@
   </button>
 </div>
 <form class="form-horizontal" (ngSubmit)="onSubmit()" #wizard="ngForm">
+  <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
+    <div class="spinner spinner-lg blank-slate-pf-icon"></div>
+    <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
+    <p class="blank-slate-pf-secondary-action">
+      The wizard is loading the initial screen...
+    </p>
+  </div>
   <div class="form-group" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
     <div class="col-sm-10">
@@ -29,7 +36,7 @@
       </span>
       <span *ngIf="input.class == 'UISelectOne' || input.class == 'UISelectMany'">
         <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}"
-        #type="ngModel" [attr.multiple]="input.class == 'UISelectMany' ? true : null" (blur)="changed(wizard)">
+        #type="ngModel" [attr.multiple]="input.class == 'UISelectMany' ? true : null" (ngModelChange)="changed(wizard)">
           <option *ngFor="let option of input.valueChoices">
               {{option}}
           </option>
@@ -40,16 +47,17 @@
 
   <div class="form-group" *ngIf="!currentGui.results">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-default" [class.disabled]="!currentGui.state.canMoveToPreviousStep">
+      <button type="button" class="btn btn-default"
+        [disabled]="!currentGui.state.canMoveToPreviousStep">
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
       <button type="button" class="btn btn-primary"
-        [class.disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
+        [disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
         Next
         <span class="i fa fa-angle-right"></span>
       </button>
-      <button type="submit" class="btn btn-primary" [class.disabled]="!currentGui.state.canExecute">
+      <button type="submit" class="btn btn-primary" [disabled]="!currentGui.state.canExecute">
         Finish
       </button>
     </div>

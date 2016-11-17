@@ -45,6 +45,9 @@ export class Result {
 }
 
 export class Message {
+    constructor(desciption: string) {
+        this.description = desciption;
+    }
     description: string;
     input: string;
     severity: string;
