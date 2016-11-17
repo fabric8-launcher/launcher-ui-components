@@ -56,8 +56,10 @@ export class FormComponent {
   }
 
   onSubmit() {
-    this.forgeService.executeCommand(this.currentGui).then(gui => this.currentGui = gui)
-      .catch(error => this.currentGui.messages.push(new Message(error)));
+    this.forgeService.executeCommand(this.currentGui).then(blob => {
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
+    }).catch(error => this.currentGui.messages.push(new Message(error)));
   }
 
   closeAlert(error: Message) {
