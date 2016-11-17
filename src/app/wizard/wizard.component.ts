@@ -32,20 +32,27 @@ export class FormComponent {
   }
 
   changed(form: NgForm) {
-    if (form.valid) {
-      this.forgeService.validate(this.currentGui).then(gui => this.currentGui = gui)
-        .catch(error => this.currentGui.messages.push(new Message(error)));
+    if (form.dirty && form.valid) {
+      this.forgeService.validate(this.currentGui).then(gui =>
+      {
+        this.currentGui = gui;
+        this.currentGui.stepIndex = this.history.length;
+      }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
   }
 
   next() {
     this.history.push(this.currentGui);
-    this.forgeService.nextStep(this.currentGui).then(gui => this.currentGui = gui)
-      .catch(error => this.currentGui.messages.push(new Message(error)));
+    this.currentGui.stepIndex = this.history.length;
+    this.forgeService.nextStep(this.currentGui).then(gui => {
+      this.currentGui = gui;
+      this.currentGui.stepIndex = this.history.length;
+    }).catch(error => this.currentGui.messages.push(new Message(error)));
   }
 
   previous() {
     this.currentGui = this.history.pop();
+    this.currentGui.stepIndex = this.history.length;
   }
 
   onSubmit() {

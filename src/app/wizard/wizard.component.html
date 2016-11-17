@@ -36,7 +36,7 @@
       </span>
       <span *ngIf="input.class == 'UISelectOne' || input.class == 'UISelectMany'">
         <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}"
-        #type="ngModel" [attr.multiple]="input.class == 'UISelectMany' ? true : null" (ngModelChange)="changed(wizard)">
+        #type="ngModel" [attr.multiple]="input.class == 'UISelectMany' ? true : null" (blur)="changed(wizard)">
           <option *ngFor="let option of input.valueChoices">
               {{option}}
           </option>

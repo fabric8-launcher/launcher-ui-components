@@ -4,6 +4,7 @@ export class Gui {
     inputs: Input[];
     messages: Message[];
     results: Result[];
+    stepIndex: number;
 }
 
 export class MetaData {
