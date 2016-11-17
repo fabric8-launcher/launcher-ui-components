@@ -10,6 +10,7 @@ import { Gui, Input, Message } from './model';
   styleUrls: ['./wizard.component.scss'],
 })
 export class FormComponent {
+  history: Gui[] = [];
   currentGui: Gui = new Gui();
 
   constructor(
@@ -38,8 +39,13 @@ export class FormComponent {
   }
 
   next() {
+    this.history.push(this.currentGui);
     this.forgeService.nextStep(this.currentGui).then(gui => this.currentGui = gui)
       .catch(error => this.currentGui.messages.push(new Message(error)));
+  }
+
+  previous() {
+    this.currentGui = this.history.pop();
   }
 
   onSubmit() {

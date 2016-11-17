@@ -48,7 +48,7 @@
   <div class="form-group" *ngIf="!currentGui.results">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="button" class="btn btn-default"
-        [disabled]="!currentGui.state.canMoveToPreviousStep">
+        [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
