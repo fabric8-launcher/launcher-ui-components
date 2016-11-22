@@ -31,12 +31,11 @@
     <div class="col-sm-10">
       <span *ngIf="input.class == 'UIInput'">
         <input [type]="getInputType(input)" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled"
-        (blur)="changed(wizard)">
+        [required]="input.required" [disabled]="!input.enabled">
       </span>
       <span *ngIf="input.class == 'UISelectOne' || input.class == 'UISelectMany'">
         <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}"
-        #type="ngModel" [attr.multiple]="input.class == 'UISelectMany' ? true : null" (blur)="changed(wizard)">
+        #type="ngModel" [attr.multiple]="input.class == 'UISelectMany' ? true : null">
           <option *ngFor="let option of input.valueChoices">
               {{option}}
           </option>

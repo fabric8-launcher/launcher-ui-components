@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ForgeService } from './forge.service'
 import { Gui, Input, Message } from './model';
+
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'wizard',
   templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.scss'],
 })
-export class FormComponent {
+export class FormComponent implements AfterViewInit {
+  @ViewChild('wizard') form: NgForm;
+  fromHttp: boolean;
   history: Gui[] = [];
   currentGui: Gui = new Gui();
 
@@ -19,6 +23,16 @@ export class FormComponent {
     this.forgeService.commandInfo().then((gui) => {
       this.currentGui = gui;
       this.currentGui.messages = [];
+    });
+  }
+
+  ngAfterViewInit() {
+    this.form.valueChanges.debounceTime(2000)
+      .subscribe(data => {
+        if (!this.fromHttp) {
+          this.changed(this.form);
+        }
+        this.fromHttp = false;
     });
   }
 
@@ -35,6 +49,7 @@ export class FormComponent {
     if (form.dirty && form.valid) {
       this.forgeService.validate(this.currentGui).then(gui =>
       {
+        this.fromHttp = true;
         this.currentGui = gui;
         this.currentGui.stepIndex = this.history.length;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
