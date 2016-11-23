@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ForgeService } from './forge.service'
 import { Gui, Input, Message } from './model';
+import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 
 import 'rxjs/add/operator/debounceTime';
 
@@ -75,6 +76,20 @@ export class FormComponent implements AfterViewInit {
         var url = window.URL.createObjectURL(blob);
         window.open(url);
     }).catch(error => this.currentGui.messages.push(new Message(error)));
+  }
+
+  convertToOptions(options: string[]): any[] {
+    let result: any[] = [];
+    for (let option of options) {
+      result.push({id: option, name: option});
+    }
+    return result;
+  }
+
+  private searchMultiSelectSettings: IMultiSelectSettings = {
+    enableSearch: true,
+    checkedStyle: 'glyphicon',
+    showUncheckAll: true
   }
 
   closeAlert(error: Message) {

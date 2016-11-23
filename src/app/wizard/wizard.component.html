@@ -41,11 +41,7 @@
         </select>
       </span>
       <span *ngIf="input.class == 'UISelectMany'">
-        <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}" multiple size="15">
-          <option value="{{option}}" *ngFor="let option of input.valueChoices">
-              {{option}}
-          </option>
-        </select>
+        <ss-multiselect-dropdown [options]="convertToOptions(input.valueChoices)" [(ngModel)]="input.value" name="{{input.name}}" [settings]="searchMultiSelectSettings"></ss-multiselect-dropdown>
       </span>
     </div>
   </div>
