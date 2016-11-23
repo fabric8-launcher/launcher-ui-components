@@ -37,15 +37,6 @@ export class FormComponent implements AfterViewInit {
     });
   }
 
-  getInputType(input: Input):string {
-    if (input.valueType == 'java.lang.String') {
-      return 'text';
-    } else if (input.valueType == 'java.lang.Boolean') {
-      return 'checkbox';
-    }
-    return 'text';
-  }
-
   changed(form: NgForm) {
     if (form.dirty && form.valid) {
       this.forgeService.validate(this.currentGui).then(gui =>

@@ -30,8 +30,15 @@
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
     <div class="col-sm-10">
       <span *ngIf="input.class == 'UIInput'">
-        <input [type]="getInputType(input)" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled">
+        <span *ngIf="input.valueType == 'java.lang.String'">
+          <input type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
+            [required]="input.required" [disabled]="!input.enabled">
+        </span>
+        <span *ngIf="input.valueType == 'java.lang.Boolean'">
+          <input type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
+            [required]="input.required" [disabled]="!input.enabled">
+        </span>
+        {{input.value}}
       </span>
       <span *ngIf="input.class == 'UISelectOne'">
         <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}">
