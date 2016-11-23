@@ -38,7 +38,6 @@
           <input type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
             [required]="input.required" [disabled]="!input.enabled">
         </span>
-        {{input.value}}
       </span>
       <span *ngIf="input.class == 'UISelectOne'">
         <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}">
