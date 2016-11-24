@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FormComponent } from './wizard.component';
 import { ForgeService } from './forge.service'
 
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
+import { MultiselectDropdownModule } from '../shared/multiselect-dropdown';
 
 @NgModule({
   imports: [
