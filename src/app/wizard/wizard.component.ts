@@ -1,6 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ForgeService } from './forge.service'
 import { Gui, Input, Message } from './model';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
@@ -19,8 +18,10 @@ export class FormComponent implements AfterViewInit {
   currentGui: Gui = new Gui();
 
   constructor(
-    private router: Router,
     private forgeService: ForgeService) {
+  }
+
+  ngOnInit() {
     this.forgeService.commandInfo().then((gui) => {
       this.currentGui = gui;
       this.currentGui.messages = [];
