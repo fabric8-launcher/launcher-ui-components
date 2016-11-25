@@ -32,7 +32,7 @@
     "setup": "npm install && npm run validate",
     "start": "webpack-dev-server --inline --progress --host 0.0.0.0 --port 8088",
     "stats": "webpack --profile --json > stats.json",
-    "test": "npm-run-all --serial validate test:func",
+    "test": "npm-run-all --serial validate test:unit",
     "test:func": "./run_functional_tests.sh",
     "test:unit": "karma start",
     "testserver-start": "webpack-dev-server --inline --progress --host 0.0.0.0 --port 8088",

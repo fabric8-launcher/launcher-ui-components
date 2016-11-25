@@ -97,7 +97,10 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#module-loaders
      */
     loaders: [
-
+      {
+        test: /\.(ttf|eot|svg|woff(2))(\?[a-z0-9]+)?$/,
+        loader : 'file-loader'
+      },
       /**
        * Typescript loader support for .ts and Angular 2 async routes via .async.ts
        *
@@ -141,7 +144,7 @@ module.exports = {
         exclude: helpers.root('src', 'app'),
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!resolve-url!sass?sourceMap')
       },
-      { 
+      {
         test: /\.scss$/,
         include: helpers.root('src', 'app'),
         loaders: ['exports-loader?module.exports.toString()', 'css', 'postcss', 'sass']
