@@ -2,8 +2,9 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from './forge.service'
 import { Gui, Input, Message } from './model';
-import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 
+import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
+import { saveAs } from 'file-saver';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
@@ -64,9 +65,8 @@ export class FormComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    this.forgeService.executeCommand(this.currentGui).then(blob => {
-        var url = window.URL.createObjectURL(blob);
-        window.open(url);
+    this.forgeService.executeCommand(this.currentGui).then(data => {
+        saveAs(data.binary, data.filename);
     }).catch(error => this.currentGui.messages.push(new Message(error)));
   }
 

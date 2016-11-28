@@ -35,6 +35,11 @@ export class Input {
     class: string;
 }
 
+export class DownloadFile {
+    filename: string;
+    binary: Blob;
+}
+
 export class Result {
     message: string;
     status: string;

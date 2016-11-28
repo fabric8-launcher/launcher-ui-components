@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http, Request, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
-import { Gui } from './model';
+import { Gui, DownloadFile } from './model';
 
 @Injectable()
 export class ForgeService {
@@ -23,7 +23,7 @@ export class ForgeService {
     return this.post(gui, '/next');
   }
 
-  executeCommand(gui: Gui): Promise<Blob> {
+  executeCommand(gui: Gui): Promise<DownloadFile> {
     let requestOptions = new RequestOptions({
       method: RequestMethod.Post,
       url: this.apiUrl + '/execute',
@@ -31,8 +31,13 @@ export class ForgeService {
       body: gui
     });
     return this.http.request(new Request(requestOptions)).toPromise()
-      .then(response => new Blob([response.arrayBuffer()], { type: 'application/zip' }))
-      .catch(this.handleError);
+      .then(response => {
+        const filename = response.headers.get('Content-Disposition');
+        return {
+          binary: new Blob([response.arrayBuffer()], { type: 'application/zip' }),
+          filename: filename.substring("attachment; filename='".length, filename.length - 1)
+        } as DownloadFile;
+      }).catch(this.handleError);
   }
 
   private post(gui: Gui, action: string): Promise<Gui> {
