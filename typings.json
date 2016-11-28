@@ -1,0 +1,5 @@
+{
+  "globalDependencies": {
+    "filesaver": "registry:dt/filesaver#0.0.0+20160622185141"
+  }
+}
