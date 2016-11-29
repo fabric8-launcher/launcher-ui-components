@@ -65,9 +65,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    this.forgeService.executeCommand(this.currentGui).then(data => {
-        saveAs(data.binary, data.filename);
-    }).catch(error => this.currentGui.messages.push(new Message(error)));
+    this.forgeService.executeCommand(this.currentGui);
   }
 
   convertToOptions(options: string[]): any[] {

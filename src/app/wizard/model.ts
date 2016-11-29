@@ -26,6 +26,7 @@ export class Input {
     name: string;
     shortName: string;
     label: string;
+    value: any;
     valueType: string;
     valueChoices: string[];
     inputType: string;
