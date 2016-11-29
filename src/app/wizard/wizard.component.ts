@@ -4,7 +4,6 @@ import { ForgeService } from './forge.service'
 import { Gui, Input, Message } from './model';
 
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
-import { saveAs } from 'file-saver';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
