@@ -23,21 +23,33 @@ export class ForgeService {
     return this.post(gui, '/next');
   }
 
-  executeCommand(gui: Gui): Promise<DownloadFile> {
-    let requestOptions = new RequestOptions({
-      method: RequestMethod.Post,
-      url: this.apiUrl + '/execute',
-      responseType: ResponseContentType.ArrayBuffer,
-      body: gui
-    });
-    return this.http.request(new Request(requestOptions)).toPromise()
-      .then(response => {
-        const filename = response.headers.get('Content-Disposition');
-        return {
-          binary: new Blob([response.arrayBuffer()], { type: 'application/zip' }),
-          filename: filename.substring("attachment; filename='".length, filename.length - 1)
-        } as DownloadFile;
-      }).catch(this.handleError);
+  executeCommand(gui: Gui) {
+    let form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", this.apiUrl + "/execute");
+
+    form.appendChild(this.createFormInput("stepIndex", String(gui.stepIndex)));
+
+    for (let input of gui.inputs) {
+      if (input.value instanceof Array) {
+        for (let value of input.value) {
+          form.appendChild(this.createFormInput(input.name, value));
+        }
+      } else {
+        form.appendChild(this.createFormInput(input.name, input.value));
+      }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  private createFormInput(name: string, value: string): HTMLElement {
+      let element = document.createElement("input");
+      element.setAttribute("type", "hidden");
+      element.setAttribute("name", name);
+      element.setAttribute("value", value);
+      return element;
   }
 
   private post(gui: Gui, action: string): Promise<Gui> {
