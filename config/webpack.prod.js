@@ -6,6 +6,7 @@ var helpers = require('./helpers');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const API_URL = process.env.API_URL || 'http://api.almighty.io/api/';
+const FORGE_URL = process.env.FORGE_URL || 'http://localhost:8080/forge';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
@@ -39,6 +40,7 @@ module.exports = webpackMerge(commonConfig, {
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
         'API_URL' : JSON.stringify(METADATA.API_URL),
+        'FORGE_URL' : JSON.stringify(METADATA.FORGE_URL),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH)
       }
     })
