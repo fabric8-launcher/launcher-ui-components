@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from './forge.service'
-import { Gui, Input, Message } from './model';
+import { Gui, Input, Message, Result } from './model';
 
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 import 'rxjs/add/operator/debounceTime';
@@ -33,21 +33,23 @@ export class FormComponent implements AfterViewInit {
     this.form.valueChanges.debounceTime(2000)
       .subscribe(data => {
         if (!this.fromHttp) {
-          this.changed(this.form);
+          this.validate(this.form);
         }
         this.fromHttp = false;
     });
   }
 
-  changed(form: NgForm) {
+  validate(form: NgForm): Promise<Gui> {
     if (form.dirty && form.valid) {
-      this.forgeService.validate(this.history, this.currentGui).then(gui =>
+      return this.forgeService.validate(this.history, this.currentGui).then(gui =>
       {
         this.fromHttp = true;
         this.currentGui = gui;
         this.currentGui.stepIndex = this.history.length;
+        return this.currentGui;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
+    return Promise.resolve(this.currentGui);
   }
 
   next() {
@@ -61,6 +63,16 @@ export class FormComponent implements AfterViewInit {
   previous() {
     this.currentGui = this.history.pop();
     this.currentGui.stepIndex = this.history.length;
+  }
+
+  finish() {
+    this.validate(this.form).then(_ => {
+      this.history.push(this.currentGui);
+      this.currentGui = new Gui();
+      this.currentGui.stepIndex = this.history.length - 1;
+      this.currentGui.inputs = [];
+      this.currentGui.results = [new Result("Your project is ready to download")];
+    });
   }
 
   onSubmit() {

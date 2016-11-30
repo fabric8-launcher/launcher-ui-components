@@ -52,6 +52,10 @@ export class DownloadFile {
 export class Result {
     message: string;
     status: string;
+
+    constructor(message: string) {
+        this.message = message;
+    }
 }
 
 export class Message {

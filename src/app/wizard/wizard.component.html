@@ -8,17 +8,17 @@
     {{error.description}}
   </div>
 </span>
-<div class="wizard-pf-complete blank-slate-pf" *ngIf="currentGui.results">
-  <div class="wizard-pf-success-icon"><span class="glyphicon glyphicon-ok-circle"></span></div>
-  <h3 class="blank-slate-pf-main-action">Finished</h3>
-  <p class="blank-slate-pf-secondary-action" *ngFor="let result of currentGui.results">
-    {{result.message}}
-  </p>
-  <button type="button" class="btn btn-lg btn-primary">
-    Download
-  </button>
-</div>
 <form class="form-horizontal" (ngSubmit)="onSubmit()" #wizard="ngForm">
+  <div class="wizard-pf-complete blank-slate-pf" *ngIf="currentGui.results">
+    <div class="wizard-pf-success-icon"><span class="glyphicon glyphicon-ok-circle"></span></div>
+    <h3 class="blank-slate-pf-main-action">Finished</h3>
+    <p class="blank-slate-pf-secondary-action" *ngFor="let result of currentGui.results">
+      {{result.message}}
+    </p>
+    <button type="submit" class="btn btn-lg btn-primary">
+      Download
+    </button>
+  </div>
   <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
     <div class="spinner spinner-lg blank-slate-pf-icon"></div>
     <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
@@ -61,7 +61,8 @@
         Next
         <span class="i fa fa-angle-right"></span>
       </button>
-      <button type="submit" class="btn btn-primary" [disabled]="!currentGui.state.canExecute">
+      <button type="button" class="btn btn-primary"
+        [disabled]="!currentGui.state.canExecute" (click)="finish()">
         Finish
       </button>
     </div>
