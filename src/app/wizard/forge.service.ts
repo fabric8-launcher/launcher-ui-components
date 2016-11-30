@@ -23,14 +23,14 @@ export class ForgeService {
     return this.post(history, gui, '/next');
   }
 
-  executeCommand(history: Gui[], currentGui: Gui) {
+  executeCommand(history: Gui[], stepIndex: number) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
     form.setAttribute("action", this.apiUrl + "/execute");
 
-    form.appendChild(this.createFormInput("stepIndex", String(currentGui.stepIndex)));
+    form.appendChild(this.createFormInput("stepIndex", String(stepIndex)));
 
-    for (let gui of history.concat(currentGui)) {
+    for (let gui of history) {
       for (let input of gui.inputs) {
         if (input.value instanceof Array) {
           for (let value of input.value) {

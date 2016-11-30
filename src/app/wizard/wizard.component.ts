@@ -76,7 +76,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    this.forgeService.executeCommand(this.history, this.currentGui);
+    this.forgeService.executeCommand(this.history, this.currentGui.stepIndex);
   }
 
   convertToOptions(options: string[]): any[] {
