@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ForgeService } from './forge.service'
 import { Gui, Input, Message, Result } from './model';
 
-import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
+import { IMultiSelectSettings } from '../shared/multiselect-dropdown';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
