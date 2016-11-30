@@ -17,7 +17,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
-const FORGE_URL = process.env.FORGE_URL || 'http://localhost:8080/forge';
 const API_URL = process.env.API_URL || (ENV==='inmemory'?'app/':'http://localhost:8080/api/');
 
 /**
@@ -207,7 +206,6 @@ module.exports = {
       'process.env': {
         'ENV': JSON.stringify(ENV),
         'API_URL': JSON.stringify(API_URL),
-        'FORGE_URL' : JSON.stringify(METADATA.FORGE_URL),
         'NODE_ENV': JSON.stringify(ENV),
         'HMR': false,
       }

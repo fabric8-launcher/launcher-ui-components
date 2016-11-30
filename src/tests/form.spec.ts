@@ -77,11 +77,12 @@ describe('Dynamic form should be created for json that comes from the server', (
     const value = "test value";
     input.value = value;
     dispatchEvent(input, 'input');
+    comp.finish();
 
 
     tick(2000);
 
     comp.onSubmit();
-    expect(forgeServiceStub.executeCommand).toHaveBeenCalledWith(json)
+    expect(forgeServiceStub.executeCommand).toHaveBeenCalledWith([json], 0)
   }));
 });
