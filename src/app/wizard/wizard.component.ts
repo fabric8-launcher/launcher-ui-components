@@ -25,6 +25,7 @@ export class FormComponent implements AfterViewInit {
     this.forgeService.commandInfo().then((gui) => {
       this.currentGui = gui;
       this.currentGui.messages = [];
+      this.currentGui.stepIndex = this.history.length;
     });
   }
 
@@ -40,7 +41,7 @@ export class FormComponent implements AfterViewInit {
 
   changed(form: NgForm) {
     if (form.dirty && form.valid) {
-      this.forgeService.validate(this.currentGui).then(gui =>
+      this.forgeService.validate(this.history, this.currentGui).then(gui =>
       {
         this.fromHttp = true;
         this.currentGui = gui;
@@ -50,9 +51,8 @@ export class FormComponent implements AfterViewInit {
   }
 
   next() {
-    this.history.push(this.currentGui);
-    this.currentGui.stepIndex = this.history.length;
-    this.forgeService.nextStep(this.currentGui).then(gui => {
+    this.forgeService.nextStep(this.history, this.currentGui).then(gui => {
+      this.history.push(this.currentGui);
       this.currentGui = gui;
       this.currentGui.stepIndex = this.history.length;
     }).catch(error => this.currentGui.messages.push(new Message(error)));
@@ -64,7 +64,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    this.forgeService.executeCommand(this.currentGui);
+    this.forgeService.executeCommand(this.history, this.currentGui);
   }
 
   convertToOptions(options: string[]): any[] {

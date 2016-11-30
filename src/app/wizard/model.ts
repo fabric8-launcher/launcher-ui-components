@@ -1,7 +1,7 @@
 export class Gui {
     metadata: MetaData;
     state: State = new State();
-    inputs: Input[];
+    inputs: SubmittableInput[];
     messages: Message[];
     results: Result[];
     stepIndex: number;
@@ -22,11 +22,19 @@ export class State {
     wizard: boolean;
 }
 
-export class Input {
+export class SubmittableInput {
     name: string;
+    value: any;
+
+    constructor(input: SubmittableInput) {
+        this.name = input.name;
+        this.value = input.value;
+    }
+}
+
+export class Input extends SubmittableInput {
     shortName: string;
     label: string;
-    value: any;
     valueType: string;
     valueChoices: string[];
     inputType: string;
