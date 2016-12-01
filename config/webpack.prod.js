@@ -12,7 +12,8 @@ const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 const METADATA = webpackMerge(commonConfig.metadata, {
   API_URL: API_URL,
   ENV: ENV,
-  PUBLIC_PATH: PUBLIC_PATH
+  PUBLIC_PATH: PUBLIC_PATH,
+  FORGE_URL: FORGE_URL
 });
 
 module.exports = webpackMerge(commonConfig, {
