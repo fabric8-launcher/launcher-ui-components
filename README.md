@@ -30,36 +30,32 @@ npm run build:prod
 
 The build output will be under `dist` directory.
 
-To create the docker image, verify that a Docker daemon is available and next
-run this command immediately after the previous command:
-
+To deploy this project on OpenShift, verify that an OpenShift instance is available or setup one locally
+using minishift
+ 
 ```
 minishift delete
-minishift start --deploy-registry=true --openshift-version=v1.3.1
+minishift start --deploy-router=true --openshift-version=v1.3.1
 oc login --username=admin --password=admin
 eval $(minishift docker-env)
-export DOCKER_IP=$(oc get services | grep docker-registry | awk '{print $2}')
-docker login -u admin -p $(oc whoami -t) $DOCKER_IP:5000
-docker build -t default/front-generator .
-export IMAGE_ID=$(docker images | grep front-generator | awk '{print $3}')
-docker tag $IMAGE_ID $DOCKER_IP:5000/default/front-generator
-docker push $DOCKER_IP:5000/default/front-generator
 ```
-|
-To create an OpenShift application, execute this command:
+
+To create our Obsidian Front UI OpenShift application, execute this command
+which will delegate the responsability to OpenShift to generate the Docker image
+and next create a container as a pod
 
 ```
-oc delete imagestreams/openshift-nginx
-oc delete imagestreams/front-generator
-oc delete bc/front-generator
-oc delete dc/front-generator
-oc delete service/front-generator
-
-oc new-app --docker-image=default/front-generator:latest --name=front-generator --insecure-registry=true
-$DOCKER_IP:5000/default/
-oc deploy front-generator --latest -n default
-
-OR
-
 oc new-app . --strategy=docker --name=front-generator
+```
+
+To access the HTTP Server from the host machine, setup a route 
+
+```
+oc expose svc/front-generator
+```
+
+Access it
+
+```
+curl http://$(oc get routes | grep front-generator | awk '{print $2}')/index.html
 ```
