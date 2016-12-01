@@ -21,10 +21,12 @@ $ npm start
 
 ## Production Build
 
-To generate production build, set the API URL and run `npm` command as give below:
+To generate production build, set the API URL (the host and port of where
+[generator backend](https://github.com/obsidian-toaster/generator-backend) is deployed)
+and run `npm` command as give below:
 
 ```bash
-export FORGE_URL="http://api.example.org/api/"
+export FORGE_URL="http://<host:port>/forge"
 npm run build:prod
 ```
 
@@ -32,7 +34,7 @@ The build output will be under `dist` directory.
 
 To deploy this project on OpenShift, verify that an OpenShift instance is available or setup one locally
 using minishift
- 
+
 ```
 minishift delete
 minishift start --deploy-router=true --openshift-version=v1.3.1
@@ -48,7 +50,7 @@ and next create a container as a pod
 oc new-app . --strategy=docker --name=front-generator
 ```
 
-To access the HTTP Server from the host machine, setup a route 
+To access the HTTP Server from the host machine, setup a route
 
 ```
 oc expose svc/front-generator
