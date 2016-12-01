@@ -34,22 +34,32 @@ To create the docker image, verify that a Docker daemon is available and next
 run this command immediately after the previous command:
 
 ```
-docker build -t obsidian/front-generator -f Docker.deploy .
-docker tag obsidian/front-generator obsidian/front-generator:latest
+minishift delete
+minishift start --deploy-registry=true --openshift-version=v1.3.1
+oc login --username=admin --password=admin
+eval $(minishift docker-env)
+export DOCKER_IP=$(oc get services | grep docker-registry | awk '{print $2}')
+docker login -u admin -p $(oc whoami -t) $DOCKER_IP:5000
+docker build -t default/front-generator .
+export IMAGE_ID=$(docker images | grep front-generator | awk '{print $3}')
+docker tag $IMAGE_ID $DOCKER_IP:5000/default/front-generator
+docker push $DOCKER_IP:5000/default/front-generator
 ```
-
+|
 To create an OpenShift application, execute this command:
 
 ```
-oc delete service/generator-frontend
 oc delete imagestreams/openshift-nginx
-oc delete imagestreams/generator-frontend
-oc delete dc/generator-frontend
-oc delete bc/generator-frontend
+oc delete imagestreams/front-generator
+oc delete bc/front-generator
+oc delete dc/front-generator
+oc delete service/front-generator
 
-oc new-app obsidian/front-generator:latest
+oc new-app --docker-image=default/front-generator:latest --name=front-generator --insecure-registry=true
+$DOCKER_IP:5000/default/
 oc deploy front-generator --latest -n default
 
-oc new-app /Users/chmoulli/Code/jboss/obsidian-toaster/generator-frontend --strategy=docker
+OR
 
+oc new-app . --strategy=docker --name=front-generator
 ```
