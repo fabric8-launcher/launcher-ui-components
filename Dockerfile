@@ -3,7 +3,7 @@ MAINTAINER "Charles Moulliard <cmoulliard@redhat.com>"
 
 ENV LANG=en_US.utf8
 
-# THIS ENV VAR IS PASSED AS KUBERNETES VAR - ENV FORGE_URL "http://api.example.org/api/"
+ENV FORGE_URL http://api.example.org/api/
 RUN npm install http-server -g
 RUN npm run build:prod
 
