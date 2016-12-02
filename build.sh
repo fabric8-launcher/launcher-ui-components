@@ -6,4 +6,7 @@ oc delete dc/front-generator
 oc delete service/front-generator
 oc delete route/front-generator
 
-oc new-app https://github.com/obsidian-toaster/generator-frontend.git --env=FORGE_URL="http://generator-backend-default.192.168.64.71.xip.io/forge" --name=front-generator --strategy=docker
+oc new-app https://github.com/obsidian-toaster/generator-frontend.git --name=front-generator --strategy=docker
+
+oc env bc/front-generator FORGE_URL="http://generator-backend-default.192.168.64.71.xip.io/forge"
+
