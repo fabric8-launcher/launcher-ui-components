@@ -69,6 +69,11 @@ export class FormComponent implements AfterViewInit {
     this.currentGui.stepIndex = this.history.length;
   }
 
+  restart() {
+    this.history = [];
+    this.ngOnInit();
+  }
+
   finish() {
     this.validate(this.form).then(_ => {
       this.history.push(this.currentGui);

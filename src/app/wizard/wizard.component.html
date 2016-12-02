@@ -15,9 +15,16 @@
     <p class="blank-slate-pf-secondary-action" *ngFor="let result of currentGui.results">
       {{result.message}}
     </p>
-    <button type="submit" class="btn btn-lg btn-primary">
-      Download
-    </button>
+    <div class="blank-slate-pf-main-action">
+      <button type="submit" class="btn btn-lg btn-primary">
+        Download
+      </button>
+    </div>
+    <div class="blank-slate-pf-secondary-action">
+      <button type="button" class="btn btn btn-default" (click)="restart()">
+          Restart
+      </button>
+    </div>
   </div>
   <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
     <div class="spinner spinner-lg blank-slate-pf-icon"></div>
