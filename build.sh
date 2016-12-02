@@ -9,7 +9,8 @@ oc delete route/front-generator
 
 oc new-app https://github.com/obsidian-toaster/generator-frontend.git --name=front-generator --strategy=docker
 
-oc env bc/front-generator FORGE_URL="http://generator-backend-default.192.168.64.71.xip.io/forge"
+oc env bc/front-generator FORGE_URL="http://generator-backend-default.192.168.64.73.xip.io/forge"
+oc expose svc/front-generator
 
 # Source Strategy
 # oc create -f https://raw.githubusercontent.com/obsidian-toaster/generator-frontend/npm-install/imagestream.yaml
