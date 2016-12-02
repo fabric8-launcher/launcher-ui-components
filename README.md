@@ -47,7 +47,7 @@ which will delegate the responsability to OpenShift to generate the Docker image
 and next create a container as a pod
 
 ```
-oc new-app . --strategy=docker --name=front-generator
+oc new-app https://github.com/obsidian-toaster/generator-frontend.git --env=FORGE_URL="<host:port>/forge" --strategy=docker --name=front-generator
 ```
 
 To access the HTTP Server from the host machine, setup a route
