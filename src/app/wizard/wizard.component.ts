@@ -9,7 +9,11 @@ import 'rxjs/add/operator/debounceTime';
 @Component({
   selector: 'wizard',
   templateUrl: './wizard.component.html',
-  styleUrls: ['./wizard.component.scss'],
+  styles: [`
+    .required > label:after {
+      content: ' *'
+    }
+  `]
 })
 export class FormComponent implements AfterViewInit {
   @ViewChild('wizard') form: NgForm;
