@@ -18,5 +18,4 @@ if [ ! -z "$NPM_MIRROR" ]; then
 fi
 
 echo "---> Building your Node application from source"
-# npm install
-npm run:build
+npm install && npm run:build
