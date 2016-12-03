@@ -9,6 +9,7 @@ set -e
 
 echo "---> Installing application source"
 cp -Rf /tmp/src/. ./
+ls -la
 
 # Change the npm registry mirror if provided
 if [ ! -z "$NPM_MIRROR" ]; then
