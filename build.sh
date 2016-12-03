@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Docker Strategy
-oc delete imagestreams/front-generator
+oc delete is/front-generator
 oc delete bc/front-generator
 oc delete dc/front-generator
 oc delete service/front-generator
