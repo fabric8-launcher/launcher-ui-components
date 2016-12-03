@@ -6,27 +6,29 @@ import { Gui, DownloadFile, SubmittableInput, Input } from './model';
 @Injectable()
 export class ForgeService {
   private apiUrl: string = process.env.FORGE_URL;
+  private commandName: string = 'obsidian-new-quickstart';
+
   constructor(private http: Http) {
   }
 
   commandInfo(): Promise<Gui> {
-    return this.http.get(this.apiUrl).toPromise()
+    return this.http.get(this.apiUrl + '/commands/'+this.commandName).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
 
   validate(history: Gui[], gui: Gui): Promise<Gui> {
-    return this.post(history, gui, '/validate');
+    return this.post(history, gui, '/commands/'+this.commandName+'/validate');
   }
 
   nextStep(history: Gui[], gui: Gui): Promise<Gui> {
-    return this.post(history, gui, '/next');
+    return this.post(history, gui, '/commands/'+this.commandName+'/next');
   }
 
   executeCommand(history: Gui[], stepIndex: number) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
-    form.setAttribute("action", this.apiUrl + "/execute");
+    form.setAttribute("action", this.apiUrl + '/commands/'+this.commandName+'/execute');
 
     form.appendChild(this.createFormInput("stepIndex", String(stepIndex)));
 
