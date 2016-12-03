@@ -17,6 +17,8 @@ if [ ! -z "$NPM_MIRROR" ]; then
 	npm config set registry $NPM_MIRROR
 fi
 
-echo "---> Building the Node application from source code."
-npm install
-npm run:build
+if [ -f "package.json" ]; then
+    echo "---> Building frontend code."
+    npm install -d --no-progress
+    # npm run:build
+fi
