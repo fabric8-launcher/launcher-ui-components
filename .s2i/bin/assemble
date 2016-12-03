@@ -9,7 +9,6 @@ set -e
 
 echo "---> Installing application source."
 cp -Rf /tmp/src/. ./
-ls -la
 
 # Change the npm registry mirror if provided
 if [ ! -z "$NPM_MIRROR" ]; then
@@ -20,5 +19,6 @@ fi
 if [ -f "package.json" ]; then
     echo "---> Building frontend code."
     npm install -d --no-progress
-    # npm run:build
+    npm run:build
+    ls -la
 fi
