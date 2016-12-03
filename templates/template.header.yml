@@ -1,0 +1,10 @@
+apiVersion: "v1"
+kind: "Template"
+metadata:
+  name: "front-generator"
+  parameters:
+    - name: FORGE_URL
+      description: The URL of the FORGE backend
+      value: http://generator-backend-default.192.168.64.74.xip.io/forge
+      required: true
+objects:

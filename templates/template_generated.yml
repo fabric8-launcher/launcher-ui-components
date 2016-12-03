@@ -1,13 +1,7 @@
+---
 apiVersion: "v1"
-kind: "Template"
-metadata:
-  name: "front-generator"
-parameters:
-  - name: FORGE_URL
-    description: The URL of the FORGE backend
-    value: http://generator-backend-default.192.168.64.75.xip.io/forge
-    required: true
-objects:
+kind: "List"
+items:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
@@ -34,7 +28,7 @@ objects:
       dockerStrategy:
         env:
         - name: FORGE_URL
-          value: ${FORGE_URL}
+          value: http://generator-backend-default.192.168.64.73.xip.io/forge
         from:
           kind: ImageStreamTag
           name: node:4-onbuild
@@ -139,8 +133,8 @@ objects:
     name: front-generator
     selfLink: /api/v1/namespaces//services/front-generator
   spec:
-    clusterIP:
-    portalIP:
+    clusterIP: <unknown>
+    portalIP: <unknown>
     ports:
     - name: 8080-tcp
       port: 8080

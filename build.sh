@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 
+# Using Template
+minishift delete
+minishift start --deploy-router=true --openshift-version=v1.3.1
+oc login --username=admin --password=admin
+eval $(minishift docker-env)
+oc delete template/front-agenerator
+oc create -f template.yml
+oc process front-generator FORGE_URL=http://generator-backend-default.192.168.64.75.xip.io/forge | oc create -f -
+oc start-build front-generator
+
 # Docker Strategy
+oc delete is/node
 oc delete is/front-generator
 oc delete bc/front-generator
 oc delete dc/front-generator
