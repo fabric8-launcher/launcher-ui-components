@@ -3,167 +3,167 @@ apiVersion: "v1"
 kind: "List"
 items:
 - apiVersion: v1
-kind: BuildConfig
-metadata:
-  annotations:
-    openshift.io/generated-by: OpenShiftNewApp
-  creationTimestamp: null
-  labels:
-    app: front-generator
-  name: front-generator
-  selfLink: /oapi/v1/namespaces//buildconfigs/front-generator
-spec:
-  output:
-    to:
-      kind: ImageStreamTag
-      name: front-generator:latest
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
-  source:
-    git:
-      uri: https://github.com/obsidian-toaster/generator-frontend.git
-    type: Git
-  strategy:
-    dockerStrategy:
-      env:
-      - name: FORGE_URL
-        value: http://generator-backend-default.192.168.64.73.xip.io/forge
-      from:
-        kind: ImageStreamTag
-        name: node:4-onbuild
-    type: Docker
-  triggers:
-  - github:
-      secret: ubUFicRVRngOc_vvw2Zd
-    type: GitHub
-  - generic:
-      secret: hRTsMjMB2KysMjd-tQ2F
-    type: Generic
-  - type: ConfigChange
-  - imageChange:
-      lastTriggeredImageID: node@sha256:92b95f23f4e4cdc434405dcc972bf506dc189b071404d6eb6505245d762f04f6
-    type: ImageChange
-status:
-  lastVersion: 3
-- apiVersion: v1
-kind: ImageStream
-metadata:
-  annotations:
-    openshift.io/generated-by: OpenShiftNewApp
-  creationTimestamp: null
-  generation: 1
-  labels:
-    app: front-generator
-  name: front-generator
-  namespace: default
-  selfLink: /oapi/v1/namespaces/default/imagestreams/front-generator
-spec: {}
-status:
-  dockerImageRepository: 172.30.2.29:5000/default/front-generator
-- apiVersion: v1
-kind: DeploymentConfig
-metadata:
-  annotations:
-    openshift.io/generated-by: OpenShiftNewApp
-  creationTimestamp: null
-  generation: 1
-  labels:
-    app: front-generator
-  name: front-generator
-  selfLink: /oapi/v1/namespaces//deploymentconfigs/front-generator
-spec:
-  replicas: 1
-  selector:
-    app: front-generator
-    deploymentconfig: front-generator
-  strategy:
-    resources: {}
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
-  template:
-    metadata:
-      annotations:
-        openshift.io/container.front-generator.image.entrypoint: '["npm","start"]'
-        openshift.io/generated-by: OpenShiftNewApp
-      creationTimestamp: null
-      labels:
-        app: front-generator
-        deploymentconfig: front-generator
-    spec:
-      containers:
-      - image: 172.30.2.29:5000/default/front-generator:latest
-        imagePullPolicy: Always
-        name: front-generator
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-  test: false
-  triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - front-generator
-      from:
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: front-generator
+    name: front-generator
+    selfLink: /oapi/v1/namespaces//buildconfigs/front-generator
+  spec:
+    output:
+      to:
         kind: ImageStreamTag
         name: front-generator:latest
-        namespace: default
-    type: ImageChange
-status: {}
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      git:
+        uri: https://github.com/obsidian-toaster/generator-frontend.git
+      type: Git
+    strategy:
+      dockerStrategy:
+        env:
+        - name: FORGE_URL
+          value: http://generator-backend-default.192.168.64.73.xip.io/forge
+        from:
+          kind: ImageStreamTag
+          name: node:4-onbuild
+      type: Docker
+    triggers:
+    - github:
+        secret: ubUFicRVRngOc_vvw2Zd
+      type: GitHub
+    - generic:
+        secret: hRTsMjMB2KysMjd-tQ2F
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+        lastTriggeredImageID: node@sha256:92b95f23f4e4cdc434405dcc972bf506dc189b071404d6eb6505245d762f04f6
+      type: ImageChange
+  status:
+    lastVersion: 3
 - apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    openshift.io/generated-by: OpenShiftNewApp
-  creationTimestamp: null
-  labels:
-    app: front-generator
-  name: front-generator
-  selfLink: /api/v1/namespaces//services/front-generator
-spec:
-  clusterIP: <unknown>
-  portalIP: <unknown>
-  ports:
-  - name: 8080-tcp
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    app: front-generator
-    deploymentconfig: front-generator
-  sessionAffinity: None
-  type: ClusterIP
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    generation: 1
+    labels:
+      app: front-generator
+    name: front-generator
+    namespace: default
+    selfLink: /oapi/v1/namespaces/default/imagestreams/front-generator
+  spec: {}
+  status:
+    dockerImageRepository: 172.30.2.29:5000/default/front-generator
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    generation: 1
+    labels:
+      app: front-generator
+    name: front-generator
+    selfLink: /oapi/v1/namespaces//deploymentconfigs/front-generator
+  spec:
+    replicas: 1
+    selector:
+      app: front-generator
+      deploymentconfig: front-generator
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/container.front-generator.image.entrypoint: '["npm","start"]'
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: front-generator
+          deploymentconfig: front-generator
+      spec:
+        containers:
+        - image: 172.30.2.29:5000/default/front-generator:latest
+          imagePullPolicy: Always
+          name: front-generator
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - front-generator
+        from:
+          kind: ImageStreamTag
+          name: front-generator:latest
+          namespace: default
+      type: ImageChange
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: front-generator
+    name: front-generator
+    selfLink: /api/v1/namespaces//services/front-generator
+  spec:
+    clusterIP: <unknown>
+    portalIP: <unknown>
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: front-generator
+      deploymentconfig: front-generator
+    sessionAffinity: None
+    type: ClusterIP
 status:
   loadBalancer: {}
 - apiVersion: v1
-kind: Route
-metadata:
-  annotations:
-    openshift.io/host.generated: "true"
-  creationTimestamp: null
-  labels:
-    app: front-generator
-  name: front-generator
-  selfLink: /oapi/v1/namespaces//routes/front-generator
-spec:
-  host: front-generator-default.192.168.64.73.xip.io
-  port:
-    targetPort: 8080-tcp
-  to:
-    kind: Service
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: null
+    labels:
+      app: front-generator
     name: front-generator
-    weight: 100
-status:
-  ingress: null
+    selfLink: /oapi/v1/namespaces//routes/front-generator
+  spec:
+    host: front-generator-default.192.168.64.73.xip.io
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: front-generator
+      weight: 100
+  status:
+    ingress: null
