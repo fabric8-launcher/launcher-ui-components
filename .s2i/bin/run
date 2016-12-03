@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+# Allow users to inspect/debug the builder image itself, by using:
+# $ docker run -i -t openshift/centos-nodejs-builder --debug
+#
+[ "$1" == "--debug" ] && exec /bin/bash
+
+npm start

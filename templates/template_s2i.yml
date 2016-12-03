@@ -31,14 +31,14 @@ objects:
         uri: https://github.com/obsidian-toaster/generator-frontend.git
       type: Git
     strategy:
-      dockerStrategy:
+      type: Source
+      sourceStrategy:
         env:
         - name: FORGE_URL
           value: ${FORGE_URL}
         from:
-          kind: ImageStreamTag
-          name: node:4-onbuild
-      type: Docker
+          kind: DockerImage
+          name: ryanj/centos7-s2i-nodejs:current
     triggers:
     - github:
         secret: BCedrGCnc2IWefYxQ9sr
@@ -47,8 +47,6 @@ objects:
         secret: 0nqmEYlp7o6Sx_rUNIpq
       type: Generic
     - type: ConfigChange
-    - imageChange:
-        lastTriggeredImageID: node@sha256:92b95f23f4e4cdc434405dcc972bf506dc189b071404d6eb6505245d762f04f6
       type: ImageChange
   status:
     lastVersion: 1
@@ -164,7 +162,7 @@ objects:
     name: front-generator
     selfLink: /oapi/v1/namespaces//routes/front-generator
   spec:
-    host: front-generator-default.192.168.64.74.xip.io
+    host:
     port:
       targetPort: 8080-tcp
     to:
@@ -176,25 +174,6 @@ objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    annotations:
-      openshift.io/generated-by: OpenShiftNewApp
-      openshift.io/image.dockerRepositoryCheck: 2016-12-03T12:30:30Z
-    creationTimestamp: null
-    generation: 1
-    labels:
-      app: front-generator
-    name: node
-    namespace: default
-    selfLink: /oapi/v1/namespaces/default/imagestreams/node
+    name: node-6
   spec:
-    tags:
-    - annotations:
-        openshift.io/imported-from: node:4-onbuild
-      from:
-        kind: DockerImage
-        name: node:4-onbuild
-      generation: 1
-      importPolicy: {}
-      name: 4-onbuild
-  status:
-    dockerImageRepository: 172.30.52.67:5000/default/node
+    dockerImageRepository: ryanj/centos7-s2i-nodejs:current
