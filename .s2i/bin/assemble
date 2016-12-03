@@ -7,7 +7,7 @@
 
 set -e
 
-echo "---> Installing application source"
+echo "---> Installing application source."
 cp -Rf /tmp/src/. ./
 ls -la
 
@@ -17,5 +17,6 @@ if [ ! -z "$NPM_MIRROR" ]; then
 	npm config set registry $NPM_MIRROR
 fi
 
-echo "---> Building your Node application from source"
-npm install && npm run:build
+echo "---> Building the Node application from source code."
+npm install
+npm run:build
