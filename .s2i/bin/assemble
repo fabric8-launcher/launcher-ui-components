@@ -19,6 +19,6 @@ fi
 if [ -f "package.json" ]; then
     echo "---> Building frontend code."
     npm install -d --no-progress
-    npm run:build
+    npm run build:prod
     ls -la
 fi
