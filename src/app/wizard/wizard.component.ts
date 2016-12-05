@@ -4,7 +4,6 @@ import { NgForm } from '@angular/forms';
 import { ForgeService } from './forge.service'
 import { Gui, Input, Message, Result } from './model';
 
-import { IMultiSelectSettings } from '../shared/multiselect-dropdown';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
@@ -95,18 +94,22 @@ export class FormComponent implements AfterViewInit {
     this.forgeService.executeCommand(this.command, this.history, this.currentGui.stepIndex);
   }
 
-  convertToOptions(options: string[]): any[] {
-    let result: any[] = [];
-    for (let option of options) {
-      result.push({id: option, name: option});
+  private multiselect:Map<string,Map<string, boolean>> = new Map<string,Map<string, boolean>>();
+
+  checkedOption(fieldName: string, options: string[]): Map<string, boolean> {
+    let result: Map<string, boolean> = this.multiselect.get(fieldName);
+    if (result == null) {
+      result = new Map<string, boolean>();
+      this.multiselect.set(fieldName, result);
+      for (let option of options) {
+        result.set(option, false);
+      }
     }
     return result;
   }
 
-  private searchMultiSelectSettings: IMultiSelectSettings = {
-    enableSearch: true,
-    checkedStyle: 'glyphicon',
-    showUncheckAll: true
+  updateCheckedOptions(fieldName: string, option: string, element: HTMLInputElement) {
+   this.multiselect.get(fieldName).set(option, element.checked);
   }
 
   closeAlert(error: Message) {

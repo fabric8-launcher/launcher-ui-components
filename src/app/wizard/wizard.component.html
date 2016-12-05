@@ -1,12 +1,11 @@
 <div class="container-fluid">
-<span *ngFor="let error of currentGui.messages">
+  <span *ngFor="let error of currentGui.messages">
   <div class="alert alert-{{error.severity == 'ERROR' ? 'danger' : 'warning'}} alert-dismissable" *ngIf="!error.showError">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="closeAlert(error)">
       <span class="pficon pficon-close"></span>
-    </button>
-    <span class="pficon pficon-error-circle-o"></span>
-    {{error.description}}
-  </div>
+  </button>
+  <span class="pficon pficon-error-circle-o"></span> {{error.description}}
+</div>
 </span>
 <form class="form-horizontal" #wizard="ngForm">
   <div class="wizard-pf-complete blank-slate-pf" *ngIf="currentGui.results">
@@ -51,25 +50,46 @@
             {{option}}
         </option>
       </select>
-      <ss-multiselect-dropdown *ngSwitchCase="'UISelectMany'" [options]="convertToOptions(input.valueChoices)" [(ngModel)]="input.value"
-        name="{{input.name}}" [settings]="searchMultiSelectSettings"></ss-multiselect-dropdown>
+      <div *ngSwitchCase="'UISelectMany'">
+        <div class="list-group list-view-pf list-view-pf-view">
+          <div class="list-group-item" *ngFor="let option of input.valueChoices">
+            <div class="list-view-pf-checkbox">
+              <input type="checkbox" name="{{input.name}}" value="{{option}}"
+                [checked]="checkedOption(input.name, input.valueChoices).get(option)"
+                (change)="updateCheckedOptions(input.name, this)">
+            </div>
+            <div class="list-view-pf-main-info">
+              <div class="list-view-pf-left">
+                <span class="fa fa-cogs list-view-pf-icon-sm"></span>
+              </div>
+              <div class="list-view-pf-body">
+                <div class="list-view-pf-description" style="display:block">
+                  <div class="list-group-item-heading">
+                    {{option}}
+                  </div>
+                  <div class="list-group-item-text" style="width:100%">
+                    The following snippet of text is <a href="#">rendered as link text</a>.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="form-group" *ngIf="!currentGui.results">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-default"
-        [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
+      <button type="button" class="btn btn-default" [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
-      <button type="button" class="btn btn-primary"
-        [disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
+      <button type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
         Next
         <span class="i fa fa-angle-right"></span>
       </button>
-      <button type="button" class="btn btn-primary"
-        [disabled]="!currentGui.state.canExecute" (click)="finish()">
+      <button type="button" class="btn btn-primary" [disabled]="!currentGui.state.canExecute" (click)="finish()">
         Finish
       </button>
     </div>
