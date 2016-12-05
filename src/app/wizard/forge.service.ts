@@ -6,29 +6,28 @@ import { Gui, DownloadFile, SubmittableInput, Input } from './model';
 @Injectable()
 export class ForgeService {
   private apiUrl: string = process.env.FORGE_URL;
-  private commandName: string = 'obsidian-new-quickstart';
 
   constructor(private http: Http) {
   }
 
-  commandInfo(): Promise<Gui> {
-    return this.http.get(this.apiUrl + '/commands/'+this.commandName).toPromise()
+  commandInfo(command: string): Promise<Gui> {
+    return this.http.get(this.apiUrl + '/commands/' + command).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
 
-  validate(history: Gui[], gui: Gui): Promise<Gui> {
-    return this.post(history, gui, '/commands/'+this.commandName+'/validate');
+  validate(command: string, history: Gui[], gui: Gui): Promise<Gui> {
+    return this.post(history, gui, '/commands/' + command + '/validate');
   }
 
-  nextStep(history: Gui[], gui: Gui): Promise<Gui> {
-    return this.post(history, gui, '/commands/'+this.commandName+'/next');
+  nextStep(command: string, history: Gui[], gui: Gui): Promise<Gui> {
+    return this.post(history, gui, '/commands/' + command + '/next');
   }
 
-  executeCommand(history: Gui[], stepIndex: number) {
+  executeCommand(command: string, history: Gui[], stepIndex: number) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
-    form.setAttribute("action", this.apiUrl + '/commands/'+this.commandName+'/execute');
+    form.setAttribute("action", this.apiUrl + '/commands/' + command + '/execute');
 
     form.appendChild(this.createFormInput("stepIndex", String(stepIndex)));
 
@@ -49,11 +48,11 @@ export class ForgeService {
   }
 
   private createFormInput(name: string, value: string): HTMLElement {
-      let element = document.createElement("input");
-      element.setAttribute("type", "hidden");
-      element.setAttribute("name", name);
-      element.setAttribute("value", value);
-      return element;
+    let element = document.createElement("input");
+    element.setAttribute("type", "hidden");
+    element.setAttribute("name", name);
+    element.setAttribute("value", value);
+    return element;
   }
 
   private post(history: Gui[], gui: Gui, action: string): Promise<Gui> {
@@ -72,7 +71,7 @@ export class ForgeService {
     return submittableGui;
   }
 
-  private convertToSubmittable(inputs: Input[]):SubmittableInput[] {
+  private convertToSubmittable(inputs: Input[]): SubmittableInput[] {
     let array: SubmittableInput[] = [];
     for (let input of inputs) {
       array.push(new SubmittableInput(input));

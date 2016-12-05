@@ -10,7 +10,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'wizard',
+    path: 'wizard/:command',
     component: FormComponent
   },
   {
