@@ -7,7 +7,7 @@
 # oc login --username=admin --password=admin
 # eval $(minishift docker-env)
 
-# 2) Clean previoulsy deployed objects
+# 2) Clean previously deployed objects
 oc delete is/node
 oc delete is/front-generator
 oc delete bc/front-generator
@@ -19,7 +19,7 @@ oc delete template/front-generator
 
 # 3) Deploy the template, pass the URL of the FORGE backend & launch the Build
 oc create -f templates/template_s2i.yml
-oc process front-generator FORGE_URL=http://generator-backend-default.192.168.64.75.xip.io/forge | oc create -f -
+oc process front-generator-s2i FORGE_URL=http://generator-backend-default.192.168.64.75.xip.io/forge | oc create -f -
 oc start-build front-generator
 
 # 4) OpenShift Online

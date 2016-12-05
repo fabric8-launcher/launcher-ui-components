@@ -37,7 +37,7 @@ objects:
           value: ${FORGE_URL}
         from:
           kind: DockerImage
-          name: ryanj/centos7-s2i-nodejs:current
+          name: centos/nodejs-4-centos7
     triggers:
     - github:
         secret: BCedrGCnc2IWefYxQ9sr
