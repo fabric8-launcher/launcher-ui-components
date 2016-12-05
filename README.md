@@ -67,3 +67,16 @@ Access it
 ```
 curl http://$(oc get routes | grep front-generator | awk '{print $2}')/index.html
 ```
+
+# S2i Scripts
+
+The S2I scripts, packaged within this project allow to override the scripts used within the S2I Build Image. They have been created
+as the build image will only execute the `npm install` during the assemby phase and `npm start` during the run phase.
+
+As our process requires 2 installations instructions, the scripts have been customized 
+
+They can be tested locally using the s2i tool and this command 
+
+```
+s2i build . ryanj/centos7-s2i-nodejs:current my-nodejs -c
+```

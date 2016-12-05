@@ -7,4 +7,5 @@ set -e
 #
 [ "$1" == "--debug" ] && exec /bin/bash
 
-npm start
+echo "---> Starting HTTP Server listening on port 8080."
+http-server dist/ -d -p 8080 -a 0.0.0.0

@@ -13,7 +13,6 @@ objects:
   metadata:
     annotations:
       openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
     labels:
       app: front-generator
     name: front-generator
@@ -55,7 +54,6 @@ objects:
   metadata:
     annotations:
       openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
     generation: 1
     labels:
       app: front-generator
@@ -70,7 +68,6 @@ objects:
   metadata:
     annotations:
       openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
     generation: 1
     labels:
       app: front-generator
@@ -95,7 +92,6 @@ objects:
         annotations:
           openshift.io/container.front-generator.image.entrypoint: '["npm","start"]'
           openshift.io/generated-by: OpenShiftNewApp
-        creationTimestamp: null
         labels:
           app: front-generator
           deploymentconfig: front-generator
@@ -131,7 +127,6 @@ objects:
   metadata:
     annotations:
       openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
     labels:
       app: front-generator
     name: front-generator
@@ -156,7 +151,6 @@ objects:
   metadata:
     annotations:
       openshift.io/host.generated: "true"
-    creationTimestamp: null
     labels:
       app: front-generator
     name: front-generator
@@ -170,10 +164,4 @@ objects:
       name: front-generator
       weight: 100
   status:
-    ingress: null
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    name: node-6
-  spec:
-    dockerImageRepository: ryanj/centos7-s2i-nodejs:current
+    ingress:
