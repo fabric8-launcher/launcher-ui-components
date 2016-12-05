@@ -56,3 +56,9 @@ footer .social li a {
     position: relative;
   }
 }
+
+@media (max-height: 768px) {
+  footer {
+    display: none;
+  }
+}
