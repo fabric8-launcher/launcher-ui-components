@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "Template"
 metadata:
-  name: "front-generator"
+  name: "front-generator-s2i"
 parameters:
   - name: FORGE_URL
     description: The URL of the FORGE backend
