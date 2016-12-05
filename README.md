@@ -42,30 +42,34 @@ oc login --username=admin --password=admin
 eval $(minishift docker-env)
 ```
 
-To create our Obsidian Front UI OpenShift application, execute this command
-which will delegate the responsability to OpenShift to generate the Docker image
-and next create a container as a pod
+To create our Obsidian Front UI OpenShift application, we will deploy an OpenShift template which
+has been defined to created the required objects; service, route, BuildConfig with S2I source build & Deployment config
+
+To install the template and create an ew application, use these commands where you will setup the DNS name of the Forge Backend
 
 ```
-oc new-app https://github.com/obsidian-toaster/generator-frontend.git --strategy=docker --name=front-generator
+oc create -f templates/template_s2i.yml
+oc process front-generator FORGE_URL=http://<FORGE-BACKEND-ROUTE-ADDRESS>/forge | oc create -f -
+oc start-build front-generator
 ```
 
-As the ENV var with the FORGE URL address of the backend must be defined before to launch the Build process, use this command to set the env variable and next restart the build
-
-```
-oc env bc/front-generator FORGE_URL="<host:port>/forge"
-```
-
-To access the HTTP Server from the host machine, setup a route
-
-```
-oc expose svc/front-generator
-```
-
-Access it
+You can now access the backend using its route 
 
 ```
 curl http://$(oc get routes | grep front-generator | awk '{print $2}')/index.html
+```
+
+Remark: If for any reasons, you would like to redeploy a new template, then you should first delete the template and the corresponding objects
+
+```
+oc delete is/node
+oc delete is/front-generator
+oc delete bc/front-generator
+oc delete dc/front-generator
+oc delete svc/front-generator
+oc delete route/front-generator
+oc delete template/front-generator
+oc create -f templates/template_docker.yml
 ```
 
 # S2i Scripts

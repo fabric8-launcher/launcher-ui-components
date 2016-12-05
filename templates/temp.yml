@@ -1,9 +1,0 @@
-    strategy:
-      dockerStrategy:
-        env:
-        - name: FORGE_URL
-          value: ${FORGE_URL}
-        from:
-          kind: ImageStreamTag
-          name: node:4-onbuild
-      type: Docker
