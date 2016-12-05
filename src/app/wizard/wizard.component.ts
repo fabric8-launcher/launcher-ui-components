@@ -96,7 +96,7 @@ export class FormComponent implements AfterViewInit {
 
   private multiselect:Map<string,Map<string, boolean>> = new Map<string,Map<string, boolean>>();
 
-  checkedOption(fieldName: string, options: string[]): Map<string, boolean> {
+  getMultiSelectOptions(fieldName: string, options: string[]): Map<string, boolean> {
     let result: Map<string, boolean> = this.multiselect.get(fieldName);
     if (result == null) {
       result = new Map<string, boolean>();
@@ -108,8 +108,13 @@ export class FormComponent implements AfterViewInit {
     return result;
   }
 
-  updateCheckedOptions(fieldName: string, option: string, element: HTMLInputElement) {
-   this.multiselect.get(fieldName).set(option, element.checked);
+  updateCheckedOptions(input: Input, option: string, event: any) {
+    const checked = event.target.checked as boolean;
+    if (checked) {
+      if (input.value == null) input.value = [];
+      input.value.push(option);
+    }
+    this.getMultiSelectOptions(input.name, input.valueChoices).set(option, checked);
   }
 
   closeAlert(error: Message) {
