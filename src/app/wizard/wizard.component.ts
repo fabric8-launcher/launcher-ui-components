@@ -50,9 +50,7 @@ export class FormComponent implements AfterViewInit {
     if (form.dirty && form.valid) {
       return this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
       {
-        this.fromHttp = true;
-        this.currentGui = gui;
-        this.currentGui.stepIndex = this.history.length;
+        this.updateGui(gui);
         return this.currentGui;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
@@ -60,11 +58,17 @@ export class FormComponent implements AfterViewInit {
   }
 
   next() {
+    this.currentGui.stepIndex++;
     this.forgeService.nextStep(this.command, this.history, this.currentGui).then(gui => {
       this.history.push(this.currentGui);
-      this.currentGui = gui;
-      this.currentGui.stepIndex = this.history.length;
+      this.updateGui(gui);
     }).catch(error => this.currentGui.messages.push(new Message(error)));
+  }
+
+  private updateGui(gui: Gui) {
+    this.fromHttp = true;
+    this.currentGui = gui;
+    this.currentGui.stepIndex = this.history.length;
   }
 
   previous() {

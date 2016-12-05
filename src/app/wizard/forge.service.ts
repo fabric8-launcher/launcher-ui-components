@@ -56,13 +56,14 @@ export class ForgeService {
   }
 
   private post(history: Gui[], gui: Gui, action: string): Promise<Gui> {
-    return this.http.post(this.apiUrl + action, this.convert(history.concat(gui))).toPromise()
+    return this.http.post(this.apiUrl + action, this.convert(history.concat(gui), gui.stepIndex)).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
 
-  private convert(guis: Gui[]): Gui {
+  private convert(guis: Gui[], stepIndex: number): Gui {
     let submittableGui = new Gui();
+    submittableGui.stepIndex = stepIndex;
     submittableGui.inputs = [];
     for (let gui of guis) {
       let submittableInputs = this.convertToSubmittable(gui.inputs as Input[]);
