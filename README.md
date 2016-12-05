@@ -32,6 +32,8 @@ npm run build:prod
 
 The build output will be under `dist` directory.
 
+## OpenShift 
+
 To deploy this project on OpenShift, verify that an OpenShift instance is available or setup one locally
 using minishift
 

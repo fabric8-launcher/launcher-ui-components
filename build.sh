@@ -22,6 +22,11 @@ oc create -f templates/template_s2i.yml
 oc process front-generator FORGE_URL=http://generator-backend-default.192.168.64.75.xip.io/forge | oc create -f -
 oc start-build front-generator
 
+# 4) OpenShift Online
+oc create -f templates/template_s2i.yml
+oc process front-generator FORGE_URL=http://generator-backend-obsidian.1ec1.dev-preview-int.openshiftapps.com/forge | oc create -f -
+oc start-build front-generator
+
 # Docker Strategy
 # oc delete is/node
 # oc delete is/front-generator
