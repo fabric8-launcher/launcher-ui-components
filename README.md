@@ -55,7 +55,7 @@ oc process front-generator FORGE_URL=http://<FORGE-BACKEND-ROUTE-ADDRESS>/forge 
 oc start-build front-generator
 ```
 
-You can now access the backend using its route 
+You can now access the backend using its route
 
 ```
 curl http://$(oc get routes | grep front-generator | awk '{print $2}')/index.html
@@ -63,9 +63,9 @@ curl http://$(oc get routes | grep front-generator | awk '{print $2}')/index.htm
 
 Remarks:
 
-* For every new commit about this project `front-generator` that you want to test after the initial installation of the template, launching a new build 
+* For every new commit about this project `front-generator` that you want to test after the initial installation of the template, launching a new build
   on OpenShift is just required `oc start-build front-generator`
- 
+
 * If for any reasons, you would like to redeploy a new template, then you should first delete the template and the corresponding objects
 
 ```
@@ -84,9 +84,9 @@ oc create -f templates/template_docker.yml
 The S2I scripts, packaged within this project allow to override the scripts used within the S2I Build Image. They have been created
 as the build image will only execute the `npm install` during the assemby phase and `npm start` during the run phase.
 
-As our process requires 2 installations instructions, the scripts have been customized 
+As our process requires 2 installations instructions, the scripts have been customized
 
-They can be tested locally using the s2i tool and this command 
+They can be tested locally using the [s2i tool](https://github.com/openshift/source-to-image) and this command
 
 ```
 s2i build . ryanj/centos7-s2i-nodejs:current my-nodejs -c
