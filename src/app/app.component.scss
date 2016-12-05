@@ -11,7 +11,15 @@
 
 .app {
   padding-top: 80px;
+  flex: 1;
 }
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 @media (max-width: 979px) {
   .app {
     padding-top: 20px;
