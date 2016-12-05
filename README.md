@@ -59,7 +59,12 @@ You can now access the backend using its route
 curl http://$(oc get routes | grep front-generator | awk '{print $2}')/index.html
 ```
 
-Remark: If for any reasons, you would like to redeploy a new template, then you should first delete the template and the corresponding objects
+Remarks:
+
+* For every new commit about this project `front-generator` that you want to test after the initial installation of the template, launching a new build 
+  on OpenShift is just required `oc start-build front-generator`
+ 
+* If for any reasons, you would like to redeploy a new template, then you should first delete the template and the corresponding objects
 
 ```
 oc delete is/node
