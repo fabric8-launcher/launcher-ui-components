@@ -51,8 +51,9 @@
         </option>
       </select>
       <div *ngSwitchCase="'UISelectMany'">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchFilterTexts[input.name]" name="seach{{input.name}}">
         <div class="list-group list-view-pf list-view-pf-view">
-          <div class="list-group-item" *ngFor="let option of input.valueChoices">
+          <div class="list-group-item" *ngFor="let option of input.valueChoices | searchFilter:searchFilterTexts[input.name]">
             <div class="list-view-pf-checkbox">
               <input type="checkbox" name="{{input.name}}" value="{{option.id}}"
                 [checked]="getMultiSelectOptions(input.name, input.valueChoices).get(option.id)"

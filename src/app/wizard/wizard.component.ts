@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Pipe } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from './forge.service'
@@ -95,6 +95,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   private multiselect:Map<string,Map<string, boolean>> = new Map<string,Map<string, boolean>>();
+  searchFilterTexts: Map<string, string> = new Map<string, string>();
 
   getMultiSelectOptions(fieldName: string, options: string[]): Map<string, boolean> {
     let result: Map<string, boolean> = this.multiselect.get(fieldName);
@@ -120,4 +121,13 @@ export class FormComponent implements AfterViewInit {
   closeAlert(error: Message) {
     error.showError = true;
   }
+}
+
+@Pipe({
+    name: 'searchFilter'
+})
+export class SearchFilter {
+    transform(options: Array<string>, args: string): Array<string> {
+        return options.filter((option: string) => option.toLowerCase().indexOf((args || '').toLowerCase()) > -1);
+    }
 }
