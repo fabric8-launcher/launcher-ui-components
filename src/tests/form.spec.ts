@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
 
 import { MultiselectDropdownModule } from '../app/shared/multiselect-dropdown';
 import { FormComponent } from '../app/wizard/wizard.component';
@@ -50,7 +51,10 @@ describe('Dynamic form should be created for json that comes from the server', (
     TestBed.configureTestingModule({
       imports: [FormsModule, MultiselectDropdownModule, HttpModule],
       declarations: [FormComponent],
-      providers: [ForgeService]
+      providers: [
+        ForgeService,
+        { provide: ActivatedRoute, useValue: {snapshot: { params: { 'command': 'obsidian-new-quickstart'}}} }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormComponent);
@@ -83,6 +87,6 @@ describe('Dynamic form should be created for json that comes from the server', (
     tick(2000);
 
     comp.onSubmit();
-    expect(forgeServiceStub.executeCommand).toHaveBeenCalledWith([json], 0)
+    expect(forgeServiceStub.executeCommand).toHaveBeenCalledWith('obsidian-new-quickstart', [json], 0)
   }));
 });
