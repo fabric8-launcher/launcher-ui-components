@@ -51,8 +51,8 @@ To install the template and create an ew application, use these commands where y
 
 ```
 oc create -f templates/template_s2i.yml
-oc process front-generator FORGE_URL=http://<FORGE-BACKEND-ROUTE-ADDRESS>/forge | oc create -f -
-oc start-build front-generator-s2i
+oc process front-generator-s2i FORGE_URL=http://<FORGE-BACKEND-ROUTE-ADDRESS>/forge | oc create -f -
+oc start-build front-generator
 ```
 
 You can now access the backend using its route
@@ -64,7 +64,7 @@ curl http://$(oc get routes | grep front-generator | awk '{print $2}')/index.htm
 Remarks:
 
 * For every new commit about this project `front-generator` that you want to test after the initial installation of the template, launching a new build
-  on OpenShift is just required `oc start-build front-generator-s2i`
+  on OpenShift is just required `oc start-build front-generator`
 
 * If for any reasons, you would like to redeploy a new template, then you should first delete the template and the corresponding objects
 
