@@ -17,7 +17,7 @@ objects:
     namespace: default
     selfLink: /oapi/v1/namespaces/default/imagestreams/front-generator
   spec:
-    dockerImageRepository: "docker.io/obsidiantoaster/front-generator"
+    dockerImageRepository: "obsidiantoaster/front-generator"
   importPolicy:
     scheduled: true
 - apiVersion: v1

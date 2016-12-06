@@ -52,7 +52,7 @@ To install the template and create an ew application, use these commands where y
 ```
 oc create -f templates/template_s2i_image.yml
 oc process front-generator-s2i FORGE_URL=http://<FORGE-BACKEND-ROUTE-ADDRESS>/forge | oc create -f -
-oc start-build front-generator
+oc deploy front-generator --latest -n PROJECT_NAME
 ```
 
 You can now access the backend using its route
