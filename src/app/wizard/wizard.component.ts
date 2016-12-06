@@ -21,7 +21,6 @@ export class FormComponent implements AfterViewInit {
   fromHttp: boolean;
   history: Gui[] = [];
   currentGui: Gui = new Gui();
-  forgeUrl: string;
 
   constructor(private route: ActivatedRoute,
     private forgeService: ForgeService) {
@@ -31,8 +30,7 @@ export class FormComponent implements AfterViewInit {
     this.currentGui = new Gui();
     this.currentGui.messages = [];
     this.command = this.route.snapshot.params['command'];
-    this.forgeUrl = this.forgeUrl || this.route.snapshot.queryParams['forge_url'];
-    this.forgeService.commandInfo({command: this.command, url: this.forgeUrl}).then((gui) => {
+    this.forgeService.commandInfo(this.command).then((gui) => {
       this.updateGui(gui);
     }).catch(error => this.currentGui.messages.push(new Message(error)));
   }
