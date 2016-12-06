@@ -50,7 +50,7 @@ has been defined to created the required objects; service, route, BuildConfig wi
 To install the template and create an ew application, use these commands where you will setup the DNS name of the Forge Backend
 
 ```
-oc create -f templates/template_s2i.yml
+oc create -f templates/template_s2i_image.yml
 oc process front-generator-s2i FORGE_URL=http://<FORGE-BACKEND-ROUTE-ADDRESS>/forge | oc create -f -
 oc start-build front-generator
 ```
