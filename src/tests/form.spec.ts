@@ -53,10 +53,7 @@ describe('Dynamic form should be created for json that comes from the server', (
       declarations: [FormComponent],
       providers: [
         ForgeService,
-        { provide: ActivatedRoute, useValue: {snapshot:
-          { params: { 'command': 'obsidian-new-quickstart'},
-           queryParams: { 'forge_url': 'http://localhost/'}}
-        }}
+        { provide: ActivatedRoute, useValue: {snapshot: { params: { 'command': 'obsidian-new-quickstart'}}} }
       ]
     }).compileComponents();
 
