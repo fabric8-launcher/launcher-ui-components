@@ -27,12 +27,12 @@ export class FormComponent implements AfterViewInit {
   }
 
   ngOnInit() {
+    this.currentGui = new Gui();
+    this.currentGui.messages = [];
     this.command = this.route.snapshot.params['command'];
     this.forgeService.commandInfo(this.command).then((gui) => {
-      this.currentGui = gui;
-      this.currentGui.messages = [];
-      this.currentGui.stepIndex = this.history.length;
-    });
+      this.updateGui(gui);
+    }).catch(error => this.currentGui.messages.push(new Message(error)));
   }
 
   ngAfterViewInit() {
