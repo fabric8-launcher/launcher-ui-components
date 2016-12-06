@@ -1,14 +1,27 @@
-FROM node:4-onbuild
-MAINTAINER "Charles Moulliard <cmoulliard@redhat.com>"
+# FROM node:4-onbuild
+# MAINTAINER "Charles Moulliard <cmoulliard@redhat.com>"
+#
+# ENV LANG=en_US.utf8
+#
+# #ENV FORGE_URL http://api.example.org/api/
+# RUN npm install http-server -g
+# RUN npm run build:prod
+#
+# EXPOSE 8080
+#
+# WORKDIR ./dist
+#
+# CMD http-server . -d -p 8080 -a 0.0.0.0
+
+FROM registry.centos.org/kbsingh/openshift-nginx:latest
+MAINTAINER "Konrad Kleine <kkleine@redhat.com>"
 
 ENV LANG=en_US.utf8
 
-#ENV FORGE_URL http://api.example.org/api/
-RUN npm install http-server -g
-RUN npm run build:prod
+USER root
+ADD nginx.conf /etc/nginx/nginx.conf
+USER 997
 
-EXPOSE 8080
+RUN rm /usr/share/nginx/html/*
 
-WORKDIR ./dist
-
-CMD http-server . -d -p 8080 -a 0.0.0.0
+COPY dist /usr/share/nginx/html

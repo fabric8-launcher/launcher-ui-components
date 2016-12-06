@@ -1,6 +1,17 @@
 language: node_js
 node_js:
 - node
+
+services:
+  - docker
+
+install:
+  - docker build -t front-generator .
+
+before_script:
+  - npm install
+  - npm run build:prod
+
 notifications:
   slack:
     secure: NSBuHAJPdZB73j7l+GNjU0WDlAj6Ne6dl16S/ej7JXzpPfGu78VuuyCabh3EF2AOnJelTSWyMqD3jlp4vMKBpVpMLBEm9KzYFO0DbMlhyoXvjpL8VrsSpIydS4ay6+zvUJ5L00hpEKHwHF7dN996z3T0SG9/UmMA1YSlFWm7EHBGa1AWlM2pnVZU7Au1N8H6WZrBrw05OurCvJzZ+7RI2KQ9gZUIPituk77iutfP4zIgv/gQ3cSInDLKjb0tKwc6TkKrm3GUUmyp1DCs1kH8K+zfUbWvkLTeok37mPbvFzFVtJG+88BeAypDxgsUUkJ2zChLTBwODUUtUuNGWwIKnvpXaL1iHkz/DwaFiipMV4rIm/4BqMsQIiAMXM6orsfxAq+QNYd7myZbblttizxPbBexlOfRqaRj2rnO5t/RxvY7FFIIo8TjpojW4R15doh4AaXDUVWMOXIr6KrMzdWfTCu/U7u84w7lOGpCsE/KGklpxoPBRg/f4M3kwrZki2b1bSct08OXVukf46wpD2FnUAnaFhc0YrXvhvjQbz3vUc18eD9agQ/jmVVUCSZTjJG9JOryrgitYkyEkUZiZ1UJr6ghlUW3AkuSYAZl9SiO3jcuvXZR5emZFGBC/vcV/x+9IJ/ePp1DIagLujH/+RLr1gfhx5fCNsRxcJAFFzJpEcg=

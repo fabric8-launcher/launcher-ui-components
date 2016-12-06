@@ -14,7 +14,7 @@ oc delete bc/front-generator
 oc delete dc/front-generator
 oc delete svc/front-generator
 oc delete route/front-generator
-oc delete template/front-generator
+oc delete template/front-generator-s2i
 #oc create -f templates/template_docker.yml
 
 # 3) Deploy the template, pass the URL of the FORGE backend & launch the Build
