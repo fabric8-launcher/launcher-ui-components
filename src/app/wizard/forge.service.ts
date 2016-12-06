@@ -10,8 +10,9 @@ export class ForgeService {
   constructor(private http: Http) {
   }
 
-  commandInfo(command: string): Promise<Gui> {
-    return this.http.get(this.apiUrl + '/commands/' + command).toPromise()
+  commandInfo(options: any): Promise<Gui> {
+    this.apiUrl = options.url;
+    return this.http.get(this.apiUrl + '/commands/' + options.command).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
