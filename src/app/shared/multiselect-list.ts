@@ -39,12 +39,20 @@ export class MultiSelectSearchFilter {
               <span (click)="clearSearch()"><i class="fa fa-times"></i></span>
           </span>
         </div>
+        <div style="margin-top:10px">
+        <span *ngFor="let value of model" class="label label-primary" style="margin:3px">
+          <button type="button" class="close" style="vertical-align: sub;float:initial" (click)="setSelected({id:value})">
+            <span class="pficon pficon-close"></span>
+          </button>
+          {{value}}
+        </span>
+        </div>
         <div class="list-group list-view-pf list-view-pf-view">
           <div class="list-group-item" *ngFor="let option of input.valueChoices | searchFilter:{text:searchFilterText, field:searchField}">
             <div class="list-view-pf-checkbox">
               <input type="checkbox" name="{{input.name}}" value="{{option.id}}"
                 [checked]="isSelected(option)"
-                (change)="setSelected($event, option)">
+                (change)="setSelected(option)">
             </div>
             <div class="list-view-pf-main-info">
               <div class="list-view-pf-left">
@@ -118,7 +126,7 @@ export class MultiselectList implements DoCheck, ControlValueAccessor {
         return this.model && this.model.indexOf(option.id) > -1;
     }
 
-    setSelected(event: Event, option: Option) {
+    setSelected(option: Option) {
         if (!this.model) this.model = [];
         var index = this.model.indexOf(option.id);
         if (index > -1) {
