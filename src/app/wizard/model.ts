@@ -36,12 +36,25 @@ export class Input extends SubmittableInput {
     shortName: string;
     label: string;
     valueType: string;
-    valueChoices: string[];
+    valueChoices: Option[];
     inputType: string;
     enabled: boolean;
     required: boolean;
     deprecated: boolean;
     class: string;
+}
+
+export class Option {
+    id: string;
+    artifactId: string;
+    dependencies: string[];
+    description: string;
+    groupId: string;
+    internal: boolean;
+    name: string;
+    stability: string;
+    tags: string;
+    version: string;
 }
 
 export class DownloadFile {
