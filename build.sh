@@ -19,8 +19,11 @@ oc delete template/front-generator-s2i
 
 # 3) Deploy the template, pass the URL of the FORGE backend & launch the Build
 oc create -f templates/template_s2i_image.yml
+oc process front-generator-s2i | oc create -f -
+oc deploy front-generator --latest -n obsidian
+
 oc process front-generator-s2i FORGE_URL=http://generator-backend-default.192.168.64.75.xip.io/forge | oc create -f -
-oc start-build front-generator
+#oc start-build front-generator
 
 # 4) OpenShift Online
 oc create -f templates/template_s2i.yml
