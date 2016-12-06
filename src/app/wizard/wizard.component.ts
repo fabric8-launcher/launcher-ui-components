@@ -1,8 +1,8 @@
-import { Component, ViewChild, AfterViewInit, Pipe } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from './forge.service'
-import { Gui, Input, Message, Result, Option } from './model';
+import { Gui, Input, Message, Result } from './model';
 
 import 'rxjs/add/operator/debounceTime';
 
@@ -94,40 +94,7 @@ export class FormComponent implements AfterViewInit {
     this.forgeService.executeCommand(this.command, this.history, this.currentGui.stepIndex);
   }
 
-  private multiselect:Map<string,Map<string, boolean>> = new Map<string,Map<string, boolean>>();
-  searchFilterTexts: Map<string, string> = new Map<string, string>();
-
-  getMultiSelectOptions(fieldName: string, options: Option[]): Map<string, boolean> {
-    let result: Map<string, boolean> = this.multiselect.get(fieldName);
-    if (result == null) {
-      result = new Map<string, boolean>();
-      this.multiselect.set(fieldName, result);
-      for (let option of options) {
-        result.set(option.id, false);
-      }
-    }
-    return result;
-  }
-
-  updateCheckedOptions(input: Input, option: Option, event: any) {
-    const checked = event.target.checked as boolean;
-    if (checked) {
-      if (input.value == null) input.value = [];
-      input.value.push(option.id);
-    }
-    this.getMultiSelectOptions(input.name, input.valueChoices).set(option.id, checked);
-  }
-
   closeAlert(error: Message) {
     error.showError = true;
   }
-}
-
-@Pipe({
-    name: 'searchFilter'
-})
-export class SearchFilter {
-    transform(options: Array<Option>, args: string): Array<Option> {
-        return options.filter((option: Option) => option.name.toLowerCase().indexOf((args || '').toLowerCase()) > -1);
-    }
 }

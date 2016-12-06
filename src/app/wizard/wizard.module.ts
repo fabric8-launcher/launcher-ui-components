@@ -3,21 +3,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IntroComponent } from './intro/intro.component';
-import { FormComponent, SearchFilter } from './wizard.component';
+import { FormComponent } from './wizard.component';
 import { ForgeService } from './forge.service'
 
-import { MultiselectDropdownModule } from '../shared/multiselect-dropdown';
+import { MultiselectListModule } from '../shared/multiselect-list';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MultiselectDropdownModule
+    MultiselectListModule
   ],
   declarations: [
     IntroComponent,
-    FormComponent,
-    SearchFilter
+    FormComponent
   ],
   providers: [
       ForgeService

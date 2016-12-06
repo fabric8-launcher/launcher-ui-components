@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 
-import { MultiselectDropdownModule } from '../app/shared/multiselect-dropdown';
+import { MultiselectListModule } from '../app/shared/multiselect-list';
 import { FormComponent } from '../app/wizard/wizard.component';
 import { ForgeService } from '../app/wizard/forge.service';
 import { Gui } from '../app/wizard/model';
@@ -49,7 +49,7 @@ const json = {
 describe('Dynamic form should be created for json that comes from the server', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MultiselectDropdownModule, HttpModule],
+      imports: [FormsModule, MultiselectListModule, HttpModule],
       declarations: [FormComponent],
       providers: [
         ForgeService,
