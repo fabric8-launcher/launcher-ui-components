@@ -6,11 +6,9 @@ services:
   - docker
 
 install:
-  - docker build -t front-generator .
-
-before_script:
   - npm install
   - npm run build:prod
+  - docker build -t front-generator .
 
 notifications:
   slack:
