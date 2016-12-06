@@ -46,15 +46,8 @@ export class Input extends SubmittableInput {
 
 export class Option {
     id: string;
-    artifactId: string;
-    dependencies: string[];
     description: string;
-    groupId: string;
-    internal: boolean;
     name: string;
-    stability: string;
-    tags: string;
-    version: string;
 }
 
 export class DownloadFile {

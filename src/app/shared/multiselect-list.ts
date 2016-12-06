@@ -66,6 +66,18 @@ export class MultiSelectSearchFilter {
                   <div class="list-group-item-text" style="width:100%">
                     {{option.description}}
                   </div>
+                   <div class="list-view-pf-additional-info">
+                    <div class="list-view-pf-additional-info-item" *ngIf="option.stability">
+                      <span class="fa fa-industry" *ngIf="option.stability == 'STABLE'"></span>
+                      <span class="fa fa-bolt" *ngIf="option.stability == 'UNSTABLE'"></span>
+                      <span class="fa fa-flask" *ngIf="option.stability == 'EXPERIMENTAL'"></span>
+                      {{option.stability[0] + option.stability.substring(1).toLowerCase()}}
+                    </div>
+                    <div class="list-view-pf-additional-info-item" *ngIf="option.tags">
+                      <span class="fa fa-tags"></span>
+                      {{normalize(option.tags)}}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,6 +102,10 @@ export class MultiselectList implements DoCheck, ControlValueAccessor {
         private differs: IterableDiffers
     ) {
         this.differ = differs.find([]).create(null);
+    }
+
+    normalize(name: string): string {
+      return name.replace(/,/g, ", ");
     }
 
     writeValue(value: any) : void {
