@@ -1,15 +1,24 @@
 language: node_js
 node_js:
-- node
-  - "6"
-
+- node - "6"
+env:
+  global:
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - secure: R1d+6ekFHb3fjEcq1oD0S2osyCkVphOXaDrM1oxJS+Ih3gI4w4iGm/dumDgz+B/wyMifX4HPCKmLwZM3mdsVMHjRPwOlJsFwGxHwV9RsUcnhWl6FPijDNhEIIUjkPlg+SC8J/rIt6OkSWUnaMpkcen6TPaTs6vCnv/sviGSmHrBS3HRU7k6onUoeYc8ElyE9nbOXelGAXDku7ESWzlSG+EZqIdHOpW/MZaDr8Lsqx3CDjx/lRob80N9QCj/Lv/h4egRFcjH6hCpI7kaoa0olmfEmMh53cidwoqIPh4Wv6q/xLtrpKCc5RXb2x82Iyvxs1B9orBgZGhVRnvF2kgbZPXJZmcB+tc7fqUkX7fo0WD4hsrihh+K2730MvugVqtXEgYt11V3LpusQ21XCAgUgHD9sLjcHy6cf91mmWcL9ynL+XS7mh5Wklqy2VeGc3+9IFtAdV73yi1XC3J1O95MnmEumBm3wlUSYKJ/i8QUBLRqRP0NMnzpmuaoF0uklM5DfuGbxisaP9J5yk1q+GMogpG//F3pQ1p3maWkXWkw8W67nCzEi3HdL/JBoDSX2sJjk5H2R14nMgCB+QoM4L9x2R042Hhh1G6nSaSiSz8t+9KFRKE0rNc3FrIzaSwYnWCLYCfZgjEOd3/kPPsMr2vBwDGFWczFY5WOsgReaCu+K3i4= #DOCKER_EMAIL
+  - secure: nItzNJUQHq8I1DBHZ4vE8g+7gejksQE0r2pulv3RA+kTuy2AP8MD53jU5CxwzoJYL2I2LEbcEP1574mla+3A0QzBVsHeXlWWXjmL+TnY6KD+s5SmMT4u9UUjUdI0pp2JxBAyFH44bhbVL+jcCBKbJyXfLYIKLockvMg6N74wno8pIaJdjnmewLYpLQWgsVU92+eeoCXCPf5/Zk1855hIBn3q22WJrQfF7HrtJc1z99EL6kzO9WjYnZJz9xdfj0zkV5iOlSL5ZJctmPe/fbr0uMX7nohDdm+hQrGZTdnQnxazx4MDopJFkPWBY4SyEHt/kvwXoIkEg50PcbvF7g7ZYIsi9ONeu8xc61YjJE/Kt8qC1VQpT1roxLv5gr6Q1WGP3Pu46a4ZVvxTBkiWEjHL/slzNnMT/AZTg/8/1N708udrDjDF/b6ZgFgrz5wV4nik/B1ImoBignhVkcasLA/mvHmbLNqLKsMT4CRlqaHlSObYarpXdKc5aNlimyaM7SRj2c9Yxdu9yHzZ+JlRXjGs9RdP/9d9/62ph1HFJoxB54izg4Q8woLPZr8Ldftnx6FSqHvaox4EE6fEq+NFB5vwfOhKz7XQON5XKTO7MSo+N6iugLslpBsupJ1z6kg+IgfwcoH7es7sfMqPCmSBpEEJcNifUk8aEQmIFL44OMvU/uw= #DOCKER_USER
+  - secure: AVQb0Xh9uVdM6oqiAFWnQJGLSbrUlC3zRM0wxzZJgBm/5xgxGUu7qes/a9ox+QOTZtbRBhrI8KvEhPw3rOYQeV9xdGqRZVZ2nkkslIb4jtp5TzQ8mqzre9ofeteVZT1AOEnWcCiJXS+ott06QTO5Y7TVI+9xzh7tEem777bz3FW1HKC3kD4/9zZSTy0hjUkaKHnHVWla5omtnG1UlG4e/rfxSL5+WaweUEyyD73YK4LZvkvIIWsw7wGW1qeIUW2WH7KYFPOVNQYnIYjva75LRE5irc1KuAIlIRE4xdQ89IPLTefNFUjFmc7Sjlfo7HOY1vRzLO4jPlSN+kFIx1+umMuNoA8ZWl76BYZfVzB4Jjw2ZNXtRPZwWkO2W0uBJ9fCg7OuF+QcIViL8xuzVoyMNZ0JXar3V1QHF3O6aqtcemOml1drkFtHN/mTFG8P86vOtaQq8eOynGdLOmx0UlJtwuoG7hGPPCCthKpHOfNjHIj1WgxlQzzvLk66+z8M3Bd1llmNNCWTyKx1vyIS5OgFsaxZ3iJ7Ae5AsfNSqXbRUIecI8AguCBBwNvDR9rf+5+t/jDmZaewtY7xvKPNsqjwvtTjvDXFwJv5sfz/LRYkbyVeJ28Sdc5L4G1+agw0IrfSEwm2+ilOfIAAEDBRb3vVyEI/A2Y/XYJkCpPX/B5zM0o= #DOCKER_PASS
 services:
-  - docker
-
+- docker
 install:
-  - npm run build:prod
-  - docker build -t obsidiantoaster/front-generator .
-
+- npm run build:prod
+after_success:
+- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+- export REPO=obsidiantoaster/front-generator
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+- docker build -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
 notifications:
   slack:
     secure: NSBuHAJPdZB73j7l+GNjU0WDlAj6Ne6dl16S/ej7JXzpPfGu78VuuyCabh3EF2AOnJelTSWyMqD3jlp4vMKBpVpMLBEm9KzYFO0DbMlhyoXvjpL8VrsSpIydS4ay6+zvUJ5L00hpEKHwHF7dN996z3T0SG9/UmMA1YSlFWm7EHBGa1AWlM2pnVZU7Au1N8H6WZrBrw05OurCvJzZ+7RI2KQ9gZUIPituk77iutfP4zIgv/gQ3cSInDLKjb0tKwc6TkKrm3GUUmyp1DCs1kH8K+zfUbWvkLTeok37mPbvFzFVtJG+88BeAypDxgsUUkJ2zChLTBwODUUtUuNGWwIKnvpXaL1iHkz/DwaFiipMV4rIm/4BqMsQIiAMXM6orsfxAq+QNYd7myZbblttizxPbBexlOfRqaRj2rnO5t/RxvY7FFIIo8TjpojW4R15doh4AaXDUVWMOXIr6KrMzdWfTCu/U7u84w7lOGpCsE/KGklpxoPBRg/f4M3kwrZki2b1bSct08OXVukf46wpD2FnUAnaFhc0YrXvhvjQbz3vUc18eD9agQ/jmVVUCSZTjJG9JOryrgitYkyEkUZiZ1UJr6ghlUW3AkuSYAZl9SiO3jcuvXZR5emZFGBC/vcV/x+9IJ/ePp1DIagLujH/+RLr1gfhx5fCNsRxcJAFFzJpEcg=
