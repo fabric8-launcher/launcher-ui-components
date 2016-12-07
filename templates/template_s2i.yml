@@ -144,8 +144,6 @@ objects:
 - apiVersion: v1
   kind: Route
   metadata:
-    annotations:
-      openshift.io/host.generated: "true"
     labels:
       app: front-generator
     name: front-generator
@@ -157,5 +155,3 @@ objects:
       kind: Service
       name: front-generator
       weight: 100
-  status:
-    ingress:
