@@ -5,7 +5,6 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="generated-release"
 
 function doCompile {
-  npm install
   npm run build:prod
   cp -r dist out
 }
