@@ -6,7 +6,7 @@ var helpers = require('./helpers');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const API_URL = process.env.API_URL || 'http://api.almighty.io/api/';
-const FORGE_URL = process.env.FORGE_URL || 'http://tiny.cc/obsidian-backend/forge';
+const FORGE_URL = process.env.FORGE_URL;
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {

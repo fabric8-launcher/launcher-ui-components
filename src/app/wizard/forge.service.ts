@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http, Request, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { Gui, DownloadFile, SubmittableInput, Input } from './model';
+import { Config } from './config.component'
 
 @Injectable()
 export class ForgeService {
   private apiUrl: string = process.env.FORGE_URL;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private config: Config) {
+    if (!this.apiUrl) {
+      this.apiUrl = config.get('forge_url');
+    }
   }
 
   commandInfo(command: string): Promise<Gui> {
