@@ -5,8 +5,7 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="generated-release"
 
 function doCompile {
-  npm run build:prod
-  cp -r dist out
+  ./compile.sh
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
