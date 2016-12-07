@@ -32,6 +32,8 @@ rm -rf out/**/* || exit 0
 # Run our compile script
 doCompile
 
+echo "build done commiting"
+
 # Now let's go have some fun with the cloned repo
 cd out
 git config user.name "Travis CI"
@@ -42,6 +44,8 @@ if [ -z `git diff --exit-code` ]; then
     echo "No changes to the output on this push; exiting."
     exit 0
 fi
+
+echo "git add"
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
