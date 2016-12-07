@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MultiselectListModule } from '../app/shared/multiselect-list';
 import { FormComponent } from '../app/wizard/wizard.component';
 import { ForgeService } from '../app/wizard/forge.service';
+import { Config } from '../app/wizard/config.component';
 import { Gui } from '../app/wizard/model';
 
 
@@ -53,6 +54,7 @@ describe('Dynamic form should be created for json that comes from the server', (
       declarations: [FormComponent],
       providers: [
         ForgeService,
+        { provide: Config, useValue: { get: (key:string) => {} }},
         { provide: ActivatedRoute, useValue: {snapshot: { params: { 'command': 'obsidian-new-quickstart'}}} }
       ]
     }).compileComponents();
