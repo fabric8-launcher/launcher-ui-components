@@ -46,8 +46,8 @@
         </span>
       </span>
       <span *ngSwitchCase="'UISelectOne'">
-        <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.name == 'type'"></ob-project-select>
-        <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.name != 'type'">
+        <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType == 'org.jboss.forge.addon.projects.ProjectType'"></ob-project-select>
+        <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType != 'org.jboss.forge.addon.projects.ProjectType'">
           <option value="{{option.id}}" *ngFor="let option of input.valueChoices">
               {{option.id}}
           </option>
