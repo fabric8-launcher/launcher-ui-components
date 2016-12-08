@@ -1,5 +1,5 @@
 .app {
-  padding-top: 80px;
+  padding-top: 20px;
   flex: 1;
 }
 
@@ -7,10 +7,4 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-}
-
-@media (max-width: 979px) {
-  .app {
-    padding-top: 20px;
-  }
 }
