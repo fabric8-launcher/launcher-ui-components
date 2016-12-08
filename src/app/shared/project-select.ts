@@ -13,39 +13,10 @@ const PROJECTSELECT_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'ob-project-select',
   providers: [PROJECTSELECT_VALUE_ACCESSOR],
-  template: `
-    <div class="container-fluid container-cards-pf">
-      <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let option of input.valueChoices">
-          <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select"
-              [class.active]="isSelected(option)" (click)="setSelected(option)" style="min-height:160px">
-            <div class="card-pf-body">
-              <div class="card-pf-top-element">
-                <span>
-                  <img src="src/app/shared/project-select-icons/{{IMAGES[option.id]}}" width="64px" height="46px" style="margin:auto;display:block">
-                </span>
-              </div>
-              <h2 class="card-pf-title text-center">
-                {{option.id}}
-              </h2>
-              <div class="card-pf-view-checkbox">
-                <input type="checkbox">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-`
+  templateUrl: './project-select.html',
+  styleUrls: ['./project-select.scss']
 })
 export class ProjectSelect implements DoCheck, ControlValueAccessor {
-  DEFAULT_IMAGE = 'java.svg';
-  IMAGES: any = {
-    'Spring Boot': 'spring-boot-logo.png',
-    'WildFly Swarm Microservice (WAR + JAR)': 'wildfly-swarm.png',
-    'Vert.x': 'vertx.svg'
-  };
-
   @Input() input: Field;
 
   onModelChange: Function = (_: any) => { };
@@ -68,6 +39,13 @@ export class ProjectSelect implements DoCheck, ControlValueAccessor {
   }
 
   ngDoCheck() {
+  }
+
+  className(option: Option) {
+    let index = option.id.indexOf(" ");
+    index = index == -1 ? option.id.indexOf(".") : index;
+    console.log(option.id, index);
+    return option.id.substr(0, index);
   }
 
   isSelected(option: Option): boolean {
