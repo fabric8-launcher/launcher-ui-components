@@ -1,14 +1,3 @@
-@import "../assets/stylesheets/color-variables";
-@import "../assets/stylesheets/variables";
-@import "../assets/stylesheets/custom";
-.navbar-header {
-  span {
-    color: $color-pf-white;
-    padding: $pad5 $pad10;
-    font-size: $font18;
-  }
-}
-
 .app {
   padding-top: 80px;
   flex: 1;
