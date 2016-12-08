@@ -8,12 +8,14 @@ import { ForgeService } from './forge.service';
 import { Config } from './config.component';
 
 import { MultiselectListModule } from '../shared/multiselect-list';
+import { ProjectSelectModule } from '../shared/project-select';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MultiselectListModule
+    MultiselectListModule,
+    ProjectSelectModule
   ],
   declarations: [
     IntroComponent,

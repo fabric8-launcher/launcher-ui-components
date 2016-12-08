@@ -45,11 +45,14 @@
             [required]="input.required" [disabled]="!input.enabled">
         </span>
       </span>
-      <select *ngSwitchCase="'UISelectOne'" class="form-control" [(ngModel)]="input.value" name="{{input.name}}">
-        <option value="{{option.id}}" *ngFor="let option of input.valueChoices">
-            {{option.id}}
-        </option>
-      </select>
+      <span *ngSwitchCase="'UISelectOne'">
+        <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.name == 'type'"></ob-project-select>
+        <select class="form-control" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.name != 'type'">
+          <option value="{{option.id}}" *ngFor="let option of input.valueChoices">
+              {{option.id}}
+          </option>
+        </select>
+      </span>
       <div *ngSwitchCase="'UISelectMany'">
         <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}"></ob-multiselect-list>
       </div>
