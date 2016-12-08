@@ -1,4 +1,5 @@
 @import "variables";
+@import "color-variables";
 //custom variables
 $width100: 100%;
 $margin20: 20px;
@@ -9,7 +10,10 @@ $pad20: 20px;
 $pad10: 10px;
 $pad5: 5px;
 $pad0: 0;
+$em-base-font-size: 12;
+$rem-base-font-size: 10; 
 
+// positions
 $textLeft: left;
 $textRight: right;
 $textCenter: center;
@@ -23,6 +27,18 @@ $font14: 14px;
 $font16: 16px;
 $font18: 18px;
 $font20: 20px;
+//colors
+.color-grey{ color: $color-pf-black-800 !important; }
+
+// functions
+//convert px to em/rem
+@function em($px) {
+    @return ($px / $em-base-font-size) * 1em;
+}
+
+@function rem($px) {
+    @return ($px / $rem-base-font-size) * 1rem;
+}
 
 //custom mixins
 @mixin truncate() {
@@ -79,6 +95,11 @@ $font20: 20px;
 .truncate{
     @include truncate;
 }
+.truncate-ellipsis{
+    display: table;
+    table-layout: fixed;
+    white-space: nowrap;
+}
 .dn{ display: none; }
 .dib{ display: inline-block; }
 .db{ display: block; }
@@ -102,7 +123,7 @@ $font20: 20px;
     .mobdn{ display: none; }
     .list-view-pf {
         .list-group-item-heading{
-            font-size: 1.083em;
+            font-size: em(12);
         }
     }
 }
