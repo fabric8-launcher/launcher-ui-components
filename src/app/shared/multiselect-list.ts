@@ -5,27 +5,27 @@ import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/f
 import { Input as Field, Option } from '../wizard/model';
 
 const MULTISELECT_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MultiselectList),
-    multi: true
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => MultiselectList),
+  multi: true
 };
 
 @Pipe({
-    name: 'searchFilter'
+  name: 'searchFilter'
 })
 export class MultiSelectSearchFilter {
-    transform(options: Array<Option>, args: any): Array<Option> {
-        return options.filter((option: Option) => option[args.field].toLowerCase().indexOf((args.text || '').toLowerCase()) > -1);
-    }
+  transform(options: Array<Option>, args: any): Array<Option> {
+    return options.filter((option: Option) => option[args.field].toLowerCase().indexOf((args.text || '').toLowerCase()) > -1);
+  }
 }
 
 @Component({
-    selector: 'ob-multiselect-list',
-    providers: [MULTISELECT_VALUE_ACCESSOR],
-    styles: [`
+  selector: 'ob-multiselect-list',
+  providers: [MULTISELECT_VALUE_ACCESSOR],
+  styles: [`
         a { outline: none !important; }
     `],
-    template: `
+  template: `
         <div class="input-group">
           <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle" (click)="toggleDropdown()">{{searchField[0].toUpperCase() + searchField.substring(1)}} <span class="caret"></span></button>
@@ -35,17 +35,19 @@ export class MultiSelectSearchFilter {
             </ul>
           </div>
           <input type="text" class="form-control" id="filter" placeholder="Filter By {{searchField[0].toUpperCase() + searchField.substring(1)}}..." [(ngModel)]="searchFilterText" name="seach{{input.name}}">
-          <span class="input-group-addon" *ngIf="searchFilterText.length > 0">
-              <span (click)="clearSearch()"><i class="fa fa-times"></i></span>
-          </span>
+            <span class="input-group-addon" *ngIf="searchFilterText.length > 0">
+                <span (click)="clearSearch()"><i class="fa fa-times"></i></span>
+            </span>
         </div>
-        <div style="margin-top:10px">
-        <span *ngFor="let value of model" class="label label-primary" style="margin:3px">
-          <button type="button" class="close" style="vertical-align: sub;float:initial" (click)="setSelected({id:value})">
-            <span class="pficon pficon-close"></span>
-          </button>
-          {{value}}
-        </span>
+        <div class="toolbar-pf-results" style="border:0">
+          <ul class="list-inline">
+            <li *ngFor="let value of model">
+              <span class="label label-info">
+                  {{value}}
+                  <a href="javascript:;" (click)="setSelected({id:value})"><span class="pficon pficon-close"></span></a>
+              </span>
+            </li>
+          </ul>
         </div>
         <div class="list-group list-view-pf list-view-pf-view">
           <div class="list-group-item" *ngFor="let option of input.valueChoices | searchFilter:{text:searchFilterText, field:searchField}">
@@ -54,7 +56,7 @@ export class MultiSelectSearchFilter {
                 [checked]="isSelected(option)"
                 (change)="setSelected(option)">
             </div>
-            <div class="list-view-pf-main-info">
+            <div class="list-view-pf-main-info" (click)="setSelected(option)">
               <div class="list-view-pf-left">
                 <span class="fa fa-cogs list-view-pf-icon-sm"></span>
               </div>
@@ -87,76 +89,76 @@ export class MultiSelectSearchFilter {
 })
 export class MultiselectList implements DoCheck, ControlValueAccessor {
 
-    @Input() input: Field;
+  @Input() input: Field;
 
-    onModelChange: Function = (_: any) => {};
-    onModelTouched: Function = () => {};
-    differ: any;
-    model: string[];
-    searchFilterText: string = '';
-    searchField: string = 'name';
-    isVisible: boolean;
+  onModelChange: Function = (_: any) => { };
+  onModelTouched: Function = () => { };
+  differ: any;
+  model: string[];
+  searchFilterText: string = '';
+  searchField: string = 'name';
+  isVisible: boolean;
 
-    constructor(
-        private element: ElementRef,
-        private differs: IterableDiffers
-    ) {
-        this.differ = differs.find([]).create(null);
+  constructor(
+    private element: ElementRef,
+    private differs: IterableDiffers
+  ) {
+    this.differ = differs.find([]).create(null);
+  }
+
+  normalize(name: string): string {
+    return name.replace(/,/g, ", ");
+  }
+
+  writeValue(value: any): void {
+    if (value !== undefined) {
+      this.model = value;
     }
+  }
 
-    normalize(name: string): string {
-      return name.replace(/,/g, ", ");
-    }
+  registerOnChange(fn: Function): void {
+    this.onModelChange = fn;
+  }
 
-    writeValue(value: any) : void {
-        if (value !== undefined) {
-            this.model = value;
-        }
-    }
+  registerOnTouched(fn: Function): void {
+    this.onModelTouched = fn;
+  }
 
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
+  ngDoCheck() {
+    let changes = this.differ.diff(this.model);
+    if (changes) {
+      // this.updateNumSelected();
+      // this.updateTitle();
     }
+  }
 
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
+  clearSearch() {
+    this.searchFilterText = '';
+  }
 
-    ngDoCheck() {
-        let changes = this.differ.diff(this.model);
-        if (changes) {
-            // this.updateNumSelected();
-            // this.updateTitle();
-        }
-    }
+  toggleDropdown() {
+    this.isVisible = !this.isVisible;
+  }
 
-    clearSearch() {
-        this.searchFilterText = '';
-    }
+  isSelected(option: Option): boolean {
+    return this.model && this.model.indexOf(option.id) > -1;
+  }
 
-    toggleDropdown() {
-        this.isVisible = !this.isVisible;
+  setSelected(option: Option) {
+    if (!this.model) this.model = [];
+    var index = this.model.indexOf(option.id);
+    if (index > -1) {
+      this.model.splice(index, 1);
+    } else {
+      this.model.push(option.id);
     }
-
-    isSelected(option: Option): boolean {
-        return this.model && this.model.indexOf(option.id) > -1;
-    }
-
-    setSelected(option: Option) {
-        if (!this.model) this.model = [];
-        var index = this.model.indexOf(option.id);
-        if (index > -1) {
-            this.model.splice(index, 1);
-        } else {
-            this.model.push(option.id);
-        }
-        this.onModelChange(this.model);
-    }
+    this.onModelChange(this.model);
+  }
 }
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
-    exports: [MultiselectList],
-    declarations: [MultiselectList, MultiSelectSearchFilter],
+  imports: [CommonModule, FormsModule],
+  exports: [MultiselectList],
+  declarations: [MultiselectList, MultiSelectSearchFilter],
 })
 export class MultiselectListModule { }
