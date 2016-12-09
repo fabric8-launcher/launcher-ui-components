@@ -30,8 +30,16 @@ export class FormComponent implements AfterViewInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.command = params['command'];
-      let stepIndex = +params['step'];
+      if (params['step'] == 'end') {
+        return this.validate(this.form).then(_ => {
+          this.currentGui = new Gui();
+          this.currentGui.stepIndex = this.history.length - 1;
+          this.currentGui.inputs = [];
+          this.currentGui.results = [new Result("Your project is ready to download")];
+        });
+      }
 
+      let stepIndex = +params['step'];
       if (this.history[stepIndex]) {
           this.updateGui(this.history[stepIndex], stepIndex);
       } else {
@@ -89,13 +97,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   finish() {
-    this.validate(this.form).then(_ => {
-      this.history.push(this.currentGui);
-      this.currentGui = new Gui();
-      this.currentGui.stepIndex = this.history.length - 1;
-      this.currentGui.inputs = [];
-      this.currentGui.results = [new Result("Your project is ready to download")];
-    });
+    this.router.navigate(["../end"], { relativeTo: this.route });
   }
 
   onSubmit() {
