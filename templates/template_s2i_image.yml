@@ -14,7 +14,6 @@ objects:
     labels:
       app: front-generator
     name: front-generator
-    selfLink: /oapi/v1/namespaces/default/imagestreams/front-generator
   spec:
     dockerImageRepository: "obsidiantoaster/front-generator"
   importPolicy:
