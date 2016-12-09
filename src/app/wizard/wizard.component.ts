@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from './forge.service'
 import { Gui, Input, Message, Result } from './model';
@@ -23,16 +23,32 @@ export class FormComponent implements AfterViewInit {
   currentGui: Gui = new Gui();
 
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private forgeService: ForgeService) {
   }
 
   ngOnInit() {
-    this.currentGui = new Gui();
-    this.currentGui.messages = [];
-    this.command = this.route.snapshot.params['command'];
-    this.forgeService.commandInfo(this.command).then((gui) => {
-      this.updateGui(gui);
-    }).catch(error => this.currentGui.messages.push(new Message(error)));
+    this.route.params.subscribe((params) => {
+      this.command = params['command'];
+      let stepIndex = params['step'];
+
+      if (this.history[stepIndex]) {
+          this.updateGui(this.history[stepIndex], stepIndex);
+          this.history.splice(this.currentGui.stepIndex + 1, 1);
+      } else {
+        if (stepIndex == 0) {
+          this.forgeService.commandInfo(this.command).then((gui) => {
+            this.updateGui(gui, stepIndex);
+          }).catch(error => this.currentGui.messages.push(new Message(error)));
+        } else {
+          this.forgeService.nextStep(this.command, this.history, this.currentGui).then(gui => {
+            if (!this.history[stepIndex])
+              this.history[stepIndex] = this.currentGui;
+            this.updateGui(gui, stepIndex);
+          }).catch(error => this.currentGui.messages.push(new Message(error)));
+        }
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -49,35 +65,29 @@ export class FormComponent implements AfterViewInit {
     if (form.dirty && form.valid) {
       return this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
       {
-        this.updateGui(gui);
+        this.updateGui(gui, this.currentGui.stepIndex);
         return this.currentGui;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
     return Promise.resolve(this.currentGui);
   }
 
-  next() {
-    this.currentGui.stepIndex++;
-    this.forgeService.nextStep(this.command, this.history, this.currentGui).then(gui => {
-      this.history.push(this.currentGui);
-      this.updateGui(gui);
-    }).catch(error => this.currentGui.messages.push(new Message(error)));
-  }
-
-  private updateGui(gui: Gui) {
+  private updateGui(gui: Gui, stepIndex: number) {
     this.fromHttp = true;
     this.currentGui = gui;
-    this.currentGui.stepIndex = this.history.length;
+    this.currentGui.stepIndex = stepIndex;
+  }
+
+  next() {
+    this.router.navigate(["../" + ++this.currentGui.stepIndex], { relativeTo: this.route });
   }
 
   previous() {
-    this.currentGui = this.history.pop();
-    this.currentGui.stepIndex = this.history.length;
+    this.router.navigate(["../" + --this.currentGui.stepIndex], { relativeTo: this.route });
   }
 
   restart() {
-    this.history = [];
-    this.ngOnInit();
+    this.router.navigate(["/"]);
   }
 
   finish() {

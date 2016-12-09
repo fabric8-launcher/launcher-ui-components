@@ -60,7 +60,7 @@ export class ForgeService {
   }
 
   private post(history: Gui[], gui: Gui, action: string): Promise<Gui> {
-    return this.http.post(this.apiUrl + action, this.convert(history.concat(gui), gui.stepIndex)).toPromise()
+    return this.http.post(this.apiUrl + action, this.convert(history.concat([gui]), gui.stepIndex)).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
@@ -70,17 +70,20 @@ export class ForgeService {
     submittableGui.stepIndex = stepIndex;
     submittableGui.inputs = [];
     for (let gui of guis) {
-      let submittableInputs = this.convertToSubmittable(gui.inputs as Input[]);
-      submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
+      if (gui) {
+        let submittableInputs = this.convertToSubmittable(gui.inputs as Input[]);
+        submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
+      }
     }
     return submittableGui;
   }
 
   private convertToSubmittable(inputs: Input[]): SubmittableInput[] {
     let array: SubmittableInput[] = [];
-    for (let input of inputs) {
-      array.push(new SubmittableInput(input));
-    }
+    if (inputs)
+      for (let input of inputs) {
+        array.push(new SubmittableInput(input));
+      }
     return array;
   }
 

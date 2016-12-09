@@ -10,10 +10,10 @@ export class IntroComponent {
   constructor(private router: Router) {}
 
   startQuickstart() {
-    this.router.navigate(['/wizard', 'obsidian-new-quickstart']);
+    this.router.navigate(['/wizard', 'obsidian-new-quickstart', 0]);
   }
 
   startNewProject() {
-    this.router.navigate(['/wizard', 'obsidian-new-project']);
+    this.router.navigate(['/wizard', 'obsidian-new-project', 0]);
   }
 }

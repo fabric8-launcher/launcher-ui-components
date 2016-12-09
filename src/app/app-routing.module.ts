@@ -6,16 +6,21 @@ import { IntroComponent } from './wizard/intro/intro.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/intro',
-    pathMatch: 'full'
+    redirectTo: '/wizard',
+    pathMatch: 'full',
   },
   {
-    path: 'wizard/:command',
-    component: FormComponent
-  },
-  {
-    path: 'intro',
-    component: IntroComponent
+    path: 'wizard',
+    children: [
+      {
+        path: '',
+        component: IntroComponent,
+      },
+      {
+        path: ':command/:step',
+        component: FormComponent
+      }
+    ]
   }
 ];
 
