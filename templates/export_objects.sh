@@ -14,4 +14,4 @@ oc get is/node --export -o yaml >> template_generated.yml
 
 # TO BE TESTED ->
 # oc export is,bc,dc,svc,route -l name=front-generator --as-template=front-template -o json
-# oc export is,bc,dc,svc,route -l app=front-generator --as-template=front-template -o json
+# oc export is,bc,dc,svc,route --as-template=backend-template -o yml >> backend.yml
