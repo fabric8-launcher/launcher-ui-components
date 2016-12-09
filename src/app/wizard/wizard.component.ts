@@ -34,7 +34,6 @@ export class FormComponent implements AfterViewInit {
 
       if (this.history[stepIndex]) {
           this.updateGui(this.history[stepIndex], stepIndex);
-          this.history.splice(this.currentGui.stepIndex + 1, 1);
       } else {
         if (stepIndex == 0) {
           this.forgeService.commandInfo(this.command).then((gui) => {
@@ -42,8 +41,6 @@ export class FormComponent implements AfterViewInit {
           }).catch(error => this.currentGui.messages.push(new Message(error)));
         } else {
           this.forgeService.nextStep(this.command, this.history, this.currentGui).then(gui => {
-            if (!this.history[stepIndex])
-              this.history[stepIndex] = this.currentGui;
             this.updateGui(gui, stepIndex);
           }).catch(error => this.currentGui.messages.push(new Message(error)));
         }
@@ -73,6 +70,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   private updateGui(gui: Gui, stepIndex: number) {
+    this.history[stepIndex] = gui;
     this.fromHttp = true;
     this.currentGui = gui;
     this.currentGui.stepIndex = stepIndex;
