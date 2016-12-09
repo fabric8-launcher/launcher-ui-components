@@ -44,7 +44,6 @@ export class ProjectSelect implements DoCheck, ControlValueAccessor {
   className(option: Option) {
     let index = option.id.indexOf(" ");
     index = index == -1 ? option.id.indexOf(".") : index;
-    console.log(option.id, index);
     return option.id.substr(0, index);
   }
 
