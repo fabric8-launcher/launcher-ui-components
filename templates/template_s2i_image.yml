@@ -69,7 +69,6 @@ objects:
           kind: ImageStreamTag
           name: front-generator:latest
       type: ImageChange
-  status: {}
 - apiVersion: v1
   kind: Service
   metadata:
@@ -89,8 +88,6 @@ objects:
       deploymentconfig: front-generator
     sessionAffinity: None
     type: ClusterIP
-  status:
-    loadBalancer: {}
 - apiVersion: v1
   kind: Route
   metadata:
@@ -107,5 +104,3 @@ objects:
       kind: Service
       name: front-generator
       weight: 100
-  status:
-    ingress:
