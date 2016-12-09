@@ -30,7 +30,7 @@ export class FormComponent implements AfterViewInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.command = params['command'];
-      let stepIndex = params['step'];
+      let stepIndex = +params['step'];
 
       if (this.history[stepIndex]) {
           this.updateGui(this.history[stepIndex], stepIndex);
