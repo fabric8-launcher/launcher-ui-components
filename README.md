@@ -1,5 +1,6 @@
 Obsidian Generator UI
 =====================
+[![Build Status](https://travis-ci.org/obsidian-toaster/generator-frontend.svg?branch=master)](https://travis-ci.org/obsidian-toaster/generator-frontend)
 
 If this is the first time you are starting the UI you need to run
 
