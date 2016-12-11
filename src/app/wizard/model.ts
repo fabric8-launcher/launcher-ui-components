@@ -2,9 +2,19 @@ export class Gui {
     metadata: MetaData;
     state: State = new State();
     inputs: SubmittableInput[];
-    messages: Message[];
+    private _messages: Message[];
     results: Result[];
     stepIndex: number;
+
+    get messages(): Message[] {
+        if (!this._messages) {
+            this._messages = [];
+        }
+        return this._messages;
+    }
+    set message(messages: Message[]) {
+        this._messages = messages;
+    }
 }
 
 export class MetaData {
