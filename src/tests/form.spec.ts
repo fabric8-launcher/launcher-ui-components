@@ -4,9 +4,10 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MultiselectListModule } from '../app/shared/multiselect-list';
+import { ProjectSelectModule } from '../app/shared/project-select';
 import { FormComponent } from '../app/wizard/wizard.component';
 import { ForgeService } from '../app/wizard/forge.service';
 import { Config } from '../app/wizard/config.component';
@@ -48,14 +49,31 @@ const json = {
 };
 
 describe('Dynamic form should be created for json that comes from the server', () => {
+  let subscribe: Function = null;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MultiselectListModule, HttpModule],
+      imports: [FormsModule, MultiselectListModule, ProjectSelectModule, HttpModule],
       declarations: [FormComponent],
       providers: [
         ForgeService,
-        { provide: Config, useValue: { get: (key:string) => {} }},
-        { provide: ActivatedRoute, useValue: {snapshot: { params: { 'command': 'obsidian-new-quickstart'}}} }
+        { provide: Config, useValue: { get: (key: string) => { } } },
+        {
+          provide: ActivatedRoute, useValue: {
+            params: {
+              subscribe: ((callback: Function) => {
+                this.subscribe = callback;
+                callback({ command: 'obsidian-new-quickstart', step: '0' });
+              })
+            }
+          }
+        },
+        {
+          provide: Router, useValue: {
+            navigate: () => {
+              this.subscribe({ command: 'obsidian-new-quickstart', step: 'end' })
+            }
+          }
+        }
       ]
     }).compileComponents();
 
