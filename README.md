@@ -23,11 +23,10 @@ $ npm start
 ## Production Build
 
 To generate production build, set the API URL (the host and port of where
-[generator backend](https://github.com/obsidian-toaster/generator-backend) is deployed)
-and run `npm` command as give below:
+[generator backend](https://github.com/obsidian-toaster/generator-backend) is deployed) in the [settings.json]( https://github.com/obsidian-toaster/generator-frontend/blob/master/src/assets/settings.json)
+and run the `npm` command as given below:
 
 ```bash
-export FORGE_URL="http://<host:port>/forge"
 npm run build:prod
 ```
 
