@@ -68,6 +68,7 @@ export class FormComponent implements AfterViewInit {
 
   validate(form: NgForm): Promise<Gui> {
     if (form.dirty && form.valid) {
+      this.history.splice(this.currentGui.stepIndex, this.history.length);
       return this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
       {
         this.updateGui(gui, this.currentGui.stepIndex);
