@@ -122,6 +122,8 @@ module.exports = {
        */
       { test: /\.json$/, loader: 'json-loader', exclude: [helpers.root('src/index.html')] },
 
+      { test: /\.png$/, loader: 'file-loader' },
+
       /**
        * Raw loader support for *.css files
        * Returns file content as string
