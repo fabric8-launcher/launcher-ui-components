@@ -47,13 +47,14 @@ eval $(minishift docker-env)
 To create our Obsidian Front UI OpenShift application, we will deploy an OpenShift template which
 has been defined to created the required objects; service, route, BuildConfig with S2I source build & Deployment config
 
-To install the template and create an ew application, use these commands where you will setup the DNS name of the Forge Backend
+To install the template and create a new application, use these commands
 
 ```
 oc create -f templates/template_s2i_image.yml
 oc process front-generator-s2i FORGE_URL=http://<FORGE-BACKEND-ROUTE-ADDRESS>/forge | oc create -f -
 oc deploy front-generator --latest -n PROJECT_NAME
 ```
+Remark: In order to change the address of the backend that you will use on OpenShift, change the `forge_url` value defined within the file src/assets/settings.json and commit the change. 
 
 You can now access the backend using its route
 
