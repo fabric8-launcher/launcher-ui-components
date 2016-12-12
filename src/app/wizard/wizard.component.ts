@@ -13,6 +13,17 @@ import 'rxjs/add/operator/debounceTime';
     .required > label:after {
       content: ' *'
     }
+    .ng-invalid {
+      border-color: #c00;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    }
+    .ng-invalid + div.errorLabel {
+      color: red;
+      display: block;
+    }
+    .ng-valid + div.errorLabel {
+      display: none;
+    }
   `]
 })
 export class FormComponent implements AfterViewInit {
@@ -49,6 +60,9 @@ export class FormComponent implements AfterViewInit {
           }).catch(error => this.currentGui.messages.push(new Message(error)));
         } else {
           this.forgeService.nextStep(this.command, this.history, this.currentGui).then(gui => {
+            if (gui.messages && gui.messages.length > 0) {
+              this.router.navigate(["../" + --stepIndex], { relativeTo: this.route });
+            }
             this.updateGui(gui, stepIndex);
           }).catch(error => this.currentGui.messages.push(new Message(error)));
         }
@@ -76,6 +90,17 @@ export class FormComponent implements AfterViewInit {
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
     return Promise.resolve(this.currentGui);
+  }
+
+  messageForInput(name: string): Message {
+    let result: Message;
+    if (!this.currentGui.messages) return null;
+    for (let message of this.currentGui.messages) {
+      if (message.input == name) {
+        result = message;
+      }
+    }
+    return result;
   }
 
   private updateGui(gui: Gui, stepIndex: number) {
