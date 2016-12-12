@@ -12,7 +12,7 @@ export class Gui {
         }
         return this._messages;
     }
-    set message(messages: Message[]) {
+    set messages(messages: Message[]) {
         this._messages = messages;
     }
 }
