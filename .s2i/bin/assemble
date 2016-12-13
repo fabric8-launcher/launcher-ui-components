@@ -10,17 +10,11 @@ set -e
 echo "---> Installing application source."
 cp -Rf /tmp/src/. ./
 
-echo "---> Installing HTTP Server."
-npm install -g http-server
-
 # Change the npm registry mirror if provided
 if [ ! -z "$NPM_MIRROR" ]; then
 	echo "---> Setting the npm package mirror to $NPM_MIRROR"
 	npm config set registry $NPM_MIRROR
 fi
 
-if [ -f "package.json" ]; then
-    echo "---> Building frontend code."
-    npm install --dev --no-progress
-    npm run build:prod
-fi
+echo "---> Installing HTTP Server."
+npm install -g http-server
