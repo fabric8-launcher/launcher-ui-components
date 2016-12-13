@@ -53,8 +53,9 @@ To install the template and create a new application, use these commands
 oc new-project front
 oc create -f templates/template_s2i.yml
 oc process front-generator-s2i | oc create -f -
-oc deploy front-generator --latest -n PROJECT_NAME
+oc start-build front-generator
 ```
+
 Remark: In order to change the address of the backend that you will use on OpenShift, change the `forge_url` value defined within the file src/assets/settings.json and commit the change. 
 
 You can now access the backend using its route
@@ -71,14 +72,15 @@ Remarks:
 * If for any reasons, you would like to redeploy a new template, then you should first delete the template and the corresponding objects
 
 ```
-oc delete is/node
 oc delete is/front-generator
 oc delete bc/front-generator
 oc delete dc/front-generator
 oc delete svc/front-generator
 oc delete route/front-generator
 oc delete template/front-generator
-oc create -f templates/template_docker.yml
+oc create -f templates/template_s2i.yml
+oc process front-generator-s2i | oc create -f -
+oc start-build front-generator
 ```
 
 # S2i Scripts
