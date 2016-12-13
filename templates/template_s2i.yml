@@ -26,7 +26,7 @@ objects:
       sourceStrategy:
         from:
           kind: DockerImage
-          name: nginx-centos7
+          name: registry.access.redhat.com/rhscl/nginx-18-rhel7
     triggers:
     - github:
         secret: BCedrGCnc2IWefYxQ9sr
@@ -92,7 +92,6 @@ objects:
         from:
           kind: ImageStreamTag
           name: front-generator:latest
-          namespace: default
       type: ImageChange
 - apiVersion: v1
   kind: Service

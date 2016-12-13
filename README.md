@@ -45,7 +45,8 @@ eval $(minishift docker-env)
 ```
 
 To create our Obsidian Front UI OpenShift application, we will deploy an OpenShift template which
-contains the required objects; service, route, BuildConfig with S2I source build & Deployment config
+contains the required objects; service, route, BuildConfig & Deployment config. The docker image 
+used is registry.access.redhat.com/rhscl/nginx-18-rhel7 which exposes a HTTP Server.
 
 To install the template and create a new application, use these commands
 
