@@ -8,7 +8,6 @@
 # eval $(minishift docker-env)
 
 # 2) Clean previously deployed objects
-oc delete is/node
 oc delete is/front-generator
 oc delete bc/front-generator
 oc delete dc/front-generator
