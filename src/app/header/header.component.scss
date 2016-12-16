@@ -1,17 +1,13 @@
-.navbar-pf {
-    .navbar-nav>li>a {
-        line-height: 1.3em;
-        text-shadow:none;
-        cursor: pointer;
-        .img-icon{
-            width: 25px;
-            height: 25px;
-            margin-top: -3px;
-        }
-    }
+#header_wrapper {
+    background: #def3ff;
 }
+
+img.header-logo {
+    height: 30px;
+}
+
 @media (max-width: 768px){
-.navbar-fixed-top {
+    .navbar-fixed-top {
         position: fixed;
         top: auto;
     }
@@ -21,13 +17,4 @@
     body {
         margin: 0;
     }
-}
-
-.no-link {
-  color: #ffffff;
-  text-decoration: none;
-}
-
-img.header-logo {
-    height: 30px;
 }
