@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { IntroComponent } from './intro/intro.component';
 import { FormComponent } from './wizard.component';
-import { ForgeService } from './forge.service';
-import { Config } from './config.component';
+import { ForgeService } from '../shared/forge.service';
+import { Config } from '../shared/config.component';
 
 import { MultiselectListModule } from '../shared/multiselect-list';
 import { ProjectSelectModule } from '../shared/project-select';

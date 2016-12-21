@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ForgeService } from '../shared/forge.service'
+import { Version } from '../shared/model';
 
 @Component({
   selector: 'app-footer',
@@ -7,4 +9,13 @@ import { Component } from '@angular/core';
 })
 
 export class FooterComponent {
+  version: string;
+
+  constructor(private forgeService: ForgeService){
+  }
+  ngOnInit() {
+    this.forgeService.version().then(version => {
+      this.version = version.backendVersion;
+    });
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http, Request, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
-import { Gui, DownloadFile, SubmittableInput, Input } from './model';
+import { Gui, DownloadFile, SubmittableInput, Input, Version } from './model';
 import { Config } from './config.component'
 
 @Injectable()
@@ -12,6 +12,12 @@ export class ForgeService {
     if (!this.apiUrl) {
       this.apiUrl = config.get('forge_url');
     }
+  }
+
+  version() : Promise<Version> {
+    return this.http.get(this.apiUrl+'/version').toPromise()
+    .then(response => response.json() as Version)
+    .catch(this.handleError);
   }
 
   commandInfo(command: string): Promise<Gui> {

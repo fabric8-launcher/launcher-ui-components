@@ -84,6 +84,11 @@ export class Message {
     showError: boolean;
 }
 
+export class Version {
+    forgeVersion: string;
+    backendVersion: string;
+}
+
 export enum Error {
     ERROR, WARN, INFO
 }

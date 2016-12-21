@@ -1,8 +1,8 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { ForgeService } from './forge.service'
-import { Gui, Input, Message, Result } from './model';
+import { ForgeService } from '../shared/forge.service'
+import { Gui, Input, Message, Result } from '../shared/model';
 
 import 'rxjs/add/operator/debounceTime';
 
