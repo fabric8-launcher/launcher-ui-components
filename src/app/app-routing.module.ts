@@ -2,6 +2,7 @@ import { NgModule }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './wizard/wizard.component';
 import { IntroComponent } from './wizard/intro/intro.component';
+import { VersionComponent } from './wizard/versions/versions.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: IntroComponent,
+        component: IntroComponent
+      },
+      {
+        path: 'supported-versions',
+        component: VersionComponent
       },
       {
         path: ':command/:step',

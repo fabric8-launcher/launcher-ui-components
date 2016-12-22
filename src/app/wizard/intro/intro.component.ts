@@ -16,4 +16,8 @@ export class IntroComponent {
   startNewProject() {
     this.router.navigate(['/wizard', 'obsidian-new-project', 0]);
   }
+
+  versions() {
+    this.router.navigate(['/wizard', 'supported-versions']);
+  }
 }
