@@ -34,6 +34,10 @@ module.exports = {
         loader: 'html'
       },
       {
+        test: /\.md$/,
+        loader: "html!markdown"
+      },
+      {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
         loader: 'file?name=assets/[name].[hash].[ext]'
       },
@@ -52,7 +56,7 @@ module.exports = {
         exclude: helpers.root('src', 'app'),
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!resolve-url!sass?sourceMap')
       },
-      { 
+      {
         test: /\.scss$/,
         include: helpers.root('src', 'app'),
         loaders: ['exports-loader?module.exports.toString()', 'css', 'postcss', 'sass']

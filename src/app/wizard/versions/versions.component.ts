@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'versions',
-  templateUrl: './versions.component.html'
+  templateUrl: './versions.md',
+  styleUrls: ['./versions.component.scss'],
 })
 export class VersionComponent {
 
-  constructor(private router: Router) {}
-
-  back() {
-    this.router.navigate(['/']);
-  }
+  constructor() {}
 }
