@@ -40,18 +40,3 @@ Using the Obsidian Front Web server, you can select an Eclipse Vert.x Starter, n
 | Openshift Client - oc | 3.3.x | Client which exposes commands to log on to OpenShift Online/Dedicated/ContainerPlatform and to to manage your containerized applications running in OpenShift. https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html |
 | Red Hat SSO | 7.0 | The Red Hat Single Sign-On Server, based on the Keycloak project, enables you to secure your web applications by providing Web SSO capabilities based on popular standards such as SAML 2.0, OpenID Connect, and OAuth 2.0. https://access.redhat.com/documentation/en/red-hat-single-sign-on/?version=7.0 |
 
-## Know issues
-
-Release Notes - Obsidian Toaster - Version 1.0.0.alpha1
-
-## Bug
-
-*   [[OBST-1](https://issues.jboss.org/browse/OBST-1)] - Remove private repositories from quickstarts
-*   [[OBST-2](https://issues.jboss.org/browse/OBST-2)] - Create routes for quickstarts by default
-*   [[OBST-3](https://issues.jboss.org/browse/OBST-3)] - Quickstarts should have same functionality
-*   [[OBST-21](https://issues.jboss.org/browse/OBST-21)] - Quickstart quick_rest_vertx should not contain goal 'helm' in fabric8-maven-plugin
-*   [[OBST-33](https://issues.jboss.org/browse/OBST-33)] - F-m-p 3.1.92 will fail if we don't specify the generator to be used
-
-## Sub-task
-
-*   [[OBST-9](https://issues.jboss.org/browse/OBST-9)] - There needs to be a prerequisite doc about the expected environment
