@@ -1,51 +1,52 @@
 <div class="container-fluid">
 
-  <h1>Release Notes - Version 1.0.0.alpha1</h1>
+  <h1>Release Notes</h1>
   <h2>Overview</h2>
   <p>
     <tr>
-      Obsidian Toaster is a code Generator &amp; wizard tool to generate Quickstart or Spring Boot / Vert.x starter project
-      ready to be build/deployed in OpenShift.
+      Obsidian Toaster is a cloud application platform that includes a collection of cloud services with language runtime
+      integration running on OpenShift. This initial release delivers a project generator that creates a quickstart or custom
+      Spring Boot / Vert.x starter project, optionally secured with Red hat SSO, and is ready to be built and deployed to
+      OpenShift.
     </tr>
   </p>
 
   <h2>Feature Overview</h2>
   <dl>
     <dt>Spring Boot - REST Quickstart</dt>
-    <dd>This Quickstart exposes using Spring technology a REST Greeting endpoint. The project that you download as a zip file
-      from the Obsidian Web site
-      can be customized (project name, version & top level package)
+    <dd>A quickstart that exposes a RESTful "Greeting" endpoint using Spring Boot. Generate a quickstart project that is
+      downloaded as a zip file,
+      can be customized (project name, version & top level package), and is easily deployed to OpenShift using a maven plugin.
     </dd>
   </dl>
   <dl>
     <dt>Eclipse Vert.x - REST Quickstart</dt>
-    <dd>This Quickstart exposes using Eclipse Vert.x technology a REST Greeting endpoint. The project that you download as a zip
-      file from the Obsidian Web site
-      can be customized (project name, version & top level package)
+    <dd>A quickstart that exposes a RESTful "Greeting" endpoint using Eclipse Vert.x. Generate a quickstart project that is
+      downloaded as a zip file,
+      can be customized (project name, version & top level package), and is easily deployed on OpenShift using a maven plugin.
     </dd>
   </dl>
   <dl>
-    <dt>Secured Spring Boot REST endpoint using Red Hat SSO</dt>
-    <dd>This Quickstart exposes using Spring technology a REST Greeting endpoint which is secured by the Red Hat Single Sign On
-      Platform.
-      A JWT token will be issued by the Red Hat SSO platform in order to allow Client / application to access the Secured REST
+    <dt>Spring Boot REST endpoint secured with Red Hat SSO</dt>
+    <dd>A quickstart that exposes a RESTful "Greeting" endpoint which is secured by the Red Hat Single Sign On Platform.
+      A JWT token will be issued by the Red Hat SSO platform in order to allow a client application to access the Secured REST
       endpoint.
     </dd>
   </dl>
   <dl>
     <dt>Spring Boot Starter</dt>
-    <dd>Using the Obsidian Front Web server, you can select a Spring Boot Starter, next the Spring dependencies that you would
-      like to use and a zipped project will
-      be populated. This starter project is ready to start the maven build process and deploy the application in OpenShift. It
-      contains a simple HTTP Server.
+    <dd>
+      Generate a custom Spring Boot project template by selecting from a list of available Spring dependencies. The project
+      template includes a simple HTTP Server that
+      can be easily deployed to OpenShift using a maven plugin.
     </dd>
   </dl>
   <dl>
     <dt>Eclipse Vert.X Starter</dt>
-    <dd>Using the Obsidian Front Web server, you can select an Eclipse Vert.x Starter, next the Vert.x midules that you would
-      like to use and a zipped project will
-      be populated. This starter project is ready to start the maven build process and deploy the application in OpenShift. It
-      contains a simple HTTP Server.
+    <dd>
+      Generate a custom Vert.x project template by selecting from a list of available Vert.x modules. The project template
+      includes a simple HTTP Server that
+      can be easily deployed to OpenShift using a maven plugin.
     </dd>
   </dl>
 
@@ -63,14 +64,14 @@
     <tr>
       <td>Obsidian</td>
       <td>1.0.0.alpha1</td>
-      <td>Code Generator &amp; Wizard Tool to generate Quickstart or Spring Boot / Vert.x starter project ready to be
-        build/deployed in OpenShift Online
+      <td>Code Generator &amp; Wizard Tool to generate quickstart or custom Spring Boot / Vert.x starter project ready to be
+        built and deployed to OpenShift Online
       </td>
     </tr>
     <tr>
       <td>Spring Boot</td>
       <td>1.4.1.RELEASE</td>
-      <td>Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
+      <td>Spring Boot makes it easy to create stand-alone, production-grade Spring applications that you can "just run".
         http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/htmlsingle/
       </td>
     </tr>
@@ -84,7 +85,7 @@
     <tr>
       <td>Fabric8 Maven Plugin</td>
       <td>3.1.92</td>
-      <td>Maven tool to generate the Docker Image, Openshift files and deploy/undeploy application top of Kubernetes/OpenShift.
+      <td>Maven tool to generate the Docker Image, OpenShift files and deploy/undeploy application top of Kubernetes/OpenShift.
         https://maven.fabric8.io/
       </td>
     </tr>
@@ -107,30 +108,6 @@
     </tr>
     </tbody>
   </table>
-
-  <h2>Know issues</h2>
-  <h3>Bug</h3>
-  <ul>
-    <li>[<a href='https://issues.jboss.org/browse/OBST-1'>OBST-1</a>] - Remove private repositories from quickstarts
-    </li>
-    <li>[<a href='https://issues.jboss.org/browse/OBST-2'>OBST-2</a>] - Create routes for quickstarts by default
-    </li>
-    <li>[<a href='https://issues.jboss.org/browse/OBST-3'>OBST-3</a>] - Quickstarts should have same functionality
-    </li>
-    <li>[<a href='https://issues.jboss.org/browse/OBST-21'>OBST-21</a>] - Quickstart quick_rest_vertx should not contain goal
-      &#39;helm&#39; in fabric8-maven-plugin
-    </li>
-    <li>[<a href='https://issues.jboss.org/browse/OBST-33'>OBST-33</a>] - F-m-p 3.1.92 will fail if we don&#39;t specify the
-      generator to be used
-    </li>
-  </ul>
-
-  <h3>Sub-task</h3>
-  <ul>
-    <li>[<a href='https://issues.jboss.org/browse/OBST-9'>OBST-9</a>] - There needs to be a prerequisite doc about the expected environment
-    </li>
-  </ul>
-
 
   <div class="row">
     <div class="col-md-12">
