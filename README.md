@@ -78,7 +78,7 @@ oc delete bc/front-generator
 oc delete dc/front-generator
 oc delete svc/front-generator
 oc delete route/front-generator
-oc delete template/front-generator
+oc delete template/front-generator-s2i
 oc create -f templates/template_s2i.yml
 oc process front-generator-s2i | oc create -f -
 oc start-build front-generator
