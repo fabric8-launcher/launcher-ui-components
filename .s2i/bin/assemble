@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+echo "Fetch Content"
+curl -o master.zip -L https://github.com/obsidian-toaster/obsidian-toaster.github.io/archive/master.zip
+
+echo "Unzip project"
+unzip master.zip -d /tmp/src/
+
+echo "---> Installing application source"
+cp -Rf /tmp/src/. ./
+ls -la ./
+
+if [ -n "$FORGE_URL"]; then
+  json="{\n
+           \"forge_url\": \"http://generator-backend-obsidian.e8ca.engint.openshiftapps.com/forge\"\n
+        }"
+  echo -e $json > ./settings.json
+  cat ./settings.json
+fi
+
+if [ -d ./nginx-cfg ]; then
+  echo "---> Copying nginx configuration files..."
+  if [ "$(ls -A ./nginx-cfg/*.conf)" ]; then
+    cp -v ./nginx-cfg/*.conf "${NGINX_CONFIGURATION_PATH}"
+    rm -rf ./nginx-cfg
+  fi
+fi
+
+# Fix source directory permissions
+fix-permissions ./
