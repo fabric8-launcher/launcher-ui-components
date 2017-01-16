@@ -47,6 +47,7 @@
               <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
               <span *ngIf="!messageForInput(input.name)">{{input.label}} is required</span>
             </div>
+            <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
         </span>
       </span>
       <span *ngSwitchCase="'UISelectOne'">
