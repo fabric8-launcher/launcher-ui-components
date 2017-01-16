@@ -12,6 +12,7 @@ export class ForgeService {
     if (!this.apiUrl) {
       this.apiUrl = config.get('backend_url');
     }
+    this.apiUrl += 'forge';
   }
 
   version() : Promise<Version> {
