@@ -43,4 +43,10 @@ The project template includes a simple HTTP Server that can be easily deployed t
 | Openshift Client - oc | 3.3.x | Client which exposes commands to log on to OpenShift Online/Dedicated/ContainerPlatform and to to manage your containerized applications running in OpenShift. https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html |
 | Red Hat SSO | 7.0 | The Red Hat Single Sign-On Server, based on the Keycloak project, enables you to secure your web applications by providing Web SSO capabilities based on popular standards such as SAML 2.0, OpenID Connect, and OAuth 2.0. https://access.redhat.com/documentation/en/red-hat-single-sign-on/?version=7.0 |
 
-[Back](/)
+<br/>
+<div class="col-sm-offset-2" style="margin-bottom:20px">
+    <a class="btn btn-default" href="javascript:history.back()">
+        <span class="i fa fa-angle-left"></span>
+        Back
+    </a>
+</div>
