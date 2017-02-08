@@ -26,7 +26,6 @@ Generator adds WildFly Swarm as a project type.
   - REST Endpoint
   - Secured REST Endpoint
   - ConfigMap
-  - REST Endpoint with database access
 * Spring Boot
   - ConfigMap
 
@@ -75,9 +74,6 @@ Expose a REST Greeting endpoint using Wildfly Swarm & Secured by Red Hat SSO
 ### WildFly Swarm - ConfigMap Quickstart
 A quickstart that demonstrates how to use an Openshift configmap to configure a Swarm service
 
-### WildFly Swarm - REST endpoint with database access
-QuickStart which exposes a REST endpoint using WildFly Swarm as container and accessing a database using a JDBC driver to populate the response
-
 ### WildFly Swarm Starter
 Generate a custom WildFly Swarm project template by selecting from a list of available WildFly Swarm modules. The project template includes a simple HTTP Server that can be easily deployed to OpenShift using a maven plugin.
 
@@ -89,7 +85,8 @@ Generate a custom WildFly Swarm project template by selecting from a list of ava
 | Spring Boot | 1.4.1.RELEASE | Spring Boot makes it easy to create stand-alone, production-grade Spring applications that you can "just run". http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/htmlsingle/ |
 | JWS Tomcat 8 | 8.0.36 | Utilized in Spring Boot quickstarts |
 | Fabric8 Spring Cloud | 0.1.4 | Utilized in Spring Boot quickstarts |
-| Eclipse Vert.x | 3.4.0.Beta1 | Asynchronous / Reactive application platform for the modern web. https://projects.eclipse.org/projects/rt.vertx/releases/3.3.0 |
+| Eclipse Vert.x | 3.4.0.Beta1 | Asynchronous / Reactive application platform for the modern web https://projects.eclipse.org/projects/rt.vertx/releases/3.3.0 |
+| WildFly Swarm | 2017.2.0 | Rightsize your Enterprise Java services
 | Fabric8 Maven Plugin | 3.1.92 | Maven tool to generate the Docker Image, OpenShift files and deploy/undeploy application top of Kubernetes/OpenShift. https://maven.fabric8.io/ |
 | Openshift Client - oc | 3.3.x | Client which exposes commands to log on to OpenShift Online/Dedicated/ContainerPlatform and to to manage your containerized applications running in OpenShift. https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html |
 | Red Hat SSO | 7.0 | The Red Hat Single Sign-On Server, based on the Keycloak project, enables you to secure your web applications by providing Web SSO capabilities based on popular standards such as SAML 2.0, OpenID Connect, and OAuth 2.0. https://access.redhat.com/documentation/en/red-hat-single-sign-on/?version=7.0 |
