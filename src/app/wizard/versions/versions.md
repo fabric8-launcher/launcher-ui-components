@@ -7,7 +7,7 @@ Obsidian Toaster defines and implements an opinionated approach to creating and 
 ## What's New in Alpha 2
 
 __WildFly Swarm__
-Adds WildFly Swarm (version 2017.1.1) as a language runtime.
+Adds WildFly Swarm (version 2017.2.0) as a language runtime.
 
 **Eclipse Vert.x**
 Updates Vert.x to 3.4.0.Beta1.
@@ -66,7 +66,7 @@ Generate a custom Vert.x project template by selecting from a list of available 
 The project template includes a simple HTTP Server that can be easily deployed to OpenShift using a maven plugin.
 
 ### WildFly Swarm - REST Quickstart
-Expose a REST Greeting endpoint using Eclipse Vert.x
+Expose a REST Greeting endpoint using WildFly Swarm
 
 ### WildFly Swarm - Secured REST Endpoint Quickstart
 Expose a REST Greeting endpoint using Wildfly Swarm & Secured by Red Hat SSO
