@@ -69,7 +69,7 @@ The project template includes a simple HTTP Server that can be easily deployed t
 Expose a REST Greeting endpoint using WildFly Swarm
 
 ### WildFly Swarm - Secured REST Endpoint Quickstart
-Expose a REST Greeting endpoint using Wildfly Swarm & Secured by Red Hat SSO
+Expose a REST Greeting endpoint using WildFly Swarm & Secured by Red Hat SSO
 
 ### WildFly Swarm - ConfigMap Quickstart
 A quickstart that demonstrates how to use an Openshift configmap to configure a Swarm service
