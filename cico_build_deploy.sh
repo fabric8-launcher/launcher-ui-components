@@ -44,7 +44,7 @@ docker run --detach=true --name ${BUILDER_CONT} -t -v $(pwd)/${TARGET_DIR}:/${TA
 
 docker exec ${BUILDER_CONT} npm install
 docker exec ${BUILDER_CONT} npm run build:prod
-docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/* /
+docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
 #BUILD DEPLOY IMAGE
 docker build -t ${DEPLOY_IMAGE} -f Dockerfile.deploy .
