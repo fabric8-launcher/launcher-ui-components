@@ -28,13 +28,13 @@ export class MultiSelectSearchFilter {
   template: `
         <div class="input-group">
           <div class="input-group-btn">
-            <button type="button" class="btn btn-default dropdown-toggle" (click)="toggleDropdown()">{{searchField[0].toUpperCase() + searchField.substring(1)}} <span class="caret"></span></button>
+            <button [attr.id]="'btn-search-' + input.name" type="button" class="btn btn-default dropdown-toggle" (click)="toggleDropdown()">{{searchField[0].toUpperCase() + searchField.substring(1)}} <span class="caret"></span></button>
             <ul class="dropdown-menu" style="display:block" *ngIf="isVisible">
               <li [class.selected]="searchField == 'name'"><a href="javascript:;" (click)="searchField = 'name'; toggleDropdown()">Name</a></li>
               <li [class.selected]="searchField == 'description'"><a href="javascript:;" (click)="searchField = 'description'; toggleDropdown()">Description</a></li>
             </ul>
           </div>
-          <input type="text" class="form-control" id="filter" placeholder="Filter By {{searchField[0].toUpperCase() + searchField.substring(1)}}..." [(ngModel)]="searchFilterText" name="seach{{input.name}}">
+          <input [attr.id]="'search-' + input.name" type="text" class="form-control" id="filter" placeholder="Filter By {{searchField[0].toUpperCase() + searchField.substring(1)}}..." [(ngModel)]="searchFilterText" name="seach{{input.name}}">
             <span class="input-group-addon" *ngIf="searchFilterText.length > 0">
                 <span (click)="clearSearch()"><i class="fa fa-times"></i></span>
             </span>
@@ -44,7 +44,7 @@ export class MultiSelectSearchFilter {
             <li *ngFor="let value of model">
               <span class="label label-info">
                   {{value}}
-                  <a href="javascript:;" (click)="setSelected({id:value})"><span class="pficon pficon-close"></span></a>
+                  <a [attr.id]="'remove-' + value" href="javascript:;" (click)="setSelected({id:value})"><span class="pficon pficon-close"></span></a>
               </span>
             </li>
           </ul>
@@ -52,7 +52,7 @@ export class MultiSelectSearchFilter {
         <div class="list-group list-view-pf list-view-pf-view">
           <div class="list-group-item" *ngFor="let option of input.valueChoices | searchFilter:{text:searchFilterText, field:searchField}">
             <div class="list-view-pf-checkbox">
-              <input type="checkbox" name="{{input.name}}" value="{{option.id}}"
+              <input [attr.id]="option.id" type="checkbox" name="{{input.name}}" value="{{option.id}}"
                 [checked]="isSelected(option)"
                 (change)="setSelected(option)">
             </div>
