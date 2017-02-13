@@ -91,6 +91,12 @@ Generate a custom WildFly Swarm project template by selecting from a list of ava
 | Openshift Client - oc | 3.3.x | Client which exposes commands to log on to OpenShift Online/Dedicated/ContainerPlatform and to to manage your containerized applications running in OpenShift. https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html |
 | Red Hat SSO | 7.0 | The Red Hat Single Sign-On Server, based on the Keycloak project, enables you to secure your web applications by providing Web SSO capabilities based on popular standards such as SAML 2.0, OpenID Connect, and OAuth 2.0. https://access.redhat.com/documentation/en/red-hat-single-sign-on/?version=7.0 |
 
+## Known Issues
+
+### Secured Quickstarts require manual pom.xml editing
+
+Due to a problem reported - https://issues.jboss.org/browse/OBST-65, the Secured Quickstart projects will require that the children pom.xml files are manually updated to refer to the correct parent pom.xml file (GroupId/ArtifactId & version). This problem also exists for the dependency defined inside the child sso project.
+
 <br/>
 <div class="col-sm-offset-2" style="margin-bottom:20px">
     <a class="btn btn-default" href="javascript:history.back()">
