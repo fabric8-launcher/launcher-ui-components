@@ -15,6 +15,11 @@
       {{result.message}}
     </p>
     <div class="blank-slate-pf-main-action">
+      <a (click)="onSubmit()" class="btn btn-lg btn-primary" download>
+        Download
+      </a>
+    </div>
+    <div class="blank-slate-pf-secondary-action">
       <button type="button" class="btn btn btn-default" (click)="restart()">
           Restart
       </button>
