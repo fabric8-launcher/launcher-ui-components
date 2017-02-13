@@ -1,6 +1,6 @@
 {
   "name": "obsidian-generator-frontend",
-  "version": "0.0.7",
+  "version": "1.0.0-Alpha2",
   "description": "A frontend for a obsidian toaster microservices quick start generator",
   "homepage": "",
   "repository": {
