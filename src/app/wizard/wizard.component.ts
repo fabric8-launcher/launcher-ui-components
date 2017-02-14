@@ -46,7 +46,7 @@ export class FormComponent implements AfterViewInit {
           this.currentGui = new Gui();
           this.currentGui.stepIndex = this.history.length - 1;
           this.currentGui.inputs = [];
-          this.currentGui.results = [new Result("Your project is ready to download")];
+          this.currentGui.results = [new Result("Your project is is downloading...")];
         });
       }
 
@@ -123,11 +123,8 @@ export class FormComponent implements AfterViewInit {
   }
 
   finish() {
-    this.router.navigate(["../end"], { relativeTo: this.route });
-  }
-
-  onSubmit() {
     this.forgeService.executeCommand(this.command, this.history, this.currentGui.stepIndex);
+    this.router.navigate(["../end"], { relativeTo: this.route });
   }
 
   closeAlert(error: Message) {

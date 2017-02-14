@@ -103,10 +103,7 @@ describe('Dynamic form should be created for json that comes from the server', (
     dispatchEvent(input, 'input');
     comp.finish();
 
-
     tick(2000);
-
-    comp.onSubmit();
     expect(forgeServiceStub.executeCommand).toHaveBeenCalledWith('obsidian-new-quickstart', [json], 0)
   }));
 });
