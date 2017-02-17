@@ -87,7 +87,10 @@ export class FormComponent implements AfterViewInit {
       return this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
       {
         var diff = jsonpatch.compare(this.currentGui, gui);
+        var stepIndex = this.currentGui.stepIndex;
         jsonpatch.apply(this.currentGui, diff);
+        this.history[stepIndex] = this.currentGui;
+        this.currentGui.stepIndex = stepIndex;
         return this.currentGui;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
