@@ -5,6 +5,7 @@ import { ForgeService } from '../shared/forge.service'
 import { Gui, Input, Message, Result } from '../shared/model';
 
 import 'rxjs/add/operator/debounceTime';
+import * as jsonpatch from 'fast-json-patch';
 
 @Component({
   selector: 'wizard',
@@ -71,7 +72,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.form.valueChanges.debounceTime(500)
+    this.form.valueChanges.debounceTime(1000).distinctUntilChanged()
       .subscribe(data => {
         if (!this.fromHttp) {
           this.validate(this.form);
@@ -85,7 +86,8 @@ export class FormComponent implements AfterViewInit {
       this.history.splice(this.currentGui.stepIndex, this.history.length);
       return this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
       {
-        this.updateGui(gui, this.currentGui.stepIndex);
+        var diff = jsonpatch.compare(this.currentGui, gui);
+        jsonpatch.apply(this.currentGui, diff);
         return this.currentGui;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
