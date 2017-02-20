@@ -7,25 +7,34 @@
   </h1>
   <div class="lead" style="text-align:left; margin:auto; max-width:800px">
     <p>
-      Quickly get started developing cloud native applications with Eclipse Vert.x, WildFly Swarm or Spring Boot.
+      Create functional applications (quickstarts) or project frameworks that enable you to quickly develop cloud-native applications using the Eclipse Vert.x, WildFly Swarm, or Spring Boot runtimes. You can:
     </p>
     <ul>
-      <li>Select an existing fully functional quickstart or generate a project from scratch.</li>
-      <li>Develop your application with JBoss Developer Studio or your favorite IDE. Run and test locally.</li>
-      <li>Deploy your project using OpenShift Online.</li>
+      <li>Select an existing fully functional quickstart or create a runtime project framework.</li>
+      <li>Import the quickstart or runtime project into JBoss Developer Studio (or your preferred IDE). Then adapt, run, and test it locally.</li>
+      <li>Deploy your completed project to Red Hat OpenShift Online.</li>
     </ul>
   </div>
   <p>
-    Learn more about this <a href="javascript:;" (click)="versions()">Release note &amp; versions supported</a>.
+    For more information, see: <a href="javascript:;" (click)="versions()">Release Notes and Supported Runtime Versions</a>.
   </p>
-  <div class="blank-slate-pf-main-action">
-    <button class="btn btn-default" (click)="startQuickstart()">
-      Using a quickstart
-    </button>
-  </div>
-  <div class="blank-slate-pf-secondary-action">
-    <button class="btn btn-default" (click)="startNewProject()">
-      A starter (Eclipse Vert.x, Wildfly Swarm or Spring Boot)
-    </button>
-  </div>
+  <form class="form-horizontal" (ngSubmit)="onSubmit()" style="text-align:left; margin:auto; max-width:600px">
+    <div class="radio">
+      <label>
+        <input type="radio" name="projectType" id="projectType1" value="obsidian-new-quickstart" [(ngModel)]="projectType">
+          Begin by selecting a functional quickstart
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="projectType" id="projectType2" value="obsidian-new-project" [(ngModel)]="projectType">
+          Begin by selecting a runtime project framework (Eclipse Vert.x, WildFly Swarm, or Spring Boot)
+      </label>
+    </div>
+    <div class="blank-slate-pf-main-action">
+      <button class="btn btn-primary" type="submit">
+        Next
+      </button>
+    </div>
+  </form>
 </div>

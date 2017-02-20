@@ -47,7 +47,11 @@ export class FormComponent implements AfterViewInit {
           this.currentGui = new Gui();
           this.currentGui.stepIndex = this.history.length - 1;
           this.currentGui.inputs = [];
-          this.currentGui.results = [new Result("Your project is is downloading...")];
+          this.currentGui.results =
+            [
+              new Result("Your project is is downloading..."),
+              new Result("See the project Read Me file for more information.")
+            ];
         });
       }
 

@@ -6,15 +6,11 @@ import { Router } from '@angular/router';
   templateUrl: './intro.component.html'
 })
 export class IntroComponent {
-
+  projectType: string = "obsidian-new-quickstart";
   constructor(private router: Router) {}
 
-  startQuickstart() {
-    this.router.navigate(['/wizard', 'obsidian-new-quickstart', 0]);
-  }
-
-  startNewProject() {
-    this.router.navigate(['/wizard', 'obsidian-new-project', 0]);
+  onSubmit() {
+    this.router.navigate(['/wizard', this.projectType, 0]);
   }
 
   versions() {

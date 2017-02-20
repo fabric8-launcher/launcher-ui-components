@@ -61,7 +61,7 @@
 
   <div class="form-group" *ngIf="!currentGui.results">
     <div class="col-sm-offset-2 col-sm-10">
-      <button id="back" type="button" class="btn btn-default" [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
+      <button id="back" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
@@ -70,7 +70,7 @@
         <span class="i fa fa-angle-right"></span>
       </button>
       <button id="finish" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canExecute" (click)="finish()">
-        Finish
+        Download ZIP
       </button>
     </div>
   </div>
