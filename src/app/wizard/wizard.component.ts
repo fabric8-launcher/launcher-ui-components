@@ -44,12 +44,13 @@ export class FormComponent implements AfterViewInit {
       this.command = params['command'];
       if (params['step'] == 'end') {
         return this.validate(this.form).then(_ => {
+          this.fromHttp = true;
           this.currentGui = new Gui();
           this.currentGui.stepIndex = this.history.length - 1;
           this.currentGui.inputs = [];
           this.currentGui.results =
             [
-              new Result("Your project is is downloading..."),
+              new Result("Your project is downloading..."),
               new Result("See the project Read Me file for more information.")
             ];
         });
