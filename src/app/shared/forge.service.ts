@@ -47,13 +47,18 @@ export class ForgeService {
     form.appendChild(this.createFormInput("stepIndex", String(stepIndex)));
 
     for (let gui of history) {
-      for (let input of gui.inputs) {
-        if (input.value instanceof Array) {
-          for (let value of input.value) {
-            form.appendChild(this.createFormInput(input.name, value));
+      if (gui) {
+        let inputs = gui.inputs;
+        if (inputs) {
+          for (let input of inputs) {
+            if (input.value instanceof Array) {
+              for (let value of input.value) {
+                form.appendChild(this.createFormInput(input.name, value));
+              }
+            } else {
+              form.appendChild(this.createFormInput(input.name, input.value));
+            }
           }
-        } else {
-          form.appendChild(this.createFormInput(input.name, input.value));
         }
       }
     }
@@ -82,8 +87,11 @@ export class ForgeService {
     submittableGui.inputs = [];
     for (let gui of guis) {
       if (gui) {
-        let submittableInputs = this.convertToSubmittable(gui.inputs as Input[]);
-        submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
+        let inputs = gui.inputs;
+        if (inputs) {
+          let submittableInputs = this.convertToSubmittable(inputs as Input[]);
+          submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
+        }
       }
     }
     return submittableGui;
