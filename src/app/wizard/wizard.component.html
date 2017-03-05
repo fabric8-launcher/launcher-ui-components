@@ -52,6 +52,7 @@
               {{option.id}}
           </option>
         </select>
+        <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
       </span>
       <div *ngSwitchCase="'UISelectMany'">
         <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}"></ob-multiselect-list>
