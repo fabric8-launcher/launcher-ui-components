@@ -30,6 +30,7 @@ export class State {
     canMoveToNextStep: boolean;
     canMoveToPreviousStep: boolean;
     wizard: boolean;
+    steps: string[];
 }
 
 export class SubmittableInput {

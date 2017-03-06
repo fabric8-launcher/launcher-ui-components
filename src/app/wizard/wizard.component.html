@@ -7,6 +7,22 @@
   <span class="pficon pficon-error-circle-o"></span> {{error.description}}
 </div>
 </span>
+<div class="wizard-pf-steps" *ngIf="currentGui.state.steps">
+  <ul class="wizard-pf-steps-indicator">
+    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == i" *ngFor="let step of currentGui.state.steps; let i = index">
+      <a [attr.href]="'wizard/' + command + '/' + i">
+        <span class="wizard-pf-step-number">{{i + 1}}</span>
+        <span class="wizard-pf-step-title">{{step}}</span>
+      </a>
+    </li>
+    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == currentGui.state.steps.length">
+      <span class="wizard-pf-step-number">
+        {{currentGui.state.steps.length + 1}}
+      </span>
+      <span class="wizard-pf-step-title">Review</span>
+    </li>
+  </ul>
+</div>
 <form class="form-horizontal" #wizard="ngForm">
   <div class="wizard-pf-complete blank-slate-pf" *ngIf="currentGui.results">
     <div class="wizard-pf-success-icon"><span class="glyphicon glyphicon-ok-circle"></span></div>
@@ -27,6 +43,7 @@
       The wizard is loading the initial screen...
     </p>
   </div>
+  <div style="padding-top: 3em">
   <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
     <div class="col-sm-10" [ngSwitch]="input.class">
@@ -58,6 +75,7 @@
         <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}"></ob-multiselect-list>
       </div>
     </div>
+  </div>
   </div>
 
   <div class="form-group" *ngIf="!currentGui.results">

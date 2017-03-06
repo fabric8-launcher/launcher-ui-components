@@ -45,9 +45,11 @@ export class FormComponent implements AfterViewInit {
       if (params['step'] == 'end') {
         return this.validate(this.form).then(_ => {
           this.fromHttp = true;
+          let steps = this.currentGui.state.steps;
           this.currentGui = new Gui();
-          this.currentGui.stepIndex = this.history.length - 1;
+          this.currentGui.stepIndex = steps.length;
           this.currentGui.inputs = [];
+          this.currentGui.state.steps = steps;
           this.currentGui.results =
             [
               new Result("Your project is downloading..."),
