@@ -3,11 +3,11 @@
 
 REGISTRY_URI="registry.devshift.net"
 REGISTRY_NS="obsidian"
-REGISTRY_IMAGE="obsidian-frontend:latest"
+REGISTRY_IMAGE="obsidian-generator-frontend:latest"
 REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
-BUILDER_IMAGE="obsidian-frontend-builder"
-BUILDER_CONT="obsidian-frontend-builder-container"
-DEPLOY_IMAGE="obsidian-frontend-deploy"
+BUILDER_IMAGE="obsidian-generator-frontend-builder"
+BUILDER_CONT="obsidian-generator-frontend-builder-container"
+DEPLOY_IMAGE="obsidian-generator-frontend-deploy"
 
 TARGET_DIR="dist"
 
