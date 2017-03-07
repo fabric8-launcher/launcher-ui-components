@@ -79,7 +79,7 @@ export class FormComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.form.valueChanges.debounceTime(1000).distinctUntilChanged()
+    this.form.valueChanges.debounceTime(300).distinctUntilChanged()
       .subscribe(data => {
         if (!this.fromHttp) {
           this.validate(this.form);
