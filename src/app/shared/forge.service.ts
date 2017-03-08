@@ -48,7 +48,7 @@ export class ForgeService {
   executeCommand(command: string, history: Gui[], stepIndex: number) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
-    form.setAttribute("action", this.apiUrl + '/commands/' + command + '/execute');
+    form.setAttribute("action", this.apiUrl + '/commands/' + command + '/zip');
 
     form.appendChild(this.createFormInput("stepIndex", String(stepIndex)));
 
