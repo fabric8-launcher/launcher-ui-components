@@ -123,11 +123,16 @@ export class FormComponent implements AfterViewInit {
   }
 
   next() {
-    this.router.navigate(["../" + ++this.currentGui.stepIndex], { relativeTo: this.route });
+    this.gotoStep(++this.currentGui.stepIndex);
+  }
+
+  gotoStep(step: number) {
+    this.currentGui.stepIndex = step;
+    this.router.navigate(["../" + step], { relativeTo: this.route });
   }
 
   previous() {
-    this.router.navigate(["../" + --this.currentGui.stepIndex], { relativeTo: this.route });
+    this.gotoStep(--this.currentGui.stepIndex);
   }
 
   restart() {

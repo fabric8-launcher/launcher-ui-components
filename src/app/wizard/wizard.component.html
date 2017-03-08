@@ -10,7 +10,7 @@
 <div class="wizard-pf-steps" *ngIf="currentGui.state.steps">
   <ul class="wizard-pf-steps-indicator">
     <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == i" *ngFor="let step of currentGui.state.steps; let i = index">
-      <a [attr.href]="'wizard/' + command + '/' + i">
+      <a (click)="gotoStep(i)">
         <span class="wizard-pf-step-number">{{i + 1}}</span>
         <span class="wizard-pf-step-title">{{step}}</span>
       </a>
