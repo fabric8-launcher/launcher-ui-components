@@ -45,12 +45,12 @@ export class ForgeService {
       .catch(this.handleError);
   }
 
-  executeCommand(command: string, history: Gui[], stepIndex: number) {
+  executeCommand(command: string, history: Gui[]) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
     form.setAttribute("action", this.apiUrl + '/commands/' + command + '/zip');
 
-    form.appendChild(this.createFormInput("stepIndex", String(stepIndex)));
+    form.appendChild(this.createFormInput("stepIndex", String(history.length)));
 
     for (let gui of history) {
       if (gui) {

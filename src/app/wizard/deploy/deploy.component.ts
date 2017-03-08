@@ -34,12 +34,16 @@ export class DeployComponent {
   }
 
   deploy(): void {
-    let index = 0;
     this.forgeService.upload(this.command, this.submittedGuis)
     .then(url => {
       this.consoleUrl = url;
     });
   }
+
+  downloadZip(): void {
+    this.forgeService.executeCommand(this.command, this.submittedGuis);
+  }
+
 
   progress(): number {
     let result = 0;
