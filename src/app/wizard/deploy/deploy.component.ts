@@ -41,7 +41,7 @@ export class DeployComponent {
   }
 
   downloadZip(): void {
-    this.forgeService.executeCommand(this.command, this.submittedGuis);
+    this.forgeService.downloadZip(this.command, this.submittedGuis);
   }
 
 

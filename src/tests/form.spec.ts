@@ -83,7 +83,7 @@ describe('Dynamic form should be created for json that comes from the server', (
     spyOn(forgeServiceStub, 'commandInfo')
       .and.returnValue(Promise.resolve(json));
 
-    spy = spyOn(forgeServiceStub, 'executeCommand').and.returnValue(Promise.resolve({}));
+    spy = spyOn(forgeServiceStub, 'downloadZip').and.returnValue(Promise.resolve({}));
 
     comp = fixture.componentInstance;
   }));
@@ -104,6 +104,6 @@ describe('Dynamic form should be created for json that comes from the server', (
     comp.finish();
 
     tick(2000);
-    expect(forgeServiceStub.executeCommand).toHaveBeenCalledWith('obsidian-new-quickstart', [json], 0)
+    expect(forgeServiceStub.downloadZip).toHaveBeenCalledWith('obsidian-new-quickstart', [json], 0)
   }));
 });

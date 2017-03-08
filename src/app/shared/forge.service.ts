@@ -45,7 +45,7 @@ export class ForgeService {
       .catch(this.handleError);
   }
 
-  executeCommand(command: string, history: Gui[]) {
+  downloadZip(command: string, history: Gui[]) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
     form.setAttribute("action", this.apiUrl + '/commands/' + command + '/zip');
