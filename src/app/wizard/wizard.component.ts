@@ -30,7 +30,7 @@ import * as jsonpatch from 'fast-json-patch';
 export class FormComponent implements AfterViewInit {
   @ViewChild('wizard') form: NgForm;
   command: string;
-  fromHttp: boolean;
+  skipValidation: boolean;
   history: Gui[] = [];
   currentGui: Gui = new Gui();
 
@@ -42,22 +42,6 @@ export class FormComponent implements AfterViewInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.command = params['command'];
-      if (params['step'] == 'end') {
-        return this.validate(this.form).then(_ => {
-          this.fromHttp = true;
-          let steps = this.currentGui.state.steps;
-          this.currentGui = new Gui();
-          this.currentGui.stepIndex = steps.length;
-          this.currentGui.inputs = [];
-          this.currentGui.state.steps = steps;
-          this.currentGui.results =
-            [
-              new Result("Your project is downloading..."),
-              new Result("See the project Read Me file for more information.")
-            ];
-        });
-      }
-
       let stepIndex = +params['step'];
       if (this.history[stepIndex]) {
           this.updateGui(this.history[stepIndex], stepIndex);
@@ -81,10 +65,10 @@ export class FormComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.form.valueChanges.debounceTime(300).distinctUntilChanged()
       .subscribe(data => {
-        if (!this.fromHttp) {
+        if (!this.skipValidation) {
           this.validate(this.form);
         }
-        this.fromHttp = false;
+        this.skipValidation = false;
     });
   }
 
@@ -117,7 +101,7 @@ export class FormComponent implements AfterViewInit {
 
   private updateGui(gui: Gui, stepIndex: number) {
     this.history[stepIndex] = gui;
-    this.fromHttp = true;
+    this.skipValidation = true;
     this.currentGui = gui;
     this.currentGui.stepIndex = stepIndex;
   }
@@ -140,8 +124,13 @@ export class FormComponent implements AfterViewInit {
   }
 
   finish() {
-    this.forgeService.executeCommand(this.command, this.history, this.currentGui.stepIndex);
-    this.router.navigate(["../end"], { relativeTo: this.route });
+    let steps = this.currentGui.state.steps;
+    this.history.concat(this.currentGui);
+    this.skipValidation = true;
+    this.currentGui = new Gui();
+    this.currentGui.stepIndex = steps.length;
+    this.currentGui.inputs = [];
+    this.currentGui.results = [];
   }
 
   closeAlert(error: Message) {

@@ -39,6 +39,12 @@ export class ForgeService {
     return this.post(history, gui, '/commands/' + command + '/next');
   }
 
+  upload(command: string, guis: Gui[]): Promise<string> {
+    return this.http.post(this.apiUrl + '/commands/' + command + '/catapult', this.convert(guis, guis.length)).toPromise()
+      .then(response => response.text())
+      .catch(this.handleError);
+  }
+
   executeCommand(command: string, history: Gui[], stepIndex: number) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");

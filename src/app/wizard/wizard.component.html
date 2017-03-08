@@ -24,18 +24,8 @@
   </ul>
 </div>
 <form class="form-horizontal" #wizard="ngForm">
-  <div class="wizard-pf-complete blank-slate-pf" *ngIf="currentGui.results">
-    <div class="wizard-pf-success-icon"><span class="glyphicon glyphicon-ok-circle"></span></div>
-    <h3 class="blank-slate-pf-main-action">Finished</h3>
-    <p class="blank-slate-pf-secondary-action" *ngFor="let result of currentGui.results">
-      {{result.message}}
-    </p>
-    <div class="blank-slate-pf-main-action">
-      <button id="restart" type="button" class="btn btn-lg btn-primary" (click)="restart()">
-          Restart
-      </button>
-    </div>
-  </div>
+  <deploy [submittedGuis]="history" [command]="command" *ngIf="currentGui.results">
+  </deploy>
   <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
     <div class="spinner spinner-lg blank-slate-pf-icon"></div>
     <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
@@ -89,7 +79,7 @@
         <span class="i fa fa-angle-right"></span>
       </button>
       <button id="finish" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canExecute" (click)="finish()">
-        Download ZIP
+        Finish
       </button>
     </div>
   </div>

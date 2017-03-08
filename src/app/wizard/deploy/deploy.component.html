@@ -1,0 +1,35 @@
+  <div class="wizard-pf-complete blank-slate-pf">
+    <div class="wizard-pf-success-icon" *ngIf="progress() == 0"><div class="glyphicon glyphicon-share"></div></div>
+    <div class="wizard-pf-success-icon" *ngIf="progress() > 0 && progress() < 100"><div class="spinner spinner-lg blank-slate-pf-icon"></div></div>
+    <div class="wizard-pf-success-icon" *ngIf="progress() == 100"><span class="glyphicon glyphicon-ok-circle"></span></div>
+    <p class="blank-slate-pf-secondary-action" *ngIf="progress() != 100">
+      Your project is ready, now you can either download it as zipfile and try it locally or launch it on OpenShift.
+    </p>
+    <p class="blank-slate-pf-secondary-action" *ngIf="progress() > 0 && progress() < 100">
+      Working...
+    </p>
+    <p class="blank-slate-pf-secondary-action" *ngIf="consoleUrl">
+      Done, go and view your project on <a href="http://github.com/">github</a> and on <a [href]="consoleUrl">OpenShift</a>
+    </p>
+    <div class="blank-slate-pf-secondary-action">
+      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="restart()">
+          Download as Zip
+      </button>
+      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()">
+        Launch on OpenShift
+      </button>
+    </div>
+</div>
+
+<!--<div class="container" style="max-width: 700px">
+  <div class="progress">
+    <div class="progress-bar" [ngStyle]="{width: + progress() + '%',transition: transition}">
+      {{progress()}}%
+    </div>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let status of statusList">
+      {{status.description}} <span class="pull-right glyphicon glyphicon-ok" style="color: green" *ngIf="status.done"></span>
+    </li>
+  </ul>
+</div>-->
