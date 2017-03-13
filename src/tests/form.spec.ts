@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed, async, fakeAsync, inject } from '@angular/core/testing';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
-import { newEvent, click, advance } from '.';
+import { ComponentFixture, TestBed, async, fakeAsync, inject, discardPeriodicTasks, flushMicrotasks } from '@angular/core/testing';
+import { advance } from '.';
 
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -70,9 +69,41 @@ const typeNumber = {
     }]
 };
 
+const typeSelect = {
+  "inputs": [
+    {
+      "name": "type",
+      "shortName": " ",
+      "valueType": "org.obsidiantoaster.generator.catalog.Quickstart",
+      "inputType": "org.jboss.forge.inputType.DEFAULT",
+      "enabled": true,
+      "required": true,
+      "deprecated": false,
+      "label": "Project type",
+      "description": "Quickstart to expose a REST Greeting endpoint using SpringBoot & Secured by Red Hat SSO",
+      "note": "Quickstart to expose a REST Greeting endpoint using SpringBoot & Secured by Red Hat SSO",
+      "valueChoices": [
+        {
+          "id": "Secured Spring Boot Tomcat - Rest & Red Hat SSO",
+          "description": "Quickstart to expose a REST Greeting endpoint using SpringBoot & Secured by Red Hat SSO",
+          "gitRef": "master",
+          "githubRepo": "obsidian-toaster-quickstarts/secured_rest-springboot",
+          "metadata": {
+            "name": "Secured Spring Boot Tomcat - Rest & Red Hat SSO",
+            "description": "Quickstart to expose a REST Greeting endpoint using SpringBoot & Secured by Red Hat SSO"
+          },
+          "name": "Secured Spring Boot Tomcat - Rest & Red Hat SSO"
+        }
+      ],
+      "class": "UISelectOne",
+      "value": "Secured Spring Boot Tomcat - Rest & Red Hat SSO"
+    }
+  ]
+};
+
 describe('Dynamic form should be created for json that comes from the server', () => {
   let subscribe: Function = null;
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, MultiselectListModule, ProjectSelectModule, HttpModule],
       declarations: [FormComponent, DeployComponent],
@@ -103,39 +134,51 @@ describe('Dynamic form should be created for json that comes from the server', (
     forgeServiceStub = fixture.debugElement.injector.get(ForgeService);
 
     comp = fixture.componentInstance;
+  });
 
+  it("should create a input type text for specified json", fakeAsync(() => {
+    setupUI(typeText);
+
+    expect(comp.currentGui == null).toBe(false);
+    expect(comp.currentGui.inputs == null).toBe(false);
+    expect(comp.currentGui.inputs.length).toBe(1);
+
+    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    expect(input.getAttribute('type')).toBe('text');
+
+    expect(forgeServiceStub.commandInfo).toHaveBeenCalledWith('obsidian-new-quickstart');
+
+    cleanTimers();
   }));
 
-  it("should create a input type text for specified json", (done: DoneFn) => {
-    fakeAsync(() => {
-      baseJson.inputs = typeText.inputs;
-      spyOn(forgeServiceStub, 'commandInfo').and.returnValue(Promise.resolve(baseJson));
+  it("should create a type number for specified json", fakeAsync(() => {
+    setupUI(typeNumber);
 
-      fixture.detectChanges();
-      advance(fixture);
-      expect(comp.currentGui == null).toBe(false);
-      expect(comp.currentGui.inputs == null).toBe(false);
-      expect(comp.currentGui.inputs.length).toBe(1);
+    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    expect(input.getAttribute('type')).toBe('number');
 
-      const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-      expect(input.getAttribute('type')).toBe('text');
+    cleanTimers();
+  }));
 
-      expect(forgeServiceStub.commandInfo).toHaveBeenCalledWith('obsidian-new-quickstart');
-    });
-    done();
-  });
+  it("should create a type select for specified json", fakeAsync(() => {
+    setupUI(typeSelect);
 
-  it("should create a type number for specified json", (done: DoneFn) => {
-    fakeAsync(() => {
-      baseJson.inputs = typeNumber.inputs;
-      spyOn(forgeServiceStub, 'commandInfo').and.returnValue(Promise.resolve(baseJson));
+    const select = fixture.debugElement.query(By.css('select')).nativeElement as HTMLInputElement;
+    expect(select == null).toBe(false);
+    expect(select.childElementCount).toBe(1);
 
-      fixture.detectChanges();
-      advance(fixture);
+    cleanTimers();
+  }));
 
-      const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-      expect(input.getAttribute('type')).toBe('number');
-    });
-    done();
-  });
+  function setupUI(obj: any) {
+    let json = Object.assign(baseJson, obj);
+    spyOn(forgeServiceStub, 'commandInfo').and.returnValue(Promise.resolve(json));
+    fixture.detectChanges();
+    advance(fixture);
+  }
+
+  function cleanTimers() {
+    flushMicrotasks();
+    discardPeriodicTasks();
+  }
 });
