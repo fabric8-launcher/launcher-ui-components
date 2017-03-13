@@ -65,7 +65,7 @@
     "zone.js": "^0.6.26"
   },
   "devDependencies": {
-    "@types/core-js": "^0.9.34",
+    "@types/core-js": "0.9.34",
     "@types/fast-json-patch": "^1.0.4",
     "@types/jasmine": "^2.5.35",
     "@types/node": "^6.0.45",
