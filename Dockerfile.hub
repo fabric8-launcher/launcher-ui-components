@@ -1,4 +1,0 @@
-FROM sebp/lighttpd
-MAINTAINER Tako Schotanus<tschotan@redhat.com>
-
-ADD dist/ /var/www/localhost/htdocs
