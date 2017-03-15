@@ -1,0 +1,11 @@
+FROM node
+MAINTAINER Tako Schotanus<tschotan@redhat.com>
+
+RUN git clone https://github.com/obsidian-toaster/generator-frontend && \
+    cd generator-frontend && \
+    npm install
+
+WORKDIR generator-frontend
+
+CMD ["npm", "start"]
+
