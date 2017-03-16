@@ -53,7 +53,7 @@ objects:
           service: generator-frontend
       spec:
         containers:
-        - image: registry.devshift.net/obsidian/obsidian-generator-frontend:latest
+        - image: redhatdevelopers/generator-frontend:latest
           imagePullPolicy: Always
           name: generator-frontend
           ports:
