@@ -1,5 +1,5 @@
 {
   "realm": "fabric8",
   "url": "http://sso.prod-preview.openshift.io/auth/",
-  "clientId": "redhat-che"
+  "clientId": "openshiftio-public"
 }
