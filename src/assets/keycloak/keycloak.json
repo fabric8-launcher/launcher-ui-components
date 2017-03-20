@@ -1,5 +1,5 @@
 {
-  "realm": "demo",
-  "url": "http://localhost:8080/auth",
-  "clientId": "demo"
+  "realm": "fabric8",
+  "url": "http://sso.prod-preview.openshift.io/auth/",
+  "clientId": "redhat-che"
 }
