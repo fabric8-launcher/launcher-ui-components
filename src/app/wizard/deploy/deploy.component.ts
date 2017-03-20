@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Gui } from '../../shared/model';
 import { ForgeService } from "../../shared/forge.service";
+import {KeycloakService} from "../../shared/keycloak.service";
 
 @Component({
   selector: 'deploy',
@@ -17,26 +17,16 @@ export class DeployComponent {
     new Status("Create github repo"),
     new Status("Pushing the generated code"),
     new Status("Creating openshift project")
-  ]
+  ];
 
-  constructor(private router: Router,
-    private forgeService: ForgeService) {
-  }
-
-  mockDeploy(): void {
-    let index = 0;
-    let interval = setInterval(_ => {
-      this.statusList[index++].done = true;
-      if (index == this.statusList.length) {
-        clearInterval(interval);
-      }
-    }, 2000);
+  constructor(private forgeService: ForgeService,
+              private kc: KeycloakService) {
   }
 
   deploy(): void {
     this.forgeService.upload(this.command, this.submittedGuis)
     .then(url => {
-      this.consoleUrl = url;
+      window.location.href = url;
     });
   }
 
@@ -44,6 +34,13 @@ export class DeployComponent {
     this.forgeService.downloadZip(this.command, this.submittedGuis);
   }
 
+  login() {
+    this.kc.login();
+  }
+
+  isAuthenticated():boolean {
+    return this.kc.isAuthenticated();
+  }
 
   progress(): number {
     let result = 0;
@@ -57,8 +54,8 @@ export class DeployComponent {
 }
 
 export class Status {
-  description: string
-  done: boolean
+  description: string;
+  done: boolean;
   constructor(description: string) {
     this.description = description;
   }

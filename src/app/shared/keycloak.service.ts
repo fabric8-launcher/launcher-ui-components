@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from "@angular/http";
 
-var config = require('../../assets/keycloak/keycloak.json');
-var Keycloak = require('../../assets/keycloak/keycloak.js');
+const config = require('../../assets/keycloak/keycloak.json');
+let Keycloak = require('../../assets/keycloak/keycloak.js');
 
 @Injectable()
 export class KeycloakService {
