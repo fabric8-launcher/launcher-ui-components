@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-
+GENERATOR_DOCKER_HUB_USERNAME=rhtobsidianadmin
 REGISTRY_URI="registry.devshift.net"
 REGISTRY_NS="obsidian"
 REGISTRY_IMAGE="obsidian-generator-frontend:latest"
@@ -11,9 +11,6 @@ BUILDER_CONT="obsidian-generator-frontend-builder-container"
 DEPLOY_IMAGE="obsidian-generator-frontend-deploy"
 
 TARGET_DIR="dist"
-
-# Show command before executing
-set -x
 
 # Exit on error
 set -e
