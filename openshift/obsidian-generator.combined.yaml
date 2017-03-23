@@ -1,0 +1,366 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: obsidian-toaster
+  annotations:
+    openshift.io/display-name: "Obsidian Toaster (Frontend + Backend + Catapult)"
+    description: This application consists of the combination of Catapult and Generator Backend and Frontend
+    tags: instant-app,obsidian
+    iconClass: icon-shadowman
+    template.openshift.io/long-description: This application consists of the combination of Catapult and Generator Backend and Frontend
+    template.openshift.io/provider-display-name: Red Hat, Inc.
+    template.openshift.io/documentation-url: https://github.com/obsidian-toaster
+    template.openshift.io/support-url: https://access.redhat.com
+message: "The following service(s) have been created in your project: ${NAME}-catapult, ${NAME}-backend, ${NAME}-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/obsidian-toaster"
+labels:
+  template: obsidian-toaster
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: ${NAME}-catapult
+    name: ${NAME}-catapult
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: ${NAME}-catapult
+      deploymentconfig: ${NAME}-catapult
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: ${NAME}-catapult
+    name: ${NAME}-catapult
+  spec:
+    dockerImageRepository: redhatdevelopers/catapult
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: ${NAME}-catapult
+    name: ${NAME}-catapult
+  spec:
+    replicas: 1
+    selector:
+      app: ${NAME}-catapult
+      deploymentconfig: ${NAME}-catapult
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: ${NAME}-catapult
+          deploymentconfig: ${NAME}-catapult
+      spec:
+        containers:
+        - env:
+          - name: CATAPULT_OPENSHIFT_API_URL
+            value: https://openshift.default.svc.cluster.local
+          - name: CATAPULT_OPENSHIFT_CONSOLE_URL
+            value: ${CATAPULT_OPENSHIFT_CONSOLE_URL}
+          - name: CATAPULT_GITHUB_APP_CLIENT_ID
+            value: ${CATAPULT_GITHUB_APP_CLIENT_ID}
+          - name: CATAPULT_GITHUB_APP_CLIENT_SECRET
+            value: ${CATAPULT_GITHUB_APP_CLIENT_SECRET}
+          - name: CATAPULT_KEYCLOAK_URL
+            value: ${CATAPULT_KEYCLOAK_URL}
+          - name: CATAPULT_KEYCLOAK_REALM
+            value: ${CATAPULT_KEYCLOAK_REALM}
+          image: ""
+          imagePullPolicy: Always
+          name: ${NAME}-catapult
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          readinessProbe:
+            httpGet:
+              path: /api/health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /api/health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${NAME}-catapult
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}-catapult:latest
+      type: ImageChange
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    labels:
+      app: ${NAME}-catapult
+    name: ${NAME}-catapult
+  spec:
+    host: ${APPLICATION_DOMAIN}
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: ${NAME}-catapult
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      service: ${NAME}-backend
+    name: ${NAME}-backend
+  spec:
+    ports:
+    - name: "8080"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      service: ${NAME}-backend
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}-backend
+    generation: 1
+  spec:
+    replicas: 1
+    selector:
+      service: ${NAME}-backend
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          service: ${NAME}-backend
+      spec:
+        containers:
+        - image: redhatdevelopers/generator-backend:latest
+          imagePullPolicy: Always
+          name: ${NAME}-backend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+          - name: CATAPULT_URL
+            value: http://${NAME}-catapult:8080
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: ${NAME}-backend
+    creationTimestamp: null
+  spec:
+    to:
+      kind: Service
+      name: ${NAME}-backend
+      weight: 100
+    wildcardPolicy: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      service: ${NAME}-frontend
+    name: ${NAME}-frontend
+    annotations:
+      service.alpha.openshift.io/dependencies: "[{\"name\":\"${NAME}-backend\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"${NAME}-catapult\",\"namespace\":\"\",\"kind\":\"Service\"}]"
+  spec:
+    ports:
+    - name: "8080"
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      service: ${NAME}-frontend
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}-frontend
+    generation: 1
+  spec:
+    replicas: 1
+    selector:
+      service: ${NAME}-frontend
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          service: ${NAME}-frontend
+      spec:
+        containers:
+        - image: redhatdevelopers/generator-frontend:latest
+          imagePullPolicy: Always
+          name: ${NAME}-frontend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+          - name: BACKEND_URL
+            value: ${BACKEND_URL}
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          readinessProbe:
+            httpGet:
+              path: /wizard
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /wizard
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+        restartPolicy: Always
+        dnsPolicy: ClusterFirst
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}-frontend
+  spec:
+    to:
+      kind: Service
+      name: ${NAME}-frontend
+      weight: 100
+    wildcardPolicy: None
+parameters:
+- description: The name assigned to all of the frontend objects defined in this template
+  displayName: Name
+  name: NAME
+  required: true
+  value: obsidian
+- description: The exposed hostname that will route to the Catapult service, if left
+    blank a value will be defaulted.
+  displayName: Application Hostname
+  name: APPLICATION_DOMAIN
+- description: The Client ID of the GitHub OAuth Application you've registered
+  displayName: GitHub OAuth Developer Application Client ID
+  name: CATAPULT_GITHUB_APP_CLIENT_ID
+  required: true
+- description: The Client Secret of the GitHub OAuth Application you've registered
+  displayName: GitHub OAuth Developer Application Client Secret
+  name: CATAPULT_GITHUB_APP_CLIENT_SECRET
+  required: true
+- description: The base URL of the OpenShift Console (ie. https://hostname:port or
+    https://ipaddress:port)
+  displayName: OpenShift Console URL
+  name: CATAPULT_OPENSHIFT_CONSOLE_URL
+  required: true
+  value: https://10.1.2.2:8443
+- description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
+  displayName: KeyCloak URL
+  name: CATAPULT_KEYCLOAK_URL
+  value: http://sso.prod-preview.openshift.io
+- description: The keycloak realm to be used
+  displayName: KeyCloak Realm
+  name: CATAPULT_KEYCLOAK_REALM
+  value: fabric8
+- name: BACKEND_URL
+  description: Route to Obsidian Generator Backend
+
