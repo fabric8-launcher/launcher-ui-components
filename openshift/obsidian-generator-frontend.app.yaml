@@ -61,10 +61,7 @@ objects:
             protocol: TCP
           env:
           - name: BACKEND_URL
-            valueFrom:
-              configMapKeyRef:
-                name: frontend-config
-                key: backend.uri
+            value: ${BACKEND_URL}
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
@@ -104,13 +101,7 @@ objects:
       name: generator-frontend
       weight: 100
     wildcardPolicy: None
-- apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: frontend-config
-    creationTimestamp: null
-  data:
-    backend.uri: ${BACKEND_URL}
 parameters:
 - name: BACKEND_URL
   description: Route to Obsidian Generator Backend
+
