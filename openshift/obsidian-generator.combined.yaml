@@ -137,9 +137,6 @@ objects:
       app: catapult
     name: catapult
   spec:
-    host: ${APPLICATION_DOMAIN}
-    port:
-      targetPort: 8080-tcp
     to:
       kind: Service
       name: catapult
@@ -331,10 +328,6 @@ objects:
       weight: 100
     wildcardPolicy: None
 parameters:
-- description: The exposed hostname that will route to the Catapult service, if left
-    blank a value will be defaulted.
-  displayName: Application Hostname
-  name: APPLICATION_DOMAIN
 - description: Your GitHub username
   displayName: Your GitHub username
   name: CATAPULT_GITHUB_USERNAME
