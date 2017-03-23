@@ -353,12 +353,12 @@ parameters:
   displayName: OpenShift user name
   name: CATAPULT_OPENSHIFT_USERNAME
   required: true
-  value: admin
+  value: developer
 - description: OpenShift password
   displayName: OpenShift password
   name: CATAPULT_OPENSHIFT_PASSWORD
   required: true
-  value: admin
+  value: developer
 - description: The URL (without the /auth part) of a Keycloak installation to perform SSO authentication
   displayName: KeyCloak URL
   name: CATAPULT_KEYCLOAK_URL
