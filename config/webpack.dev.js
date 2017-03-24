@@ -8,13 +8,15 @@ const ENV = process.env.ENV || process.env.NODE_ENV || 'development';
 // if env is 'inmemory', the inmemory debug resource is used
 const API_URL = process.env.API_URL || (ENV==='inmemory'?'app/':'http://localhost:8080/api/');
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8080/';
+const KEYCLOAK_SKIP = (process.env.KEYCLOAK_SKIP || 'true') !== 'false';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
   API_URL: API_URL,
   ENV: ENV,
   PUBLIC_PATH: PUBLIC_PATH,
-  BACKEND_URL: BACKEND_URL
+  BACKEND_URL: BACKEND_URL,
+  KEYCLOAK_SKIP: KEYCLOAK_SKIP
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -46,6 +48,7 @@ module.exports = webpackMerge(commonConfig, {
         'ENV': JSON.stringify(METADATA.ENV),
         'API_URL' : JSON.stringify(METADATA.API_URL),
         'BACKEND_URL' : JSON.stringify(METADATA.BACKEND_URL),
+        'KEYCLOAK_SKIP' : JSON.stringify(METADATA.KEYCLOAK_SKIP),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH)
       }
     })

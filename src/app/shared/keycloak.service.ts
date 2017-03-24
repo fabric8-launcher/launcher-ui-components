@@ -5,6 +5,7 @@ let Keycloak = require('../../assets/keycloak/keycloak.js');
 
 @Injectable()
 export class KeycloakService {
+  private skip: boolean = process.env.KEYCLOAK_SKIP;
   static auth: any = {};
 
   static init(): Promise<any> {
@@ -39,6 +40,9 @@ export class KeycloakService {
   }
 
   isAuthenticated(): boolean {
+    if (this.skip) {
+      return true;
+    }
     return KeycloakService.auth.authz.tokenParsed;
   }
 
@@ -54,7 +58,7 @@ export class KeycloakService {
             reject('Failed to refresh token');
           });
       } else {
-        resolve();
+        resolve(this.skip ? "dummy": "");
       }
     });
   }
