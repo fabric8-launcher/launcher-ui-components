@@ -7,15 +7,13 @@ var helpers = require('./helpers');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const API_URL = process.env.API_URL || 'http://api.almighty.io/api/';
 const BACKEND_URL = process.env.BACKEND_URL;
-const KEYCLOAK_SKIP = process.env.KEYCLOAK_SKIP !== 'false';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
   API_URL: API_URL,
   ENV: ENV,
   PUBLIC_PATH: PUBLIC_PATH,
-  BACKEND_URL: BACKEND_URL,
-  KEYCLOAK_SKIP: KEYCLOAK_SKIP
+  BACKEND_URL: BACKEND_URL
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -44,7 +42,6 @@ module.exports = webpackMerge(commonConfig, {
         'ENV': JSON.stringify(METADATA.ENV),
         'API_URL' : JSON.stringify(METADATA.API_URL),
         'BACKEND_URL' : JSON.stringify(METADATA.BACKEND_URL),
-        'KEYCLOAK_SKIP' : JSON.stringify(METADATA.KEYCLOAK_SKIP),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH)
       }
     })

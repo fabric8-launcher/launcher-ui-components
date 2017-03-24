@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Config } from "./config.component";
 
 const config = require('../../assets/keycloak/keycloak.json');
 let Keycloak = require('../../assets/keycloak/keycloak.js');
 
 @Injectable()
 export class KeycloakService {
-  private skip: boolean = process.env.KEYCLOAK_SKIP;
+  private skip: boolean;
   static auth: any = {};
+
+  constructor() {
+    this.skip = config.keycloakSkip;
+  }
 
   static init(): Promise<any> {
     const keycloakAuth: any = Keycloak(config);
