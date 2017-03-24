@@ -288,6 +288,8 @@ objects:
           env:
           - name: BACKEND_URL
             value: ${BACKEND_URL}
+          - name: KEYCLOAK_SKIP
+            value: "true"
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
