@@ -7,7 +7,7 @@ if [ -n "${BACKEND_URL}" ]; then
     sed -i.bckp 's#"backend_url": ".*"#"backend_url": "'${BACKEND_URL}'"#' ${SETTINGS}
 fi
 
-if [ -n "${KEYCLOAK_SKIP}"]; then
+if [ -n "${KEYCLOAK_SKIP}" ]; then
     sed -i.bckp 's/keycloakSkip:!./keycloakSkip:'${KEYCLOAK_SKIP}'/g' ${APP_JS}
 fi
 
