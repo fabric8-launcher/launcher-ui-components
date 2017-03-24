@@ -336,8 +336,10 @@ parameters:
   displayName: Your GitHub Catapult access token
   name: CATAPULT_GITHUB_TOKEN
   required: true
-- description: The base URL of the OpenShift Console (ie. https://hostname:port or
-    https://ipaddress:port)
+- description: The base URL of the MiniShift Console you are running this on
+    ie. https://hostname:port or https://ipaddress:port). Look at this page's
+    address bar of your browser or run "minishift console --url" to determine
+    the URL if you don't know it.
   displayName: OpenShift Console URL
   name: CATAPULT_OPENSHIFT_CONSOLE_URL
   required: true
@@ -360,6 +362,12 @@ parameters:
   displayName: KeyCloak Realm
   name: CATAPULT_KEYCLOAK_REALM
   value: fabric8
-- name: BACKEND_URL
-  description: Route to Obsidian Generator Backend
+- description: The URL where the Generator Backend can be reached. You have to deduce
+    this yourself by taking the default value displayed in this field and replacing
+    PROJECTNAME with the actual name of the project you are adding this template to
+    and also replacing the IP number with the actual IP number of the MiniShift instance
+    your are running this on.
+  displayName: Obsidian Generator Backend URL
+  name: BACKEND_URL
+  value: http://generator-backend-PROJECTNAME.11.22.33.44.nip.io
 
