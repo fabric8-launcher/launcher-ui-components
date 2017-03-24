@@ -371,5 +371,5 @@ parameters:
     your are running this on.
   displayName: Obsidian Generator Backend URL
   name: BACKEND_URL
-  value: http://generator-backend-PROJECTNAME.11.22.33.44.nip.io
+  value: http://generator-backend-PROJECTNAME.192.168.99.100.nip.io
 
