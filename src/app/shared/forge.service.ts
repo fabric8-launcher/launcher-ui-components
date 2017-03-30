@@ -16,7 +16,7 @@ export class ForgeService {
     if (this.apiUrl && this.apiUrl[this.apiUrl.length - 1] != '/') {
       this.apiUrl += '/';
     }
-    this.apiUrl += 'forge';
+    this.apiUrl += 'launchpad';
   }
 
   version() : Promise<Version> {
