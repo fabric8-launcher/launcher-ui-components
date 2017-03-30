@@ -1,5 +1,5 @@
 {
-  "name": "obsidian-generator-frontend",
+  "name": "launchpad-frontend",
   "version": "0.0.7",
   "dependencies": {
     "@angular/common": {

@@ -1,14 +1,14 @@
 #!/usr/bin/bash
 
-GENERATOR_DOCKER_HUB_USERNAME=rhtobsidianadmin
+GENERATOR_DOCKER_HUB_USERNAME=rhtlaunchpadadmin
 REGISTRY_URI="registry.devshift.net"
-REGISTRY_NS="obsidian"
-REGISTRY_IMAGE="obsidian-generator-frontend:latest"
+REGISTRY_NS="launchpad"
+REGISTRY_IMAGE="launchpad-frontend:latest"
 REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
-DOCKER_HUB_URL="redhatdevelopers/generator-frontend"
-BUILDER_IMAGE="obsidian-generator-frontend-builder"
-BUILDER_CONT="obsidian-generator-frontend-builder-container"
-DEPLOY_IMAGE="obsidian-generator-frontend-deploy"
+DOCKER_HUB_URL="redhatdevelopers/frontend"
+BUILDER_IMAGE="launchpad-frontend-builder"
+BUILDER_CONT="launchpad-frontend-builder-container"
+DEPLOY_IMAGE="launchpad-frontend-deploy"
 
 TARGET_DIR="dist"
 

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './intro.component.html'
 })
 export class IntroComponent {
-  projectType: string = "obsidian-new-quickstart";
+  projectType: string = "launchpad-new-quickstart";
   constructor(private router: Router) {}
 
   onSubmit() {

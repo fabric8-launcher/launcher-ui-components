@@ -74,7 +74,7 @@ const typeSelect = {
     {
       "name": "type",
       "shortName": " ",
-      "valueType": "org.obsidiantoaster.generator.catalog.Quickstart",
+      "valueType": "io.openshiftio.generator.catalog.Quickstart",
       "inputType": "org.jboss.forge.inputType.DEFAULT",
       "enabled": true,
       "required": true,
@@ -87,7 +87,7 @@ const typeSelect = {
           "id": "Secured Spring Boot Tomcat - Rest & Red Hat SSO",
           "description": "Quickstart to expose a REST Greeting endpoint using SpringBoot & Secured by Red Hat SSO",
           "gitRef": "master",
-          "githubRepo": "obsidian-toaster-quickstarts/secured_rest-springboot",
+          "githubRepo": "lauchpad-quickstarts/secured_rest-springboot",
           "metadata": {
             "name": "Secured Spring Boot Tomcat - Rest & Red Hat SSO",
             "description": "Quickstart to expose a REST Greeting endpoint using SpringBoot & Secured by Red Hat SSO"
@@ -115,7 +115,7 @@ describe('Dynamic form should be created for json that comes from the server', (
             params: {
               subscribe: ((callback: Function) => {
                 this.subscribe = callback;
-                callback({ command: 'obsidian-new-quickstart', step: '0' });
+                callback({ command: 'lauchpad-new-quickstart', step: '0' });
               })
             }
           }
@@ -123,7 +123,7 @@ describe('Dynamic form should be created for json that comes from the server', (
         {
           provide: Router, useValue: {
             navigate: () => {
-              this.subscribe({ command: 'obsidian-new-quickstart', step: 'end' })
+              this.subscribe({ command: 'lauchpad-new-quickstart', step: 'end' })
             }
           }
         }
@@ -146,7 +146,7 @@ describe('Dynamic form should be created for json that comes from the server', (
     const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
     expect(input.getAttribute('type')).toBe('text');
 
-    expect(forgeServiceStub.commandInfo).toHaveBeenCalledWith('obsidian-new-quickstart');
+    expect(forgeServiceStub.commandInfo).toHaveBeenCalledWith('lauchpad-new-quickstart');
 
     cleanTimers();
   }));

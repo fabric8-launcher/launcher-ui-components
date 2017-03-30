@@ -1,11 +1,11 @@
 {
-  "name": "obsidian-generator-frontend",
+  "name": "launchpad-frontend",
   "version": "0.0.7",
-  "description": "A frontend for a obsidian toaster microservices quick start generator",
+  "description": "A frontend for a launchpad, microservices booster generator",
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/obsidian-toaster"
+    "url": "https://github.com/openshiftio"
   },
   "contributors": [
     {

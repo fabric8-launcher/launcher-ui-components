@@ -10,6 +10,6 @@ import { Logger } from '../shared/logger.service';
 })
 
 export class HeaderComponent {
-  title = 'Obsidian Toaster Generator';
+  title = 'Launchpad Generator';
   loggedIn: Boolean = false;
 }

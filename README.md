@@ -1,4 +1,4 @@
-Obsidian Generator UI
+Launchpad Frontend UI
 =====================
 [![Build Status](https://ci.centos.org/job/devtools-generator-frontend-build-master/badge/icon)](https://ci.centos.org/job/devtools-generator-frontend-build-master)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
@@ -37,5 +37,5 @@ npm run build:prod
 
 The build output will be under `dist` directory.
 
-[1]: https://github.com/obsidian-toaster/generator-frontend/blob/master/src/assets/settings.json
-[2]: https://github.com/obsidian-toaster/generator-backend
+[1]: https://github.com/openshiftio/launchpad-frontend/blob/master/src/assets/settings.json
+[2]: https://github.com/openshiftio/launchpad-backend

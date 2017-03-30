@@ -2,7 +2,7 @@
 
 ## Overview
 
-Obsidian Toaster defines and implements an opinionated approach to creating and running polyglot applications optimized for a common set of services running on OpenShift.
+Launchpad defines and implements an opinionated approach to creating and running polyglot applications optimized for a common set of services running on OpenShift.
 
 ## What's New in Alpha 2
 
@@ -15,7 +15,7 @@ Updates Vert.x to 3.4.0.Beta1.
 **OpenShift Integration**
 Adds OpenShift ConfigMap integration to Spring Boot, Vert.x, and WildFly Swarm.
 
-**Obsidian Toaster Generator**
+**Launchpad**
 Generator adds WildFly Swarm as a project type.
 
 **Adds the following QuickStarts:**
@@ -81,7 +81,7 @@ Generate a custom WildFly Swarm project template by selecting from a list of ava
 
 | Name | Version | Description |
 | --- | --- | --- |
-| Obsidian Toaster | 1.0.0.alpha2 | Code Generator & Wizard Tool to generate a quickstart or custom Spring Boot / Vert.x starter project ready to be built and deployed to OpenShift Online |
+| Launchpad | 1.0.0.alpha2 | Code Generator & Wizard Tool to generate a quickstart or custom Spring Boot / Vert.x starter project ready to be built and deployed to OpenShift Online |
 | Spring Boot | 1.4.1.RELEASE | Spring Boot makes it easy to create stand-alone, production-grade Spring applications that you can "just run". http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/htmlsingle/ |
 | JWS Tomcat 8 | 8.0.36 | Utilized in Spring Boot quickstarts |
 | Fabric8 Spring Cloud | 0.1.4 | Utilized in Spring Boot quickstarts |
