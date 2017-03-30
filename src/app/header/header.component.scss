@@ -1,9 +1,10 @@
-#header_wrapper {
-    background: #def3ff;
-}
-
 img.header-logo {
     height: 30px;
+}
+
+.navbar-text {
+  color: #ddd;
+  font-size: 16px;
 }
 
 @media (max-width: 768px){
