@@ -40,7 +40,7 @@ export class ForgeService {
   }
 
   upload(command: string, guis: Gui[]): Promise<string> {
-    return this.http.post(this.apiUrl + '/commands/' + command + '/catapult', this.convert(guis, guis.length)).toPromise()
+    return this.http.post(this.apiUrl + '/commands/' + command + '/missioncontrol', this.convert(guis, guis.length)).toPromise()
       .then(response => response.text())
       .catch(this.handleError);
   }
