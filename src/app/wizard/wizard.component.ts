@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
@@ -27,7 +27,7 @@ import * as jsonpatch from 'fast-json-patch';
     }
   `]
 })
-export class FormComponent implements AfterViewInit {
+export class FormComponent {
   @ViewChild('wizard') form: NgForm;
   command: string;
   skipValidation: boolean;
@@ -59,16 +59,6 @@ export class FormComponent implements AfterViewInit {
           }).catch(error => this.currentGui.messages.push(new Message(error)));
         }
       }
-    });
-  }
-
-  ngAfterViewInit() {
-    this.form.valueChanges.debounceTime(300).distinctUntilChanged()
-      .subscribe(data => {
-        if (!this.skipValidation) {
-          this.validate(this.form);
-        }
-        this.skipValidation = false;
     });
   }
 
