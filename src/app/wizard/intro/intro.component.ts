@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './intro.component.html'
 })
 export class IntroComponent {
-  projectType: string = "launchpad-new-starter-project";
+  projectType: string = "launchpad-new-project";
   constructor(private router: Router) {}
 
   onSubmit() {
