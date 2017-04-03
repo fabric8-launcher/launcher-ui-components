@@ -40,11 +40,11 @@
       <span *ngSwitchCase="'UIInput'">
         <span [ngSwitch]="input.valueType">
           <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description">
+            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (blur)="validate(form)">
           <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Boolean'" type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description">
+            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (blur)="validate(form)">
           <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Integer'" type="number" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description">
+            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (blur)="validate(form)">
             <div class="errorLabel help-block">
               <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
               <span *ngIf="!messageForInput(input.name)">{{input.label}} is required</span>
@@ -53,8 +53,8 @@
         </span>
       </span>
       <span *ngSwitchCase="'UISelectOne'">
-        <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType == 'org.jboss.forge.addon.projects.ProjectType'"></ob-project-select>
-        <select [attr.id]="input.name" class="form-control" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType != 'org.jboss.forge.addon.projects.ProjectType'" [title]="input.description">
+        <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType == 'org.jboss.forge.addon.projects.ProjectType'" (ngModelChange)="validate(form)"></ob-project-select>
+        <select [attr.id]="input.name" class="form-control" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType != 'org.jboss.forge.addon.projects.ProjectType'" [title]="input.description" (ngModelChange)="validate(form)">
           <option value="{{option.id}}" *ngFor="let option of input.valueChoices">
               {{option.id}}
           </option>
@@ -62,7 +62,7 @@
         <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
       </span>
       <div *ngSwitchCase="'UISelectMany'">
-        <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}"></ob-multiselect-list>
+        <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}" (ngModelChange)="validate(form)"></ob-multiselect-list>
       </div>
     </div>
   </div>
