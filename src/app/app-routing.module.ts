@@ -24,6 +24,10 @@ const routes: Routes = [
       {
         path: ':command/:step',
         component: FormComponent
+      },
+      {
+        path: ':command/:step/:state',
+        component: FormComponent
       }
     ]
   }

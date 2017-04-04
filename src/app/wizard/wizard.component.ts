@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
@@ -27,7 +27,7 @@ import * as jsonpatch from 'fast-json-patch';
     }
   `]
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
   @ViewChild('wizard') form: NgForm;
   command: string;
   validation: Promise<boolean>;
@@ -41,6 +41,7 @@ export class FormComponent {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
+      let state = params['state'];
       this.command = params['command'];
       let stepIndex = +params['step'];
       if (params['step'] == 'end') {
