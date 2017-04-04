@@ -74,11 +74,12 @@
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
-      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
+      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep || isValidating" (click)="next()">
         Next
         <span class="i fa fa-angle-right"></span>
       </button>
-      <button id="finish" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canExecute" (click)="finish()">
+      <div class="spinner spinner-xs spinner-inline" *ngIf="isValidating"></div>
+      <button id="finish" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canExecute || isValidating" (click)="finish()">
         Finish
       </button>
     </div>
