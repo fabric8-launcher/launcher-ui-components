@@ -14,8 +14,6 @@ import { KEYCLOAK_HTTP_PROVIDER } from '../shared/keycloak.http';
 
 import { MultiselectListModule } from '../shared/multiselect-list';
 import { ProjectSelectModule } from '../shared/project-select';
-import { AsciidocRenderer } from "../asciidoc/asciidoc.component";
-import { CompileHtmlService } from "p3x-angular-compile-html";
 
 @NgModule({
   imports: [
@@ -28,14 +26,12 @@ import { CompileHtmlService } from "p3x-angular-compile-html";
     IntroComponent,
     VersionComponent,
     FormComponent,
-    DeployComponent,
-    AsciidocRenderer
+    DeployComponent
   ],
   providers: [
     KeycloakService,
     KEYCLOAK_HTTP_PROVIDER,
     ForgeService,
-    CompileHtmlService,
     Config,
     { provide: APP_INITIALIZER, useFactory: (config: Config) => () => config.load(), deps: [Config], multi: true }
   ]
