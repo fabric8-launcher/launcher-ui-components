@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Gui, StatusMessage, StatusEvent } from '../../shared/model';
+import { History, StatusMessage, StatusEvent } from '../../shared/model';
 import { ForgeService } from "../../shared/forge.service";
 import { KeycloakService } from "../../shared/keycloak.service";
 import { Config } from "../../shared/config.component";
@@ -10,7 +10,7 @@ import { Config } from "../../shared/config.component";
   templateUrl: './deploy.component.html'
 })
 export class DeployComponent {
-  @Input() submittedGuis: Gui[];
+  @Input() submittedGuis: History;
   @Input() command: string;
   progress: boolean;
   done: boolean;

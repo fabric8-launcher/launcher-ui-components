@@ -17,6 +17,56 @@ export class Gui {
     }
 }
 
+export class History {
+    private state: Gui[] = [];
+
+    add(gui: Gui) {
+        this.state.push(gui);
+        gui.stepIndex = this.stepIndex;
+    }
+
+    get(index: number): Gui {
+        return this.state[index];
+    }
+
+    currentGui(): Gui {
+        let gui = this.state[this.stepIndex];
+        return gui || new Gui();
+    }
+
+    back() {
+        this.state.pop();
+    }
+
+    get stepIndex(): number {
+        return Math.max(0, this.state.length - 1);
+    }
+
+    convert(stepIndex = this.stepIndex): Gui {
+        let submittableGui = new Gui();
+        submittableGui.stepIndex = stepIndex;
+        submittableGui.inputs = [];
+        for (let gui of this.state) {
+            let inputs = gui.inputs;
+            if (inputs) {
+                let submittableInputs = this.convertToSubmittable(inputs as Input[]);
+                submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
+            }
+        }
+        return submittableGui;
+    }
+
+    private convertToSubmittable(inputs: Input[]): SubmittableInput[] {
+        let array: SubmittableInput[] = [];
+        if (inputs) {
+            for (let input of inputs) {
+                array.push(new SubmittableInput(input));
+            }
+        }
+        return array;
+    }
+}
+
 export class MetaData {
     category: string;
     name: string;
