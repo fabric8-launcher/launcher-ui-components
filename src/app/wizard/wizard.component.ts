@@ -73,7 +73,7 @@ export class FormComponent {
   }
 
   validate(form: NgForm): Promise<Gui> {
-    if (form.dirty && form.valid) {
+    if (form.valid) {
       this.history.splice(this.currentGui.stepIndex, this.history.length);
       this.isValidating = true;
       return this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
