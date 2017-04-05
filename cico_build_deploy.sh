@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-GENERATOR_DOCKER_HUB_USERNAME=rhtlaunchpadadmin
+GENERATOR_DOCKER_HUB_USERNAME=openshiftioadmin
 REGISTRY_URI="registry.devshift.net"
 REGISTRY_NS="launchpad"
 REGISTRY_IMAGE="launchpad-frontend:latest"
