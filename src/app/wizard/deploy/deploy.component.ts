@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 
 import { Gui } from '../../shared/model';
 import { ForgeService } from "../../shared/forge.service";
-import {KeycloakService} from "../../shared/keycloak.service";
+import { KeycloakService } from "../../shared/keycloak.service";
+import { Config } from "../../shared/config.component";
 
 @Component({
   selector: 'deploy',
@@ -11,7 +12,10 @@ import {KeycloakService} from "../../shared/keycloak.service";
 export class DeployComponent {
   @Input() submittedGuis: Gui[];
   @Input() command: string;
-  consoleUrl: string;
+
+  private apiUrl: string = process.env.LAUNCHPAD_MISSION_CONTROL_URL;
+  private webSocket: WebSocket;
+
   statusList: Status[] = [
     new Status("Generating source"),
     new Status("Create github repo"),
@@ -20,14 +24,22 @@ export class DeployComponent {
   ];
 
   constructor(private forgeService: ForgeService,
-              private kc: KeycloakService) {
+    private kc: KeycloakService,
+    private config: Config) {
+      if (!this.apiUrl) {
+        this.apiUrl = config.get('mission_control_url');
+      }
   }
 
   deploy(): void {
     this.forgeService.upload(this.command, this.submittedGuis)
-    .then(url => {
-      window.location.href = url;
-    });
+      .then(status => {
+        console.log(status);
+        this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
+        this.webSocket.onmessage = (event: MessageEvent) => {
+          console.log(event.data);
+        };
+      });
   }
 
   downloadZip(): void {
@@ -38,7 +50,7 @@ export class DeployComponent {
     this.kc.login();
   }
 
-  isAuthenticated():boolean {
+  isAuthenticated(): boolean {
     return this.kc.isAuthenticated();
   }
 

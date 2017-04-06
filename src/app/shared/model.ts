@@ -75,6 +75,11 @@ export class Result {
     }
 }
 
+export class StatusResult {
+    uuid: string;
+    uuid_link: string;
+}
+
 export class Message {
     constructor(desciption: string) {
         this.description = desciption;

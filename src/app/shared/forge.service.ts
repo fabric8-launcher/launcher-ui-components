@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http, Request, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
-import { Gui, DownloadFile, SubmittableInput, Input, Version } from './model';
+import { Gui, DownloadFile, SubmittableInput, Input, Version, StatusResult } from './model';
 import { Config } from './config.component'
 
 @Injectable()
@@ -39,9 +39,9 @@ export class ForgeService {
     return this.post(history, gui, '/commands/' + command + '/next');
   }
 
-  upload(command: string, guis: Gui[]): Promise<string> {
+  upload(command: string, guis: Gui[]): Promise<StatusResult> {
     return this.http.post(this.apiUrl + '/commands/' + command + '/missioncontrol', this.convert(guis, guis.length)).toPromise()
-      .then(response => response.text())
+      .then(response => response.json() as StatusResult)
       .catch(this.handleError);
   }
 
