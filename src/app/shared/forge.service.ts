@@ -6,7 +6,7 @@ import { Config } from './config.component'
 
 @Injectable()
 export class ForgeService {
-  private apiUrl: string = process.env.BACKEND_URL;
+  private apiUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
 
   constructor(private http: Http, private config: Config) {
     if (!this.apiUrl) {
