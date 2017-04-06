@@ -11,4 +11,8 @@ if [ -n "${KEYCLOAK_SKIP}" ]; then
     sed -i.bckp 's/keycloakSkip:!./keycloakSkip:'${KEYCLOAK_SKIP}'/g' ${APP_JS}
 fi
 
+if [ -n "${KEYCLOAK_URL}" ]; then
+    sed -i.bckp 's#realm:.*,clientId#realm:"'${KEYCLOAK_REALM}'",url:"'${KEYCLOAK_URL}'",clientId#' ${APP_JS}
+fi
+
 exec /run.sh
