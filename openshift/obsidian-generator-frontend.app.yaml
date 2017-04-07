@@ -60,8 +60,8 @@ objects:
           - containerPort: 8080
             protocol: TCP
           env:
-          - name: BACKEND_URL
-            value: ${BACKEND_URL}
+          - name: LAUNCHPAD_BACKEND_URL
+            value: ${LAUNCHPAD_BACKEND_URL}
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
@@ -102,6 +102,6 @@ objects:
       weight: 100
     wildcardPolicy: None
 parameters:
-- name: BACKEND_URL
+- name: LAUNCHPAD_BACKEND_URL
   description: Route to Launchpad Backend
 

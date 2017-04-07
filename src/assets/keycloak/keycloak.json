@@ -1,6 +1,5 @@
 {
-  "realm": "fabric8",
-  "url": "https://sso.prod-preview.openshift.io/auth/",
-  "clientId": "openshiftio-public",
-  "keycloakSkip": false
+  "realm": "",
+  "url": "",
+  "clientId": "openshiftio-public"
 }

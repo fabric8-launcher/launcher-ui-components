@@ -10,28 +10,32 @@ export class KeycloakService {
   static auth: any = {};
 
   constructor() {
-    this.skip = config.keycloakSkip;
+    this.skip = !config.realm;
   }
 
   static init(): Promise<any> {
     const keycloakAuth: any = Keycloak(config);
 
     KeycloakService.auth.loggedIn = false;
-
-    return new Promise((resolve, reject) => {
-      keycloakAuth.init({ onLoad: 'check-sso' })
-        .success(() => {
-          KeycloakService.auth.loggedIn = true;
-          KeycloakService.auth.authz = keycloakAuth;
-          KeycloakService.auth.logoutUrl = keycloakAuth.authServerUrl
-            + '/realms/' + config.realm + '/protocol/openid-connect/logout?redirect_uri='
-            + document.baseURI;
-          resolve();
-        })
-        .error(() => {
-          reject();
-        });
-    });
+    KeycloakService.auth.authz = {};
+    
+    if (config.realm) {
+      return new Promise((resolve, reject) => {
+        keycloakAuth.init({ onLoad: 'check-sso' })
+          .success(() => {
+            KeycloakService.auth.loggedIn = true;
+            KeycloakService.auth.authz = keycloakAuth;
+            KeycloakService.auth.logoutUrl = keycloakAuth.authServerUrl
+              + '/realms/' + config.realm + '/protocol/openid-connect/logout?redirect_uri='
+              + document.baseURI;
+            resolve();
+          })
+          .error(() => {
+            reject();
+          });
+      });
+    }
+    return Promise.resolve();
   }
 
   logout() {
