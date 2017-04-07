@@ -7,8 +7,8 @@ var helpers = require('./helpers');
 const ENV = process.env.ENV || process.env.NODE_ENV || 'development';
 // if env is 'inmemory', the inmemory debug resource is used
 const API_URL = process.env.API_URL || (ENV==='inmemory'?'app/':'http://localhost:8080/api/');
-const LAUNCHPAD_BACKEND_URL = process.env.LAUNCHPAD_BACKEND_URL || 'http://localhost:8080/';
-const LAUNCHPAD_MISSION_CONTROL_URL = process.env.LAUNCHPAD_MISSION_CONTROL_URL || 'http://localhost:8180/';
+const LAUNCHPAD_BACKEND_URL = process.env.LAUNCHPAD_BACKEND_URL || 'http://localhost:8180/';
+const LAUNCHPAD_MISSION_CONTROL_URL = process.env.LAUNCHPAD_MISSION_CONTROL_URL || 'ws://localhost:8080';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
