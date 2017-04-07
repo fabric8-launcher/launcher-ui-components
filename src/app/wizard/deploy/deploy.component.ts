@@ -15,7 +15,7 @@ export class DeployComponent {
   progress: boolean;
   statusMessages: StatusMessage[];
 
-  private apiUrl: string = process.env.LAUNCHPAD_MISSION_CONTROL_URL;
+  private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private webSocket: WebSocket;
 
   constructor(private forgeService: ForgeService,
