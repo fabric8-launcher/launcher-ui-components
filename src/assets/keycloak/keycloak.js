@@ -480,9 +480,9 @@
 
         function getRealmUrl() {
             if (kc.authServerUrl.charAt(kc.authServerUrl.length - 1) == '/') {
-                return kc.authServerUrl + 'auth/realms/' + encodeURIComponent(kc.realm);
+                return kc.authServerUrl + 'realms/' + encodeURIComponent(kc.realm);
             } else {
-                return kc.authServerUrl + '/auth/realms/' + encodeURIComponent(kc.realm);
+                return kc.authServerUrl + '/realms/' + encodeURIComponent(kc.realm);
             }
         }
 
