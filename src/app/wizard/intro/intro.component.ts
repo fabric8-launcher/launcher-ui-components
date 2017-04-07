@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'intro',
-  templateUrl: './intro.component.html'
+  templateUrl: './intro.component.html',
+  styleUrls: ['./intro.component.scss'],
 })
 export class IntroComponent {
   projectType: string = "launchpad-new-project";
