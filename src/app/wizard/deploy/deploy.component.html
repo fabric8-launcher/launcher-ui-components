@@ -18,8 +18,8 @@
       <button id="restart" type="button" class="btn btn-lg btn-default" (click)="downloadZip()">
           Download as Zip
       </button>
-      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="!isAuthenticated()">
-        Launch on OpenShift
+      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="deployStarted || !isAuthenticated()">
+        {{deployStarted ? 'Loading':'Launch on OpenShift'}}
       </button>
     </div>
 </div>

@@ -12,6 +12,7 @@ export class DeployComponent {
   @Input() submittedGuis: Gui[];
   @Input() command: string;
   consoleUrl: string;
+  deployStarted: boolean;
   statusList: Status[] = [
     new Status("Generating source"),
     new Status("Create github repo"),
@@ -24,6 +25,7 @@ export class DeployComponent {
   }
 
   deploy(): void {
+    this.deployStarted = true;
     this.forgeService.upload(this.command, this.submittedGuis)
     .then(url => {
       window.location.href = url;
