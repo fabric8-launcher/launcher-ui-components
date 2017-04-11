@@ -16,7 +16,7 @@ TARGET_DIR="dist"
 set -e
 
 if [ -z $CICO_LOCAL ]; then
-    [ -f jenkins-env ] && cat jenkins-env | grep -e PASS -e USER > inherit-env
+    [ -f jenkins-env ] && cat jenkins-env | grep -e PASS -e USER -e GIT > inherit-env
     [ -f inherit-env ] && . inherit-env
 
     # We need to disable selinux for now, XXX
@@ -54,6 +54,7 @@ if [ -z $CICO_LOCAL ]; then
     docker push ${REGISTRY_URL}
 
     if [ -n "${GENERATOR_DOCKER_HUB_PASSWORD}" ]; then
+        echo "Will tag with commit ${GIT_COMMIT}"
         docker tag ${DEPLOY_IMAGE} ${DOCKER_HUB_URL}
         docker login -u ${GENERATOR_DOCKER_HUB_USERNAME} -p ${GENERATOR_DOCKER_HUB_PASSWORD} -e noreply@redhat.com
         docker push ${DOCKER_HUB_URL}
