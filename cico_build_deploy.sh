@@ -3,7 +3,7 @@
 GENERATOR_DOCKER_HUB_USERNAME=openshiftioadmin
 REGISTRY_URI="registry.devshift.net"
 REGISTRY_NS="launchpad"
-REGISTRY_IMAGE="launchpad-frontend:latest"
+REGISTRY_IMAGE="launchpad-frontend"
 REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
 DOCKER_HUB_URL="openshiftio/launchpad-frontend"
 BUILDER_IMAGE="launchpad-frontend-builder"
@@ -11,6 +11,19 @@ BUILDER_CONT="launchpad-frontend-builder-container"
 DEPLOY_IMAGE="launchpad-frontend-deploy"
 
 TARGET_DIR="dist"
+
+function tag_push() {
+    TARGET_IMAGE=$1
+    USERNAME=$2
+    PASSWORD=$3
+
+    docker tag ${DEPLOY_IMAGE} ${TARGET_IMAGE}
+    if [ -n "${USERNAME}" ] && [ -n "${PASSWORD}" ]; then
+        docker login -u ${USERNAME} -p ${PASSWORD} -e noreply@redhat.com
+    fi
+    docker push ${TARGET_IMAGE}
+
+}
 
 # Exit on error
 set -e
@@ -50,13 +63,13 @@ docker build -t ${DEPLOY_IMAGE} -f Dockerfile.deploy .
 
 #PUSH
 if [ -z $CICO_LOCAL ]; then
-    docker tag ${DEPLOY_IMAGE} ${REGISTRY_URL}
-    docker push ${REGISTRY_URL}
+    TAG=$(echo $GIT_COMMIT | cut -c1-6)
+    tag_push "${REGISTRY_URL}:${TAG}"
+    tag_push "${REGISTRY_URL}:latest"
+
 
     if [ -n "${GENERATOR_DOCKER_HUB_PASSWORD}" ]; then
-        echo "Will tag with commit ${GIT_COMMIT}"
-        docker tag ${DEPLOY_IMAGE} ${DOCKER_HUB_URL}
-        docker login -u ${GENERATOR_DOCKER_HUB_USERNAME} -p ${GENERATOR_DOCKER_HUB_PASSWORD} -e noreply@redhat.com
-        docker push ${DOCKER_HUB_URL}
+        tag_push "${DOCKER_HUB_URL}:${TAG}" ${GENERATOR_DOCKER_HUB_USERNAME} ${GENERATOR_DOCKER_HUB_PASSWORD}
+        tag_push "${DOCKER_HUB_URL}:latest" ${GENERATOR_DOCKER_HUB_USERNAME} ${GENERATOR_DOCKER_HUB_PASSWORD}
     fi
 fi
