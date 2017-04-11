@@ -15,12 +15,6 @@
         <span class="wizard-pf-step-title">{{step}}</span>
       </a>
     </li>
-    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == currentGui.state.steps.length">
-      <span class="wizard-pf-step-number">
-        {{currentGui.state.steps.length + 1}}
-      </span>
-      <span class="wizard-pf-step-title">Review</span>
-    </li>
   </ul>
 </div>
 <form class="form-horizontal" #wizard="ngForm">

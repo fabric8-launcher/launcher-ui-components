@@ -65,6 +65,10 @@ export class History {
         }
         return array;
     }
+
+    resetTo(index: number) {
+        this.state.splice(index, this.state.length);
+    }
 }
 
 export class MetaData {
