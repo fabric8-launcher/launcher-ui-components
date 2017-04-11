@@ -30,7 +30,7 @@ import * as jsonpatch from 'fast-json-patch';
 export class FormComponent {
   @ViewChild('wizard') form: NgForm;
   command: string;
-  isValidating: boolean;
+  validation: Promise<boolean>;
   history: Gui[] = [];
   currentGui: Gui = new Gui();
 
@@ -72,22 +72,20 @@ export class FormComponent {
     });
   }
 
-  validate(form: NgForm): Promise<Gui> {
+  validate(form: NgForm): Promise<boolean> {
     if (form.valid) {
       this.history.splice(this.currentGui.stepIndex, this.history.length);
-      this.isValidating = true;
-      return this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
+      this.validation = this.forgeService.validate(this.command, this.history, this.currentGui).then(gui =>
       {
         var diff = jsonpatch.compare(this.currentGui, gui);
         var stepIndex = this.currentGui.stepIndex;
         jsonpatch.apply(this.currentGui, diff);
         this.history[stepIndex] = this.currentGui;
         this.currentGui.stepIndex = stepIndex;
-        this.isValidating = false;
-        return this.currentGui;
+        return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
-    return Promise.resolve(this.currentGui);
+    return this.validation;
   }
 
   messageForInput(name: string): Message {
@@ -125,7 +123,17 @@ export class FormComponent {
   }
 
   finish() {
-    this.router.navigate(["../end"], { relativeTo: this.route });
+    let finish = (valid: boolean) => {
+      if (valid) {
+        this.router.navigate(["../end"], { relativeTo: this.route }) 
+      }
+    };
+
+    if (this.validation) {
+      this.validation.then(finish);
+    } else {
+      this.validate(this.form).then(finish);
+    }
   }
 
   closeAlert(error: Message) {
