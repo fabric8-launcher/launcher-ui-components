@@ -13,6 +13,7 @@ export class DeployComponent {
   @Input() submittedGuis: Gui[];
   @Input() command: string;
   progress: boolean;
+  done: boolean;
   statusMessages: StatusMessage[];
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
@@ -47,11 +48,24 @@ export class DeployComponent {
               }
             } else {
               let message = JSON.parse(event.data);
-              for (let status of this.statusMessages) {
-                if (status.messageKey == message.statusMessage) {
-                  status.done = true;
-                  status.data = message.data;
+              if (message.data && message.data.error) {
+                for (let status of this.statusMessages) {
+                  if (!status.done) {
+                    status.data = message.data;
+                    break;
+                  }
                 }
+              } else {
+                for (let status of this.statusMessages) {
+                  if (status.messageKey == message.statusMessage) {
+                    status.done = true;
+                    status.data = message.data;
+                    break;
+                  }
+                }
+
+                this.done = this.statusMessages[this.statusMessages.length - 1].done;
+                if (this.done) this.webSocket.close();
               }
             }
           }.bind(this);
@@ -61,12 +75,10 @@ export class DeployComponent {
     }
   }
 
-  get done(): boolean {
-    if (!this.statusMessages) return false;
-    for (let status of this.statusMessages) {
-      if (!status.done) return false;
-    }
-    return true;
+  retry(): void {
+    this.webSocket.close();
+    this.statusMessages = null;
+    this.deploy();
   }
 
   downloadZip(): void {
