@@ -25,9 +25,6 @@ export class DeployComponent {
       if (!this.apiUrl) {
         this.apiUrl = config.get('mission_control_url');
       }
-      if (this.apiUrl && this.apiUrl[this.apiUrl.length - 1] != '/') {
-        this.apiUrl += '/';
-      }
   }
 
   deploy(): void {
