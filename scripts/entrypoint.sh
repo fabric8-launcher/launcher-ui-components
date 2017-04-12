@@ -7,6 +7,10 @@ if [ -n "${LAUNCHPAD_BACKEND_URL}" ]; then
     sed -i.bckp 's#"backend_url": ".*"#"backend_url": "'${LAUNCHPAD_BACKEND_URL}'"#' ${SETTINGS}
 fi
 
+if [ -n "${LAUNCHPAD_MISSIONCONTROL_URL}" ]; then
+    sed -i.bckp 's#"mission_control_url": ".*"#"mission_control_url": "'${LAUNCHPAD_MISSIONCONTROL_URL}'"#' ${SETTINGS}
+fi
+
 if [ -n "${LAUNCHPAD_KEYCLOAK_URL}" ]; then
     sed -i.bckp 's#realm:.*,clientId#realm:"'${LAUNCHPAD_KEYCLOAK_REALM}'",url:"'${LAUNCHPAD_KEYCLOAK_URL}'",clientId#' ${APP_JS}
 fi
