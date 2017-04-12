@@ -1,3 +1,4 @@
 {
-    "backend_url": "http://launchpad-backend-openshiftio.e8ca.engint.openshiftapps.com/"
+    "backend_url": "http://launchpad-backend-openshiftio.e8ca.engint.openshiftapps.com/",
+    "mission_control_url": "ws://mission-control-openshiftio.e8ca.engint.openshiftapps.com/"
 }

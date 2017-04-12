@@ -1,38 +1,37 @@
   <div class="wizard-pf-complete blank-slate-pf">
-    <div class="wizard-pf-success-icon" *ngIf="progress() == 0"><div class="glyphicon glyphicon-share"></div></div>
-    <div class="wizard-pf-success-icon" *ngIf="progress() > 0 && progress() < 100"><div class="spinner spinner-lg blank-slate-pf-icon"></div></div>
-    <div class="wizard-pf-success-icon" *ngIf="progress() == 100"><span class="glyphicon glyphicon-ok-circle"></span></div>
-    <p class="blank-slate-pf-secondary-action" *ngIf="progress() != 100">
-      Your project is ready, now you can <span *ngIf="isAuthenticated()">either</span> download it as zipfile and try it locally <span *ngIf="isAuthenticated()">or launch it on OpenShift.</span>
+    <div class="wizard-pf-success-icon" *ngIf="!progress"><div class="glyphicon glyphicon-share"></div></div>
+    <div class="wizard-pf-success-icon" *ngIf="progress && !done"><div class="spinner spinner-lg blank-slate-pf-icon"></div></div>
+    <div class="wizard-pf-success-icon" *ngIf="done"><span class="glyphicon glyphicon-ok-circle"></span></div>
+    <p class="blank-slate-pf-secondary-action" *ngIf="!progress">
+      Your project is ready, now you can either download it as zipfile and try it locally or launch it on OpenShift.
     </p>
-    <p class="blank-slate-pf-secondary-action" *ngIf="progress() > 0 && progress() < 100">
+    <p class="blank-slate-pf-secondary-action" *ngIf="progress && !done">
       Working...
     </p>
-    <p class="blank-slate-pf-secondary-action" *ngIf="consoleUrl">
-      Done, go and view your project on <a href="http://github.com/">github</a> and on <a [href]="consoleUrl">OpenShift</a>
-    </p>
-    <p *ngIf="!isAuthenticated()">
-      You are not authenticated with openshift, to try this project on openshift either <button id="login" (click)="login()">Login</button> or create an account.
+    <p class="blank-slate-pf-secondary-action" *ngIf="done">
+      Done, your project is created, build and launched on OpenShift!
     </p>
     <div class="blank-slate-pf-secondary-action">
-      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="downloadZip()">
+      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="downloadZip()" [disabled]="progress">
           Download as Zip
       </button>
-      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="deployStarted || !isAuthenticated()">
-        {{deployStarted ? 'Loading':'Launch on OpenShift'}}
+      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="progress">
+        Launch on OpenShift
       </button>
     </div>
 </div>
 
-<!--<div class="container" style="max-width: 700px">
-  <div class="progress">
-    <div class="progress-bar" [ngStyle]="{width: + progress() + '%',transition: transition}">
-      {{progress()}}%
-    </div>
-  </div>
+<div class="container" style="max-width: 700px">
   <ul class="list-group">
-    <li class="list-group-item" *ngFor="let status of statusList">
-      {{status.description}} <span class="pull-right glyphicon glyphicon-ok" style="color: green" *ngIf="status.done"></span>
+    <li class="list-group-item" *ngFor="let status of statusMessages">
+      <button id="retry" class="pull-left btn btn-lg btn-default" style="margin-left: -65px" (click)="retry()" *ngIf="status.data && status.data.error">
+        <i class="glyphicon glyphicon-repeat" aria-hidden="true"></i>
+      </button>
+      {{status.message}}
+      <span class="pull-right pficon pficon-ok" style="font-size: 2em" *ngIf="status.done"></span>
+      <span class="pull-right pficon pficon-error-circle-o" style="font-size: 2em" *ngIf="status.data && status.data.error"></span>
+      <a [href]="status.data.location" *ngIf="status.data && status.data.location" target="_blank"><br/>See it here!</a>
+      <span *ngIf="status.data && status.data.error"><br/>{{status.data.error}}</span>
     </li>
   </ul>
-</div>-->
+</div>

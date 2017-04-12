@@ -75,6 +75,27 @@ export class Result {
     }
 }
 
+export class StatusResult {
+    uuid_link: string;
+}
+
+export class StatusEvent {
+    messageKey: string;
+    data: Map<string, any>;
+}
+
+export class StatusMessage {
+    messageKey: string;
+    message: string;
+    data: Map<string, any>;
+    done: boolean;
+
+    constructor(messageKey: string, message: string) {
+        this.messageKey = messageKey;
+        this.message = message;
+    }
+}
+
 export class Message {
     constructor(desciption: string) {
         this.description = desciption;
