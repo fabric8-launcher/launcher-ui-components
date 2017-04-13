@@ -80,13 +80,14 @@ export class FormComponent implements OnInit {
 
   validate(form: NgForm): Promise<boolean> {
     if (form.valid) {
-      this.validation = this.guiService.validate(this.history.stepIndex, this.currentGui).then(gui =>
+      this.validation = this.guiService.validate(this.history.stepIndex, this.history).then(gui =>
       {
-        var diff = jsonpatch.compare(this.currentGui, gui);
-        var stepIndex = this.currentGui.stepIndex;
-        jsonpatch.apply(this.currentGui, diff);
-        this.history[stepIndex] = this.currentGui;
-        this.currentGui.stepIndex = stepIndex;
+        //var diff = jsonpatch.compare(this.currentGui, gui);
+        // var stepIndex = this.currentGui.stepIndex;
+        //jsonpatch.apply(this.currentGui, diff);
+        // this.history[stepIndex] = this.currentGui;
+        // this.currentGui.stepIndex = stepIndex;
+        this.currentGui.messages = gui.messages;
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
@@ -113,7 +114,6 @@ export class FormComponent implements OnInit {
   }
 
   previous() {
-    this.history.back();
     this.gotoStep(--this.currentGui.stepIndex);
   }
 

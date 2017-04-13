@@ -34,10 +34,6 @@ export class History {
         return gui || new Gui();
     }
 
-    back() {
-        this.state.pop();
-    }
-
     get stepIndex(): number {
         return Math.max(0, this.state.length - 1);
     }
@@ -67,7 +63,8 @@ export class History {
     }
 
     resetTo(index: number) {
-        this.state.splice(index, this.state.length);
+        this.state.splice(++index, this.state.length);
+        this.currentGui().stepIndex = this.stepIndex;
     }
 }
 

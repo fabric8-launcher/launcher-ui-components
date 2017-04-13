@@ -1,61 +1,48 @@
 
 import { Injectable } from "@angular/core";
-import { Gui, History, Input, Option } from "./model";
+import { Gui, History, Input, Option, SubmittableInput } from "./model";
 import { ForgeService } from "./forge.service";
+
+var readme = require('../../assets/test.adoc');
 
 @Injectable()
 export class GuiService {
-  private guis: Gui[] = [];
-  private steps: string[] = ['Start', 'Minishift', 'Continues Deployment', 'Missions', 'Runtime', 'Review']
+  private command = "launchpad-new-project";
+  private gui: Gui;
+  private missions: SubmittableInput;
+  private steps: string[] = ['Continues Deployment', 'Missions', 'Runtime', 'Review']
 
   constructor(private forgeService: ForgeService) {
-  }
-
-  get Start(): Gui {
-    let gui = this.createGui();
-
-    gui.inputs = [{
-      label: "Local or Hosted", name: "localOrHosted", class: "UISelectOne", valueChoices:
-      [{ id: "Hosted" }, { id: "Local developement" }]
-    } as Input]
-
-    return gui;
-  }
-
-  get Minishift(): Gui {
-    let gui = this.createGui();
-    gui.inputs = [{
-      label: "Minishift or CDK", name: "minishiftOrCDK", class: "UISelectOne", valueChoices:
-        [{ id: "Minishift" }, { id: "CDK" }]
-    } as Input];
-    return gui;
+    forgeService.commandInfo(this.command).then(gui => {
+      this.gui = gui;
+      gui.state.steps = this.steps;
+      for (let index in this.gui.inputs) {
+        let input = this.gui.inputs[index];
+        if (input.name == "mission") {
+          this.missions = input;
+          this.gui.inputs.splice(+index, 1);
+        }
+      }
+    });
   }
 
   get 'Continues Deployment'(): Gui {
     let gui = this.createGui();
     gui.inputs = [{
       label: "Zip or Continues Deployment", name: "zipOrCD", class: "UISelectOne", valueChoices:
-        [{ id: "Continues Deployment" }, { id: "Zip" }]
+        [{ id: "Continues Deployment" }, { id: "Zip" }], value: "Continues Deployment"
     } as Input];
     return gui;
   }
 
   get Missions(): Gui {
     let gui = this.createGui();
-    gui.inputs = [{
-      label: "Select your mission", name: "mission", class: "UISelectOne", valueChoices:
-        [{ id: "configmap" }, { id: "rest-http" }, {id: "health-check"}]
-    } as Input];
+    gui.inputs = [this.missions];
     return gui;
   }
 
   get Runtime(): Gui {
-    let gui = this.createGui();
-    gui.inputs = [{
-      label: "Select your runtime", name: "runtime", valueType: 'org.jboss.forge.addon.projects.ProjectType', class: "UISelectOne", valueChoices:
-        [{ id: "Vert.x" }, { id: "WildFly Swarm" }, {id: "Spring Boot"}]
-    } as Input];
-    return gui;
+    return this.gui;
   }
 
   get Review(): Gui {
@@ -71,19 +58,27 @@ export class GuiService {
     return this[page];
   }
 
-  validate(index: number, gui: Gui): Promise<Gui> {
+  validate(index: number, history: History): Promise<Gui> {
+    const gui = history.currentGui();
     if (true) {
       gui.state.canMoveToNextStep = true;
     }
+
     if (index != 0) {
       gui.state.canMoveToPreviousStep = true;
     }
+
+    if (index == 2) {
+      return this.forgeService.validate(this.command, history)
+    }
+    
     return Promise.resolve(gui);
   }
 
   createGui(): Gui {
     let gui = new Gui();
     gui.state.steps = this.steps;
+    gui.state.canMoveToNextStep = true;
 
     return gui;
   }
