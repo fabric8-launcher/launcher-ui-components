@@ -258,9 +258,9 @@
       }
     },
     "reflect-metadata": {
-      "version": "0.1.8",
+      "version": "0.1.10",
       "from": "reflect-metadata@>=0.1.8 <0.2.0",
-      "resolved": "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.8.tgz"
+      "resolved": "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.10.tgz"
     },
     "rxjs": {
       "version": "5.0.0-beta.12",
