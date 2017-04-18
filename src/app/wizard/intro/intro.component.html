@@ -18,23 +18,9 @@
   <p>
     For more information, see: <a href="javascript:;" (click)="versions()">Release Notes and Supported Runtime Versions</a>.
   </p>
-  <form class="form-horizontal" (ngSubmit)="onSubmit()">
-    <div class="radio">
-      <label>
-        <input type="radio" name="projectType" id="projectType1" value="launchpad-new-project" [(ngModel)]="projectType">
-          Begin by selecting a functional quickstart
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="projectType" id="projectType2" value="launchpad-new-starter-project" [(ngModel)]="projectType">
-          Begin by selecting a runtime project framework (Eclipse Vert.x, WildFly Swarm, or Spring Boot)
-      </label>
-    </div>
-    <div class="blank-slate-pf-main-action">
-      <button class="btn btn-danger" type="submit" id="submit">
-        Next
-      </button>
-    </div>
-  </form>
+  <div class="blank-slate-pf-main-action">
+    <button class="btn btn-primary" (click)="launch()">
+      Prepare to Takeoff
+    </button>
+  </div>
 </div>

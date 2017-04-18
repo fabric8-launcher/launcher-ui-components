@@ -7,11 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./intro.component.scss'],
 })
 export class IntroComponent {
-  projectType: string = "launchpad-new-project";
   constructor(private router: Router) {}
 
-  onSubmit() {
-    this.router.navigate(['/wizard', this.projectType, 0]);
+  launch() {
+    this.router.navigate(['/wizard', "launchpad-new-project", 0]);
   }
 
   versions() {
