@@ -73,6 +73,7 @@ export class MetaData {
     name: string;
     description: string;
     deprecated: boolean;
+    intro: string;
 }
 
 export class State {

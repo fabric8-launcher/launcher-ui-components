@@ -6,7 +6,6 @@ import { GuiService } from "../shared/gui.service";
 import { History, Gui, Input, Message, Result } from '../shared/model';
 
 import 'rxjs/add/operator/debounceTime';
-import * as jsonpatch from 'fast-json-patch';
 
 @Component({
   selector: 'wizard',
@@ -51,26 +50,6 @@ export class FormComponent implements OnInit {
       } else {
         this.history.resetTo(stepIndex);
       }
-
-      // if (params['step'] == 'end') {
-      //   this.history.add(this.guiService.end);
-      //   return;
-      // }
-
-      // if (!this.history.get(stepIndex)) {
-      //   if (stepIndex == 0) {
-      //     this.forgeService.commandInfo(this.command).then((gui) => {
-      //       this.history.add(gui);
-      //     }).catch(error => this.currentGui.messages.push(new Message(error)));
-      //   } else {
-      //     this.forgeService.nextStep(this.command, this.history).then(gui => {
-      //       if (gui.messages && gui.messages.length > 0) {
-      //         this.router.navigate(["../" + --stepIndex], { relativeTo: this.route });
-      //       }
-      //       this.history.add(gui);
-      //     }).catch(error => this.currentGui.messages.push(new Message(error)));
-      //   }
-      // }
     });
   }
 
@@ -82,11 +61,6 @@ export class FormComponent implements OnInit {
     if (form.valid) {
       this.validation = this.guiService.validate(this.history.stepIndex, this.history).then(gui =>
       {
-        //var diff = jsonpatch.compare(this.currentGui, gui);
-        // var stepIndex = this.currentGui.stepIndex;
-        //jsonpatch.apply(this.currentGui, diff);
-        // this.history[stepIndex] = this.currentGui;
-        // this.currentGui.stepIndex = stepIndex;
         this.currentGui.messages = gui.messages;
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));

@@ -71,6 +71,7 @@
     "@types/node": "^6.0.45",
     "@types/selenium-webdriver": "^2.53.32",
     "angular2-template-loader": "^0.4.0",
+    "asciidoctorindex-loader": "0.0.1",
     "autoprefixer": "^6.3.7",
     "codelyzer": "1.0.0-beta.3",
     "cpy-cli": "1.0.1",

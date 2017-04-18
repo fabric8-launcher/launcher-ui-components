@@ -1,9 +1,9 @@
 
 import { Injectable } from "@angular/core";
-import { Gui, History, Input, Option, SubmittableInput } from "./model";
+import { Gui, History, Input, Option, SubmittableInput, MetaData } from "./model";
 import { ForgeService } from "./forge.service";
 
-var readme = require('../../assets/test.adoc');
+var adocIndex = require('../../assets/adoc.index');
 
 @Injectable()
 export class GuiService {
@@ -28,6 +28,7 @@ export class GuiService {
 
   get 'Continues Deployment'(): Gui {
     let gui = this.createGui();
+    gui.metadata = {intro: adocIndex["launchpad-launch-mission"]} as MetaData;
     gui.inputs = [{
       label: "Zip or Continues Deployment", name: "zipOrCD", class: "UISelectOne", valueChoices:
         [{ id: "Continues Deployment" }, { id: "Zip" }], value: "Continues Deployment"
@@ -37,16 +38,19 @@ export class GuiService {
 
   get Missions(): Gui {
     let gui = this.createGui();
+    gui.metadata = {intro: adocIndex["mission-intro"]} as MetaData;
     gui.inputs = [this.missions];
     return gui;
   }
 
   get Runtime(): Gui {
+    this.gui.state.canMoveToNextStep = true;
     return this.gui;
   }
 
   get Review(): Gui {
-    let gui = new Gui();
+    let gui = this.createGui();
+    gui.state.steps = null;
     gui.inputs = [];
     gui.results = [];
 
@@ -60,16 +64,16 @@ export class GuiService {
 
   validate(index: number, history: History): Promise<Gui> {
     const gui = history.currentGui();
-    if (true) {
-      gui.state.canMoveToNextStep = true;
-    }
 
     if (index != 0) {
       gui.state.canMoveToPreviousStep = true;
     }
 
     if (index == 2) {
-      return this.forgeService.validate(this.command, history)
+      return this.forgeService.validate(this.command, history).then(gui => {
+        gui.state.canMoveToNextStep = true;
+        return gui;
+      })
     }
     
     return Promise.resolve(gui);
@@ -77,6 +81,7 @@ export class GuiService {
 
   createGui(): Gui {
     let gui = new Gui();
+    gui.metadata = new MetaData();
     gui.state.steps = this.steps;
     gui.state.canMoveToNextStep = true;
 

@@ -28,6 +28,7 @@
     </p>
   </div>
   <div style="padding-top: 3em">
+  <div class="col-sm-offset-1" [innerHTML]="currentGui.metadata.intro"></div>
   <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
     <div class="col-sm-10" [ngSwitch]="input.class">
@@ -56,11 +57,6 @@
             </label>
           </li>
         </ul>
-        <!--<select [attr.id]="input.name" class="form-control" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.name != 'runtime'" [title]="input.description" (ngModelChange)="validate(form)">
-          <option value="{{option.id}}" *ngFor="let option of input.valueChoices">
-              {{option.id}}
-          </option>
-        </select>-->
         <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
       </span>
       <div *ngSwitchCase="'UISelectMany'">
@@ -71,7 +67,7 @@
   </div>
 
   <div class="form-group" *ngIf="!currentGui.results">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-10 col-sm-2">
       <button id="back" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
         <span class="i fa fa-angle-left"></span>
         Back
@@ -79,9 +75,6 @@
       <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
         Next
         <span class="i fa fa-angle-right"></span>
-      </button>
-      <button id="finish" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canExecute" (click)="finish()">
-        Finish
       </button>
     </div>
   </div>
