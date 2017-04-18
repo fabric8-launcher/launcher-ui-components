@@ -12,10 +12,13 @@
       Done, your project is created, build and launched on OpenShift!
     </p>
     <div class="blank-slate-pf-secondary-action">
-      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="downloadZip()" [disabled]="progress">
+      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="restart()">
+        Restart
+      </button>
+      <button id="download" type="button" class="btn btn-lg btn-default" (click)="downloadZip()" [disabled]="progress" *ngIf="downloadOrCD">
           Download as Zip
       </button>
-      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="progress">
+      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="progress" *ngIf="!downloadOrCD">
         Launch on OpenShift
       </button>
     </div>
