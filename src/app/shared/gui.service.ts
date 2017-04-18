@@ -10,7 +10,7 @@ export class GuiService {
   private command = "launchpad-new-project";
   private gui: Gui;
   private missions: SubmittableInput;
-  private steps: string[] = ['Continues Deployment', 'Missions', 'Runtime', 'Review']
+  private steps: string[] = ['Continuous Delivery', 'Missions', 'Runtime', 'Review']
 
   constructor(private forgeService: ForgeService) {
     forgeService.commandInfo(this.command).then(gui => {
@@ -26,12 +26,12 @@ export class GuiService {
     });
   }
 
-  get 'Continues Deployment'(): Gui {
+  get 'Continuous Delivery'(): Gui {
     let gui = this.createGui();
     gui.metadata = {intro: adocIndex["launchpad-launch-mission"]} as MetaData;
     gui.inputs = [{
-      label: "Zip or Continues Deployment", name: "zipOrCD", class: "UISelectOne", valueChoices:
-        [{ id: "Continues Deployment" }, { id: "Zip" }], value: "Continues Deployment"
+      label: "Zip or Continuous Delivery", name: "zipOrCD", class: "UISelectOne", valueChoices:
+        [{ id: "Continuous Delivery" }, { id: "Zip" }], value: "Continuous Delivery"
     } as Input];
     return gui;
   }
