@@ -39,7 +39,7 @@ export class ForgeService {
     return this.post(history.convert(history.stepIndex + 1), '/commands/' + command + '/next');
   }
 
-  upload(command: string, guis: History): Promise<StatusResult> {
+  upload(command: string, history: History): Promise<StatusResult> {
     return this.http.post(this.apiUrl + '/commands/' + command + '/missioncontrol', history.convert()).toPromise()
       .then(response => response.json() as StatusResult)
       .catch(this.handleError);
