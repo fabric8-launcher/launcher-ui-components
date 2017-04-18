@@ -43,7 +43,7 @@ module.exports = {
       },
       { 
         test: /\.index$/,
-        loader: "asciidoctor"
+        loader: "asciidoctorindex"
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
