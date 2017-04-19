@@ -49,8 +49,15 @@ export class GuiService {
   }
 
   get Runtime(): Gui {
-    this.gui.state.canMoveToNextStep = true;
-    return this.gui;
+    let gui = this.createGui();
+    gui.state.canMoveToNextStep = true;
+
+    if (this.gui) {
+      return this.gui;
+    } else {
+      this.loading.then(_ => gui.inputs = this.gui.inputs);
+    }
+    return gui;
   }
 
   get Review(): Gui {
