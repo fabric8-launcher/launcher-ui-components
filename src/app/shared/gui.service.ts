@@ -10,15 +10,16 @@ export class GuiService {
   private command = "launchpad-new-project";
   private gui: Gui;
   private missions: SubmittableInput;
+  private loading: Promise<void>;
   private steps: string[] = ['Continuous Delivery', 'Missions', 'Runtime', 'Review']
 
   constructor(private forgeService: ForgeService) {
-    forgeService.commandInfo(this.command).then(gui => {
+    this.loading = forgeService.commandInfo(this.command).then(gui => {
       this.gui = gui;
       gui.state.steps = this.steps;
       for (let index in this.gui.inputs) {
         let input = this.gui.inputs[index];
-        if (input.name == "mission") {
+        if ((input as Input).valueType == "io.openshift.launchpad.catalog.Mission") {
           this.missions = input;
           this.gui.inputs.splice(+index, 1);
         }
@@ -39,7 +40,11 @@ export class GuiService {
   get Missions(): Gui {
     let gui = this.createGui();
     gui.metadata = {intro: adocIndex["mission-intro"]} as MetaData;
-    gui.inputs = [this.missions];
+    if (this.missions) {
+      gui.inputs = [this.missions];
+    } else {
+      this.loading.then(_ => gui.inputs = [this.missions]);
+    }
     return gui;
   }
 
