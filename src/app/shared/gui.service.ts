@@ -11,10 +11,13 @@ export class GuiService {
   private gui: Gui;
   private missions: SubmittableInput;
   private loading: Promise<Gui>;
-  private steps: string[] = ['Continuous Delivery', 'Missions', 'Runtime', 'Review']
+  private steps: string[] = ['Continuous Delivery', 'Missions', 'Runtime', 'Review'];
 
   constructor(private forgeService: ForgeService) {
-    this.loading = forgeService.commandInfo(this.command).then(gui => {
+    this.loading = forgeService.commandInfo(this.command).then(this.splitGui);
+  }
+
+  private splitGui = (gui:Gui): Gui => {
       this.gui = gui;
       gui.state.steps = this.steps;
       for (let index in this.gui.inputs) {
@@ -25,11 +28,11 @@ export class GuiService {
         }
       }
       return gui;
-    });
   }
 
   get 'Continuous Delivery'(): Gui {
     let gui = this.createGui();
+    gui.state.canMoveToPreviousStep = false;
     gui.metadata = {intro: adocIndex["launchpad-launch-mission"]} as MetaData;
     gui.inputs = [{
       label: "Zip or Continuous Delivery", name: "zipOrCD", class: "UISelectOne", valueChoices:
@@ -53,13 +56,11 @@ export class GuiService {
     let gui = this.createGui();
 
     if (this.gui) {
-      this.gui.state.canMoveToNextStep = true;
-      return this.gui;
+      gui.inputs = this.gui.inputs;
     } else {
       this.loading.then(_ => gui.inputs = this.gui.inputs);
     }
     
-    gui.state.canMoveToNextStep = true;
     return gui;
   }
 
@@ -86,15 +87,12 @@ export class GuiService {
   validate(index: number, history: History): Promise<Gui> {
     const gui = history.currentGui();
 
-    if (index != 0) {
-      gui.state.canMoveToPreviousStep = true;
-    }
-
-    if (index == 2) {
-      return this.forgeService.validate(this.command, history).then(gui => {
-        gui.state.canMoveToNextStep = true;
-        return gui;
-      })
+    if (index == 2 || index == 1) {
+      this.loading = this.forgeService.validate(this.command, history).then(gui => {
+        this.splitGui(gui);
+        return this.getGui(index);
+      });
+      return this.loading;
     }
     
     return Promise.resolve(gui);
@@ -105,6 +103,7 @@ export class GuiService {
     gui.metadata = new MetaData();
     gui.state.steps = this.steps;
     gui.state.canMoveToNextStep = true;
+    gui.state.canMoveToPreviousStep = true;
 
     return gui;
   }
