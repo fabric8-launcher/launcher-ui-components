@@ -5,7 +5,6 @@ import { ForgeService } from '../shared/forge.service'
 import { GuiService } from "../shared/gui.service";
 import { History, Gui, Input, Message, Result } from '../shared/model';
 
-import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'wizard',
