@@ -17,11 +17,78 @@ export class Gui {
     }
 }
 
+export class History {
+    private submittableGui: Gui = new Gui();
+    private state: Gui[] = [];
+
+    constructor(state: string) {
+        if (state) {
+            this.submittableGui = JSON.parse(atob(state));
+        }
+    }
+
+    apply(gui: Gui) {
+        if (this.submittableGui.inputs) {
+            for (let input of this.submittableGui.inputs) {
+                for (let guiInput of gui.inputs) {
+                    if (guiInput.name == input.name) {
+                        guiInput.value = input.value;
+                    }
+                }
+            }
+        }
+        this.state.push(gui);
+        gui.stepIndex = this.stepIndex;
+    }
+
+    get(index: number): Gui {
+        return this.state[index];
+    }
+
+    currentGui(): Gui {
+        let gui = this.state[this.stepIndex];
+        return gui || new Gui();
+    }
+
+    get stepIndex(): number {
+        return Math.max(0, this.state.length - 1);
+    }
+
+    convert(stepIndex = this.stepIndex): Gui {
+        let submittableGui = new Gui();
+        submittableGui.stepIndex = stepIndex;
+        submittableGui.inputs = [];
+        for (let gui of this.state) {
+            let inputs = gui.inputs;
+            if (inputs) {
+                let submittableInputs = this.convertToSubmittable(inputs as Input[]);
+                submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
+            }
+        }
+        return submittableGui;
+    }
+
+    private convertToSubmittable(inputs: Input[]): SubmittableInput[] {
+        let array: SubmittableInput[] = [];
+        if (inputs) {
+            for (let input of inputs) {
+                array.push(new SubmittableInput(input));
+            }
+        }
+        return array;
+    }
+
+    toString(): string {
+        return btoa(JSON.stringify(this.convert()));
+    }
+}
+
 export class MetaData {
     category: string;
     name: string;
     description: string;
     deprecated: boolean;
+    intro: string;
 }
 
 export class State {

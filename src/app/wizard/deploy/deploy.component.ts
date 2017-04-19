@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { Gui, StatusMessage, StatusEvent } from '../../shared/model';
+import { History, StatusMessage, StatusEvent } from '../../shared/model';
 import { ForgeService } from "../../shared/forge.service";
 import { KeycloakService } from "../../shared/keycloak.service";
 import { Config } from "../../shared/config.component";
@@ -10,7 +11,7 @@ import { Config } from "../../shared/config.component";
   templateUrl: './deploy.component.html'
 })
 export class DeployComponent {
-  @Input() submittedGuis: Gui[];
+  @Input() submittedGuis: History;
   @Input() command: string;
   status: Status = Status.None;
   Status = Status;
@@ -20,14 +21,16 @@ export class DeployComponent {
   private webSocket: WebSocket;
 
   constructor(private forgeService: ForgeService,
+    private route: ActivatedRoute,
+    private router: Router,
     private kc: KeycloakService,
     private config: Config) {
-      if (!this.apiUrl) {
-        this.apiUrl = config.get('mission_control_url');
-      }
-      if (this.apiUrl && this.apiUrl.endsWith('/')) {
-        this.apiUrl = this.apiUrl.substr(0, this.apiUrl.length-1);
-      }
+    if (!this.apiUrl) {
+      this.apiUrl = config.get('mission_control_url');
+    }
+    if (this.apiUrl && this.apiUrl.endsWith('/')) {
+      this.apiUrl = this.apiUrl.substr(0, this.apiUrl.length - 1);
+    }
   }
 
   deploy(): void {
@@ -36,7 +39,7 @@ export class DeployComponent {
       this.forgeService.upload(this.command, this.submittedGuis)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
-          this.webSocket.onmessage = function(event: MessageEvent) {
+          this.webSocket.onmessage = function (event: MessageEvent) {
             if (!this.statusMessages) {
               this.statusMessages = [];
               let values = JSON.parse(event.data);
@@ -88,6 +91,14 @@ export class DeployComponent {
 
   downloadZip(): void {
     this.forgeService.downloadZip(this.command, this.submittedGuis);
+  }
+
+  restart() {
+    this.router.navigate(["../../" + 0, ""], { relativeTo: this.route });
+  }
+
+  get downloadOrCD(): boolean {
+    return this.submittedGuis.get(0).inputs[0].value == 'Zip';
   }
 }
 

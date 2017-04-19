@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Headers, Http, Request, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
-import { Gui, DownloadFile, SubmittableInput, Input, Version, StatusResult } from './model';
+import { History, Gui, DownloadFile, SubmittableInput, Input, Version, StatusResult } from './model';
 import { Config } from './config.component'
 
 @Injectable()
@@ -31,39 +31,37 @@ export class ForgeService {
       .catch(this.handleError);
   }
 
-  validate(command: string, history: Gui[], gui: Gui): Promise<Gui> {
-    return this.post(history, gui, '/commands/' + command + '/validate');
+  validate(command: string, history: History): Promise<Gui> {
+    return this.post(history.convert(), '/commands/' + command + '/validate');
   }
 
-  nextStep(command: string, history: Gui[], gui: Gui): Promise<Gui> {
-    return this.post(history, gui, '/commands/' + command + '/next');
+  nextStep(command: string, history: History): Promise<Gui> {
+    return this.post(history.convert(history.stepIndex + 1), '/commands/' + command + '/next');
   }
 
-  upload(command: string, guis: Gui[]): Promise<StatusResult> {
-    return this.http.post(this.apiUrl + '/commands/' + command + '/missioncontrol', this.convert(guis, guis.length)).toPromise()
+  upload(command: string, history: History): Promise<StatusResult> {
+    return this.http.post(this.apiUrl + '/commands/' + command + '/missioncontrol', history.convert()).toPromise()
       .then(response => response.json() as StatusResult)
       .catch(this.handleError);
   }
 
-  downloadZip(command: string, history: Gui[]) {
+  downloadZip(command: string, history: History) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
     form.setAttribute("action", this.apiUrl + '/commands/' + command + '/zip');
 
-    form.appendChild(this.createFormInput("stepIndex", String(history.length)));
+    form.appendChild(this.createFormInput("stepIndex", String(history.stepIndex)));
 
-    for (let gui of history) {
-      if (gui) {
-        let inputs = gui.inputs;
-        if (inputs) {
-          for (let input of inputs) {
-            if (input.value instanceof Array) {
-              for (let value of input.value) {
-                form.appendChild(this.createFormInput(input.name, value));
-              }
-            } else {
-              form.appendChild(this.createFormInput(input.name, input.value));
+    for (var i = 0; i < history.stepIndex; i++) {
+      let inputs = history.get(i).inputs;
+      if (inputs) {
+        for (let input of inputs) {
+          if (input.value instanceof Array) {
+            for (let value of input.value) {
+              form.appendChild(this.createFormInput(input.name, value));
             }
+          } else {
+            form.appendChild(this.createFormInput(input.name, input.value));
           }
         }
       }
@@ -81,35 +79,10 @@ export class ForgeService {
     return element;
   }
 
-  private post(history: Gui[], gui: Gui, action: string): Promise<Gui> {
-    return this.http.post(this.apiUrl + action, this.convert(history.concat([gui]), gui.stepIndex)).toPromise()
+  private post(submittableGui: Gui, action: string): Promise<Gui> {
+    return this.http.post(this.apiUrl + action, submittableGui).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
-  }
-
-  private convert(guis: Gui[], stepIndex: number): Gui {
-    let submittableGui = new Gui();
-    submittableGui.stepIndex = stepIndex;
-    submittableGui.inputs = [];
-    for (let gui of guis) {
-      if (gui) {
-        let inputs = gui.inputs;
-        if (inputs) {
-          let submittableInputs = this.convertToSubmittable(inputs as Input[]);
-          submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
-        }
-      }
-    }
-    return submittableGui;
-  }
-
-  private convertToSubmittable(inputs: Input[]): SubmittableInput[] {
-    let array: SubmittableInput[] = [];
-    if (inputs)
-      for (let input of inputs) {
-        array.push(new SubmittableInput(input));
-      }
-    return array;
   }
 
   private handleError(error: any): Promise<any> {
