@@ -12,8 +12,8 @@ import { Config } from "../../shared/config.component";
 export class DeployComponent {
   @Input() submittedGuis: Gui[];
   @Input() command: string;
-  progress: boolean;
-  done: boolean;
+  status: Status = Status.None;
+  Status = Status;
   statusMessages: StatusMessage[];
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
@@ -32,7 +32,7 @@ export class DeployComponent {
 
   deploy(): void {
     if (this.kc.isAuthenticated()) {
-      this.progress = true;
+      this.status = Status.Progress;
       this.forgeService.upload(this.command, this.submittedGuis)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
@@ -49,6 +49,8 @@ export class DeployComponent {
             } else {
               let message = JSON.parse(event.data);
               if (message.data && message.data.error) {
+                this.status = Status.Error;
+                this.webSocket.close();
                 for (let status of this.statusMessages) {
                   if (!status.done) {
                     status.data = message.data;
@@ -64,8 +66,11 @@ export class DeployComponent {
                   }
                 }
 
-                this.done = this.statusMessages[this.statusMessages.length - 1].done;
-                if (this.done) this.webSocket.close();
+                let done = this.statusMessages[this.statusMessages.length - 1].done;
+                if (this.done) {
+                  this.webSocket.close();
+                  this.status = Status.Done;
+                } 
               }
             }
           }.bind(this);
@@ -84,4 +89,11 @@ export class DeployComponent {
   downloadZip(): void {
     this.forgeService.downloadZip(this.command, this.submittedGuis);
   }
+}
+
+enum Status {
+  None,
+  Progress,
+  Done,
+  Error
 }
