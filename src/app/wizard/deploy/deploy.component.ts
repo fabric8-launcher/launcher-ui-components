@@ -50,6 +50,7 @@ export class DeployComponent {
               let message = JSON.parse(event.data);
               if (message.data && message.data.error) {
                 this.status = Status.Error;
+                this.webSocket.close();
                 for (let status of this.statusMessages) {
                   if (!status.done) {
                     status.data = message.data;
