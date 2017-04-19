@@ -1,24 +1,28 @@
   <div class="wizard-pf-complete blank-slate-pf">
-    <div class="wizard-pf-success-icon" *ngIf="!progress"><div class="glyphicon glyphicon-share"></div></div>
-    <div class="wizard-pf-success-icon" *ngIf="progress && !done"><div class="spinner spinner-lg blank-slate-pf-icon"></div></div>
-    <div class="wizard-pf-success-icon" *ngIf="done"><span class="glyphicon glyphicon-ok-circle"></span></div>
-    <p class="blank-slate-pf-secondary-action" *ngIf="!progress">
+    <div class="wizard-pf-success-icon" *ngIf="status == Status.None"><div class="glyphicon glyphicon-share"></div></div>
+    <div class="wizard-pf-success-icon" *ngIf="status == Status.Progress"><div class="spinner spinner-lg blank-slate-pf-icon"></div></div>
+    <div class="wizard-pf-success-icon" *ngIf="status == Status.Done"><span class="glyphicon glyphicon-ok-circle"></span></div>
+    <div class="wizard-pf-success-icon" *ngIf="status == Status.Error"><span class="pficon pficon-error-circle-o"></span></div>
+    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.None">
       Your project is ready, now you can either download it as zipfile and try it locally or launch it on OpenShift.
     </p>
-    <p class="blank-slate-pf-secondary-action" *ngIf="progress && !done">
+    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Progress">
       Working...
     </p>
-    <p class="blank-slate-pf-secondary-action" *ngIf="done">
-      Done, your project is created, build and launched on OpenShift!
+    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Done">
+      Done, your project is created, built and launched on OpenShift!
+    </p>
+    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Error">
+      An error occured, you can try to run this action again.
     </p>
     <div class="blank-slate-pf-secondary-action">
       <button id="restart" type="button" class="btn btn-lg btn-default" (click)="restart()">
         Restart
       </button>
-      <button id="download" type="button" class="btn btn-lg btn-default" (click)="downloadZip()" [disabled]="progress" *ngIf="downloadOrCD">
+      <button id="download" type="button" class="btn btn-lg btn-primary" (click)="downloadZip()" [disabled]="status == Status.Progress" *ngIf="downloadOrCD">
           Download as Zip
       </button>
-      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="progress" *ngIf="!downloadOrCD">
+      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="status == Status.Progress" *ngIf="!downloadOrCD">
         Launch on OpenShift
       </button>
     </div>
