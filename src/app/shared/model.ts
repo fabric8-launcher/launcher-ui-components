@@ -18,9 +18,25 @@ export class Gui {
 }
 
 export class History {
+    private submittableGui: Gui = new Gui();
     private state: Gui[] = [];
 
-    add(gui: Gui) {
+    constructor(state: string) {
+        if (state) {
+            this.submittableGui = JSON.parse(atob(state));
+        }
+    }
+
+    apply(gui: Gui) {
+        if (this.submittableGui.inputs) {
+            for (let input of this.submittableGui.inputs) {
+                for (let guiInput of gui.inputs) {
+                    if (guiInput.name == input.name) {
+                        guiInput.value = input.value;
+                    }
+                }
+            }
+        }
         this.state.push(gui);
         gui.stepIndex = this.stepIndex;
     }
@@ -62,9 +78,8 @@ export class History {
         return array;
     }
 
-    resetTo(index: number) {
-        this.state.splice(++index, this.state.length);
-        this.currentGui().stepIndex = this.stepIndex;
+    toString(): string {
+        return btoa(JSON.stringify(this.convert()));
     }
 }
 

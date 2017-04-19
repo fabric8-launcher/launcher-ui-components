@@ -10,7 +10,7 @@ export class GuiService {
   private command = "launchpad-new-project";
   private gui: Gui;
   private missions: SubmittableInput;
-  private loading: Promise<void>;
+  private loading: Promise<Gui>;
   private steps: string[] = ['Continuous Delivery', 'Missions', 'Runtime', 'Review']
 
   constructor(private forgeService: ForgeService) {
@@ -24,6 +24,7 @@ export class GuiService {
           this.gui.inputs.splice(+index, 1);
         }
       }
+      return gui;
     });
   }
 
@@ -50,13 +51,15 @@ export class GuiService {
 
   get Runtime(): Gui {
     let gui = this.createGui();
-    gui.state.canMoveToNextStep = true;
 
     if (this.gui) {
+      this.gui.state.canMoveToNextStep = true;
       return this.gui;
     } else {
       this.loading.then(_ => gui.inputs = this.gui.inputs);
     }
+    
+    gui.state.canMoveToNextStep = true;
     return gui;
   }
 
@@ -72,6 +75,12 @@ export class GuiService {
   getGui(index: number): Gui {
     let page = this.steps[index];
     return this[page];
+  }
+
+  loadGui(index: number): Promise<Gui> {
+    return this.loading.then(gui => {
+      return this.getGui(index);
+    });
   }
 
   validate(index: number, history: History): Promise<Gui> {

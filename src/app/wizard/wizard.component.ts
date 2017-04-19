@@ -30,7 +30,7 @@ export class FormComponent implements OnInit {
   @ViewChild('wizard') form: NgForm;
   command: string;
   validation: Promise<boolean>;
-  history: History = new History();
+  history: History;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -43,11 +43,11 @@ export class FormComponent implements OnInit {
       this.command = params['command'];
       let stepIndex = +params['step'];
 
-      if (!this.history.get(stepIndex)) {
-        let gui = this.guiService.getGui(stepIndex);
-        this.history.add(gui);
-      } else {
-        this.history.resetTo(stepIndex);
+      this.history = new History(state);
+      for (let index = 0; index <= stepIndex; index++) {
+        this.guiService.loadGui(index).then(gui => {
+          this.history.apply(gui);
+        });
       }
     });
   }
@@ -83,7 +83,7 @@ export class FormComponent implements OnInit {
   }
 
   gotoStep(step: number) {
-    this.router.navigate(["../" + step], { relativeTo: this.route });
+    this.router.navigate(["../../" + step, this.history.toString()], { relativeTo: this.route });
   }
 
   previous() {
