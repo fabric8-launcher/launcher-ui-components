@@ -1,10 +1,16 @@
 $assetPath : "../../../assets/img/";
 
-.blank-slate-pf {
+.background {
     background-image: url(#{$assetPath}hero-background-80.jpg);
+    margin-top: -80px;
+    margin-bottom: -20px;
+}
+
+.blank-slate-pf {
     color: #fff;
-    margin-top: -21px;
-    margin-bottom: -21px;
+    margin-top: 60px;
+    border: 0;
+    background-color: transparent;
 }
 
 .blank-slate-pf-icon img {
@@ -21,8 +27,4 @@ $assetPath : "../../../assets/img/";
     text-align:left;
     margin:auto;
     max-width:600px;
-}
-
-.btn-launch {
-    font-size:2em;
 }
