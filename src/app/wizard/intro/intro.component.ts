@@ -12,8 +12,4 @@ export class IntroComponent {
   launch() {
     this.router.navigate(['/wizard', "launchpad-new-project", 0, ""]);
   }
-
-  versions() {
-    this.router.navigate(['/wizard', 'supported-versions']);
-  }
 }

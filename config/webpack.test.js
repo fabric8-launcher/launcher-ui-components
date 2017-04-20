@@ -125,7 +125,6 @@ module.exports = {
       { test: /\.png$/, loader: 'file-loader' },
       { test: /\.jpg$/, loader: 'file-loader' },
       { test: /\.index$/, loader: 'file-loader' },
-      { test: /\.md$/, loader: 'file-loader' },
 
       /**
        * Raw loader support for *.css files
