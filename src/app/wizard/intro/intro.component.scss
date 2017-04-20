@@ -1,14 +1,5 @@
-$assetPath : "../../../assets/img/";
-
-.background {
-    background-image: url(#{$assetPath}hero-background-80.jpg);
-    margin-top: -80px;
-    margin-bottom: -20px;
-}
-
 .blank-slate-pf {
     color: #fff;
-    margin-top: 60px;
     border: 0;
     background-color: transparent;
 }

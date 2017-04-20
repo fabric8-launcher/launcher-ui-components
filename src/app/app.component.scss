@@ -8,3 +8,10 @@
   min-height: 100vh;
   flex-direction: column;
 }
+
+$assetPath : "../assets/img/";
+
+:host(.intro) {
+    background-image: url(#{$assetPath}hero-background-80.jpg);
+    background-size: cover;
+}
