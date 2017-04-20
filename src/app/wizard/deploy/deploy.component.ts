@@ -70,7 +70,7 @@ export class DeployComponent {
                 }
 
                 let done = this.statusMessages[this.statusMessages.length - 1].done;
-                if (this.done) {
+                if (done) {
                   this.webSocket.close();
                   this.status = Status.Done;
                 } 
