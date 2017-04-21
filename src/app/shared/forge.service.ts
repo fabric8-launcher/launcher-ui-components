@@ -36,7 +36,15 @@ export class ForgeService {
   }
 
   nextStep(command: string, history: History): Promise<Gui> {
-    return this.post(history.convert(history.stepIndex + 1), '/commands/' + command + '/next');
+    return this.post(history.convert(history.stepIndex), '/commands/' + command + '/next');
+  }
+
+  loadGui(command: string, history: History): Promise<Gui> {
+    if (history.stepIndex == 0) {
+      return this.commandInfo(command);
+    } else {
+      return this.nextStep(command, history);
+    }
   }
 
   upload(command: string, history: History): Promise<StatusResult> {

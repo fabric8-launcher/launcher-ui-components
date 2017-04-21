@@ -18,43 +18,46 @@ export class Gui {
 }
 
 export class History {
-    private submittableGui: Gui = new Gui();
     private state: Gui[] = [];
 
-    constructor(state: string) {
-        if (state) {
-            this.submittableGui = JSON.parse(atob(state));
-        }
+    add(gui: Gui) {
+      this.state.push(gui);
+      gui.stepIndex = this.stepIndex;
     }
 
-    apply(gui: Gui) {
-        if (this.submittableGui.inputs) {
-            for (let input of this.submittableGui.inputs) {
-                for (let guiInput of gui.inputs) {
-                    if (guiInput.name == input.name) {
-                        guiInput.value = input.value;
+    apply(state: string) {
+        if (state) {
+            let submittableGui = JSON.parse(atob(state));
+            for (let input of submittableGui.inputs) {
+                for (let gui of this.state) {
+                    for (let guiInput of gui.inputs) {
+                        if (guiInput.name == input.name) {
+                            guiInput.value = input.value;
+                        }
                     }
                 }
             }
         }
-        this.state.push(gui);
-        gui.stepIndex = this.stepIndex;
     }
 
     get(index: number): Gui {
-        return this.state[index];
+        return this.state[index - 1];
     }
 
     currentGui(): Gui {
-        let gui = this.state[this.stepIndex];
+        let gui = this.state[this.stepIndex - 1];
         return gui || new Gui();
     }
 
     get stepIndex(): number {
-        return Math.max(0, this.state.length - 1);
+        return Math.max(0, this.state.length);
     }
 
-    convert(stepIndex = this.stepIndex): Gui {
+    resetTo(index: number) {
+        this.state.splice(--index, this.state.length);
+    }
+
+    convert(stepIndex = this.stepIndex - 1): Gui {
         let submittableGui = new Gui();
         submittableGui.stepIndex = stepIndex;
         submittableGui.inputs = [];

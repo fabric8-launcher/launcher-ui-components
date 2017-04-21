@@ -2,9 +2,9 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
-import { GuiService } from "../shared/gui.service";
 import { History, Gui, Input, Message, Result } from '../shared/model';
 
+import * as jsonpatch from 'fast-json-patch';
 
 @Component({
   selector: 'wizard',
@@ -30,11 +30,11 @@ export class FormComponent implements OnInit {
   @ViewChild('wizard') form: NgForm;
   command: string;
   validation: Promise<boolean>;
-  history: History;
+  history: History = new History();
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private guiService: GuiService) {
+    private forgeService: ForgeService) {
   }
 
   ngOnInit() {
@@ -43,12 +43,19 @@ export class FormComponent implements OnInit {
       this.command = params['command'];
       let stepIndex = +params['step'];
 
-      this.history = new History(state);
-      for (let index = 0; index <= stepIndex; index++) {
-        this.guiService.loadGui(index).then(gui => {
-          this.history.apply(gui);
-        });
-      }
+      this.history.resetTo(stepIndex);
+
+      new Array(stepIndex + 1).fill(1).map((_, i) => i+1).reduce((p, index) => {
+        if (stepIndex + 1 == index) {
+          return p.then(() => this.history.apply(state));
+        }
+        if (!this.history.get(index)) {
+          return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:any) => {
+            this.history.add(gui);
+          });
+        }
+        return Promise.resolve();
+      }, Promise.resolve())
     });
   }
 
@@ -58,8 +65,12 @@ export class FormComponent implements OnInit {
 
   validate(form: NgForm): Promise<boolean> {
     if (form.valid) {
-      this.validation = this.guiService.validate(this.history.stepIndex, this.history).then(gui =>
+      this.validation = this.forgeService.validate(this.command, this.history).then(gui =>
       {
+        var stepIndex = this.currentGui.stepIndex;
+        var diff = jsonpatch.compare(this.currentGui, gui);
+        jsonpatch.apply(this.currentGui, diff);
+        this.currentGui.stepIndex = stepIndex;
         this.currentGui.messages = gui.messages;
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));

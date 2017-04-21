@@ -6,7 +6,6 @@ import { IntroComponent } from './intro/intro.component';
 import { FormComponent } from './wizard.component';
 import { DeployComponent } from './deploy/deploy.component';
 import { ForgeService } from '../shared/forge.service';
-import { GuiService } from "../shared/gui.service";
 import { Config } from '../shared/config.component';
 
 import { KeycloakService } from '../shared/keycloak.service';
@@ -31,7 +30,6 @@ import { ProjectSelectModule } from '../shared/project-select';
     KeycloakService,
     KEYCLOAK_HTTP_PROVIDER,
     ForgeService,
-    GuiService,
     Config,
     { provide: APP_INITIALIZER, useFactory: (config: Config) => () => config.load(), deps: [Config], multi: true }
   ]

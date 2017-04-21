@@ -9,8 +9,8 @@
 </span>
 <div class="wizard-pf-steps" *ngIf="currentGui.state.steps">
   <ul class="wizard-pf-steps-indicator">
-    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == i" *ngFor="let step of currentGui.state.steps; let i = index">
-      <a (click)="gotoStep(i)">
+    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == i + 1" *ngFor="let step of currentGui.state.steps; let i = index">
+      <a (click)="gotoStep(i + 1)">
         <span class="wizard-pf-step-number">{{i + 1}}</span>
         <span class="wizard-pf-step-title">{{step}}</span>
       </a>
@@ -28,7 +28,7 @@
     </p>
   </div>
   <div style="padding-top: 3em">
-  <div class="col-sm-offset-1" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs"></div>
+  <div class="col-sm-offset-1" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
   <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
     <div class="col-sm-10" [ngSwitch]="input.class">

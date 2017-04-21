@@ -11,7 +11,6 @@ import { MultiselectListModule } from '../app/shared/multiselect-list';
 import { ProjectSelectModule } from '../app/shared/project-select';
 import { FormComponent } from '../app/wizard/wizard.component';
 import { DeployComponent } from '../app/wizard/deploy/deploy.component';
-import { GuiService } from "../app/shared/gui.service";
 import { ForgeService } from '../app/shared/forge.service';
 import { Config } from '../app/shared/config.component';
 import { Gui } from '../app/shared/model';
@@ -20,7 +19,7 @@ import { Gui } from '../app/shared/model';
 let comp: FormComponent;
 let fixture: ComponentFixture<FormComponent>;
 
-let guiServiceStub: GuiService;
+let forgeServiceStub: ForgeService;
 let spy: any;
 
 const baseJson: any = {
@@ -109,7 +108,6 @@ describe('Dynamic form should be created for json that comes from the server', (
       imports: [FormsModule, MultiselectListModule, ProjectSelectModule, HttpModule],
       declarations: [FormComponent, DeployComponent],
       providers: [
-        GuiService,
         ForgeService,
         { provide: Config, useValue: { get: (key: string) => { } } },
         {
@@ -133,7 +131,7 @@ describe('Dynamic form should be created for json that comes from the server', (
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormComponent);
-    guiServiceStub = fixture.debugElement.injector.get(GuiService);
+    forgeServiceStub = fixture.debugElement.injector.get(ForgeService);
 
     comp = fixture.componentInstance;
   });
@@ -148,7 +146,7 @@ describe('Dynamic form should be created for json that comes from the server', (
     const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
     expect(input.getAttribute('type')).toBe('text');
 
-    expect(guiServiceStub.loadGui).toHaveBeenCalledWith(0);
+    expect(forgeServiceStub.commandInfo).toHaveBeenCalledWith('lauchpad-new-quickstart');
 
     cleanTimers();
   }));
@@ -173,7 +171,7 @@ describe('Dynamic form should be created for json that comes from the server', (
 
   function setupUI(obj: any) {
     let json = Object.assign(baseJson, obj);
-    spyOn(guiServiceStub, 'loadGui').and.returnValue(Promise.resolve(json));
+    spyOn(forgeServiceStub, 'commandInfo').and.returnValue(Promise.resolve(json));
     fixture.detectChanges();
     advance(fixture);
   }
