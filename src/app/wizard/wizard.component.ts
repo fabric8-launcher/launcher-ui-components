@@ -45,9 +45,19 @@ export class FormComponent implements OnInit {
 
       this.history.resetTo(stepIndex);
 
-      new Array(stepIndex + 1).fill(1).map((_, i) => i+1).reduce((p, index) => {
+      new Array(stepIndex + 1).fill(1).map((_, i) => i + 1).reduce((p, index) => {
         if (stepIndex + 1 == index) {
-          return p.then(() => this.history.apply(state));
+          return p.then(() => {
+            if (stepIndex == this.currentGui.state.steps.length + 1) {
+              let endGui = new Gui();
+              endGui.state.steps = this.currentGui.state.steps;
+              endGui.inputs = [];
+              endGui.results = [];
+              this.history.add(endGui);
+            }
+
+            this.history.apply(state);
+          });
         }
         if (!this.history.get(index)) {
           return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:any) => {
@@ -55,7 +65,7 @@ export class FormComponent implements OnInit {
           });
         }
         return Promise.resolve();
-      }, Promise.resolve())
+      }, Promise.resolve());
     });
   }
 
@@ -90,7 +100,17 @@ export class FormComponent implements OnInit {
   }
 
   next() {
-    this.gotoStep(++this.currentGui.stepIndex);
+    let next = (valid: boolean) => {
+      if (valid) {
+        this.gotoStep(++this.currentGui.stepIndex);
+      }
+    };
+
+    if (this.validation) {
+      this.validation.then(next);
+    } else {
+      next(true);
+    }
   }
 
   gotoStep(step: number) {
@@ -103,20 +123,6 @@ export class FormComponent implements OnInit {
 
   restart() {
     this.router.navigate(["/"]);
-  }
-
-  finish() {
-    let finish = (valid: boolean) => {
-      if (valid) {
-        this.router.navigate(["../end"], { relativeTo: this.route }) 
-      }
-    };
-
-    if (this.validation) {
-      this.validation.then(finish);
-    } else {
-      this.validate(this.form).then(finish);
-    }
   }
 
   closeAlert(error: Message) {

@@ -15,6 +15,12 @@
         <span class="wizard-pf-step-title">{{step}}</span>
       </a>
     </li>
+    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == currentGui.state.steps.length + 2">
+      <span class="wizard-pf-step-number">
+        {{currentGui.state.steps.length + 1}}
+      </span>
+      <span class="wizard-pf-step-title">Review</span>
+    </li>
   </ul>
 </div>
 <form class="form-horizontal" #wizard="ngForm">
@@ -72,7 +78,7 @@
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
-      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep" (click)="next()">
+      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep && !currentGui.state.canExecute" (click)="next()">
         Next
         <span class="i fa fa-angle-right"></span>
       </button>

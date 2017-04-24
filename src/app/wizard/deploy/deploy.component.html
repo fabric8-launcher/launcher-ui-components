@@ -16,9 +16,13 @@
       An error occured, you can try to run this action again.
     </p>
     <div class="blank-slate-pf-secondary-action">
-      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="restart()">
+      <button id="back" type="button" class="btn btn-lg btn-default" (click)="back()" *ngIf="status == Status.None">
+        Back
+      </button>
+      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="restart()" *ngIf="status == Status.Done">
         Restart
       </button>
+
       <button id="download" type="button" class="btn btn-lg btn-primary" (click)="downloadZip()" [disabled]="status == Status.Progress" *ngIf="downloadOrCD">
           Download as Zip
       </button>

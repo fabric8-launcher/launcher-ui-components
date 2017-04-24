@@ -94,11 +94,15 @@ export class DeployComponent {
   }
 
   restart() {
-    this.router.navigate(["../../" + 0, ""], { relativeTo: this.route });
+    this.router.navigate(["../../" + 1, ""], { relativeTo: this.route });
+  }
+
+  back() {
+    this.router.navigate(["../../" + (this.submittedGuis.stepIndex - 1), this.submittedGuis.toString()], { relativeTo: this.route });
   }
 
   get downloadOrCD(): boolean {
-    return this.submittedGuis.get(0).inputs[0].value == 'Zip';
+    return this.submittedGuis.get(1).inputs[0].value == 'ZIP File';
   }
 }
 
