@@ -35,3 +35,36 @@ h1 {
     font-size: 28px;
     padding-bottom: 20px;
 }
+
+$assetPath : "../../../assets/img/project-select-icons/";
+
+.card-pf-body {
+    color: #363636;
+}
+
+.card-pf-view.card-pf-view-single-select {
+    cursor: auto;
+}
+
+.icon {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    width:80px;
+    height:80px;
+}
+.boot {
+    @extend .icon;
+    background-image: url(#{$assetPath}spring-boot-logo.png);
+}
+
+.swarm {
+    @extend .icon;
+    background-image: url(#{$assetPath}wildfly-swarm.png);
+}
+
+.vertx {
+    @extend .icon;
+    background-image: url(#{$assetPath}vertx.svg);
+}
