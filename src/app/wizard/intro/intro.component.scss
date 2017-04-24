@@ -2,6 +2,7 @@
     color: #fff;
     border: 0;
     background-color: transparent;
+    padding: 0;
 }
 
 .blank-slate-pf-icon img {
@@ -24,8 +25,46 @@ button {
     font-size: 1.5em;
 }
 
+.btn-reg {
+    width: 420px;
+    white-space: normal;
+}
+
 h1 {
     font-weight: 600;
     font-size: 28px;
     padding-bottom: 20px;
+}
+
+$assetPath : "../../../assets/img/project-select-icons/";
+
+.card-pf-body {
+    color: #363636;
+}
+
+.card-pf-view.card-pf-view-single-select {
+    cursor: auto;
+}
+
+.icon {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    width:80px;
+    height:80px;
+}
+.boot {
+    @extend .icon;
+    background-image: url(#{$assetPath}spring-boot-logo.png);
+}
+
+.swarm {
+    @extend .icon;
+    background-image: url(#{$assetPath}wildfly-swarm.png);
+}
+
+.vertx {
+    @extend .icon;
+    background-image: url(#{$assetPath}vertx.svg);
 }
