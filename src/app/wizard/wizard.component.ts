@@ -53,6 +53,7 @@ export class FormComponent implements OnInit {
               endGui.state.steps = this.currentGui.state.steps;
               endGui.inputs = [];
               endGui.results = [];
+              this.history.resetTo(index - 1);
               this.history.add(endGui);
             }
 
