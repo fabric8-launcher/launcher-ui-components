@@ -41,11 +41,11 @@
       <span *ngSwitchCase="'UIInput'">
         <span [ngSwitch]="input.valueType">
           <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (blur)="validate(form)">
+            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="validate(form)">
           <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Boolean'" type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (blur)="validate(form)">
+            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="validate(form)">
           <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Integer'" type="number" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (blur)="validate(form)">
+            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="validate(form)">
             <div class="errorLabel help-block">
               <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
               <span *ngIf="!messageForInput(input.name)">{{input.label}} is required</span>
