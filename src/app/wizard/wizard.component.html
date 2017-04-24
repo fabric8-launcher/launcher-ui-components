@@ -33,8 +33,18 @@
       The wizard is loading the initial screen...
     </p>
   </div>
-  <div style="padding-top: 3em">
-  <div class="col-sm-offset-1" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
+  <div *ngIf="currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()">
+    <div class="col-sm-offset-2 col-sm-10">
+    You need to be registered and logged-in with OpenShift to continue!
+    <button class="btn btn-primary" (click)="keycloak.login()">Login</button>
+    </div>
+  </div>
+
+  <div style="padding-top: 3em" *ngIf="!(currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated())">
+  <div class="col-sm-offset-1" style="margin-bottom: 2.2em" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
+  <div class="col-sm-offset-2 col-sm-10" style="position: absolute;margin-top: -2em" *ngIf="validation">
+    <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form...
+  </div>
   <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
     <div class="col-sm-10" [ngSwitch]="input.class">
@@ -48,22 +58,37 @@
             [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="validate(form)">
             <div class="errorLabel help-block">
               <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
-              <span *ngIf="!messageForInput(input.name)">{{input.label}} is required</span>
+              <span *ngIf="form.dirty && !messageForInput(input.name)">{{input.label}} is required</span>
             </div>
             <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
         </span>
       </span>
       <span *ngSwitchCase="'UISelectOne'">
         <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType == 'io.openshift.launchpad.catalog.Runtime'" (ngModelChange)="validate(form)"></ob-project-select>
-        <ul class="list-unstyled" *ngIf="input.valueType != 'io.openshift.launchpad.catalog.Runtime'">
-          <li *ngFor="let option of input.valueChoices">
-            <label>
-              <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id" (ngModelChange)="validate(form)">
-              {{option.id}}
-            </label>
-          </li>
-        </ul>
-        <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
+        <div class="row" *ngIf="input.valueType == 'io.openshift.launchpad.ui.booster.DeploymentType'">
+          <div class="col-sm-6" *ngFor="let option of input.valueChoices">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{option.id == "ZIP File" ? "Launch Manually" : "Launch Using Continuous Delivery"}}</h3>
+              </div>
+              <div class="panel-body" [innerHTML]="option.description"></div>
+              <button class="btn btn-primary" style="margin:15px" (click)="input.value = option.id;next()">{{option.id == "ZIP File" ? "Download Zip" : "Open in Openshift"}}</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="input.valueType != 'io.openshift.launchpad.catalog.Runtime' && input.valueType != 'io.openshift.launchpad.ui.booster.DeploymentType'">
+          <div class="row" *ngFor="let option of input.valueChoices">
+            <span class="col-sm-4" style="float:left">
+              <label>
+                <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id" (ngModelChange)="validate(form)">
+                {{option.id}}
+              </label>
+            </span>
+            <span class="col-sm-8" style="position: absolute; right:0; top: 0" *ngIf="input.value == option.id">
+              <span [innerHTML]="option.description"></span>
+            </span>
+          </div>
+        </div>
       </span>
       <div *ngSwitchCase="'UISelectMany'">
         <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}" (ngModelChange)="validate(form)"></ob-multiselect-list>
@@ -72,13 +97,13 @@
   </div>
   </div>
 
-  <div class="form-group" *ngIf="!currentGui.results">
+  <div class="form-group" *ngIf="!currentGui.results && currentGui.stepIndex != 1">
     <div class="col-sm-offset-10 col-sm-2">
       <button id="back" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
-      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep && !currentGui.state.canExecute" (click)="next()">
+      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep && !currentGui.state.canExecute || validation" (click)="next()">
         Next
         <span class="i fa fa-angle-right"></span>
       </button>

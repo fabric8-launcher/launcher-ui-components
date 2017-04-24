@@ -2,9 +2,10 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
-import { History, Gui, Input, Message, Result } from '../shared/model';
+import { History, Gui, Input, Message, Result, MetaData } from '../shared/model';
+import { KeycloakService } from "../shared/keycloak.service";
 
-import * as jsonpatch from 'fast-json-patch';
+let adocIndex = require('../../assets/adoc.index');
 
 @Component({
   selector: 'wizard',
@@ -13,7 +14,7 @@ import * as jsonpatch from 'fast-json-patch';
     .required > label:after {
       content: ' *'
     }
-    .ng-invalid {
+    .ng-invalid.ng-dirty {
       border-color: #c00;
       box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     }
@@ -29,11 +30,13 @@ import * as jsonpatch from 'fast-json-patch';
 export class FormComponent implements OnInit {
   @ViewChild('wizard') form: NgForm;
   command: string;
+  validation: Promise<boolean>;
   history: History = new History();
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private forgeService: ForgeService) {
+    private forgeService: ForgeService,
+    private keycloak: KeycloakService) {
   }
 
   ngOnInit() {
@@ -60,12 +63,25 @@ export class FormComponent implements OnInit {
           });
         }
         if (!this.history.get(index)) {
-          return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:any) => {
+          return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:Gui) => {
             this.history.add(gui);
+            this.enhanceGui(gui);
           });
         }
         return Promise.resolve();
       }, Promise.resolve());
+    });
+  }
+
+  private enhanceGui(gui: Gui) {
+    gui.metadata = {intro: adocIndex[gui.state.steps[gui.stepIndex - 1] + "-intro"]} as MetaData;
+    gui.inputs.forEach(submittableInput => {
+      let input = submittableInput as Input;
+      if (input.valueChoices) {
+        input.valueChoices.forEach(choice => {
+          choice.description = adocIndex[input.name + choice.id];
+        });
+      }
     });
   }
 
@@ -75,16 +91,16 @@ export class FormComponent implements OnInit {
 
   validate(form: NgForm): Promise<boolean> {
     if (form.valid) {
-      return this.forgeService.validate(this.command, this.history).then(gui =>
+      this.validation = this.forgeService.validate(this.command, this.history).then(gui =>
       {
-        var stepIndex = this.currentGui.stepIndex;
-        var diff = jsonpatch.compare(this.currentGui, gui);
-        jsonpatch.apply(this.currentGui, diff);
-        this.currentGui.stepIndex = stepIndex;
         this.currentGui.messages = gui.messages;
+        this.currentGui.state = gui.state;
+        this.enhanceGui(this.currentGui);
+        this.validation = null;
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
+    return this.validation;
   }
 
   messageForInput(name: string): Message {
@@ -103,7 +119,17 @@ export class FormComponent implements OnInit {
   }
 
   gotoStep(step: number) {
-    this.router.navigate(["../../" + step, this.history.toString()], { relativeTo: this.route });
+    let next = (valid: boolean) => {
+      if (valid) {
+        this.router.navigate(["../../" + step, this.history.toString()], { relativeTo: this.route });
+      }
+    };
+
+    if (this.validation) {
+      this.validation.then(next);
+    } else {
+      next(true);
+    }
   }
 
   previous() {
