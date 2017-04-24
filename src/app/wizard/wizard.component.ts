@@ -29,7 +29,6 @@ import * as jsonpatch from 'fast-json-patch';
 export class FormComponent implements OnInit {
   @ViewChild('wizard') form: NgForm;
   command: string;
-  validation: Promise<boolean>;
   history: History = new History();
 
   constructor(private route: ActivatedRoute,
@@ -76,7 +75,7 @@ export class FormComponent implements OnInit {
 
   validate(form: NgForm): Promise<boolean> {
     if (form.valid) {
-      this.validation = this.forgeService.validate(this.command, this.history).then(gui =>
+      return this.forgeService.validate(this.command, this.history).then(gui =>
       {
         var stepIndex = this.currentGui.stepIndex;
         var diff = jsonpatch.compare(this.currentGui, gui);
@@ -86,7 +85,6 @@ export class FormComponent implements OnInit {
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
-    return this.validation;
   }
 
   messageForInput(name: string): Message {
@@ -101,17 +99,7 @@ export class FormComponent implements OnInit {
   }
 
   next() {
-    let next = (valid: boolean) => {
-      if (valid) {
-        this.gotoStep(++this.currentGui.stepIndex);
-      }
-    };
-
-    if (this.validation) {
-      this.validation.then(next);
-    } else {
-      next(true);
-    }
+    this.gotoStep(++this.currentGui.stepIndex);
   }
 
   gotoStep(step: number) {
