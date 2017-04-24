@@ -4,7 +4,7 @@
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Done"><span class="glyphicon glyphicon-ok-circle"></span></div>
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Error"><span class="pficon pficon-error-circle-o"></span></div>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.None">
-      Your project is ready, now you can either download it as zipfile and try it locally or launch it on OpenShift.
+      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to built and deploy locally</span><span *ngIf="!downloadOrCD"> launch it on OpenShift</span>.
     </p>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Progress">
       Working...
