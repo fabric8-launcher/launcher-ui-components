@@ -4,8 +4,6 @@ import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
 import { History, Gui, Input, Message, Result, MetaData } from '../shared/model';
 
-import * as jsonpatch from 'fast-json-patch';
-
 let adocIndex = require('../../assets/adoc.index');
 
 @Component({
@@ -93,12 +91,10 @@ export class FormComponent implements OnInit {
     if (form.valid) {
       this.validation = this.forgeService.validate(this.command, this.history).then(gui =>
       {
-        let stepIndex = this.currentGui.stepIndex;
-        let diff = jsonpatch.compare(this.currentGui, gui);
-        jsonpatch.apply(this.currentGui, diff);
-        this.currentGui.stepIndex = stepIndex;
         this.currentGui.messages = gui.messages;
+        this.currentGui.state = gui.state;
         this.enhanceGui(this.currentGui);
+        this.validation = null;
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
