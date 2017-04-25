@@ -3,7 +3,6 @@
     <a class="navbar-brand page-scroll" routerLink="/">
       <img class="header-logo" src="../../assets/img/openshift-io_white.png" alt="Openshift.io">
     </a>
-    <p class="navbar-text">Launchpad</p>
     <ul class="nav navbar-nav navbar-right">
       <li id="loggedout" *ngIf="!keycloak.isAuthenticated()">
         <a id="login" href="javascript:void(0)" (click)="keycloak.login()">
