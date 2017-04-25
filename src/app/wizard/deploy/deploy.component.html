@@ -4,30 +4,30 @@
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Done"><span class="glyphicon glyphicon-ok-circle"></span></div>
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Error"><span class="pficon pficon-error-circle-o"></span></div>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.None">
-      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to built and deploy locally</span><span *ngIf="!downloadOrCD"> launch it on OpenShift</span>.
+      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span><span *ngIf="!downloadOrCD"> launch it on OpenShift Online.<br /><br />The launch process will create both a GitHub repository containing your new Booster and a new project on OpenShift Online to automatically build and deploy the codebase.</span>
     </p>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Progress">
       Working...
     </p>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Done">
-      Done, your project is created, built and launched on OpenShift!
+      Done; your project is created, and is now building its way towards deployment on OpenShift Online!
     </p>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Error">
-      An error occured, you can try to run this action again.
+      An error occured; you can try to run this action again.
     </p>
     <div class="blank-slate-pf-secondary-action">
       <button id="back" type="button" class="btn btn-lg btn-default" (click)="back()" *ngIf="status == Status.None">
         Back
       </button>
       <button id="restart" type="button" class="btn btn-lg btn-default" (click)="restart()" *ngIf="status == Status.Done">
-        Restart
+        Start Over to Launch a new Booster
       </button>
 
       <button id="download" type="button" class="btn btn-lg btn-primary" (click)="downloadZip()" [disabled]="status == Status.Progress" *ngIf="downloadOrCD">
-          Download as Zip
+          Download as ZIP File
       </button>
       <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="status == Status.Progress" *ngIf="!downloadOrCD">
-        Launch on OpenShift
+        Launch on OpenShift Online
       </button>
     </div>
 </div>

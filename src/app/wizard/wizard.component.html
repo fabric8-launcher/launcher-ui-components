@@ -35,7 +35,7 @@
   </div>
   <div *ngIf="currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()">
     <div class="col-sm-offset-2 col-sm-10">
-    You need to be registered and logged-in with OpenShift to continue!
+    You need to be registered and logged-in with OpenShift Online to continue!
     <button class="btn btn-primary" (click)="keycloak.login()">Login</button>
     </div>
   </div>
