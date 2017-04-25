@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
 import { History, Gui, Input, Message, Result, MetaData } from '../shared/model';
+import { KeycloakService } from "../shared/keycloak.service";
 
 let adocIndex = require('../../assets/adoc.index');
 
@@ -34,7 +35,8 @@ export class FormComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private forgeService: ForgeService) {
+    private forgeService: ForgeService,
+    private keycloak: KeycloakService) {
   }
 
   ngOnInit() {

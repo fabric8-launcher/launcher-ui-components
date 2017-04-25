@@ -33,10 +33,17 @@
       The wizard is loading the initial screen...
     </p>
   </div>
-  <div style="padding-top: 3em">
+  <div *ngIf="currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()">
+    <div class="col-sm-offset-2 col-sm-10">
+    You need to be registered and logged-in with OpenShift to continue!
+    <button class="btn btn-primary" (click)="keycloak.login()">Login</button>
+    </div>
+  </div>
+
+  <div style="padding-top: 3em" *ngIf="!(currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated())">
   <div class="col-sm-offset-1" style="margin-bottom: 2.2em" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
   <div class="col-sm-offset-2 col-sm-10" style="position: absolute;margin-top: -2em" *ngIf="validation">
-    <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form
+    <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form...
   </div>
   <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
     <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
@@ -96,7 +103,7 @@
         <span class="i fa fa-angle-left"></span>
         Back
       </button>
-      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep && !currentGui.state.canExecute" (click)="next()">
+      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep && !currentGui.state.canExecute || validation" (click)="next()">
         Next
         <span class="i fa fa-angle-right"></span>
       </button>
