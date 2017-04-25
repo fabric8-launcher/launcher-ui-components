@@ -4,6 +4,31 @@
       <img class="header-logo" src="../../assets/img/openshift-io_white.png" alt="Openshift.io">
     </a>
     <p class="navbar-text">Launchpad</p>
+    <ul class="nav navbar-nav navbar-right">
+      <li id="loggedout" *ngIf="!keycloak.isAuthenticated()">
+        <a id="login" href="javascript:void(0)" (click)="keycloak.login()">
+          <i class="pficon pficon-user"></i> Log In
+        </a>
+      </li>
+      <li class="dropdown" [class.open]="collapse" id="loggedin" *ngIf="keycloak.isAuthenticated()">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" (click)="collapse = !collapse">
+          <div id="header_dropdownToggle_header">
+            <span class="nav-item-icon">
+              <span class="nav-icon pficon-user" id="nouserimage"></span>
+              <img class="hidden" id="userimage">
+            </span>
+            <span class="nav-item-text" id="name"></span> <b class="caret"></b>
+          </div>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a id="logout" href="javascript:void(0)" (click)="keycloak.logout()">
+              <span class="nav-item-text">Sign out</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
 <router-outlet></router-outlet>
