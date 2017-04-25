@@ -15,7 +15,7 @@ let adocIndex = require('../../assets/adoc.index');
     .required > label:after {
       content: ' *'
     }
-    .ng-invalid {
+    .ng-invalid.ng-dirty {
       border-color: #c00;
       box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     }
