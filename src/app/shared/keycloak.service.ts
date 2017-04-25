@@ -18,10 +18,10 @@ export class KeycloakService {
 
     KeycloakService.auth.loggedIn = false;
     KeycloakService.auth.authz = {};
-    
+
     if (config.realm) {
       return new Promise((resolve, reject) => {
-        keycloakAuth.init({ onLoad: 'check-sso' })
+        keycloakAuth.init({ onLoad: 'check-sso', checkLoginIframe: false })
           .success(() => {
             KeycloakService.auth.loggedIn = true;
             KeycloakService.auth.authz = keycloakAuth;
