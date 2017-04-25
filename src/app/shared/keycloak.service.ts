@@ -55,6 +55,10 @@ export class KeycloakService {
     return KeycloakService.auth.authz.tokenParsed;
   }
 
+  get user(): string {
+    return KeycloakService.auth.authz.tokenParsed.name;
+  }
+
   getToken(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       if (KeycloakService.auth.authz.token) {
