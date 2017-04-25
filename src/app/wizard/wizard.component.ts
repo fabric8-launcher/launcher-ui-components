@@ -2,9 +2,11 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
-import { History, Gui, Input, Message, Result } from '../shared/model';
+import { History, Gui, Input, Message, Result, MetaData } from '../shared/model';
 
 import * as jsonpatch from 'fast-json-patch';
+
+let adocIndex = require('../../assets/adoc.index');
 
 @Component({
   selector: 'wizard',
@@ -61,12 +63,25 @@ export class FormComponent implements OnInit {
           });
         }
         if (!this.history.get(index)) {
-          return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:any) => {
+          return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:Gui) => {
             this.history.add(gui);
+            this.enhanceGui(gui);
           });
         }
         return Promise.resolve();
       }, Promise.resolve());
+    });
+  }
+
+  private enhanceGui(gui: Gui) {
+    gui.metadata = {intro: adocIndex[gui.state.steps[gui.stepIndex - 1] + "-intro"]} as MetaData;
+    gui.inputs.forEach(submittableInput => {
+      let input = submittableInput as Input;
+      if (input.valueChoices) {
+        input.valueChoices.forEach(choice => {
+          choice.description = adocIndex[input.name + choice.id];
+        });
+      }
     });
   }
 
@@ -78,11 +93,12 @@ export class FormComponent implements OnInit {
     if (form.valid) {
       this.validation = this.forgeService.validate(this.command, this.history).then(gui =>
       {
-        var stepIndex = this.currentGui.stepIndex;
-        var diff = jsonpatch.compare(this.currentGui, gui);
+        let stepIndex = this.currentGui.stepIndex;
+        let diff = jsonpatch.compare(this.currentGui, gui);
         jsonpatch.apply(this.currentGui, diff);
         this.currentGui.stepIndex = stepIndex;
         this.currentGui.messages = gui.messages;
+        this.enhanceGui(this.currentGui);
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
