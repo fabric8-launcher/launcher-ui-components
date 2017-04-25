@@ -60,7 +60,7 @@ export class ForgeService {
 
     form.appendChild(this.createFormInput("stepIndex", String(history.stepIndex)));
 
-    for (var i = 0; i < history.stepIndex; i++) {
+    for (var i = 1; i <= history.stepIndex; i++) {
       let inputs = history.get(i).inputs;
       if (inputs) {
         for (let input of inputs) {
