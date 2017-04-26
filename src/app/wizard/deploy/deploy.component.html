@@ -4,8 +4,22 @@
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Done"><span class="glyphicon glyphicon-ok-circle"></span></div>
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Error"><span class="pficon pficon-error-circle-o"></span></div>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.None">
-      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span><span *ngIf="!downloadOrCD"> launch it on OpenShift Online.<br /><br />The launch process will create both a GitHub repository containing your new Booster and a new project on OpenShift Online to automatically build and deploy the codebase.</span>
+      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span><span *ngIf="!downloadOrCD"> launch it on OpenShift Online.<br /><br />
+      The launch process will create both a GitHub repository containing your new Booster and a new project on OpenShift Online to automatically build and deploy the codebase.</span>
     </p>
+    <div *ngIf="status == Status.None" style="text-align: left; margin: auto; max-width: 300px">
+      <h2>Summary:</h2>
+        <ul class="list-unstyled">
+          <li *ngFor="let index of pageNumbers">
+            {{submittedGuis.get(index).metadata.name}}
+            <ul>
+              <li *ngFor="let input of submittedGuis.get(index).inputs">
+                <b *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b> {{input.value}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+    </div>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Progress">
       Working...
     </p>
