@@ -26,10 +26,11 @@
       <button id="download" type="button" class="btn btn-lg btn-primary" (click)="downloadZip()" [disabled]="status == Status.Progress" *ngIf="downloadOrCD">
           Download as ZIP File
       </button>
-      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="status == Status.Progress" *ngIf="!downloadOrCD">
+      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="status == Status.Progress || status == Status.Done" *ngIf="!downloadOrCD">
         Launch on OpenShift Online
       </button>
     </div>
+    {{docIndex['Mission-intro']}}
 </div>
 
 <div class="container" style="max-width: 700px">
