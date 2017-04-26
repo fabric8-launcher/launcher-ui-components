@@ -86,6 +86,8 @@ module.exports = {
       helpers.root('src') // location of your src
     ),
 
+    new webpack.IgnorePlugin(/fs/),
+
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     })
