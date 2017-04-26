@@ -56,7 +56,7 @@ export class KeycloakService {
   }
 
   get user(): string {
-    return KeycloakService.auth.authz.tokenParsed.name;
+    return this.skip ? "Fake User" : KeycloakService.auth.authz.tokenParsed.name;
   }
 
   getToken(): Promise<string> {
