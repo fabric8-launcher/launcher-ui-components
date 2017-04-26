@@ -15,6 +15,7 @@
             <ul>
               <li *ngFor="let input of submittedGuis.get(index).inputs">
                 <b *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b> {{input.value}}
+                <br/><i>{{input.note}}</i>
               </li>
             </ul>
           </li>
