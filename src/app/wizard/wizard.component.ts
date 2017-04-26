@@ -97,6 +97,7 @@ export class FormComponent implements OnInit {
         this.currentGui.state = gui.state;
         this.enhanceGui(this.currentGui);
         this.validation = null;
+        this.form.control.markAsPristine();
         return this.currentGui.messages.length == 0;
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
