@@ -72,7 +72,7 @@
                 <h3 class="panel-title">{{option.id == "ZIP File" ? "Launch Manually" : "Launch Using Continuous Delivery"}}</h3>
               </div>
               <div class="panel-body" [innerHTML]="option.description"></div>
-              <button class="btn btn-primary" style="margin:15px" (click)="input.value = option.id;next()">{{option.id == "ZIP File" ? "Download Zip" : "Open in Openshift"}}</button>
+              <button class="btn btn-primary btn-block" (click)="input.value = option.id;next()">{{option.id == "ZIP File" ? "Download Zip" : "Open in Openshift"}}</button>
             </div>
           </div>
         </div>
