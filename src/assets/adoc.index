@@ -1,11 +1,16 @@
 {
     "Mission-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/2fe91b46b6b6cd6e740d314e4f9bc313306b5d96/docs/topics/getting-started-mission-intro.adoc",
     "Runtime-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/gettting-started-runtime-project-framework-intro.adoc",
-    "deploymentTypeZIP File": "https://raw.githubusercontent.com/edewit/appdev-documentation/front-end-text/docs/topics/getting-started-launchpad-download-zip.adoc",
-    "deploymentTypeContinuous delivery": "https://raw.githubusercontent.com/edewit/appdev-documentation/front-end-text/docs/topics/getting-started-launchpad-continuous-delivery.adoc",
-    "missionCRUD": "https://raw.githubusercontent.com/edewit/appdev-documentation/front-end-text/docs/topics/crud-mission-intro-paragraph.adoc",
-    "missionExternalized Configuration": "https://raw.githubusercontent.com/edewit/appdev-documentation/front-end-text/docs/topics/configmap-mission-intro-paragraph.adoc",
-    "missionHealth Check": "https://raw.githubusercontent.com/edewit/appdev-documentation/front-end-text/docs/topics/health-check-mission-intro-paragraph.adoc",
-    "missionREST API Level 0": "https://raw.githubusercontent.com/edewit/appdev-documentation/front-end-text/docs/topics/rest-level-0-mission-intro-paragraph.adoc",
-    "missionSecured": "https://raw.githubusercontent.com/edewit/appdev-documentation/front-end-text/docs/topics/secured-mission-intro-paragraph.adoc"
+    "deploymentTypeZIP File": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-download-zip.adoc",
+    "deploymentTypeContinuous delivery": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-continuous-delivery.adoc",
+    "missionCRUD": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/crud-mission-intro-paragraph.adoc",
+    "missionExternalized Configuration": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/configmap-mission-intro-paragraph.adoc",
+    "missionHealth Check": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/health-check-mission-intro-paragraph.adoc",
+    "missionREST API Level 0": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/rest-level-0-mission-intro-paragraph.adoc",
+    "missionSecured": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/secured-mission-intro-paragraph.adoc",
+    "GITHUB_CREATE": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/github-create-step.adoc",
+    "GITHUB_PUSHED": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/github-pushed-step.adoc",
+    "OPENSHIFT_CREATE": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/openshift-create-step.adoc",
+    "OPENSHIFT_PIPELINE": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/openshift-pipeline-step.adoc",
+    "GITHUB_WEBHOOK": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/github-webhook.adoc"
 }

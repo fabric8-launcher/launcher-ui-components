@@ -4,8 +4,23 @@
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Done"><span class="glyphicon glyphicon-ok-circle"></span></div>
     <div class="wizard-pf-success-icon" *ngIf="status == Status.Error"><span class="pficon pficon-error-circle-o"></span></div>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.None">
-      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span><span *ngIf="!downloadOrCD"> launch it on OpenShift Online.<br /><br />The launch process will create both a GitHub repository containing your new Booster and a new project on OpenShift Online to automatically build and deploy the codebase.</span>
+      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span><span *ngIf="!downloadOrCD"> launch it on OpenShift Online.<br /><br />
+      The launch process will create both a GitHub repository containing your new Booster and a new project on OpenShift Online to automatically build and deploy the codebase.</span>
     </p>
+    <div *ngIf="status == Status.None" style="text-align: left; margin: auto; max-width: 300px">
+      <h2>Summary:</h2>
+        <ul class="list-unstyled">
+          <li *ngFor="let index of pageNumbers">
+            {{submittedGuis.get(index).metadata.name}}
+            <ul>
+              <li *ngFor="let input of submittedGuis.get(index).inputs">
+                <b *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b> {{input.value}}
+                <br/><i>{{input.note}}</i>
+              </li>
+            </ul>
+          </li>
+        </ul>
+    </div>
     <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Progress">
       Working...
     </p>
@@ -26,7 +41,7 @@
       <button id="download" type="button" class="btn btn-lg btn-primary" (click)="downloadZip()" [disabled]="status == Status.Progress" *ngIf="downloadOrCD">
           Download as ZIP File
       </button>
-      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="status == Status.Progress" *ngIf="!downloadOrCD">
+      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="status == Status.Progress || status == Status.Done" *ngIf="!downloadOrCD">
         Launch on OpenShift Online
       </button>
     </div>
@@ -41,6 +56,9 @@
       {{status.message}}
       <span class="pull-right pficon pficon-ok" style="font-size: 2em" *ngIf="status.done"></span>
       <span class="pull-right pficon pficon-error-circle-o" style="font-size: 2em" *ngIf="status.data && status.data.error"></span>
+      <div *ngIf="status.data">
+        <div [innerHtml]="status.data.doc"></div>
+      </div>
       <a [href]="status.data.location" *ngIf="status.data && status.data.location" target="_blank"><br/>See it here!</a>
       <span *ngIf="status.data && status.data.error"><br/>{{status.data.error}}</span>
     </li>

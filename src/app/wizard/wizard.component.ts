@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
-import { History, Gui, Input, Message, Result, MetaData } from '../shared/model';
+import { History, Gui, Input, Message, Result } from '../shared/model';
 import { KeycloakService } from "../shared/keycloak.service";
 
 let adocIndex = require('../../assets/adoc.index');
@@ -74,7 +74,7 @@ export class FormComponent implements OnInit {
   }
 
   private enhanceGui(gui: Gui) {
-    gui.metadata = {intro: adocIndex[gui.state.steps[gui.stepIndex - 1] + "-intro"]} as MetaData;
+    gui.metadata.intro = adocIndex[gui.state.steps[gui.stepIndex - 1] + "-intro"];
     gui.inputs.forEach(submittableInput => {
       let input = submittableInput as Input;
       if (input.valueChoices) {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { History, StatusMessage, StatusEvent } from '../../shared/model';
@@ -6,15 +6,18 @@ import { ForgeService } from "../../shared/forge.service";
 import { KeycloakService } from "../../shared/keycloak.service";
 import { Config } from "../../shared/config.component";
 
+let adocIndex = require('../../../assets/adoc.index');
+
 @Component({
   selector: 'deploy',
   templateUrl: './deploy.component.html'
 })
-export class DeployComponent {
+export class DeployComponent implements OnInit {
   @Input() submittedGuis: History;
   @Input() command: string;
   status: Status = Status.None;
   Status = Status;
+  pageNumbers: number[];
   statusMessages: StatusMessage[];
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
@@ -31,6 +34,10 @@ export class DeployComponent {
     if (this.apiUrl && this.apiUrl.endsWith('/')) {
       this.apiUrl = this.apiUrl.substr(0, this.apiUrl.length - 1);
     }
+  }
+
+  ngOnInit() {
+    this.pageNumbers = Array(this.submittedGuis.stepIndex - 1).fill(1).map((x, i) => i + 1);
   }
 
   deploy(): void {
@@ -64,7 +71,8 @@ export class DeployComponent {
                 for (let status of this.statusMessages) {
                   if (status.messageKey == message.statusMessage) {
                     status.done = true;
-                    status.data = message.data;
+                    status.data =message.data || {};
+                    status.data['doc'] = adocIndex[message.statusMessage];
                     break;
                   }
                 }
