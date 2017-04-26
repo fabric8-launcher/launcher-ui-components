@@ -46,7 +46,7 @@
     <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form...
   </div>
   <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
-    <label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
+    <label class="col-sm-2 control-label" for="textInput-markup" *ngIf="input.valueType != 'io.openshift.launchpad.ui.booster.DeploymentType'">{{input.label}}</label>
     <div class="col-sm-10" [ngSwitch]="input.class">
       <span *ngSwitchCase="'UIInput'">
         <span [ngSwitch]="input.valueType">
@@ -65,14 +65,16 @@
       </span>
       <span *ngSwitchCase="'UISelectOne'">
         <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType == 'io.openshift.launchpad.catalog.Runtime'" (ngModelChange)="validate(form)"></ob-project-select>
-        <div class="row" *ngIf="input.valueType == 'io.openshift.launchpad.ui.booster.DeploymentType'">
+        <div class="col-sm-offset-2 row" *ngIf="input.valueType == 'io.openshift.launchpad.ui.booster.DeploymentType'">
           <div class="col-sm-6" *ngFor="let option of input.valueChoices">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">{{option.id == "ZIP File" ? "Launch Manually" : "Launch Using Continuous Delivery"}}</h3>
               </div>
-              <div class="panel-body" [innerHTML]="option.description"></div>
-              <button class="btn btn-primary btn-block" (click)="input.value = option.id;next()">{{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online to build and deploy"}}</button>
+              <div class="panel-body" [innerHTML]="option.description" style="min-height:300px"></div>
+              <button class="btn btn-primary btn-block" (click)="input.value = option.id;next()">
+                {{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online to build and deploy"}}
+              </button>
             </div>
           </div>
         </div>
