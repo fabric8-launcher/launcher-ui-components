@@ -7,5 +7,10 @@
     "missionExternalized Configuration": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/configmap-mission-intro-paragraph.adoc",
     "missionHealth Check": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/health-check-mission-intro-paragraph.adoc",
     "missionREST API Level 0": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/rest-level-0-mission-intro-paragraph.adoc",
-    "missionSecured": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/secured-mission-intro-paragraph.adoc"
+    "missionSecured": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/secured-mission-intro-paragraph.adoc",
+    "GITHUB_CREATE": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/github-create-step.adoc",
+    "GITHUB_PUSHED": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/github-pushed-step.adoc",
+    "OPENSHIFT_CREATE": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/openshift-create-step.adoc",
+    "OPENSHIFT_PIPELINE": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/openshift-pipeline-step.adoc",
+    "GITHUB_WEBHOOK": "https://raw.githubusercontent.com/edewit/appdev-documentation/deploy-sniplets/docs/topics/frontend/github-webhook.adoc"
 }

@@ -30,7 +30,6 @@
         Launch on OpenShift Online
       </button>
     </div>
-    {{docIndex['Mission-intro']}}
 </div>
 
 <div class="container" style="max-width: 700px">
@@ -42,6 +41,9 @@
       {{status.message}}
       <span class="pull-right pficon pficon-ok" style="font-size: 2em" *ngIf="status.done"></span>
       <span class="pull-right pficon pficon-error-circle-o" style="font-size: 2em" *ngIf="status.data && status.data.error"></span>
+      <div *ngIf="status.data">
+        <div [innerHtml]="status.data.doc"></div>
+      </div>
       <a [href]="status.data.location" *ngIf="status.data && status.data.location" target="_blank"><br/>See it here!</a>
       <span *ngIf="status.data && status.data.error"><br/>{{status.data.error}}</span>
     </li>

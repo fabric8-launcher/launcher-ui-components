@@ -6,6 +6,8 @@ import { ForgeService } from "../../shared/forge.service";
 import { KeycloakService } from "../../shared/keycloak.service";
 import { Config } from "../../shared/config.component";
 
+let adocIndex = require('../../../assets/adoc.index');
+
 @Component({
   selector: 'deploy',
   templateUrl: './deploy.component.html'
@@ -64,7 +66,8 @@ export class DeployComponent {
                 for (let status of this.statusMessages) {
                   if (status.messageKey == message.statusMessage) {
                     status.done = true;
-                    status.data = message.data;
+                    status.data =message.data || {};
+                    status.data['doc'] = adocIndex[message.statusMessage];
                     break;
                   }
                 }
