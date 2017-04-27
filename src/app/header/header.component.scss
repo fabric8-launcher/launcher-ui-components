@@ -2,9 +2,30 @@ img.header-logo {
     width: 70%;
 }
 
-.navbar-text {
+.navbar {
   color: #ddd;
   font-size: 16px;
+  border-top: 0;
+}
+
+.nav-item-icon {
+    white-space: nowrap;
+}
+
+.navbar-pf .navbar-header {
+  min-height: 75px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 0;
+}
+
+.nav.navbar-nav.navbar-right {
+  margin-top: 10px;
+}
+
+.navbar-brand {
+  padding: 15px 20px;
+  margin: 0;
 }
 
 @media (max-width: 768px){
