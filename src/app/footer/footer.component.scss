@@ -39,7 +39,7 @@ footer {
   }
 }
 @media (max-width: 1024px) {
-  .footer-openshiftio {
+  footer {
     .conditions {
       font-size: 12px;
       a:first-child {
@@ -52,7 +52,7 @@ footer {
   }
 }
 @media (max-width: 768px) {
-  .footer-openshiftio {
+  footer {
     .conditions {
       display: none;
     }
