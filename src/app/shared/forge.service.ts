@@ -93,9 +93,9 @@ export class ForgeService {
       .catch(this.handleError);
   }
 
-  private handleError(error: Response | any): Promise<any> {
+  private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
-    if (error.json) {
+    if (error.statusText) {
       return Promise.reject(error.json());
     }
     return Promise.reject(error.message || "Error calling service");
