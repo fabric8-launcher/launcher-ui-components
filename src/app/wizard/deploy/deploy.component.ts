@@ -59,14 +59,7 @@ export class DeployComponent implements OnInit {
             } else {
               let message = JSON.parse(event.data);
               if (message.data && message.data.error) {
-                this.status = Status.Error;
-                this.webSocket.close();
-                for (let status of this.statusMessages) {
-                  if (!status.done) {
-                    status.data = message.data;
-                    break;
-                  }
-                }
+                this.logError(message.data);
               } else {
                 for (let status of this.statusMessages) {
                   if (status.messageKey == message.statusMessage) {
@@ -85,10 +78,44 @@ export class DeployComponent implements OnInit {
               }
             }
           }.bind(this);
+          this.webSocket.onerror = function(event: MessageEvent) {
+            this.logError(event.data.error_description);
+          }.bind(this);
+        }).catch(reason => {
+          if (reason.messages) {
+            let message: string = "";
+            reason.messages.forEach((error :any) => {
+              message = message ? message + "; " : message;
+              message += error.description;
+            });
+            this.logError(message);
+          } else {
+            this.logError(reason);
+          }
         });
     } else {
       this.kc.login();
     }
+  }
+
+  logError(message: string) {
+    this.status = Status.Error;
+    if (this.webSocket) {
+      this.webSocket.close();
+    }
+    if (!this.statusMessages) {
+      this.statusMessages = [];
+    }
+    for (let status of this.statusMessages) {
+      if (!status.done) {
+        status.data = {error: message};
+        return;
+      }
+    }
+
+    let errorEvent = new StatusMessage("error", "Server error occured");
+    errorEvent.data = {error: message};
+    this.statusMessages.push(errorEvent);
   }
 
   retry(): void {

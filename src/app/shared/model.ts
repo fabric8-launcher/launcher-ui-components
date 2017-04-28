@@ -157,7 +157,7 @@ export class StatusEvent {
 export class StatusMessage {
     messageKey: string;
     message: string;
-    data: Map<string, any>;
+    data: any;
     done: boolean;
 
     constructor(messageKey: string, message: string) {
