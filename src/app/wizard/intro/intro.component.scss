@@ -1,5 +1,7 @@
 $assetPath : "../../../assets/img/";
 
+@import url(http://overpass-30e2.kxcdn.com/overpass.css);
+
 #intro {
     margin-top: -20px;
     background: url(#{$assetPath}Background_img._1300x450.png);
@@ -41,7 +43,7 @@ $assetPath : "../../../assets/img/";
         }
         .card-pf-title {
             color: black;
-            font-size: 18px;
+            font-size: 18pt;
             font-family: Overpass,sans-serif;
             text-align: center;
         }
