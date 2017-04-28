@@ -6,7 +6,7 @@ $assetPath : "../../../assets/img/";
     min-height: 450px;
     background-size: cover;
     background-position: 0;
-    font-family: Overpass,sans-serif;
+    font-family: overpass,sans-serif;
     
     h1 {
         color: #fff;
@@ -14,6 +14,37 @@ $assetPath : "../../../assets/img/";
     h2 {
         color: #c00;
         font-weight: bold;
+    }
+}
+
+#runtimes {
+    background-color: #f5f5f5;
+    font-family: overpass,sans-serif;
+    h2 {
+        color: #c00;
+    }    
+    .card-pf {
+        background-color: #d1d1d1;
+        height: 245px;
+        .card-pf-body {
+            margin-top: 50px;
+            border-radius: 60px; 
+            background-color: white;
+            height: 120px;
+            width: 120px;
+            margin-left: 100px;
+            .icon {
+                margin-top: 20px;
+                margin-left: 20px;
+                position: absolute;
+            }
+        }
+        .card-pf-title {
+            color: black;
+            font-size: 18px;
+            font-family: Overpass,sans-serif;
+            text-align: center;
+        }
     }
 }
 

@@ -1,28 +1,64 @@
 <section id="intro">
-  <div class="container-fluid">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-2 col-lg-6 col-lg-offset-2">
+  <div class="container">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
       <h2>launch.openshift.io</h2>
       <h1>
         Continuous application delivery, built and deployed on OpenShift
       </h1>
     </div>
+    <div class="col-xs-6 col-sm-6 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+      <a class="btn btn-lg btn-danger" (click)="launch()">GET STARTED</a>
+    </div>
   </div>
 </section>
 
-<!--<div class="blank-slate-pf">
-  <div class="blank-slate-pf-icon">
-    <img src="../../../assets/img/brand.svg" class="brand">
+<section id="runtimes" style="margin-top:25px">
+  <div class="container container-cards-pf">
+    <div class="row">
+      <div class="col-xs-6 cold-sm-12 col-md-12 card-title">
+        <h2>Available Runtimes</h2>
+      </div>
+    </div>
+    <div class="row row-cards-pf">
+
+      <div class="col-xs-6 col-sm-4 col-md-4">
+        <a href="http://wildfly-swarm.io" target="_blank">
+          <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+            <div class="card-pf-body">
+              <div class="icon swarm"></div>
+            </div>
+            <h2 class="card-pf-title">
+              WildFly Swarm
+            </h2>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4">
+        <a href="https://projects.eclipse.org/projects/rt.vertx" target="_blank">
+          <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+            <div class="card-pf-body">
+              <div class="icon vertx"></div>
+            </div>
+            <h2 class="card-pf-title">
+              Eclipse Vert.x
+            </h2>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-4">
+        <a href="https://projects.spring.io/spring-boot/" target="_blank">
+          <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+            <div class="card-pf-body">
+              <div class="icon boot"></div>
+            </div>
+            <h2 class="card-pf-title">
+              Spring Boot
+            </h2>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
-  <h2>You are moments away from continuous delivery of a new <br>
-      application, built and deployed on <br />
-      Red Hat OpenShift Online.</h2>
-  <h3>Currently supported runtimes:</h3>
-  <div class="lead">
-  </div>
-  <h3>Let's get you into orbit.</h3>
-  <div class="blank-slate-pf-main-action">
-    <button class="btn btn-danger btn-lg" (click)="launch()">
-      Prepare for Takeoff
-    </button>
-  </div>
-</div>-->
+</section>
