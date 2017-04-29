@@ -53,7 +53,7 @@
       <button id="retry" class="pull-left btn btn-lg btn-default" style="margin-left: -65px" (click)="retry()" *ngIf="status.data && status.data.error">
         <i class="glyphicon glyphicon-repeat" aria-hidden="true"></i>
       </button>
-      {{status.message}}
+        <b>{{status.message}}</b>
       <span class="pull-right pficon pficon-ok" style="font-size: 2em" *ngIf="status.done"></span>
       <span class="pull-right pficon pficon-error-circle-o" style="font-size: 2em" *ngIf="status.data && status.data.error"></span>
       <div *ngIf="status.data">
