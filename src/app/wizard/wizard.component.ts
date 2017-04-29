@@ -10,22 +10,7 @@ let adocIndex = require('../../assets/adoc.index');
 @Component({
   selector: 'wizard',
   templateUrl: './wizard.component.html',
-  styles: [`
-    .required > label:after {
-      content: ' *'
-    }
-    .ng-invalid.ng-dirty {
-      border-color: #c00;
-      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    }
-    .ng-invalid + div.errorLabel {
-      color: red;
-      display: block;
-    }
-    .ng-valid + div.errorLabel {
-      display: none;
-    }
-  `]
+  styleUrls: ['./wizard.component.scss']
 })
 export class FormComponent implements OnInit {
   @ViewChild('wizard') form: NgForm;
