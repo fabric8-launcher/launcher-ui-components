@@ -4,11 +4,15 @@
   padding-top: 20px;
   flex: 1;
   font-family: 'overpass';
-  font-size: 16px;
+  font-size: 11pt;
 }
 
 .site {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+}
+
+.btn {
+  font-size: 11pt;
 }
