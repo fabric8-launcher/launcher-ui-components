@@ -36,10 +36,11 @@
   <div *ngIf="currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()">
     <div class="blank-slate-pf ">
       <h1>
-        Log In and register with OpenShift to continue
+        To continue, please log into or register an account for free<br />
+        with the Red Hat Developer Program.
       </h1>
       <div class="blank-slate-pf-main-action">
-        <button class="btn btn-primary btn-lg" (click)="keycloak.login()">Login</button>
+        <button class="btn btn-primary btn-lg" (click)="keycloak.login()">Log in or register</button>
       </div>
     </div>
   </div>
