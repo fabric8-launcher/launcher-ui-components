@@ -27,7 +27,7 @@ $assetPath : "../../../assets/img/";
         color: #fff;
         padding: 9px 40px;
         margin-top: 40px;
-        margin-bottom: 0;
+        margin-bottom: 30px;
         line-height: 1.44;
         font-size: 18px;
     }
@@ -39,29 +39,22 @@ $assetPath : "../../../assets/img/";
     h1 {
         color: #c00;
         font-weight: bold;
-    }    
+    }
     .card-pf {
         background-color: #d1d1d1;
         height: 245px;
-        .card-pf-body {
-            margin-top: 50px;
-            border-radius: 60px; 
-            background-color: white;
-            height: 120px;
-            width: 120px;
-            margin-left: 100px;
-            .icon {
-                margin-top: 20px;
-                margin-left: 20px;
-                position: absolute;
-            }
-        }
         .card-pf-title {
             color: black;
             font-size: 18pt;
             font-family: Overpass,sans-serif;
             text-align: center;
         }
+
+        .card-pf-icon-circle {
+            background-color: white;
+            border-color: white;
+        }
+
     }
 }
 
