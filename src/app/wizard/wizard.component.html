@@ -44,14 +44,15 @@
       </div>
     </div>
   </div>
-  <div style="padding-top: 3em" *ngIf="!(currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated())">
-    <div class="col-sm-offset-1" style="margin-bottom: 2.2em" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
+  <div class="col-sm-offset-2" style="padding-top: 3em" *ngIf="!(currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated())">
+    <h1>{{currentGui.metadata?.name}}</h1>
+    <div style="margin-bottom: 2.2em" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
     <div class="col-sm-offset-2 col-sm-10" style="position: absolute;margin-top: -2em; width: 50%" *ngIf="validation">
       <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form...
     </div>
     <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
-      <label class="col-sm-2 control-label" for="textInput-markup" *ngIf="input.valueType != 'io.openshift.launchpad.ui.booster.DeploymentType'">{{input.label}}</label>
-      <div class="col-sm-10" [ngSwitch]="input.class">
+      <label class="col-sm-3 control-label" for="textInput-markup" *ngIf="currentGui.stepIndex == 4">{{input.label}}</label>
+      <div class="col-sm-9" [ngSwitch]="input.class">
         <span *ngSwitchCase="'UIInput'">
         <span [ngSwitch]="input.valueType">
           <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
@@ -69,36 +70,40 @@
       </span>
       <span *ngSwitchCase="'UISelectOne'">
         <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType == 'io.openshift.launchpad.catalog.Runtime'" (ngModelChange)="validate(form)"></ob-project-select>
-        <div class="col-sm-offset-2 row" *ngIf="input.valueType == 'io.openshift.launchpad.ui.booster.DeploymentType'">
-          <div class="col-sm-6" *ngFor="let option of input.valueChoices">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">{{option.id == "ZIP File" ? "Launch Manually" : "Launch Using Continuous Delivery"}}</h3>
+        <div *ngIf="input.valueType == 'io.openshift.launchpad.ui.booster.DeploymentType'">
+          <div class="box-row">
+          <div class="box-col box" *ngFor="let option of input.valueChoices">
+            <div>
+              <div class="text-center">
+                <i class="fa fa-download icon" *ngIf="option.id == 'ZIP File'"></i>
+                <img src="../../assets/img/openshift-online-logo.svg" *ngIf="option.id != 'ZIP File'">
+                <h2>{{option.id == "ZIP File" ? "Build and run locally" : "Use Continuous Delivery"}}</h2>
               </div>
-              <div class="panel-body" [innerHTML]="option.description" style="min-height:300px"></div>
-              <button class="btn btn-primary btn-block" (click)="input.value = option.id;next()">
-                {{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online to build and deploy"}}
-              </button>
+              <div class="panel-body" [innerHTML]="option.description"></div>
             </div>
+            <button class="btn btn-primary box-btn" (click)="input.value = option.id;next()">
+              {{option.id == "ZIP File" ? "Set up manual project" : "Set up continuous delivery"}}
+            </button>
+          </div>
           </div>
         </div>
         <div *ngIf="input.valueType != 'io.openshift.launchpad.catalog.Runtime' && input.valueType != 'io.openshift.launchpad.ui.booster.DeploymentType'">
-          <div class="row" *ngFor="let option of input.valueChoices">
-            <span class="col-sm-4" style="float:left">
+          <div *ngFor="let option of input.valueChoices">
+            <span>
               <label>
-                <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id" (ngModelChange)="validate(form)">
-                {{option.id}}
+                <h3>
+                  <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id" (ngModelChange)="validate(form)">
+                  {{option.id}}
+                </h3>
               </label>
             </span>
-      <span class="col-sm-8 hidden-xs" style="position: absolute; right:0; top: 0" *ngIf="input.value == option.id">
-              <span [innerHTML]="option.description"></span>
+            <div [innerHTML]="option.description" style="margin-left:18px"></div>
+          </div>
+        </div>
       </span>
-    </div>
-  </div>
-  </span>
-  <div *ngSwitchCase="'UISelectMany'">
-    <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}" (ngModelChange)="validate(form)"></ob-multiselect-list>
-  </div>
+      <div *ngSwitchCase="'UISelectMany'">
+        <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}" (ngModelChange)="validate(form)"></ob-multiselect-list>
+      </div>
   </div>
   </div>
   </div>
