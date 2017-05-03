@@ -7,22 +7,7 @@
   <span class="pficon pficon-error-circle-o"></span> {{error.description}}
 </div>
 </span>
-<div class="wizard-pf-steps" *ngIf="currentGui.state.steps">
-  <ul class="wizard-pf-steps-indicator">
-    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == i + 1" *ngFor="let step of currentGui.state.steps; let i = index">
-      <a (click)="gotoStep(i + 1)">
-        <span class="wizard-pf-step-number">{{i + 1}}</span>
-        <span class="hidden-xs wizard-pf-step-title">{{step}}</span>
-      </a>
-    </li>
-    <li class="wizard-pf-step" [class.active]="currentGui.stepIndex == currentGui.state.steps.length + 1">
-      <span class="wizard-pf-step-number">
-        {{currentGui.state.steps.length + 1}}
-      </span>
-      <span class="hidden-xs wizard-pf-step-title">Review</span>
-    </li>
-  </ul>
-</div>
+<step [steps]="currentGui.state.steps" [stepIndex]="currentGui.stepIndex" (onclick)="gotoStep($event)"></step>
 <form class="form-horizontal" #wizard="ngForm">
   <deploy [submittedGuis]="history" [command]="command" *ngIf="currentGui.results">
   </deploy>
@@ -51,61 +36,8 @@
       <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form...
     </div>
     <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
-      <label class="col-sm-3 control-label" for="textInput-markup" *ngIf="currentGui.stepIndex == 4">{{input.label}}</label>
-      <div class="col-sm-9" [ngSwitch]="input.class">
-        <span *ngSwitchCase="'UIInput'">
-        <span [ngSwitch]="input.valueType">
-          <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="validate(form)">
-          <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Boolean'" type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="validate(form)">
-          <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Integer'" type="number" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-            [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="validate(form)">
-            <div class="errorLabel help-block">
-              <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
-        <span *ngIf="form.dirty && !messageForInput(input.name)">{{input.label}} is required</span>
-      </div>
-      <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
-      </span>
-      </span>
-      <span *ngSwitchCase="'UISelectOne'">
-        <ob-project-select [input]="input" [(ngModel)]="input.value" name="{{input.name}}" *ngIf="input.valueType == 'io.openshift.launchpad.catalog.Runtime'" (ngModelChange)="validate(form)"></ob-project-select>
-        <div *ngIf="input.valueType == 'io.openshift.launchpad.ui.booster.DeploymentType'">
-          <div class="box-row">
-          <div class="box-col box" *ngFor="let option of input.valueChoices">
-            <div>
-              <div class="text-center">
-                <i class="fa fa-download icon" *ngIf="option.id == 'ZIP File'"></i>
-                <img src="../../assets/img/openshift-online-logo.svg" *ngIf="option.id != 'ZIP File'">
-                <h2>{{option.id == "ZIP File" ? "Build and run locally" : "Use Continuous Delivery"}}</h2>
-              </div>
-              <div class="panel-body" [innerHTML]="option.description"></div>
-            </div>
-            <button class="btn btn-primary box-btn" (click)="input.value = option.id;next()">
-              {{option.id == "ZIP File" ? "Set up manual project" : "Set up continuous delivery"}}
-            </button>
-          </div>
-          </div>
-        </div>
-        <div *ngIf="input.valueType != 'io.openshift.launchpad.catalog.Runtime' && input.valueType != 'io.openshift.launchpad.ui.booster.DeploymentType'">
-          <div *ngFor="let option of input.valueChoices">
-            <span>
-              <label>
-                <h3>
-                  <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id" (ngModelChange)="validate(form)">
-                  {{option.id}}
-                </h3>
-              </label>
-            </span>
-            <div [innerHTML]="option.description" style="margin-left:18px"></div>
-          </div>
-        </div>
-      </span>
-      <div *ngSwitchCase="'UISelectMany'">
-        <ob-multiselect-list [input]="input" [(ngModel)]="input.value" name="{{input.name}}" (ngModelChange)="validate(form)"></ob-multiselect-list>
-      </div>
-  </div>
-  </div>
+      <la-input name="{{input.name}}" [ngModel]="input" (ngModelChange)="validate(form)" [messages]="currentGui.messages"></la-input>
+    </div>
   </div>
 
   <div class="form-group" *ngIf="!currentGui.results && currentGui.stepIndex != 1">

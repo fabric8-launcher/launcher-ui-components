@@ -13,18 +13,24 @@ import { KEYCLOAK_HTTP_PROVIDER } from '../shared/keycloak.http';
 
 import { MultiselectListModule } from '../shared/multiselect-list';
 import { ProjectSelectModule } from '../shared/project-select';
+import { StepComponent } from "./step.component";
+import { InputComponent } from "./input.component";
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     MultiselectListModule,
-    ProjectSelectModule
+    ProjectSelectModule,
+    MultiselectDropdownModule
   ],
   declarations: [
     IntroComponent,
     FormComponent,
-    DeployComponent
+    DeployComponent,
+    StepComponent,
+    InputComponent
   ],
   providers: [
     KeycloakService,
