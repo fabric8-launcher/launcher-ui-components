@@ -29,9 +29,13 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-offset-2" style="padding-top: 3em" *ngIf="!(currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated())">
-    <h1>{{currentGui.metadata?.name}}</h1>
-    <div style="margin-bottom: 2.2em" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
+
+  <deployment [gui]="currentGui" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Deployment type'"></deployment>
+  <mission [gui]="currentGui" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Mission'"></mission>
+  <runtime [gui]="currentGui" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Runtime'"></runtime>
+
+  <div style="padding-top: 3em" *ngIf="!(currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated())">
+    <div class="col-sm-offset-1" style="margin-bottom: 2.2em" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
     <div class="col-sm-offset-2 col-sm-10" style="position: absolute;margin-top: -2em; width: 50%" *ngIf="validation">
       <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form...
     </div>
