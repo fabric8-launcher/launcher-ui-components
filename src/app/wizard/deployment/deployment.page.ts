@@ -7,5 +7,10 @@ import { Gui } from "../../shared/model";
 })
 export class DeploymentTypePage {
   @Input() gui: Gui;
+  @Output() action = new EventEmitter();
+
+  next() {
+    this.action.emit();
+  }  
 }
 
