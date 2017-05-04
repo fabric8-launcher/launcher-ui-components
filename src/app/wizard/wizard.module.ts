@@ -11,6 +11,7 @@ import { Config } from '../shared/config.component';
 import { DeploymentTypePage } from './deployment/deployment.page';
 import { MissionPage } from './mission/mission.page';
 import { RuntimePage } from './runtime/runtime.page';
+import { GenericPage } from './generic/generic.page';
 
 import { KeycloakService } from '../shared/keycloak.service';
 import { KEYCLOAK_HTTP_PROVIDER } from '../shared/keycloak.http';
@@ -36,6 +37,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect/src/mu
     DeploymentTypePage,
     MissionPage,
     RuntimePage,
+    GenericPage,
     StepComponent,
     InputComponent
   ],

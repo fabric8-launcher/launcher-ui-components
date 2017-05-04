@@ -18,31 +18,11 @@
       The wizard is loading the initial screen...
     </p>
   </div>
-  <div *ngIf="currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()">
-    <div class="blank-slate-pf ">
-      <h1>
-        To continue, please log into or register an account for free<br />
-        with the Red Hat Developer Program.
-      </h1>
-      <div class="blank-slate-pf-main-action">
-        <button class="btn btn-primary btn-lg" (click)="keycloak.login()">Log in or register</button>
-      </div>
-    </div>
-  </div>
 
-  <deployment [gui]="currentGui" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Deployment type'"></deployment>
-  <mission [gui]="currentGui" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Mission'"></mission>
+  <deployment [gui]="currentGui" (action)="next()" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Deployment type'"></deployment>
+  <mission [gui]="currentGui" [authenticationNeeded]="history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Mission'"></mission>
   <runtime [gui]="currentGui" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Runtime'"></runtime>
-
-  <div style="padding-top: 3em" *ngIf="!(currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated())">
-    <div class="col-sm-offset-1" style="margin-bottom: 2.2em" [innerHTML]="currentGui.metadata.intro" *ngIf="currentGui.inputs && currentGui.metadata"></div>
-    <div class="col-sm-offset-2 col-sm-10" style="position: absolute;margin-top: -2em; width: 50%" *ngIf="validation">
-      <span class="spinner spinner-xs spinner-inline" *ngIf="validation"></span>Validating form...
-    </div>
-    <div class="form-group" [class.has-error]="messageForInput(input.name)" [class.required]="input.required" *ngFor="let input of currentGui.inputs">
-      <la-input name="{{input.name}}" [ngModel]="input" (ngModelChange)="validate(form)" [messages]="currentGui.messages"></la-input>
-    </div>
-  </div>
+  <generic [gui]="currentGui" [validation]="validation" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Metadata'" (validate)="validate(form)"></generic>
 
   <div class="form-group" *ngIf="!currentGui.results && currentGui.stepIndex != 1">
     <div class="col-sm-offset-10 col-sm-2">
