@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { History, StatusMessage, StatusEvent } from '../../shared/model';
-import { ForgeService } from "../../shared/forge.service";
-import { KeycloakService } from "../../shared/keycloak.service";
-import { Config } from "../../shared/config.component";
+import { History, StatusMessage, StatusEvent } from '../../../shared/model';
+import { ForgeService } from "../../../shared/forge.service";
+import { KeycloakService } from "../../../shared/keycloak.service";
+import { Config } from "../../../shared/config.component";
 
-let adocIndex = require('../../../assets/adoc.index');
+let adocIndex = require('../../../../assets/adoc.index');
 
 @Component({
   selector: 'deploy',

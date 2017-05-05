@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Gui } from "../../shared/model";
+import { Gui } from "../../../shared/model";
 
 @Component({
   selector: "deployment",

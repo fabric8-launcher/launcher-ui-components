@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Gui } from "../../shared/model";
-import { InputComponent } from "../input.component";
+import { Gui } from "../../../shared/model";
+import { InputComponent } from "../../components/input/input.component";
 
 @Component({
   selector: "generic",

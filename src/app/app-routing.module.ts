@@ -1,7 +1,7 @@
 import { NgModule }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './wizard/wizard.component';
-import { IntroComponent } from './wizard/intro/intro.component';
+import { IntroComponent } from './wizard/pages/intro/intro.component';
 
 const routes: Routes = [
   {
