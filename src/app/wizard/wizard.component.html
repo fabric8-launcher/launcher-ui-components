@@ -9,8 +9,6 @@
 </span>
 <step [steps]="currentGui.state.steps" [stepIndex]="currentGui.stepIndex" (onclick)="gotoStep($event)"></step>
 <form class="form-horizontal" #wizard="ngForm">
-  <deploy [submittedGuis]="history" [command]="command" *ngIf="currentGui.results">
-  </deploy>
   <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
     <div class="spinner spinner-lg blank-slate-pf-icon"></div>
     <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
@@ -19,10 +17,14 @@
     </p>
   </div>
 
-  <deployment [gui]="currentGui" (action)="next()" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Deployment type'"></deployment>
-  <mission [gui]="currentGui" [authenticationNeeded]="history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Mission'"></mission>
-  <runtime [gui]="currentGui" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Runtime'"></runtime>
-  <generic [gui]="currentGui" [validation]="validation" *ngIf="currentGui.metadata && currentGui.metadata.name == 'Metadata'" (validate)="validate(form)"></generic>
+  <span [ngSwitch]="currentGui.metadata.name" *ngIf="currentGui.metadata">
+    <deployment [gui]="currentGui" (action)="next()" *ngSwitchCase="'Deployment type'"></deployment>
+    <mission [gui]="currentGui" [authenticationNeeded]="history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()" *ngSwitchCase="'Mission'"></mission>
+    <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'"></runtime>
+    <deploy [submittedGuis]="history" [command]="command" *ngSwitchCase="'Review'"></deploy>
+
+    <generic [gui]="currentGui" [validation]="validation" *ngSwitchDefault (validate)="validate(form)"></generic>
+  </span>
 
   <div class="form-group" *ngIf="!currentGui.results && currentGui.stepIndex != 1">
     <div class="col-sm-offset-10 col-sm-2">
