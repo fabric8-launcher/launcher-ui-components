@@ -1,66 +1,85 @@
-  <div class="wizard-pf-complete blank-slate-pf">
-    <div class="wizard-pf-success-icon" *ngIf="status == Status.None"><div class="glyphicon glyphicon-share"></div></div>
-    <div class="wizard-pf-success-icon" *ngIf="status == Status.Progress"><div class="spinner spinner-lg blank-slate-pf-icon"></div></div>
-    <div class="wizard-pf-success-icon" *ngIf="status == Status.Done"><span class="glyphicon glyphicon-ok-circle"></span></div>
-    <div class="wizard-pf-success-icon" *ngIf="status == Status.Error"><span class="pficon pficon-error-circle-o"></span></div>
-    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.None">
-      Your project is ready; now you can <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span><span *ngIf="!downloadOrCD"> launch it on OpenShift Online.<br /><br />
-      The launch process will create both a GitHub repository containing your new Booster and a new project on OpenShift Online to automatically build and deploy the codebase.</span>
-    </p>
-    <div *ngIf="status == Status.None" style="text-align: left; margin: auto; max-width: 300px">
-      <h2>Summary:</h2>
-        <ul class="list-unstyled">
-          <li *ngFor="let index of pageNumbers">
-            {{submittedGuis.get(index).metadata.name}}
-            <ul>
-              <li *ngFor="let input of submittedGuis.get(index).inputs">
-                <b *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b> {{input.value}}
-                <br/><i>{{input.note}}</i>
-              </li>
-            </ul>
-          </li>
-        </ul>
-    </div>
-    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Progress">
-      Working...
-    </p>
-    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Done">
-      Done; your project is created, and is now building its way towards deployment on OpenShift Online!
-    </p>
-    <p class="blank-slate-pf-secondary-action" *ngIf="status == Status.Error">
-      An error occured; you can try to run this action again.
-    </p>
-    <div class="blank-slate-pf-secondary-action">
-      <button id="back" type="button" class="btn btn-lg btn-default" (click)="back()" *ngIf="status == Status.None">
-        Back
-      </button>
-      <button id="restart" type="button" class="btn btn-lg btn-default" (click)="restart()" *ngIf="status == Status.Done">
-        Start Over to Launch a new Booster
-      </button>
-
-      <button id="download" type="button" class="btn btn-lg btn-primary" (click)="downloadZip()" [disabled]="status == Status.Progress" *ngIf="downloadOrCD">
-          Download as ZIP File
-      </button>
-      <button id="launch" type="button" class="btn btn-lg btn-primary" (click)="deploy()" [disabled]="status == Status.Progress || status == Status.Done" *ngIf="!downloadOrCD">
-        Launch on OpenShift Online
-      </button>
-    </div>
-</div>
-
-<div class="container" style="max-width: 700px">
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let status of statusMessages">
-      <button id="retry" class="pull-left btn btn-lg btn-default" style="margin-left: -65px" (click)="retry()" *ngIf="status.data && status.data.error">
-        <i class="glyphicon glyphicon-repeat" aria-hidden="true"></i>
-      </button>
-        <b>{{status.message}}</b>
-      <span class="pull-right pficon pficon-ok" style="font-size: 2em" *ngIf="status.done"></span>
-      <span class="pull-right pficon pficon-error-circle-o" style="font-size: 2em" *ngIf="status.data && status.data.error"></span>
-      <div *ngIf="status.data">
-        <div [innerHtml]="status.data.doc"></div>
+<div class="row col-sm-offset-2" style="max-width: 775px">
+  <div *ngIf="status == Status.None">
+    <h1>Review Summary:</h1>
+    <div style="display: flex">
+      <div class="col-lg-6" style="flex:1">
+        <div style="border-right: solid 1px #ccc">
+          <div *ngFor="let index of pageNumbers">
+            <p><b>{{submittedGuis.get(index).metadata.name}}</b></p>
+            <p *ngFor="let input of submittedGuis.get(index).inputs">
+              <b class="col-sm-6" style="padding-left: 0" *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b> 
+              <span class="col-sm-6" style="padding-left: 0">
+                {{input.value}} {{input.value ? '' : input.note}}
+              </span>
+              <br/>
+            </p>
+          </div>
+        </div>
       </div>
-      <a [href]="status.data.location" *ngIf="status.data && status.data.location" target="_blank"><br/>See it here!</a>
-      <span *ngIf="status.data && status.data.error"><br/>{{status.data.error}}</span>
-    </li>
-  </ul>
+      <div class="col-lg-6" style="flex:1;display:flex; justify-content: space-between; flex-direction: column;">
+        <p>
+          Your project is ready; now you can
+          <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span>
+          <span *ngIf="!downloadOrCD">
+            launch it on OpenShift Online.
+            The launch process will create both a GitHub repository containing your new Booster and 
+            a new project on OpenShift Online to automatically build and deploy the codebase.
+          </span>
+        </p>
+        <div class="text-center" style="align-items: flex-end">
+          <button id="back" type="button" class="btn btn-default" (click)="back()">
+            Back
+          </button>
+          <button id="download" type="button" class="btn btn-primary" (click)="downloadZip()" *ngIf="downloadOrCD">
+              Download as ZIP File
+          </button>
+          <button id="launch" type="button" class="btn btn-primary" (click)="deploy()" *ngIf="!downloadOrCD">
+            Launch on OpenShift Online
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="status != Status.None">
+    <div class="text-center">
+      <h1 *ngIf="status == Status.Progress">
+        Working...
+      </h1>
+      <div class="wizard-pf-success-icon" *ngIf="status == Status.Done">
+        <span class="glyphicon glyphicon-ok-circle"></span>
+      </div>
+      <h1 *ngIf="status == Status.Done">
+        Your project is ready!
+      </h1>
+    </div>
+    <div class="alert alert-danger alert-dismissable" *ngIf="error">
+      <span class="pficon pficon-error-circle-o"></span>
+      {{error}}
+      <button id="retry" class="pull-right btn btn-default" (click)="retry()">
+        Try Again
+      </button>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" [class.error-row]="status.data && status.data.error" *ngFor="let status of statusMessages">
+        <a class="pull-right btn btn-primary" [href]="status.data.location" *ngIf="status.data && status.data.location" target="_blank">See it here!</a>
+        <span class="pficon pficon-ok" style="font-size: 2.2em" *ngIf="status.done"></span>
+        <span class="spinner spinner-inline" *ngIf="(!status.data || !status.data.error) && lastNotDone(status.messageKey)"></span>
+        <span class="pficon pficon-error-circle-o" style="font-size: 2.2em" *ngIf="status.data && status.data.error"></span>
+        <span style="margin-left: 2em">
+          {{status.message}}
+          <div style="margin-left: 52px" *ngIf="status.data">
+            <div [innerHtml]="status.data.doc"></div>
+          </div>
+        </span>
+      </li>
+    </ul>
+
+    <div class="text-center">
+      <button id="restart" type="button" class="btn btn-link" (click)="restart()" *ngIf="status == Status.Done">
+        Start a new Mission
+      </button>
+    </div>
+
+  </div>
 </div>

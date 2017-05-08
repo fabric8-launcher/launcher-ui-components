@@ -1,5 +1,6 @@
 .required > label:after {
-    content: ' *'
+    content: '*';
+    color: red;
 }
 .ng-invalid.ng-dirty {
     border-color: #c00;
@@ -11,4 +12,38 @@
 }
 .ng-valid + div.errorLabel {
     display: none;
+}
+
+.box-row {
+  display: flex;
+}
+
+.box-col {
+  flex: 1;
+  padding: 1em;
+  margin: 1em;
+  border: solid 1px #ddd;
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.box-btn {
+  align-items: flex-end;
+  margin: 0 50px;
+  font-size: 1em;
+}
+
+.icon {
+  font-size: 7em;
+  color: #bbb;
+  padding: 20px;
+}
+
+.text-center img {
+  width: 70%;
+  padding: 40px 10px;
 }

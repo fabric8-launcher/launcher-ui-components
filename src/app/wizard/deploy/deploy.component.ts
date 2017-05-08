@@ -10,7 +10,8 @@ let adocIndex = require('../../../assets/adoc.index');
 
 @Component({
   selector: 'deploy',
-  templateUrl: './deploy.component.html'
+  templateUrl: './deploy.component.html',
+  styleUrls: ['./deploy.component.scss']
 })
 export class DeployComponent implements OnInit {
   @Input() submittedGuis: History;
@@ -19,6 +20,7 @@ export class DeployComponent implements OnInit {
   Status = Status;
   pageNumbers: number[];
   statusMessages: StatusMessage[];
+  error: string;
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private webSocket: WebSocket;
@@ -100,22 +102,31 @@ export class DeployComponent implements OnInit {
 
   logError(message: string) {
     this.status = Status.Error;
+    this.error = message;
     if (this.webSocket) {
       this.webSocket.close();
     }
     if (!this.statusMessages) {
       this.statusMessages = [];
-    }
-    for (let status of this.statusMessages) {
-      if (!status.done) {
-        status.data = {error: message};
-        return;
+      let errorEvent = new StatusMessage("error", "Server error occured");
+      errorEvent.data = {error: message};
+      this.statusMessages.push(errorEvent);
+    } else {
+      for (let status of this.statusMessages) {
+        if (!status.done) {
+          status.data = {error: message};
+          break;
+        }
       }
     }
+  }
 
-    let errorEvent = new StatusMessage("error", "Server error occured");
-    errorEvent.data = {error: message};
-    this.statusMessages.push(errorEvent);
+  lastNotDone(key: string): boolean {
+    for (let status of this.statusMessages) {
+      if (!status.done) {
+        return key == status.messageKey;
+      }
+    }
   }
 
   retry(): void {
