@@ -1,15 +1,17 @@
 <div class="form-group" *ngFor="let input of gui.inputs">
-  <div class="col-sm-offset-2 row">
-    <div class="col-sm-6" *ngFor="let option of input.valueChoices">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{option.id == "ZIP File" ? "Launch Manually" : "Launch Using Continuous Delivery"}}</h3>
+  <div class="box-row">
+    <div class="box-col box" *ngFor="let option of input.valueChoices">
+      <div>
+        <div class="text-center">
+          <i class="fa fa-download icon" *ngIf="option.id == 'ZIP File'"></i>
+          <img src="../../../../assets/img/openshift-online-logo.svg" *ngIf="option.id != 'ZIP File'">
+          <h2>{{option.id == "ZIP File" ? "Build and run locally" : "Use Continuous Delivery"}}</h2>
         </div>
-        <div class="panel-body" [innerHTML]="option.description" style="min-height:300px"></div>
-        <button class="btn btn-primary btn-block" (click)="input.value = option.id;next()">
-            {{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online to build and deploy"}}
-        </button>
+        <div class="panel-body" [innerHTML]="option.description"></div>
       </div>
+      <button class="btn btn-primary box-btn" (click)="input.value = option.id;next()">
+        {{option.id == "ZIP File" ? "Set up manual project" : "Set up continuous delivery"}}
+      </button>
     </div>
   </div>
 </div>

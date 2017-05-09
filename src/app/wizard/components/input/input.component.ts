@@ -6,6 +6,7 @@ import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multise
 @Component({
   selector: 'la-input',
   templateUrl: "input.component.html",
+  styleUrls: [ "input.component.scss" ],
   providers: [
     { 
       provide: NG_VALUE_ACCESSOR,

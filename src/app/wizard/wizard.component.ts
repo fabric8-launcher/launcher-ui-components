@@ -37,7 +37,7 @@ export class FormComponent implements OnInit {
           return p.then(() => {
             if (stepIndex == this.currentGui.state.steps.length + 1) {
               let endGui = new Gui();
-              endGui.metadata = {name: "Review"} as MetaData;
+              endGui.metadata = {name: "Review Summary"} as MetaData;
               endGui.state.steps = this.currentGui.state.steps;
               endGui.inputs = [];
               this.history.resetTo(index - 1);

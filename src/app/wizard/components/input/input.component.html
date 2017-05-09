@@ -1,13 +1,13 @@
-<label class="col-sm-2 control-label" for="textInput-markup">{{input.label}}</label>
-<div class="col-sm-10" [ngSwitch]="input.class">
+<label class="col-sm-3 control-label" [attr.for]="input.name" [class.required]="input.required">{{input.label}}</label>
+<div class="col-sm-9" [ngSwitch]="input.class">
   <span *ngSwitchCase="'UIInput'">
     <span [ngSwitch]="input.valueType">
       <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()">
+        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)">
       <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Boolean'" type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()">
+        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)">
       <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Integer'" type="number" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()">
+        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)">
       <div class="errorLabel help-block">
         <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
         <span *ngIf="input.name.errors && (input.name.dirty || input.name.touched)">{{input.label}} is required</span>

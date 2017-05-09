@@ -13,16 +13,16 @@
 <div class="col-sm-offset-1" *ngIf="!authenticationNeeded">
   <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
   <div class="col-sm-offset-1 form-group" *ngFor="let input of gui.inputs">
-    <div class="row" *ngFor="let option of input.valueChoices">
-      <span class="col-sm-4" style="float:left">
+    <div *ngFor="let option of input.valueChoices">
+      <span>
         <label>
-          <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id"/>
+          <h3>
+            <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id"/>
             {{option.id}}
-          </label>
+          </h3>
+        </label>
       </span>
-      <span *ngIf="input.value == option.id">
-        <span [innerHTML]="option.description"></span>
-      </span>
+      <div [innerHTML]="option.description" style="margin-left:18px"></div>
     </div>
   </div>
 </div>

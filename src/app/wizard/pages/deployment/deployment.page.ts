@@ -3,7 +3,8 @@ import { Gui } from "../../../shared/model";
 
 @Component({
   selector: "deployment",
-  templateUrl: "deployment.page.html"
+  templateUrl: "deployment.page.html",
+  styleUrls: ["deployment.page.scss"]
 })
 export class DeploymentTypePage {
   @Input() gui: Gui;
