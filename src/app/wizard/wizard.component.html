@@ -1,42 +1,48 @@
 <div class="container-fluid">
+  <div class="card-pf">
   <span *ngFor="let error of currentGui.messages">
-  <div class="alert alert-{{error.severity == 'ERROR' ? 'danger' : 'warning'}} alert-dismissable" *ngIf="!error.showError">
-    <button id="alert-close" type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="closeAlert(error)">
-      <span class="pficon pficon-close"></span>
-  </button>
-  <span class="pficon pficon-error-circle-o"></span> {{error.description}}
-</div>
-</span>
-<step [steps]="currentGui.state.steps" [stepIndex]="currentGui.stepIndex" (onclick)="gotoStep($event)"></step>
-<form class="form-horizontal" #wizard="ngForm">
-  <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
-    <div class="spinner spinner-lg blank-slate-pf-icon"></div>
-    <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
-    <p class="blank-slate-pf-secondary-action">
-      The wizard is loading the initial screen...
-    </p>
+    <div class="alert alert-{{error.severity == 'ERROR' ? 'danger' : 'warning'}} alert-dismissable" *ngIf="!error.showError">
+      <button id="alert-close" type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="closeAlert(error)">
+        <span class="pficon pficon-close"></span>
+    </button>
+    <span class="pficon pficon-error-circle-o"></span> {{error.description}}
   </div>
-
-  <h1>{{currentGui.metadata?.name}}</h1>
-  <span [ngSwitch]="currentGui.metadata.name" *ngIf="currentGui.metadata">
-    <deployment [gui]="currentGui" (action)="next()" *ngSwitchCase="'Deployment type'"></deployment>
-    <mission [gui]="currentGui" [authenticationNeeded]="history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()" *ngSwitchCase="'Mission'"></mission>
-    <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'"></runtime>
-    <deploy [submittedGuis]="history" [command]="command" *ngSwitchCase="'Review Summary'"></deploy>
-
-    <generic [gui]="currentGui" [validation]="validation" *ngSwitchDefault (validate)="validate(form)"></generic>
   </span>
+    <step [steps]="currentGui.state.steps" [stepIndex]="currentGui.stepIndex" (onclick)="gotoStep($event)"></step>
+    <form class="form-horizontal" #wizard="ngForm">
+      <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
+        <div class="spinner spinner-lg blank-slate-pf-icon"></div>
+        <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
+        <p class="blank-slate-pf-secondary-action">
+          The wizard is loading the initial screen...
+        </p>
+      </div>
 
-  <div class="form-group" *ngIf="!currentGui.results && currentGui.stepIndex != 1">
-    <div class="col-sm-offset-10 col-sm-2">
-      <button id="back" type="button" class="btn btn-default" [disabled]="!currentGui.state.canMoveToPreviousStep" (click)="previous()">
-        Back
-      </button>
-      <button id="next" type="button" class="btn btn-primary" [disabled]="!currentGui.state.canMoveToNextStep && !currentGui.state.canExecute || validation || (currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()) "
-        (click)="next()">
-        Next
-      </button>
-    </div>
+      <h1>{{currentGui.metadata?.name}}</h1>
+      <span [ngSwitch]="currentGui.metadata.name" *ngIf="currentGui.metadata">
+      <deployment [gui]="currentGui" (action)="next()" *ngSwitchCase="'Deployment type'"></deployment>
+      <mission [gui]="currentGui"
+               [authenticationNeeded]="history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()"
+               *ngSwitchCase="'Mission'"></mission>
+      <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'"></runtime>
+      <deploy [submittedGuis]="history" [command]="command" *ngSwitchCase="'Review Summary'"></deploy>
+
+      <generic [gui]="currentGui" [validation]="validation" *ngSwitchDefault (validate)="validate(form)"></generic>
+    </span>
+
+      <div class="form-group" *ngIf="!currentGui.results && currentGui.stepIndex != 1">
+        <div class="col-sm-offset-10 col-sm-2">
+          <button id="back" type="button" class="btn btn-default" [disabled]="!currentGui.state.canMoveToPreviousStep"
+                  (click)="previous()">
+            Back
+          </button>
+          <button id="next" type="button" class="btn btn-primary"
+                  [disabled]="!currentGui.state.canMoveToNextStep && !currentGui.state.canExecute || validation || (currentGui.stepIndex == 2 && history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()) "
+                  (click)="next()">
+            Next
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
-</form>
 </div>
