@@ -31,3 +31,13 @@
   width: 70%;
   padding: 40px 10px;
 }
+
+@media (max-width: 425px) {
+  .box-row {
+    display: block;
+  }
+  .box-btn {
+    font-size: 12px;
+    margin: 0;
+  }
+}
