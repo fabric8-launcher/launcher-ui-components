@@ -1,13 +1,18 @@
-$assetPath : "../../../../assets/img/";
+$assetPath : "../../../../assets/img/project-select-icons/";
 
 #intro {
-    margin-top: -20px;
-    background: url(#{$assetPath}Background_img._1300x450.png);
-    min-height: 450px;
-    background-size: cover;
-    background-position: 0;
-    font-family: overpass,sans-serif;
-    
+    margin-top: 40px;
+    min-height: 400px;
+
+    img {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        min-width: 100%;
+        z-index: -1;
+    }
+
     h1 {
         color: #fff;
         font-size: 46pt;
@@ -21,8 +26,7 @@ $assetPath : "../../../../assets/img/";
         margin-top: 5px;
     }
     .btn {
-        background-image: none;
-        background-color: #c00;
+        background: #c00 none;
         border-color: #c00;
         color: #fff;
         padding: 9px 40px;
@@ -60,23 +64,28 @@ $assetPath : "../../../../assets/img/";
 
 .icon {
     background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: no-repeat center;
     margin: auto;
     width:80px;
     height:80px;
 }
 .boot {
-    @extend .icon;
-    background-image: url(#{$assetPath}project-select-icons/spring-boot-logo.png);
+    background-image: url(#{$assetPath}spring-boot-logo.png);
+    background-size: 65%;
 }
 
 .swarm {
-    @extend .icon;
-    background-image: url(#{$assetPath}project-select-icons/wildfly-swarm.png);
+    background-image: url(#{$assetPath}wildfly-swarm.png);
+    background-size: 65%;
 }
 
 .vertx {
-    @extend .icon;
-    background-image: url(#{$assetPath}project-select-icons/vertx.svg);
+    background-image: url(#{$assetPath}vertx.svg);
+    background-size: 80%;
+}
+
+@media (max-width: 425px) {
+    #intro h1 {
+        font-size: 22pt;
+    }
 }
