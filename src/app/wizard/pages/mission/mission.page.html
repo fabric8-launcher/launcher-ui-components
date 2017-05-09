@@ -1,0 +1,28 @@
+<div *ngIf="authenticationNeeded">
+  <div class="blank-slate-pf ">
+    <h1>
+      To continue, please log into or register an account for free<br />
+      with the Red Hat Developer Program.
+    </h1>
+    <div class="blank-slate-pf-main-action">
+      <button class="btn btn-primary btn-lg" (click)="keycloak.login()">Log in or register</button>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-offset-1" *ngIf="!authenticationNeeded">
+  <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
+  <div class="col-sm-offset-1 form-group" *ngFor="let input of gui.inputs">
+    <div *ngFor="let option of input.valueChoices">
+      <span>
+        <label>
+          <h3>
+            <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id"/>
+            {{option.id}}
+          </h3>
+        </label>
+      </span>
+      <div [innerHTML]="option.description" style="margin-left:18px"></div>
+    </div>
+  </div>
+</div>

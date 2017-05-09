@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
-import { History, Gui, Input, Message, Result } from '../shared/model';
+import { History, Gui, Input, Message, Result, MetaData } from '../shared/model';
 import { KeycloakService } from "../shared/keycloak.service";
 
 let adocIndex = require('../../assets/adoc.index');
@@ -37,9 +37,9 @@ export class FormComponent implements OnInit {
           return p.then(() => {
             if (stepIndex == this.currentGui.state.steps.length + 1) {
               let endGui = new Gui();
+              endGui.metadata = {name: "Review Summary"} as MetaData;
               endGui.state.steps = this.currentGui.state.steps;
               endGui.inputs = [];
-              endGui.results = [];
               this.history.resetTo(index - 1);
               this.history.add(endGui);
             }
@@ -87,17 +87,6 @@ export class FormComponent implements OnInit {
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
     return this.validation;
-  }
-
-  messageForInput(name: string): Message {
-    let result: Message;
-    if (!this.currentGui.messages) return null;
-    for (let message of this.currentGui.messages) {
-      if (message.input == name) {
-        result = message;
-      }
-    }
-    return result;
   }
 
   next() {
