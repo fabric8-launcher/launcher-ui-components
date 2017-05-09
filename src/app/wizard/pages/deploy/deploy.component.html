@@ -1,20 +1,18 @@
 <div *ngIf="status == Status.None">
-  <div style="display: flex">
-    <div class="col-lg-6" style="flex:1">
-      <div style="border-right: solid 1px #ccc">
-        <div *ngFor="let index of pageNumbers">
-          <p><b>{{submittedGuis.get(index).metadata.name}}</b></p>
-          <p *ngFor="let input of submittedGuis.get(index).inputs">
-            <b class="col-sm-6" style="padding-left: 0" *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b>
-            <span class="col-sm-6" style="padding-left: 0">
-              {{input.value}} {{input.value ? '' : input.note}}
-            </span>
-            <br/>
-          </p>
-        </div>
+  <div class="box-row">
+    <div class="box-col box-left">
+      <div *ngFor="let index of pageNumbers">
+        <p><b>{{submittedGuis.get(index).metadata.name}}</b></p>
+        <p *ngFor="let input of submittedGuis.get(index).inputs">
+          <b class="col-sm-6" style="padding-left: 0" *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b>
+          <span class="col-sm-6" style="padding-left: 0">
+            {{input.value}} {{input.value ? '' : input.note}}
+          </span>
+          <br/>
+        </p>
       </div>
     </div>
-    <div class="col-lg-6" style="flex:1;display:flex; justify-content: space-between; flex-direction: column;">
+    <div class="box-col">
       <p>
         Your project is ready; now you can
         <span *ngIf="downloadOrCD"> download it to build and deploy locally.</span>

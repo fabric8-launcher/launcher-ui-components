@@ -1,4 +1,30 @@
+.box-row {
+  display: flex;
+}
+
+.box-col {
+  flex:1;
+  display:flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.box-left {
+  border-right: solid 1px #ccc;
+  margin-right: 20px;
+}
+
 .error-row {
   border-bottom: solid 1px #c00;
   border-top: solid 1px #c00 !important;
+}
+
+@media (max-width: 425px) {
+  .box-row {
+    display: block;
+  }
+
+  .box-left {
+    border: 0;
+  }
 }
