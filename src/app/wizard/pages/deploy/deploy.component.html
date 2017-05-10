@@ -5,7 +5,7 @@
         <p><b>{{submittedGuis.get(index).metadata.name}}</b></p>
         <p *ngFor="let input of submittedGuis.get(index).inputs">
           <b class="col-sm-6" style="padding-left: 0" *ngIf="submittedGuis.get(index).metadata.name != input.label">{{input.label}}:</b>
-          <span class="col-sm-6" style="padding-left: 0">
+          <span class="col-sm-6" style="padding: 0">
             {{input.value}} {{input.value ? '' : input.note}}
           </span>
           <br/>

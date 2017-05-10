@@ -10,9 +10,9 @@
   </div>
 </div>
 
-<div class="col-sm-offset-1" *ngIf="!authenticationNeeded">
+<div *ngIf="!authenticationNeeded">
   <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
-  <div class="col-sm-offset-1 form-group" *ngFor="let input of gui.inputs">
+  <div *ngFor="let input of gui.inputs">
     <div *ngFor="let option of input.valueChoices">
       <span>
         <label>
