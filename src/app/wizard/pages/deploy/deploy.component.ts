@@ -45,7 +45,7 @@ export class DeployComponent implements OnInit {
   deploy(): void {
     if (this.kc.isAuthenticated()) {
       this.status = Status.Progress;
-      this.submittedGuis.currentGui().state.steps = null;
+      this.submittedGuis.currentGui.state.steps = null;
       this.forgeService.upload(this.command, this.submittedGuis)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
