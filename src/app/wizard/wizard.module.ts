@@ -16,8 +16,7 @@ import { GenericPage } from './pages/generic/generic.page';
 import { KeycloakService } from '../shared/keycloak.service';
 import { KEYCLOAK_HTTP_PROVIDER } from '../shared/keycloak.http';
 
-import { MultiselectListModule } from '../shared/multiselect-list';
-import { ProjectSelectModule } from '../shared/project-select';
+import { ProjectSelectModule } from './components/project-select/project-select';
 import { StepComponent } from "./components/step/step.component";
 import { InputComponent } from "./components/input/input.component";
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
@@ -26,7 +25,6 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect/src/mu
   imports: [
     CommonModule,
     FormsModule,
-    MultiselectListModule,
     ProjectSelectModule,
     MultiselectDropdownModule
   ],

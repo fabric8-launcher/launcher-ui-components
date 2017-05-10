@@ -2,7 +2,7 @@ import { NgModule, Component, Pipe, OnInit, DoCheck, HostListener, Input, Elemen
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/Rx';
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Input as Field, Option } from './model';
+import { Input as Field, Option } from '../../../shared/model';
 
 const PROJECTSELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

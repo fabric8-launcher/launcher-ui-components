@@ -7,8 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MultiselectListModule } from '../app/shared/multiselect-list';
-import { ProjectSelectModule } from '../app/shared/project-select';
+import { ProjectSelectModule } from '../app/wizard/components/project-select/project-select';
 import { FormComponent } from '../app/wizard/wizard.component';
 import { DeployComponent } from '../app/wizard/pages/deploy/deploy.component';
 import { ForgeService } from '../app/shared/forge.service';
@@ -105,7 +104,7 @@ describe('Dynamic form should be created for json that comes from the server', (
   let subscribe: Function = null;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MultiselectListModule, ProjectSelectModule, HttpModule],
+      imports: [FormsModule, ProjectSelectModule, HttpModule],
       declarations: [FormComponent, DeployComponent],
       providers: [
         ForgeService,
