@@ -19,6 +19,29 @@ img.header-logo {
   border: 0;
 }
 
+nav.wizard {
+  height: 40px;
+  border-top: solid 5px #cc0000;
+
+  img.header-logo {
+    width: 45%;
+  }
+  .navbar-brand {
+    padding: 7px;
+  }
+
+  #header_nav {
+    min-height: 40px;
+  }
+
+  .nav.navbar-nav.navbar-right {
+    margin-top: 0;
+  }
+  .dropdown-toggle {
+    padding: 10px 20px;
+  }
+}
+
 .nav.navbar-nav.navbar-right {
   margin-top: 10px;
 }

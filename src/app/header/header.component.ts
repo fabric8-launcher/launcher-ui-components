@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Logger } from '../shared/logger.service';
+import { Component } from '@angular/core';
 import { KeycloakService } from "../shared/keycloak.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -11,6 +9,11 @@ import { KeycloakService } from "../shared/keycloak.service";
 })
 
 export class HeaderComponent {
-  collapse:boolean;
-  constructor(private keycloak: KeycloakService){}
+  collapse: boolean;
+  wizard: boolean;
+  constructor(private router: Router, private keycloak: KeycloakService) {
+    router.events.subscribe((url:any) => {
+      this.wizard = url.url != '/' && url.url != '/wizard';
+    });
+  }
 }
