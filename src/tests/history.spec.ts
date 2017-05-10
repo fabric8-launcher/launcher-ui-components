@@ -31,6 +31,7 @@ describe('History and deeplinking', () => {
     let history = new History();
     history.add(gui1);
     history.add(gui2);
+    history.apply("{}");
 
     expect(history.get(1)).toBeDefined('no gui restored?');
     expect(history.get(1).inputs[0].value).toBe("the-value");
@@ -52,6 +53,7 @@ describe('History and deeplinking', () => {
     let history = new History();
     history.add(gui1);
     history.add(gui2);
+    history.apply("{}");
 
     //when
     history.resetTo(1);
