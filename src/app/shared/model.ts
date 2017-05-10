@@ -19,6 +19,7 @@ export class Gui {
 
 export class History {
     private state: Gui[] = [];
+    private ready: boolean;
 
     add(gui: Gui) {
       this.state.push(gui);
@@ -26,6 +27,7 @@ export class History {
     }
 
     apply(state: string) {
+        this.ready = true;
         if (state == null) return;
         let submittableGui = JSON.parse(atob(state));
         if (submittableGui.inputs) {
@@ -45,9 +47,8 @@ export class History {
         return this.state[index - 1];
     }
 
-    currentGui(): Gui {
-        let gui = this.state[this.stepIndex - 1];
-        return gui || new Gui();
+    get currentGui(): Gui {
+        return this.ready ? this.state[this.stepIndex - 1] : new Gui();
     }
 
     get stepIndex(): number {
@@ -55,6 +56,7 @@ export class History {
     }
 
     resetTo(index: number) {
+        this.ready = false;
         this.state.splice(--index, this.state.length);
     }
 
@@ -65,14 +67,14 @@ export class History {
         for (let gui of this.state) {
             let inputs = gui.inputs;
             if (inputs) {
-                let submittableInputs = this.convertToSubmittable(inputs as Input[]);
+                let submittableInputs = History.convertToSubmittable(inputs as Input[]);
                 submittableGui.inputs = submittableGui.inputs.concat(submittableInputs);
             }
         }
         return submittableGui;
     }
 
-    private convertToSubmittable(inputs: Input[]): SubmittableInput[] {
+    private static convertToSubmittable(inputs: Input[]): SubmittableInput[] {
         let array: SubmittableInput[] = [];
         if (inputs) {
             for (let input of inputs) {

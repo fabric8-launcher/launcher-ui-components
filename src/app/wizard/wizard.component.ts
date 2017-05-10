@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
-import { History, Gui, Input, Message, Result, MetaData } from '../shared/model';
+import { History, Gui, Input, Message, MetaData } from '../shared/model';
 import { KeycloakService } from "../shared/keycloak.service";
 
 let adocIndex = require('../../assets/adoc.index');
@@ -35,10 +35,10 @@ export class FormComponent implements OnInit {
       new Array(stepIndex + 1).fill(1).map((_, i) => i + 1).reduce((p, index) => {
         if (stepIndex + 1 == index) {
           return p.then(() => {
-            if (stepIndex == this.currentGui.state.steps.length + 1) {
+            if (stepIndex == this.history.get(1).state.steps.length + 1) {
               let endGui = new Gui();
               endGui.metadata = {name: "Review Summary"} as MetaData;
-              endGui.state.steps = this.currentGui.state.steps;
+              endGui.state.steps = this.history.get(1).state.steps;
               endGui.inputs = [];
               this.history.resetTo(index - 1);
               this.history.add(endGui);
@@ -60,18 +60,20 @@ export class FormComponent implements OnInit {
 
   private enhanceGui(gui: Gui) {
     gui.metadata.intro = adocIndex[gui.state.steps[gui.stepIndex - 1] + "-intro"];
-    gui.inputs.forEach(submittableInput => {
-      let input = submittableInput as Input;
-      if (input.valueChoices) {
-        input.valueChoices.forEach(choice => {
-          choice.description = adocIndex[input.name + choice.id];
-        });
-      }
-    });
+    if (gui.inputs) {
+      gui.inputs.forEach(submittableInput => {
+        let input = submittableInput as Input;
+        if (input.valueChoices) {
+          input.valueChoices.forEach(choice => {
+            choice.description = adocIndex[input.name + choice.id];
+          });
+        }
+      });
+    }
   }
 
   get currentGui(): Gui {
-    return this.history.currentGui();
+    return this.history.currentGui;
   }
 
   validate(form: NgForm): Promise<boolean> {
