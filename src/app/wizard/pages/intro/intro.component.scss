@@ -1,6 +1,8 @@
+@import url(https://overpass-30e2.kxcdn.com/overpass.css);
 $assetPath : "../../../../assets/img/project-select-icons/";
 
 #intro {
+    font-family: 'Overpass', sans-serif;
     margin-top: 40px;
     min-height: 400px;
 
@@ -39,7 +41,7 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 
 #runtimes {
     background-color: #f5f5f5;
-    font-family: overpass,sans-serif;
+    font-family: 'Overpass', sans-serif;
     h1 {
         color: #c00;
         font-weight: bold;
@@ -50,7 +52,7 @@ $assetPath : "../../../../assets/img/project-select-icons/";
         .card-pf-title {
             color: black;
             font-size: 18pt;
-            font-family: Overpass,sans-serif;
+            font-family: 'Overpass', sans-serif;
             text-align: center;
         }
 
