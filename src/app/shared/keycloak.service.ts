@@ -71,7 +71,7 @@ export class KeycloakService {
             reject('Failed to refresh token');
           });
       } else {
-        resolve(this.skip ? "dummy": "");
+        resolve("");
       }
     });
   }
