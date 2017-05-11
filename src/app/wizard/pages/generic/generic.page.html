@@ -9,3 +9,5 @@
     <la-input name="{{input.name}}" [ngModel]="input" (ngModelChange)="modelChanged()" [messages]="gui.messages"></la-input>
   </div>
 </div>
+
+<la-buttons [state]="gui.state" [validation]="validation"></la-buttons>

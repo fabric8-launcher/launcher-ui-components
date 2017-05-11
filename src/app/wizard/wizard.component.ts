@@ -1,8 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ForgeService } from '../shared/forge.service'
-import { History, Gui, Input, Message, MetaData } from '../shared/model';
+import { Gui, Input, Message, MetaData } from '../shared/model';
+import { History } from './history.component';
 import { KeycloakService } from "../shared/keycloak.service";
 
 let adocIndex = require('../../assets/adoc.index');
@@ -16,10 +17,9 @@ export class FormComponent implements OnInit {
   @ViewChild('wizard') form: NgForm;
   command: string;
   validation: Promise<boolean>;
-  history: History = new History();
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
+    private history: History,
     private forgeService: ForgeService,
     private keycloak: KeycloakService) {
   }
@@ -89,32 +89,6 @@ export class FormComponent implements OnInit {
       }).catch(error => this.currentGui.messages.push(new Message(error)));
     }
     return this.validation;
-  }
-
-  next() {
-    this.gotoStep(++this.currentGui.stepIndex);
-  }
-
-  gotoStep(step: number) {
-    let next = (valid: boolean) => {
-      if (valid) {
-        this.router.navigate(["../../" + step, this.history.toString()], { relativeTo: this.route });
-      }
-    };
-
-    if (this.validation) {
-      this.validation.then(next);
-    } else {
-      next(true);
-    }
-  }
-
-  previous() {
-    this.gotoStep(--this.currentGui.stepIndex);
-  }
-
-  restart() {
-    this.router.navigate(["/"]);
   }
 
   closeAlert(error: Message) {

@@ -1,20 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { History, StatusMessage, StatusEvent } from '../../../shared/model';
+import { StatusMessage } from '../../../shared/model';
 import { ForgeService } from "../../../shared/forge.service";
 import { KeycloakService } from "../../../shared/keycloak.service";
 import { Config } from "../../../shared/config.component";
+import { History } from '../../history.component';
 
 let adocIndex = require('../../../../assets/adoc.index');
 
 @Component({
   selector: 'deploy',
-  templateUrl: './deploy.component.html',
-  styleUrls: ['./deploy.component.scss']
+  templateUrl: './deploy.page.html',
+  styleUrls: ['./deploy.page.scss']
 })
-export class DeployComponent implements OnInit {
-  @Input() submittedGuis: History;
+export class DeployPage implements OnInit {
   @Input() command: string;
   status: Status = Status.None;
   Status = Status;
@@ -28,6 +28,7 @@ export class DeployComponent implements OnInit {
   constructor(private forgeService: ForgeService,
     private route: ActivatedRoute,
     private router: Router,
+    private history: History,
     private kc: KeycloakService,
     private config: Config) {
     if (!this.apiUrl) {
@@ -39,14 +40,14 @@ export class DeployComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pageNumbers = Array(this.submittedGuis.stepIndex - 1).fill(1).map((x, i) => i + 1);
+    this.pageNumbers = Array(this.history.stepIndex - 1).fill(1).map((x, i) => i + 1);
   }
 
   deploy(): void {
     if (this.kc.isAuthenticated()) {
       this.status = Status.Progress;
-      this.submittedGuis.currentGui.state.steps = null;
-      this.forgeService.upload(this.command, this.submittedGuis)
+      this.history.currentGui.state.steps = null;
+      this.forgeService.upload(this.command, this.history)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
           this.webSocket.onmessage = function (event: MessageEvent) {
@@ -137,7 +138,7 @@ export class DeployComponent implements OnInit {
   }
 
   downloadZip(): void {
-    this.forgeService.downloadZip(this.command, this.submittedGuis);
+    this.forgeService.downloadZip(this.command, this.history);
   }
 
   restart() {
@@ -145,11 +146,7 @@ export class DeployComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(["../../" + (this.submittedGuis.stepIndex - 1), this.submittedGuis.toString()], { relativeTo: this.route });
-  }
-
-  get downloadOrCD(): boolean {
-    return this.submittedGuis.get(1).inputs[0].value == 'ZIP File';
+    this.router.navigate(["../../" + (this.history.stepIndex - 1), this.history.toString()], { relativeTo: this.route });
   }
 }
 

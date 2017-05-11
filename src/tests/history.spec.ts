@@ -1,5 +1,5 @@
-
-import { History, Gui } from "../app/shared/model";
+import { Gui } from "../app/shared/model";
+import { History } from "../app/wizard/history.component";
 
 describe('History and deeplinking', () => {
   it('should build History based on param', () => {

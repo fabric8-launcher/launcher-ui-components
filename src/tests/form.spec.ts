@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProjectSelectModule } from '../app/wizard/components/project-select/project-select';
 import { FormComponent } from '../app/wizard/wizard.component';
-import { DeployComponent } from '../app/wizard/pages/deploy/deploy.component';
+import { DeployPage } from '../app/wizard/pages/deploy/deploy.page';
 import { ForgeService } from '../app/shared/forge.service';
 import { Config } from '../app/shared/config.component';
 import { Gui } from '../app/shared/model';
@@ -105,7 +105,7 @@ describe('Dynamic form should be created for json that comes from the server', (
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ProjectSelectModule, HttpModule],
-      declarations: [FormComponent, DeployComponent],
+      declarations: [FormComponent, DeployPage],
       providers: [
         ForgeService,
         { provide: Config, useValue: { get: (key: string) => { } } },
