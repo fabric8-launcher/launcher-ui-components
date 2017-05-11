@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { Headers, Http, Request, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
-import { History, Gui, DownloadFile, SubmittableInput, Input, Version, StatusResult } from './model';
+import { Http } from '@angular/http';
+import { Gui, Version, StatusResult } from './model';
+import { History } from '../wizard/history.component';
 import { Config } from './config.component'
 
 @Injectable()
@@ -60,7 +61,7 @@ export class ForgeService {
 
     form.appendChild(this.createFormInput("stepIndex", String(history.stepIndex)));
 
-    for (var i = 1; i <= history.stepIndex; i++) {
+    for (let i = 1; i <= history.stepIndex; i++) {
       let inputs = history.get(i).inputs;
       if (inputs) {
         for (let input of inputs) {

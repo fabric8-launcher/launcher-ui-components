@@ -1,4 +1,4 @@
-<div *ngIf="authenticationNeeded">
+<div authentication="true">
   <div class="blank-slate-pf ">
     <h1>
       To continue, please log into or register an account for free<br />
@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<div *ngIf="!authenticationNeeded">
+<div authentication>
   <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
   <div *ngFor="let input of gui.inputs">
     <div *ngFor="let option of input.valueChoices">
@@ -26,3 +26,5 @@
     </div>
   </div>
 </div>
+
+<la-buttons [state]="gui.state" [disabled]="authenticationNeeded"></la-buttons>

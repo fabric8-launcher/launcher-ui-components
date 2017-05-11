@@ -1,0 +1,12 @@
+<div class="form-group">
+  <div class="col-sm-offset-10 col-sm-2">
+    <button id="back" type="button" class="btn btn-default" [disabled]="!state.canMoveToPreviousStep"
+            (click)="previous()">
+      Back
+    </button>
+    <button id="next" type="button" class="btn btn-primary" (click)="next()"
+            [disabled]="!state.canMoveToNextStep && !state.canExecute || validation || disabled">
+      Next
+    </button>
+  </div>
+</div>

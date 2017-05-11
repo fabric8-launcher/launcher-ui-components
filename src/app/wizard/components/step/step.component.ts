@@ -1,16 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {ButtonComponent} from "../button/button.component";
 
 @Component({
   selector: 'step',
   templateUrl: "step.component.html"
 })
-export class StepComponent {
+export class StepComponent extends ButtonComponent {
   @Input() steps: string[];
   @Input() stepIndex: number;
-  @Output() onclick = new EventEmitter<number>();
-
-  onclicked(index: number) {
-    this.onclick.emit(index);
-  }
 }
 
