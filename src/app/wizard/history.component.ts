@@ -42,7 +42,7 @@ export class History {
 
     resetTo(index: number) {
         this.ready = false;
-        this.state.splice(--index, this.state.length);
+        this.state.splice(index, this.state.length);
     }
 
     convert(stepIndex = this.stepIndex - 1): Gui {

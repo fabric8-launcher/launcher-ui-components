@@ -2,6 +2,9 @@
 .app {
   padding-top: 20px;
   flex: 1;
+}
+
+:host /deep/ {
   font-size: 11pt;
 }
 

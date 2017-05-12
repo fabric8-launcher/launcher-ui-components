@@ -15,7 +15,7 @@ export class ButtonComponent {
     constructor(private history: History, private router: Router, private route: ActivatedRoute) {}
 
     next() {
-        this.gotoStep(++this.history.currentGui.stepIndex);
+        this.gotoStep(this.history.stepIndex + 1);
     }
 
     gotoStep(step: number) {
@@ -33,7 +33,7 @@ export class ButtonComponent {
     }
 
     previous() {
-        this.gotoStep(--this.history.currentGui.stepIndex);
+        this.gotoStep(this.history.stepIndex - 1);
     }
 
 }

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="card-pf">
+  <div class="card-pf wizard">
     <span *ngFor="let error of currentGui.messages">
       <div class="alert alert-{{error.severity == 'ERROR' ? 'danger' : 'warning'}} alert-dismissable" *ngIf="!error.showError">
         <button id="alert-close" type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="closeAlert(error)">
@@ -8,9 +8,9 @@
         <span class="pficon pficon-error-circle-o"></span> {{error.description}}
       </div>
     </span>
-    <step [steps]="currentGui.state.steps" [stepIndex]="currentGui.stepIndex"></step>
+    <step [steps]="currentGui.state.steps" [stepIndex]="history.stepIndex"></step>
     <form class="form-horizontal" #wizard="ngForm">
-      <div class="wizard-pf-loading blank-slate-pf" *ngIf="!currentGui.inputs">
+      <div class="wizard-pf-loading blank-slate-pf loading" *ngIf="!currentGui.inputs">
         <div class="spinner spinner-lg blank-slate-pf-icon"></div>
         <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
         <p class="blank-slate-pf-secondary-action">
