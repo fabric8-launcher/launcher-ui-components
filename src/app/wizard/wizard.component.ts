@@ -40,7 +40,6 @@ export class FormComponent implements OnInit {
               endGui.metadata = {name: "Review Summary"} as MetaData;
               endGui.state.steps = this.history.get(1).state.steps;
               endGui.inputs = [];
-              this.history.resetTo(index - 1);
               this.history.add(endGui);
             }
 
@@ -48,6 +47,7 @@ export class FormComponent implements OnInit {
           });
         }
         if (!this.history.get(index)) {
+          if (this.history.get(1) != null && index > this.history.get(1).state.steps.length) return Promise.resolve();
           return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:Gui) => {
             this.history.add(gui);
             this.enhanceGui(gui);

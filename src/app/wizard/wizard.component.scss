@@ -3,3 +3,21 @@ form {
   margin: 0 auto;
   padding: 20px 0;
 }
+
+.wizard {
+  margin-top: 20px;
+}
+
+.loading {
+  animation-duration: 2s;
+  animation-name: fade;
+}
+
+@keyframes fade{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
