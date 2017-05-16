@@ -26,7 +26,7 @@
                  *ngSwitchCase="'Mission'"></mission>
         <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'"></runtime>
         <deploy [command]="command" *ngSwitchCase="'Review Summary'"></deploy>
-
+        <metadata [gui]="currentGui" [validation]="validation" *ngSwitchCase="'Metadata'" (validate)="validate(form)"></metadata>
         <generic [gui]="currentGui" [validation]="validation" *ngSwitchDefault (validate)="validate(form)"></generic>
       </span>
     </form>

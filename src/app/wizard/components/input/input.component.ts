@@ -1,7 +1,9 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { Gui, Input as ForgeInput, Message } from "../../../shared/model";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
+import {Component, forwardRef, Input, OnInit} from "@angular/core";
+import {Input as ForgeInput, Message} from "../../../shared/model";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {IMultiSelectSettings} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
 
 @Component({
   selector: 'la-input',
@@ -15,17 +17,30 @@ import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect/src/multise
     }
   ]
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor, OnInit {
   @Input("ngModel") input: ForgeInput;
   @Input() messages: Message[];
+  @Input() changeOnKey: boolean;
   onModelChange: Function = (_: any) => { };
   onModelTouched: Function = () => { };
+
+  private keyUp = new Subject<string>();
+  ngOnInit() {
+    if (this.changeOnKey) {
+      this.keyUp.debounceTime(1000).distinctUntilChanged()
+          .flatMap((search) => {
+            return Observable.of(search).delay(500);
+          }).subscribe((data) => {
+            this.onModelChange(data);
+          });
+    }
+  }
 
   searchMultiSelectSettings: IMultiSelectSettings = {
     enableSearch: true,
     checkedStyle: 'glyphicon',
     showUncheckAll: true
-  }
+  };
 
   writeValue(obj: ForgeInput): void {
     if (obj && obj.value) {
@@ -42,7 +57,9 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   change() {
-    this.onModelChange(this.input.value);
+    if (!this.changeOnKey) {
+      this.onModelChange(this.input.value);
+    }
   }
 
   messageForInput(name: string): Message {

@@ -11,8 +11,9 @@ import { IntroComponent } from './pages/intro/intro.component';
 import { DeploymentTypePage } from './pages/deployment/deployment.page';
 import { MissionPage } from './pages/mission/mission.page';
 import { RuntimePage } from './pages/runtime/runtime.page';
-import { GenericPage } from './pages/generic/generic.page';
+import { MetadataPage } from './pages/metadata/metadata.page';
 import { DeployPage } from './pages/deploy/deploy.page';
+import { GenericPage } from './pages/generic/generic.page';
 
 import { KeycloakService } from '../shared/keycloak.service';
 import { KEYCLOAK_HTTP_PROVIDER } from '../shared/keycloak.http';
@@ -38,8 +39,9 @@ import {CiDirective} from "../shared/ci.directive";
     DeploymentTypePage,
     MissionPage,
     RuntimePage,
-    GenericPage,
+    MetadataPage,
     DeployPage,
+    GenericPage,
     StepComponent,
     InputComponent,
     ButtonComponent,

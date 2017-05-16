@@ -3,11 +3,11 @@
   <span *ngSwitchCase="'UIInput'">
     <span [ngSwitch]="input.valueType">
       <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)">
+        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)" #control (keyup)="keyUp.next(control.value)">
       <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Boolean'" type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)">
+        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)" #control (keyup)="keyUp.next(control.value)">
       <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Integer'" type="number" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
-        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)">
+        [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)" #control (keyup)="keyUp.next(control.value)">
       <div class="errorLabel help-block">
         <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
         <span *ngIf="input.name.errors && (input.name.dirty || input.name.touched)">{{input.label}} is required</span>

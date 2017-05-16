@@ -11,8 +11,11 @@ export class History {
         gui.stepIndex = this.stepIndex;
     }
 
-    apply(state: string) {
+    done() {
         this.ready = true;
+    }
+
+    apply(state: string) {
         if (state == null) return;
         let submittableGui = JSON.parse(atob(state));
         if (submittableGui.inputs) {

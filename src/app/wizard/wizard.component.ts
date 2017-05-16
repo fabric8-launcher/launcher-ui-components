@@ -43,7 +43,7 @@ export class FormComponent implements OnInit {
               this.history.add(endGui);
             }
 
-            this.history.apply(state);
+            this.history.done();
           });
         }
         if (!this.history.get(index)) {
@@ -51,6 +51,7 @@ export class FormComponent implements OnInit {
           return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui:Gui) => {
             this.history.add(gui);
             this.enhanceGui(gui);
+            this.history.apply(state);
           });
         }
         return Promise.resolve();
