@@ -1,4 +1,5 @@
 <div *ngIf="status == Status.None">
+  <h1>{{history.currentGui.metadata?.name}}</h1>
   <div class="box-row">
     <div class="box-col box-left">
       <div *ngFor="let index of pageNumbers">
@@ -76,5 +77,4 @@
       Start a new Mission
     </button>
   </div>
-
 </div>
