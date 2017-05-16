@@ -1,5 +1,5 @@
 <div class="wizard-pf-steps" *ngIf="steps">
-  <ul class="wizard-pf-steps-indicator" style="height: 150px">
+  <ul class="wizard-pf-steps-indicator wizard-steps">
     <li class="wizard-pf-step" [class.active]="stepIndex == i + 1" *ngFor="let step of steps; let i = index">
       <a (click)="gotoStep(i + 1)">
         <span class="wizard-pf-step-number">{{i + 1}}</span>

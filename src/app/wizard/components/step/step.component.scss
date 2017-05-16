@@ -1,0 +1,12 @@
+.wizard-steps {
+  height: 150px;
+}
+
+@media (max-width: 768px) {
+  .wizard-steps {
+    height: 55px;
+  }
+  .wizard-pf-steps-indicator {
+    padding: 0;
+  }
+}

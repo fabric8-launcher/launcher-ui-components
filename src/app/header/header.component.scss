@@ -20,7 +20,7 @@ img.header-logo {
 }
 
 nav.wizard {
-  height: 40px;
+  min-height: 40px;
   border-top: solid 5px #cc0000;
 
   img.header-logo {
@@ -52,14 +52,18 @@ nav.wizard {
 }
 
 @media (max-width: 768px){
-    .navbar-fixed-top {
-        position: fixed;
-        top: auto;
-    }
-    .navbar-collapse {
-        max-height: none;
-    }
-    body {
-        margin: 0;
-    }
+  .dropdown {
+    font-size: smaller;
+  }
+
+  .navbar-fixed-top {
+      position: fixed;
+      top: auto;
+  }
+  .navbar-collapse {
+      max-height: none;
+  }
+  body {
+      margin: 0;
+  }
 }

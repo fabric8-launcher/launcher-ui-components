@@ -21,3 +21,9 @@ form {
     opacity: 1;
   }
 }
+
+@media (max-width: 768px) {
+  form {
+    padding: 0;
+  }
+}
