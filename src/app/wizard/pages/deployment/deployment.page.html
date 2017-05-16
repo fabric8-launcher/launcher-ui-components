@@ -11,7 +11,7 @@
         <div class="panel-body" [innerHTML]="option.description"></div>
       </div>
       <button class="btn btn-primary box-btn" (click)="input.value = option.id;next()">
-        {{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online to build and deploy"}}
+        {{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online"}}
       </button>
     </div>
   </div>
