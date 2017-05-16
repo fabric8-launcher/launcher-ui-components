@@ -19,6 +19,7 @@ templates/template_old.yml
 *.launch
 .settings/
 .vscode
+*.iml
 
 # misc
 /.sass-cache
