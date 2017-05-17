@@ -5,19 +5,11 @@ import {FormControl, NgForm} from "@angular/forms";
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
-    selector: "metadata",
-    templateUrl: "metadata.page.html"
+    selector: "projectInfo",
+    templateUrl: "projectInfo.page.html"
 })
-export class MetadataPage extends GenericPage {
+export class ProjectInfoPage extends GenericPage {
     expand: boolean;
-    named: FormControl = new FormControl();
-
-    constructor() {
-        super();
-        this.named.valueChanges.debounceTime(2000).distinctUntilChanged().subscribe(data => {
-            console.log("named changed");
-        })
-    }
 
     toggle() {
         this.expand = !this.expand;
