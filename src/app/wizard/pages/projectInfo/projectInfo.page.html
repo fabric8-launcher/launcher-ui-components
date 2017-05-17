@@ -17,9 +17,9 @@
 
     <div class="panel-group">
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading" (click)="toggle()">
                 <h4 class="panel-title">
-                    <a (click)="toggle()" href="javascript:void(0)" [class.collapsed]="!expand">
+                    <a href="javascript:void(0)" [class.collapsed]="!expand">
                         Additional properties
                     </a>
                 </h4>
