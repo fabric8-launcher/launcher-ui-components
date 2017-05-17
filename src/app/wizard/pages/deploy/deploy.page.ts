@@ -8,11 +8,14 @@ import { Config } from "../../../shared/config.component";
 import { History } from '../../history.component';
 
 let adocIndex = require('../../../../assets/adoc.index');
+import { animation } from "../animation";
 
 @Component({
   selector: 'deploy',
   templateUrl: './deploy.page.html',
-  styleUrls: ['./deploy.page.scss']
+  styleUrls: ['./deploy.page.scss'],
+  animations: animation.animations,
+  host: animation.host
 })
 export class DeployPage implements OnInit {
   @Input() command: string;
