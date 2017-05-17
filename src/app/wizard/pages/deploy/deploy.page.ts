@@ -63,7 +63,7 @@ export class DeployPage implements OnInit {
             } else {
               let message = JSON.parse(event.data);
               if (message.data && message.data.error) {
-                this.logError(message.data);
+                this.logError(message.data.error);
               } else {
                 for (let status of this.statusMessages) {
                   if (status.messageKey == message.statusMessage) {
@@ -134,6 +134,7 @@ export class DeployPage implements OnInit {
   retry(): void {
     this.webSocket.close();
     this.statusMessages = null;
+    this.error = null;
     this.deploy();
   }
 
