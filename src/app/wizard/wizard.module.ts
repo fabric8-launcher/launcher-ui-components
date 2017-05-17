@@ -11,7 +11,7 @@ import { IntroComponent } from './pages/intro/intro.component';
 import { DeploymentTypePage } from './pages/deployment/deployment.page';
 import { MissionPage } from './pages/mission/mission.page';
 import { RuntimePage } from './pages/runtime/runtime.page';
-import { MetadataPage } from './pages/metadata/metadata.page';
+import { ProjectInfoPage } from './pages/projectInfo/projectInfo.page';
 import { DeployPage } from './pages/deploy/deploy.page';
 import { GenericPage } from './pages/generic/generic.page';
 
@@ -39,7 +39,7 @@ import {CiDirective} from "../shared/ci.directive";
     DeploymentTypePage,
     MissionPage,
     RuntimePage,
-    MetadataPage,
+    ProjectInfoPage,
     DeployPage,
     GenericPage,
     StepComponent,

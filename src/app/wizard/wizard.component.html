@@ -24,7 +24,7 @@
                  [authenticationNeeded]="history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()"
                  *ngSwitchCase="'Mission'"></mission>
         <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'"></runtime>
-        <metadata [gui]="currentGui" [validation]="validation" *ngSwitchCase="'Metadata'" (validate)="validate(form)"></metadata>
+        <projectInfo [gui]="currentGui" [validation]="validation" *ngSwitchCase="'Project Info'" (validate)="validate(form)"></projectInfo>
         <deploy [command]="command" *ngSwitchCase="'Review Summary'"></deploy>
         <generic [gui]="currentGui" [validation]="validation" *ngSwitchDefault (validate)="validate(form)"></generic>
       </span>
