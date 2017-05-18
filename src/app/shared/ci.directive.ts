@@ -17,7 +17,8 @@ export class CiDirective implements OnInit {
     }
 
     isCiChosen(): boolean {
-        return this.history.convert().inputs.find(input => input.name == "deploymentType").value != 'ZIP File';
+        let input = this.history.convert().inputs.find(input => input.name == "deploymentType");
+        return input != null ? input.value != 'ZIP File': false;
     }
 
 }
