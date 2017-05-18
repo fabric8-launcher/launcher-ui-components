@@ -2,92 +2,92 @@
 $assetPath : "../../../../assets/img/project-select-icons/";
 
 #intro {
-    font-family: 'Overpass', sans-serif;
+  font-family: 'Overpass', sans-serif;
+  margin-top: 40px;
+  min-height: 400px;
+
+  img {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    min-width: 100%;
+    z-index: -1;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 46pt;
+    font-weight: bold;
+  }
+  h2 {
+    color: #c00;
+    font-weight: bold;
+  }
+  .row {
+    margin-top: 5px;
+  }
+  .btn {
+    background: #c00 none;
+    border-color: #c00;
+    color: #fff;
+    padding: 9px 40px;
     margin-top: 40px;
-    min-height: 400px;
-
-    img {
-        position: fixed;
-        top: 0;
-        left: 0;
-
-        min-width: 100%;
-        z-index: -1;
-    }
-
-    h1 {
-        color: #fff;
-        font-size: 46pt;
-        font-weight: bold;
-    }
-    h2 {
-        color: #c00;
-        font-weight: bold;
-    }
-    .row {
-        margin-top: 5px;
-    }
-    .btn {
-        background: #c00 none;
-        border-color: #c00;
-        color: #fff;
-        padding: 9px 40px;
-        margin-top: 40px;
-        margin-bottom: 30px;
-        line-height: 1.44;
-        font-size: 18px;
-    }
+    margin-bottom: 30px;
+    line-height: 1.44;
+    font-size: 18px;
+  }
 }
 
 #runtimes {
-    background-color: #f5f5f5;
-    font-family: 'Overpass', sans-serif;
-    h1 {
-        color: #c00;
-        font-weight: bold;
+  background-color: #f5f5f5;
+  font-family: 'Overpass', sans-serif;
+  h1 {
+    color: #c00;
+    font-weight: bold;
+  }
+  .card-pf {
+    background-color: #d1d1d1;
+    height: 245px;
+    .card-pf-title {
+      color: black;
+      font-size: 18pt;
+      font-family: 'Overpass', sans-serif;
+      text-align: center;
     }
-    .card-pf {
-        background-color: #d1d1d1;
-        height: 245px;
-        .card-pf-title {
-            color: black;
-            font-size: 18pt;
-            font-family: 'Overpass', sans-serif;
-            text-align: center;
-        }
 
-        .card-pf-icon-circle {
-            background-color: white;
-            border-color: white;
-        }
-
+    .card-pf-icon-circle {
+      background-color: white;
+      border-color: white;
     }
+
+  }
 }
 
 .icon {
-    background-size: 100% 100%;
-    background: no-repeat center;
-    margin: auto;
-    width:80px;
-    height:80px;
+  background-size: 100% 100%;
+  background: no-repeat center;
+  margin: auto;
+  width:80px;
+  height:80px;
 }
 .boot {
-    background-image: url(#{$assetPath}spring-boot-logo.png);
-    background-size: 65%;
+  background-image: url(#{$assetPath}spring-boot-logo.png);
+  background-size: 65%;
 }
 
 .swarm {
-    background-image: url(#{$assetPath}wildfly-swarm.png);
-    background-size: 65%;
+  background-image: url(#{$assetPath}wildfly-swarm.png);
+  background-size: 65%;
 }
 
 .vertx {
-    background-image: url(#{$assetPath}vertx.svg);
-    background-size: 80%;
+  background-image: url(#{$assetPath}vertx.svg);
+  background-size: 80%;
 }
 
 @media (max-width: 425px) {
-    #intro h1 {
-        font-size: 22pt;
-    }
+  #intro h1 {
+    font-size: 22pt;
+  }
 }
