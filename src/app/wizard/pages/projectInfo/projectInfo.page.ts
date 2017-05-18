@@ -11,7 +11,7 @@ import 'rxjs/add/operator/debounceTime';
   animations: animation.animations,
   host: animation.host
 })
-export class MetadataPage extends GenericPage {
+export class ProjectInfoPage extends GenericPage {
   expand: boolean;
 
   toggle() {
