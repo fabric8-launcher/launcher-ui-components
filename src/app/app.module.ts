@@ -5,11 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { DropdownModule } from 'ng2-dropdown';
 
-// Imports for loading & configuring the in-memory web api
-// if not used will be removed for production by treeshaking
-import { InMemoryDataService } from './in-memory-data.service';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api/in-memory-web-api.module';
-
 // Shared
 import { Logger } from './shared/logger.service';
 
@@ -29,21 +24,18 @@ import { WizardModule } from './wizard/wizard.module'
 
 // conditionally import the inmemory resource module
 var moduleImports: Array<any[] | any | ModuleWithProviders> = [
-  BrowserModule,
-  DropdownModule,
-  FormsModule,
-  HttpModule,
-  AppRoutingModule,
-  WizardModule
 ];
 
-// The inmemory environment variable is checked and if present then the in-memory dataset is added.
-if (process.env.ENV == 'inmemory') {
-  moduleImports.push(InMemoryWebApiModule.forRoot(InMemoryDataService));
-}
 
 @NgModule({
-  imports: moduleImports,
+  imports: [
+    BrowserModule,
+    DropdownModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule,
+    WizardModule
+  ],
   declarations: [
     AppComponent,
     FooterComponent,

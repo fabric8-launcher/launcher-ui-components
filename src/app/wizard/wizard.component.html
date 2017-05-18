@@ -18,14 +18,27 @@
         </p>
       </div>
 
+      <div *ngIf="currentGui.metadata?.name != 'Deployment type'">
+        <div authentication="true">
+          <div class="blank-slate-pf ">
+            <h1>
+              To continue, please log into or register an account for free<br />
+              with the Red Hat Developer Program.
+            </h1>
+            <div class="blank-slate-pf-main-action">
+              <button class="btn btn-primary btn-lg" (click)="keycloak.login()">Log in or register</button>
+            </div>
+          </div>
+          <la-buttons [state]="currentGui.state" disabled="true"></la-buttons>
+        </div>
+      </div>
+
       <span [ngSwitch]="currentGui.metadata?.name">
         <deployment [gui]="currentGui" *ngSwitchCase="'Deployment type'"></deployment>
-        <mission [gui]="currentGui"
-                 [authenticationNeeded]="history.get(1) && history.get(1).inputs[0].value != 'ZIP File' && !keycloak.isAuthenticated()"
-                 *ngSwitchCase="'Mission'"></mission>
-        <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'"></runtime>
-        <projectInfo [gui]="currentGui" [validation]="validation" *ngSwitchCase="'Project Info'" (validate)="validate(form)"></projectInfo>
-        <deploy [command]="command" *ngSwitchCase="'Review Summary'"></deploy>
+        <mission [gui]="currentGui" *ngSwitchCase="'Mission'" authentication></mission>
+        <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'" authentication></runtime>
+        <projectInfo [gui]="currentGui" [validation]="validation" *ngSwitchCase="'Project Info'" (validate)="validate(form)" authentication></projectInfo>
+        <deploy [command]="command" *ngSwitchCase="'Review Summary'" authentication></deploy>
         <generic [gui]="currentGui" [validation]="validation" *ngSwitchDefault (validate)="validate(form)"></generic>
       </span>
     </form>

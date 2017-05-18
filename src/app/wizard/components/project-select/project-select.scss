@@ -1,24 +1,24 @@
 $assetPath : "../../../../assets/img/project-select-icons/";
 
 .icon {
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: auto;
-    width:80px;
-    height:80px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto;
+  width:80px;
+  height:80px;
 }
 .Spring {
-    @extend .icon;
-    background-image: url(#{$assetPath}spring-boot-logo.png);
+  @extend .icon;
+  background-image: url(#{$assetPath}spring-boot-logo.png);
 }
 
 .WildFly {
-    @extend .icon;
-    background-image: url(#{$assetPath}wildfly-swarm.png);
+  @extend .icon;
+  background-image: url(#{$assetPath}wildfly-swarm.png);
 }
 
 .Vert {
-    @extend .icon;
-    background-image: url(#{$assetPath}vertx.svg);
+  @extend .icon;
+  background-image: url(#{$assetPath}vertx.svg);
 }
