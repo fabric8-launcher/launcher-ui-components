@@ -1,10 +1,15 @@
 @import url(https://overpass-30e2.kxcdn.com/overpass.css);
 $assetPath : "../../../../assets/img/project-select-icons/";
 
-#intro {
+.content {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 135px);
   font-family: 'Overpass', sans-serif;
+}
+
+#intro {
   margin-top: 40px;
-  min-height: 400px;
 
   img {
     position: fixed;
@@ -40,25 +45,30 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 }
 
 #runtimes {
+  flex: 1;
   background-color: #f5f5f5;
-  font-family: 'Overpass', sans-serif;
+  padding-top: 70px;
   h1 {
     color: #c00;
     font-weight: bold;
   }
-  .card-pf {
-    background-color: #d1d1d1;
+  a:hover {
+    color: #0088ce;
+  }
+  .runtime {
     height: 245px;
-    .card-pf-title {
-      color: black;
-      font-size: 18pt;
-      font-family: 'Overpass', sans-serif;
-      text-align: center;
+    text-align: center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    .inner {
+      background-color: #d1d1d1;
+      padding: 40px 70px;
+      width: 100%;
     }
-
-    .card-pf-icon-circle {
+    .icon-circle {
       background-color: white;
-      border-color: white;
+      border-radius: 65px;
     }
 
   }
@@ -68,8 +78,8 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   background-size: 100% 100%;
   background: no-repeat center;
   margin: auto;
-  width:80px;
-  height:80px;
+  width:110px;
+  height:110px;
 }
 .boot {
   background-image: url(#{$assetPath}spring-boot-logo.png);
@@ -87,7 +97,52 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 }
 
 @media (max-width: 425px) {
+  .content {
+    height: inherit;
+  }
+  #intro {
+    margin-top: 0;
+    h1 {
+      font-size: 22pt;
+    }
+  }
+  #runtimes {
+    padding-top: 0;
+    .runtime .inner {
+      padding: 25px;
+    }
+  }
+}
+
+@media (max-width: 768px) and (min-width: 426px) {
+  .content {
+    height: inherit;
+  }
+  #intro {
+    margin-top: 0;
+    h1 {
+      font-size: 28pt;
+    }
+  }
+  #runtimes {
+    padding-top: 20px;
+    .runtime .inner {
+      padding: 25px;
+    }
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
   #intro h1 {
-    font-size: 22pt;
+    font-size: 35pt;
+  }
+  #runtimes .runtime .inner {
+    padding: 20px 50px;
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 1025px) {
+  #intro {
+    margin-top: 0;
   }
 }
