@@ -1,24 +1,20 @@
 import { ComponentFixture, TestBed, async, fakeAsync, inject, discardPeriodicTasks, flushMicrotasks } from '@angular/core/testing';
-import { advance } from '.';
 
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ProjectSelectModule } from '../app/wizard/components/project-select/project-select';
-import { FormComponent } from '../app/wizard/wizard.component';
-import { DeployPage } from '../app/wizard/pages/deploy/deploy.page';
-import { ForgeService } from '../app/shared/forge.service';
-import { Config } from '../app/shared/config.component';
+import { GenericPage } from '../app/wizard/pages/generic/generic.page';
+import { InputComponent } from '../app/wizard/components/input/input.component';
+import { ButtonComponent } from '../app/wizard/components/button/button.component';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 import { Gui } from '../app/shared/model';
+import { History } from '../app/wizard/history.component';
 
+let comp: GenericPage;
+let fixture: ComponentFixture<GenericPage>;
 
-let comp: FormComponent;
-let fixture: ComponentFixture<FormComponent>;
-
-let forgeServiceStub: ForgeService;
 let spy: any;
 
 const baseJson: any = {
@@ -74,7 +70,7 @@ const typeSelect = {
       "name": "type",
       "shortName": " ",
       "valueType": "io.openshiftio.generator.catalog.Quickstart",
-      "inputType": "org.jboss.forge.inputType.DEFAULT",
+      "inputType": "org.jboss.forge.inputType.RADIO",
       "enabled": true,
       "required": true,
       "deprecated": false,
@@ -101,53 +97,35 @@ const typeSelect = {
 };
 
 describe('Dynamic form should be created for json that comes from the server', () => {
-  let subscribe: Function = null;
-  beforeEach(() => {
+  let historyStub = new History();
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ProjectSelectModule, HttpModule],
-      declarations: [FormComponent, DeployPage],
-      providers: [
-        ForgeService,
-        { provide: Config, useValue: { get: (key: string) => { } } },
+      imports: [FormsModule, MultiselectDropdownModule],
+      declarations: [GenericPage, InputComponent, ButtonComponent],
+      providers: [ 
+        { provide: History, useValue: historyStub },
         {
-          provide: ActivatedRoute, useValue: {
-            params: {
-              subscribe: ((callback: Function) => {
-                this.subscribe = callback;
-                callback({ command: 'lauchpad-new-quickstart', step: '0' });
-              })
-            }
-          }
+          provide: ActivatedRoute, useValue: {}
         },
         {
-          provide: Router, useValue: {
-            navigate: () => {
-              this.subscribe({ command: 'lauchpad-new-quickstart', step: 'end' })
-            }
-          }
+          provide: Router, useValue: {}
         }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FormComponent);
-    forgeServiceStub = fixture.debugElement.injector.get(ForgeService);
-
+    fixture = TestBed.createComponent(GenericPage);
     comp = fixture.componentInstance;
-  });
+  }));
 
-  it("should create a input type text for specified json", fakeAsync(() => {
+  it("should create a input type text for specified json", (() => {
     setupUI(typeText);
 
-    expect(comp.currentGui == null).toBe(false);
-    expect(comp.currentGui.inputs == null).toBe(false);
-    expect(comp.currentGui.inputs.length).toBe(1);
+    expect(comp.gui == null).toBe(false);
+    expect(comp.gui.inputs == null).toBe(false);
+    expect(comp.gui.inputs.length).toBe(1);
 
     const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
     expect(input.getAttribute('type')).toBe('text');
-
-    expect(forgeServiceStub.commandInfo).toHaveBeenCalledWith('lauchpad-new-quickstart');
-
-    cleanTimers();
   }));
 
   it("should create a type number for specified json", fakeAsync(() => {
@@ -155,8 +133,6 @@ describe('Dynamic form should be created for json that comes from the server', (
 
     const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
     expect(input.getAttribute('type')).toBe('number');
-
-    cleanTimers();
   }));
 
   it("should create a type radio for specified json", fakeAsync(() => {
@@ -164,19 +140,11 @@ describe('Dynamic form should be created for json that comes from the server', (
 
     const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
     expect(input.getAttribute('type')).toBe('radio');
-
-    cleanTimers();
   }));
 
   function setupUI(obj: any) {
     let json = Object.assign(baseJson, obj);
-    spyOn(forgeServiceStub, 'commandInfo').and.returnValue(Promise.resolve(json));
+    comp.gui = json;
     fixture.detectChanges();
-    advance(fixture);
-  }
-
-  function cleanTimers() {
-    flushMicrotasks();
-    discardPeriodicTasks();
   }
 });
