@@ -1,21 +1,17 @@
-import { ComponentFixture, TestBed, async, fakeAsync, inject, discardPeriodicTasks, flushMicrotasks } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed} from "@angular/core/testing";
 
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {By} from "@angular/platform-browser";
+import {FormsModule} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
 
-import { GenericPage } from '../app/wizard/pages/generic/generic.page';
-import { InputComponent } from '../app/wizard/components/input/input.component';
-import { ButtonComponent } from '../app/wizard/components/button/button.component';
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
-import { Gui } from '../app/shared/model';
-import { History } from '../app/wizard/history.component';
+import {GenericPage} from "../app/wizard/pages/generic/generic.page";
+import {InputComponent} from "../app/wizard/components/input/input.component";
+import {ButtonComponent} from "../app/wizard/components/button/button.component";
+import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
+import {History} from "../app/wizard/history.component";
 
 let comp: GenericPage;
 let fixture: ComponentFixture<GenericPage>;
-
-let spy: any;
 
 const baseJson: any = {
   "metadata": {
@@ -96,14 +92,14 @@ const typeSelect = {
   ]
 };
 
-describe('Dynamic form should be created for json that comes from the server', () => {
+describe("Dynamic form should be created for json that comes from the server", () => {
   let historyStub = new History();
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, MultiselectDropdownModule],
       declarations: [GenericPage, InputComponent, ButtonComponent],
-      providers: [ 
-        { provide: History, useValue: historyStub },
+      providers: [
+        {provide: History, useValue: historyStub},
         {
           provide: ActivatedRoute, useValue: {}
         },
@@ -117,34 +113,33 @@ describe('Dynamic form should be created for json that comes from the server', (
     comp = fixture.componentInstance;
   }));
 
-  it("should create a input type text for specified json", (() => {
+  it("should create a input type text for specified json", () => {
     setupUI(typeText);
 
     expect(comp.gui == null).toBe(false);
     expect(comp.gui.inputs == null).toBe(false);
     expect(comp.gui.inputs.length).toBe(1);
 
-    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(input.getAttribute('type')).toBe('text');
-  }));
+    const input = fixture.debugElement.query(By.css("input")).nativeElement as HTMLInputElement;
+    expect(input.getAttribute("type")).toBe("text");
+  });
 
   it("should create a type number for specified json", fakeAsync(() => {
     setupUI(typeNumber);
 
-    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(input.getAttribute('type')).toBe('number');
+    const input = fixture.debugElement.query(By.css("input")).nativeElement as HTMLInputElement;
+    expect(input.getAttribute("type")).toBe("number");
   }));
 
   it("should create a type radio for specified json", fakeAsync(() => {
     setupUI(typeSelect);
 
-    const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
-    expect(input.getAttribute('type')).toBe('radio');
+    const input = fixture.debugElement.query(By.css("input")).nativeElement as HTMLInputElement;
+    expect(input.getAttribute("type")).toBe("radio");
   }));
 
   function setupUI(obj: any) {
-    let json = Object.assign(baseJson, obj);
-    comp.gui = json;
+    comp.gui = Object.assign(baseJson, obj);
     fixture.detectChanges();
   }
 });

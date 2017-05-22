@@ -1,27 +1,27 @@
-import { NgModule }  from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FormComponent } from './wizard/wizard.component';
-import { IntroComponent } from './wizard/pages/intro/intro.component';
+import { NgModule }  from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { FormComponent } from "./wizard/wizard.component";
+import { IntroComponent } from "./wizard/pages/intro/intro.component";
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/wizard',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "/wizard",
+    pathMatch: "full",
   },
   {
-    path: 'wizard',
+    path: "wizard",
     children: [
       {
-        path: '',
+        path: "",
         component: IntroComponent
       },
       {
-        path: ':command/:step',
+        path: ":command/:step",
         component: FormComponent
       },
       {
-        path: ':command/:step/:state',
+        path: ":command/:step/:state",
         component: FormComponent
       }
     ]

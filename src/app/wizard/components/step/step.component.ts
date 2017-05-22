@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {ButtonComponent} from "../button/button.component";
 
 @Component({
-  selector: 'step',
+  selector: "step",
   templateUrl: "step.component.html",
   styleUrls: ["step.component.scss"]
 })

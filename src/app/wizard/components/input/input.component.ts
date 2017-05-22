@@ -6,11 +6,11 @@ import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 
 @Component({
-  selector: 'la-input',
+  selector: "la-input",
   templateUrl: "input.component.html",
-  styleUrls: [ "input.component.scss" ],
+  styleUrls: ["input.component.scss"],
   providers: [
-    { 
+    {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => InputComponent),
       multi: true
@@ -21,24 +21,27 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   @Input("ngModel") input: ForgeInput;
   @Input() messages: Message[];
   @Input() changeOnKey: boolean;
-  onModelChange: Function = (_: any) => { };
-  onModelTouched: Function = () => { };
+  onModelChange: Function = (_: any) => {
+  };
+  onModelTouched: Function = () => {
+  };
 
   private keyUp = new Subject<string>();
+
   ngOnInit() {
     if (this.changeOnKey) {
       this.keyUp.debounceTime(1000).distinctUntilChanged()
-          .flatMap((search) => {
-            return Observable.of(search).delay(500);
-          }).subscribe((data) => {
-            this.onModelChange(data);
-          });
+        .flatMap((search) => {
+          return Observable.of(search).delay(500);
+        }).subscribe((data) => {
+        this.onModelChange(data);
+      });
     }
   }
 
   searchMultiSelectSettings: IMultiSelectSettings = {
     enableSearch: true,
-    checkedStyle: 'glyphicon',
+    checkedStyle: "glyphicon",
     showUncheckAll: true
   };
 
@@ -66,7 +69,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     let result: Message;
     if (!this.messages) return null;
     for (let message of this.messages) {
-      if (message.input == name) {
+      if (message.input === name) {
         result = message;
       }
     }

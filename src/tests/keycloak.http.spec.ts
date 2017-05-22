@@ -1,20 +1,19 @@
-import {Injectable, ReflectiveInjector} from '@angular/core';
-import {async, fakeAsync, tick} from '@angular/core/testing';
-import {BaseRequestOptions, ConnectionBackend, Http, RequestOptions} from '@angular/http';
-import {Response, ResponseOptions} from '@angular/http';
-import {MockBackend, MockConnection} from '@angular/http/testing';
+import {Injectable, ReflectiveInjector} from "@angular/core";
+import {fakeAsync, tick} from "@angular/core/testing";
+import {BaseRequestOptions, ConnectionBackend, Http, RequestOptions} from "@angular/http";
+import {MockBackend, MockConnection} from "@angular/http/testing";
 
-import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER, keycloakHttpFactory } from '../app/shared/keycloak.http';
-import { KeycloakService } from '../app/shared/keycloak.service';
+import { KeycloakHttp, keycloakHttpFactory } from "../app/shared/keycloak.http";
+import { KeycloakService } from "../app/shared/keycloak.service";
 
 @Injectable()
 class MockKeycloakService extends KeycloakService {
   getToken(): Promise<string> {
-    return Promise.resolve('hello');
+    return Promise.resolve("hello");
   }
 }
 
-describe('KeycloakHttp', () => {
+describe("KeycloakHttp", () => {
 
   let injector: ReflectiveInjector;
   let backend: MockBackend;
@@ -37,11 +36,11 @@ describe('KeycloakHttp', () => {
     backend.connections.subscribe((c: MockConnection) => lastConnection = c);
   });
 
-  it('should set Authorization header', fakeAsync(() => {
-    http.get('foo').subscribe(r => console.log(r));
+  it("should set Authorization header", fakeAsync(() => {
+    http.get("foo").subscribe(r => console.log(r));
     tick();
-    expect(lastConnection).toBeDefined('no http service connection at all?');
-    expect(lastConnection.request.headers.get('Authorization')).toBe('Bearer hello');
+    expect(lastConnection).toBeDefined("no http service connection at all?");
+    expect(lastConnection.request.headers.get("Authorization")).toBe("Bearer hello");
   }));
 
 });

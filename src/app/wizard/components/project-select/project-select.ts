@@ -1,8 +1,7 @@
-import { NgModule, Component, Pipe, OnInit, DoCheck, HostListener, Input, ElementRef, Output, EventEmitter, forwardRef, IterableDiffers } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs/Rx';
-import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Input as Field, Option } from '../../../shared/model';
+import {Component, DoCheck, forwardRef, Input, NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Input as Field, Option} from "../../../shared/model";
 
 const PROJECTSELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,16 +10,18 @@ const PROJECTSELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'ob-project-select',
+  selector: "ob-project-select",
   providers: [PROJECTSELECT_VALUE_ACCESSOR],
-  templateUrl: './project-select.html',
-  styleUrls: ['./project-select.scss']
+  templateUrl: "./project-select.html",
+  styleUrls: ["./project-select.scss"]
 })
 export class ProjectSelect implements DoCheck, ControlValueAccessor {
   @Input() input: Field;
 
-  onModelChange: Function = (_: any) => { };
-  onModelTouched: Function = () => { };
+  onModelChange: Function = (_: any) => {
+  };
+  onModelTouched: Function = () => {
+  };
 
   model: string;
 
@@ -43,12 +44,12 @@ export class ProjectSelect implements DoCheck, ControlValueAccessor {
 
   className(option: Option) {
     let index = option.id.indexOf(" ");
-    index = index == -1 ? option.id.indexOf(".") : index;
+    index = index === -1 ? option.id.indexOf(".") : index;
     return option.id.substr(0, index);
   }
 
   isSelected(option: Option): boolean {
-    return this.model == option.id;
+    return this.model === option.id;
   }
 
   setSelected(option: Option) {
@@ -63,4 +64,5 @@ export class ProjectSelect implements DoCheck, ControlValueAccessor {
   exports: [ProjectSelect],
   declarations: [ProjectSelect],
 })
-export class ProjectSelectModule {}
+export class ProjectSelectModule {
+}

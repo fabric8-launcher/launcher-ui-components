@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Config } from "./config.component";
+import { Injectable } from "@angular/core";
 
-const config = require('../../assets/keycloak/keycloak.json');
-let Keycloak = require('../../assets/keycloak/keycloak.js');
+const config = require("../../assets/keycloak/keycloak.json");
+let Keycloak = require("../../assets/keycloak/keycloak.js");
 
 @Injectable()
 export class KeycloakService {
@@ -21,13 +20,11 @@ export class KeycloakService {
 
     if (config.realm) {
       return new Promise((resolve, reject) => {
-        keycloakAuth.init({ onLoad: 'check-sso', checkLoginIframe: false })
+        keycloakAuth.init({ onLoad: "check-sso", checkLoginIframe: false })
           .success(() => {
             KeycloakService.auth.loggedIn = true;
             KeycloakService.auth.authz = keycloakAuth;
-            KeycloakService.auth.logoutUrl = keycloakAuth.authServerUrl
-              + '/realms/' + config.realm + '/protocol/openid-connect/logout?redirect_uri='
-              + document.baseURI;
+            KeycloakService.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
             resolve();
           })
           .error(() => {
@@ -68,7 +65,7 @@ export class KeycloakService {
             resolve(<string>KeycloakService.auth.authz.token);
           })
           .error(() => {
-            reject('Failed to refresh token');
+            reject("Failed to refresh token");
           });
       } else {
         resolve("");

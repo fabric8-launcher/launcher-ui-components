@@ -1,18 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, Input, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
 
-import { StatusMessage } from '../../../shared/model';
-import { ForgeService } from "../../../shared/forge.service";
-import { KeycloakService } from "../../../shared/keycloak.service";
-import { Config } from "../../../shared/config.component";
-import { History } from '../../history.component';
+import {StatusMessage} from "../../../shared/model";
+import {ForgeService} from "../../../shared/forge.service";
+import {KeycloakService} from "../../../shared/keycloak.service";
+import {Config} from "../../../shared/config.component";
+import {History} from "../../history.component";
 
-let adocIndex = require('../../../../assets/adoc.index');
+let adocIndex = require("../../../../assets/adoc.index");
 
 @Component({
-  selector: 'deploy',
-  templateUrl: './deploy.page.html',
-  styleUrls: ['./deploy.page.scss']
+  selector: "deploy",
+  templateUrl: "./deploy.page.html",
+  styleUrls: ["./deploy.page.scss"]
 })
 export class DeployPage implements OnInit {
   @Input() command: string;
@@ -26,15 +26,15 @@ export class DeployPage implements OnInit {
   private webSocket: WebSocket;
 
   constructor(private forgeService: ForgeService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private history: History,
-    private kc: KeycloakService,
-    private config: Config) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private history: History,
+              private kc: KeycloakService,
+              private config: Config) {
     if (!this.apiUrl) {
-      this.apiUrl = config.get('mission_control_url');
+      this.apiUrl = config.get("mission_control_url");
     }
-    if (this.apiUrl && this.apiUrl.endsWith('/')) {
+    if (this.apiUrl && this.apiUrl.endsWith("/")) {
       this.apiUrl = this.apiUrl.substr(0, this.apiUrl.length - 1);
     }
   }
@@ -66,10 +66,10 @@ export class DeployPage implements OnInit {
                 this.logError(message.data.error);
               } else {
                 for (let status of this.statusMessages) {
-                  if (status.messageKey == message.statusMessage) {
+                  if (status.messageKey === message.statusMessage) {
                     status.done = true;
-                    status.data =message.data || {};
-                    status.data['doc'] = adocIndex[message.statusMessage];
+                    status.data = message.data || {};
+                    status.data["doc"] = adocIndex[message.statusMessage];
                     break;
                   }
                 }
@@ -78,25 +78,25 @@ export class DeployPage implements OnInit {
                 if (done) {
                   this.webSocket.close();
                   this.status = Status.Done;
-                } 
+                }
               }
             }
           }.bind(this);
-          this.webSocket.onerror = function(event: MessageEvent) {
+          this.webSocket.onerror = function (event: MessageEvent) {
             this.logError(event.data.error_description);
           }.bind(this);
         }).catch(reason => {
-          if (reason.messages) {
-            let message: string = "";
-            reason.messages.forEach((error :any) => {
-              message = message ? message + "; " : message;
-              message += error.description;
-            });
-            this.logError(message);
-          } else {
-            this.logError(reason);
-          }
-        });
+        if (reason.messages) {
+          let message: string = "";
+          reason.messages.forEach((error: any) => {
+            message = message ? message + "; " : message;
+            message += error.description;
+          });
+          this.logError(message);
+        } else {
+          this.logError(reason);
+        }
+      });
     } else {
       this.kc.login();
     }
@@ -110,7 +110,7 @@ export class DeployPage implements OnInit {
     }
     if (!this.statusMessages) {
       this.statusMessages = [];
-      let errorEvent = new StatusMessage("error", "Server error occured");
+      let errorEvent = new StatusMessage("error", "Server error occurred");
       errorEvent.data = {error: message};
       this.statusMessages.push(errorEvent);
     } else {
@@ -126,7 +126,7 @@ export class DeployPage implements OnInit {
   lastNotDone(key: string): boolean {
     for (let status of this.statusMessages) {
       if (!status.done) {
-        return key == status.messageKey;
+        return key === status.messageKey;
       }
     }
   }
@@ -143,11 +143,11 @@ export class DeployPage implements OnInit {
   }
 
   restart() {
-    this.router.navigate(["../../" + 1, ""], { relativeTo: this.route });
+    this.router.navigate(["../../" + 1, ""], {relativeTo: this.route});
   }
 
   back() {
-    this.router.navigate(["../../" + (this.history.stepIndex - 1), this.history.toString()], { relativeTo: this.route });
+    this.router.navigate(["../../" + (this.history.stepIndex - 1), this.history.toString()], {relativeTo: this.route});
   }
 }
 

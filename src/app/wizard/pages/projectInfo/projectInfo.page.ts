@@ -1,8 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { GenericPage } from "../generic/generic.page";
-import { FormControl, NgForm } from "@angular/forms";
-
-import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: "projectInfo",
@@ -16,7 +13,7 @@ export class ProjectInfoPage extends GenericPage {
   }
 
   getField(fieldName: string): Input {
-    return this.gui.inputs.find(i => i.name == fieldName);
+    return this.gui.inputs.find(i => i.name === fieldName);
   }
 }
 

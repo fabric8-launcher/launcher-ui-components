@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
-import { Http } from '@angular/http';
-import { Gui, Version, StatusResult } from './model';
-import { History } from '../wizard/history.component';
-import { Config } from './config.component'
+import {Injectable} from "@angular/core";
+import "rxjs/add/operator/toPromise";
+import {Http} from "@angular/http";
+import {Gui, StatusResult, Version} from "./model";
+import {History} from "../wizard/history.component";
+import {Config} from "./config.component";
 
 @Injectable()
 export class ForgeService {
@@ -11,37 +11,37 @@ export class ForgeService {
 
   constructor(private http: Http, private config: Config) {
     if (!this.apiUrl) {
-      this.apiUrl = config.get('backend_url');
+      this.apiUrl = config.get("backend_url");
     }
 
-    if (this.apiUrl && this.apiUrl[this.apiUrl.length - 1] != '/') {
-      this.apiUrl += '/';
+    if (this.apiUrl && this.apiUrl[this.apiUrl.length - 1] !== "/") {
+      this.apiUrl += "/";
     }
-    this.apiUrl += 'launchpad';
+    this.apiUrl += "launchpad";
   }
 
-  version() : Promise<Version> {
-    return this.http.get(this.apiUrl+'/version').toPromise()
-    .then(response => response.json() as Version)
-    .catch(this.handleError);
+  version(): Promise<Version> {
+    return this.http.get(`${this.apiUrl}/version`).toPromise()
+      .then(response => response.json() as Version)
+      .catch(this.handleError);
   }
 
   commandInfo(command: string): Promise<Gui> {
-    return this.http.get(this.apiUrl + '/commands/' + command).toPromise()
+    return this.http.get(`${this.apiUrl}/commands/${command}`).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
 
   validate(command: string, history: History): Promise<Gui> {
-    return this.post(history.convert(), '/commands/' + command + '/validate');
+    return this.post(history.convert(), `/commands/${command}/validate`);
   }
 
   nextStep(command: string, history: History): Promise<Gui> {
-    return this.post(history.convert(history.stepIndex), '/commands/' + command + '/next');
+    return this.post(history.convert(history.stepIndex), `/commands/${command}/next`);
   }
 
   loadGui(command: string, history: History): Promise<Gui> {
-    if (history.stepIndex == 0) {
+    if (history.stepIndex === 0) {
       return this.commandInfo(command);
     } else {
       return this.nextStep(command, history);
@@ -49,7 +49,7 @@ export class ForgeService {
   }
 
   upload(command: string, history: History): Promise<StatusResult> {
-    return this.http.post(this.apiUrl + '/commands/' + command + '/missioncontrol', history.convert()).toPromise()
+    return this.http.post(`${this.apiUrl}/commands/${command}/missioncontrol`, history.convert()).toPromise()
       .then(response => response.json() as StatusResult)
       .catch(this.handleError);
   }
@@ -57,7 +57,7 @@ export class ForgeService {
   downloadZip(command: string, history: History) {
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
-    form.setAttribute("action", this.apiUrl + '/commands/' + command + '/zip');
+    form.setAttribute("action", `${this.apiUrl}/commands/${command}/zip`);
 
     form.appendChild(this.createFormInput("stepIndex", String(history.stepIndex)));
 
@@ -95,7 +95,7 @@ export class ForgeService {
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
+    console.error("An error occurred", error);
     if (error.statusText) {
       return Promise.reject(error.json());
     }

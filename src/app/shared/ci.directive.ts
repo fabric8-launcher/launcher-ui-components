@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, OnInit } from "@angular/core";
 import { History } from "../wizard/history.component";
 
 @Directive({
-  selector: '[la-ci]'
+  selector: "[la-ci]"
 })
 export class CiDirective implements OnInit {
   @Input("la-ci") invert: boolean;
@@ -17,8 +17,8 @@ export class CiDirective implements OnInit {
   }
 
   isCiChosen(): boolean {
-    let input = this.history.convert().inputs.find(input => input.name == "deploymentType");
-    return input != null ? input.value != 'ZIP File' : false;
+    let input = this.history.convert().inputs.find(input => input.name === "deploymentType");
+    return input != null ? input.value !== "ZIP File" : false;
   }
 
 }

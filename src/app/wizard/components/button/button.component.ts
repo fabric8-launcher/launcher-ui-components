@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 import { State } from "../../../shared/model";
 import { History } from "../../history.component";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'la-buttons',
+  selector: "la-buttons",
   templateUrl: "button.component.html"
 })
 export class ButtonComponent {

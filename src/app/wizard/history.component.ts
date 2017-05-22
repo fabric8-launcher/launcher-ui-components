@@ -22,7 +22,7 @@ export class History {
       for (let input of submittableGui.inputs) {
         for (let gui of this.state) {
           for (let guiInput of gui.inputs) {
-            if (guiInput.name == input.name) {
+            if (guiInput.name === input.name) {
               guiInput.value = input.value;
             }
           }
