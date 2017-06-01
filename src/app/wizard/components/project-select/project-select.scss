@@ -18,7 +18,7 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   background-image: url(#{$assetPath}wildfly-swarm.png);
 }
 
-.Vert {
+.Eclipse {
   @extend .icon;
   background-image: url(#{$assetPath}vertx.svg);
 }
