@@ -1,4 +1,6 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
+import { Subject } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
 const config = require("../../assets/keycloak/keycloak.json");
 let Keycloak = require("../../assets/keycloak/keycloak.js");
@@ -6,63 +8,59 @@ let Keycloak = require("../../assets/keycloak/keycloak.js");
 @Injectable()
 export class KeycloakService {
   private skip: boolean;
-  static auth: any = {};
+  auth: any = {};
+  subject: Subject<string> = new Subject<string>();
 
   constructor() {
     this.skip = !config.realm;
-  }
-
-  static init(): Promise<any> {
     const keycloakAuth: any = Keycloak(config);
 
-    KeycloakService.auth.loggedIn = false;
-    KeycloakService.auth.authz = {};
+    this.auth.loggedIn = false;
+    this.auth.authz = {};
 
     if (config.realm) {
-      return new Promise((resolve, reject) => {
         keycloakAuth.init({ onLoad: "check-sso", checkLoginIframe: false })
           .success(() => {
-            KeycloakService.auth.loggedIn = true;
-            KeycloakService.auth.authz = keycloakAuth;
-            KeycloakService.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
-            resolve();
+            this.auth.loggedIn = true;
+            this.auth.authz = keycloakAuth;
+            this.subject.next(keycloakAuth.token);
+            this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
           })
-          .error(() => {
-            reject();
-          });
-      });
-    }
-    return Promise.resolve();
+      }
   }
 
   logout() {
-    KeycloakService.auth.loggedIn = false;
-    KeycloakService.auth.authz = null;
-    window.location.href = KeycloakService.auth.logoutUrl;
+    this.auth.loggedIn = false;
+    this.auth.authz = null;
+    window.location.href = this.auth.logoutUrl;
   }
 
   login() {
-    KeycloakService.auth.authz.login();
+    this.auth.authz.login()
+  }
+
+  get onLogin(): Observable<string> {
+    return this.subject;
   }
 
   isAuthenticated(): boolean {
     if (this.skip) {
       return true;
     }
-    return KeycloakService.auth.authz.tokenParsed;
+    return this.auth.authz.tokenParsed;
   }
 
   get user(): string {
-    return this.skip ? "Fake User" : KeycloakService.auth.authz.tokenParsed.name;
+    return this.skip ? "Fake User" : this.auth.authz.tokenParsed.name;
   }
 
   getToken(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      if (KeycloakService.auth.authz.token) {
-        KeycloakService.auth.authz
+      if (this.auth.authz.token) {
+        this.auth.authz
           .updateToken(5)
           .success(() => {
-            resolve(<string>KeycloakService.auth.authz.token);
+            resolve(<string>this.auth.authz.token);
           })
           .error(() => {
             reject("Failed to refresh token");

@@ -25,6 +25,7 @@ import {ButtonComponent} from "./components/button/button.component";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
 import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
+import { TokenService } from "../shared/token.service";
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import {CiDirective} from "../shared/ci.directive";
     KeycloakService,
     KEYCLOAK_HTTP_PROVIDER,
     ForgeService,
+    TokenService,
     History,
     Config,
     {provide: APP_INITIALIZER, useFactory: (config: Config) => () => config.load(), deps: [Config], multi: true}

@@ -52,7 +52,7 @@ export function keycloakHttpFactory(backend: XHRBackend, defaultOptions: Request
 }
 
 export const KEYCLOAK_HTTP_PROVIDER = {
-  provide: Http,
+  provide: KeycloakHttp,
   useFactory: keycloakHttpFactory,
   deps: [XHRBackend, RequestOptions, KeycloakService]
 };

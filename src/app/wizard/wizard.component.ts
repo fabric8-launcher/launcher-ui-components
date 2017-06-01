@@ -5,6 +5,7 @@ import {ForgeService} from "../shared/forge.service";
 import {Gui, Input, Message, MetaData} from "../shared/model";
 import {History} from "./history.component";
 import {KeycloakService} from "../shared/keycloak.service";
+import { TokenService } from "../shared/token.service";
 
 let adocIndex = require("../../assets/adoc.index");
 
@@ -21,6 +22,7 @@ export class FormComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private history: History,
               private forgeService: ForgeService,
+              private tokens: TokenService,
               private keycloak: KeycloakService) {
   }
 
@@ -44,6 +46,11 @@ export class FormComponent implements OnInit {
             }
 
             this.history.done();
+            if (this.keycloak.isAuthenticated() && !this.tokens.valid) {
+              let message = new Message(`${this.tokens.inValidTokens} access is not setup!`);
+              message.severity = "WARNING";
+              this.currentGui.messages = [message];
+            }
           });
         }
         if (!this.history.get(index)) {
