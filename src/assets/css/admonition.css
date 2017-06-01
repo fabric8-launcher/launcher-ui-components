@@ -51,3 +51,9 @@
 .admonitionblock > table td.content >:last-child >:last-child {
   margin-bottom: 0;
 }
+
+.title{
+  text-rendering: optimizeLegibility;
+  text-align: left;
+  font-weight: bold;
+}
