@@ -161,6 +161,10 @@ export class DeployPage implements OnInit {
     this.index -= 1;
     if (this.index === -1) this.index = 3;
   }
+
+  setIndex(index: number) {
+    this.index = index;
+  }
 }
 
 enum Status {
