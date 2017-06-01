@@ -20,6 +20,32 @@
   margin: 1px;
 }
 
+$carousel-color: #333;
+.carousel-indicators {
+  li {
+    border-color: $carousel-color;
+  }
+  .active {
+    background-color: $carousel-color;
+  }
+}
+
+.item {
+  margin: 60px;
+}
+
+.glyphicon {
+  color: $carousel-color;
+}
+
+.carousel-control.right {
+  background-image: initial;
+}
+
+.carousel-control.left {
+  background-image: initial;
+}
+
 @media (max-width: 425px) {
   .box-row {
     display: block;

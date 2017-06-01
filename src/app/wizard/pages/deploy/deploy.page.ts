@@ -21,6 +21,8 @@ export class DeployPage implements OnInit {
   pageNumbers: number[];
   statusMessages: StatusMessage[];
   error: string;
+  adocIndex = adocIndex;
+  index: number = 0;
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private webSocket: WebSocket;
@@ -148,6 +150,16 @@ export class DeployPage implements OnInit {
 
   back() {
     this.router.navigate(["../../" + (this.history.stepIndex - 1), this.history.toString()], {relativeTo: this.route});
+  }
+
+  increment(){
+    this.index += 1;
+    if (this.index === 3) this.index = 0;
+  }
+    
+  decrement(){
+    this.index -= 1;
+    if (this.index === -1) this.index = 3;
   }
 }
 
