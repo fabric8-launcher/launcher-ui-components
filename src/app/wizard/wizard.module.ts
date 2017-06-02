@@ -25,13 +25,15 @@ import {ButtonComponent} from "./components/button/button.component";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
 import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
+import {CarouselModule} from 'ngx-bootstrap/carousel';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ProjectSelectModule,
-    MultiselectDropdownModule
+    MultiselectDropdownModule,
+    CarouselModule
   ],
   declarations: [
     FormComponent,

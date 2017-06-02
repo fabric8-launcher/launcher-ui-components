@@ -17,6 +17,7 @@
       <p>
         Your project is ready; now you can
         <span la-ci> download it to build and deploy locally.</span>
+        <span [innerHTML]="adocIndex['manual-carousel']" la-ci></span>
         <span la-ci="true">
           launch it on OpenShift Online.
           The launch process will create both a GitHub repository containing your new Booster and
@@ -58,7 +59,7 @@
     </button>
   </div>
 
-  <div style="margin-left: -125px;min-width: 1024px;display: inline-block;">
+  <div class="content-span">
     <div class="col-md-6">
       <ul class="list-group">
         <li class="list-group-item" [class.error-row]="status.data && status.data.error" *ngFor="let status of statusMessages">
@@ -74,35 +75,19 @@
           </span>
         </li>
       </ul>
-
-      <div class="text-center">
-        <button id="restart" type="button" class="btn btn-link" (click)="restart()" *ngIf="status == Status.Done">
-          Start a new Mission
-        </button>
-      </div>
     </div>
 
     <div class="col-md-6">
-      <div>
-        <div class="carousel slide">
-          <ol class="carousel-indicators">
-            <li [class.active]="index == 0" (click)="setIndex(0)"></li>
-            <li [class.active]="index == 1" (click)="setIndex(1)"></li>
-            <li [class.active]="index == 2" (click)="setIndex(2)"></li>
-          </ol>
-          <div class="carousel-inner" role="listbox">
-            <div class="item" [class.active]="index == 0">
-              <span [innerHTML]="adocIndex['carousel1']"></span>
-            </div>
-            <div class="item" [class.active]="index == 1">
-              <span [innerHTML]="adocIndex['carousel2']"></span>
-            </div>
-            <div class="item" [class.active]="index == 2">
-              <span [innerHTML]="adocIndex['carousel3']"></span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <carousel interval="false">
+        <slide *ngFor="let slide of slides">
+          <span [innerHTML]="adocIndex[slide]"></span>
+        </slide>
+      </carousel>
     </div>
+  </div>
+  <div class="text-center">
+    <button id="restart" type="button" class="btn btn-link" (click)="restart()" *ngIf="status == Status.Done">
+      Start a new Mission
+    </button>
   </div>
 </div>

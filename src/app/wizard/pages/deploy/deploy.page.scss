@@ -20,30 +20,16 @@
   margin: 1px;
 }
 
-$carousel-color: #333;
-.carousel-indicators {
-  li {
-    border-color: $carousel-color;
-  }
-  .active {
-    background-color: $carousel-color;
-  }
+.content-span {
+  margin-left: -125px;
+  min-width: 1024px;
+  display: inline-block;
+  border-top: 1px solid #ededed;
+  padding-top: 20px;
 }
 
-.item {
-  margin-bottom: 60px;
-}
-
-.glyphicon {
-  color: $carousel-color;
-}
-
-.carousel-control.right {
-  background-image: initial;
-}
-
-.carousel-control.left {
-  background-image: initial;
+.list-group {
+  border: none;
 }
 
 @media (max-width: 425px) {

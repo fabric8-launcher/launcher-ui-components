@@ -22,7 +22,7 @@ export class DeployPage implements OnInit {
   statusMessages: StatusMessage[];
   error: string;
   adocIndex = adocIndex;
-  index: number = 0;
+  slides: string[];
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private webSocket: WebSocket;
@@ -43,6 +43,7 @@ export class DeployPage implements OnInit {
 
   ngOnInit() {
     this.pageNumbers = Array(this.history.stepIndex - 1).fill(1).map((x, i) => i + 1);
+    this.slides = Object.keys(this.adocIndex).filter(key => key.startsWith("carousel"));
   }
 
   deploy(): void {
@@ -150,20 +151,6 @@ export class DeployPage implements OnInit {
 
   back() {
     this.router.navigate(["../../" + (this.history.stepIndex - 1), this.history.toString()], {relativeTo: this.route});
-  }
-
-  increment(){
-    this.index += 1;
-    if (this.index === 3) this.index = 0;
-  }
-    
-  decrement(){
-    this.index -= 1;
-    if (this.index === -1) this.index = 3;
-  }
-
-  setIndex(index: number) {
-    this.index = index;
   }
 }
 
