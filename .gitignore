@@ -39,3 +39,6 @@ unit_tests.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# Package manager files
+npm-shrinkwrap.json
