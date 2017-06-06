@@ -132,7 +132,7 @@ export class DeployPage implements OnInit {
   }
 
   retry(): void {
-    this.webSocket.close();
+    if (this.webSocket != null) this.webSocket.close();
     this.statusMessages = null;
     this.error = null;
     this.deploy();
