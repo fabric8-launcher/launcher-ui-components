@@ -67,9 +67,9 @@
           <span class="pficon pficon-ok" style="font-size: 2.2em" *ngIf="status.done"></span>
           <span class="spinner spinner-inline" *ngIf="(!status.data || !status.data.error) && lastNotDone(status.messageKey)"></span>
           <span class="pficon pficon-error-circle-o" style="font-size: 2.2em" *ngIf="status.data && status.data.error"></span>
-          <span style="margin-left: 2em">
+          <span class="status-message">
             {{status.message}}
-            <div style="margin-left: 52px" *ngIf="status.data">
+            <div class="info-doc" *ngIf="status.data">
               <div [innerHtml]="status.data.doc"></div>
             </div>
           </span>
