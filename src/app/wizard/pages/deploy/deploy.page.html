@@ -7,7 +7,7 @@
         <p *ngFor="let input of history.get(index).inputs">
           <b class="col-sm-6" style="padding: 0" *ngIf="history.get(index).metadata.name != input.label">{{input.label}}:</b>
           <span class="col-sm-6" style="padding-left: 0">
-            {{input.value}} {{input.value ? '' : input.note}}
+            {{input.value}}
           </span>
           <br/>
         </p>
