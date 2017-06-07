@@ -1,5 +1,5 @@
 {
-  "Mission-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/2fe91b46b6b6cd6e740d314e4f9bc313306b5d96/docs/topics/getting-started-mission-intro.adoc",
+  "Mission-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-mission-intro.adoc",
   "Runtime-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-runtime-project-framework-intro.adoc",
   "deploymentTypeZIP File": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-download-zip.adoc",
   "deploymentTypeContinuous delivery": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-continuous-delivery.adoc",
@@ -13,9 +13,9 @@
   "OPENSHIFT_CREATE": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/frontend/openshift-create-step.adoc",
   "OPENSHIFT_PIPELINE": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/frontend/openshift-pipeline-step.adoc",
   "GITHUB_WEBHOOK": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/frontend/github-webhook.adoc",
-  "carousel1": "https://raw.githubusercontent.com/rhoads-zach/documentation/next-steps-updated/docs/topics/launcher-review-link-jenkins.adoc",
-  "carousel2": "https://raw.githubusercontent.com/rhoads-zach/documentation/next-steps-updated/docs/topics/launcher-review-interact-booster.adoc",
-  "carousel3": "https://raw.githubusercontent.com/rhoads-zach/documentation/next-steps-updated/docs/topics/launcher-review-update-booster-ci.adoc",
-  "carousel4": "https://raw.githubusercontent.com/rhoads-zach/documentation/next-steps-updated/docs/topics/launcher-review-update-booster-manual.adoc",
-  "manual-carousel": "https://raw.githubusercontent.com/rhoads-zach/documentation/next-steps-updated/docs/topics/launcher-review-manual.adoc"
+  "carousel1": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-link-jenkins.adoc",
+  "carousel2": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-interact-booster.adoc",
+  "carousel3": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-update-booster-ci.adoc",
+  "carousel4": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-update-booster-manual.adoc",
+  "manual-carousel": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-manual.adoc"
 }
