@@ -1,5 +1,5 @@
 {
-  "Mission-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-mission-intro.adoc",
+  "Mission-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/2fe91b46b6b6cd6e740d314e4f9bc313306b5d96/docs/topics/getting-started-mission-intro.adoc",
   "Runtime-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-runtime-project-framework-intro.adoc",
   "deploymentTypeZIP File": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-download-zip.adoc",
   "deploymentTypeContinuous delivery": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-continuous-delivery.adoc",
