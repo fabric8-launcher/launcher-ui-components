@@ -17,6 +17,7 @@
       <p>
         Your project is ready; now you can
         <span la-ci> download it to build and deploy locally.</span>
+        <span [innerHTML]="adocIndex['manual-carousel']" la-ci></span>
         <span la-ci="true">
           launch it on OpenShift Online.
           The launch process will create both a GitHub repository containing your new Booster and
@@ -57,21 +58,33 @@
       Try Again
     </button>
   </div>
-  <ul class="list-group">
-    <li class="list-group-item" [class.error-row]="status.data && status.data.error" *ngFor="let status of statusMessages">
-      <a class="pull-right btn btn-primary" [href]="status.data.location" *ngIf="status.data && status.data.location" target="_blank">See it here!</a>
-      <span class="pficon pficon-ok" style="font-size: 2.2em" *ngIf="status.done"></span>
-      <span class="spinner spinner-inline" *ngIf="(!status.data || !status.data.error) && lastNotDone(status.messageKey)"></span>
-      <span class="pficon pficon-error-circle-o" style="font-size: 2.2em" *ngIf="status.data && status.data.error"></span>
-      <span style="margin-left: 2em">
-        {{status.message}}
-        <div style="margin-left: 52px" *ngIf="status.data">
-          <div [innerHtml]="status.data.doc"></div>
-        </div>
-      </span>
-    </li>
-  </ul>
 
+  <div class="content-span">
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item" [class.error-row]="status.data && status.data.error" *ngFor="let status of statusMessages">
+          <a class="pull-right btn btn-primary" [href]="status.data.location" *ngIf="status.data && status.data.location" target="_blank">See it here!</a>
+          <span class="pficon pficon-ok" style="font-size: 2.2em" *ngIf="status.done"></span>
+          <span class="spinner spinner-inline" *ngIf="(!status.data || !status.data.error) && lastNotDone(status.messageKey)"></span>
+          <span class="pficon pficon-error-circle-o" style="font-size: 2.2em" *ngIf="status.data && status.data.error"></span>
+          <span class="status-message">
+            {{status.message}}
+            <div class="info-doc" *ngIf="status.data">
+              <div [innerHtml]="status.data.doc"></div>
+            </div>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <carousel interval="false">
+        <slide *ngFor="let slide of slides">
+          <span [innerHTML]="adocIndex[slide]"></span>
+        </slide>
+      </carousel>
+    </div>
+  </div>
   <div class="text-center">
     <button id="restart" type="button" class="btn btn-link" (click)="restart()" *ngIf="status == Status.Done">
       Start a new Mission

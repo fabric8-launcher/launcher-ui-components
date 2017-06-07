@@ -51,3 +51,24 @@
 .admonitionblock > table td.content >:last-child >:last-child {
   margin-bottom: 0;
 }
+
+.title{
+  text-rendering: optimizeLegibility;
+  text-align: left;
+  font-weight: bold;
+}
+
+.carousel-indicators li {
+  border-color: #333;
+}
+.carousel-indicators .active {
+  background-color: #333;
+}
+
+.carousel-control {
+  display: none;
+}
+
+.item {
+  margin-bottom: 60px;
+}
