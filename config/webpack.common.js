@@ -39,7 +39,7 @@ module.exports = {
       },
       { 
         test: /\.index$/,
-        loader: "asciidoctorindex"
+        loader: "asciidoctorindex?document-attributes=https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/templates/document-attributes.adoc"
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
