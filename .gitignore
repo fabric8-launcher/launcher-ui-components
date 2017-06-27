@@ -41,5 +41,4 @@ unit_tests.log
 Thumbs.db
 
 # Package manager files
-npm-shrinkwrap.json
 package-lock.json
