@@ -22,7 +22,6 @@ export class DeployPage implements OnInit {
   statusMessages: StatusMessage[];
   error: string;
   adocIndex = adocIndex;
-  slides: string[];
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private webSocket: WebSocket;
@@ -43,13 +42,11 @@ export class DeployPage implements OnInit {
 
   ngOnInit() {
     this.pageNumbers = Array(this.history.stepIndex - 1).fill(1).map((x, i) => i + 1);
-    this.slides = Object.keys(this.adocIndex).filter(key => key.startsWith("carousel"));
   }
 
   deploy(): void {
     if (this.kc.isAuthenticated()) {
       this.status = Status.Progress;
-      this.history.currentGui.state.steps = null;
       this.forgeService.upload(this.command, this.history)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
