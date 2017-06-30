@@ -13,6 +13,7 @@ import {MissionPage} from "./pages/mission/mission.page";
 import {RuntimePage} from "./pages/runtime/runtime.page";
 import {ProjectInfoPage} from "./pages/projectInfo/projectInfo.page";
 import {DeployPage} from "./pages/deploy/deploy.page";
+import {NextStepsPage} from "./pages/nextSteps/nextSteps.page";
 import {GenericPage} from "./pages/generic/generic.page";
 
 import {KeycloakService} from "../shared/keycloak.service";
@@ -25,15 +26,13 @@ import {ButtonComponent} from "./components/button/button.component";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
 import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
-import {CarouselModule} from 'ngx-bootstrap/carousel';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ProjectSelectModule,
-    MultiselectDropdownModule,
-    CarouselModule
+    MultiselectDropdownModule
   ],
   declarations: [
     FormComponent,
@@ -42,6 +41,7 @@ import {CarouselModule} from 'ngx-bootstrap/carousel';
     MissionPage,
     RuntimePage,
     ProjectInfoPage,
+    NextStepsPage,
     DeployPage,
     GenericPage,
     StepComponent,

@@ -40,10 +40,9 @@ export class FormComponent implements OnInit {
               this.addDynamicGui("Review Summary", steps);
             }
             if (!this.history.get(steps.length) && stepIndex === steps.length) {
-              this.addDynamicGui("Next Step", steps);
+              this.addDynamicGui("Next Steps", steps);
             }
 
-            console.log(this.history);
             this.history.done();
           });
         }

@@ -39,6 +39,7 @@
         <runtime [gui]="currentGui" *ngSwitchCase="'Runtime'" authentication></runtime>
         <projectInfo [gui]="currentGui" [validation]="validation" *ngSwitchCase="'Project Info'" (validate)="validate(form)" authentication></projectInfo>
         <deploy [command]="command" *ngSwitchCase="'Review Summary'" authentication></deploy>
+        <nextSteps [gui]="currentGui" *ngSwitchCase="'Next Steps'" authnetication></nextSteps>
         <generic [gui]="currentGui" [validation]="validation" *ngSwitchDefault (validate)="validate(form)"></generic>
       </span>
     </form>
