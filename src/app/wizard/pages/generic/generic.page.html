@@ -1,4 +1,5 @@
 <div>
+  <h1>{{gui.metadata?.name}}</h1>
   <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
 
   <div class="col-sm-offset-2 col-sm-10" style="position: absolute;margin-top: -2em; width: 50%" *ngIf="validation">
