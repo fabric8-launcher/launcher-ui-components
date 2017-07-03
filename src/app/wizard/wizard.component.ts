@@ -37,7 +37,8 @@ export class FormComponent implements OnInit {
           return p.then(() => {
             let steps = this.history.get(1).state.steps;
             if (!this.history.get(steps.length - 1) && stepIndex >= steps.length - 1) {
-              this.addDynamicGui("Review Summary", steps);
+              this.addDynamicGui("Review Summary", steps, [{name: "GITHUB_CREATE"} as Input, {name: "OPENSHIFT_CREATE"} as Input]);
+              this.history.apply(state);
             }
             if (!this.history.get(steps.length) && stepIndex === steps.length) {
               this.addDynamicGui("Next Steps", steps);
@@ -58,11 +59,11 @@ export class FormComponent implements OnInit {
     });
   }
 
-  private addDynamicGui(name: string, steps: string[]) {
+  private addDynamicGui(name: string, steps: string[], inputs?: Input[]) {
     let gui = new Gui();
     gui.metadata = {name: name} as MetaData;
     gui.state.steps = steps;
-    gui.inputs = [];
+    gui.inputs = inputs || [];
     this.history.add(gui);
   }
 

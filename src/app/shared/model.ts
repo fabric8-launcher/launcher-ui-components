@@ -38,9 +38,11 @@ export class SubmittableInput {
   name: string;
   value: any;
 
-  constructor(input: SubmittableInput) {
-    this.name = input.name;
-    this.value = input.value;
+  constructor(input?: SubmittableInput) {
+    if (input) {
+      this.name = input.name;
+      this.value = input.value;
+    }
   }
 }
 

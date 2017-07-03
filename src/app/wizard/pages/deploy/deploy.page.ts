@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 
-import {StatusMessage} from "../../../shared/model";
+import { StatusMessage, SubmittableInput } from "../../../shared/model";
 import {ForgeService} from "../../../shared/forge.service";
 import {KeycloakService} from "../../../shared/keycloak.service";
 import {Config} from "../../../shared/config.component";
@@ -69,6 +69,14 @@ export class DeployPage implements OnInit {
                   if (status.messageKey === message.statusMessage) {
                     status.done = true;
                     status.data = message.data || {};
+
+                    if (status.data.location != null) {
+                      let input = new SubmittableInput();
+                      input.name = status.messageKey;
+                      input.value = status.data.location
+                      this.history.currentGui.inputs.push(input);
+                    }
+
                     status.data["doc"] = adocIndex[message.statusMessage];
                     break;
                   }
@@ -77,6 +85,7 @@ export class DeployPage implements OnInit {
                 let done = this.statusMessages[this.statusMessages.length - 1].done;
                 if (done) {
                   this.webSocket.close();
+                  this.history.currentGui.state.canExecute = true;
                   this.status = Status.Done;
                 }
               }
