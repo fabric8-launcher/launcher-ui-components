@@ -71,10 +71,8 @@ export class DeployPage implements OnInit {
                     status.data = message.data || {};
 
                     if (status.data.location != null) {
-                      let input = new SubmittableInput();
-                      input.name = status.messageKey;
-                      input.value = status.data.location
-                      this.history.currentGui.inputs.push(input);
+                      this.history.currentGui.inputs.filter((input:SubmittableInput) =>
+                        input.name === status.messageKey)[0].value = status.data.location;
                     }
 
                     status.data["doc"] = adocIndex[message.statusMessage];
