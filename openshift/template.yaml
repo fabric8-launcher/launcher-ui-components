@@ -29,6 +29,8 @@ parameters:
     Example value (launchpad-frontend-$PROJECTNAME.$HOSTNAMEORIP.nip.io)
   value:
   required: true
+- name: IMAGE_TAG
+  value: latest
 objects:
 - kind: DeploymentConfig
   apiVersion: v1
@@ -53,7 +55,7 @@ objects:
           service: launchpad-frontend
       spec:
         containers:
-        - image: launchpad-frontend
+        - image: launchpad-frontend:${IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-frontend
           ports:
@@ -106,14 +108,6 @@ objects:
     test: false
     triggers:
     - type: ConfigChange
-    - type: ImageChange 
-      imageChangeParams:
-        automatic: true
-        containerNames:
-          - launchpad-frontend
-        from:
-          kind: ImageStreamTag
-          name: launchpad-frontend:latest
 - kind: Service
   apiVersion: v1
   metadata:
