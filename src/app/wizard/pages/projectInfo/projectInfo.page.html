@@ -26,13 +26,13 @@
       </div>
       <div class="panel-collapse collapse" [class.in]="expand">
         <div class="panel-body">
-          <div class="row">
+          <div class="row" *ngIf="getField('groupId')">
             <la-input [ngModel]="getField('groupId')" (ngModelChange)="modelChanged()" [messages]="gui.messages"></la-input>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="getField('artifactId')">
             <la-input [ngModel]="getField('artifactId')" (ngModelChange)="modelChanged()" [messages]="gui.messages"></la-input>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="getField('version')">
             <la-input [ngModel]="getField('version')" (ngModelChange)="modelChanged()" [messages]="gui.messages"></la-input>
           </div>
         </div>
