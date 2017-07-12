@@ -30,9 +30,11 @@ parameters:
   value:
   required: true
 - name: IMAGE
-  value: launchpad-frontend
+  value: openshiftio/launchpad-frontend
+  required: true
 - name: IMAGE_TAG
   value: latest
+  required: true
 objects:
 - kind: DeploymentConfig
   apiVersion: v1
