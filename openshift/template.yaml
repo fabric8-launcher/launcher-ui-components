@@ -29,6 +29,8 @@ parameters:
     Example value (launchpad-frontend-$PROJECTNAME.$HOSTNAMEORIP.nip.io)
   value:
   required: true
+- name: IMAGE
+  value: launchpad-frontend
 - name: IMAGE_TAG
   value: latest
 objects:
@@ -55,7 +57,7 @@ objects:
           service: launchpad-frontend
       spec:
         containers:
-        - image: launchpad-frontend:${IMAGE_TAG}
+        - image: ${IMAGE}:${IMAGE_TAG}
           imagePullPolicy: Always
           name: launchpad-frontend
           ports:
