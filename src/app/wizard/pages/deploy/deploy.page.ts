@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 
-import {StatusMessage} from "../../../shared/model";
+import { StatusMessage, SubmittableInput } from "../../../shared/model";
 import {ForgeService} from "../../../shared/forge.service";
 import {KeycloakService} from "../../../shared/keycloak.service";
 import {Config} from "../../../shared/config.component";
@@ -22,7 +22,6 @@ export class DeployPage implements OnInit {
   statusMessages: StatusMessage[];
   error: string;
   adocIndex = adocIndex;
-  slides: string[];
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private webSocket: WebSocket;
@@ -43,13 +42,11 @@ export class DeployPage implements OnInit {
 
   ngOnInit() {
     this.pageNumbers = Array(this.history.stepIndex - 1).fill(1).map((x, i) => i + 1);
-    this.slides = Object.keys(this.adocIndex).filter(key => key.startsWith("carousel"));
   }
 
   deploy(): void {
     if (this.kc.isAuthenticated()) {
       this.status = Status.Progress;
-      this.history.currentGui.state.steps = null;
       this.forgeService.upload(this.command, this.history)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
@@ -72,6 +69,12 @@ export class DeployPage implements OnInit {
                   if (status.messageKey === message.statusMessage) {
                     status.done = true;
                     status.data = message.data || {};
+
+                    if (status.data.location != null) {
+                      this.history.currentGui.inputs.filter((input:SubmittableInput) =>
+                        input.name === status.messageKey)[0].value = status.data.location;
+                    }
+
                     status.data["doc"] = adocIndex[message.statusMessage];
                     break;
                   }
@@ -80,6 +83,7 @@ export class DeployPage implements OnInit {
                 let done = this.statusMessages[this.statusMessages.length - 1].done;
                 if (done) {
                   this.webSocket.close();
+                  this.history.currentGui.state.canExecute = true;
                   this.status = Status.Done;
                 }
               }
@@ -143,10 +147,6 @@ export class DeployPage implements OnInit {
 
   downloadZip(): void {
     this.forgeService.downloadZip(this.command, this.history);
-  }
-
-  restart() {
-    this.router.navigate(["../../" + 1, ""], {relativeTo: this.route});
   }
 
   back() {

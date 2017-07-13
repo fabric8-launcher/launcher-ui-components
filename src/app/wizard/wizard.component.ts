@@ -33,21 +33,21 @@ export class FormComponent implements OnInit {
       this.history.resetTo(stepIndex);
 
       new Array(stepIndex + 1).fill(1).map((_, i) => i + 1).reduce((p, index) => {
-        if (stepIndex + 1 === index) {
+        if (stepIndex + 1 === index || index >= 5) {
           return p.then(() => {
-            if (stepIndex === this.history.get(1).state.steps.length + 1) {
-              let endGui = new Gui();
-              endGui.metadata = {name: "Review Summary"} as MetaData;
-              endGui.state.steps = this.history.get(1).state.steps;
-              endGui.inputs = [];
-              this.history.add(endGui);
+            let steps = this.history.get(1).state.steps;
+            if (!this.history.get(steps.length - 1) && stepIndex >= steps.length - 1) {
+              this.addDynamicGui("Review Summary", steps, [{name: "GITHUB_CREATE"} as Input, {name: "OPENSHIFT_CREATE"} as Input]);
+              this.history.apply(state);
+            }
+            if (!this.history.get(steps.length) && stepIndex === steps.length) {
+              this.addDynamicGui("Next Steps", steps);
             }
 
             this.history.done();
           });
         }
         if (!this.history.get(index)) {
-          if (this.history.get(1) != null && index > this.history.get(1).state.steps.length) return Promise.resolve();
           return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui: Gui) => {
             this.history.add(gui);
             this.enhanceGui(gui);
@@ -59,8 +59,18 @@ export class FormComponent implements OnInit {
     });
   }
 
+  private addDynamicGui(name: string, steps: string[], inputs?: Input[]) {
+    let gui = new Gui();
+    gui.metadata = {name: name} as MetaData;
+    gui.state.steps = steps;
+    gui.inputs = inputs || [];
+    this.history.add(gui);
+  }
+
   private enhanceGui(gui: Gui) {
     gui.metadata.intro = adocIndex[gui.state.steps[gui.stepIndex - 1] + "-intro"];
+    gui.state.steps.push("Review");
+    gui.state.steps.push("Next Steps");
     if (gui.inputs) {
       gui.inputs.forEach(submittableInput => {
         let input = submittableInput as Input;

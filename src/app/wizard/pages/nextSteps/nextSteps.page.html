@@ -1,0 +1,33 @@
+<h1>{{gui.metadata?.name}}</h1>
+<div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
+
+<div>
+  <div class="row">
+    <div class="col-md-3">
+      While you wait...
+    </div>
+    <div class="col-md-9">
+      <p>
+        <a [href]="consoleUrl()" target="_blank">Take a look at your CI/CD build <i class="fa fa-external-link" aria-hidden="true"></i></a><br/>
+        <i class="text-center">This will take a couple of minutes</i>
+      </p>
+    </div>
+  </div>
+  <div class="row primary">
+    <div class="col-md-3 primary">
+      Your next step
+    </div>
+    <div class="col-md-9 primary">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <span [innerHTML]="adocIndex['nextStep']"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center"> 
+    <button id="restart" type="button" class="btn btn-link" (click)="restart()">
+      Start a new Mission
+    </button> 
+  </div> 
+</div>
