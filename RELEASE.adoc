@@ -14,7 +14,7 @@ Build and deploy docker image to Docker Hub (requires permissions)
 ```
 npm run build:prod
 docker build -t openshiftio/launchpad-frontend:vX -f Dockerfile.deploy .
-docker push openshiftio/launchpad-frontend:vX
+docker push docker.io/openshiftio/launchpad-frontend:vX
 ```
 
 All's good?  Push the Git tag.
