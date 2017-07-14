@@ -9,8 +9,6 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 }
 
 #intro {
-  margin-top: 40px;
-
   img {
     position: fixed;
     top: 0;
@@ -18,6 +16,7 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 
     min-width: 100%;
     z-index: -1;
+    height: 100%;
   }
 
   h1 {
@@ -29,6 +28,20 @@ $assetPath : "../../../../assets/img/project-select-icons/";
     color: #c00;
     font-weight: bold;
   }
+  h3 {
+    color: #fff;
+    font-size: 14pt;
+    ul {
+      list-style: none;
+      padding-left: 0px;
+      li {
+        padding-bottom: 30px;
+      }
+    }
+  }
+  h4 {
+    color: #fff;
+  }
   .row {
     margin-top: 5px;
   }
@@ -39,6 +52,7 @@ $assetPath : "../../../../assets/img/project-select-icons/";
     padding: 9px 40px;
     margin-top: 40px;
     margin-bottom: 30px;
+    margin-right: 20px;
     line-height: 1.44;
     font-size: 18px;
   }
@@ -47,7 +61,6 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 #runtimes {
   flex: 1;
   background-color: #f5f5f5;
-  padding-top: 70px;
   h1 {
     color: #c00;
     font-weight: bold;

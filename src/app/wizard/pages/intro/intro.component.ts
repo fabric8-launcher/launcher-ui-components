@@ -9,6 +9,10 @@ import { Router } from "@angular/router";
 export class IntroComponent {
   constructor(private router: Router) {}
 
+  requestEarlyAccess() {
+      window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSe9IcY0TUSdSheW3-33BWs9FsgCYwPXybAuY_kcdexhY_NNTA/viewform?usp=sf_link';
+    }
+
   launch() {
     this.router.navigate(["/wizard", "launchpad-new-project", 1, "e30="]);
   }
