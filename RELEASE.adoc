@@ -2,7 +2,7 @@
 
 === Done manually on local development machines until we have this on a parameterized CI build
 
-Let Maven do component upgrades and version bumping.  Replace the `tag`, `developmentVersion`, and `releaseVersion` parameters as necessary.  Please keep tags to form `vX` where `v` is always a `v` and `X` is the release number.
+Replace the `tag`, `developmentVersion`, and `releaseVersion` parameters as necessary.  Please keep tags to form `vX` where `v` is always a `v` and `X` is the release number.
 
 Tag and checkout into a branch 
 ```
