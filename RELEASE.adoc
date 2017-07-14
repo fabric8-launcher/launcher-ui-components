@@ -1,0 +1,24 @@
+== Release Instructions
+
+=== Done manually on local development machines until we have this on a parameterized CI build
+
+Let Maven do component upgrades and version bumping.  Replace the `tag`, `developmentVersion`, and `releaseVersion` parameters as necessary.  Please keep tags to form `vX` where `v` is always a `v` and `X` is the release number.
+
+Tag and checkout into a branch 
+```
+git tag vX
+git checkout -b vX refs/tags/vX
+```
+
+Build and deploy docker image to Docker Hub (requires permissions)
+```
+npm run build:prod
+docker build -t openshiftio/launchpad-frontend:vX -f Dockerfile.deploy .
+docker push openshiftio/launchpad-frontend:vX
+```
+
+All's good?  Push the Git tag.
+```
+git checkout master
+git push upstream master --tags
+```
