@@ -2,7 +2,7 @@
 
 GENERATOR_DOCKER_HUB_USERNAME=openshiftioadmin
 REGISTRY_URI="registry.devshift.net"
-REGISTRY_NS="launchpad"
+REGISTRY_NS="openshiftio"
 REGISTRY_IMAGE="launchpad-frontend"
 REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
 DOCKER_HUB_URL="openshiftio/launchpad-frontend"
