@@ -23,7 +23,7 @@ export class NextStepsPage extends GenericPage {
 
   ngOnInit() {
     let input = this.getPreviousPageInput("GITHUB_CREATE");
-    this.adocIndex["nextStep"] = this.adocIndex["nextStep"].replace("\${repoUrl}", input.value);
+    this.adocIndex["nextStep"] = this.adocIndex["nextStep"].replace(/\${repoUrl}/g, input.value);
   }
 
   consoleUrl(): string {
