@@ -35,6 +35,18 @@ export class DeployPage implements OnInit {
     if (!this.apiUrl) {
       this.apiUrl = config.get("mission_control_url");
     }
+    if (this.apiUrl && (this.apiUrl.startsWith("/") || this.apiUrl.startsWith(":"))) {
+      if (this.apiUrl.startsWith(":")) {
+        this.apiUrl = location.hostname + this.apiUrl;
+      } else {
+        this.apiUrl = location.host + this.apiUrl;
+      }
+      if (location.protocol === "https:") {
+        this.apiUrl = "wss://" + this.apiUrl;
+      } else {
+        this.apiUrl = "ws://" + this.apiUrl;
+      }
+    }
     if (this.apiUrl && this.apiUrl.endsWith("/")) {
       this.apiUrl = this.apiUrl.substr(0, this.apiUrl.length - 1);
     }
