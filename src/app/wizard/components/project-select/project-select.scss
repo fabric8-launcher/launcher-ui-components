@@ -8,6 +8,12 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   width:80px;
   height:80px;
 }
+.Node {
+  @extend .icon;
+  width:120px;
+  background-image: url(#{$assetPath}nodejs-logo.png);
+}
+
 .Spring {
   @extend .icon;
   background-image: url(#{$assetPath}spring-boot-logo.png);
