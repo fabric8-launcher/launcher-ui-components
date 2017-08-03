@@ -17,7 +17,7 @@
       <p>
         Your project is ready; now you can
         <span la-ci> download it to build and deploy locally.</span>
-        <span [innerHTML]="adocIndex['manual-carousel']" la-ci></span>
+        <la-asciidoc docId="manual-carousel" la-ci></la-asciidoc>
         <span la-ci="true">
           launch it on OpenShift Online.
           The launch process will create both a GitHub repository containing your new Booster and
@@ -67,7 +67,7 @@
       <span class="status-message">
         {{status.message}}
         <div class="info-doc" *ngIf="status.data">
-          <div [innerHtml]="status.data.doc"></div>
+          <la-asciidoc [docId]="status.data.doc"></la-asciidoc>
         </div>
       </span>
     </li>
