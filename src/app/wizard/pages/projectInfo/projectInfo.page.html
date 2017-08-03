@@ -8,7 +8,7 @@
     <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata?.intro"></div>
 
     <div class="row" *ngIf="getField('runtimeVersion')">
-      <la-input [ngModel]="getField('runtimeVersion')" (ngModelChange)="modelChanged()" [messages]="gui.messages"></la-input>
+      <la-input [ngModel]="getField('runtimeVersion')" [messages]="gui.messages"></la-input>
     </div>
     <div class="row">
       <la-input [ngModel]="getField('named')" (ngModelChange)="modelChanged()" [messages]="gui.messages" changeOnKey="true"></la-input>
