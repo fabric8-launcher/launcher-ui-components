@@ -6,7 +6,6 @@ import {FormComponent} from "./wizard.component";
 import {History} from "./history.component";
 import {ForgeService} from "../shared/forge.service";
 import {Config} from "../shared/config.component";
-import {AsciidocService} from "./components/asciidoc/asciidoc.service";
 
 import {IntroComponent} from "./pages/intro/intro.component";
 import {DeploymentTypePage} from "./pages/deployment/deployment.page";
@@ -24,7 +23,6 @@ import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
 import {InputComponent} from "./components/input/input.component";
 import {ButtonComponent} from "./components/button/button.component";
-import {AsciidocComponent} from "./components/asciidoc/asciidoc.component";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
 import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
@@ -49,7 +47,6 @@ import {CiDirective} from "../shared/ci.directive";
     StepComponent,
     InputComponent,
     ButtonComponent,
-    AsciidocComponent,
     AuthenticationDirective,
     CiDirective
   ],
@@ -59,7 +56,6 @@ import {CiDirective} from "../shared/ci.directive";
     ForgeService,
     History,
     Config,
-    AsciidocService,
     {provide: APP_INITIALIZER, useFactory: (config: Config) => () => config.load(), deps: [Config], multi: true}
   ]
 })

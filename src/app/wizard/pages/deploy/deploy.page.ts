@@ -7,6 +7,8 @@ import {KeycloakService} from "../../../shared/keycloak.service";
 import {Config} from "../../../shared/config.component";
 import {History} from "../../history.component";
 
+let adocIndex = require("../../../../assets/adoc.index");
+
 @Component({
   selector: "deploy",
   templateUrl: "./deploy.page.html",
@@ -19,6 +21,7 @@ export class DeployPage implements OnInit {
   pageNumbers: number[];
   statusMessages: StatusMessage[];
   error: string;
+  adocIndex = adocIndex;
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private webSocket: WebSocket;
@@ -84,7 +87,7 @@ export class DeployPage implements OnInit {
                         input.name === status.messageKey)[0].value = status.data.location;
                     }
 
-                    status.data["doc"] = message.statusMessage;
+                    status.data["doc"] = adocIndex[message.statusMessage];
                     break;
                   }
                 }

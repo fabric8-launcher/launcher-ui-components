@@ -5,7 +5,8 @@ import {ForgeService} from "../shared/forge.service";
 import {Gui, Input, Message, MetaData} from "../shared/model";
 import {History} from "./history.component";
 import {KeycloakService} from "../shared/keycloak.service";
-import {AsciidocService} from "./components/asciidoc/asciidoc.service";
+
+let adocIndex = require("../../assets/adoc.index");
 
 @Component({
   selector: "wizard",
@@ -20,8 +21,7 @@ export class FormComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private history: History,
               private forgeService: ForgeService,
-              private keycloak: KeycloakService,
-              private asciidoc: AsciidocService) {
+              private keycloak: KeycloakService) {
   }
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class FormComponent implements OnInit {
   }
 
   private enhanceGui(gui: Gui) {
-    gui.metadata.intro = this.asciidoc.generateHtml(gui.state.steps[gui.stepIndex - 1] + "-intro");
+    gui.metadata.intro = adocIndex[gui.state.steps[gui.stepIndex - 1] + "-intro"];
     gui.state.steps.push("Review");
     gui.state.steps.push("Next Steps");
     if (gui.inputs) {
@@ -76,7 +76,7 @@ export class FormComponent implements OnInit {
         let input = submittableInput as Input;
         if (input.valueChoices) {
           input.valueChoices.forEach(choice => {
-            choice.description = this.asciidoc.generateHtml(input.name + choice.id);
+            choice.description = adocIndex[input.name + choice.id];
           });
         }
       });
