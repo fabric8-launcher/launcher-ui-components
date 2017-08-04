@@ -156,10 +156,15 @@ export class DeployPage implements OnInit {
 
   downloadZip(): void {
     this.forgeService.downloadZip(this.command, this.history);
+    this.navigateStep(1);
   }
 
   back() {
-    this.router.navigate(["../../" + (this.history.stepIndex - 1), this.history.toString()], {relativeTo: this.route});
+    this.navigateStep(-1);
+  }
+
+  private navigateStep(diff: number) {
+    this.router.navigate(["../../" + (this.history.stepIndex + diff), this.history.toString()], {relativeTo: this.route});
   }
 }
 

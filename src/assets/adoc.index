@@ -15,5 +15,6 @@
   "OPENSHIFT_PIPELINE": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/frontend/openshift-pipeline-step.adoc",
   "GITHUB_WEBHOOK": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/frontend/github-webhook.adoc",
   "nextStep": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-update-booster-ci.adoc",
+  "nextStepZip": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-zip.adoc",
   "manual-carousel": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/launcher-review-manual.adoc"
 }
