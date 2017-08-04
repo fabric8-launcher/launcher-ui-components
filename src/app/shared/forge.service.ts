@@ -4,12 +4,13 @@ import {Http} from "@angular/http";
 import {Gui, StatusResult, Version} from "./model";
 import {History} from "../wizard/history.component";
 import {Config} from "./config.component";
+import { KeycloakHttp } from "./keycloak.http";
 
 @Injectable()
 export class ForgeService {
   private apiUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
 
-  constructor(private http: Http, private config: Config) {
+  constructor(private http: KeycloakHttp, private config: Config) {
     if (!this.apiUrl) {
       this.apiUrl = config.get("backend_url");
     }
