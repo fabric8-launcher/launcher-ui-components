@@ -17,6 +17,10 @@ module.exports = {
     extensions: ['', '.webpack.js', '.wep.js', '.js', '.ts']
   },
 
+  node: {
+    fs: "empty"
+  },
+
   stats: {
     colors: true,
     reasons: true
@@ -39,7 +43,7 @@ module.exports = {
       },
       { 
         test: /\.index$/,
-        loader: "asciidoctorindex?document-attributes=https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/templates/document-attributes.adoc"
+        loader: "asciidoctorindex?plain=true&document-attributes=https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/templates/document-attributes.adoc"
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
