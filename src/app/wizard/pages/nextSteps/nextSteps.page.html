@@ -2,7 +2,7 @@
 <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
 
 <div>
-  <div class="row">
+  <div class="row" la-ci="true">
     <div class="col-md-3">
       While you wait...
     </div>
@@ -15,12 +15,13 @@
   </div>
   <div class="row primary">
     <div class="col-md-3 primary">
-      Your next step
+      <span la-ci="true">Your next step</span>
     </div>
     <div class="col-md-9 primary">
       <div class="panel panel-default">
         <div class="panel-body">
-          <la-asciidoc docId="nextStep"></la-asciidoc>
+          <la-asciidoc docId="nextStep" la-ci="true"></la-asciidoc>
+          <la-asciidoc docId="nextStepZip" la-ci></la-asciidoc>
         </div>
       </div>
     </div>
