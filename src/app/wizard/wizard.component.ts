@@ -52,6 +52,11 @@ export class FormComponent implements OnInit {
             this.history.add(gui);
             this.enhanceGui(gui);
             this.history.apply(state);
+          }).catch(error => {
+            let gui = new Gui();
+            gui.messages.push(new Message(error));
+            this.history.add(gui);
+            this.history.done();
           });
         }
         return Promise.resolve();
