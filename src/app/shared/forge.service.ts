@@ -27,7 +27,10 @@ export class ForgeService {
   }
 
   commandInfo(command: string): Promise<Gui> {
-    return this.http.get(`${this.apiUrl}/commands/${command}`).toPromise()
+    return this.http.get(`${this.apiUrl}/commands/${command}`)
+      .retryWhen(errors => errors.delay(3000).scan((acc, source, index) => {
+        if (index) throw source;
+      })).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
@@ -89,7 +92,10 @@ export class ForgeService {
   }
 
   private post(submittableGui: Gui, action: string): Promise<Gui> {
-    return this.http.post(this.apiUrl + action, submittableGui).toPromise()
+    return this.http.post(this.apiUrl + action, submittableGui)
+      .retryWhen(errors => errors.delay(3000).scan((acc, source, index) => {
+        if (index) throw source;
+      })).toPromise()
       .then(response => response.json() as Gui)
       .catch(this.handleError);
   }
