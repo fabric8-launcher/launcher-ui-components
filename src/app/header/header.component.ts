@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
-import {KeycloakService} from "../shared/keycloak.service";
 import {Router} from "@angular/router";
+import { AuthenticationService, UserService } from "ngx-login-client";
+import { LoginService } from "../shared/login.service";
 
 @Component({
   selector: "app-header",
@@ -12,7 +13,10 @@ export class HeaderComponent {
   collapse: boolean;
   wizard: boolean;
 
-  constructor(private router: Router, private keycloak: KeycloakService) {
+  constructor(private router: Router,
+    private auth: AuthenticationService,
+    private login: LoginService,
+    private user: UserService) {
     router.events.subscribe((url: any) => {
       this.wizard = url.url !== "/" && url.url !== "/wizard";
     });

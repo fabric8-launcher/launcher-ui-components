@@ -1,11 +1,12 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {NgForm} from "@angular/forms";
-import {ForgeService} from "../shared/forge.service";
-import {Gui, Input, Message, MetaData} from "../shared/model";
-import {History} from "./history.component";
-import {KeycloakService} from "../shared/keycloak.service";
-import {AsciidocService} from "./components/asciidoc/asciidoc.service";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { NgForm } from "@angular/forms";
+import { ForgeService } from "../shared/forge.service";
+import { Gui, Input, Message, MetaData } from "../shared/model";
+import { History } from "./history.component";
+import { UserService } from 'ngx-login-client';
+import { AsciidocService } from "./components/asciidoc/asciidoc.service";
+import { LoginService } from "../shared/login.service";
 
 @Component({
   selector: "wizard",
@@ -20,7 +21,7 @@ export class FormComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private history: History,
               private forgeService: ForgeService,
-              private keycloak: KeycloakService,
+              private login: LoginService,
               private asciidoc: AsciidocService) {
   }
 
