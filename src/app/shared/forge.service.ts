@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
-import "rxjs/add/operator/toPromise";
 import {Http} from "@angular/http";
 import {Gui, StatusResult, Version} from "./model";
 import {History} from "../wizard/history.component";
 import {Config} from "./config.component";
+
+import "rxjs/add/operator/toPromise";
 
 @Injectable()
 export class ForgeService {

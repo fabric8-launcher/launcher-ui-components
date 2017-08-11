@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { Broadcaster } from "ngx-base";
-import { AuthenticationService, UserService } from "ngx-login-client";
+import { AuthenticationService, UserService, AUTH_API_URL } from "ngx-login-client";
 import { History } from "../wizard/history.component";
 import { Message } from "./model";
 import { Observable } from "rxjs";
@@ -9,10 +9,10 @@ import { Observable } from "rxjs";
 @Injectable()
 export class LoginService {
   constructor(
+    @Inject(AUTH_API_URL) private authUrl: string,
     private router: Router,
     private broadcaster: Broadcaster,
     private authService: AuthenticationService,
-    private userService: UserService,
     private history: History
   ) {
     this.broadcaster.on('authenticationError').subscribe(() => {
@@ -36,7 +36,17 @@ login() {
     } else if (result['token_json']) {
       this.authService.logIn(result['token_json']);
       this.router.navigateByUrl(this.router.url);
+    } else {
+      this.redirectToAuth();
     }
   }
 
+  redirectToAuth() {
+    var authUrl = this.authUrl;
+    if (authUrl.indexOf('?') < 0) {
+      // lets ensure there's a redirect parameter to avoid WIT barfing
+      authUrl += "?redirect=" + window.location.href;
+    }
+    window.location.href = authUrl;
+  }
 }
