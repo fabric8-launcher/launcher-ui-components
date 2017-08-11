@@ -2,7 +2,7 @@ import { AUTH_API_URL, REALM, SSO_API_URL } from 'ngx-login-client';
 
 export let authApiUrlProvider = {
   provide: AUTH_API_URL,
-  useValue: "https://api.openshift.io/api/login/authorize/"
+  useValue: "https://api.openshift.io/api/"
 };
 
 export let realmProvider = {
@@ -12,5 +12,5 @@ export let realmProvider = {
 
 export let ssoApiUrlProvider = {
   provide: SSO_API_URL,
-  useValue: "https://sso.openshift.io/auth/"
+  useValue: "https://sso.openshift.io/"
 }
