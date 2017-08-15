@@ -33,12 +33,11 @@ export class FormComponent implements OnInit {
       this.history.resetTo(stepIndex);
 
       new Array(stepIndex + 1).fill(1).map((_, i) => i + 1).reduce((p, index) => {
-        if (stepIndex + 1 === index || index >= 5) {
+        if (stepIndex + 1 === index || index >= 4) {
           return p.then(() => {
             let steps = this.history.get(1).state.steps;
             if (!this.history.get(steps.length - 1) && stepIndex >= steps.length - 1) {
-              this.addDynamicGui("Review Summary", steps, [{name: "GITHUB_CREATE"} as Input, {name: "OPENSHIFT_CREATE"} as Input]);
-              this.history.apply(state);
+              this.addDynamicGui("Review Summary", steps);
             }
             if (!this.history.get(steps.length) && stepIndex === steps.length) {
               this.addDynamicGui("Next Steps", steps);
@@ -64,11 +63,11 @@ export class FormComponent implements OnInit {
     });
   }
 
-  private addDynamicGui(name: string, steps: string[], inputs?: Input[]) {
+  private addDynamicGui(name: string, steps: string[]) {
     let gui = new Gui();
     gui.metadata = {name: name} as MetaData;
     gui.state.steps = steps;
-    gui.inputs = inputs || [];
+    gui.inputs = [];
     this.history.add(gui);
   }
 

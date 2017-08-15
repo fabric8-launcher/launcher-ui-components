@@ -9,10 +9,8 @@ import {Config} from "../shared/config.component";
 import {AsciidocService} from "./components/asciidoc/asciidoc.service";
 
 import {IntroComponent} from "./pages/intro/intro.component";
-import {DeploymentTypePage} from "./pages/deployment/deployment.page";
 import {MissionPage} from "./pages/mission/mission.page";
 import {RuntimePage} from "./pages/runtime/runtime.page";
-import {ProjectInfoPage} from "./pages/projectInfo/projectInfo.page";
 import {DeployPage} from "./pages/deploy/deploy.page";
 import {NextStepsPage} from "./pages/nextSteps/nextSteps.page";
 import {GenericPage} from "./pages/generic/generic.page";
@@ -27,7 +25,6 @@ import {ButtonComponent} from "./components/button/button.component";
 import {AsciidocComponent} from "./components/asciidoc/asciidoc.component";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
 import {AuthenticationDirective} from "../shared/authentication.directive";
-import {CiDirective} from "../shared/ci.directive";
 
 @NgModule({
   imports: [
@@ -39,10 +36,8 @@ import {CiDirective} from "../shared/ci.directive";
   declarations: [
     FormComponent,
     IntroComponent,
-    DeploymentTypePage,
     MissionPage,
     RuntimePage,
-    ProjectInfoPage,
     NextStepsPage,
     DeployPage,
     GenericPage,
@@ -50,8 +45,7 @@ import {CiDirective} from "../shared/ci.directive";
     InputComponent,
     ButtonComponent,
     AsciidocComponent,
-    AuthenticationDirective,
-    CiDirective
+    AuthenticationDirective
   ],
   providers: [
     KeycloakService,
