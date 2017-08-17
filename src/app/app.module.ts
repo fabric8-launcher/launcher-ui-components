@@ -8,9 +8,11 @@ import { AppRoutingModule } from "./app-routing.module";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { WizardModule } from "./wizard/wizard.module";
+import { AuthModule } from "./auth/auth.module";
 
 @NgModule({
   imports: [
+    AuthModule,
     BrowserModule,
     FormsModule,
     HttpModule,

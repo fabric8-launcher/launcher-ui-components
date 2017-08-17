@@ -17,8 +17,7 @@ import {DeployPage} from "./pages/deploy/deploy.page";
 import {NextStepsPage} from "./pages/nextSteps/nextSteps.page";
 import {GenericPage} from "./pages/generic/generic.page";
 
-import {KeycloakService} from "../shared/keycloak.service";
-import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
+import {LoginService} from "../shared/login.service";
 
 import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
@@ -54,8 +53,7 @@ import {CiDirective} from "../shared/ci.directive";
     CiDirective
   ],
   providers: [
-    KeycloakService,
-    KEYCLOAK_HTTP_PROVIDER,
+    LoginService,
     ForgeService,
     History,
     Config,
