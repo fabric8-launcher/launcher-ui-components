@@ -1,76 +1,60 @@
 <div class="content">
-  <section id="intro">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <img src="../../../../assets/img/Background_img._1300x450.png">
-          <h2>launch.openshift.io</h2>
-          <h1>
-            We're firing up our engines.
-          </h1>
-          <h3>
-            <ul>
-              <li>
-                Soon you’ll be able to create a modern enterprise application - continuously built and deployed on Red Hat OpenShift Online
-                - in minutes.
-              </li>
-              <li>
-                We invite you to request a spot in our Early Access program, and we'll let you know as soon as space is available.
-              </li>
-              <li>
-                In the meantime you can prep yourself by <a href="https://manage.openshift.com/" target="osoSignup">signing up</a>
-                for OpenShift Online Starter, or installing launch.openshift.io as a <a href="http://appdev.openshift.io/docs/minishift-installation.html"
-                  target="minishiftInstallation">local development experience</a>. <a (click)="launch()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-            </li>
-          </ul>
-        </h3>
+<section id="intro">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <img src="../../../../assets/img/Background_img._1300x450.png">
+        <h2>launch.openshift.io</h2>
+        <h1>
+          Continuous application delivery, built and deployed on OpenShift
+        </h1>
       </div>
       <div class="col-md-4">
-        <a class="btn btn-lg" (click)="requestEarlyAccess()">Request Early Access</a>
+        <a class="btn btn-lg" (click)="launch()">Prepare for Takeoff</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="runtimes">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 card-title">
+        <h1>Available Runtimes</h1>
+      </div>
+      <div class="col-sm-4 runtime">
+        <div class="inner">
+          <a href="http://wildfly-swarm.io" target="_blank">
+            <div class="fa icon swarm icon-circle"></div>
+            <h2>
+              WildFly Swarm
+            </h2>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-sm-4 runtime">
+        <div class="inner">
+          <a href="https://projects.eclipse.org/projects/rt.vertx" target="_blank">
+            <div class="fa icon vertx icon-circle"></div>
+            <h2>
+              Eclipse Vert.x
+            </h2>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-sm-4 runtime">
+        <div class="inner">
+          <a href="https://projects.spring.io/spring-boot/" target="_blank">
+            <div class="fa icon boot icon-circle"></div>
+            <h2>
+              Spring Boot
+            </h2>
+          </a>
         </div>
       </div>
     </div>
-  </section>
-
-  <section id="runtimes">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 card-title">
-          <h1>Available Runtimes</h1>
-        </div>
-        <div class="col-sm-4 runtime">
-          <div class="inner">
-            <a href="http://wildfly-swarm.io" target="_blank">
-              <div class="fa icon swarm icon-circle"></div>
-              <h2>
-                WildFly Swarm
-              </h2>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-sm-4 runtime">
-          <div class="inner">
-            <a href="https://projects.eclipse.org/projects/rt.vertx" target="_blank">
-              <div class="fa icon vertx icon-circle"></div>
-              <h2>
-                Eclipse Vert.x
-              </h2>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-sm-4 runtime">
-          <div class="inner">
-            <a href="https://projects.spring.io/spring-boot/" target="_blank">
-              <div class="fa icon boot icon-circle"></div>
-              <h2>
-                Spring Boot
-              </h2>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 </div>
