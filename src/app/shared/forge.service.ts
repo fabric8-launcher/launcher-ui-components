@@ -9,7 +9,7 @@ import {Config} from "./config.component";
 export class ForgeService {
   private apiUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
 
-  constructor(private http: Http, private config: Config) {
+  constructor(protected http: Http, protected config: Config) {
     if (!this.apiUrl) {
       this.apiUrl = config.get("backend_url");
     }

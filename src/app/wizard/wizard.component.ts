@@ -5,7 +5,6 @@ import {ForgeService} from "../shared/forge.service";
 import {Gui, Input, Message, MetaData} from "../shared/model";
 import {History} from "./history.component";
 import {KeycloakService} from "../shared/keycloak.service";
-import {AsciidocService} from "./components/asciidoc/asciidoc.service";
 
 @Component({
   selector: "wizard",
@@ -20,8 +19,7 @@ export class FormComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private history: History,
               private forgeService: ForgeService,
-              private keycloak: KeycloakService,
-              private asciidoc: AsciidocService) {
+              private keycloak: KeycloakService) {
   }
 
   ngOnInit() {
@@ -33,24 +31,14 @@ export class FormComponent implements OnInit {
       this.history.resetTo(stepIndex);
 
       new Array(stepIndex + 1).fill(1).map((_, i) => i + 1).reduce((p, index) => {
-        if (stepIndex + 1 === index || index >= 5) {
+        if (stepIndex + 1 === index) {
           return p.then(() => {
-            let steps = this.history.get(1).state.steps;
-            if (!this.history.get(steps.length - 1) && stepIndex >= steps.length - 1) {
-              this.addDynamicGui("Review Summary", steps, [{name: "GITHUB_CREATE"} as Input, {name: "OPENSHIFT_CREATE"} as Input]);
-              this.history.apply(state);
-            }
-            if (!this.history.get(steps.length) && stepIndex === steps.length) {
-              this.addDynamicGui("Next Steps", steps);
-            }
-
             this.history.done();
           });
         }
         if (!this.history.get(index)) {
           return p.then(() => this.forgeService.loadGui(this.command, this.history)).then((gui: Gui) => {
             this.history.add(gui);
-            this.enhanceGui(gui);
             this.history.apply(state);
           }).catch(error => {
             let gui = new Gui();
@@ -64,30 +52,6 @@ export class FormComponent implements OnInit {
     });
   }
 
-  private addDynamicGui(name: string, steps: string[], inputs?: Input[]) {
-    let gui = new Gui();
-    gui.metadata = {name: name} as MetaData;
-    gui.state.steps = steps;
-    gui.inputs = inputs || [];
-    this.history.add(gui);
-  }
-
-  private enhanceGui(gui: Gui) {
-    gui.metadata.intro = this.asciidoc.generateHtml(gui.state.steps[gui.stepIndex - 1] + "-intro");
-    gui.state.steps.push("Review");
-    gui.state.steps.push("Next Steps");
-    if (gui.inputs) {
-      gui.inputs.forEach(submittableInput => {
-        let input = submittableInput as Input;
-        if (input.valueChoices) {
-          input.valueChoices.forEach(choice => {
-            choice.description = this.asciidoc.generateHtml(input.name + choice.id);
-          });
-        }
-      });
-    }
-  }
-
   get currentGui(): Gui {
     return this.history.currentGui;
   }
@@ -97,7 +61,6 @@ export class FormComponent implements OnInit {
       this.validation = this.forgeService.validate(this.command, this.history).then(gui => {
         this.currentGui.messages = gui.messages;
         this.currentGui.state = gui.state;
-        this.enhanceGui(this.currentGui);
         this.validation = null;
         this.form.control.markAsPristine();
         return this.currentGui.messages.length === 0;
