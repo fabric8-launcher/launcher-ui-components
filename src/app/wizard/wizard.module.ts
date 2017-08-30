@@ -5,6 +5,7 @@ import {FormsModule} from "@angular/forms";
 import {FormComponent} from "./wizard.component";
 import {History} from "./history.component";
 import {ForgeService} from "../shared/forge.service";
+import {EnhancedForgeService} from "../shared/forge.enhance.service";
 import {Config} from "../shared/config.component";
 import {AsciidocService} from "./components/asciidoc/asciidoc.service";
 
@@ -56,11 +57,14 @@ import {CiDirective} from "../shared/ci.directive";
   providers: [
     KeycloakService,
     KEYCLOAK_HTTP_PROVIDER,
-    ForgeService,
     History,
     Config,
     AsciidocService,
-    {provide: APP_INITIALIZER, useFactory: (config: Config) => () => config.load(), deps: [Config], multi: true}
+    {provide: APP_INITIALIZER, useFactory: (config: Config) => () => config.load(), deps: [Config], multi: true},
+    {
+      provide: ForgeService,
+      useClass: EnhancedForgeService
+    }
   ]
 })
 export class WizardModule {
