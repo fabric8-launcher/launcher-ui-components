@@ -4,43 +4,43 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 .content {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 135px);
+  min-height: calc(100% - 135px);
   font-family: 'Overpass', sans-serif;
 }
 
 #intro {
-  margin-top: 40px;
+  background-image: url("../../../../assets/img/losiohero-background-80_1.png");
+  background-size: cover;
 
-  img {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    min-width: 100%;
-    z-index: -1;
+  .container {
+    margin-top: 40px;
+    text-align: center;
   }
 
   h1 {
     color: #fff;
-    font-size: 46pt;
+    font-size: 20pt;
     font-weight: bold;
   }
   h2 {
-    color: #c00;
+    color: #fff;
     font-weight: bold;
+    text-transform: uppercase;
+    font-size: 3em;
   }
   .row {
     margin-top: 5px;
   }
   .btn {
-    background: #c00 none;
-    border-color: #c00;
-    color: #fff;
+    background: #fff none;
+    border-color: #fff;
+    color: #c00;
     padding: 9px 40px;
     margin-top: 40px;
     margin-bottom: 30px;
     line-height: 1.44;
     font-size: 18px;
+    text-transform: uppercase;
   }
 }
 
@@ -48,6 +48,7 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   flex: 1;
   background-color: #f5f5f5;
   padding-top: 70px;
+  padding-bottom: 70px;
   h1 {
     color: #c00;
     font-weight: bold;
@@ -55,40 +56,35 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   a:hover {
     color: #0088ce;
   }
+  .row + .row {
+    display: flex;
+  }
   .runtime {
-    height: 245px;
-    text-align: center;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    .inner {
-      background-color: #d1d1d1;
-      padding: 40px 70px;
-      width: 100%;
+    flex-grow: 1;
+    background-color: white;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    p {
+      flex-grow: 2;
     }
-    .icon-circle {
-      background-color: white;
-      border-radius: 65px;
-    }
-
   }
 }
 
 .icon {
-  background-size: 100% 100%;
   background: no-repeat center;
   margin: auto;
-  width:110px;
+  width: 100%;
   height:110px;
 }
 .boot {
   background-image: url(#{$assetPath}spring-boot-logo.png);
-  background-size: 65%;
+  background-size: 25%;
 }
 
 .swarm {
-  background-image: url(#{$assetPath}wildfly-swarm.png);
-  background-size: 65%;
+  background-image: url(#{$assetPath}../swarm.svg);
 }
 
 .vertx {
@@ -97,6 +93,9 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 }
 
 @media (max-width: 425px) {
+  #runtimes .row + .row {
+    display: initial;
+  }
   .content {
     height: inherit;
   }
@@ -108,8 +107,9 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   }
   #runtimes {
     padding-top: 0;
-    .runtime .inner {
-      padding: 25px;
+    .runtime {
+      padding: 10px;
+      margin: 5px;
     }
   }
 }
@@ -126,8 +126,9 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   }
   #runtimes {
     padding-top: 20px;
-    .runtime .inner {
-      padding: 25px;
+    .runtime {
+      padding: 20px;
+      margin: 5px;
     }
   }
 }
