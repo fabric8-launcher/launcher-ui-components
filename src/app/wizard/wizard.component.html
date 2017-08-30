@@ -5,7 +5,7 @@
         <button id="alert-close" type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="closeAlert(error)">
           <span class="pficon pficon-close"></span>
         </button>
-        <span class="pficon pficon-error-circle-o"></span> {{error.description}}
+        <span class="pficon pficon-{{error.severity == 'ERROR' ? 'error-circle' : 'warning-triangle'}}-o"></span> {{error.description}}
       </div>
     </span>
     <step [steps]="currentGui.state.steps" [stepIndex]="history.stepIndex"></step>
