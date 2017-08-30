@@ -22,11 +22,6 @@ footer {
       display: inline-block;
     }
   }
-  .summit {
-    position: absolute;
-    right: 20px;
-    bottom: 0;
-  }
   a {
     color: #858585;
     top: 7px;
@@ -55,11 +50,6 @@ footer {
   footer {
     .conditions {
       display: none;
-    }
-    .summit {
-      position: absolute;
-      right: 20px;
-      bottom: 0;
     }
     a {
       &.legal {
