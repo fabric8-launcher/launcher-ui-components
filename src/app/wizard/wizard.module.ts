@@ -24,6 +24,7 @@ import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
 import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
 import {InputComponent} from "./components/input/input.component";
+import {SuggestFilterPipe} from "./components/input/filter.pipe";
 import {ButtonComponent} from "./components/button/button.component";
 import {AsciidocComponent} from "./components/asciidoc/asciidoc.component";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
@@ -40,6 +41,7 @@ import {CiDirective} from "../shared/ci.directive";
   declarations: [
     FormComponent,
     IntroComponent,
+    SuggestFilterPipe,
     DeploymentTypePage,
     MissionPage,
     RuntimePage,
