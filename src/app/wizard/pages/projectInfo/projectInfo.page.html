@@ -13,9 +13,6 @@
     <div class="row">
       <la-input [ngModel]="getField('named')" (ngModelChange)="modelChanged()" [messages]="gui.messages" changeOnKey="true"></la-input>
     </div>
-    <div class="row" *ngIf="getField('openShiftCluster')">
-      <la-input [ngModel]="getField('openShiftCluster')" [messages]="gui.messages"></la-input>
-    </div>
     <div class="row">
       <la-input [ngModel]="getField('gitHubRepositoryName')" (ngModelChange)="modelChanged()" [messages]="gui.messages" changeOnKey="true"></la-input>
     </div>

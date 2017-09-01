@@ -1,7 +1,7 @@
 <h1>{{gui.metadata?.name}}</h1>
-<div class="form-group" *ngFor="let input of gui.inputs">
+<div class="form-group">
   <div class="box-row">
-    <div class="box-col box" *ngFor="let option of input.valueChoices">
+    <div class="box-col box" *ngFor="let option of getField('deploymentType').valueChoices">
       <div>
         <div class="text-center">
           <i class="fa fa-download icon" *ngIf="option.id == 'ZIP File'"></i>
@@ -10,7 +10,10 @@
         </div>
         <div class="panel-body" [innerHTML]="option.description"></div>
       </div>
-      <button class="btn btn-primary box-btn" (click)="input.value = option.id;next()">
+      <div class="row" *ngIf="getField('openShiftCluster') && option.id != 'ZIP File'">
+        <la-input [ngModel]="getField('openShiftCluster')" [messages]="gui.messages"></la-input>
+      </div>
+      <button class="btn btn-primary box-btn" (click)="getField('deploymentType').value = option.id;next()">
         {{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online"}}
       </button>
     </div>
