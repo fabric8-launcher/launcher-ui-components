@@ -19,7 +19,7 @@ export class EnhancedForgeService extends ForgeService {
     return this.enhanceGui(super.commandInfo(command).then(gui => {
       this.steps = gui.state.steps.slice(0);
       return gui;
-    }));
+    }), 1);
   }
 
   nextStep(command: string, history: History): Promise<Gui> {
@@ -31,11 +31,11 @@ export class EnhancedForgeService extends ForgeService {
     } else {
       gui = super.nextStep(command, history);
     }
-    return this.enhanceGui(gui);
+    return this.enhanceGui(gui, history.stepIndex);
   }
 
   validate(command: string, history: History): Promise<Gui> {
-    return this.enhanceGui(super.validate(command, history));
+    return this.enhanceGui(super.validate(command, history), history.stepIndex);
   }
 
   private addDynamicGui(name: string, inputs?: Input[]): Promise<Gui> {
@@ -46,10 +46,10 @@ export class EnhancedForgeService extends ForgeService {
     return Promise.resolve(gui);
   }
 
-  private enhanceGui(gui: Promise<Gui>): Promise<Gui> {
+  private enhanceGui(gui: Promise<Gui>, stepIndex: number): Promise<Gui> {
     return gui.then(gui => {
       if (gui.metadata)
-        gui.metadata.intro = this.asciidoc.generateHtml(gui.state.steps[gui.stepIndex - 1] + "-intro");
+        gui.metadata.intro = this.asciidoc.generateHtml(gui.state.steps[stepIndex - 1] + "-intro");
       gui.state.steps.push("Review");
       gui.state.steps.push("Next Steps");
       if (gui.inputs) {
