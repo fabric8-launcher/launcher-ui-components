@@ -48,8 +48,9 @@ export class EnhancedForgeService extends ForgeService {
 
   private enhanceGui(gui: Promise<Gui>, stepIndex: number): Promise<Gui> {
     return gui.then(gui => {
-      if (gui.metadata)
-        gui.metadata.intro = this.asciidoc.generateHtml(gui.state.steps[stepIndex - 1] + "-intro");
+      if (gui.metadata) {
+        gui.metadata.intro = this.asciidoc.generateHtml(gui.state.steps[stepIndex] + "-intro");
+      }
       gui.state.steps.push("Review");
       gui.state.steps.push("Next Steps");
       if (gui.inputs) {
