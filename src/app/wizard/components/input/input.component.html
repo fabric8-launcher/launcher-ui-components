@@ -20,14 +20,14 @@
     <div class="row" *ngFor="let option of input.valueChoices">
       <span>
         <label>
-          <input [name]="input.name" type="radio" [(ngModel)]="input.value" [value]="option.id" (ngModelChange)="change()">
+          <input [name]="input.name" [disabled]="!input.enabled" type="radio" [(ngModel)]="input.value" [value]="option.id" (ngModelChange)="change()">
             {{option.id}}
           </label>
       </span>
     </div>
     </span>
     <span *ngIf="input.inputType == 'org.jboss.forge.inputType.DEFAULT'">
-    <select [attr.id]="input.name" class="form-control" [(ngModel)]="input.value" name="{{input.name}}" [title]="input.description" (change)="change()">
+    <select [attr.id]="input.name" class="form-control" [disabled]="!input.enabled" [(ngModel)]="input.value" name="{{input.name}}" [title]="input.description" (change)="change()">
       <option value="{{option.id}}" *ngFor="let option of input.valueChoices">
           {{option.id}}
       </option>
