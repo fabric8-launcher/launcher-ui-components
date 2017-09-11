@@ -4,17 +4,17 @@
     <div class="box-col box" *ngFor="let option of getField('deploymentType').valueChoices">
       <div>
         <div class="text-center">
-          <i class="fa fa-download icon" *ngIf="option.id == 'ZIP File'"></i>
-          <img src="../../../../assets/img/openshift-online-logo.svg" *ngIf="option.id != 'ZIP File'">
-          <h2>{{option.id == "ZIP File" ? "Build and run locally" : "Use Continuous Delivery"}}</h2>
+          <i class="fa fa-download icon" *ngIf="isZipFile(option)"></i>
+          <img src="../../../../assets/img/openshift-online-logo.svg" *ngIf="!isZipFile(option)">
+          <h2>{{isZipFile(option) ? "Build and run locally" : "Use Continuous Delivery"}}</h2>
         </div>
         <div class="panel-body" [innerHTML]="option.description"></div>
       </div>
-      <div class="row" *ngIf="getField('openShiftCluster') && option.id != 'ZIP File'">
+      <div class="row" *ngIf="getField('openShiftCluster') && !isZipFile(option)">
         <la-input [ngModel]="getField('openShiftCluster')" [messages]="gui.messages"></la-input>
       </div>
-      <button class="btn btn-primary box-btn" (click)="getField('deploymentType').value = option.id;next()">
-        {{option.id == "ZIP File" ? "I will build and run locally" : "Use OpenShift Online"}}
+      <button class="btn btn-primary box-btn" (click)="getField('deploymentType').value = option.id;next()" [disabled]="!isZipFile(option) && !getField('openShiftCluster')">
+        {{isZipFile(option) ? "I will build and run locally" : "Use OpenShift Online"}}
       </button>
     </div>
   </div>

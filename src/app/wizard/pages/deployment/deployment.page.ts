@@ -15,5 +15,9 @@ export class DeploymentTypePage extends ButtonComponent {
     return this.gui.inputs.find(i => i.name === fieldName);
   }
 
+  isZipFile(option : any) {
+    return option.id == "ZIP File";
+  }
+
 }
 
