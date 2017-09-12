@@ -40,6 +40,7 @@ export class KeycloakHttp extends Http {
     return tokenObservable.map(token => {
       if (token) {
         url.headers.set("Authorization", `Bearer ${token}`);
+        url.headers.set("X-Launchpad-Username", this._keycloakService.username());
       }
       return url;
     }).concatMap(request => super.request(request));
