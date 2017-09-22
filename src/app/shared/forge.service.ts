@@ -24,7 +24,7 @@ export class ForgeService {
   private options(): any {
     var headers = new Headers();
     if( this.filters ) {
-      headers.append("LAUNCHPAD_BACKEND_LABEL_FILTERS", this.filters);
+      headers.append("X-LAUNCHPAD_BACKEND_LABEL_FILTERS", this.filters);
     }
     return {
       headers: headers
