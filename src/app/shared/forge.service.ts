@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/toPromise";
-import {Http} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import {Gui, StatusResult, Version} from "./model";
 import {History} from "../wizard/history.component";
 import {Config} from "./config.component";
@@ -8,6 +8,7 @@ import {Config} from "./config.component";
 @Injectable()
 export class ForgeService {
   private apiUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
+  public filters:string;
 
   constructor(protected http: Http, protected config: Config) {
     if (!this.apiUrl) {
@@ -20,14 +21,24 @@ export class ForgeService {
     this.apiUrl += "launchpad";
   }
 
+  private options(): any {
+    var headers = new Headers();
+    if( this.filters ) {
+      headers.append("X-LAUNCHPAD_BACKEND_LABEL_FILTERS", this.filters);
+    }
+    return {
+      headers: headers
+    }
+  }
+
   version(): Promise<Version> {
-    return this.http.get(`${this.apiUrl}/version`).toPromise()
+    return this.http.get(`${this.apiUrl}/version`, this.options()).toPromise()
       .then(response => response.json() as Version)
       .catch(this.handleError);
   }
 
   commandInfo(command: string): Promise<Gui> {
-    return this.http.get(`${this.apiUrl}/commands/${command}`)
+    return this.http.get(`${this.apiUrl}/commands/${command}`, this.options())
       .retryWhen(errors => errors.delay(3000).scan((acc, source, index) => {
         if (index) throw source;
       })).toPromise()
@@ -52,7 +63,7 @@ export class ForgeService {
   }
 
   upload(command: string, history: History): Promise<StatusResult> {
-    return this.http.post(`${this.apiUrl}/commands/${command}/missioncontrol`, history.convert()).toPromise()
+    return this.http.post(`${this.apiUrl}/commands/${command}/missioncontrol`, history.convert(), this.options()).toPromise()
       .then(response => response.json() as StatusResult)
       .catch(this.handleError);
   }
@@ -92,7 +103,7 @@ export class ForgeService {
   }
 
   private post(submittableGui: Gui, action: string): Promise<Gui> {
-    return this.http.post(this.apiUrl + action, submittableGui)
+    return this.http.post(this.apiUrl + action, submittableGui, this.options())
       .retryWhen(errors => errors.delay(3000).scan((acc, source, index) => {
         if (index) throw source;
       })).toPromise()

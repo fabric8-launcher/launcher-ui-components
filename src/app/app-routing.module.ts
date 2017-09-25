@@ -6,22 +6,43 @@ import { IntroComponent } from "./wizard/pages/intro/intro.component";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "/wizard",
+    redirectTo: "filtered-wizard/all",
     pathMatch: "full",
   },
   {
+    /* keeping this in pace in case someone bookmarked the old rotues */
     path: "wizard",
     children: [
       {
         path: "",
-        component: IntroComponent
+        redirectTo: "/filtered-wizard/all",
+        pathMatch: "full",
       },
       {
         path: ":command/:step",
-        component: FormComponent
+        redirectTo: "/filtered-wizard/all/:command/:step",
+        pathMatch: "full",
       },
       {
         path: ":command/:step/:state",
+        redirectTo: "/filtered-wizard/all/:command/:step/:state",
+        pathMatch: "full",
+      }
+    ]
+  },
+  {
+    path: "filtered-wizard",
+    children: [
+      {
+        path: ":filters",
+        component: IntroComponent
+      },
+      {
+        path: ":filters/:command/:step",
+        component: FormComponent
+      },
+      {
+        path: ":filters/:command/:step/:state",
         component: FormComponent
       }
     ]

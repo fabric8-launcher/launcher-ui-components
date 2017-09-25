@@ -1,20 +1,23 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {ForgeService} from "../shared/forge.service";
 import {Gui, Input, Message, MetaData} from "../shared/model";
 import {History} from "./history.component";
 import {KeycloakService} from "../shared/keycloak.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: "wizard",
   templateUrl: "./wizard.component.html",
   styleUrls: ["./wizard.component.scss"]
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   @ViewChild("wizard") form: NgForm;
   command: string;
   validation: Promise<boolean>;
+  sub: Subscription;
+  filters: string;  
 
   constructor(private route: ActivatedRoute,
               private history: History,
@@ -23,7 +26,10 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
+    
+    this.sub = this.route.params.subscribe(params=> {
+
+      this.forgeService.filters = params['filters'];
       let state = params["state"];
       this.command = params["command"];
       let stepIndex = +params["step"];
@@ -50,6 +56,10 @@ export class FormComponent implements OnInit {
         return Promise.resolve();
       }, Promise.resolve());
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   get currentGui(): Gui {
