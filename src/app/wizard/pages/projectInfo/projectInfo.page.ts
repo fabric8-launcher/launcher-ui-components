@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { GenericPage } from "../generic/generic.page";
 import { SubmittableInput } from "../../../shared/model";
+import {KeycloakService} from "../../../shared/keycloak.service";
 
 @Component({
   selector: "projectInfo",
@@ -8,6 +9,10 @@ import { SubmittableInput } from "../../../shared/model";
 })
 export class ProjectInfoPage extends GenericPage {
   expand: boolean;
+
+  constructor(private keycloak: KeycloakService) {
+    super();
+  }
 
   toggle() {
     this.expand = !this.expand;
@@ -20,8 +25,12 @@ export class ProjectInfoPage extends GenericPage {
   modelChanged() {
     this.validate.emit();
     let gitHubRepositoryName = this.getField("gitHubRepositoryName");
+    let named = this.getField("named");
+    if (named.value && named.value.indexOf(this.keycloak.username()) === -1) {
+      named.value = this.keycloak.username() + '-' + named.value;
+    }
     if (!gitHubRepositoryName.value || gitHubRepositoryName.value.length === 0) {
-      gitHubRepositoryName.value = this.getField("named").value;
+      gitHubRepositoryName.value = named.value;
     }
   }
 
