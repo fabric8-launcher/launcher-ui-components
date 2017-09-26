@@ -17,11 +17,11 @@ export class ProjectInfoPage extends GenericPage {
     return this.gui.inputs.find(i => i.name === fieldName);
   }
 
-  modelChanged() {
+  modelChanged(value: any) {
     this.validate.emit();
-    let gitHubRepositoryName = this.getField("gitHubRepositoryName");
-    if (!gitHubRepositoryName.value || gitHubRepositoryName.value.length === 0) {
-      gitHubRepositoryName.value = this.getField("named").value;
+    if (value) {
+      let gitHubRepositoryName = this.getField("gitHubRepositoryName");
+      gitHubRepositoryName.value = value;
     }
   }
 

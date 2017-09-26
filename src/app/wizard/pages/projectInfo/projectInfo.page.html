@@ -11,10 +11,7 @@
       <la-input [ngModel]="getField('runtimeVersion')" [messages]="gui.messages"></la-input>
     </div>
     <div class="row">
-      <la-input [ngModel]="getField('named')" (ngModelChange)="modelChanged()" [messages]="gui.messages" changeOnKey="true"></la-input>
-    </div>
-    <div class="row">
-      <la-input [ngModel]="getField('gitHubRepositoryName')" (ngModelChange)="modelChanged()" [messages]="gui.messages" changeOnKey="true"></la-input>
+      <la-input [ngModel]="getField('named')" (ngModelChange)="modelChanged($event)" [messages]="gui.messages" changeOnKey="true"></la-input>
     </div>
   </div>
 
@@ -29,6 +26,9 @@
       </div>
       <div class="panel-collapse collapse" [class.in]="expand">
         <div class="panel-body">
+          <div class="row">
+            <la-input [ngModel]="getField('gitHubRepositoryName')" (ngModelChange)="modelChanged()" [messages]="gui.messages"></la-input>
+          </div>
           <div class="row" *ngIf="getField('groupId')">
             <la-input [ngModel]="getField('groupId')" (ngModelChange)="modelChanged()" [messages]="gui.messages"></la-input>
           </div>

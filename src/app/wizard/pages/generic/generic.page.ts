@@ -11,7 +11,7 @@ export class GenericPage extends InputComponent {
   @Input() validation: Promise<boolean>;
   @Output() validate = new EventEmitter();
 
-  modelChanged() {
+  modelChanged(value: any) {
     this.validate.emit();
   }
 
