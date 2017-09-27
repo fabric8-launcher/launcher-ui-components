@@ -22,15 +22,15 @@ export class ProjectInfoPage extends GenericPage {
     return this.gui.inputs.find(i => i.name === fieldName);
   }
 
-  modelChanged() {
+  modelChanged(value: any) {
     this.validate.emit();
-    let gitHubRepositoryName = this.getField("gitHubRepositoryName");
     let named = this.getField("named");
     if (named.value && named.value.indexOf(this.keycloak.username()) === -1) {
       named.value = this.keycloak.username() + '-' + named.value;
     }
-    if (!gitHubRepositoryName.value || gitHubRepositoryName.value.length === 0) {
-      gitHubRepositoryName.value = named.value;
+    if (value) {
+      let gitHubRepositoryName = this.getField("gitHubRepositoryName");
+      gitHubRepositoryName.value = value;
     }
   }
 
