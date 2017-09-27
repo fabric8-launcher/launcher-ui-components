@@ -1,8 +1,9 @@
 <label class="col-sm-4 control-label" [attr.for]="input.name" [class.required]="input.required">{{input.label}}</label>
 <div class="col-sm-8">
-  <span>{{prefix}}</span>
-  <input [attr.id]="input.name" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control" (focus)="input.hasFocus = true"
-    [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)" #control (keyup)="keyUp.next(control.value)">
+  <span style="float:left; width: 20%; text-align: right" *ngIf="prefix">{{prefix}}&nbsp;</span>
+  <input [attr.id]="input.name" type="text" name="{{input.name}}" [(ngModel)]="projectName" class="form-control" (focus)="input.hasFocus = true"
+    [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)" #control (keyup)="keyUp.next(control.value)"
+    style="width:80%">
   <div class="errorLabel help-block">
     <span *ngIf="messageForInput(input.name)">{{messageForInput(input.name).description}}</span>
     <span *ngIf="input.name.errors && (input.name.dirty || input.name.touched)">{{input.label}} is required</span>
