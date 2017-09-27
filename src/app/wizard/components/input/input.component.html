@@ -2,7 +2,7 @@
 <div class="col-sm-8" [ngSwitch]="input.class">
   <span *ngSwitchCase="'UIInput'">
     <span [ngSwitch]="input.valueType">
-      <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
+      <input [attr.id]="input.name" *ngSwitchCase="'java.lang.String'" type="text" name="{{input.name}}" [(ngModel)]="input.value" class="form-control" (focus)="input.hasFocus = true"
         [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)" #control (keyup)="keyUp.next(control.value)">
       <input [attr.id]="input.name" *ngSwitchCase="'java.lang.Boolean'" type="checkbox" name="{{input.name}}" [(ngModel)]="input.value" class="form-control"
         [required]="input.required" [disabled]="!input.enabled" [title]="input.description" (change)="change()" [class.ng-invalid]="messageForInput(input.name)" #control (keyup)="keyUp.next(control.value)">
@@ -14,6 +14,16 @@
       </div>
       <span *ngIf="input.note"><span class="fa fa-info-circle"></span> <i>{{input.note}}</i></span>
     </span>
+    <!-- todo this might be a bit specific -->
+    <ul class="dropdown-menu" *ngIf="input.typeAheadData && input.hasFocus" [style.display]="input.clicked ? 'none' : 'block'" style="left: auto">
+      <li *ngIf="input.value">
+        <a href="javascript:void(0)" (click)="input.clicked = true">{{input.value}} -> <b>Create...</b></a>
+      </li>
+      <li *ngIf="!input.value"><a href="javascript:void(0)"><b>Create new</b></a></li>
+      <li *ngFor="let data of input.typeAheadData | suggest: input.value">
+        <a href="javascript:void(0)" (click)="input.value = data; input.clicked = true">{{data}}</a>
+      </li>
+    </ul>
   </span>
   <span *ngSwitchCase="'UISelectOne'">
     <span *ngIf="input.inputType == 'org.jboss.forge.inputType.RADIO'">

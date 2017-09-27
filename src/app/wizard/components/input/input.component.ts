@@ -26,7 +26,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   onModelTouched: Function = () => {
   };
 
-  private keyUp = new Subject<string>();
+  protected keyUp = new Subject<string>();
 
   ngOnInit() {
     if (this.changeOnKey) {
