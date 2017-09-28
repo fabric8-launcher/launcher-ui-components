@@ -24,16 +24,20 @@ export class ProjectNameInputComponent extends InputComponent {
   prefix: string;
   constructor(private keycloak: KeycloakService) {
     super();
-    this.createPrefix();
+    this.resetPrefix();
     this.keyUp.subscribe(_ => {
-      this.input.value = this.keycloak.username() + '-' + this.projectName;
-      this.createPrefix();
+      this.input.value = this.createPrefix() + '-' + this.projectName;
+      this.resetPrefix();
     });
   }
 
-  private createPrefix() {
-    this.prefix = this.keycloak.username() + ' -';
+  private resetPrefix() {
+    this.prefix = this.createPrefix() + ' -';
   }
+
+  private createPrefix() {
+    return this.keycloak.username().replace(/[^a-zA-Z0-9]|\./g, '-');
+}
 
   setValue(value: string) {
     this.input.value = value;
