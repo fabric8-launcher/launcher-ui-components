@@ -36,7 +36,11 @@ export class ProjectNameInputComponent extends InputComponent {
   }
 
   private createPrefix() {
-    return this.keycloak.username().replace(/[^a-zA-Z0-9]|\./g, '-');
+    let username = this.keycloak.username();
+    if (username.indexOf('@') !== -1) {
+      username = username.substr(0, username.indexOf('@'));
+    }
+    return username.replace(/[^a-zA-Z0-9]|\./g, '-');
 }
 
   setValue(value: string) {
