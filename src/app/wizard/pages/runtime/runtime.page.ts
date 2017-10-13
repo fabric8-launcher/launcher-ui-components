@@ -1,11 +1,17 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Gui } from "../../../shared/model";
+import { Component, Input } from "@angular/core";
+import { Gui, ProjectSelectConfig } from "ngx-forge";
 
 @Component({
   selector: "runtime",
-  templateUrl: "runtime.page.html"
+  templateUrl: "runtime.page.html",
+  styleUrls: ["runtime.page.scss"]
 })
 export class RuntimePage {
   @Input() gui: Gui;
+  config: ProjectSelectConfig = {
+    classes: ['Node','Spring','WildFly','Eclipse'],
+    techPreview: ['Node'],
+    renderType: 'title'
+  }
 }
 

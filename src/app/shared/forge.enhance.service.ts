@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 
-import { ForgeService } from "./forge.service";
-import { History } from "../wizard/history.component";
-import { Gui, MetaData, Input } from "./model";
-import { AsciidocService } from "../wizard/components/asciidoc/asciidoc.service";
-import { Config } from "./config.component";
+import { ForgeService } from "ngx-forge";
+import { History } from "ngx-forge";
+import { Gui, MetaData, Input } from "ngx-forge";
+import { AsciidocService } from "ngx-forge";
+import { Config } from "ngx-forge";
 
 @Injectable()
 export class EnhancedForgeService extends ForgeService {

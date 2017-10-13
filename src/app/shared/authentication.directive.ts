@@ -1,5 +1,4 @@
 import {Directive, ElementRef, Input} from "@angular/core";
-import {History} from "../wizard/history.component";
 import {KeycloakService} from "./keycloak.service";
 
 @Directive({

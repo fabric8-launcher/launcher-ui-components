@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from "@angular/core";
-import { History } from "../wizard/history.component";
+import { History } from "ngx-forge";
 
 @Directive({
   selector: "[la-ci]"

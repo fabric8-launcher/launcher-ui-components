@@ -1,20 +1,23 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { Config } from "ngx-forge";
 
 @Injectable()
-export class Config {
-  private settings: any;
+export class LaunchConfig extends Config {
 
-  constructor(private http: Http) {
-  }
+  load(): Promise<Config> {
+    let settings = {};
 
-  load(): Promise<any> {
-    return this.http.get("settings.json").toPromise().then((settings) => {
-      this.settings = settings.json();
-    }).catch(() => console.log("settings.json not found ignoring"));
-  }
+    const apiUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
+    if (apiUrl) {
+      settings['backend_url'] = apiUrl;
+    }
 
-  get(key: string): string {
-    return this.settings[key];
+    if (settings['backend_url'] && settings['backend_url'][settings['backend_url'].length - 1] !== '/') {
+      settings['backend_url'] += '/';
+    }
+    settings['backend_url'] += 'launchpad';
+
+    this.set(settings);
+    return super.load().then(() => this);
   }
 }

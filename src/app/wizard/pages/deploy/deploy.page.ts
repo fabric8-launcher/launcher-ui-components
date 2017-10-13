@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 
-import { StatusMessage, SubmittableInput } from "../../../shared/model";
-import {ForgeService} from "../../../shared/forge.service";
+import { StatusMessage, SubmittableInput } from "ngx-forge";
+import {ForgeService} from "ngx-forge";
+import {Config} from "ngx-forge";
+import {History} from "ngx-forge";
+
 import {KeycloakService} from "../../../shared/keycloak.service";
-import {Config} from "../../../shared/config.component";
-import {History} from "../../history.component";
 
 @Component({
   selector: "deploy",

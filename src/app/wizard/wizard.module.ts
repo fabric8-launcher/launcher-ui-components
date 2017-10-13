@@ -1,13 +1,12 @@
-import {APP_INITIALIZER, NgModule} from "@angular/core";
+import {NgModule} from "@angular/core";
+import {Http} from "@angular/http";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
 import {FormComponent} from "./wizard.component";
-import {History} from "./history.component";
-import {ForgeService} from "../shared/forge.service";
+import {AsciidocIndex, Config, ForgeService, History, NgxForgeModule} from "ngx-forge";
 import {EnhancedForgeService} from "../shared/forge.enhance.service";
-import {Config} from "../shared/config.component";
-import {AsciidocService} from "./components/asciidoc/asciidoc.service";
+import {LaunchConfig} from "../shared/config.component";
 
 import {IntroComponent} from "./pages/intro/intro.component";
 import {DeploymentTypePage} from "./pages/deployment/deployment.page";
@@ -21,23 +20,25 @@ import {GenericPage} from "./pages/generic/generic.page";
 import {KeycloakService} from "../shared/keycloak.service";
 import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
 
-import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
-import {InputComponent} from "./components/input/input.component";
 import {ProjectNameInputModule} from "./components/project-name-input/project-name-input.component";
 import {ButtonComponent} from "./components/button/button.component";
-import {AsciidocComponent} from "./components/asciidoc/asciidoc.component";
-import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect/src/multiselect-dropdown";
 import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
+import {LaunchAdocIndex} from "../shared/asciidoc.index";
+
+export function config(http: Http) {
+  let config = new LaunchConfig(http);
+  config.load();
+  return config;
+}
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ProjectSelectModule,
-    MultiselectDropdownModule,
-    ProjectNameInputModule
+    ProjectNameInputModule,
+    NgxForgeModule
   ],
   declarations: [
     FormComponent,
@@ -50,9 +51,7 @@ import {CiDirective} from "../shared/ci.directive";
     DeployPage,
     GenericPage,
     StepComponent,
-    InputComponent,
     ButtonComponent,
-    AsciidocComponent,
     AuthenticationDirective,
     CiDirective
   ],
@@ -60,9 +59,17 @@ import {CiDirective} from "../shared/ci.directive";
     KeycloakService,
     KEYCLOAK_HTTP_PROVIDER,
     History,
-    Config,
-    AsciidocService,
-    {provide: APP_INITIALIZER, useFactory: (config: Config) => () => config.load(), deps: [Config], multi: true},
+    {
+      provide: AsciidocIndex,
+      useFactory: function create() {
+        return new LaunchAdocIndex();
+      }
+    },
+    {
+      provide: Config,
+      useFactory: config,
+      deps: [Http]
+    },
     {
       provide: ForgeService,
       useClass: EnhancedForgeService
