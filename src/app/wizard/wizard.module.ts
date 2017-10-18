@@ -1,10 +1,13 @@
-import {NgModule} from "@angular/core";
-import {Http} from "@angular/http";
+import {APP_INITIALIZER, NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
+import {AsciidocIndex, Config, ForgeService, History, NgxForgeModule, TokenProvider} from "ngx-forge";
+
+import {KeycloakService} from "../shared/keycloak.service";
+import {KeycloakTokenProvider} from "../shared/keycloak-token.provider";
+
 import {FormComponent} from "./wizard.component";
-import {AsciidocIndex, Config, ForgeService, History, NgxForgeModule} from "ngx-forge";
 import {EnhancedForgeService} from "../shared/forge.enhance.service";
 import {LaunchConfig} from "../shared/config.component";
 
@@ -17,9 +20,6 @@ import {DeployPage} from "./pages/deploy/deploy.page";
 import {NextStepsPage} from "./pages/nextSteps/nextSteps.page";
 import {GenericPage} from "./pages/generic/generic.page";
 
-import {KeycloakService} from "../shared/keycloak.service";
-import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
-
 import {StepComponent} from "./components/step/step.component";
 import {ProjectNameInputModule} from "./components/project-name-input/project-name-input.component";
 import {ButtonComponent} from "./components/button/button.component";
@@ -27,11 +27,6 @@ import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
 import {LaunchAdocIndex} from "../shared/asciidoc.index";
 
-export function config(http: Http) {
-  let config = new LaunchConfig(http);
-  config.load();
-  return config;
-}
 
 @NgModule({
   imports: [
@@ -57,18 +52,26 @@ export function config(http: Http) {
   ],
   providers: [
     KeycloakService,
-    KEYCLOAK_HTTP_PROVIDER,
+    {
+      provide: TokenProvider,
+      useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak),
+      deps: [KeycloakService]
+    },
     History,
     {
       provide: AsciidocIndex,
-      useFactory: function create() {
-        return new LaunchAdocIndex();
-      }
+      useClass: LaunchAdocIndex
+    },
+    LaunchConfig,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (config: LaunchConfig) => () => config.load(),
+      deps: [LaunchConfig],
+      multi: true
     },
     {
       provide: Config,
-      useFactory: config,
-      deps: [Http]
+      useClass: LaunchConfig
     },
     {
       provide: ForgeService,

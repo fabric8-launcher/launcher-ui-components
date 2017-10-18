@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 
-import { ForgeService } from "ngx-forge";
+import {ForgeService, TokenProvider} from "ngx-forge";
 import { History } from "ngx-forge";
 import { Gui, MetaData, Input } from "ngx-forge";
 import { AsciidocService } from "ngx-forge";
@@ -11,8 +11,9 @@ import { Config } from "ngx-forge";
 export class EnhancedForgeService extends ForgeService {
   private steps: string[];
 
-  constructor(protected http: Http, protected config: Config, private asciidoc: AsciidocService) {
-    super(http, config);
+  constructor(protected http: Http, protected config: Config, private token: TokenProvider,
+              private asciidoc: AsciidocService) {
+    super(http, config, token);
   }
 
   commandInfo(command: string): Promise<Gui> {
