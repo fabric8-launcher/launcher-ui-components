@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 
+import { v4 } from "uuid";
+import * as jsSHA from "jssha";
 const config = require("../../assets/keycloak/keycloak.json");
 let Keycloak = require("../../assets/keycloak/keycloak.js");
 
@@ -50,6 +52,21 @@ export class KeycloakService {
       return true;
     }
     return KeycloakService.auth.authz.tokenParsed;
+  }
+
+  linkAccount() {
+    const nonce = v4();
+    const provider = 'github';
+    const hash = nonce + KeycloakService.auth.authz.tokenParsed.client_session + config.clientId + provider;
+    const shaObj = new jsSHA("SHA-256", "TEXT");
+    shaObj.update(hash);
+    let hashed = shaObj.getHash("B64");
+    console.log('input', hash);
+    console.log('hash', hashed);
+    const redirect = location.href;
+
+    location.href = `${KeycloakService.auth.authz.authServerUrl}/realms/${config.realm}/broker/${provider}/link`
+      + `?nonce=${nonce}&hash=${hashed}&client_id=${config.realm}&redirect_uri=${redirect}`
   }
 
   get user(): string {
