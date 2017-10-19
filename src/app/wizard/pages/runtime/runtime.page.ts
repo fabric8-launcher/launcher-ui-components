@@ -3,13 +3,12 @@ import { Gui, ProjectSelectConfig } from "ngx-forge";
 
 @Component({
   selector: "runtime",
-  templateUrl: "runtime.page.html",
-  styleUrls: ["runtime.page.scss"]
+  templateUrl: "runtime.page.html"
 })
 export class RuntimePage {
   @Input() gui: Gui;
   config: ProjectSelectConfig = {
-    classes: ['Node','Spring','WildFly','Eclipse'],
+    classes: ['Node','Spring','WildFly','Vert'],
     techPreview: ['Node'],
     renderType: 'title'
   }
