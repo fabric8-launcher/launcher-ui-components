@@ -10,6 +10,7 @@ import {Config} from "../shared/config.component";
 import {AsciidocService} from "./components/asciidoc/asciidoc.service";
 
 import {IntroComponent} from "./pages/intro/intro.component";
+import {LinkAccountsPage} from "./pages/linkAccounts/link-accounts.page";
 import {DeploymentTypePage} from "./pages/deployment/deployment.page";
 import {MissionPage} from "./pages/mission/mission.page";
 import {RuntimePage} from "./pages/runtime/runtime.page";
@@ -42,6 +43,7 @@ import {CiDirective} from "../shared/ci.directive";
   declarations: [
     FormComponent,
     IntroComponent,
+    LinkAccountsPage,
     DeploymentTypePage,
     MissionPage,
     RuntimePage,
