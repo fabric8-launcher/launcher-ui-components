@@ -57,12 +57,11 @@ export class KeycloakService {
   linkAccount() {
     const nonce = v4();
     const provider = 'github';
-    const hash = nonce + KeycloakService.auth.authz.tokenParsed.client_session + config.clientId + provider;
+    const hash = nonce + KeycloakService.auth.authz.tokenParsed.session_state
+      + KeycloakService.auth.authz.tokenParsed.client_session + provider;
     const shaObj = new jsSHA("SHA-256", "TEXT");
     shaObj.update(hash);
     let hashed = shaObj.getHash("B64");
-    console.log('input', hash);
-    console.log('hash', hashed);
     const redirect = location.href;
 
     location.href = `${KeycloakService.auth.authz.authServerUrl}/realms/${config.realm}/broker/${provider}/link`
