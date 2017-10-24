@@ -1,5 +1,5 @@
 {
-  "realm": "rh-developers-launch",
-  "url": "https://sso.openshift.io/auth",
+  "realm": "",
+  "url": "",
   "clientId": "openshiftio-public"
 }
