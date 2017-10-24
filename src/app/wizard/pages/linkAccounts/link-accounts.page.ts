@@ -1,6 +1,7 @@
 
 import { Component } from "@angular/core";
 import { KeycloakService } from "../../../shared/keycloak.service";
+import {TokenService} from "../../../shared/token.service";
 
 @Component({
   selector: "link-accounts",
@@ -8,9 +9,11 @@ import { KeycloakService } from "../../../shared/keycloak.service";
   styleUrls: ["link-accounts.page.scss"]
 })
 export class LinkAccountsPage {
-  clusters = ['starter-us-east-1', 'starter-us-west-1', 'starter-us-west-2',
-    'starter-ca-central-1', 'pro-us-east-1', 'online-stg'];
+  clusters: string[] = TokenService.clusters;
+  constructor(private keycloak: KeycloakService, private tokenService: TokenService) {
+  }
 
-  constructor(private keycloak: KeycloakService) {}
-
+  isChecked(token: string): boolean {
+    return this.tokenService.inValidTokens.indexOf(token) === -1;
+  }
 }

@@ -21,6 +21,7 @@ import {GenericPage} from "./pages/generic/generic.page";
 
 import {KeycloakService} from "../shared/keycloak.service";
 import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
+import {TokenService} from "../shared/token.service";
 
 import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
@@ -61,6 +62,7 @@ import {CiDirective} from "../shared/ci.directive";
   providers: [
     KeycloakService,
     KEYCLOAK_HTTP_PROVIDER,
+    TokenService,
     History,
     Config,
     AsciidocService,

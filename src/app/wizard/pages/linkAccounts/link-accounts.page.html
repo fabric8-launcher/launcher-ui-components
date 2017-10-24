@@ -19,7 +19,8 @@
 <div class="list-group list-view-pf list-view-pf-view">
   <div class="list-group-item">
     <div class="list-view-pf-actions">
-      <button class="btn btn-default">Add</button>
+      <span class="fa-2x pficon pficon-ok" *ngIf="isChecked('github')"></span>
+      <a [href]="keycloak.linkAccount('github')" class="btn btn-default" *ngIf="!isChecked('github')">Add</a>
     </div>
     <div class="list-view-pf-main-info">
       <div class="list-view-pf-left">
@@ -41,13 +42,27 @@
 </div>
 
 <p>
-  Depending on your configuration choose or or multiple clusters from the list below:
+  Depending on your configuration choose one or multiple clusters from the list below:
 </p>
 
+<div class="admonitionblock note">
+  <table>
+    <tbody><tr>
+      <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+      </td>
+      <td class="content">
+        Check which OpenShift Online cluster you belong to using <a href="https://manage.openshift.com" target="_blank" rel="noopener">https://manage.openshift.com</a>.
+      </td>
+    </tr>
+    </tbody></table>
+</div>
+
 <div class="list-group list-view-pf list-view-pf-view">
-  <div class="list-group-item">
+  <div class="list-group-item" *ngFor="let cluster of clusters">
     <div class="list-view-pf-actions">
-      <span class="fa-2x pficon pficon-ok"></span>
+      <span class="fa-2x pficon pficon-ok" *ngIf="isChecked(cluster)"></span>
+      <a [href]="keycloak.linkAccount(cluster)" class="btn btn-default" *ngIf="!isChecked(cluster)">Add</a>
     </div>
     <div class="list-view-pf-main-info">
       <div class="list-view-pf-left">
@@ -56,35 +71,10 @@
       <div class="list-view-pf-body">
         <div class="list-view-pf-description">
           <div class="list-group-item-heading">
-            Openshift (starter-us-east-1)
-          </div>
-          <div class="list-group-item-text">
-            Configure OpenShift Online to build and deploy your code on each push to your repository’s master branch.
+            Openshift ({{cluster}})
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="list-group-item">
-    <div class="list-view-pf-actions">
-      <button class="btn btn-default">Add</button>
-    </div>
-    <div class="list-view-pf-main-info">
-      <div class="list-view-pf-left">
-        <span class="fa fa-cubes list-view-pf-icon-sm"></span>
-      </div>
-      <div class="list-view-pf-body">
-        <div class="list-view-pf-description">
-          <div class="list-group-item-heading">
-            Openshift (starter-us-west-1)
-          </div>
-          <div class="list-group-item-text">
-            Configure OpenShift Online to build and deploy your code on each push to your repository’s master branch.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
