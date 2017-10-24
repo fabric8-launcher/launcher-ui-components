@@ -58,7 +58,7 @@ export class EnhancedForgeService extends ForgeService {
           let input = submittableInput as Input;
           if (input.valueChoices) {
             input.valueChoices.forEach(choice => {
-              choice.description = this.asciidoc.generateHtml(input.name + choice.id);
+              choice.description = this.asciidoc.generateHtml(input.name + choice.key);
             });
           }
         });
