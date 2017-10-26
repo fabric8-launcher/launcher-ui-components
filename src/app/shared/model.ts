@@ -60,6 +60,7 @@ export class Input extends SubmittableInput {
 
 export class Option {
   id: string;
+  key: string;
   description: string;
   name: string;
 }
