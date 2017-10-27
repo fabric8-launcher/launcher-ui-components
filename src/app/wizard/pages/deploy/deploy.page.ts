@@ -54,10 +54,10 @@ export class DeployPage implements OnInit {
     this.pageNumbers = Array(this.history.stepIndex - 1).fill(1).map((x, i) => i + 1);
   }
 
-  deploy(): void {
+  deploy(step: number = 0): void {
     if (this.kc.isAuthenticated()) {
       this.status = Status.Progress;
-      this.forgeService.upload(this.command, this.history)
+      this.forgeService.upload(this.command, this.history, step)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
           this.webSocket.onmessage = function (event: MessageEvent) {
@@ -148,11 +148,24 @@ export class DeployPage implements OnInit {
     }
   }
 
+  get lastDone(): number {
+    let step = 0;
+    if (this.statusMessages) {
+      for (let status of this.statusMessages) {
+        if (!status.done) {
+          break;
+        }
+        step++;
+      }
+    }
+    return step;
+  }
+
   retry(): void {
     if (this.webSocket != null) this.webSocket.close();
-    this.statusMessages = null;
+    let step = this.lastDone;
     this.error = null;
-    this.deploy();
+    this.deploy(step);
   }
 
   downloadZip(): void {
