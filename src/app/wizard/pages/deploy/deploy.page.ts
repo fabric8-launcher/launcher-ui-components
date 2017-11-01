@@ -70,6 +70,9 @@ export class DeployPage implements OnInit {
                   this.statusMessages.push(status);
                 }
               }
+              for (let i = 0; i < step; i++) {
+                this.statusMessages[i].done = true;
+              }
             } else {
               let message = JSON.parse(event.data);
               if (message.data && message.data.error) {
@@ -165,6 +168,7 @@ export class DeployPage implements OnInit {
     if (this.webSocket != null) this.webSocket.close();
     let step = this.lastDone;
     this.error = null;
+    this.statusMessages = null;
     this.deploy(step);
   }
 
