@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, NgModule, Renderer } from "@angular/core";
+import { Component, ElementRef, forwardRef, NgModule, Renderer2 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
 
@@ -22,7 +22,7 @@ import { SuggestFilterPipe } from "./filter.pipe";
 export class ProjectNameInputComponent extends InputComponent {
   projectName: string = "";
   prefix: string;
-  constructor(_renderer: Renderer, _elementRef: ElementRef,
+  constructor(_renderer: Renderer2, _elementRef: ElementRef,
               private keycloak: KeycloakService) {
     super(_renderer, _elementRef, false);
     this.resetPrefix();

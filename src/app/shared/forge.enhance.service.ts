@@ -11,9 +11,9 @@ import { Config } from "ngx-forge";
 export class EnhancedForgeService extends ForgeService {
   private steps: string[];
 
-  constructor(protected http: Http, protected config: Config, private token: TokenProvider,
+  constructor(protected _http: Http, protected config: Config, private token: TokenProvider,
               private asciidoc: AsciidocService) {
-    super(http, config, token);
+    super(_http, config, token);
   }
 
   commandInfo(command: string): Promise<Gui> {

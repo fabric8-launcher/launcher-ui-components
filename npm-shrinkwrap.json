@@ -58,14 +58,14 @@
       "resolved": "https://registry.npmjs.org/@angular/upgrade/-/upgrade-4.4.4.tgz"
     },
     "angular-2-dropdown-multiselect": {
-      "version": "0.3.1",
-      "from": "angular-2-dropdown-multiselect@0.3.1",
-      "resolved": "https://registry.npmjs.org/angular-2-dropdown-multiselect/-/angular-2-dropdown-multiselect-0.3.1.tgz"
+      "version": "1.6.0",
+      "from": "angular-2-dropdown-multiselect@1.6.0",
+      "resolved": "https://registry.npmjs.org/angular-2-dropdown-multiselect/-/angular-2-dropdown-multiselect-1.6.0.tgz"
     },
     "asciidoctor.js": {
-      "version": "1.5.6-preview.3",
-      "from": "asciidoctor.js@1.5.6-preview.3",
-      "resolved": "https://registry.npmjs.org/asciidoctor.js/-/asciidoctor.js-1.5.6-preview.3.tgz"
+      "version": "1.5.6-preview.4",
+      "from": "asciidoctor.js@1.5.6-preview.4",
+      "resolved": "https://registry.npmjs.org/asciidoctor.js/-/asciidoctor.js-1.5.6-preview.4.tgz"
     },
     "balanced-match": {
       "version": "1.0.0",
@@ -88,9 +88,9 @@
       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
     },
     "core-js": {
-      "version": "2.5.0",
+      "version": "2.5.1",
       "from": "core-js@>=2.4.1 <3.0.0",
-      "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.5.0.tgz"
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.5.1.tgz"
     },
     "glob": {
       "version": "6.0.4",
@@ -109,7 +109,7 @@
     },
     "jssha": {
       "version": "2.3.1",
-      "from": "jssha@latest",
+      "from": "jssha@>=2.3.1 <3.0.0",
       "resolved": "https://registry.npmjs.org/jssha/-/jssha-2.3.1.tgz"
     },
     "minimatch": {
@@ -137,34 +137,7 @@
     "ngx-forge": {
       "version": "0.0.29-development",
       "from": "ngx-forge@0.0.29-development",
-      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.0.29-development.tgz",
-      "dependencies": {
-        "@angular/core": {
-          "version": "4.4.4",
-          "from": "@angular/core@4.4.4",
-          "resolved": "https://registry.npmjs.org/@angular/core/-/core-4.4.4.tgz"
-        },
-        "@angular/forms": {
-          "version": "4.4.4",
-          "from": "@angular/forms@4.4.4",
-          "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-4.4.4.tgz"
-        },
-        "@angular/http": {
-          "version": "4.4.4",
-          "from": "@angular/http@4.4.4",
-          "resolved": "https://registry.npmjs.org/@angular/http/-/http-4.4.4.tgz"
-        },
-        "angular-2-dropdown-multiselect": {
-          "version": "1.6.0",
-          "from": "angular-2-dropdown-multiselect@1.6.0",
-          "resolved": "https://registry.npmjs.org/angular-2-dropdown-multiselect/-/angular-2-dropdown-multiselect-1.6.0.tgz"
-        },
-        "asciidoctor.js": {
-          "version": "1.5.6-preview.4",
-          "from": "asciidoctor.js@1.5.6-preview.4",
-          "resolved": "https://registry.npmjs.org/asciidoctor.js/-/asciidoctor.js-1.5.6-preview.4.tgz"
-        }
-      }
+      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.0.29-development.tgz"
     },
     "once": {
       "version": "1.4.0",
@@ -335,14 +308,14 @@
       "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.0.1.tgz"
     },
     "source-map": {
-      "version": "0.5.6",
+      "version": "0.5.7",
       "from": "source-map@>=0.5.6 <0.6.0",
-      "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz"
+      "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.5.7.tgz"
     },
     "source-map-support": {
-      "version": "0.4.16",
+      "version": "0.4.18",
       "from": "source-map-support@>=0.4.2 <0.5.0",
-      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.4.16.tgz"
+      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.4.18.tgz"
     },
     "symbol-observable": {
       "version": "1.0.4",
@@ -366,7 +339,7 @@
     },
     "uuid": {
       "version": "3.1.0",
-      "from": "uuid@latest",
+      "from": "uuid@>=3.1.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.1.0.tgz"
     },
     "wrappy": {
@@ -374,15 +347,10 @@
       "from": "wrappy@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
     },
-    "xmlhttprequest": {
-      "version": "1.7.0",
-      "from": "xmlhttprequest@>=1.7.0 <1.8.0",
-      "resolved": "https://registry.npmjs.org/xmlhttprequest/-/xmlhttprequest-1.7.0.tgz"
-    },
     "zone.js": {
-      "version": "0.8.16",
+      "version": "0.8.18",
       "from": "zone.js@>=0.8.4 <0.9.0",
-      "resolved": "https://registry.npmjs.org/zone.js/-/zone.js-0.8.16.tgz"
+      "resolved": "https://registry.npmjs.org/zone.js/-/zone.js-0.8.18.tgz"
     }
   }
 }
