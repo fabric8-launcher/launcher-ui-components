@@ -10,6 +10,7 @@ import {Config} from "../shared/config.component";
 import {AsciidocService} from "./components/asciidoc/asciidoc.service";
 
 import {IntroComponent} from "./pages/intro/intro.component";
+import {LinkAccountsPage} from "./pages/linkAccounts/link-accounts.page";
 import {DeploymentTypePage} from "./pages/deployment/deployment.page";
 import {MissionPage} from "./pages/mission/mission.page";
 import {RuntimePage} from "./pages/runtime/runtime.page";
@@ -20,6 +21,7 @@ import {GenericPage} from "./pages/generic/generic.page";
 
 import {KeycloakService} from "../shared/keycloak.service";
 import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
+import {TokenService} from "../shared/token.service";
 
 import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
@@ -42,6 +44,7 @@ import {CiDirective} from "../shared/ci.directive";
   declarations: [
     FormComponent,
     IntroComponent,
+    LinkAccountsPage,
     DeploymentTypePage,
     MissionPage,
     RuntimePage,
@@ -59,6 +62,7 @@ import {CiDirective} from "../shared/ci.directive";
   providers: [
     KeycloakService,
     KEYCLOAK_HTTP_PROVIDER,
+    TokenService,
     History,
     Config,
     AsciidocService,
