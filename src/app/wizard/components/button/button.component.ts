@@ -1,4 +1,4 @@
-import { Component, Input, HostListener } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { State } from "../../../shared/model";
 import { History } from "../../history.component";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -8,24 +8,11 @@ import { ActivatedRoute, Router } from "@angular/router";
   templateUrl: "button.component.html"
 })
 export class ButtonComponent {
-  footerBarSize: number = 70;
   @Input() state: State;
   @Input() validation: Promise<boolean>;
   @Input() disabled: boolean;
-  fix: string = this.history.stepIndex === 2 ? 'fixed' : 'inherit';
 
-  constructor(private history: History, private router: Router, private route: ActivatedRoute) { 
-    window.onscroll = () => {
-      let windowHeight = "innerHeight" in window ? window.innerHeight
-          : document.documentElement.offsetHeight;
-      let body = document.body, html = document.documentElement;
-      let docHeight = Math.max(body.scrollHeight,
-          body.offsetHeight, html.clientHeight,
-          html.scrollHeight, html.offsetHeight);
-      let windowBottom = windowHeight + window.pageYOffset;
-      this.fix = windowBottom >= docHeight - this.footerBarSize ? 'inherit' : 'fixed';
-   };
-  }
+  constructor(private history: History, private router: Router, private route: ActivatedRoute) { }
 
   next() {
     this.gotoStep(this.history.stepIndex + 1);
