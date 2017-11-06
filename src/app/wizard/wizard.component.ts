@@ -5,6 +5,7 @@ import {ForgeService} from "ngx-forge";
 import {Gui, Message} from "ngx-forge";
 import {History} from "ngx-forge";
 import {KeycloakService} from "../shared/keycloak.service";
+import {TokenService} from "../shared/token.service";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -21,7 +22,9 @@ export class FormComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private history: History,
-              private forgeService: ForgeService) {
+              private forgeService: ForgeService,
+              private keycloak: KeycloakService,
+              private token: TokenService) {
   }
 
   ngOnInit() {

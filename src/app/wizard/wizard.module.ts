@@ -12,6 +12,7 @@ import {EnhancedForgeService} from "../shared/forge.enhance.service";
 import {LaunchConfig} from "../shared/config.component";
 
 import {IntroComponent} from "./pages/intro/intro.component";
+import {LinkAccountsPage} from "./pages/linkAccounts/link-accounts.page";
 import {DeploymentTypePage} from "./pages/deployment/deployment.page";
 import {MissionPage} from "./pages/mission/mission.page";
 import {RuntimePage} from "./pages/runtime/runtime.page";
@@ -20,6 +21,11 @@ import {DeployPage} from "./pages/deploy/deploy.page";
 import {NextStepsPage} from "./pages/nextSteps/nextSteps.page";
 import {GenericPage} from "./pages/generic/generic.page";
 
+import {KeycloakService} from "../shared/keycloak.service";
+import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
+import {TokenService} from "../shared/token.service";
+
+import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
 import {ProjectNameInputModule} from "./components/project-name-input/project-name-input.component";
 import {ButtonComponent} from "./components/button/button.component";
@@ -38,6 +44,7 @@ import {LaunchAdocIndex} from "../shared/asciidoc.index";
   declarations: [
     FormComponent,
     IntroComponent,
+    LinkAccountsPage,
     DeploymentTypePage,
     MissionPage,
     RuntimePage,
@@ -57,6 +64,7 @@ import {LaunchAdocIndex} from "../shared/asciidoc.index";
       useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak),
       deps: [KeycloakService]
     },
+    TokenService,
     History,
     {
       provide: AsciidocIndex,
