@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Gui } from "../../../shared/model";
+import { Component, Input } from "@angular/core";
 import { KeycloakService } from "../../../shared/keycloak.service";
+
+import { Gui } from "ngx-forge";
 
 @Component({
   selector: "mission",

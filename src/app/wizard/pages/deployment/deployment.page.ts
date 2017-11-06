@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Gui } from "../../../shared/model";
+import { Component, Input } from "@angular/core";
+import { Gui, SubmittableInput } from "ngx-forge";
+
 import { ButtonComponent } from "../../components/button/button.component";
-import { SubmittableInput } from "../../../shared/model";
 
 @Component({
   selector: "deployment",

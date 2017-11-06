@@ -1,8 +1,8 @@
-import { Component, Input } from "@angular/core";
+import {Component, ElementRef, Renderer2} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GenericPage } from "../generic/generic.page";
-import { SubmittableInput } from "../../../shared/model";
-import { History } from "../../history.component";
+import { SubmittableInput } from "ngx-forge";
+import { History } from "ngx-forge";
 
 @Component({
   selector: "nextSteps",
@@ -11,11 +11,11 @@ import { History } from "../../history.component";
 })
 export class NextStepsPage extends GenericPage {
 
-  constructor(
+  constructor(_renderer: Renderer2, _elementRef: ElementRef, _compositionMode: boolean,
     private route: ActivatedRoute,
     private router: Router,
     private history: History) {
-    super();
+    super(_renderer, _elementRef, _compositionMode);
   }
 
   consoleUrl(): string {

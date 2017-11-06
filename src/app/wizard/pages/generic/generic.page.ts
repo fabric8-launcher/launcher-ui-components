@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Gui } from "../../../shared/model";
-import { InputComponent } from "../../components/input/input.component";
+import {Component, Input, Output, EventEmitter, ElementRef, Renderer2} from "@angular/core";
+import { Gui, InputComponent } from "ngx-forge";
 
 @Component({
   selector: "generic",
@@ -10,6 +9,10 @@ export class GenericPage extends InputComponent {
   @Input() gui: Gui;
   @Input() validation: Promise<boolean>;
   @Output() validate = new EventEmitter();
+
+  constructor(_renderer: Renderer2, _elementRef: ElementRef, _compositionMode: boolean,) {
+    super(_renderer, _elementRef, _compositionMode);
+  }
 
   modelChanged(value: any) {
     this.validate.emit();

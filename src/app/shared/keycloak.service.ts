@@ -85,20 +85,18 @@ export class KeycloakService {
     return this.skip ? "anonymous" : this.auth.authz.tokenParsed.preferred_username;
   }
 
-  getToken(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      if (this.auth.authz.token) {
-        this.auth.authz
-          .updateToken(5)
-          .success(() => {
-            resolve(<string>this.auth.authz.token);
-          })
-          .error(() => {
-            reject("Failed to refresh token");
-          });
-      } else {
-        resolve("");
-      }
-    });
+  getToken(): string {
+    if (this.auth.authz.token) {
+      this.auth.authz
+        .updateToken(5)
+        .success(() => {
+          return <string>this.auth.authz.token;
+        })
+        .error(() => {
+          throw new Error("Failed to refresh token");
+        });
+    } else {
+      return "";
+    }
   }
 }

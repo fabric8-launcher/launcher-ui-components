@@ -1,16 +1,16 @@
-import { Component, forwardRef, NgModule } from "@angular/core";
+import { Component, ElementRef, forwardRef, NgModule, Renderer2 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
 
-import { InputComponent } from "../input/input.component";
-import { Input } from "../../../shared/model";
+import { InputComponent } from "ngx-forge";
+import { Input } from "ngx-forge";
 import { KeycloakService } from "../../../shared/keycloak.service";
 import { SuggestFilterPipe } from "./filter.pipe";
 
 @Component({
   selector: "la-project-name-input",
   templateUrl: "project-name-input.component.html",
-  styleUrls: ["../input/input.component.scss"],
+  styleUrls: ["project-name-input.component.scss"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -22,10 +22,11 @@ import { SuggestFilterPipe } from "./filter.pipe";
 export class ProjectNameInputComponent extends InputComponent {
   projectName: string = "";
   prefix: string;
-  constructor(private keycloak: KeycloakService) {
-    super();
+  constructor(_renderer: Renderer2, _elementRef: ElementRef,
+              private keycloak: KeycloakService) {
+    super(_renderer, _elementRef, false);
     this.resetPrefix();
-    this.keyUp.subscribe(_ => {
+    this.keyUp.subscribe(() => {
       this.input.value = this.createPrefix() + '-' + this.projectName;
       this.resetPrefix();
     });
@@ -47,7 +48,7 @@ export class ProjectNameInputComponent extends InputComponent {
     this.input.value = value;
     this.projectName = value;
     this.prefix = "";
-    this.onModelChange(value);
+    this.onChange(value);
   }
 
   writeValue(obj: Input): void {
