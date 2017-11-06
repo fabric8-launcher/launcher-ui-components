@@ -86,18 +86,17 @@ export class KeycloakService {
   }
 
   getToken(): string {
-      if (this.auth.authz.token) {
-        this.auth.authz
-          .updateToken(5)
-          .success(() => {
-            return <string>this.auth.authz.token;
-          })
-          .error(() => {
-            throw new Error("Failed to refresh token");
-          });
-      } else {
-        return "";
-      }
+    if (this.auth.authz.token) {
+      this.auth.authz
+        .updateToken(5)
+        .success(() => {
+          return <string>this.auth.authz.token;
+        })
+        .error(() => {
+          throw new Error("Failed to refresh token");
+        });
+    } else {
+      return "";
     }
   }
 }

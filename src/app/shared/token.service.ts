@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Location } from '@angular/common';
-import { Config } from "./config.component";
+import { Config } from "ngx-forge";
 import { KeycloakService } from "./keycloak.service";
 
 @Injectable()

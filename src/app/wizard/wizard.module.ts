@@ -6,6 +6,7 @@ import {AsciidocIndex, Config, ForgeService, History, NgxForgeModule, TokenProvi
 
 import {KeycloakService} from "../shared/keycloak.service";
 import {KeycloakTokenProvider} from "../shared/keycloak-token.provider";
+import {TokenService} from "../shared/token.service";
 
 import {FormComponent} from "./wizard.component";
 import {EnhancedForgeService} from "../shared/forge.enhance.service";
@@ -21,11 +22,6 @@ import {DeployPage} from "./pages/deploy/deploy.page";
 import {NextStepsPage} from "./pages/nextSteps/nextSteps.page";
 import {GenericPage} from "./pages/generic/generic.page";
 
-import {KeycloakService} from "../shared/keycloak.service";
-import {KEYCLOAK_HTTP_PROVIDER} from "../shared/keycloak.http";
-import {TokenService} from "../shared/token.service";
-
-import {ProjectSelectModule} from "./components/project-select/project-select";
 import {StepComponent} from "./components/step/step.component";
 import {ProjectNameInputModule} from "./components/project-name-input/project-name-input.component";
 import {ButtonComponent} from "./components/button/button.component";
