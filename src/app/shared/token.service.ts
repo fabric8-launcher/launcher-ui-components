@@ -30,10 +30,7 @@ export class TokenService {
           options).toPromise().then(() => "").catch(() => token.query ? token.query : token.prefix));
       });
 
-      Promise.all(promises).then(tokens => {
-        this._inValidTokens = tokens.filter(token => token !== "");
-        console.log('invalidTokens', this._inValidTokens);
-      });
+      Promise.all(promises).then(tokens => this._inValidTokens = tokens.filter(token => token !== ""));
     });
   }
 
