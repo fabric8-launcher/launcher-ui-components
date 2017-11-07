@@ -1,22 +1,21 @@
-import {Component, Input, Output, EventEmitter, ElementRef, Renderer2} from "@angular/core";
-import { Gui, InputComponent } from "ngx-forge";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
+import { Gui, InputComponent, Message } from "ngx-forge";
 
 @Component({
   selector: "generic",
   templateUrl: "generic.page.html"
 })
-export class GenericPage extends InputComponent {
+export class GenericPage {
   @Input() gui: Gui;
   @Input() validation: Promise<boolean>;
   @Output() validate = new EventEmitter();
-
-  constructor(_renderer: Renderer2, _elementRef: ElementRef, _compositionMode: boolean,) {
-    super(_renderer, _elementRef, _compositionMode);
-  }
 
   modelChanged(value: any) {
     this.validate.emit();
   }
 
+  messageForInput(name: string): Message {
+    return new InputComponent(null, null, false).messageForInput(name);
+  }
 }
 
