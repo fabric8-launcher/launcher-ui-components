@@ -19,17 +19,21 @@ export class TokenService {
 
     this.apiUrl = Location.joinWithSlash(this.apiUrl.replace(/^wss?/, "http"), "api/validate/token/");
 
-    let tokens = TokenService.clusters.slice(0);
-    tokens.push('github');
+    let tokens = TokenService.clusters.map(e => {return {query: e, prefix: 'openshift'}});
+    tokens.push({'prefix': 'github', query: null});
 
     keycloak.onLogin.subscribe(authToken => {
       let promises: Promise<string>[] = [];
       tokens.forEach(token => {
         let options = new RequestOptions({headers: new Headers({"Authorization": `Bearer ${authToken}`})});
-        promises.push(this.http.head(this.apiUrl + token, options).toPromise().then(() => "").catch(() => token));
+        promises.push(this.http.head(this.apiUrl + token.prefix + (token.query ? `?cluster=${token.query}`: ''),
+          options).toPromise().then(() => "").catch(() => token.query ? token.query : token.prefix));
       });
 
-      Promise.all(promises).then(tokens => this._inValidTokens = tokens.filter(token => token !== ""));
+      Promise.all(promises).then(tokens => {
+        this._inValidTokens = tokens.filter(token => token !== "");
+        console.log('invalidTokens', this._inValidTokens);
+      });
     });
   }
 
