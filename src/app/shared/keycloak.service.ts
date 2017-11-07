@@ -64,7 +64,7 @@ export class KeycloakService {
     } else {
       const nonce = v4();
       const hash = nonce + this.auth.authz.tokenParsed.session_state
-        + config.clientId + provider;
+        + this.auth.authz.tokenParsed.client_session + provider;
       const shaObj = new jsSHA("SHA-256", "TEXT");
       shaObj.update(hash);
       let hashed = shaObj.getHash("B64");
