@@ -63,15 +63,16 @@ export class KeycloakService {
       return this.accountLink.get(provider);
     } else {
       const nonce = v4();
+      const clientId = config.clientId;
       const hash = nonce + this.auth.authz.tokenParsed.session_state
-        + config.clientId + provider;
+        + clientId + provider;
       const shaObj = new jsSHA("SHA-256", "TEXT");
       shaObj.update(hash);
       let hashed = shaObj.getHash("B64");
       const redirect = location.href;
 
-      let link = `${this.auth.authz.authServerUrl}/realms/${config.realm}/broker/${provider}/link`
-        + `?nonce=${nonce}&hash=${hashed}&client_id=${config.realm}&redirect_uri=${redirect}`;
+      let link = `${this.auth.authz.authServerUrl}/realms/${config.realm}/broker/${provider}/link?nonce=`
+        + `${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect)}`;
       this.accountLink.set(provider, link);
       return link;
     }
@@ -81,7 +82,7 @@ export class KeycloakService {
     return this.skip ? "Fake User" : this.auth.authz.tokenParsed.name;
   }
 
-  username() : string {
+  username(): string {
     return this.skip ? "anonymous" : this.auth.authz.tokenParsed.preferred_username;
   }
 
