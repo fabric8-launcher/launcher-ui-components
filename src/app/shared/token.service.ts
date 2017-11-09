@@ -6,8 +6,7 @@ import { KeycloakService } from "./keycloak.service";
 
 @Injectable()
 export class TokenService {
-  static clusters = ['starter-us-east-1', 'starter-us-west-1', 'starter-us-west-2',
-    'starter-ca-central-1', 'pro-us-east-1', 'online-stg'];
+  clusters: string [] = [];
 
   private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
   private _inValidTokens: string[] = [];
@@ -17,25 +16,29 @@ export class TokenService {
       this.apiUrl = config.get("mission_control_url");
     }
 
-    this.apiUrl = Location.joinWithSlash(this.apiUrl.replace(/^wss?/, "http"), "api/validate/token/");
+    let baseUrl = this.apiUrl.replace(/^wss?/, "http");
+    this.http.get(Location.joinWithSlash(baseUrl, "api/openshift/clusters?all")).subscribe(response => {
+      this.apiUrl = Location.joinWithSlash(baseUrl, "api/validate/token/");
 
-    let tokens = TokenService.clusters.map(e => {return {query: e, prefix: 'openshift'}});
-    tokens.push({'prefix': 'github', query: null});
+      this.clusters = response.json() as string[];
+      let tokens = this.clusters.map(e => {return {query: e, prefix: 'openshift'}});
+      tokens.push({'prefix': 'github', query: null});
 
-    keycloak.onLogin.subscribe(authToken => {
-      let promises: Promise<string>[] = [];
-      tokens.forEach(token => {
-        let options = new RequestOptions({headers: new Headers({"Authorization": `Bearer ${authToken}`})});
-        promises.push(this.http.head(this.apiUrl + token.prefix + (token.query ? `?cluster=${token.query}`: ''),
-          options).toPromise().then(() => "").catch(() => token.query ? token.query : token.prefix));
+      keycloak.onLogin.subscribe(authToken => {
+        let promises: Promise<string>[] = [];
+        tokens.forEach(token => {
+          let options = new RequestOptions({headers: new Headers({"Authorization": `Bearer ${authToken}`})});
+          promises.push(this.http.head(this.apiUrl + token.prefix + (token.query ? `?cluster=${token.query}`: ''),
+            options).toPromise().then(() => "").catch(() => token.query ? token.query : token.prefix));
+        });
+
+        Promise.all(promises).then(tokens => this._inValidTokens = tokens.filter(token => token !== ""));
       });
-
-      Promise.all(promises).then(tokens => this._inValidTokens = tokens.filter(token => token !== ""));
     });
   }
 
   get valid(): boolean {
-    return this._inValidTokens.indexOf('github') === -1 && this._inValidTokens.length < TokenService.clusters.length;
+    return this._inValidTokens.indexOf('github') === -1 && this._inValidTokens.length < this.clusters.length;
   }
 
   get inValidTokens(): string[] {
