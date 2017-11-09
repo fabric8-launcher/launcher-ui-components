@@ -52,7 +52,7 @@ export class KeycloakService {
 
   get onLogin(): Observable<string> {
     if (this.auth.authz.tokenParsed) {
-      return Observable.of(this.auth.authz.tokenParsed);
+      return Observable.of(this.auth.authz.token);
     }
     return this.loginSubject;
   }
