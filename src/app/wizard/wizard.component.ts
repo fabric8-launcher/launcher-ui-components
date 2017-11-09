@@ -1,10 +1,11 @@
 import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
-import {ForgeService} from "../shared/forge.service";
-import {Gui, Input, Message, MetaData} from "../shared/model";
-import {History} from "./history.component";
+import {ForgeService} from "ngx-forge";
+import {Gui, Message} from "ngx-forge";
+import {History} from "ngx-forge";
 import {KeycloakService} from "../shared/keycloak.service";
+import {TokenService} from "../shared/token.service";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -22,7 +23,8 @@ export class FormComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private history: History,
               private forgeService: ForgeService,
-              private keycloak: KeycloakService) {
+              private keycloak: KeycloakService,
+              private token: TokenService) {
   }
 
   ngOnInit() {

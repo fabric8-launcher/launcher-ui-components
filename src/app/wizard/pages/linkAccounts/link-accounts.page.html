@@ -1,0 +1,80 @@
+<div class="blank-slate">
+  <h1>Getting started with Launch</h1>
+  <p class="lead">
+    Before proceeding, ensure you have granted launch access to your GitHub and OpenShift accounts.
+  </p>
+</div>
+<div class="row">
+  <div class="col-sm-1">
+    <span class="fa-stack fa-2x stack-circle-border-blue">
+      <i class="fa fa-circle-thin fa-stack-2x"></i>
+      <i class="fa-stack-1x stack-circle-number">1</i>
+    </span>
+  </div>
+  <div class="col-sm-11 padding-left-none">
+    <h2>Connected accounts</h2>
+  </div>
+</div>
+
+<div class="list-group list-view-pf list-view-pf-view">
+  <div class="list-group-item">
+    <div class="list-view-pf-actions">
+      <span class="fa-2x pficon pficon-ok" *ngIf="isChecked('github')"></span>
+      <a [href]="keycloak.linkAccount('github')" class="btn btn-default" *ngIf="!isChecked('github')">Add</a>
+    </div>
+    <div class="list-view-pf-main-info">
+      <div class="list-view-pf-left">
+        <span class="fa fa-github list-view-pf-icon-sm"></span>
+      </div>
+      <div class="list-view-pf-body">
+        <div class="list-view-pf-description">
+          <div class="list-group-item-heading">
+            <span class="required-pf">*</span>
+            Github
+          </div>
+          <div class="list-group-item-text">
+              In your GitHub namespace, create a repository containing your new project’s code.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>
+  Depending on your configuration choose one or multiple clusters from the list below:
+</p>
+
+<div class="admonitionblock note">
+  <table>
+    <tbody><tr>
+      <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+      </td>
+      <td class="content">
+        Check which OpenShift Online cluster you belong to using <a href="https://manage.openshift.com" target="_blank" rel="noopener">https://manage.openshift.com</a>.
+      </td>
+    </tr>
+    </tbody></table>
+</div>
+
+<div class="list-group list-view-pf list-view-pf-view">
+  <div class="list-group-item" *ngFor="let cluster of clusters">
+    <div class="list-view-pf-actions">
+      <span class="fa-2x pficon pficon-ok" *ngIf="isChecked(cluster)"></span>
+      <a [href]="keycloak.linkAccount(cluster)" class="btn btn-default" *ngIf="!isChecked(cluster)">Add</a>
+    </div>
+    <div class="list-view-pf-main-info">
+      <div class="list-view-pf-left">
+        <span class="fa fa-cubes list-view-pf-icon-sm"></span>
+      </div>
+      <div class="list-view-pf-body">
+        <div class="list-view-pf-description">
+          <div class="list-group-item-heading">
+            Openshift ({{cluster}})
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
+import { SubmittableInput } from "ngx-forge";
+
 import { GenericPage } from "../generic/generic.page";
-import { SubmittableInput } from "../../../shared/model";
 
 @Component({
   selector: "projectInfo",

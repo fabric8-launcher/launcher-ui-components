@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {ForgeService} from "../shared/forge.service";
+import {ForgeService} from "ngx-forge";
 
 @Component({
   selector: "app-footer",

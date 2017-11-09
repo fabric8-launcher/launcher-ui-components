@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { State } from "../../../shared/model";
-import { History } from "../../history.component";
+import { State } from "ngx-forge";
+import { History } from "ngx-forge";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
