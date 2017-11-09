@@ -55,7 +55,7 @@
     "@angular/upgrade": "4.4.4",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
-    "ngx-forge": "0.0.29-development",
+    "ngx-forge": "0.0.30-development",
     "jssha": "^2.3.1",
     "patternfly": "3.24.0",
     "reflect-metadata": "^0.1.8",

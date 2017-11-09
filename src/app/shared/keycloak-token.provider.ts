@@ -7,7 +7,7 @@ export class KeycloakTokenProvider extends TokenProvider {
     super();
   }
 
-  getToken(): string {
+  getToken(): string | Promise<string> {
     return this.keycloak.getToken();
   }
 }
