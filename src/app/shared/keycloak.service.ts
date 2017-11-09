@@ -15,22 +15,28 @@ export class KeycloakService {
   loginSubject: Subject<string> = new Subject<string>();
   accountLink: Map<string, string> = new Map<string, string>();
 
-  constructor() {
-    this.skip = !config.realm;
-    const keycloakAuth: any = Keycloak(config);
+  init(): Promise<KeycloakService> {
+    return new Promise<KeycloakService>((resolve, reject) => {
+      this.skip = !config.realm;
+      const keycloakAuth: any = Keycloak(config);
 
-    this.auth.loggedIn = false;
-    this.auth.authz = {};
+      this.auth.loggedIn = false;
+      this.auth.authz = {};
 
-    if (config.realm) {
-      keycloakAuth.init({ onLoad: "check-sso", checkLoginIframe: false })
-        .success(() => {
-          this.auth.loggedIn = true;
-          this.auth.authz = keycloakAuth;
-          this.loginSubject.next(keycloakAuth.token);
-          this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
-        });
-    }
+      if (config.realm) {
+        keycloakAuth.init({ onLoad: "check-sso", checkLoginIframe: false })
+          .error(() => reject())
+          .success(() => {
+            this.auth.loggedIn = true;
+            this.auth.authz = keycloakAuth;
+            this.loginSubject.next(keycloakAuth.token);
+            this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
+            resolve(this);
+          });
+      } else {
+        resolve(this);
+      }
+    });
   }
 
   logout() {

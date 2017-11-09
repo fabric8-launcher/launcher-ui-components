@@ -56,6 +56,12 @@ import {LaunchAdocIndex} from "../shared/asciidoc.index";
   providers: [
     KeycloakService,
     {
+      provide: APP_INITIALIZER,
+      useFactory: (keycloak: KeycloakService) => () => keycloak.init(),
+      deps: [KeycloakService],
+      multi: true
+    },
+    {
       provide: TokenProvider,
       useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak),
       deps: [KeycloakService]

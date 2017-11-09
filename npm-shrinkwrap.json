@@ -135,8 +135,8 @@
       }
     },
     "ngx-forge": {
-      "version": "0.0.29-development",
-      "from": "ngx-forge@0.0.29-development",
+      "version": "0.0.30-development",
+      "from": "ngx-forge@0.0.30-development",
       "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.0.29-development.tgz"
     },
     "once": {
