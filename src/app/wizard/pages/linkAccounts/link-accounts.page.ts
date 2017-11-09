@@ -1,6 +1,7 @@
 
 import { Component } from "@angular/core";
 import {TokenService} from "../../../shared/token.service";
+import {KeycloakService} from "../../../shared/keycloak.service";
 
 @Component({
   selector: "link-accounts",
@@ -10,7 +11,7 @@ import {TokenService} from "../../../shared/token.service";
 export class LinkAccountsPage {
   clusters: string[] = [];
 
-  constructor(private tokenService: TokenService) {
+  constructor(private tokenService: TokenService, private keycloak: KeycloakService) {
     this.clusters = tokenService.clusters;
   }
 
