@@ -1,7 +1,7 @@
 
 import { Component } from "@angular/core";
-import {TokenService} from "../../../shared/token.service";
-import {KeycloakService} from "../../../shared/keycloak.service";
+import { TokenService } from "../../../shared/token.service";
+import { KeycloakService } from "../../../shared/keycloak.service";
 
 @Component({
   selector: "link-accounts",
@@ -9,10 +9,8 @@ import {KeycloakService} from "../../../shared/keycloak.service";
   styleUrls: ["link-accounts.page.scss"]
 })
 export class LinkAccountsPage {
-  clusters: string[] = [];
 
   constructor(private tokenService: TokenService, private keycloak: KeycloakService) {
-    this.clusters = tokenService.clusters;
   }
 
   isChecked(token: string): boolean {
