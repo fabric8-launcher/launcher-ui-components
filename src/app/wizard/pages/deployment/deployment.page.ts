@@ -1,7 +1,9 @@
 import { Component, Input } from "@angular/core";
-import { Gui, SubmittableInput } from "ngx-forge";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Gui, SubmittableInput, History } from "ngx-forge";
 
 import { ButtonComponent } from "../../components/button/button.component";
+import { TokenService } from "../../../shared/token.service";
 
 @Component({
   selector: "deployment",
@@ -10,6 +12,10 @@ import { ButtonComponent } from "../../components/button/button.component";
 })
 export class DeploymentTypePage extends ButtonComponent {
   @Input() gui: Gui;
+
+  constructor(history: History, router: Router, route: ActivatedRoute, private token: TokenService) {
+    super(history, router, route);
+  }
 
   getField(fieldName: string): SubmittableInput {
     return this.gui.inputs.find(i => i.name === fieldName);

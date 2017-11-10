@@ -29,13 +29,16 @@ import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
 import {LaunchAdocIndex} from "../shared/asciidoc.index";
 
+import {ModalModule} from "ngx-modal";
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ProjectNameInputModule,
-    NgxForgeModule
+    NgxForgeModule,
+    ModalModule
   ],
   declarations: [
     FormComponent,

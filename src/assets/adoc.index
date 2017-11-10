@@ -3,6 +3,7 @@
   "Runtime-intro": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-runtime-project-framework-intro.adoc",
   "deploymentTypeZIP File": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-download-zip.adoc",
   "deploymentTypeContinuous delivery": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/getting-started-launchpad-continuous-delivery.adoc",
+  "account-link-warning": "https://raw.githubusercontent.com/fabric8-launch/appdev-documentation/master/docs/topics/getting-started-launchpad-continuous-delivery-warning.adoc",
   "missioncrud": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/crud-mission-intro-paragraph.adoc",
   "missionconfigmap": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/configmap-mission-intro-paragraph.adoc",
   "missionhealth-check": "https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/health-check-mission-intro-paragraph.adoc",
