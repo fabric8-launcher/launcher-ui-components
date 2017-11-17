@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
+import { Headers } from "@angular/http";
 
 import { StatusMessage, SubmittableInput } from "ngx-forge";
 import {ForgeService} from "ngx-forge";
@@ -57,7 +58,9 @@ export class DeployPage implements OnInit {
   deploy(step: number = 0): void {
     if (this.kc.isAuthenticated()) {
       this.status = Status.Progress;
-      this.forgeService.upload(this.command, this.history, step)
+      let headers = new Headers();
+      headers.append("X-RETRY_STEP", "" + step);
+      this.forgeService.upload(this.command, this.history, headers)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
           this.webSocket.onmessage = function (event: MessageEvent) {

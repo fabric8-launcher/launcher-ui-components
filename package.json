@@ -56,7 +56,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "jssha": "^2.3.1",
-    "ngx-forge": "0.0.30-development",
+    "ngx-forge": "0.0.31-development",
     "ngx-modal": "0.0.29",
     "patternfly": "3.24.0",
     "reflect-metadata": "^0.1.8",
