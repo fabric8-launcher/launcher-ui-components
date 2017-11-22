@@ -46,8 +46,7 @@ const routes: Routes = [
         component: FormComponent
       }
     ]
-  },
-  { path: '**', redirectTo: '/filtered-wizard/all', pathMatch: 'full' }
+  }
 ];
 
 @NgModule({
