@@ -1,5 +1,5 @@
 import {APP_INITIALIZER, NgModule} from "@angular/core";
-import {CommonModule} from "@angular/common";
+import {CommonModule, APP_BASE_HREF} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
 import {AsciidocIndex, Config, ForgeService, History, NgxForgeModule, TokenProvider} from "ngx-forge";
@@ -85,6 +85,10 @@ import {ModalModule} from "ngx-modal";
     {
       provide: Config,
       useClass: LaunchConfig
+    },
+    {
+      provide: APP_BASE_HREF,
+      useValue: '/' + (window.location.pathname.split('/')[1] || '')
     },
     {
       provide: ForgeService,
