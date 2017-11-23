@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {Router, NavigationEnd} from "@angular/router";
+import { Component } from "@angular/core";
+import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "body",
@@ -10,7 +10,7 @@ import {Router, NavigationEnd} from "@angular/router";
   }
 })
 export class AppComponent {
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     router.events.subscribe((url: any) => {
       this.intro = url.url !== "/" && url.url !== "/wizard";
     });
@@ -21,10 +21,18 @@ export class AppComponent {
       }
       return true;
     }).subscribe((x: any) => {
-      window['analytics'].page({
-        page: {
-          path: x.url
+      let snapshot = route.snapshot;
+      let activated = route.firstChild;
+      if (activated != null) {
+        while (activated != null) {
+          snapshot = activated.snapshot;
+          activated = activated.firstChild;
         }
+      }
+
+      window['analytics'].page({
+        name: snapshot.data.name + (snapshot.params.step || ''),
+        properties: snapshot.params
       });
     });
   }

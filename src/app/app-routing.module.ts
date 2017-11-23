@@ -35,15 +35,24 @@ const routes: Routes = [
     children: [
       {
         path: ":filters",
-        component: IntroComponent
+        component: IntroComponent,
+        data: {
+          name: "intro"
+        }
       },
       {
         path: ":filters/:command/:step",
-        component: FormComponent
+        component: FormComponent,
+        data: {
+          name: "step"
+        }
       },
       {
         path: ":filters/:command/:step/:state",
-        component: FormComponent
+        component: FormComponent,
+        data: {
+          name: "step"
+        }
       }
     ]
   }
