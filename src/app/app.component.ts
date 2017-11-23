@@ -21,7 +21,9 @@ export class AppComponent {
       }
       return true;
     }).subscribe((x: any) => {
-      window['analytics'].page();
+      window['analytics'].page({
+        url: x.url
+      });
     });
   }
 
