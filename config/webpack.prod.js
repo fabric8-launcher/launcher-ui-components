@@ -8,7 +8,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const API_URL = process.env.API_URL || 'http://api.almighty.io/api/';
 const BACKEND_URL = process.env.BACKEND_URL;
 const LAUNCHPAD_MISSIONCONTROL_URL = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
-const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+const PUBLIC_PATH = process.env.PUBLIC_PATH || '/launch';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
   API_URL: API_URL,
