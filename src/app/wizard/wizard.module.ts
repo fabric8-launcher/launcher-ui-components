@@ -87,10 +87,6 @@ import {ModalModule} from "ngx-modal";
       useClass: LaunchConfig
     },
     {
-      provide: APP_BASE_HREF,
-      useValue: '/' + (window.location.pathname.split('/')[1] || '')
-    },
-    {
       provide: ForgeService,
       useClass: EnhancedForgeService
     }
