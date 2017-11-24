@@ -13,8 +13,8 @@ git checkout -b vX refs/tags/vX
 Build and deploy docker image to Docker Hub (requires permissions)
 ```
 npm run build:prod
-docker build -t docker.io/openshiftio/launchpad-frontend:vX -f Dockerfile.deploy .
-docker push docker.io/openshiftio/launchpad-frontend:vX
+docker build -t openshiftio/launcher-frontend:vX -f Dockerfile.deploy .
+docker push openshiftio/launcher-frontend:vX
 ```
 
 All good?  Push the Git tag.

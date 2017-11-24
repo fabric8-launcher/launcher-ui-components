@@ -1,22 +1,22 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: launchpad-frontend
+  name: launcher-frontend
   annotations:
-    openshift.io/display-name: "Launchpad - Frontend"
-    description: This application contains the Frontend web service
-    tags: instant-app,launchpad
+    openshift.io/display-name: "Fabric8 Launch - Frontend"
+    description: This application contains the Frontend web service for the Launcher
+    tags: instant-app,fabric8-launcher
     iconClass: icon-shadowman
     template.openshift.io/long-description: This application contains the Frontend web service
     template.openshift.io/provider-display-name: Red Hat, Inc.
-    template.openshift.io/documentation-url: https://github.com/openshiftio
+    template.openshift.io/documentation-url: https://github.com/fabric8-launch
     template.openshift.io/support-url: https://access.redhat.com
-message: "The following service has been created in your project: launchpad-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshiftio"
+message: "The following service has been created in your project: launchpad-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/fabric8-launch"
 labels:
-  template: launchpad-frontend
+  template: launcher-frontend
 parameters:
 - name: IMAGE
-  value: openshiftio/launchpad-frontend
+  value: openshiftio/launcher-frontend
   required: true
 - name: IMAGE_TAG
   value: latest
@@ -25,13 +25,13 @@ objects:
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
-    name: launchpad-frontend
+    name: launcher-frontend
     annotations:
-      configmap.fabric8.io/update-on-change: "launchpad"
+      configmap.fabric8.io/update-on-change: "launcher"
   spec:
     replicas: 1
     selector:
-      service: launchpad-frontend
+      service: launcher-frontend
     strategy:
       resources: {}
       rollingParams:
@@ -44,12 +44,12 @@ objects:
     template:
       metadata:
         labels:
-          service: launchpad-frontend
+          service: launcher-frontend
       spec:
         containers:
         - image: ${IMAGE}:${IMAGE_TAG}
           imagePullPolicy: Always
-          name: launchpad-frontend
+          name: launcher-frontend
           ports:
           - containerPort: 8080
             protocol: TCP
@@ -67,18 +67,18 @@ objects:
           - name: LAUNCHPAD_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
-                name: launchpad
-                key: launchpad.keycloak.url
+                name: launcher
+                key: launcher.keycloak.url
           - name: LAUNCHPAD_KEYCLOAK_REALM
             valueFrom:
               configMapKeyRef:
-                name: launchpad
-                key: launchpad.keycloak.realm
+                name: launcher
+                key: launcher.keycloak.realm
           - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
             valueFrom:
               configMapKeyRef:
-                name: launchpad
-                key: launchpad.tracker.segment.token
+                name: launcher
+                key: launcher.tracker.segment.token
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
@@ -106,8 +106,8 @@ objects:
   apiVersion: v1
   metadata:
     labels:
-      service: launchpad-frontend
-    name: launchpad-frontend
+      service: launcher-frontend
+    name: launcher-frontend
   spec:
     ports:
     - name: "8080"
@@ -115,6 +115,7 @@ objects:
       protocol: TCP
       targetPort: 8080
     selector:
-      service: launchpad-frontend
+      service: launcher-frontend
     sessionAffinity: None
     type: ClusterIP
+

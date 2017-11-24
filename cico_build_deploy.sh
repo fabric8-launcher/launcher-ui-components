@@ -3,12 +3,12 @@
 GENERATOR_DOCKER_HUB_USERNAME=openshiftioadmin
 REGISTRY_URI="push.registry.devshift.net"
 REGISTRY_NS="openshiftio"
-REGISTRY_IMAGE="launchpad-frontend"
+REGISTRY_IMAGE="launcher-frontend"
 REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
-DOCKER_HUB_URL="openshiftio/launchpad-frontend"
-BUILDER_IMAGE="launchpad-frontend-builder"
-BUILDER_CONT="launchpad-frontend-builder-container"
-DEPLOY_IMAGE="launchpad-frontend-deploy"
+DOCKER_HUB_URL="openshiftio/launcher-frontend"
+BUILDER_IMAGE="launcher-frontend-builder"
+BUILDER_CONT="launcher-frontend-builder-container"
+DEPLOY_IMAGE="launcher-frontend-deploy"
 
 TARGET_DIR="dist"
 
