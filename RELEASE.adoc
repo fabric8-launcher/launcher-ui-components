@@ -17,9 +17,8 @@ docker build -t docker.io/openshiftio/launchpad-frontend:vX -f Dockerfile.deploy
 docker push docker.io/openshiftio/launchpad-frontend:vX
 ```
 
-All's good?  Push the Git tag.
+All good?  Push the Git tag.
 ```
 git checkout master
 git push upstream master --tags
 ```
- 
