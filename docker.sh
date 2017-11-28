@@ -10,8 +10,8 @@ for arg; do
                 # create a docker network for our app if it doesn't exist
                 if ! docker network ls | grep -q $NETWORK; then docker network create $NETWORK; fi
                 # override the connection URLs for the application
-                LAUNCHPAD_BACKEND_URL=http://localhost:8088/launcher/api
-                LAUNCHPAD_MISSIONCONTROL_URL=ws://localhost:8088/launcher
+                LAUNCHPAD_BACKEND_URL=http://localhost:8088/launch/api
+                LAUNCHPAD_MISSIONCONTROL_URL=ws://localhost:8088/launch
                 ;;
         *)  DRUN_OPTS="$DRUN_OPTS ${arg}"
                 ;;
