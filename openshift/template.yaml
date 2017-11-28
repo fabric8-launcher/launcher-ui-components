@@ -55,9 +55,15 @@ objects:
             protocol: TCP
           env:
           - name: LAUNCHPAD_BACKEND_URL
-            value: /
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.backend.url
           - name: LAUNCHPAD_MISSIONCONTROL_URL
-            value: /
+            valueFrom:
+              configMapKeyRef:
+                name: launchpad
+                key: launchpad.missioncontrol.url
           - name: LAUNCHPAD_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
