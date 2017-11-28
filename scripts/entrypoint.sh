@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
-SETTINGS="/usr/share/nginx/html/settings.json"
-APP_JS="/usr/share/nginx/html/app*.js"
-INDEX="/usr/share/nginx/html/index.html"
+SETTINGS="/usr/share/nginx/html/launch/settings.json"
+APP_JS="/usr/share/nginx/html/launch/app*.js"
+INDEX="/usr/share/nginx/html/launch/index.html"
 
 if [ -n "${LAUNCHPAD_BACKEND_URL}" ]; then
     sed -i.bckp 's#"backend_url": ".*"#"backend_url": "'${LAUNCHPAD_BACKEND_URL}'"#' ${SETTINGS}
