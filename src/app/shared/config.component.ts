@@ -17,13 +17,12 @@ export class LaunchConfig extends Config {
     }).catch(() => {
       console.info('settings.json not found ignoring');
     }).then(() => {
-      const backendUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
-      if (backendUrl) {
-        LaunchConfig.settings['backend_url'] = backendUrl;
+      let backendUrl = LaunchConfig.settings['backend_url'];
+      if (!backendUrl) {
+        backendUrl = process.env.LAUNCHPAD_BACKEND_URL;
       }
 
-      LaunchConfig.settings['backend_url'] = Location.stripTrailingSlash(LaunchConfig.settings['backend_url'])
-        + '/launchpad';
+      LaunchConfig.settings['backend_url'] = Location.stripTrailingSlash(backendUrl)+ '/launchpad';
 
       let missionControl = LaunchConfig.settings['mission_control_url'];
       if (!missionControl) {
