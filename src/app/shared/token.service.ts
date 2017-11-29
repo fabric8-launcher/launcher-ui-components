@@ -16,7 +16,7 @@ export class TokenService {
       this.apiUrl = config.get("mission_control_url");
     }
 
-    let baseUrl = this.apiUrl.replace(/^wss?/, "http");
+    let baseUrl = this.apiUrl.replace(/^ws?/, "http");
     this.http.get(Location.joinWithSlash(baseUrl, "api/openshift/clusters?all")).subscribe(response => {
       this.apiUrl = Location.joinWithSlash(baseUrl, "api/validate/token/");
 
