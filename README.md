@@ -23,7 +23,7 @@ $ npm start
 
 ## Production Build
 
-Location of the [backend][2] can be determained at runtime (via `settings.json`) or at build time.
+Location of the [backend][2] can be determined at runtime (via `settings.json`) or at build time.
 If `LAUNCHPAD_BACKEND_URL` environment variable is set at build time, this value will be used to connect to the backend.
 Otherwise [settings.json][1] will be fetched at runtime and the contents used connect to the backend.
 
@@ -37,5 +37,5 @@ npm run build:prod
 
 The build output will be under `dist` directory.
 
-[1]: https://github.com/openshiftio/launchpad-frontend/blob/master/src/assets/settings.json
-[2]: https://github.com/openshiftio/launchpad-backend
+[1]: https://github.com/fabric8-launcher/launchpad-frontend/blob/master/src/assets/settings.json
+[2]: https://github.com/fabric8-launcher/launcher-backend
