@@ -17,13 +17,25 @@ export class LaunchConfig extends Config {
     }).catch(() => {
       console.info('settings.json not found ignoring');
     }).then(() => {
-      const apiUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
-      if (apiUrl) {
-        LaunchConfig.settings['backend_url'] = apiUrl;
+      const backendUrl: string = process.env.LAUNCHPAD_BACKEND_URL;
+      if (backendUrl) {
+        LaunchConfig.settings['backend_url'] = backendUrl;
       }
 
       LaunchConfig.settings['backend_url'] = Location.stripTrailingSlash(LaunchConfig.settings['backend_url'])
         + '/launchpad';
+
+      let missionControl = LaunchConfig.settings['mission_control_url'];
+      if (!missionControl) {
+        missionControl = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
+      }
+
+      if (missionControl && (missionControl.startsWith("/") || missionControl.startsWith(":"))) {
+        missionControl = (missionControl.startsWith(":") ? location.hostname : location.host) + missionControl;
+        missionControl = (location.protocol === "https:" ? "wss://" : "ws://") + missionControl;
+      }
+
+      LaunchConfig.settings['mission_control_url'] = missionControl;
     });
   }
 
