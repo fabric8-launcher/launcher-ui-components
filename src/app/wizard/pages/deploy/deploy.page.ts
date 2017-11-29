@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
+import { Location } from "@angular/common";
 
 import { StatusMessage, SubmittableInput } from "ngx-forge";
 import {ForgeService} from "ngx-forge";
@@ -21,7 +22,7 @@ export class DeployPage implements OnInit {
   statusMessages: StatusMessage[];
   error: string;
 
-  private apiUrl: string = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
+  private apiUrl: string;
   private webSocket: WebSocket;
 
   constructor(private forgeService: ForgeService,
@@ -30,24 +31,7 @@ export class DeployPage implements OnInit {
               private history: History,
               private kc: KeycloakService,
               private config: Config) {
-    if (!this.apiUrl) {
-      this.apiUrl = config.get("mission_control_url");
-    }
-    if (this.apiUrl && (this.apiUrl.startsWith("/") || this.apiUrl.startsWith(":"))) {
-      if (this.apiUrl.startsWith(":")) {
-        this.apiUrl = location.hostname + this.apiUrl;
-      } else {
-        this.apiUrl = location.host + this.apiUrl;
-      }
-      if (location.protocol === "https:") {
-        this.apiUrl = "wss://" + this.apiUrl;
-      } else {
-        this.apiUrl = "ws://" + this.apiUrl;
-      }
-    }
-    if (this.apiUrl && this.apiUrl.endsWith("/")) {
-      this.apiUrl = this.apiUrl.substr(0, this.apiUrl.length - 1);
-    }
+    this.apiUrl = Location.stripTrailingSlash(config.get("mission_control_url"));
   }
 
   ngOnInit() {
