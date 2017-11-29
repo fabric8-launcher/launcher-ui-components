@@ -83,14 +83,14 @@ objects:
           terminationMessagePath: /dev/termination-log
           readinessProbe:
             httpGet:
-              path: /wizard
+              path: /launch/wizard
               port: 8080
             initialDelaySeconds: 15
             timeoutSeconds: 10
             periodSeconds: 20
           livenessProbe:
             httpGet:
-              path: /wizard
+              path: /launch/wizard
               port: 8080
             initialDelaySeconds: 30
             timeoutSeconds: 10
