@@ -6,16 +6,16 @@ var helpers = require('./helpers');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const API_URL = process.env.API_URL || 'http://api.almighty.io/api/';
-const BACKEND_URL = process.env.BACKEND_URL;
+const LAUNCHPAD_BACKEND_URL = process.env.LAUNCHPAD_BACKEND_URL;
 const LAUNCHPAD_MISSIONCONTROL_URL = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
-const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+const PUBLIC_PATH = process.env.PUBLIC_PATH || '/launch/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
   API_URL: API_URL,
   ENV: ENV,
   PUBLIC_PATH: PUBLIC_PATH,
   LAUNCHPAD_MISSIONCONTROL_URL: LAUNCHPAD_MISSIONCONTROL_URL,
-  BACKEND_URL: BACKEND_URL
+  BACKEND_URL: LAUNCHPAD_BACKEND_URL
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -43,7 +43,7 @@ module.exports = webpackMerge(commonConfig, {
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
         'API_URL' : JSON.stringify(METADATA.API_URL),
-        'BACKEND_URL' : JSON.stringify(METADATA.BACKEND_URL),
+        'LAUNCHPAD_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHPAD_BACKEND_URL),
         'LAUNCHPAD_MISSIONCONTROL_URL': JSON.stringify(METADATA.LAUNCHPAD_MISSIONCONTROL_URL),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH)
       }
