@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
+import { Headers } from "@angular/http";
 import { Location } from "@angular/common";
 
 import { StatusMessage, SubmittableInput } from "ngx-forge";
@@ -38,10 +39,12 @@ export class DeployPage implements OnInit {
     this.pageNumbers = Array(this.history.stepIndex - 1).fill(1).map((x, i) => i + 1);
   }
 
-  deploy(): void {
+  deploy(step: number = 0): void {
     if (this.kc.isAuthenticated()) {
       this.status = Status.Progress;
-      this.forgeService.upload(this.command, this.history)
+      let headers = new Headers();
+      headers.append("X-RETRY_STEP", "" + step);
+      this.forgeService.upload(this.command, this.history, headers)
         .then(status => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
           this.webSocket.onmessage = function (event: MessageEvent) {
@@ -53,6 +56,9 @@ export class DeployPage implements OnInit {
                   let status = new StatusMessage(key, item[key]);
                   this.statusMessages.push(status);
                 }
+              }
+              for (let i = 0; i < step; i++) {
+                this.statusMessages[i].done = true;
               }
             } else {
               let message = JSON.parse(event.data);
@@ -132,11 +138,25 @@ export class DeployPage implements OnInit {
     }
   }
 
+  get lastDone(): number {
+    let step = 0;
+    if (this.statusMessages) {
+      for (let status of this.statusMessages) {
+        if (!status.done) {
+          break;
+        }
+        step++;
+      }
+    }
+    return step;
+  }
+
   retry(): void {
     if (this.webSocket != null) this.webSocket.close();
-    this.statusMessages = null;
+    let step = this.lastDone;
     this.error = null;
-    this.deploy();
+    this.statusMessages = null;
+    this.deploy(step);
   }
 
   downloadZip(): void {
