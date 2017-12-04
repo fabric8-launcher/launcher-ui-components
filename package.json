@@ -1,7 +1,7 @@
 {
-  "name": "launchpad-frontend",
+  "name": "launcher-frontend",
   "version": "0.0.7",
-  "description": "A frontend for a launchpad, microservices booster generator",
+  "description": "A frontend for a launcher, microservices booster generator",
   "homepage": "",
   "repository": {
     "type": "git",

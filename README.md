@@ -37,5 +37,6 @@ npm run build:prod
 
 The build output will be under `dist` directory.
 
-[1]: https://github.com/fabric8-launcher/launchpad-frontend/blob/master/src/assets/settings.json
+[1]: https://github.com/fabric8-launcher/launcher-frontend/blob/master/src/assets/settings.json
 [2]: https://github.com/fabric8-launcher/launcher-backend
+

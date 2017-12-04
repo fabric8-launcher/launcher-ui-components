@@ -9,9 +9,9 @@ metadata:
     iconClass: icon-shadowman
     template.openshift.io/long-description: This application contains the Frontend web service
     template.openshift.io/provider-display-name: Red Hat, Inc.
-    template.openshift.io/documentation-url: https://github.com/fabric8-launch
+    template.openshift.io/documentation-url: https://github.com/fabric8-launcher
     template.openshift.io/support-url: https://access.redhat.com
-message: "The following service has been created in your project: launchpad-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/fabric8-launch"
+message: "The following service has been created in your project: launcher-frontend.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/fabric8-launcher"
 labels:
   template: launcher-frontend
 parameters:
