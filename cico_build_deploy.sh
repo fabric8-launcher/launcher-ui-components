@@ -2,10 +2,10 @@
 
 GENERATOR_DOCKER_HUB_USERNAME=openshiftioadmin
 REGISTRY_URI="push.registry.devshift.net"
-REGISTRY_NS="openshiftio"
+REGISTRY_NS="fabric8"
 REGISTRY_IMAGE="launcher-frontend"
-REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
-DOCKER_HUB_URL="openshiftio/launcher-frontend"
+DOCKER_HUB_URL=${REGISTRY_NS}/${REGISTRY_IMAGE}
+REGISTRY_URL=${REGISTRY_URI}/${DOCKER_HUB_URL}
 BUILDER_IMAGE="launcher-frontend-builder"
 BUILDER_CONT="launcher-frontend-builder-container"
 DEPLOY_IMAGE="launcher-frontend-deploy"

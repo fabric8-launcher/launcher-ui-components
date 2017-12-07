@@ -16,7 +16,7 @@ labels:
   template: launcher-frontend
 parameters:
 - name: IMAGE
-  value: openshiftio/launcher-frontend
+  value: fabric8/launcher-frontend
   required: true
 - name: IMAGE_TAG
   value: latest
