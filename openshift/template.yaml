@@ -54,27 +54,27 @@ objects:
           - containerPort: 8080
             protocol: TCP
           env:
-          - name: LAUNCHPAD_BACKEND_URL
+          - name: LAUNCHER_BACKEND_URL
             valueFrom:
               configMapKeyRef:
                 name: launcher
                 key: launcher.backend.url
-          - name: LAUNCHPAD_MISSIONCONTROL_URL
+          - name: LAUNCHER_MISSIONCONTROL_URL
             valueFrom:
               configMapKeyRef:
                 name: launcher
                 key: launcher.missioncontrol.url
-          - name: LAUNCHPAD_KEYCLOAK_URL
+          - name: LAUNCHER_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
                 name: launcher
                 key: launcher.keycloak.url
-          - name: LAUNCHPAD_KEYCLOAK_REALM
+          - name: LAUNCHER_KEYCLOAK_REALM
             valueFrom:
               configMapKeyRef:
                 name: launcher
                 key: launcher.keycloak.realm
-          - name: LAUNCHPAD_TRACKER_SEGMENT_TOKEN
+          - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
               configMapKeyRef:
                 name: launcher

@@ -19,14 +19,14 @@ export class LaunchConfig extends Config {
     }).then(() => {
       let backendUrl = LaunchConfig.settings['backend_url'];
       if (!backendUrl) {
-        backendUrl = process.env.LAUNCHPAD_BACKEND_URL;
+        backendUrl = process.env.LAUNCHER_BACKEND_URL;
       }
 
       LaunchConfig.settings['backend_url'] = Location.stripTrailingSlash(backendUrl)+ '/launchpad';
 
       let missionControl = LaunchConfig.settings['mission_control_url'];
       if (!missionControl) {
-        missionControl = process.env.LAUNCHPAD_MISSIONCONTROL_URL;
+        missionControl = process.env.LAUNCHER_MISSIONCONTROL_URL;
       }
 
       if (missionControl && (missionControl.startsWith("/") || missionControl.startsWith(":"))) {

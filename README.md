@@ -24,11 +24,11 @@ $ npm start
 ## Production Build
 
 Location of the [backend][2] can be determined at runtime (via `settings.json`) or at build time.
-If `LAUNCHPAD_BACKEND_URL` environment variable is set at build time, this value will be used to connect to the backend.
+If `LAUNCHER_BACKEND_URL` environment variable is set at build time, this value will be used to connect to the backend.
 Otherwise [settings.json][1] will be fetched at runtime and the contents used connect to the backend.
 
 To generate production build, set the backend url (the host and port of where
-[generator backend][2] is deployed) either in the [settings.json][1] or as `LAUNCHPAD_BACKEND_URL` environment variable
+[backend][2] is deployed) either in the [settings.json][1] or as `LAUNCHER_BACKEND_URL` environment variable
 and run the `npm` command as given below:
 
 ```bash

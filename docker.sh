@@ -20,8 +20,8 @@ for arg; do
                 # create a docker network for our app if it doesn't exist
                 if ! docker network ls | grep -q $NETWORK; then docker network create $NETWORK; fi
                 # override the connection URLs for the application
-                LAUNCHPAD_BACKEND_URL=http://localhost:8088/launch/api
-                LAUNCHPAD_MISSIONCONTROL_URL=ws://localhost:8088/launch
+                LAUNCHER_BACKEND_URL=http://localhost:8088/launch/api
+                LAUNCHER_MISSIONCONTROL_URL=ws://localhost:8088/launch
                 EXTRA_OPTS=""
                 ;;
         --build) DO_RUN=0
@@ -63,11 +63,11 @@ if [[ $DO_RUN -eq 1 ]]; then
 		--network $NETWORK \
 		-t \
 		-p8088:8080 \
-		-eLAUNCHPAD_KEYCLOAK_URL=$LAUNCHPAD_KEYCLOAK_URL \
-		-eLAUNCHPAD_KEYCLOAK_REALM=$LAUNCHPAD_KEYCLOAK_REALM \
-		-eLAUNCHPAD_BACKEND_URL=$LAUNCHPAD_BACKEND_URL \
-		-eLAUNCHPAD_MISSIONCONTROL_URL=$LAUNCHPAD_MISSIONCONTROL_URL \
-		-eLAUNCHPAD_TRACKER_SEGMENT_TOKEN=$LAUNCHPAD_TRACKER_SEGMENT_TOKEN \
+		-eLAUNCHER_KEYCLOAK_URL=$LAUNCHER_KEYCLOAK_URL \
+		-eLAUNCHER_KEYCLOAK_REALM=$LAUNCHER_KEYCLOAK_REALM \
+		-eLAUNCHER_BACKEND_URL=$LAUNCHER_BACKEND_URL \
+		-eLAUNCHER_MISSIONCONTROL_URL=$LAUNCHER_MISSIONCONTROL_URL \
+		-eLAUNCHER_TRACKER_SEGMENT_TOKEN=$LAUNCHER_TRACKER_SEGMENT_TOKEN \
 		$DRUN_OPTS \
 		$EXTRA_OPTS \
 		fabric8/launcher-frontend
