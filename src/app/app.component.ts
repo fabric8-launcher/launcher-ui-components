@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
+import { Component } from "@angular/core";
+import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "body",
@@ -10,9 +10,30 @@ import {Router} from "@angular/router";
   }
 })
 export class AppComponent {
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     router.events.subscribe((url: any) => {
       this.intro = url.url !== "/" && url.url !== "/wizard";
+    });
+
+    router.events.distinctUntilChanged((previous: any, current: any) => {
+      if (current instanceof NavigationEnd) {
+        return previous.url === current.url;
+      }
+      return true;
+    }).subscribe((x: any) => {
+      let snapshot = route.snapshot;
+      let activated = route.firstChild;
+      if (activated != null) {
+        while (activated != null) {
+          snapshot = activated.snapshot;
+          activated = activated.firstChild;
+        }
+      }
+
+      window['analytics'].page({
+        name: snapshot.data.name + (snapshot.params.step || ''),
+        properties: snapshot.params
+      });
     });
   }
 
