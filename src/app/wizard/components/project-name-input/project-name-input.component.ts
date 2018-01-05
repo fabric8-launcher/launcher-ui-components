@@ -27,13 +27,13 @@ export class ProjectNameInputComponent extends InputComponent {
     super(_renderer, _elementRef, false);
     this.resetPrefix();
     this.keyUp.subscribe(() => {
-      this.input.value = this.createPrefix() + '-' + this.projectName;
+      this.input.value = (this.createPrefix() ? this.createPrefix() + '-': '') + this.projectName;
       this.resetPrefix();
     });
   }
 
   private resetPrefix() {
-    this.prefix = this.createPrefix() + ' -';
+    this.prefix = this.createPrefix() ? this.createPrefix() + ' -' : '';
   }
 
   private createPrefix() {
