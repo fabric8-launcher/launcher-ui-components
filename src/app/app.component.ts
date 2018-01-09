@@ -30,10 +30,12 @@ export class AppComponent {
         }
       }
 
-      window['analytics'].page({
-        name: snapshot.data.name + (snapshot.params.step || ''),
-        properties: snapshot.params
-      });
+      if (window['analytics']) {
+        window['analytics'].page({
+          name: snapshot.data.name + (snapshot.params.step || ''),
+          properties: snapshot.params
+        });
+      }
     });
   }
 
