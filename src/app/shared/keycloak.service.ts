@@ -85,11 +85,11 @@ export class KeycloakService {
   }
 
   get user(): string {
-    return this.skip ? "Fake User" : this.auth.authz.tokenParsed.name;
+    return this.skip ? "" : this.auth.authz.tokenParsed.name;
   }
 
   username(): string {
-    return this.skip ? "anonymous" : this.auth.authz.tokenParsed.preferred_username;
+    return this.skip ? "" : this.auth.authz.tokenParsed.preferred_username;
   }
 
   getToken(): Promise<string> {
