@@ -67,8 +67,10 @@ if [[ $DO_RUN -eq 1 ]]; then
         export LAUNCHER_MISSIONCONTROL_OPENSHIFT_USERNAME=developer
         export LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD=developer
         # For launcher-frontend
-        export LAUNCHER_MISSIONCONTROL_URL="ws://127.0.0.1:8080"
-        export LAUNCHER_BACKEND_URL="http://127.0.0.1:8080/api"
+        if [[ "$NETWORK" -eq "default" ]]; then
+            export LAUNCHER_MISSIONCONTROL_URL="ws://127.0.0.1:8080"
+            export LAUNCHER_BACKEND_URL="http://127.0.0.1:8080/api"
+        fi
         # For OSIO frontend
         export FABRIC8_FORGE_API_URL=http://localhost:8080/api/launchpad
     fi
