@@ -14,8 +14,8 @@ EXTRA_OPTS="--add-host launcher-backend:$DOCKER_HOST"
 # container to a private network (creating it if necessary)
 NETWORK=default
 DRUN_OPTS=""
-for arg; do
-    case $arg in
+while [[ $# -gt 0 ]]; do
+    case "$1" in
         --net)  NETWORK=launchernw
                 # create a docker network for our app if it doesn't exist
                 if ! docker network ls | grep -q $NETWORK; then docker network create $NETWORK; fi
@@ -41,21 +41,38 @@ for arg; do
                 echo "For all other available options see 'docker run --help'"
                 exit
                 ;;
-        *)  DRUN_OPTS="$DRUN_OPTS ${arg}"
+        *)  DRUN_OPTS="$DRUN_OPTS $1"
                 ;;
     esac
+    shift
 done
 
 if [[ $DO_BUILD -eq 1 ]]; then
-	# remove any pre-existing image
-	docker rm -f launcher-frontend >/dev/null 2>&1
-
 	# build the image
 	echo "Building image..."
 	docker build -q -t fabric8/launcher-frontend -f Dockerfile.deploy .
 fi
 
 if [[ $DO_RUN -eq 1 ]]; then
+    # remove any pre-existing image
+    docker rm -f launcher-frontend >/dev/null 2>&1
+
+    if [[ -z "${LAUNCHER_MISSIONCONTROL_URL}" ]]; then
+        echo "Missing environment variables, running with default values..."
+        # Authentication: No KeyCloak
+        unset LAUNCHER_KEYCLOAK_URL
+        unset LAUNCHER_KEYCLOAK_REALM
+        unset LAUNCHER_MISSIONCONTROL_OPENSHIFT_CLUSTERS_FILE
+        unset LAUNCHER_MISSIONCONTROL_OPENSHIFT_TOKEN
+        export LAUNCHER_MISSIONCONTROL_OPENSHIFT_USERNAME=developer
+        export LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD=developer
+        # For launcher-frontend
+        export LAUNCHER_MISSIONCONTROL_URL="ws://127.0.0.1:8080"
+        export LAUNCHER_BACKEND_URL="http://127.0.0.1:8080/api"
+        # For OSIO frontend
+        export FABRIC8_FORGE_API_URL=http://localhost:8080/api/launchpad
+    fi
+    
 	# run it
 	echo "Running image..."
 	docker run \
