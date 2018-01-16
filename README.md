@@ -21,6 +21,15 @@ Start the app by executing the following.
 $ npm start
 ```
 
+If you want the UI to use a local version of the backend, you need to set the following environment variables:
+
+```bash   
+$ export LAUNCHER_BACKEND_URL=http://localhost:8080/api/
+$ export LAUNCHER_MISSIONCONTROL_URL=ws://localhost:8080
+```
+
+More details on running a local version of the backend are available [here][2].
+
 ## Production Build
 
 Location of the [backend][2] can be determined at runtime (via `settings.json`) or at build time.
