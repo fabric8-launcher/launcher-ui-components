@@ -5048,9 +5048,9 @@
       "integrity": "sha512-beoKQGJEFwdg0ctIpGb+vx4PTPkyqHrA5tBAEbnUn7ZlTjjfA6533QYGv3qVoKPDNkkHmLA3lRjWKxEMYepCdg=="
     },
     "ngx-forge": {
-      "version": "0.0.35-development",
-      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.0.35-development.tgz",
-      "integrity": "sha512-cb7/JkUo9Bg1trINtMorAQGex/69DcYILj5QfDGpCUwGyDvSzLMkbKpV4MmDvIVJWYdz6eW4Lnji0AUdANYxqg==",
+      "version": "0.0.36-development",
+      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.0.36-development.tgz",
+      "integrity": "sha512-HvvxS6KAtR26QH0jeSMZXCdL1RhTdhNEyWtiJXR0X1thHrUBTCsNYbG0uc1p/JqPAFjXxONdeMkANRbD74szTA==",
       "requires": {
         "@angular/core": "4.4.4",
         "@angular/forms": "4.4.4",
