@@ -20,6 +20,13 @@
           <button class="btn btn-sm btn-danger" (click)="linkAccounts.open()">Grant Access</button>
         </p>
       </div>
+      <div *ngIf="!isZipFile(option) && token.valid">
+        <p class="text-center">
+          <button class="btn btn-sm btn-default" (click)="linkAccounts.open()">
+            <span class="glyphicon glyphicon-cog"></span> Configure tokens
+          </button>
+        </p>
+      </div>
       <button class="btn btn-primary box-btn" (click)="getField('deploymentType').value = option.id;next()"
               [disabled]="!isZipFile(option) && !getField('openShiftCluster')">
         {{isZipFile(option) ? "I will build and run locally" : "Use OpenShift Online"}}
