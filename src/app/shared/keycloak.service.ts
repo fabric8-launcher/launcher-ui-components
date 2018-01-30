@@ -31,6 +31,9 @@ export class KeycloakService {
             this.auth.authz = keycloakAuth;
             this.loginSubject.next(keycloakAuth.token);
             this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
+            if (window['analytics']) {
+              window['analytics'].identify(this.auth.authz.tokenParsed.email, this.auth.authz.tokenParsed);
+            }
             resolve(this);
           });
       } else {
