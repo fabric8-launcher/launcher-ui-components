@@ -10,7 +10,7 @@
     </span>
     <step [steps]="currentGui.state.steps" [stepIndex]="history.stepIndex"></step>
     <form class="form-horizontal" #wizard="ngForm">
-      <div class="wizard-pf-loading blank-slate-pf loading" *ngIf="!currentGui.inputs">
+      <div class="wizard-pf-loading blank-slate-pf loading" *ngIf="!currentGui.inputs" authentication>
         <div class="spinner spinner-lg blank-slate-pf-icon"></div>
         <h3 class="blank-slate-pf-main-action">Loading Wizard</h3>
         <p class="blank-slate-pf-secondary-action">
