@@ -20,19 +20,17 @@ export class KeycloakService {
       this.skip = !config.realm;
       const keycloakAuth: any = Keycloak(config);
 
-      this.auth.loggedIn = false;
       this.auth.authz = {};
 
       if (config.realm) {
         keycloakAuth.init({ onLoad: "check-sso", checkLoginIframe: false })
           .error(() => reject())
           .success(() => {
-            this.auth.loggedIn = true;
             this.auth.authz = keycloakAuth;
-            this.loginSubject.next(keycloakAuth.token);
             this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
-            if (window['analytics']) {
-              window['analytics'].identify(this.auth.authz.tokenParsed.email, this.auth.authz.tokenParsed);
+            this.loginSubject.next(keycloakAuth.token);
+            if (window['analytics'] && keycloakAuth.authenticated) {
+              window['analytics'].identify(keycloakAuth.tokenParsed.email, keycloakAuth.tokenParsed);
             }
             resolve(this);
           });
@@ -43,7 +41,6 @@ export class KeycloakService {
   }
 
   logout() {
-    this.auth.loggedIn = false;
     this.auth.authz = null;
     this.accountLink = new Map<string, string>();
     window.location.href = this.auth.logoutUrl;
@@ -57,7 +54,7 @@ export class KeycloakService {
     if (this.auth.authz.tokenParsed) {
       return Observable.of(this.auth.authz.token);
     }
-    return this.loginSubject;
+    return this.loginSubject.asObservable();
   }
 
   isAuthenticated(): boolean {
