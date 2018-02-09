@@ -9,7 +9,7 @@ export class RuntimePage {
   @Input() gui: Gui;
   config: ProjectSelectConfig = {
     classes: ['Node','Spring','WildFly','Vert', 'Fuse'],
-    techPreview: ['Node','Fuse'],
+    techPreview: ['Fuse'],
     renderType: 'title'
   }
 }
