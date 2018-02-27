@@ -8,8 +8,8 @@ import { Gui, ProjectSelectConfig } from "ngx-forge";
 export class RuntimePage {
   @Input() gui: Gui;
   config: ProjectSelectConfig = {
-    classes: ['Node','Spring','WildFly','Vert'],
-    techPreview: ['Node'],
+    classes: ['Node','Spring','WildFly','Vert', 'Fuse'],
+    techPreview: ['Node','Fuse'],
     renderType: 'title'
   }
 }
