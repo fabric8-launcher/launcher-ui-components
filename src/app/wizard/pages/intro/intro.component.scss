@@ -62,7 +62,7 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   .runtime {
     flex-grow: 1;
     background-color: white;
-    margin: 0 20px;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
     padding: 40px 20px;
@@ -70,6 +70,10 @@ $assetPath : "../../../../assets/img/project-select-icons/";
       flex-grow: 2;
     }
   }
+}
+
+.preview.row {
+  margin-top: 30px;
 }
 
 .icon {
