@@ -97,6 +97,11 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   background-size: 60%;
 }
 
+.fuse {
+  background-image: url(#{$assetPath}fuse-logo.png);
+  background-size: 60%;
+}
+
 $red_berry: #8e0000;
 $red_base: #c00;
 $black_10: rgba(0,0,0,.1);
