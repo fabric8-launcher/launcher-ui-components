@@ -1,5 +1,5 @@
-Launchpad Frontend UI
-=====================
+Fabric8-Launcher Frontend
+=========================
 [![Build Status](https://ci.centos.org/view/Devtools/job/devtools-launcher-frontend-generator-build-master/badge/icon)](https://ci.centos.org/buildStatus/icon?job=devtools-launcher-frontend-generator-build-master)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
