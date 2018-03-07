@@ -4,8 +4,9 @@ import { Http } from "@angular/http";
 import {ForgeService, TokenProvider} from "ngx-forge";
 import { History } from "ngx-forge";
 import { Gui, MetaData, Input } from "ngx-forge";
-import { AsciidocService } from "ngx-forge";
 import { Config } from "ngx-forge";
+
+import { AsciidocService } from "../wizard/components/asciidoc/asciidoc.service";
 
 @Injectable()
 export class EnhancedForgeService extends ForgeService {
