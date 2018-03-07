@@ -2,7 +2,7 @@ import {APP_INITIALIZER, NgModule} from "@angular/core";
 import {CommonModule, APP_BASE_HREF} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
-import {AsciidocIndex, Config, ForgeService, History, NgxForgeModule, TokenProvider} from "ngx-forge";
+import {Config, ForgeService, History, NgxForgeModule, TokenProvider} from "ngx-forge";
 
 import {KeycloakService} from "../shared/keycloak.service";
 import {KeycloakTokenProvider} from "../shared/keycloak-token.provider";
@@ -27,9 +27,11 @@ import {ProjectNameInputModule} from "./components/project-name-input/project-na
 import {ButtonComponent} from "./components/button/button.component";
 import {AuthenticationDirective} from "../shared/authentication.directive";
 import {CiDirective} from "../shared/ci.directive";
-import {LaunchAdocIndex} from "../shared/asciidoc.index";
 
 import {ModalModule} from "ngx-modal";
+import {AsciidocComponent} from "./components/asciidoc/asciidoc.component";
+import {AsciidocIndex as AdocIndex } from "./components/asciidoc/asciidoc.index";
+import {AsciidocService} from "./components/asciidoc/asciidoc.service";
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import {ModalModule} from "ngx-modal";
     ModalModule
   ],
   declarations: [
+    AsciidocComponent,
     FormComponent,
     IntroComponent,
     LinkAccountsPage,
@@ -57,6 +60,7 @@ import {ModalModule} from "ngx-modal";
     CiDirective
   ],
   providers: [
+    AsciidocService,
     KeycloakService,
     {
       provide: APP_INITIALIZER,
@@ -71,10 +75,7 @@ import {ModalModule} from "ngx-modal";
     },
     TokenService,
     History,
-    {
-      provide: AsciidocIndex,
-      useClass: LaunchAdocIndex
-    },
+    AdocIndex,
     LaunchConfig,
     {
       provide: APP_INITIALIZER,
