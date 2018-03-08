@@ -4,8 +4,7 @@
 
 const helpers = require('./helpers');
 const path = require('path');
-var stringify = require('json-stringify');
-
+const stringify = require('json-stringify');
 /**
  * Webpack Plugins
  */
@@ -20,13 +19,9 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
-const FABRIC8_FORGE_API_URL = process.env.FABRIC8_FORGE_API_URL;
-const FABRIC8_FEATURE_TOGGLES_API_URL = process.env.FABRIC8_FEATURE_TOGGLES_API_URL;
+const API_URL = process.env.API_URL || (ENV === 'inmemory' ? 'app/' : 'http://localhost:8080/api/');
 const FABRIC8_WIT_API_URL = process.env.FABRIC8_WIT_API_URL;
-const FABRIC8_REALM = process.env.FABRIC8_REALM || 'fabric8';
 const FABRIC8_RECOMMENDER_API_URL = process.env.FABRIC8_RECOMMENDER_API_URL || 'http://api-bayesian.dev.rdu2c.fabric8.io/api/v1/';
-const FABRIC8_PIPELINES_NAMESPACE = process.env.FABRIC8_PIPELINES_NAMESPACE || '-development';
-const FABRIC8_BRANDING = 'fabric8';
 
 /**
  * Webpack configuration
@@ -42,7 +37,7 @@ module.exports = function (options) {
      * Do not change, leave as is or it wont work.
      * See: https://github.com/webpack/karma-webpack#source-maps
      */
-    //devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
 
     /**
      * Options affecting the resolving of modules.
@@ -56,13 +51,7 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
        */
-      extensions: ['.ts', '.js'],
-
-      modules: [helpers.root('src'), helpers.root('node_modules'),
-        // Todo: fabric8-stack-analysis-ui/src/app/stack/overview/chart-component.js cannot locate c3
-        helpers.root("node_modules/patternfly/node_modules/c3"),
-        helpers.root("node_modules/patternfly/node_modules/d3")
-      ]
+      extensions: ['.ts', '.js']
     },
 
     /**
@@ -71,6 +60,12 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#module
      */
     module: {
+
+      /**
+       * An array of applied pre and post loaders.
+       *
+       * See: http://webpack.github.io/docs/configuration.html#module-preloaders-module-postloaders
+       */
 
       /**
        * An array of automatically applied loaders.
@@ -88,20 +83,15 @@ module.exports = function (options) {
          *
          * See: https://github.com/webpack/source-map-loader
          */
-        // {
-        //   test: /\.js$/,
-        //   use: ['source-map-loader'],
-        //   exclude: [
-        //     // these packages have problems with their sourcemaps
-        //     helpers.nodeModulePath("mydatepicker"),
-        //     helpers.nodeModulePath("ng2-completer"),
-        //     helpers.nodeModulePath("angular2-flash-messages"),
-        //     helpers.nodeModulePath("ngx-dropdown"),
-        //     helpers.nodeModulePath("ngx-modal"),
-        //     helpers.nodeModulePath("ngx-modal"),
-        //     helpers.nodeModulePath("ng2-dnd")
-        //   ]
-        // },
+        {
+          test: /\.js$/,
+          use: ['source-map-loader'],
+          exclude: [
+            // these packages have problems with their sourcemaps
+            helpers.root('node_modules/rxjs'),
+            helpers.root('node_modules/@angular')
+          ]
+        },
 
         /**
          * Typescript loader support for .ts and Angular 2 async routes via .async.ts
@@ -111,16 +101,8 @@ module.exports = function (options) {
         {
           test: /\.ts$/,
           use: [
-            {
-              loader: "awesome-typescript-loader",
-              options: {
-                configFileName: 'tsconfig-test.json'
-              }
-            },
-            {
-              loader: "angular2-template-loader"
-            }
-
+            'awesome-typescript-loader',
+            'angular2-template-loader'
           ],
           exclude: [/\.e2e\.ts$/]
         },
@@ -133,7 +115,7 @@ module.exports = function (options) {
         {
           test: /\.json$/,
           use: ['json-loader'],
-          exclude: [ path.resolve(__dirname, 'src/index.html') ]
+          exclude: [helpers.root('src/index.html')]
         },
 
         /*
@@ -143,36 +125,30 @@ module.exports = function (options) {
          */
         {
           test: /\.css$/,
-          use: [
-            {
-              loader: "to-string-loader"
-            },
+          loaders: [
+            { loader: "to-string-loader" },
             {
               loader: "style-loader"
             },
             {
               loader: "css-loader"
-            }
-          ]
+            },
+          ],
         },
 
         {
           test: /\.less$/,
-          use: [
+          loaders: [
             {
               loader: 'to-string-loader'
-            },
-            {
+            }, {
               loader: 'css-loader'
-            },
-            {
+            }, {
               loader: 'less-loader',
               options: {
                 paths: [
-                  path.resolve(__dirname, "../node_modules/patternfly/dist/less"),
-                  path.resolve(__dirname, "../node_modules/patternfly/dist/less/dependencies"),
-                  path.resolve(__dirname, "../node_modules/patternfly/dist/less/dependencies/bootstrap"),
-                  path.resolve(__dirname, "../node_modules/patternfly/dist/less/dependencies/font-awesome"),
+                  path.resolve(__dirname, "../node_modules/patternfly/src/less"),
+                  path.resolve(__dirname, "../node_modules/patternfly/node_modules")
                 ],
                 sourceMap: true
               }
@@ -194,7 +170,7 @@ module.exports = function (options) {
             }
           ]
         }, {
-          test: /\.jpg$|\.png$|\.gif$|\.jpeg$/,
+          test: /\.jpg$|\.png$|\.gif$|\.jpeg$|\.svg$/,
           loaders: [
             {
               loader: "url-loader",
@@ -205,7 +181,6 @@ module.exports = function (options) {
             }
           ]
         },
-
         /**
          * Raw loader support for *.html
          * Returns file content as string
@@ -214,15 +189,16 @@ module.exports = function (options) {
          */
         {
           test: /\.html$/,
-          loader: 'raw-loader',
-          exclude: [ path.resolve(__dirname, 'src/index.html') ]
+          use: ['raw-loader'],
+          exclude: [helpers.root('src/index.html')]
         },
+
         /**
-         * Instruments JS files with Istanbul for subsequent code coverage reporting.
-         * Instrument only testing sources.
-         *
-         * See: https://github.com/deepsweet/istanbul-instrumenter-loader
-         */
+           * Instruments JS files with Istanbul for subsequent code coverage reporting.
+           * Instrument only testing sources.
+           *
+           * See: https://github.com/deepsweet/istanbul-instrumenter-loader
+           */
         {
           enforce: 'post',
           test: /\.(js|ts)$/,
@@ -239,12 +215,13 @@ module.exports = function (options) {
       ]
     },
 
-     /**
+    /**
      * Add additional plugins to the compiler.
      *
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+
       /**
        * Plugin: DefinePlugin
        * Description: Define free variables.
@@ -260,11 +237,7 @@ module.exports = function (options) {
         'HMR': false,
         'process.env': {
           'ENV': stringify(ENV),
-          'FABRIC8_FORGE_API_URL': stringify(FABRIC8_FORGE_API_URL),
-          'FABRIC8_FEATURE_TOGGLES_API_URL': stringify(FABRIC8_FEATURE_TOGGLES_API_URL),
-          'FABRIC8_WIT_API_URL': stringify(FABRIC8_WIT_API_URL),
-          'FABRIC8_REALM': stringify(FABRIC8_REALM),
-          'FABRIC8_RECOMMENDER_API_URL' : stringify(FABRIC8_RECOMMENDER_API_URL),
+          'API_URL': stringify(API_URL),
           'NODE_ENV': stringify(ENV),
           'HMR': false
         }
@@ -280,18 +253,29 @@ module.exports = function (options) {
       new ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
         /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        path.resolve(__dirname, 'src') // location of your src
+        helpers.root('src') // location of your src
       ),
 
-       /**
-       * Plugin LoaderOptionsPlugin (experimental)
-       *
-       * See: https://gist.github.com/sokra/27b24881210b56bbaff7
-       */
+      /**
+      * Plugin LoaderOptionsPlugin (experimental)
+      *
+      * See: https://gist.github.com/sokra/27b24881210b56bbaff7
+      */
       new LoaderOptionsPlugin({
         debug: true,
         options: {
 
+          /**
+           * Static analysis linter for TypeScript advanced options configuration
+           * Description: An extensible linter for the TypeScript language.
+           *
+           * See: https://github.com/wbuchwalter/tslint-loader
+           */
+          tslint: {
+            emitErrors: false,
+            failOnHint: false,
+            resourcePath: 'src'
+          }
         }
       })
     ],
@@ -309,8 +293,6 @@ module.exports = function (options) {
       module: false,
       clearImmediate: false,
       setImmediate: false
-    },
-
-    stats: "verbose"
+    }
   };
 };
