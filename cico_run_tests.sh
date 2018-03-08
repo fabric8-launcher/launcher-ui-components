@@ -39,7 +39,8 @@ fi
 mkdir -p dist
 docker run --detach=true --name=launcher-frontend-builder -t -v $(pwd)/dist:/dist:Z ${PULLREGISTRY}/fabric8/launcher-frontend-builder:${TAG}
 
-if [[ $? -ne 0 ]]; then
+ret=$?
+if [ $ret -ne 0 ]; then
   docker build -t launcher-frontend-builder -f Dockerfile.build . && \
   docker tag launcher-frontend-builder ${REGISTRY}/fabric8/launcher-frontend-builder:${TAG} && \
   docker push ${REGISTRY}/fabric8/launcher-frontend-builder:${TAG}
@@ -48,7 +49,7 @@ fi
 
 echo "NPM Install starting: $(date) $line"
 
-# Build almighty-ui
+# Build
 docker exec launcher-frontend-builder npm install
 echo "NPM Install Complete: $(date) $line"
 ## Exec unit tests
