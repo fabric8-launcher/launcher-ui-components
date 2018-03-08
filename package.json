@@ -2,7 +2,7 @@
   "name": "launcher-frontend",
   "version": "0.0.7",
   "description": "A frontend for a launcher, microservices booster generator",
-  "homepage": "",
+  "homepage": "https://developers.redhat.com/launch/",
   "repository": {
     "type": "git",
     "url": "https://github.com/fabric-launcher"
