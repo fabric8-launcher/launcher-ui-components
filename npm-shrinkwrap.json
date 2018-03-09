@@ -4544,7 +4544,7 @@
           "version": "3.3.4",
           "optional": true,
           "dependencies": {
-            "jquery": {}
+            "jquery": "3.3.1"
           }
         },
         "eonasdan-bootstrap-datetimepicker": {
