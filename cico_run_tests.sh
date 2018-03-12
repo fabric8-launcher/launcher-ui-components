@@ -33,7 +33,7 @@ yum install -y wget bzip2 git nmap-ncat psmisc \
   && yum clean all
 
 # Build
-npm install --no-optional
+npm install
 echo "NPM Install Complete: $(date) $line"
 ## Exec unit tests
 npm test
