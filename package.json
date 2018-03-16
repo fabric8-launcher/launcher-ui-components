@@ -55,7 +55,6 @@
     "jssha": "^2.3.1",
     "ngx-forge": "0.0.36-development",
     "ngx-modal": "0.0.29",
-    "npm": "^5.7.1",
     "patternfly": "3.24.0",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.1",
