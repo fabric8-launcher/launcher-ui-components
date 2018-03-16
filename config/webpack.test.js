@@ -20,13 +20,6 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
-const FABRIC8_FORGE_API_URL = process.env.FABRIC8_FORGE_API_URL;
-const FABRIC8_FEATURE_TOGGLES_API_URL = process.env.FABRIC8_FEATURE_TOGGLES_API_URL;
-const FABRIC8_WIT_API_URL = process.env.FABRIC8_WIT_API_URL;
-const FABRIC8_REALM = process.env.FABRIC8_REALM || 'fabric8';
-const FABRIC8_RECOMMENDER_API_URL = process.env.FABRIC8_RECOMMENDER_API_URL || 'http://api-bayesian.dev.rdu2c.fabric8.io/api/v1/';
-const FABRIC8_PIPELINES_NAMESPACE = process.env.FABRIC8_PIPELINES_NAMESPACE || '-development';
-const FABRIC8_BRANDING = 'fabric8';
 
 /**
  * Webpack configuration

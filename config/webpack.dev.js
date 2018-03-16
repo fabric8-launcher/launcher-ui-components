@@ -1,62 +1,250 @@
-var webpack = require('webpack');
-var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var commonConfig = require('./webpack.common.js');
-var helpers = require('./helpers');
+/**
+ * @author: @AngularClass
+ */
 
-const ENV = process.env.ENV || process.env.NODE_ENV || 'development';
+const helpers = require('./helpers');
+const webpackMerge = require('webpack-merge'); // used to merge webpack configs
+const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+
+/**
+ * Webpack Plugins
+ */
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const cloneDeep = require('lodash/cloneDeep');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
+
+/**
+ * Webpack Constants
+ */
+const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3000;
+const HMR = helpers.hasProcessFlag('hot');
 // if env is 'inmemory', the inmemory debug resource is used
-const API_URL = process.env.API_URL || (ENV==='inmemory'?'app/':'http://localhost:8080/api/');
-const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8180/';
-const LAUNCHER_MISSIONCONTROL_URL = process.env.LAUNCHER_MISSIONCONTROL_URL || 'ws://localhost:8080';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+const BUILD_NUMBER = process.env.BUILD_NUMBER;
+const BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;
+const BUILD_VERSION = process.env.BUILD_VERSION;
+const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8080/';
+const LAUNCHER_MISSIONCONTROL_URL = process.env.LAUNCHER_MISSIONCONTROL_URL || 'ws://localhost:8080';
 
-const METADATA = webpackMerge(commonConfig.metadata, {
-  API_URL: API_URL,
+const OSO_CORS_PROXY = {
+  target: `https://${process.env.KUBERNETES_SERVICE_HOST}:${process.env.KUBERNETES_SERVICE_PORT}`,
+  // Remove our prefix from the forwarded path
+  pathRewrite: { '^/_p/oso': '' },
+  // Disable cert checks for dev only
+  secure: false,
+  ws: true,
+  //changeOrigin: true,
+  logLevel: "debug",
+    onProxyRes: function (proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  },
+};
+
+const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
+  host: HOST,
+  port: PORT,
   ENV: ENV,
-  PUBLIC_PATH: PUBLIC_PATH,
+  HMR: HMR,
   LAUNCHER_BACKEND_URL: LAUNCHER_BACKEND_URL,
   LAUNCHER_MISSIONCONTROL_URL: LAUNCHER_MISSIONCONTROL_URL
 });
 
-module.exports = webpackMerge(commonConfig, {
-  devtool: 'cheap-module-eval-source-map',
+console.log(helpers.nodeModulePath('fabric8-planner'));
 
-  output: {
-    path: helpers.root('dist'),
-    publicPath: METADATA.PUBLIC_PATH,
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js',
-    sourceMapFilename: '[name].map'
-  },
-
-  plugins: [
-    new ExtractTextPlugin('[name].css'),
+/**
+ * Webpack configuration
+ *
+ * See: http://webpack.github.io/docs/configuration.html#cli
+ */
+module.exports = function (options) {
+  console.log('The merged metadata:', METADATA);
+  return webpackMerge(commonConfig({ env: ENV }), {
 
     /**
-     * Plugin: DefinePlugin
-     * Description: Define free variables.
-     * Useful for having development builds with debug logging or adding global constants.
+     * Developer tool to enhance debugging
      *
-     * Environment helpers
-     *
-     * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+     * See: http://webpack.github.io/docs/configuration.html#devtool
+     * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
      */
-    // NOTE: when adding more properties, make sure you include them in custom-typings.d.ts
-    new webpack.DefinePlugin({
-      'process.env': {
-        'ENV': JSON.stringify(METADATA.ENV),
-        'API_URL' : JSON.stringify(METADATA.API_URL),
-        'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
-        'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH),
-        'LAUNCHER_MISSIONCONTROL_URL' : JSON.stringify(METADATA.LAUNCHER_MISSIONCONTROL_URL),
-      }
-    })
-  ],
+    devtool: 'inline-source-map',
 
-  devServer: {
-    historyApiFallback: true,
-    stats: 'minimal',
-    inline: true
-  }
-});
+    /**
+     * Options affecting the output of the compilation.
+     *
+     * See: http://webpack.github.io/docs/configuration.html#output
+     */
+    output: {
+
+      /**
+       * The output directory as absolute path (required).
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-path
+       */
+      path: helpers.root('dist'),
+
+      publicPath: METADATA.PUBLIC_PATH,
+
+      /**
+       * Specifies the name of each output file on disk.
+       * IMPORTANT: You must not specify an absolute path here!
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-filename
+       */
+      filename: '[name].bundle.js',
+
+      /**
+       * The filename of the SourceMaps for the JavaScript files.
+       * They are inside the output.path directory.
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
+       */
+      sourceMapFilename: '[name].map',
+
+      /** The filename of non-entry chunks as relative path
+       * inside the output.path directory.
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
+       */
+      chunkFilename: '[id].chunk.js',
+
+      library: 'ac_[name]',
+
+      libraryTarget: 'var'
+    },
+
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: [
+            // Example helpers.nodeModulePath("fabric8-planner"),
+            // Exclude any problematic sourcemaps
+            helpers.nodeModulePath("mydatepicker"),
+            helpers.nodeModulePath("ng2-completer"),
+            helpers.nodeModulePath("angular2-flash-messages"),
+            helpers.nodeModulePath("ngx-dropdown"),
+            helpers.nodeModulePath("ngx-modal"),
+            helpers.nodeModulePath("ngx-modal"),
+            helpers.nodeModulePath("ng2-dnd"),
+            helpers.nodeModulePath("jw-bootstrap-switch-ng2"),
+            helpers.nodeModulePath("ng2-truncate"),
+            helpers.nodeModulePath("angular-2-dropdown-multiselect"),
+            helpers.nodeModulePath("@angular")
+          ],
+          use: ["source-map-loader"],
+          enforce: "pre"
+        }
+      ]
+    },
+
+    plugins: [
+      /**
+       * Plugin: DefinePlugin
+       * Description: Define free variables.
+       * Useful for having development builds with debug logging or adding global constants.
+       *
+       * Environment helpers
+       *
+       * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+       */
+      // NOTE: when adding more properties, make sure you include them in custom-typings.d.ts
+      new DefinePlugin({
+        'ENV': JSON.stringify(METADATA.ENV),
+        'HMR': METADATA.HMR,
+        'process.env': {
+          'ENV': JSON.stringify(METADATA.ENV),
+          'NODE_ENV': JSON.stringify(METADATA.ENV),
+          'HMR': METADATA.HMR,
+          'PUBLIC_PATH': JSON.stringify(METADATA.PUBLIC_PATH),
+          'BUILD_NUMBER': JSON.stringify(BUILD_NUMBER),
+          'BUILD_TIMESTAMP': JSON.stringify(BUILD_TIMESTAMP),
+          'BUILD_VERSION': JSON.stringify(BUILD_VERSION),
+          'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
+          'LAUNCHER_MISSIONCONTROL_URL' : JSON.stringify(METADATA.LAUNCHER_MISSIONCONTROL_URL)
+        }
+      }),
+
+      /**
+       * Plugin: NamedModulesPlugin (experimental)
+       * Description: Uses file names as module name.
+       *
+       * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
+       */
+      new NamedModulesPlugin(),
+
+      /**
+       * Plugin LoaderOptionsPlugin (experimental)
+       *
+       * See: https://gist.github.com/sokra/27b24881210b56bbaff7
+       */
+      new LoaderOptionsPlugin({
+        debug: true,
+        options: {
+
+        }
+      }),
+
+      /*
+       * StyleLintPlugin
+      */
+      new StyleLintPlugin({
+        configFile: '.stylelintrc',
+        syntax: 'less',
+        context: 'src',
+        files: '**/*.less',
+        lintDirtyModulesOnly: true,
+        failOnError: false,
+        emitErrors: true,
+        quiet: true,
+      })
+
+    ],
+
+    /**
+     * Webpack Development Server configuration
+     * Description: The webpack-dev-server is a little node.js Express server.
+     * The server emits information about the compilation state to the client,
+     * which reacts to those events.
+     *
+     * See: https://webpack.github.io/docs/webpack-dev-server.html
+     */
+    devServer: {
+      port: METADATA.port,
+      host: METADATA.host,
+      historyApiFallback: {
+        disableDotRule: true,
+      },
+      watchOptions: {
+        aggregateTimeout: 2000,
+        poll: 1000 //to allow watching in NFS and VirtualBox machines
+      },
+      proxy: {
+        "/_p/oso/api/*": cloneDeep(OSO_CORS_PROXY),
+        "/_p/oso/apis/*": cloneDeep(OSO_CORS_PROXY),
+        "/_p/oso/oapi/*": cloneDeep(OSO_CORS_PROXY),
+        "/_p/oso/swaggerapi/*": cloneDeep(OSO_CORS_PROXY)
+      }
+    },
+
+    /*
+     * Include polyfills or mocks for various node stuff
+     * Description: Node configuration
+     *
+     * See: https://webpack.github.io/docs/configuration.html#node
+     */
+    node: {
+      global: true,
+      crypto: 'empty',
+      process: true,
+      module: false,
+      clearImmediate: false,
+      setImmediate: false
+    }
+
+  });
+};
