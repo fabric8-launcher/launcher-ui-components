@@ -393,6 +393,12 @@
       "integrity": "sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==",
       "dev": true
     },
+    "@swimlane/ngx-datatable": {
+      "version": "11.2.0",
+      "resolved": "https://registry.npmjs.org/@swimlane/ngx-datatable/-/ngx-datatable-11.2.0.tgz",
+      "integrity": "sha512-QlD45YEUwOz6fu7neTtIGBAoV0owY0J9Jkpc2xViXHThWJeW7+mRhg4XRyKm8nvVDuUJZH+7huzAW1lQKN+iYg==",
+      "optional": true
+    },
     "@thisissoon/angular-inviewport": {
       "version": "1.3.2",
       "resolved": "https://registry.npmjs.org/@thisissoon/angular-inviewport/-/angular-inviewport-1.3.2.tgz",
@@ -942,6 +948,12 @@
       "resolved": "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz",
       "integrity": "sha1-x57Zf380y48robyXkLzDZkdLS3k=",
       "dev": true
+    },
+    "atoa": {
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/atoa/-/atoa-1.0.0.tgz",
+      "integrity": "sha1-DMDpGkgOc4+SPrwQNnZHF3mzSkk=",
+      "optional": true
     },
     "autoprefixer": {
       "version": "7.1.6",
@@ -1864,9 +1876,9 @@
       "dev": true
     },
     "c3": {
-      "version": "0.4.21",
-      "resolved": "https://registry.npmjs.org/c3/-/c3-0.4.21.tgz",
-      "integrity": "sha512-UZt0RWxVDJJrAGBojz2OJ9v88uDIP+WMVrydXCSvYM+bX2CyL+tTEA7gD5htzZeVMLcBYc7DZpDnskdH2fEOdw==",
+      "version": "0.4.22",
+      "resolved": "https://registry.npmjs.org/c3/-/c3-0.4.22.tgz",
+      "integrity": "sha512-u42oZTwoMK1LiWadjUp8jGhYBnb+0gJ83IZDbmqjkWMNossun8SlVygYlRIhkvYaMxflS/euwggWSZk/2/q1QQ==",
       "optional": true,
       "requires": {
         "d3": "3.5.17"
@@ -2708,6 +2720,16 @@
       "integrity": "sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==",
       "dev": true
     },
+    "contra": {
+      "version": "1.9.4",
+      "resolved": "https://registry.npmjs.org/contra/-/contra-1.9.4.tgz",
+      "integrity": "sha1-9TveQtfltZhcrk2ZqNYQUm3o8o0=",
+      "optional": true,
+      "requires": {
+        "atoa": "1.0.0",
+        "ticky": "1.0.1"
+      }
+    },
     "conventional-changelog-angular": {
       "version": "1.6.6",
       "resolved": "https://registry.npmjs.org/conventional-changelog-angular/-/conventional-changelog-angular-1.6.6.tgz",
@@ -3167,6 +3189,23 @@
       "requires": {
         "lru-cache": "4.1.2",
         "which": "1.3.0"
+      }
+    },
+    "crossvent": {
+      "version": "1.5.4",
+      "resolved": "https://registry.npmjs.org/crossvent/-/crossvent-1.5.4.tgz",
+      "integrity": "sha1-2ixPj0DJR4JRe/K+7BBEFIGUq5I=",
+      "optional": true,
+      "requires": {
+        "custom-event": "1.0.0"
+      },
+      "dependencies": {
+        "custom-event": {
+          "version": "1.0.0",
+          "resolved": "https://registry.npmjs.org/custom-event/-/custom-event-1.0.0.tgz",
+          "integrity": "sha1-LkYovhncSyFLXAJjDFlx6BFhgGI=",
+          "optional": true
+        }
       }
     },
     "crypt": {
@@ -3754,6 +3793,16 @@
       "resolved": "https://registry.npmjs.org/dotenv/-/dotenv-4.0.0.tgz",
       "integrity": "sha1-hk7xN5rO1Vzm+V3r7NzhefegzR0=",
       "dev": true
+    },
+    "dragula": {
+      "version": "3.7.2",
+      "resolved": "https://registry.npmjs.org/dragula/-/dragula-3.7.2.tgz",
+      "integrity": "sha1-SjXJ05gf+sGpScKcpyhQWOhzk84=",
+      "optional": true,
+      "requires": {
+        "contra": "1.9.4",
+        "crossvent": "1.5.4"
+      }
     },
     "duplexer": {
       "version": "0.1.1",
@@ -9426,12 +9475,6 @@
       "resolved": "https://registry.npmjs.org/mobx/-/mobx-3.6.2.tgz",
       "integrity": "sha512-Dq3boJFLpZEvuh5a/MbHLUIyN9XobKWIb0dBfkNOJffNkE3vtuY0C9kSDVpfH8BB0BPkVw8g22qCv7d05LEhKg=="
     },
-    "mobx-angular": {
-      "version": "1.5.0",
-      "resolved": "https://registry.npmjs.org/mobx-angular/-/mobx-angular-1.5.0.tgz",
-      "integrity": "sha1-bIBkg+v30WHltfUEjtwwD4UhyAw=",
-      "optional": true
-    },
     "mocha": {
       "version": "4.0.1",
       "resolved": "https://registry.npmjs.org/mocha/-/mocha-4.0.1.tgz",
@@ -9640,6 +9683,15 @@
       "integrity": "sha1-yobR/ogoFpsBICCOPchCS524NCw=",
       "dev": true
     },
+    "ng2-dragula": {
+      "version": "1.5.0",
+      "resolved": "https://registry.npmjs.org/ng2-dragula/-/ng2-dragula-1.5.0.tgz",
+      "integrity": "sha512-uSVq66Rv+ZhDLBGYCGZ7mTaseP7rvYJOijiQZlzfy8dxL614Sw7rhtnLqvK8nqa3tI/wVv8CEGZaZkMnWJokwQ==",
+      "optional": true,
+      "requires": {
+        "dragula": "3.7.2"
+      }
+    },
     "ngc-webpack": {
       "version": "3.2.2",
       "resolved": "https://registry.npmjs.org/ngc-webpack/-/ngc-webpack-3.2.2.tgz",
@@ -9669,24 +9721,14 @@
       }
     },
     "ngx-bootstrap": {
-      "version": "1.8.0",
-      "resolved": "https://registry.npmjs.org/ngx-bootstrap/-/ngx-bootstrap-1.8.0.tgz",
-      "integrity": "sha512-y4+9cQkCAZ8C2iHfGC9PMu6tqHqDPyZN0ejz4fDwWljAUtxqXqwUgPKAnebkckdLw/EFmozgvf27ouVqhDA+CA==",
-      "requires": {
-        "moment": "2.18.1"
-      },
-      "dependencies": {
-        "moment": {
-          "version": "2.18.1",
-          "resolved": "https://registry.npmjs.org/moment/-/moment-2.18.1.tgz",
-          "integrity": "sha1-w2GT3Tzhwu7SrbfIAtu8d6gbHA8="
-        }
-      }
+      "version": "1.9.3",
+      "resolved": "https://registry.npmjs.org/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz",
+      "integrity": "sha512-beoKQGJEFwdg0ctIpGb+vx4PTPkyqHrA5tBAEbnUn7ZlTjjfA6533QYGv3qVoKPDNkkHmLA3lRjWKxEMYepCdg=="
     },
     "ngx-forge": {
-      "version": "0.0.59-development",
-      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.0.59-development.tgz",
-      "integrity": "sha512-Q7uv2QvS3U+0A5z0kmSz/bAUZXEuSCk3Ft2pJH6+P/k5Kxstp/iLNsidLHpu+MY5GmnrsHOl/IgPM+I6hLaXWg==",
+      "version": "0.0.65-development",
+      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.0.65-development.tgz",
+      "integrity": "sha1-ebxO2CDt1m1eZuOFq/nSSv5r7u8=",
       "requires": {
         "@angular/core": "4.4.6",
         "@angular/forms": "4.4.6",
@@ -9695,217 +9737,8 @@
         "angular-2-dropdown-multiselect": "1.6.0",
         "ngx-bootstrap": "1.9.3",
         "patternfly": "3.30.1",
-        "patternfly-ng": "2.0.5",
+        "patternfly-ng": "3.1.3",
         "rxjs": "5.5.2"
-      },
-      "dependencies": {
-        "ngx-bootstrap": {
-          "version": "1.9.3",
-          "resolved": "https://registry.npmjs.org/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz",
-          "integrity": "sha512-beoKQGJEFwdg0ctIpGb+vx4PTPkyqHrA5tBAEbnUn7ZlTjjfA6533QYGv3qVoKPDNkkHmLA3lRjWKxEMYepCdg=="
-        },
-        "patternfly": {
-          "version": "3.30.1",
-          "resolved": "https://registry.npmjs.org/patternfly/-/patternfly-3.30.1.tgz",
-          "integrity": "sha1-/1ZmPQsbd3g5rfDn2aSznW7kTCY=",
-          "requires": {
-            "bootstrap": "3.3.7",
-            "bootstrap-datepicker": "1.6.4",
-            "bootstrap-select": "1.12.4",
-            "bootstrap-switch": "3.3.4",
-            "bootstrap-touchspin": "3.1.1",
-            "c3": "0.4.18",
-            "d3": "3.5.17",
-            "datatables.net": "1.10.16",
-            "datatables.net-colreorder": "1.3.3",
-            "datatables.net-colreorder-bs": "1.3.3",
-            "datatables.net-select": "1.2.3",
-            "drmonty-datatables-colvis": "1.1.2",
-            "eonasdan-bootstrap-datetimepicker": "4.17.47",
-            "font-awesome": "4.7.0",
-            "google-code-prettify": "1.0.5",
-            "jquery": "3.2.1",
-            "jquery-match-height": "0.7.2",
-            "moment": "2.14.1",
-            "moment-timezone": "0.4.1",
-            "patternfly-bootstrap-combobox": "1.1.7",
-            "patternfly-bootstrap-treeview": "2.1.5"
-          },
-          "dependencies": {
-            "bootstrap": {
-              "version": "3.3.7",
-              "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
-              "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E="
-            },
-            "bootstrap-datepicker": {
-              "version": "1.6.4",
-              "resolved": "https://registry.npmjs.org/bootstrap-datepicker/-/bootstrap-datepicker-1.6.4.tgz",
-              "integrity": "sha1-iJ6+ztjqov8V7B8nPksHUxzEPaA=",
-              "optional": true,
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "bootstrap-select": {
-              "version": "1.12.4",
-              "resolved": "https://registry.npmjs.org/bootstrap-select/-/bootstrap-select-1.12.4.tgz",
-              "integrity": "sha1-fxXTwM6XiGjZwJxw+WYk9V+gLuE=",
-              "optional": true,
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "bootstrap-switch": {
-              "version": "3.3.4",
-              "resolved": "https://registry.npmjs.org/bootstrap-switch/-/bootstrap-switch-3.3.4.tgz",
-              "integrity": "sha1-cOCusqh3wNx2aZHeEI4hcPwpov8=",
-              "optional": true
-            },
-            "bootstrap-touchspin": {
-              "version": "3.1.1",
-              "resolved": "https://registry.npmjs.org/bootstrap-touchspin/-/bootstrap-touchspin-3.1.1.tgz",
-              "integrity": "sha1-l3nerHKq9Xfl52K4USx0fIcdlZc=",
-              "optional": true
-            },
-            "c3": {
-              "version": "0.4.18",
-              "resolved": "https://registry.npmjs.org/c3/-/c3-0.4.18.tgz",
-              "integrity": "sha512-37TiFeCrbe69gg7SxFpTBOLDwulnk+opKp1AFDi43mONtErpRoUIZfGSimGiSYQmNu6Zh9W2yNOx0066UikqSg==",
-              "optional": true,
-              "requires": {
-                "d3": "3.5.17"
-              }
-            },
-            "d3": {
-              "version": "3.5.17",
-              "resolved": "https://registry.npmjs.org/d3/-/d3-3.5.17.tgz",
-              "integrity": "sha1-vEZ0gAQ3iyGjYMn8fPUjF5B2L7g=",
-              "optional": true
-            },
-            "datatables.net": {
-              "version": "1.10.16",
-              "resolved": "https://registry.npmjs.org/datatables.net/-/datatables.net-1.10.16.tgz",
-              "integrity": "sha1-SwUtEIKCQmG2ju2dInQbcR09JGk=",
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-bs": {
-              "version": "1.10.16",
-              "resolved": "https://registry.npmjs.org/datatables.net-bs/-/datatables.net-bs-1.10.16.tgz",
-              "integrity": "sha1-sIVPWzdPcTrj20FWx86op2DD3nY=",
-              "optional": true,
-              "requires": {
-                "datatables.net": "1.10.16",
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-colreorder": {
-              "version": "1.3.3",
-              "resolved": "https://registry.npmjs.org/datatables.net-colreorder/-/datatables.net-colreorder-1.3.3.tgz",
-              "integrity": "sha1-/HYuNQ+UIkyyzUXCuWImGg//73I=",
-              "optional": true,
-              "requires": {
-                "datatables.net": "1.10.16",
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-colreorder-bs": {
-              "version": "1.3.3",
-              "resolved": "https://registry.npmjs.org/datatables.net-colreorder-bs/-/datatables.net-colreorder-bs-1.3.3.tgz",
-              "integrity": "sha1-Op3LCN7r612FQHlZHgbkk615OlM=",
-              "optional": true,
-              "requires": {
-                "datatables.net-bs": "1.10.16",
-                "datatables.net-colreorder": "1.3.3",
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-select": {
-              "version": "1.2.3",
-              "resolved": "https://registry.npmjs.org/datatables.net-select/-/datatables.net-select-1.2.3.tgz",
-              "integrity": "sha1-fCcugXMqQSFOEBtlb1Ul037Dcog=",
-              "optional": true,
-              "requires": {
-                "datatables.net": "1.10.16",
-                "jquery": "3.2.1"
-              }
-            },
-            "drmonty-datatables-colvis": {
-              "version": "1.1.2",
-              "resolved": "https://registry.npmjs.org/drmonty-datatables-colvis/-/drmonty-datatables-colvis-1.1.2.tgz",
-              "integrity": "sha1-lque37SGQ8wu3aP4e4iTPN7oEnw=",
-              "optional": true,
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "eonasdan-bootstrap-datetimepicker": {
-              "version": "4.17.47",
-              "resolved": "https://registry.npmjs.org/eonasdan-bootstrap-datetimepicker/-/eonasdan-bootstrap-datetimepicker-4.17.47.tgz",
-              "integrity": "sha1-ekmXAEQGUnbnll79Fvgic1IZ5zU=",
-              "optional": true,
-              "requires": {
-                "bootstrap": "3.3.7",
-                "jquery": "3.2.1",
-                "moment": "2.14.1",
-                "moment-timezone": "0.4.1"
-              }
-            },
-            "font-awesome": {
-              "version": "4.7.0",
-              "resolved": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz",
-              "integrity": "sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM="
-            },
-            "google-code-prettify": {
-              "version": "1.0.5",
-              "resolved": "https://registry.npmjs.org/google-code-prettify/-/google-code-prettify-1.0.5.tgz",
-              "integrity": "sha1-n0d/Ik2/piNy5e+AOn4VdBBAAIQ=",
-              "optional": true
-            },
-            "jquery": {
-              "version": "3.2.1",
-              "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz",
-              "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c="
-            },
-            "jquery-match-height": {
-              "version": "0.7.2",
-              "resolved": "https://registry.npmjs.org/jquery-match-height/-/jquery-match-height-0.7.2.tgz",
-              "integrity": "sha1-+NnzulMU2qsQnPB0CGdL4gS+Xw4=",
-              "optional": true
-            },
-            "moment": {
-              "version": "2.14.1",
-              "resolved": "https://registry.npmjs.org/moment/-/moment-2.14.1.tgz",
-              "integrity": "sha1-s1snxH5X7S3ccAU9awe+zbKRdBw="
-            },
-            "moment-timezone": {
-              "version": "0.4.1",
-              "resolved": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.4.1.tgz",
-              "integrity": "sha1-gfWYw61eIs2teWtn7NjYjQ9bqgY=",
-              "optional": true,
-              "requires": {
-                "moment": "2.14.1"
-              }
-            },
-            "patternfly-bootstrap-combobox": {
-              "version": "1.1.7",
-              "resolved": "https://registry.npmjs.org/patternfly-bootstrap-combobox/-/patternfly-bootstrap-combobox-1.1.7.tgz",
-              "integrity": "sha1-al48zRFwwhs8S0qhaKdBPh3btuE=",
-              "optional": true
-            },
-            "patternfly-bootstrap-treeview": {
-              "version": "2.1.5",
-              "resolved": "https://registry.npmjs.org/patternfly-bootstrap-treeview/-/patternfly-bootstrap-treeview-2.1.5.tgz",
-              "integrity": "sha1-TCnyWC+4ovKPCpKPLw0yTSHWmQ0=",
-              "optional": true,
-              "requires": {
-                "bootstrap": "3.3.7",
-                "jquery": "3.2.1"
-              }
-            }
-          }
-        }
       }
     },
     "ngx-modal": {
@@ -11049,7 +10882,6 @@
       "version": "3.30.1",
       "resolved": "https://registry.npmjs.org/patternfly/-/patternfly-3.30.1.tgz",
       "integrity": "sha1-/1ZmPQsbd3g5rfDn2aSznW7kTCY=",
-      "dev": true,
       "requires": {
         "bootstrap": "3.3.7",
         "bootstrap-datepicker": "1.6.4",
@@ -11077,14 +10909,12 @@
         "bootstrap": {
           "version": "3.3.7",
           "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
-          "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E=",
-          "dev": true
+          "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E="
         },
         "bootstrap-datepicker": {
           "version": "1.6.4",
           "resolved": "https://registry.npmjs.org/bootstrap-datepicker/-/bootstrap-datepicker-1.6.4.tgz",
           "integrity": "sha1-iJ6+ztjqov8V7B8nPksHUxzEPaA=",
-          "dev": true,
           "optional": true,
           "requires": {
             "jquery": "3.2.1"
@@ -11094,7 +10924,6 @@
           "version": "1.12.4",
           "resolved": "https://registry.npmjs.org/bootstrap-select/-/bootstrap-select-1.12.4.tgz",
           "integrity": "sha1-fxXTwM6XiGjZwJxw+WYk9V+gLuE=",
-          "dev": true,
           "optional": true,
           "requires": {
             "jquery": "3.2.1"
@@ -11104,21 +10933,18 @@
           "version": "3.3.4",
           "resolved": "https://registry.npmjs.org/bootstrap-switch/-/bootstrap-switch-3.3.4.tgz",
           "integrity": "sha1-cOCusqh3wNx2aZHeEI4hcPwpov8=",
-          "dev": true,
           "optional": true
         },
         "bootstrap-touchspin": {
           "version": "3.1.1",
           "resolved": "https://registry.npmjs.org/bootstrap-touchspin/-/bootstrap-touchspin-3.1.1.tgz",
           "integrity": "sha1-l3nerHKq9Xfl52K4USx0fIcdlZc=",
-          "dev": true,
           "optional": true
         },
         "c3": {
           "version": "0.4.18",
           "resolved": "https://registry.npmjs.org/c3/-/c3-0.4.18.tgz",
           "integrity": "sha512-37TiFeCrbe69gg7SxFpTBOLDwulnk+opKp1AFDi43mONtErpRoUIZfGSimGiSYQmNu6Zh9W2yNOx0066UikqSg==",
-          "dev": true,
           "optional": true,
           "requires": {
             "d3": "3.5.17"
@@ -11128,14 +10954,12 @@
           "version": "3.5.17",
           "resolved": "https://registry.npmjs.org/d3/-/d3-3.5.17.tgz",
           "integrity": "sha1-vEZ0gAQ3iyGjYMn8fPUjF5B2L7g=",
-          "dev": true,
           "optional": true
         },
         "datatables.net": {
           "version": "1.10.16",
           "resolved": "https://registry.npmjs.org/datatables.net/-/datatables.net-1.10.16.tgz",
           "integrity": "sha1-SwUtEIKCQmG2ju2dInQbcR09JGk=",
-          "dev": true,
           "requires": {
             "jquery": "3.2.1"
           }
@@ -11144,7 +10968,6 @@
           "version": "1.10.16",
           "resolved": "https://registry.npmjs.org/datatables.net-bs/-/datatables.net-bs-1.10.16.tgz",
           "integrity": "sha1-sIVPWzdPcTrj20FWx86op2DD3nY=",
-          "dev": true,
           "optional": true,
           "requires": {
             "datatables.net": "1.10.16",
@@ -11155,7 +10978,6 @@
           "version": "1.3.3",
           "resolved": "https://registry.npmjs.org/datatables.net-colreorder/-/datatables.net-colreorder-1.3.3.tgz",
           "integrity": "sha1-/HYuNQ+UIkyyzUXCuWImGg//73I=",
-          "dev": true,
           "optional": true,
           "requires": {
             "datatables.net": "1.10.16",
@@ -11166,7 +10988,6 @@
           "version": "1.3.3",
           "resolved": "https://registry.npmjs.org/datatables.net-colreorder-bs/-/datatables.net-colreorder-bs-1.3.3.tgz",
           "integrity": "sha1-Op3LCN7r612FQHlZHgbkk615OlM=",
-          "dev": true,
           "optional": true,
           "requires": {
             "datatables.net-bs": "1.10.16",
@@ -11178,7 +10999,6 @@
           "version": "1.2.3",
           "resolved": "https://registry.npmjs.org/datatables.net-select/-/datatables.net-select-1.2.3.tgz",
           "integrity": "sha1-fCcugXMqQSFOEBtlb1Ul037Dcog=",
-          "dev": true,
           "optional": true,
           "requires": {
             "datatables.net": "1.10.16",
@@ -11189,7 +11009,6 @@
           "version": "1.1.2",
           "resolved": "https://registry.npmjs.org/drmonty-datatables-colvis/-/drmonty-datatables-colvis-1.1.2.tgz",
           "integrity": "sha1-lque37SGQ8wu3aP4e4iTPN7oEnw=",
-          "dev": true,
           "optional": true,
           "requires": {
             "jquery": "3.2.1"
@@ -11199,7 +11018,6 @@
           "version": "4.17.47",
           "resolved": "https://registry.npmjs.org/eonasdan-bootstrap-datetimepicker/-/eonasdan-bootstrap-datetimepicker-4.17.47.tgz",
           "integrity": "sha1-ekmXAEQGUnbnll79Fvgic1IZ5zU=",
-          "dev": true,
           "optional": true,
           "requires": {
             "bootstrap": "3.3.7",
@@ -11211,40 +11029,34 @@
         "font-awesome": {
           "version": "4.7.0",
           "resolved": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz",
-          "integrity": "sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM=",
-          "dev": true
+          "integrity": "sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM="
         },
         "google-code-prettify": {
           "version": "1.0.5",
           "resolved": "https://registry.npmjs.org/google-code-prettify/-/google-code-prettify-1.0.5.tgz",
           "integrity": "sha1-n0d/Ik2/piNy5e+AOn4VdBBAAIQ=",
-          "dev": true,
           "optional": true
         },
         "jquery": {
           "version": "3.2.1",
           "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz",
-          "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c=",
-          "dev": true
+          "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c="
         },
         "jquery-match-height": {
           "version": "0.7.2",
           "resolved": "https://registry.npmjs.org/jquery-match-height/-/jquery-match-height-0.7.2.tgz",
           "integrity": "sha1-+NnzulMU2qsQnPB0CGdL4gS+Xw4=",
-          "dev": true,
           "optional": true
         },
         "moment": {
           "version": "2.14.1",
           "resolved": "https://registry.npmjs.org/moment/-/moment-2.14.1.tgz",
-          "integrity": "sha1-s1snxH5X7S3ccAU9awe+zbKRdBw=",
-          "dev": true
+          "integrity": "sha1-s1snxH5X7S3ccAU9awe+zbKRdBw="
         },
         "moment-timezone": {
           "version": "0.4.1",
           "resolved": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.4.1.tgz",
           "integrity": "sha1-gfWYw61eIs2teWtn7NjYjQ9bqgY=",
-          "dev": true,
           "optional": true,
           "requires": {
             "moment": "2.14.1"
@@ -11254,14 +11066,12 @@
           "version": "1.1.7",
           "resolved": "https://registry.npmjs.org/patternfly-bootstrap-combobox/-/patternfly-bootstrap-combobox-1.1.7.tgz",
           "integrity": "sha1-al48zRFwwhs8S0qhaKdBPh3btuE=",
-          "dev": true,
           "optional": true
         },
         "patternfly-bootstrap-treeview": {
           "version": "2.1.5",
           "resolved": "https://registry.npmjs.org/patternfly-bootstrap-treeview/-/patternfly-bootstrap-treeview-2.1.5.tgz",
           "integrity": "sha1-TCnyWC+4ovKPCpKPLw0yTSHWmQ0=",
-          "dev": true,
           "optional": true,
           "requires": {
             "bootstrap": "3.3.7",
@@ -11271,251 +11081,17 @@
       }
     },
     "patternfly-ng": {
-      "version": "2.0.5",
-      "resolved": "https://registry.npmjs.org/patternfly-ng/-/patternfly-ng-2.0.5.tgz",
-      "integrity": "sha1-46/1EAloW4hqzW3iE1tvmxDvig8=",
+      "version": "3.1.3",
+      "resolved": "https://registry.npmjs.org/patternfly-ng/-/patternfly-ng-3.1.3.tgz",
+      "integrity": "sha1-MIEbrEHW6C7kD2JuA+PzocKGGCE=",
       "requires": {
-        "angular-tree-component": "6.1.0",
-        "c3": "0.4.21",
+        "@swimlane/ngx-datatable": "11.2.0",
+        "angular-tree-component": "7.0.2",
+        "c3": "0.4.22",
         "lodash": "4.17.4",
-        "ngx-bootstrap": "1.8.0",
-        "patternfly": "3.41.6"
-      },
-      "dependencies": {
-        "angular-tree-component": {
-          "version": "6.1.0",
-          "resolved": "https://registry.npmjs.org/angular-tree-component/-/angular-tree-component-6.1.0.tgz",
-          "integrity": "sha1-nZprKKaIHCByzWMGtVIpV56JQHE=",
-          "optional": true,
-          "requires": {
-            "lodash": "4.17.4",
-            "mobx": "3.6.2",
-            "mobx-angular": "1.5.0"
-          }
-        },
-        "patternfly": {
-          "version": "3.41.6",
-          "resolved": "https://registry.npmjs.org/patternfly/-/patternfly-3.41.6.tgz",
-          "integrity": "sha1-4GDPda0Ri8UYWaBdjnMGHIgER+8=",
-          "requires": {
-            "bootstrap": "3.3.7",
-            "bootstrap-datepicker": "1.7.1",
-            "bootstrap-sass": "3.3.7",
-            "bootstrap-select": "1.12.4",
-            "bootstrap-slider": "9.10.0",
-            "bootstrap-switch": "3.3.4",
-            "bootstrap-touchspin": "3.1.1",
-            "c3": "0.4.18",
-            "d3": "3.5.17",
-            "datatables.net": "1.10.16",
-            "datatables.net-colreorder": "1.4.1",
-            "datatables.net-colreorder-bs": "1.3.3",
-            "datatables.net-select": "1.2.3",
-            "drmonty-datatables-colvis": "1.1.2",
-            "eonasdan-bootstrap-datetimepicker": "4.17.47",
-            "font-awesome": "4.7.0",
-            "font-awesome-sass": "4.7.0",
-            "google-code-prettify": "1.0.5",
-            "jquery": "3.2.1",
-            "jquery-match-height": "0.7.2",
-            "moment": "2.20.1",
-            "moment-timezone": "0.4.1",
-            "patternfly-bootstrap-combobox": "1.1.7",
-            "patternfly-bootstrap-treeview": "2.1.5"
-          },
-          "dependencies": {
-            "bootstrap": {
-              "version": "3.3.7",
-              "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
-              "integrity": "sha1-WjiTlFSfIzMIdaOxUGVldPip63E="
-            },
-            "bootstrap-datepicker": {
-              "version": "1.7.1",
-              "resolved": "https://registry.npmjs.org/bootstrap-datepicker/-/bootstrap-datepicker-1.7.1.tgz",
-              "integrity": "sha1-Tuf680iI2+x4NPv52+fEJ34B3a8=",
-              "optional": true,
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "bootstrap-sass": {
-              "version": "3.3.7",
-              "resolved": "https://registry.npmjs.org/bootstrap-sass/-/bootstrap-sass-3.3.7.tgz",
-              "integrity": "sha1-ZZbHq0D2Y3OTMjqwvIDQZPxjBJg=",
-              "optional": true
-            },
-            "bootstrap-select": {
-              "version": "1.12.4",
-              "resolved": "https://registry.npmjs.org/bootstrap-select/-/bootstrap-select-1.12.4.tgz",
-              "integrity": "sha1-fxXTwM6XiGjZwJxw+WYk9V+gLuE=",
-              "optional": true,
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "bootstrap-slider": {
-              "version": "9.10.0",
-              "resolved": "https://registry.npmjs.org/bootstrap-slider/-/bootstrap-slider-9.10.0.tgz",
-              "integrity": "sha1-EQPWvADPv6jPyaJZmrUYxVZD2j8=",
-              "optional": true
-            },
-            "bootstrap-switch": {
-              "version": "3.3.4",
-              "resolved": "https://registry.npmjs.org/bootstrap-switch/-/bootstrap-switch-3.3.4.tgz",
-              "integrity": "sha1-cOCusqh3wNx2aZHeEI4hcPwpov8=",
-              "optional": true
-            },
-            "bootstrap-touchspin": {
-              "version": "3.1.1",
-              "resolved": "https://registry.npmjs.org/bootstrap-touchspin/-/bootstrap-touchspin-3.1.1.tgz",
-              "integrity": "sha1-l3nerHKq9Xfl52K4USx0fIcdlZc=",
-              "optional": true
-            },
-            "c3": {
-              "version": "0.4.18",
-              "resolved": "https://registry.npmjs.org/c3/-/c3-0.4.18.tgz",
-              "integrity": "sha512-37TiFeCrbe69gg7SxFpTBOLDwulnk+opKp1AFDi43mONtErpRoUIZfGSimGiSYQmNu6Zh9W2yNOx0066UikqSg==",
-              "optional": true,
-              "requires": {
-                "d3": "3.5.17"
-              }
-            },
-            "d3": {
-              "version": "3.5.17",
-              "resolved": "https://registry.npmjs.org/d3/-/d3-3.5.17.tgz",
-              "integrity": "sha1-vEZ0gAQ3iyGjYMn8fPUjF5B2L7g=",
-              "optional": true
-            },
-            "datatables.net": {
-              "version": "1.10.16",
-              "resolved": "https://registry.npmjs.org/datatables.net/-/datatables.net-1.10.16.tgz",
-              "integrity": "sha1-SwUtEIKCQmG2ju2dInQbcR09JGk=",
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-bs": {
-              "version": "1.10.16",
-              "resolved": "https://registry.npmjs.org/datatables.net-bs/-/datatables.net-bs-1.10.16.tgz",
-              "integrity": "sha1-sIVPWzdPcTrj20FWx86op2DD3nY=",
-              "optional": true,
-              "requires": {
-                "datatables.net": "1.10.16",
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-colreorder": {
-              "version": "1.4.1",
-              "resolved": "https://registry.npmjs.org/datatables.net-colreorder/-/datatables.net-colreorder-1.4.1.tgz",
-              "integrity": "sha1-OJ5LGidOIDl5o3GNhsWITQoBZrY=",
-              "optional": true,
-              "requires": {
-                "datatables.net": "1.10.16",
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-colreorder-bs": {
-              "version": "1.3.3",
-              "resolved": "https://registry.npmjs.org/datatables.net-colreorder-bs/-/datatables.net-colreorder-bs-1.3.3.tgz",
-              "integrity": "sha1-Op3LCN7r612FQHlZHgbkk615OlM=",
-              "optional": true,
-              "requires": {
-                "datatables.net-bs": "1.10.16",
-                "datatables.net-colreorder": "1.4.1",
-                "jquery": "3.2.1"
-              }
-            },
-            "datatables.net-select": {
-              "version": "1.2.3",
-              "resolved": "https://registry.npmjs.org/datatables.net-select/-/datatables.net-select-1.2.3.tgz",
-              "integrity": "sha1-fCcugXMqQSFOEBtlb1Ul037Dcog=",
-              "optional": true,
-              "requires": {
-                "datatables.net": "1.10.16",
-                "jquery": "3.2.1"
-              }
-            },
-            "drmonty-datatables-colvis": {
-              "version": "1.1.2",
-              "resolved": "https://registry.npmjs.org/drmonty-datatables-colvis/-/drmonty-datatables-colvis-1.1.2.tgz",
-              "integrity": "sha1-lque37SGQ8wu3aP4e4iTPN7oEnw=",
-              "optional": true,
-              "requires": {
-                "jquery": "3.2.1"
-              }
-            },
-            "eonasdan-bootstrap-datetimepicker": {
-              "version": "4.17.47",
-              "resolved": "https://registry.npmjs.org/eonasdan-bootstrap-datetimepicker/-/eonasdan-bootstrap-datetimepicker-4.17.47.tgz",
-              "integrity": "sha1-ekmXAEQGUnbnll79Fvgic1IZ5zU=",
-              "optional": true,
-              "requires": {
-                "bootstrap": "3.3.7",
-                "jquery": "3.2.1",
-                "moment": "2.20.1",
-                "moment-timezone": "0.4.1"
-              }
-            },
-            "font-awesome": {
-              "version": "4.7.0",
-              "resolved": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz",
-              "integrity": "sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM="
-            },
-            "font-awesome-sass": {
-              "version": "4.7.0",
-              "resolved": "https://registry.npmjs.org/font-awesome-sass/-/font-awesome-sass-4.7.0.tgz",
-              "integrity": "sha1-TtppPpFQCc4Asijglk3F7Km8NOE=",
-              "optional": true
-            },
-            "google-code-prettify": {
-              "version": "1.0.5",
-              "resolved": "https://registry.npmjs.org/google-code-prettify/-/google-code-prettify-1.0.5.tgz",
-              "integrity": "sha1-n0d/Ik2/piNy5e+AOn4VdBBAAIQ=",
-              "optional": true
-            },
-            "jquery": {
-              "version": "3.2.1",
-              "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz",
-              "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c="
-            },
-            "jquery-match-height": {
-              "version": "0.7.2",
-              "resolved": "https://registry.npmjs.org/jquery-match-height/-/jquery-match-height-0.7.2.tgz",
-              "integrity": "sha1-+NnzulMU2qsQnPB0CGdL4gS+Xw4=",
-              "optional": true
-            },
-            "moment": {
-              "version": "2.20.1",
-              "resolved": "https://registry.npmjs.org/moment/-/moment-2.20.1.tgz",
-              "integrity": "sha512-Yh9y73JRljxW5QxN08Fner68eFLxM5ynNOAw2LbIB1YAGeQzZT8QFSUvkAz609Zf+IHhhaUxqZK8dG3W/+HEvg=="
-            },
-            "moment-timezone": {
-              "version": "0.4.1",
-              "resolved": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.4.1.tgz",
-              "integrity": "sha1-gfWYw61eIs2teWtn7NjYjQ9bqgY=",
-              "optional": true,
-              "requires": {
-                "moment": "2.20.1"
-              }
-            },
-            "patternfly-bootstrap-combobox": {
-              "version": "1.1.7",
-              "resolved": "https://registry.npmjs.org/patternfly-bootstrap-combobox/-/patternfly-bootstrap-combobox-1.1.7.tgz",
-              "integrity": "sha1-al48zRFwwhs8S0qhaKdBPh3btuE=",
-              "optional": true
-            },
-            "patternfly-bootstrap-treeview": {
-              "version": "2.1.5",
-              "resolved": "https://registry.npmjs.org/patternfly-bootstrap-treeview/-/patternfly-bootstrap-treeview-2.1.5.tgz",
-              "integrity": "sha1-TCnyWC+4ovKPCpKPLw0yTSHWmQ0=",
-              "optional": true,
-              "requires": {
-                "bootstrap": "3.3.7",
-                "jquery": "3.2.1"
-              }
-            }
-          }
-        }
+        "ng2-dragula": "1.5.0",
+        "ngx-bootstrap": "1.9.3",
+        "patternfly": "3.30.1"
       }
     },
     "pause-stream": {
@@ -15738,6 +15314,12 @@
         "readable-stream": "2.3.5",
         "xtend": "4.0.1"
       }
+    },
+    "ticky": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/ticky/-/ticky-1.0.1.tgz",
+      "integrity": "sha1-t8+nHnaPHJAAxJe5FRswlHxQ5G0=",
+      "optional": true
     },
     "time-stamp": {
       "version": "1.1.0",

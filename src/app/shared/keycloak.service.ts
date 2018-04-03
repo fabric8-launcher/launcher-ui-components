@@ -46,8 +46,8 @@ export class KeycloakService {
     window.location.href = this.auth.logoutUrl;
   }
 
-  login() {
-    this.auth.authz.login();
+  login(redirectUri: string) {
+    this.auth.authz.login({redirectUri: redirectUri});
   }
 
   get onLogin(): Observable<string> {
@@ -64,7 +64,7 @@ export class KeycloakService {
     return this.auth.authz.tokenParsed;
   }
 
-  linkAccount(provider: string): string {
+  linkAccount(provider: string, redirect: string): string {
     if (this.accountLink.has(provider)) {
       return this.accountLink.get(provider);
     } else {
@@ -75,7 +75,6 @@ export class KeycloakService {
       const shaObj = new jsSHA("SHA-256", "TEXT");
       shaObj.update(hash);
       let hashed = shaObj.getHash("B64");
-      const redirect = location.href;
 
       let link = `${this.auth.authz.authServerUrl}/realms/${config.realm}/broker/${provider}/link?nonce=`
         + `${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect)}`;

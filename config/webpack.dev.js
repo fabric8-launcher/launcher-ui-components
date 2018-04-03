@@ -28,7 +28,7 @@ const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 const BUILD_NUMBER = process.env.BUILD_NUMBER;
 const BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;
 const BUILD_VERSION = process.env.BUILD_VERSION;
-const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8080/';
+const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8080/api';
 const LAUNCHER_MISSIONCONTROL_URL = process.env.LAUNCHER_MISSIONCONTROL_URL || 'ws://localhost:8080';
 
 const OSO_CORS_PROXY = {

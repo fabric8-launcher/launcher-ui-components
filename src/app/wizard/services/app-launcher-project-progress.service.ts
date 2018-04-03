@@ -21,7 +21,7 @@ export class AppLauncherProjectProgressService implements ProjectProgressService
       if (this.END_POINT.indexOf('https') !== -1) {
         this.END_POINT = this.END_POINT.replace('https', 'wss');
       } else if (this.END_POINT.indexOf('http') !== -1) {
-        this.END_POINT = this.END_POINT.replace('http', 'wss');
+        this.END_POINT = this.END_POINT.replace('http', 'ws');
       }
     }
   }

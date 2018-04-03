@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { AuthHelperService, GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-forge';
+import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-forge';
+import { KeycloakService } from '../../shared/keycloak.service';
+import { TokenService } from '../../shared/token.service';
 
 @Injectable()
 export class AppLauncherGitproviderService implements GitProviderService {
@@ -11,25 +13,24 @@ export class AppLauncherGitproviderService implements GitProviderService {
     private API_BASE: string = 'services/git/';
     private ORIGIN: string = '';
     private PROVIDER: string = 'GitHub';
-    private linkUrl: string;
     private gitHubUserLogin: string;
 
     constructor(
       private http: Http,
       private helperService: HelperService,
       private tokenProvider: TokenProvider,
-      private authHelperService: AuthHelperService
+      private keycloak: KeycloakService,
+      private tokenService: TokenService
     ) {
       if (this.helperService) {
         this.END_POINT = this.helperService.getBackendUrl();
         this.ORIGIN = this.helperService.getOrigin();
-        this.linkUrl = 'token';//this.authHelperService.getAuthApiURl() + 'token/link';
       }
     }
 
     private get options(): Observable<RequestOptions> {
       let headers = new Headers();
-      headers.append('X-App', 'osio');
+      headers.append('X-App', this.ORIGIN);
       headers.set('x-git-provider', this.PROVIDER);
       return Observable.fromPromise(this.tokenProvider.token.then((token) => {
         headers.append('Authorization', 'Bearer ' + token);
@@ -40,31 +41,18 @@ export class AppLauncherGitproviderService implements GitProviderService {
     }
 
   /**
-   * Link an Identity Provider account to the user account
-   *
-   * @param provider Identity Provider name to link to the user's account
-   * @param redirect URL to be redirected to after successful account linking
-   */
-  link(provider: string, redirect: string): void {
-    let linkURL = this.linkUrl + '?for=' + provider + '&redirect=' +  encodeURIComponent(redirect) ;
-    this.http
-    .get(linkURL)
-    .map(response => {
-      let redirectInfo = response.json() as any;
-      this.redirectToAuth(redirectInfo.redirect_location);
-    })
-    .catch((error) => {
-      return this.handleError(error);
-    }).subscribe();
-  }
-
-  /**
    * Connect GitHub account
    *
    * @param {string} redirectUrl The GitHub redirect URL
    */
   connectGitHubAccount(redirectUrl: string): void {
-    this.link('https://github.com', redirectUrl);
+    if (!this.keycloak.isAuthenticated()) {
+      this.keycloak.login(redirectUrl);
+    } else {
+      if (this.tokenService.inValidTokens.indexOf('github') !== -1) {
+        this.redirectToAuth(this.keycloak.linkAccount('github', redirectUrl));
+      }
+    }
   }
 
   /**
@@ -119,12 +107,12 @@ export class AppLauncherGitproviderService implements GitProviderService {
             this.gitHubUserLogin = user.login;
             orgs.push(this.gitHubUserLogin);
             let gitHubDetails = {
-              authenticated: this.isPageRedirect() ? true : false,
+              authenticated: true,
               avatar: user.avatarUrl,
               login: user.login,
               organizations: orgs
             } as GitHubDetails;
-            return this.isPageRedirect() ? Observable.of(gitHubDetails) : Observable.empty();
+            return Observable.of(gitHubDetails);
           } else {
             return Observable.empty();
           }
@@ -168,13 +156,38 @@ export class AppLauncherGitproviderService implements GitProviderService {
     return res;
   }
 
-  // Private
-
-  private isPageRedirect(): boolean {
-    let result = this.getRequestParam('selection'); // simulate Github auth redirect
-    return (result !== null);
+  /**
+   * Returns list 0f GitHub repos
+   *
+   * @param {string} org The GitHub org (e.g., fabric8-launcher/ngx-launcher)
+   * @returns {Observable<any>} list of existing GitHub repos
+   */
+  getGitHubRepoList(org: string): Observable<any> {
+    let url = this.END_POINT + this.API_BASE + 'repositories';
+    let location = org + '/';
+    if (this.gitHubUserLogin !== org) {
+      url += '?organization=' + org;
+    }
+    let res = this.options.flatMap((option) => {
+      return this.http.get(url, option)
+        .map(response => {
+            let repoList = [];
+            if (response) {
+              let responseList: string[] =  response.json();
+              responseList.forEach(function(ele) {
+                repoList.push(ele.replace(location, ''));
+              });
+            }
+            return repoList;
+          })
+        .catch(error => {
+          return Observable.throw(error);
+        });
+      });
+    return res;
   }
 
+  // Private
   private getRequestParam(name: string): string {
     let param = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search);
     if (param !== null) {

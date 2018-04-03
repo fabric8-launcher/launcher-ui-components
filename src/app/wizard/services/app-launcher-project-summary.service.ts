@@ -20,7 +20,7 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
 
   // TODO: remove the hardcodes
   private END_POINT: string = '';
-  private API_BASE: string = 'osio/launch';
+  private API_BASE: string = 'launcher/launch';
   private ORIGIN: string = '';
 
   constructor(
@@ -74,6 +74,15 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
    */
   verify(summary: Summary): Observable<boolean> {
     return Observable.of(true);
+  }
+
+  /**
+   * Get the current context details
+   *
+   * @returns {Observable<Context>}
+   */
+  getCurrentContext(): Observable<any> {
+    return Observable.of({});
   }
 
   private handleError(error: Response | any) {
