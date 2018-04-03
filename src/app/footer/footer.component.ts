@@ -14,8 +14,8 @@ export class FooterComponent {
   }
 
   ngOnInit() {
-    this.forgeService.version().then(version => {
-      this.version = version.backendVersion;
-    });
+    // this.forgeService.version().then(version => {
+    //   this.version = version.backendVersion;
+    // });
   }
 }

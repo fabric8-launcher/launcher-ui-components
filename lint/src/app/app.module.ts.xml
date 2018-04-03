@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="5.7">[3, 1]: Import sources within a group must be alphabetized.
+[5, 1]: Import sources within a group must be alphabetized.
+[7, 1]: Import sources within a group must be alphabetized.
+[1, 26]: " should be '
+[2, 31]: " should be '
+[3, 28]: " should be '
+[4, 24]: " should be '
+[5, 29]: " should be '
+[6, 30]: " should be '
+[7, 34]: " should be '
+[8, 30]: " should be '
+</checkstyle>

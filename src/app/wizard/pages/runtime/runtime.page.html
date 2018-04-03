@@ -1,9 +1,0 @@
-<h1>{{gui.metadata?.name}}</h1>
-<div>
-  <div style="margin-bottom: 2.2em" *ngIf="gui.metadata" [innerHTML]="gui.metadata.intro"></div>
-  <ob-project-select [input]="gui.inputs[0]" [(ngModel)]="gui.inputs[0].value" [name]="gui.inputs[0].name" [config]="config">
-  </ob-project-select>
-  <div style="margin-bottom: 3em"></div>
-</div>
-
-<la-buttons [state]="gui.state"></la-buttons>
