@@ -12,10 +12,10 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
    */
   getDependencyCheck(): Observable<DependencyCheck> {
     return Observable.of({
-      mavenArtifact: 'd4.345',
-      groupId: '124-644',
-      projectName: 'App_test_1',
-      projectVersion: '124.554',
+      mavenArtifact: 'booster',
+      groupId: 'io.openshift.booster',
+      projectName: 'App-test-1',
+      projectVersion: '1.0.0-SNAPSHOT',
       spacePath: '/myspace'
     });
   }
