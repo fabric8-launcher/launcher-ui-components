@@ -5,7 +5,6 @@ import { Logger } from "./shared/logger.service";
 import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { WizardModule } from "./wizard/wizard.module";
 
@@ -19,7 +18,6 @@ import { WizardModule } from "./wizard/wizard.module";
   ],
   declarations: [
     AppComponent,
-    FooterComponent,
     HeaderComponent
   ],
   providers: [

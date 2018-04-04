@@ -8,6 +8,7 @@ import { KeycloakService } from "../shared/keycloak.service";
 import { KeycloakTokenProvider } from "../shared/keycloak-token.provider";
 import { TokenService } from "../shared/token.service";
 
+import { WizardComponent } from './new-wizard.component';
 import { FormComponent } from "./wizard.component";
 import { EnhancedForgeService } from "../shared/forge.enhance.service";
 import { LaunchConfig } from "../shared/config.component";
@@ -43,6 +44,18 @@ import { ModalModule } from "ngx-modal";
 
 import { LauncherModule } from "ngx-forge";
 import { AsciidocIndex } from "./components/asciidoc/asciidoc.index";
+import { FooterComponent } from "../footer/footer.component";
+
+export class Helper extends HelperService {
+  constructor(config: Config) {
+    super(config);
+  }
+
+  getBackendUrl(): string {
+    let url = super.getBackendUrl();
+    return url.substr(0, url.indexOf('launchpad'));
+  }
+}
 
 @NgModule({
   imports: [
@@ -54,6 +67,8 @@ import { AsciidocIndex } from "./components/asciidoc/asciidoc.index";
     LauncherModule
   ],
   declarations: [
+    WizardComponent,
+    FooterComponent,
     AsciidocComponent,
     IntroComponent,
     FormComponent,
@@ -100,16 +115,7 @@ import { AsciidocIndex } from "./components/asciidoc/asciidoc.index";
       provide: Config,
       useClass: LaunchConfig
     },
-    {
-      provide: HelperService, useFactory: (config: LaunchConfig) => new (class MyRunnable extends HelperService {
-        getBackendUrl(): string {
-          let url = super.getBackendUrl();
-          return url.substr(0, url.indexOf('launchpad'));
-        }
-      })(config),
-      deps: [LaunchConfig],
-      multi: true
-    },
+    { provide: HelperService, useClass: Helper, deps: [LaunchConfig] },
     { provide: GitProviderService, useClass: AppLauncherGitproviderService },
     { provide: MissionRuntimeService, useClass: AppLauncherMissionRuntimeService },
     { provide: PipelineService, useClass: AppLauncherPipelineService },
