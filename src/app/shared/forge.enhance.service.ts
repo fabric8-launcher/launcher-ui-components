@@ -14,7 +14,7 @@ export class EnhancedForgeService extends ForgeService {
 
   constructor(protected _http: Http, protected config: Config, private token: TokenProvider,
               private asciidoc: AsciidocService) {
-    super(_http, config, token);
+    super(_http as any, config, token);
   }
 
   commandInfo(command: string): Promise<Gui> {
