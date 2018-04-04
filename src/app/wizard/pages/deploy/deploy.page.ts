@@ -44,8 +44,8 @@ export class DeployPage implements OnInit {
       this.status = Status.Progress;
       let headers = new Headers();
       headers.append("X-RETRY_STEP", "" + step);
-      this.forgeService.upload(this.command, this.history, headers)
-        .then(status => {
+      this.forgeService.upload(this.command, this.history, headers as any)
+        .then((status: any) => {
           this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
           this.webSocket.onmessage = function (event: MessageEvent) {
             if (!this.statusMessages) {
@@ -92,7 +92,7 @@ export class DeployPage implements OnInit {
           this.webSocket.onerror = function (event: MessageEvent) {
             this.logError(event.data.error_description);
           }.bind(this);
-        }).catch(reason => {
+        }).catch((reason: any) => {
         if (reason.messages) {
           let message: string = "";
           reason.messages.forEach((error: any) => {
