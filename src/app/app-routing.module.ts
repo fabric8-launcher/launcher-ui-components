@@ -2,6 +2,7 @@ import { NgModule }  from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { FormComponent } from "./wizard/wizard.component";
 import { IntroComponent } from "./wizard/pages/intro/intro.component";
+import { WizardComponent } from "./wizard/new-wizard.component";
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
         }
       }
     ]
+  },
+  {
+    path: "new-wizard",
+    component: WizardComponent
   },
   { path: '**', redirectTo: '/filtered-wizard/all', pathMatch: 'full' }
 ];

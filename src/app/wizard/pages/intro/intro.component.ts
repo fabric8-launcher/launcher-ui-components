@@ -12,4 +12,8 @@ export class IntroComponent {
   launch() {
     this.router.navigate(["/wizard", "launchpad-new-project", 1, "e30="]);
   }
+
+  launchNew() {
+    this.router.navigate(["/new-wizard"]);
+  }
 }
