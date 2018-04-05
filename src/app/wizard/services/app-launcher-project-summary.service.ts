@@ -20,7 +20,8 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
 
   // TODO: remove the hardcodes
   private END_POINT: string = '';
-  private API_BASE: string = 'launcher/launch';
+  private API_BASE_LAUNCH: string = 'launcher/launch';
+  private API_BASE_ZIP: string = 'launcher/zip';
   private ORIGIN: string = '';
 
   constructor(
@@ -55,15 +56,25 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
    * @returns {Observable<boolean>}
    */
   setup(summary: Summary): Observable<boolean> {
-    let summaryEndPoint: string = this.END_POINT + this.API_BASE;
+    let summaryEndPoint: string = this.END_POINT +
+      (this.isTargetOpenshift(summary) ? this.API_BASE_LAUNCH : this.API_BASE_ZIP);
     return this.options.flatMap((option) => {
-      return this.http.post(summaryEndPoint, this.getPayload(summary), option)
-        .map(response => {
-          console.log(response.json());
-          return response.json();
-        })
-        .catch(this.handleError);
+      if (this.isTargetOpenshift(summary)) {
+        return this.http.post(summaryEndPoint, this.getPayload(summary), option)
+          .map(response => {
+            console.log(response.json());
+            return response.json();
+          }).catch(this.handleError);
+      } else {
+        window.open(summaryEndPoint + '?' + this.getPayload(summary));
+        //todo fix need of returning dummy uuid_link
+        return Observable.of({"uuid_link": "zip"});
+      }
     });
+  }
+
+  private isTargetOpenshift(summary: Summary) {
+    return summary.targetEnvironment === 'os';
   }
 
   /**
@@ -102,16 +113,14 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
 
   private getPayload(summary: Summary) {
     let payload =
-    'missionId=' + summary.mission.id +
-    '&runtimeId=' + summary.runtime.id +
-    '&runtimeVersion=' + summary.runtime.version.id +
-    '&pipelineId=' + summary.pipeline.id +
-    '&projectName=' + summary.dependencyCheck.projectName +
-    '&projectVersion=' + summary.dependencyCheck.projectVersion +
-    '&groupId=' + summary.dependencyCheck.groupId +
-    '&artifactId=' + summary.dependencyCheck.mavenArtifact +
-    '&spacePath=' + summary.dependencyCheck.spacePath +
-    '&gitRepository=' + summary.gitHubDetails.repository;
+      'mission=' + summary.mission.id +
+      '&runtime=' + summary.runtime.id +
+      '&runtimeVersion=' + summary.runtime.version.id +
+      '&projectName=' + summary.dependencyCheck.projectName +
+      '&projectVersion=' + summary.dependencyCheck.projectVersion +
+      '&groupId=' + summary.dependencyCheck.groupId +
+      '&artifactId=' + summary.dependencyCheck.mavenArtifact +
+      '&gitRepository=' + summary.gitHubDetails.repository;
     if (summary.gitHubDetails.login !== summary.gitHubDetails.organization) {
       payload += '&gitOrganization=' + summary.gitHubDetails.organization;
     }
