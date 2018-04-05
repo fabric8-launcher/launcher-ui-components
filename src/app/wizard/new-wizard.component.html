@@ -1,14 +1,3 @@
 <div class="container-fluid">
-  <div authentication="true">
-    <div class="blank-slate-pf ">
-      <h1>
-        To continue, please log into or register an account for free
-        <br /> with the Red Hat Developer Program.
-      </h1>
-      <div class="blank-slate-pf-main-action">
-        <button class="btn btn-primary btn-lg" (click)="keycloak.login()">Log in or register</button>
-      </div>
-    </div>
-  </div>
   <f8launcher authentication (onCancel)="back()" (onComplete)="back()"></f8launcher>
 </div>

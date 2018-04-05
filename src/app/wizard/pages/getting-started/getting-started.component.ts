@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { DependencyCheckService } from 'ngx-forge';
+import { KeycloakService } from '../../../shared/keycloak.service';
 
 @Component({
   selector: 'getting-started',
@@ -17,8 +18,9 @@ export class GettingStartedComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private dependencyCheckService: DependencyCheckService,
-              private router: Router) {
+  constructor(private keycloak: KeycloakService,
+    private dependencyCheckService: DependencyCheckService,
+    private router: Router) {
   }
 
   ngOnInit(): void {

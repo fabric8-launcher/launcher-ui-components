@@ -7,8 +7,7 @@ import {KeycloakService} from "../shared/keycloak.service";
   templateUrl: "./new-wizard.component.html"
 })
 export class WizardComponent {
-  constructor(private keycloak: KeycloakService,
-    private router: Router) {}
+  constructor(private router: Router) {}
 
   back(): void {
     this.router.navigate(['/']);
