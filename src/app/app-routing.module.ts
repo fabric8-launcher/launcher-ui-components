@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { FormComponent } from "./wizard/wizard.component";
 import { IntroComponent } from "./wizard/pages/intro/intro.component";
 import { WizardComponent } from "./wizard/new-wizard.component";
+import { GettingStartedComponent } from "./wizard/pages/getting-started/getting-started.component";
 
 const routes: Routes = [
   {
@@ -58,8 +59,15 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'new-wizard/:projectName',
+    component: WizardComponent,
+    pathMatch: 'full'
+    
+  },
+  {
     path: "new-wizard",
-    component: WizardComponent
+    component: GettingStartedComponent,
+    pathMatch: 'full'
   },
   { path: '**', redirectTo: '/filtered-wizard/all', pathMatch: 'full' }
 ];

@@ -1,0 +1,36 @@
+<div class="imports-dialog">
+  <div class="code-imports">
+    <form class="code-imports--step active" role="form">
+      <section class="container-fluid">
+        <form class="form" #spaceForm="ngForm">
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+              <h1 class="code-imports--step_title">Create Application</h1>
+              <form>
+                <div class="form-group">
+                  <label for="projectName">
+                    To begin creating your Application, give it a name.
+                  </label>
+                  <span class="code-imports--step_pencil">
+                    <input id="projectName" name="projectName" type="text" class="form-control code-imports--step_input col-sm-5" placeholder="Enter Application Name"
+                        aria-label="Application Name Input" required
+                        [(ngModel)]="projectName">
+                  </span>
+                  <p class="help-block">
+                    Application name must be unique, at least 4 characters long, cannot be more than 65 characters and must contain only letters, numbers, spaces or hyphens.
+                    <br>
+                    It cannot start of end with a space, underscore or hyphen.
+                  </p>
+                </div>
+                <div class="row code-imports--step_toolbar">
+                  <button id="routeToApp" class="btn btn-outline" aria-label="Continue" (click)="routeToApp()">Continue</button>
+                  <button id="cancelImportsButton" class="btn btn-outline" aria-label="Cancel" (click)="cancel()">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+      </section>
+    </form>
+  </div>
+</div>
