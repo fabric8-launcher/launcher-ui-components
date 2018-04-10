@@ -12,7 +12,8 @@ import {
   HelperService,
   ProjectSummaryService,
   Summary,
-  TokenProvider
+  TokenProvider,
+  Cluster
 } from 'ngx-forge';
 
 @Injectable()
@@ -35,11 +36,12 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
     }
   }
 
-  private get options(): Observable<RequestOptions> {
+  private options(cluster: Cluster): Observable<RequestOptions> {
     let headers = new Headers();
     headers.append('X-App', this.ORIGIN);
     headers.append('X-Git-Provider', 'GitHub');
     headers.append('X-Execution-Step-Index', '0');
+    headers.append('X-OpenShift-Cluster', cluster.id);
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return Observable.fromPromise(this.tokenProvider.token.then((token) => {
       headers.append('Authorization', 'Bearer ' + token);
@@ -58,7 +60,7 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
   setup(summary: Summary): Observable<boolean> {
     let summaryEndPoint: string = this.END_POINT +
       (this.isTargetOpenshift(summary) ? this.API_BASE_LAUNCH : this.API_BASE_ZIP);
-    return this.options.flatMap((option) => {
+    return this.options(summary.cluster).flatMap((option) => {
       if (this.isTargetOpenshift(summary)) {
         return this.http.post(summaryEndPoint, this.getPayload(summary), option)
           .map(response => {
