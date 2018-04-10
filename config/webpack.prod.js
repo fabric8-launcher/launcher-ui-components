@@ -5,13 +5,11 @@ var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const API_URL = process.env.API_URL || 'http://api.almighty.io/api/';
 const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL;
 const LAUNCHER_MISSIONCONTROL_URL = process.env.LAUNCHER_MISSIONCONTROL_URL;
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/launch/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
-  API_URL: API_URL,
   ENV: ENV,
   PUBLIC_PATH: PUBLIC_PATH,
   LAUNCHER_MISSIONCONTROL_URL: LAUNCHER_MISSIONCONTROL_URL,
@@ -42,7 +40,6 @@ module.exports = webpackMerge(commonConfig, {
     new webpack.DefinePlugin({
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
-        'API_URL' : JSON.stringify(METADATA.API_URL),
         'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
         'LAUNCHER_MISSIONCONTROL_URL': JSON.stringify(METADATA.LAUNCHER_MISSIONCONTROL_URL),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH)
