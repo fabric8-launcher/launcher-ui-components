@@ -163,6 +163,9 @@ export class AppLauncherGitproviderService implements GitProviderService {
    * @returns {Observable<any>} list of existing GitHub repos
    */
   getGitHubRepoList(org: string): Observable<any> {
+    if (org === undefined) {
+      return Observable.from([]);
+    }
     let url = this.END_POINT + this.API_BASE + 'repositories';
     let location = org + '/';
     if (this.gitHubUserLogin !== org) {
