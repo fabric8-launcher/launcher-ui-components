@@ -36,12 +36,14 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
     }
   }
 
-  private options(cluster: Cluster): Observable<RequestOptions> {
+  private options(cluster?: Cluster): Observable<RequestOptions> {
     let headers = new Headers();
     headers.append('X-App', this.ORIGIN);
     headers.append('X-Git-Provider', 'GitHub');
     headers.append('X-Execution-Step-Index', '0');
-    headers.append('X-OpenShift-Cluster', cluster.id);
+    if (cluster) {
+      headers.append('X-OpenShift-Cluster', cluster.id);
+    }
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return Observable.fromPromise(this.tokenProvider.token.then((token) => {
       headers.append('Authorization', 'Bearer ' + token);
