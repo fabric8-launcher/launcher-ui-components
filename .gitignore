@@ -11,6 +11,7 @@ templates/template_old.yml
 # dependencies
 /node_modules
 /bower_components
+yarn.lock
 
 # IDEs and editors
 /.idea
