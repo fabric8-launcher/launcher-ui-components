@@ -64,7 +64,7 @@ export class KeycloakService {
     return this.auth.authz.tokenParsed;
   }
 
-  linkAccount(provider: string, redirect: string): string {
+  linkAccount(provider: string, redirect?: string): string {
     if (this.accountLink.has(provider)) {
       return this.accountLink.get(provider);
     } else {
@@ -77,7 +77,7 @@ export class KeycloakService {
       let hashed = shaObj.getHash("B64");
 
       let link = `${this.auth.authz.authServerUrl}/realms/${config.realm}/broker/${provider}/link?nonce=`
-        + `${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect)}`;
+        + `${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
       this.accountLink.set(provider, link);
       return link;
     }
