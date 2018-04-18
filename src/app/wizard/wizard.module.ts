@@ -2,11 +2,13 @@ import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { CommonModule, APP_BASE_HREF } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
-import { Config, ForgeService, History, NgxForgeModule, TokenProvider, MissionRuntimeService, HelperService, DependencyCheckService, GitProviderService, PipelineService, ProjectProgressService, ProjectSummaryService, TargetEnvironmentService, AuthHelperService } from "ngx-forge";
+import { Config, ForgeService, History, NgxForgeModule, TokenProvider, MissionRuntimeService, HelperService, DependencyCheckService,
+  GitProviderService, PipelineService, ProjectProgressService, ProjectSummaryService, TargetEnvironmentService, AuthHelperService,
+  TokenService } from "ngx-forge";
 
 import { KeycloakService } from "../shared/keycloak.service";
 import { KeycloakTokenProvider } from "../shared/keycloak-token.provider";
-import { TokenService } from "../shared/token.service";
+import { TokenService as LegacyTokenService } from "../shared/token.service";
 
 import { WizardComponent } from './new-wizard.component';
 import { FormComponent } from "./wizard.component";
@@ -36,6 +38,7 @@ import { AppLauncherProjectProgressService } from './services/app-launcher-proje
 import { AppLauncherProjectSummaryService } from './services/app-launcher-project-summary.service';
 import { AppLauncherTargetEnvironmentService } from './services/app-launcher-target-environment.service';
 import { AppLauncherDependencyCheckService } from "./services/app-launcher-dependency-check.service";
+import { AppLauncherTokenService } from "./services/app-launcher-token.service";
 
 import { AuthenticationDirective } from "../shared/authentication.directive";
 import { CiDirective } from "../shared/ci.directive";
@@ -104,7 +107,7 @@ export class Helper extends HelperService {
       useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak),
       deps: [KeycloakService]
     },
-    TokenService,
+    LegacyTokenService,
     History,
     LaunchConfig,
     {
@@ -129,7 +132,8 @@ export class Helper extends HelperService {
       provide: AuthHelperService,
       useFactory: (keycloak: KeycloakService) => keycloak.getToken().then(token => new AuthAPIProvider(token)),
       deps: [KeycloakService]
-    }
+    },
+    { provide: TokenService, useClass: AppLauncherTokenService }
   ]
 })
 export class WizardModule {
