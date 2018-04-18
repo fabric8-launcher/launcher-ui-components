@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-forge';
+import { GitHubDetails, GitProviderService, HelperService, TokenProvider, TokenService } from 'ngx-forge';
 import { KeycloakService } from '../../shared/keycloak.service';
-import { TokenService } from '../../shared/token.service';
+import { AppLauncherTokenService } from './app-launcher-token.service';
 
 @Injectable()
 export class AppLauncherGitproviderService implements GitProviderService {
@@ -46,13 +46,7 @@ export class AppLauncherGitproviderService implements GitProviderService {
    * @param {string} redirectUrl The GitHub redirect URL
    */
   connectGitHubAccount(redirectUrl: string): void {
-    if (!this.keycloak.isAuthenticated()) {
-      this.keycloak.login(redirectUrl);
-    } else {
-      if (this.tokenService.inValidTokens.indexOf('github') !== -1) {
-        this.redirectToAuth(this.keycloak.linkAccount('github', redirectUrl));
-      }
-    }
+    this.redirectToAuth(this.keycloak.linkAccount('github', redirectUrl));
   }
 
   /**
