@@ -40,18 +40,28 @@ export class AppLauncherTokenService implements TokenService {
 
   get availableClusters(): Observable<Cluster[]> {
     const endPoint: string = this.END_POINT + this.API_BASE;
-    return this.fetchClusters(endPoint);
+    return this.fetchClusters(endPoint, this.filter);
   };
+
+  private filter(response: any[]): Cluster[] {
+    let result: Cluster[] = [];
+    for (let element of response) {
+      if (element.connected) {
+        result.push(element.cluster);
+      }
+    }
+    return result;
+  }
 
   get clusters(): Observable<Cluster[]> {
     const endPoint: string = this.END_POINT + this.API_BASE + '/all';
     return this.fetchClusters(endPoint);
   }
 
-  private fetchClusters(endPoint: string): Observable<Cluster[]> {
+  private fetchClusters(endPoint: string, filter?: Function): Observable<Cluster[]> {
     return this.options.flatMap((option) => {
       return this.http.get(endPoint, option)
-                  .map(response => response.json() as Cluster[])
+                  .map(response => filter ? filter(response.json()) : response.json() as Cluster[])
                   .catch(this.handleError);
     });
   }
