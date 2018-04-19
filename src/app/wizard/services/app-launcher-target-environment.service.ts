@@ -2,60 +2,12 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { TargetEnvironment, TargetEnvironmentService, HelperService, TokenProvider, Cluster } from 'ngx-forge';
+import { TargetEnvironment, TargetEnvironmentService, TokenService, Cluster } from 'ngx-forge';
 
 @Injectable()
 export class AppLauncherTargetEnvironmentService implements TargetEnvironmentService {
-  private END_POINT: string = '';
-  private API_BASE: string = 'services/openshift/clusters';
-  private ORIGIN: string = '';
 
-  constructor(
-    private http: Http,
-    private helperService: HelperService,
-    private tokenProvider: TokenProvider
-  ) {
-    if (this.helperService) {
-      this.END_POINT = this.helperService.getBackendUrl();
-      this.ORIGIN = this.helperService.getOrigin();
-    }
-  }
-
-  private get options(): Observable<RequestOptions> {
-    let headers = new Headers();
-    headers.append('X-App', this.ORIGIN);
-    headers.append('X-Git-Provider', 'GitHub');
-    headers.append('X-Execution-Step-Index', '0');
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    return Observable.fromPromise(this.tokenProvider.token.then((token) => {
-      headers.append('Authorization', 'Bearer ' + token);
-      return new RequestOptions({
-        headers: headers
-      });
-    }));
-  }
-
-  private getClusters(): Observable<Cluster[]> {
-    const endPoint: string = this.END_POINT + this.API_BASE;
-    return this.options.flatMap((option) => {
-      return this.http.get(endPoint, option)
-                  .map(response => response.json() as Cluster[])
-                  .catch(this.handleError);
-    });
-  }
-
-  private handleError(error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
+  constructor(private tokenService: TokenService) { }
 
   /**
    * Returns target environments
@@ -63,7 +15,7 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
    * @returns {Observable<TargetEnvironment>} The target environments
    */
   getTargetEnvironments(): Observable<TargetEnvironment[]> {
-    return this.getClusters().map(clusters => [{
+    return this.tokenService.availableClusters.map(clusters => [{
       description: 'Here is a brief description of what OpenShift is. ' +
         'There is a distinction between what OpenShift does compared to OpenShift.io.',
       benefits: [
