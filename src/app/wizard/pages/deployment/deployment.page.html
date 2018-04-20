@@ -29,7 +29,7 @@
       </div>
       <button class="btn btn-primary box-btn" (click)="getField('deploymentType').value = option.id;next()"
               [disabled]="!isZipFile(option) && !getField('openShiftCluster')">
-        {{isZipFile(option) ? "I will build and run locally" : "Use OpenShift Online"}}
+        {{isZipFile(option) ? "I will build and run locally" : "Use OpenShift"}}
       </button>
     </div>
   </div>
