@@ -26,7 +26,7 @@ export class AsciidocService {
     });
 
     return asciidoctor.convert(context + this.adocIndex.get('document-attributes')
-      + this.adocIndex.get(docId), this.defaultOptions);
+      + this.adocIndex.get(docId), this.defaultOptions).replace(/ [Oo]nline/g, '');
   }
 
   public generateSafeHtml(docId: string): SafeHtml {

@@ -36,7 +36,7 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
         'containing the setup you have established for your application.',
       benefits: [
         'Scaffold a project based on your chosen runtime.',
-        'Configure OpenShift Online to build and deploy your code on each push to your repository\'s master branch.',
+        'Configure OpenShift to build and deploy your code on each push to your repository\'s master branch.',
         'Here is a benefit of using OpenShift as a project environment.'
       ],
       footer: '.ZIP File',
