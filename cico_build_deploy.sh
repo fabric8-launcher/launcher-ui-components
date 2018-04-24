@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+set -x
+
 GENERATOR_DOCKER_HUB_USERNAME=openshiftioadmin
 REGISTRY_URI="push.registry.devshift.net"
 REGISTRY_NS="fabric8"
@@ -8,6 +10,8 @@ DOCKER_HUB_URL=${REGISTRY_NS}/${REGISTRY_IMAGE}
 BUILDER_IMAGE="launcher-frontend-builder"
 BUILDER_CONT="launcher-frontend-builder-container"
 DEPLOY_IMAGE="launcher-frontend-deploy"
+
+TARGET_DIR="dist"
 
 if [ "$TARGET" = "rhel" ]; then
     REGISTRY_URL=${REGISTRY_URI}/osio-prod/${REGISTRY_NS}/${REGISTRY_IMAGE}
