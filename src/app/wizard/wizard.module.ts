@@ -47,7 +47,6 @@ import { ModalModule } from "ngx-modal";
 
 import { LauncherModule } from "ngx-forge";
 import { AsciidocIndex } from "./components/asciidoc/asciidoc.index";
-import { FooterComponent } from "../footer/footer.component";
 import { GettingStartedComponent } from "./pages/getting-started/getting-started.component";
 
 export class Helper extends HelperService {
@@ -73,7 +72,6 @@ export class Helper extends HelperService {
   declarations: [
     GettingStartedComponent,
     WizardComponent,
-    FooterComponent,
     AsciidocComponent,
     IntroComponent,
     FormComponent,
