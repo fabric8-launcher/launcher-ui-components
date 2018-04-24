@@ -5,25 +5,31 @@ REGISTRY_URI="push.registry.devshift.net"
 REGISTRY_NS="fabric8"
 REGISTRY_IMAGE="launcher-frontend"
 DOCKER_HUB_URL=${REGISTRY_NS}/${REGISTRY_IMAGE}
-REGISTRY_URL=${REGISTRY_URI}/${DOCKER_HUB_URL}
 BUILDER_IMAGE="launcher-frontend-builder"
 BUILDER_CONT="launcher-frontend-builder-container"
 DEPLOY_IMAGE="launcher-frontend-deploy"
 
-TARGET_DIR="dist"
+if [ "$TARGET" = "rhel" ]; then
+    REGISTRY_URL=${REGISTRY_URI}/osio-prod/${REGISTRY_NS}/${REGISTRY_IMAGE}
+else
+    REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
+fi
 
-function tag_push() {
-    TARGET_IMAGE=$1
-    USERNAME=$2
-    PASSWORD=$3
-    REGISTRY=$4
+function docker_login() {
+    local USERNAME=$1
+    local PASSWORD=$2
+    local REGISTRY=$3
 
-    docker tag ${DEPLOY_IMAGE} ${TARGET_IMAGE}
     if [ -n "${USERNAME}" ] && [ -n "${PASSWORD}" ]; then
         docker login -u ${USERNAME} -p ${PASSWORD} ${REGISTRY}
     fi
-    docker push ${TARGET_IMAGE}
+}
 
+function tag_push() {
+    local TARGET_IMAGE=$1
+
+    docker tag ${DEPLOY_IMAGE} ${TARGET_IMAGE}
+    docker push ${TARGET_IMAGE}
 }
 
 # Exit on error
@@ -39,8 +45,6 @@ if [ -z $CICO_LOCAL ]; then
     # Get all the deps in
     yum -y install docker make git
 
-    # Get all the deps in
-    yum -y install docker make git
     service docker start
 fi
 
@@ -60,14 +64,22 @@ docker exec ${BUILDER_CONT} npm run build:prod
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
 #BUILD DEPLOY IMAGE
-docker build -t ${DEPLOY_IMAGE} -f Dockerfile.deploy .
+if [ "$TARGET" = "rhel" ]; then
+    # We need to be logged in for the RHEL build
+    docker_login "${DEVSHIFT_USERNAME}" "${DEVSHIFT_PASSWORD}" "${REGISTRY_URI}"
+    DOCKERFILE="Dockerfile.deploy.rhel"
+else
+    DOCKERFILE="Dockerfile.deploy"
+fi
+
+docker build -t ${DEPLOY_IMAGE} -f "${DOCKERFILE}" .
 
 #PUSH
 if [ -z $CICO_LOCAL ]; then
     TAG=$(echo $GIT_COMMIT | cut -c1-${DEVSHIFT_TAG_LEN})
 
-    tag_push "${REGISTRY_URL}:${TAG}" ${DEVSHIFT_USERNAME} ${DEVSHIFT_PASSWORD} ${REGISTRY_URI}
-    tag_push "${REGISTRY_URL}:latest" ${DEVSHIFT_USERNAME} ${DEVSHIFT_PASSWORD} ${REGISTRY_URI}
+    tag_push "${REGISTRY_URL}:${TAG}"
+    tag_push "${REGISTRY_URL}:latest"
 
     if [ -n "${GENERATOR_DOCKER_HUB_PASSWORD}" ]; then
         tag_push "${DOCKER_HUB_URL}:${TAG}" ${GENERATOR_DOCKER_HUB_USERNAME} ${GENERATOR_DOCKER_HUB_PASSWORD}
