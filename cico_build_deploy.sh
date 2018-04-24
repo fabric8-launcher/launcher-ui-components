@@ -82,8 +82,9 @@ if [ -z $CICO_LOCAL ]; then
     tag_push "${REGISTRY_URL}:${TAG}"
     tag_push "${REGISTRY_URL}:latest"
 
-    if [ -n "${GENERATOR_DOCKER_HUB_PASSWORD}" ]; then
-        tag_push "${DOCKER_HUB_URL}:${TAG}" ${GENERATOR_DOCKER_HUB_USERNAME} ${GENERATOR_DOCKER_HUB_PASSWORD}
-        tag_push "${DOCKER_HUB_URL}:latest" ${GENERATOR_DOCKER_HUB_USERNAME} ${GENERATOR_DOCKER_HUB_PASSWORD}
+    if [[ "$TARGET" != "rhel" && -n "${GENERATOR_DOCKER_HUB_PASSWORD}" ]]; then
+        docker_login "${GENERATOR_DOCKER_HUB_USERNAME}" "${GENERATOR_DOCKER_HUB_PASSWORD}"
+        tag_push "${DOCKER_HUB_URL}:${TAG}"
+        tag_push "${DOCKER_HUB_URL}:latest"
     fi
 fi
