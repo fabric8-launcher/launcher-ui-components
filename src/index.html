@@ -1,18 +1,143 @@
 <html>
-  <head>
-    <base href="/launch/">
-    <title>Red Hat Developer Launcher</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="Cache-control" content="NO-CACHE">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <!-- Add segment tracking -->
-    <script>
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
-      analytics.load("{SegmentTrackerToken}");
-      }}();
-    </script>
-  </head>
-  <body>
-    <app>Loading...</app>
-  </body>
+
+<head>
+  <base href="/launch/">
+  <title>Red Hat Developer Launcher</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-control" content="NO-CACHE">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Add segment tracking -->
+  <script>
+    !function () {
+      var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
+        analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"]; analytics.factory = function (t) { return function () { var e = Array.prototype.slice.call(arguments); e.unshift(t); analytics.push(e); return analytics } }; for (var t = 0; t < analytics.methods.length; t++) { var e = analytics.methods[t]; analytics[e] = analytics.factory(e) } analytics.load = function (t) { var e = document.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = ("https:" === document.location.protocol ? "https://" : "http://") + "cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js"; var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(e, n) }; analytics.SNIPPET_VERSION = "4.0.0";
+        analytics.load("{SegmentTrackerToken}");
+      }
+    }();
+  </script>
+  <style>
+    .main {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background-color: #030303;
+      height: 100px;
+    }
+
+    .title {
+      background-color: #c00;
+      width: 100%;
+      height: 350px;
+
+      background-image: linear-gradient(45deg, #8e0000 25%, transparent 25%, transparent 75%, #8e0000 75%, #8e0000),
+      linear-gradient(-45deg, #8e0000 25%, transparent 25%, transparent 75%, #8e0000 75%, #8e0000);
+      background-size: 100px 100px;
+    }
+
+    .title .title-text {
+      background-color: white;
+      height: 3em;
+      width: 200px;
+      margin: auto;
+      border-radius: 4px;
+      position: relative;
+      top: 80px;
+      font-family: 'Overpass', sans-serif;
+      text-align: center;
+      line-height: 3.2em;
+    }
+
+    .example-runtimes {
+      flex: 1;
+      background-color: #f5f5f5;
+      padding: 50px
+    }
+
+    .example-runtime {
+      width: 30%;
+      background-color: white;
+      height: 200px;
+      float: left;
+      margin-right: 20px;
+      padding-top: 40px;
+    }
+
+    .text {
+      height: 2em;
+      background-color: #8a8a8a;
+      border-radius: 2px;
+      margin: 20px;
+    }
+
+    .small {
+      width: 8em;
+    }
+
+    .small2 {
+      width: 6em;
+    }
+
+    .lds-dual-ring {
+      width: 64px;
+      height: 64px;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      margin-left: -24px;
+    }
+
+    .lds-dual-ring:after {
+      content: " ";
+      display: block;
+      width: 46px;
+      height: 46px;
+      margin: 1px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      border-color: #fff transparent #fff transparent;
+      animation: lds-dual-ring 1.2s linear infinite;
+    }
+
+    @keyframes lds-dual-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <app>
+    <div class="main">
+      <div class="header"></div>
+      <div class="title">
+        <div class="title-text">
+          Loading...
+        </div>
+      </div>
+      <div class="lds-dual-ring"></div>
+      <div class="example-runtimes">
+        <div class="example-runtime">
+          <div class="text"></div>
+          <div class="text small2"></div>
+        </div>
+        <div class="example-runtime">
+          <div class="text"></div>
+          <div class="text"></div>
+        </div>
+        <div class="example-runtime">
+          <div class="text"></div>
+          <div class="text small"></div>
+        </div>
+      </div>
+    </div>
+  </app>
+</body>
+
 </html>
