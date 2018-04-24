@@ -16,18 +16,18 @@
     }();
   </script>
   <style>
-    .main {
+    #loading-screen .main {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
 
-    .header {
+    #loading-screen .header {
       background-color: #030303;
       height: 100px;
     }
 
-    .title {
+    #loading-screen .title {
       background-color: #c00;
       width: 100%;
       height: 350px;
@@ -37,7 +37,7 @@
       background-size: 100px 100px;
     }
 
-    .title .title-text {
+    #loading-screen .title .title-text {
       background-color: white;
       height: 3em;
       width: 200px;
@@ -50,13 +50,13 @@
       line-height: 3.2em;
     }
 
-    .example-runtimes {
+    #loading-screen .example-runtimes {
       flex: 1;
       background-color: #f5f5f5;
       padding: 50px
     }
 
-    .example-runtime {
+    #loading-screen .example-runtime {
       width: 30%;
       background-color: white;
       height: 200px;
@@ -65,22 +65,22 @@
       padding-top: 40px;
     }
 
-    .text {
+    #loading-screen .text {
       height: 2em;
       background-color: #8a8a8a;
       border-radius: 2px;
       margin: 20px;
     }
 
-    .small {
+    #loading-screen .small {
       width: 8em;
     }
 
-    .small2 {
+    #loading-screen .small2 {
       width: 6em;
     }
 
-    .lds-dual-ring {
+    #loading-screen .lds-dual-ring {
       width: 64px;
       height: 64px;
       position: absolute;
@@ -89,7 +89,7 @@
       margin-left: -24px;
     }
 
-    .lds-dual-ring:after {
+    #loading-screen .lds-dual-ring:after {
       content: " ";
       display: block;
       width: 46px;
@@ -114,7 +114,7 @@
 
 <body>
   <app>
-    <div class="main">
+    <div class="main" id="loading-screen">
       <div class="header"></div>
       <div class="title">
         <div class="title-text">
