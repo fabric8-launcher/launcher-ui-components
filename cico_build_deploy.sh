@@ -15,8 +15,10 @@ TARGET_DIR="dist"
 
 if [ "$TARGET" = "rhel" ]; then
     REGISTRY_URL=${REGISTRY_URI}/osio-prod/${REGISTRY_NS}/${REGISTRY_IMAGE}
+    DOCKERFILE="Dockerfile.deploy.rhel"
 else
     REGISTRY_URL=${REGISTRY_URI}/${REGISTRY_NS}/${REGISTRY_IMAGE}
+    DOCKERFILE="Dockerfile.deploy"
 fi
 
 function docker_login() {
@@ -67,15 +69,10 @@ docker exec ${BUILDER_CONT} npm install
 docker exec ${BUILDER_CONT} npm run build:prod
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
-#BUILD DEPLOY IMAGE
-if [ "$TARGET" = "rhel" ]; then
-    # We need to be logged in for the RHEL build
-    docker_login "${DEVSHIFT_USERNAME}" "${DEVSHIFT_PASSWORD}" "${REGISTRY_URI}"
-    DOCKERFILE="Dockerfile.deploy.rhel"
-else
-    DOCKERFILE="Dockerfile.deploy"
-fi
+#LOGIN
+docker_login "${DEVSHIFT_USERNAME}" "${DEVSHIFT_PASSWORD}" "${REGISTRY_URI}"
 
+#BUILD DEPLOY IMAGE
 docker build -t ${DEPLOY_IMAGE} -f "${DOCKERFILE}" .
 
 #PUSH
