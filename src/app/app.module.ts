@@ -6,7 +6,9 @@ import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { HeaderComponent } from "./header/header.component";
+import { FooterComponent } from "./footer/footer.component";
 import { WizardModule } from "./wizard/wizard.module";
+
 
 @NgModule({
   imports: [
@@ -18,7 +20,8 @@ import { WizardModule } from "./wizard/wizard.module";
   ],
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   providers: [
     Logger
