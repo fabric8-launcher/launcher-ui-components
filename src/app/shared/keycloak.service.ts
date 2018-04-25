@@ -67,7 +67,7 @@ export class KeycloakService {
   linkAccount(provider: string, redirect?: string): string {
     if (this.accountLink.has(provider)) {
       return this.accountLink.get(provider);
-    } else {
+    } else if (this.auth.authz.tokenParsed) {
       const nonce = v4();
       const clientId = config.clientId;
       const hash = nonce + this.auth.authz.tokenParsed.session_state
@@ -81,6 +81,7 @@ export class KeycloakService {
       this.accountLink.set(provider, link);
       return link;
     }
+    return '';
   }
 
   get user(): string {
