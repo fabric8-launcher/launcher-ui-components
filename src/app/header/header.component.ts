@@ -10,11 +10,13 @@ import {Router} from "@angular/router";
 
 export class HeaderComponent {
   collapse: boolean;
-  wizard: boolean;
+  frontpage: boolean;
+  oldUI: boolean;
 
   constructor(private router: Router, private keycloak: KeycloakService) {
     router.events.subscribe((url: any) => {
-      this.wizard = url.url !== "/" && url.url !== "/wizard";
+      this.frontpage = url.url !== "/";
+      this.oldUI = url.url.indexOf("filtered-wizard") !== -1;
     });
   }
 }
