@@ -50,7 +50,7 @@ done
 if [[ $DO_BUILD -eq 1 ]]; then
 	# build the image
 	echo "Building image..."
-	docker build -q -t fabric8/launcher-frontend -f Dockerfile.deploy .
+	docker build -t fabric8/launcher-frontend -f Dockerfile.deploy .
 fi
 
 if [[ $DO_RUN -eq 1 ]]; then
