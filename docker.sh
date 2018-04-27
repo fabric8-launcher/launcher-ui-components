@@ -21,7 +21,6 @@ while [[ $# -gt 0 ]]; do
                 if ! docker network ls | grep -q $NETWORK; then docker network create $NETWORK; fi
                 # override the connection URLs for the application
                 LAUNCHER_BACKEND_URL=http://localhost:8088/launch/api
-                LAUNCHER_MISSIONCONTROL_URL=ws://localhost:8088/launch
                 EXTRA_OPTS=""
                 ;;
         --build) DO_RUN=0
@@ -68,11 +67,8 @@ if [[ $DO_RUN -eq 1 ]]; then
         export LAUNCHER_MISSIONCONTROL_OPENSHIFT_PASSWORD=developer
         # For launcher-frontend
         if [[ "$NETWORK" -eq "default" ]]; then
-            export LAUNCHER_MISSIONCONTROL_URL="ws://127.0.0.1:8080"
             export LAUNCHER_BACKEND_URL="http://127.0.0.1:8080/api"
         fi
-        # For OSIO frontend
-        export FABRIC8_FORGE_API_URL=http://localhost:8080/api/launchpad
     fi
     
 	# run it
@@ -85,7 +81,6 @@ if [[ $DO_RUN -eq 1 ]]; then
 		-eLAUNCHER_KEYCLOAK_URL=$LAUNCHER_KEYCLOAK_URL \
 		-eLAUNCHER_KEYCLOAK_REALM=$LAUNCHER_KEYCLOAK_REALM \
 		-eLAUNCHER_BACKEND_URL=$LAUNCHER_BACKEND_URL \
-		-eLAUNCHER_MISSIONCONTROL_URL=$LAUNCHER_MISSIONCONTROL_URL \
 		-eLAUNCHER_TRACKER_SEGMENT_TOKEN=$LAUNCHER_TRACKER_SEGMENT_TOKEN \
 		$DRUN_OPTS \
 		$EXTRA_OPTS \
