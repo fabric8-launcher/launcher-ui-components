@@ -74,7 +74,7 @@
     "autoprefixer": "6.3.7",
     "codelyzer": "4.3.0",
     "cpy-cli": "1.0.1",
-    "css-loader": "0.23.1",
+    "css-loader": "0.28.11",
     "exports-loader": "0.6.3",
     "extract-text-webpack-plugin": "2.0.0-beta.1",
     "file-loader": "0.9.0",
