@@ -97,7 +97,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "3.0.0",
     "marked": "0.3.19",
-    "mocha": "3.0.2",
+    "mocha": "5.1.1",
     "node-sass": "4.7.2",
     "npm-run-all": "2.2.0",
     "null-loader": "0.1.1",
