@@ -11,7 +11,6 @@ templates/template_old.yml
 # dependencies
 /node_modules
 /bower_components
-yarn.lock
 
 # IDEs and editors
 /.idea
@@ -43,3 +42,5 @@ Thumbs.db
 
 # Package manager files
 package-lock.json
+yarn.lock
+yarn-error.log
