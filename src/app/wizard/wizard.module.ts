@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from "@angular/core";
+import {APP_INITIALIZER, ErrorHandler, NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
@@ -64,6 +64,8 @@ import {ModalModule} from "ngx-modal";
 import {AsciidocIndex} from "./components/asciidoc/asciidoc.index";
 import {GettingStartedComponent} from "./pages/getting-started/getting-started.component";
 import {LaunchHelper} from "../shared/helper.component";
+import { errorHandlerFactory } from "../shared/error.component";
+
 
 @NgModule({
   imports: [
@@ -100,20 +102,12 @@ import {LaunchHelper} from "../shared/helper.component";
     AsciidocService,
     AsciidocIndex,
     KeycloakService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (keycloak: KeycloakService) => () => keycloak.init(),
-      deps: [KeycloakService],
-      multi: true
-    },
-    {
-      provide: TokenProvider,
-      useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak),
-      deps: [KeycloakService]
-    },
+    { provide: APP_INITIALIZER, useFactory: (keycloak: KeycloakService) => () => keycloak.init(), deps: [KeycloakService], multi: true },
+    { provide: TokenProvider, useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak), deps: [KeycloakService] },
     LegacyTokenService,
     History,
     { provide: Config, useClass: LaunchConfig },
+    { provide: ErrorHandler, useFactory: errorHandlerFactory, deps: [Config] },
     { provide: HelperService, useClass: LaunchHelper, deps: [Config] },
     { provide: GitProviderService, useClass: AppLauncherGitproviderService },
     { provide: MissionRuntimeService, useClass: AppLauncherMissionRuntimeService },
@@ -122,11 +116,7 @@ import {LaunchHelper} from "../shared/helper.component";
     { provide: ProjectSummaryService, useClass: AppLauncherProjectSummaryService },
     { provide: TargetEnvironmentService, useClass: AppLauncherTargetEnvironmentService },
     { provide: DependencyCheckService, useClass: AppLauncherDependencyCheckService },
-    {
-      provide: AuthHelperService,
-      useFactory: (keycloak: KeycloakService) => keycloak.getToken().then(token => new AuthAPIProvider(token)),
-      deps: [KeycloakService]
-    },
+    { provide: AuthHelperService, useFactory: (keycloak: KeycloakService) => keycloak.getToken().then(token => new AuthAPIProvider(token)), deps: [KeycloakService] },
     { provide: TokenService, useClass: AppLauncherTokenService }
   ]
 })
