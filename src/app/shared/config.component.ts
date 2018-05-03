@@ -30,7 +30,7 @@ export class LaunchConfig extends Config {
       }
     }
   }
-
+  
   private postProcessSettings() {
     const backendApiUrl = Location.stripTrailingSlash(this.settings['backend_url']);
 
