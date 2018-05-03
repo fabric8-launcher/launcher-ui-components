@@ -3,5 +3,6 @@
   "keycloak_url": "${LAUNCHER_KEYCLOAK_URL}",
   "keycloak_realm": "${LAUNCHER_KEYCLOAK_REALM}",
   "keycloak_client_id": "${LAUNCHER_KEYCLOAK_CLIENT_ID}",
-  "segment_tracker_token": "${LAUNCHER_TRACKER_SEGMENT_TOKEN}"
+  "segment_tracker_token": "${LAUNCHER_TRACKER_SEGMENT_TOKEN}",
+  "sentry_dsn": "${LAUNCHER_SENTRY_DSN}"
 }

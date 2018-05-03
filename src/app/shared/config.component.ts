@@ -11,7 +11,8 @@ export class LaunchConfig extends Config {
     backend_url:  process.env.LAUNCHER_BACKEND_URL,
     keycloak_url: process.env.LAUNCHER_KEYCLOAK_URL,
     keycloak_realm: process.env.LAUNCHER_KEYCLOAK_REALM,
-    keycloak_client_id: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID
+    keycloak_client_id: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID,
+    sentry_dsn: process.env.LAUNCHER_SENTRY_DSN
   };
 
   constructor() {
