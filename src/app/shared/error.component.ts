@@ -13,16 +13,18 @@ class RavenErrorHandler extends ErrorHandler {
 }
 
 export function errorHandlerFactory(config: LaunchConfig) {
-  const sentryDsn = config.get('sentry_dsn');
-  if (sentryDsn) {
-    const config = {
-      environment: process.env.ENV
-    };
-    console.info('Starting Error Handler with Sentry DSN: ' + sentryDsn);
-    Raven.config(sentryDsn, config).install();
-    return new RavenErrorHandler();
-  }
-  console.info('Starting Default Error Handler');
-  return new ErrorHandler();
+  return config.load().then(() => {
+    const sentryDsn = config.get('sentry_dsn');
+    if (sentryDsn) {
+      const config = {
+        environment: process.env.ENV
+      };
+      console.info('Starting Error Handler with Sentry DSN: ' + sentryDsn);
+      Raven.config(sentryDsn, config).install();
+      return new RavenErrorHandler();
+    }
+    console.info('Starting Default Error Handler');
+    return new ErrorHandler();
+  });
 }
 
