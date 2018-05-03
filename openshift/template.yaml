@@ -111,6 +111,11 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.tracker.segment.token
+          - name: LAUNCHER_SENTRY_DSN
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.sentry.dsn
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
