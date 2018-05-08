@@ -15,8 +15,8 @@ export class HeaderComponent {
 
   constructor(private router: Router, private keycloak: KeycloakService) {
     router.events.subscribe((url: any) => {
-      this.frontpage = url.url !== "/";
-      this.oldUI = url.url.indexOf("filtered-wizard") !== -1;
+      this.frontpage = url.url === "/";
+      this.oldUI = url.url.indexOf("launchpad-new-project") !== -1;
     });
   }
 }
