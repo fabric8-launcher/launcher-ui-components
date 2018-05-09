@@ -10,7 +10,7 @@ import { AppLauncherTokenService } from './app-launcher-token.service';
 export class AppLauncherGitproviderService implements GitProviderService {
 
     private END_POINT: string = '';
-    private API_BASE: string = 'services/git/';
+    private API_BASE: string = '/services/git/';
     private ORIGIN: string = '';
     private PROVIDER: string = 'GitHub';
     private gitHubUserLogin: string;

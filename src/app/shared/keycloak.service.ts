@@ -4,8 +4,8 @@ import { v4 } from "uuid";
 import * as jsSHA from "jssha";
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
+import {Config} from "ngx-forge";
 
-const config = require("../../assets/keycloak/keycloak.json");
 let Keycloak = require("../../assets/keycloak/keycloak.js");
 
 @Injectable()
@@ -14,20 +14,33 @@ export class KeycloakService {
   auth: any = {};
   loginSubject: Subject<string> = new Subject<string>();
   accountLink: Map<string, string> = new Map<string, string>();
+  private readonly config: {
+    url: string;
+    realm: string;
+    clientId: string;
+  };
+
+  constructor(config: Config) {
+    this.config = {
+      url: config.get('keycloak_url'),
+      realm: config.get('keycloak_realm'),
+      clientId: config.get('keycloak_client_id'),
+    };
+  }
 
   init(): Promise<KeycloakService> {
     return new Promise<KeycloakService>((resolve, reject) => {
-      this.skip = !config.realm;
-      const keycloakAuth: any = Keycloak(config);
+      this.skip = !this.config.realm;
+      const keycloakAuth: any = Keycloak(this.config);
 
       this.auth.authz = {};
 
-      if (config.realm) {
+      if (this.config.realm) {
         keycloakAuth.init({ onLoad: "check-sso", checkLoginIframe: false })
           .error(() => reject())
           .success(() => {
             this.auth.authz = keycloakAuth;
-            this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
+            this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${this.config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
             this.loginSubject.next(keycloakAuth.token);
             if (window['analytics'] && keycloakAuth.authenticated) {
               window['analytics'].identify(keycloakAuth.tokenParsed.email, keycloakAuth.tokenParsed);
@@ -69,14 +82,14 @@ export class KeycloakService {
       return this.accountLink.get(provider);
     } else if (this.auth.authz.tokenParsed) {
       const nonce = v4();
-      const clientId = config.clientId;
+      const clientId = this.config.clientId;
       const hash = nonce + this.auth.authz.tokenParsed.session_state
         + clientId + provider;
       const shaObj = new jsSHA("SHA-256", "TEXT");
       shaObj.update(hash);
       let hashed = shaObj.getHash("B64");
 
-      let link = `${this.auth.authz.authServerUrl}/realms/${config.realm}/broker/${provider}/link?nonce=`
+      let link = `${this.auth.authz.authServerUrl}/realms/${this.config.realm}/broker/${provider}/link?nonce=`
         + `${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
       this.accountLink.set(provider, link);
       return link;

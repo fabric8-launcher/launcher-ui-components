@@ -8,13 +8,19 @@ const ENV = process.env.ENV || process.env.NODE_ENV || 'development';
 // if env is 'inmemory', the inmemory debug resource is used
 const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8080/api';
 const LAUNCHER_MISSIONCONTROL_URL = process.env.LAUNCHER_MISSIONCONTROL_URL || 'ws://localhost:8080';
+const LAUNCHER_KEYCLOAK_URL = process.env.LAUNCHER_KEYCLOAK_URL || '';
+const LAUNCHER_KEYCLOAK_REALM = process.env.LAUNCHER_KEYCLOAK_REALM || '';
+const LAUNCHER_KEYCLOAK_CLIENT_ID = process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
   ENV: ENV,
   PUBLIC_PATH: PUBLIC_PATH,
   LAUNCHER_BACKEND_URL: LAUNCHER_BACKEND_URL,
-  LAUNCHER_MISSIONCONTROL_URL: LAUNCHER_MISSIONCONTROL_URL
+  LAUNCHER_MISSIONCONTROL_URL: LAUNCHER_MISSIONCONTROL_URL,
+  LAUNCHER_KEYCLOAK_URL: LAUNCHER_KEYCLOAK_URL,
+  LAUNCHER_KEYCLOAK_REALM: LAUNCHER_KEYCLOAK_REALM,
+  LAUNCHER_KEYCLOAK_CLIENT_ID: LAUNCHER_KEYCLOAK_CLIENT_ID
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -44,9 +50,12 @@ module.exports = webpackMerge(commonConfig, {
     new webpack.DefinePlugin({
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
-        'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH),
+        'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
         'LAUNCHER_MISSIONCONTROL_URL' : JSON.stringify(METADATA.LAUNCHER_MISSIONCONTROL_URL),
+        'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_URL),
+        'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_REALM),
+        'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_CLIENT_ID),
       }
     })
   ],
