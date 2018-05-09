@@ -22,24 +22,21 @@ Start the app by executing the following.
 $ npm start
 ```
 
-If you want the UI to use a local version of the backend, you need to set the following environment variables:
+The frontend will use your localhost backend as default. 
+If you want the UI to use another version of the backend, you need to set the following environment variables:
 
 ```bash   
-$ export LAUNCHER_BACKEND_URL=http://localhost:8080/api/
-$ export LAUNCHER_MISSIONCONTROL_URL=ws://localhost:8080
+$ export LAUNCHER_BACKEND_URL=http://yourbackend:port/api/
+$ export LAUNCHER_MISSIONCONTROL_URL=ws://yourbackend:port
 ```
 
 More details on running a local version of the backend are available [here][2].
 
 ## Production Build
 
-Location of the [backend][2] can be determined at runtime (via `settings.json`) or at build time.
-If `LAUNCHER_BACKEND_URL` environment variable is set at build time, this value will be used to connect to the backend.
-Otherwise [settings.json][1] will be fetched at runtime and the contents used connect to the backend.
+If `LAUNCHER_BACKEND_URL` and `LAUNCHER_MISSIONCONTROL_URL` environment variables are not set, the frontend location will be used to target the backend.
 
-To generate production build, set the backend url (the host and port of where
-[backend][2] is deployed) either in the [settings.json][1] or as `LAUNCHER_BACKEND_URL` environment variable
-and run the `npm` command as given below:
+Run the `npm` command as given below:
 
 ```bash
 npm run build:prod

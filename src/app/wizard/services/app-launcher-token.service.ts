@@ -9,7 +9,7 @@ import { KeycloakService } from '../../shared/keycloak.service';
 export class AppLauncherTokenService implements TokenService {
 
   private END_POINT: string = '';
-  private API_BASE: string = 'services/openshift/clusters';
+  private API_BASE: string = '/services/openshift/clusters';
   private ORIGIN: string = '';
 
   constructor(

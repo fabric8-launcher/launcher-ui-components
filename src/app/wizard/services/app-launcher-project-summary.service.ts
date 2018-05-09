@@ -21,8 +21,8 @@ export class AppLauncherProjectSummaryService implements ProjectSummaryService {
 
   // TODO: remove the hardcodes
   private END_POINT: string = '';
-  private API_BASE_LAUNCH: string = 'launcher/launch';
-  private API_BASE_ZIP: string = 'launcher/zip';
+  private API_BASE_LAUNCH: string = '/launcher/launch';
+  private API_BASE_ZIP: string = '/launcher/zip';
   private ORIGIN: string = '';
 
   constructor(

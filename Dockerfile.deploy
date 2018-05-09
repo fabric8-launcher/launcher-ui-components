@@ -7,14 +7,18 @@ ENV LANG=en_US.utf8
 ENTRYPOINT /usr/bin/entrypoint.sh
 
 USER root
+
+RUN yum install -y gettext
 ADD nginx.conf /etc/nginx/nginx.conf
 
 COPY scripts/entrypoint.sh /usr/bin/entrypoint.sh
+COPY scripts/settings-tmpl.json /usr/bin/settings-tmpl.json
 RUN chmod +x /usr/bin/entrypoint.sh
 
 RUN rm -f /usr/share/nginx/html/*
 
 COPY dist /usr/share/nginx/html/launch
 RUN chmod a+w /usr/share/nginx/html/launch
+RUN chmod a+w /usr/share/nginx/html/launch/index.html
 
 USER 997

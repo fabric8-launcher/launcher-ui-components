@@ -1,45 +1,46 @@
-import { Injectable } from "@angular/core";
-import { Location } from "@angular/common";
-import { Config } from "ngx-forge";
-import { Http } from "@angular/http";
+import {Injectable} from "@angular/core";
+import {Location} from "@angular/common";
+import {Config} from "ngx-forge";
+
+declare var settings: object;
 
 @Injectable()
 export class LaunchConfig extends Config {
-  static settings = {};
+  protected readonly settings = {
+    origin: 'launcher',
+    backend_url:  process.env.LAUNCHER_BACKEND_URL,
+    mission_control_url: process.env.LAUNCHER_MISSIONCONTROL_URL,
+    keycloak_url: process.env.LAUNCHER_KEYCLOAK_URL,
+    keycloak_realm: process.env.LAUNCHER_KEYCLOAK_REALM,
+    keycloak_client_id: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID
+  };
 
-  constructor(private http: Http) {
+  constructor() {
     super();
+    this.processInitConfig();
+    this.postProcessSettings();
+    console.info("LaunchConfig is: " + JSON.stringify(this.settings));
   }
 
-  load(): Promise<any> {
-    return this.http.get('settings.json').toPromise().then((settings) => {
-      LaunchConfig.settings = Object.assign(LaunchConfig.settings, settings.json());
-    }).catch(() => {
-      console.info('settings.json not found ignoring');
-    }).then(() => {
-      let backendUrl = LaunchConfig.settings['backend_url'];
-      if (!backendUrl) {
-        backendUrl = process.env.LAUNCHER_BACKEND_URL;
-      }
+  private processInitConfig() {
+    if (settings) {
+      Object.assign(this.settings, settings);
+    }
+  }
 
-      LaunchConfig.settings['backend_url'] = Location.stripTrailingSlash(backendUrl) + '/launchpad';
-      LaunchConfig.settings['origin'] = 'launcher';
+  private postProcessSettings() {
+    const backend_url = Location.stripTrailingSlash(this.settings['backend_url']);
+    this.settings['backend_api_url'] = backend_url;
+    this.settings['backend_url'] = backend_url + '/launchpad';
 
-      let missionControl = LaunchConfig.settings['mission_control_url'];
-      if (!missionControl) {
-        missionControl = process.env.LAUNCHER_MISSIONCONTROL_URL;
-      }
-
-      if (missionControl && (missionControl.startsWith("/") || missionControl.startsWith(":"))) {
-        missionControl = (missionControl.startsWith(":") ? location.hostname : location.host) + missionControl;
-        missionControl = (location.protocol === "https:" ? "wss://" : "ws://") + missionControl;
-      }
-
-      LaunchConfig.settings['mission_control_url'] = missionControl;
-    });
+    let missionControl = this.settings['mission_control_url'];
+    if (missionControl && (missionControl.startsWith("/") || missionControl.startsWith(":"))) {
+      missionControl = (missionControl.startsWith(":") ? location.hostname : location.host) + missionControl;
+      this.settings['mission_control_url'] = (location.protocol === "https:" ? "wss://" : "ws://") + missionControl;
+    }
   }
 
   get(key: string): string {
-    return LaunchConfig.settings[key];
+    return this.settings[key];
   }
 }

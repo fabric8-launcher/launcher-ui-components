@@ -23,7 +23,7 @@ export class DeployPage implements OnInit {
   statusMessages: StatusMessage[];
   error: string;
 
-  private apiUrl: string;
+  private wsUrl: string;
   private webSocket: WebSocket;
 
   constructor(private forgeService: ForgeService,
@@ -32,7 +32,7 @@ export class DeployPage implements OnInit {
               private history: History,
               private kc: KeycloakService,
               private config: Config) {
-    this.apiUrl = Location.stripTrailingSlash(config.get("mission_control_url"));
+    this.wsUrl = Location.stripTrailingSlash(config.get("mission_control_url"));
   }
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class DeployPage implements OnInit {
       headers.append("X-RETRY_STEP", "" + step);
       this.forgeService.upload(this.command, this.history, headers as any)
         .then((status: any) => {
-          this.webSocket = new WebSocket(this.apiUrl + status.uuid_link);
+          this.webSocket = new WebSocket(this.wsUrl + status.uuid_link);
           this.webSocket.onmessage = function (event: MessageEvent) {
             if (!this.statusMessages) {
               this.statusMessages = [];

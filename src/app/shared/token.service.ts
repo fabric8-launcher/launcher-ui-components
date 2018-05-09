@@ -11,11 +11,10 @@ export class TokenService {
   private _inValidTokens: string[] = [];
 
   constructor(private config: Config, private keycloak: KeycloakService, private http: Http) {
-    let apiUrl = config.get("mission_control_url");
+    const apiUrl = config.get("backend_api_url");
 
-    let baseUrl = apiUrl.replace(/^ws/, "http");
-    this.http.get(Location.joinWithSlash(baseUrl, "api/openshift/clusters?all")).subscribe(response => {
-      apiUrl = Location.joinWithSlash(baseUrl, "api/validate/token/");
+    this.http.get(Location.joinWithSlash(apiUrl, "openshift/clusters?all")).subscribe(response => {
+      const validateUrl = Location.joinWithSlash(apiUrl, "validate/token/");
 
       this.clusters = response.json() as string[];
       let tokens = this.clusters.map(e => {return {query: e, prefix: 'openshift'}});
@@ -25,7 +24,7 @@ export class TokenService {
         let promises: Promise<string>[] = [];
         tokens.forEach(token => {
           let options = new RequestOptions({headers: new Headers({"Authorization": `Bearer ${authToken}`})});
-          promises.push(this.http.head(apiUrl + token.prefix + (token.query ? `?cluster=${token.query}`: ''),
+          promises.push(this.http.head(validateUrl + token.prefix + (token.query ? `?cluster=${token.query}`: ''),
             options).toPromise().then(() => "").catch(() => token.query ? token.query : token.prefix));
         });
 

@@ -14,7 +14,7 @@ import {
 export class AppLauncherMissionRuntimeService implements MissionRuntimeService {
 
   private END_POINT: string;
-  private API_BASE: string = 'booster-catalog/';
+  private API_BASE: string = '/booster-catalog/';
   private ORIGIN: string;
 
   constructor(

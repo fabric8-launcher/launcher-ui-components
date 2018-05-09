@@ -41,6 +41,8 @@ function tag_push() {
 # Exit on error
 set -e
 
+
+
 if [ -z $CICO_LOCAL ]; then
     [ -f jenkins-env ] && cat jenkins-env | grep -e PASS -e USER -e GIT -e DEVSHIFT > inherit-env
     [ -f inherit-env ] && . inherit-env

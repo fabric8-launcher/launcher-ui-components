@@ -14,7 +14,7 @@ export class AppLauncherPipelineService implements PipelineService {
 
   // TODO: remove the hardcodes
   private END_POINT: string = '';
-  private API_BASE: string = 'services/jenkins/pipelines';
+  private API_BASE: string = '/services/jenkins/pipelines';
   private ORIGIN: string = '';
 
   constructor(private http: Http,
