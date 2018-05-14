@@ -14,11 +14,12 @@ ADD nginx.conf /etc/nginx/nginx.conf
 
 COPY scripts/entrypoint.sh /usr/bin/entrypoint.sh
 COPY scripts/settings-tmpl.json /usr/bin/settings-tmpl.json
-RUN chmod +x /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh 
 
 RUN rm -f /usr/share/nginx/html/*
 
 COPY dist /usr/share/nginx/html/launch
-RUN chmod a+w /usr/share/nginx/html/launch/index.html
+RUN chmod a+w /usr/share/nginx/html/launch/index.html /usr/share/nginx/html/ && \
+	chown 997 /usr/share/nginx/html/ /usr/share/nginx/html/launch/index.html
 
 USER 997
