@@ -23,14 +23,15 @@ $ npm start
 ```
 
 The frontend will use your localhost backend as default. 
+
 If you want the UI to use another version of the backend, you need to set the following environment variables:
 
 ```bash   
-$ export LAUNCHER_BACKEND_URL=http://yourbackend:port/api/
-$ export LAUNCHER_MISSIONCONTROL_URL=ws://yourbackend:port
+$ export LAUNCHER_BACKEND_URL=http://localhost:8080/api/
+$ export LAUNCHER_MISSIONCONTROL_URL=ws://localhost:8080
 ```
 
-More details on running a local version of the backend are available [here][2].
+More details on running a local version of the backend are available [here][1].
 
 ## Production Build
 
@@ -44,5 +45,4 @@ npm run build:prod
 
 The build output will be under `dist` directory.
 
-[1]: https://github.com/fabric8-launcher/launcher-frontend/blob/master/src/assets/settings.json
-[2]: https://github.com/fabric8-launcher/launcher-backend
+[1]: https://github.com/fabric8-launcher/launcher-backend
