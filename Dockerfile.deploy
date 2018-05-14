@@ -18,7 +18,7 @@ RUN chmod +x /usr/bin/entrypoint.sh
 RUN rm -f /usr/share/nginx/html/*
 
 COPY dist /usr/share/nginx/html/launch
-RUN chmod a+w /usr/share/nginx/html/launch/index.html /usr/share/nginx/html/ && \
-	chown 997 /usr/share/nginx/html/ /usr/share/nginx/html/launch/index.html
+RUN chmod a+w /var/lib/nginx /usr/share/nginx/html/launch/index.html /usr/share/nginx/html/ && \
+	chown 997 /var/lib/nginx /usr/share/nginx/html/ /usr/share/nginx/html/launch/index.html
 
 USER 997
