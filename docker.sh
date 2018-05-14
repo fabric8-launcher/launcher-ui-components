@@ -14,6 +14,7 @@ EXTRA_OPTS="--add-host launcher-backend:$DOCKER_HOST"
 # container to a private network (creating it if necessary)
 NETWORK=default
 DRUN_OPTS=""
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --net)  NETWORK=launchernw
