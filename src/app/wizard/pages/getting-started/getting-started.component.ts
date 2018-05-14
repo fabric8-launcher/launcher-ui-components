@@ -35,6 +35,10 @@ export class GettingStartedComponent implements OnInit {
     });
   }
 
+  validateProjectName() {
+    this.dependencyCheckService.validateProjectName(this.projectName);
+  }
+
   cancel(): void {
     this.router.navigate(['/']);
   }

@@ -17,25 +17,40 @@
           <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
               <h1 class="code-imports--step_title">Create Application</h1>
-              <form>
+              <form #form="ngForm">
                 <div class="form-group">
                   <label for="projectName">
-                    To begin creating your Application, give it a name.
+                    Name your application
                   </label>
                   <span class="code-imports--step_pencil">
-                    <input id="projectName" name="projectName" type="text" class="form-control code-imports--step_input col-sm-5" placeholder="Enter Application Name"
+                    <input id="projectName" name="projectName" type="text" class="form-control code-imports--step_input col-sm-5"
+                        placeholder="Add application name"
                         aria-label="Application Name Input" required
+                        (keyup)="validateProjectName()"
                         [(ngModel)]="projectName">
                   </span>
-                  <p class="help-block">
-                    Application name must be unique, at least 4 characters long, cannot be more than 65 characters and must contain only letters, numbers, spaces or hyphens.
-                    <br>
-                    It cannot start of end with a space, underscore or hyphen.
-                  </p>
+                  <ng-template #helpTemplate>
+                    Names must:
+                    <ul>
+                      <li>Be unique
+                      <li>Contain 4-65 characters
+                      <li>Contain only letters, numbers, spaces or hyphens
+                      <li>Not start or end with spaces or hyphens
+                    </ul>
+                  </ng-template>
+                </div>
+                <div class="row">
+                  <span class="f8launcher-tags-label" container="body" triggers="click"
+                        outsideClick="true" placement="bottom"
+                        popoverTitle="Naming requirements:"
+                        [popover]="helpTemplate">
+                    Naming requirements <i class="pficon pficon-info"></i>
+                  </span>
                 </div>
                 <div class="row code-imports--step_toolbar">
-                  <button id="routeToApp" class="btn btn-outline" aria-label="Continue" (click)="routeToApp()">Continue</button>
-                  <button id="cancelImportsButton" class="btn btn-outline" aria-label="Cancel" (click)="cancel()">Cancel</button>
+                  <button id="routeToApp" class="btn btn-primary" aria-label="Continue" (click)="routeToApp()" [disabled]="form.invalid">
+                    Continue
+                  </button>
                 </div>
               </form>
             </div>

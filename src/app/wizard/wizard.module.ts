@@ -25,6 +25,8 @@ import {KeycloakService} from "../shared/keycloak.service";
 import {KeycloakTokenProvider} from "../shared/keycloak-token.provider";
 import {TokenService as LegacyTokenService} from "../shared/token.service";
 
+import { PopoverModule } from 'ngx-bootstrap/popover';
+
 import {WizardComponent} from './new-wizard.component';
 import {FormComponent} from "./wizard.component";
 import {EnhancedForgeService} from "../shared/forge.enhance.service";
@@ -70,7 +72,8 @@ import {LaunchHelper} from "../shared/helper.component";
     ProjectNameInputModule,
     NgxForgeModule,
     ModalModule,
-    LauncherModule
+    LauncherModule,
+    PopoverModule.forRoot()
   ],
   declarations: [
     GettingStartedComponent,
