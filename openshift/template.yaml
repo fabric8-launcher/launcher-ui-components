@@ -91,11 +91,6 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.backend.url
-          - name: LAUNCHER_MISSIONCONTROL_URL
-            valueFrom:
-              configMapKeyRef:
-                name: launcher
-                key: launcher.missioncontrol.url
           - name: LAUNCHER_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
@@ -106,6 +101,11 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.keycloak.realm
+          - name: LAUNCHER_KEYCLOAK_CLIENT_ID
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.keycloak.clientId
           - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
               configMapKeyRef:

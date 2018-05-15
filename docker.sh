@@ -57,7 +57,7 @@ if [[ $DO_RUN -eq 1 ]]; then
     # remove any pre-existing image
     docker rm -f launcher-frontend >/dev/null 2>&1
 
-    if [[ -z "${LAUNCHER_MISSIONCONTROL_URL}" ]]; then
+    if [[ -z "${LAUNCHER_BACKEND_URL}" ]]; then
         echo "Missing environment variables, running with default values..."
         # Authentication: No KeyCloak
         unset LAUNCHER_KEYCLOAK_URL
@@ -82,7 +82,6 @@ if [[ $DO_RUN -eq 1 ]]; then
 		-eLAUNCHER_KEYCLOAK_URL=$LAUNCHER_KEYCLOAK_URL \
 		-eLAUNCHER_KEYCLOAK_REALM=$LAUNCHER_KEYCLOAK_REALM \
 		-eLAUNCHER_BACKEND_URL=$LAUNCHER_BACKEND_URL \
-		-eLAUNCHER_MISSIONCONTROL_URL=$LAUNCHER_MISSIONCONTROL_URL \
 		-eLAUNCHER_TRACKER_SEGMENT_TOKEN=$LAUNCHER_TRACKER_SEGMENT_TOKEN \
 		$DRUN_OPTS \
 		$EXTRA_OPTS \

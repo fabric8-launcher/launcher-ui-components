@@ -28,14 +28,13 @@ If you want the UI to use another version of the backend, you need to set the fo
 
 ```bash   
 $ export LAUNCHER_BACKEND_URL=http://localhost:8080/api/
-$ export LAUNCHER_MISSIONCONTROL_URL=ws://localhost:8080
 ```
 
 More details on running a local version of the backend are available [here][1].
 
 ## Production Build
 
-If `LAUNCHER_BACKEND_URL` and `LAUNCHER_MISSIONCONTROL_URL` environment variables are not set, the frontend location will be used to target the backend.
+If `LAUNCHER_BACKEND_URL` environment variables are not set, the frontend location will be used to target the backend.
 
 Run the `npm` command as given below:
 
