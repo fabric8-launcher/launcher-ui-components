@@ -34,7 +34,7 @@ More details on running a local version of the backend are available [here][1].
 
 ## Production Build
 
-If `LAUNCHER_BACKEND_URL` environment variables are not set, the frontend location will be used to target the backend.
+If `LAUNCHER_BACKEND_URL` environment variables is not set, the frontend location will be used to target the backend.
 
 Run the `npm` command as given below:
 
