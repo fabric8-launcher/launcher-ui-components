@@ -19,6 +19,6 @@ RUN chmod +x /usr/bin/entrypoint.sh
 RUN rm -f /usr/share/nginx/html/*
 
 COPY dist /usr/share/nginx/html/launch
-RUN chmod 777 -R /var/lib/nginx
+RUN chmod 777 -R /var/lib/nginx /usr/share/nginx/html/
 
 USER 997
