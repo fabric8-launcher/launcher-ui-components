@@ -91,6 +91,7 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.backend.url
+                optional: true
           - name: LAUNCHER_KEYCLOAK_URL
             valueFrom:
               configMapKeyRef:
@@ -106,16 +107,19 @@ objects:
               configMapKeyRef:
                 name: launcher
                 key: launcher.keycloak.clientId
+                optional: true
           - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
               configMapKeyRef:
                 name: launcher
                 key: launcher.tracker.segment.token
+                optional: true
           - name: LAUNCHER_SENTRY_DSN
             valueFrom:
               configMapKeyRef:
                 name: launcher
                 key: launcher.sentry.dsn
+                optional: true
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:
