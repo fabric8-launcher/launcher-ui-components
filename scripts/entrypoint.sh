@@ -14,9 +14,9 @@ export LAUNCHER_JSON_SETTINGS="$(envsubst < ${JSON_SETTINGS_TEMPLATE} | tr -d '[
 echo LAUNCHER_JSON_SETTINGS=${LAUNCHER_JSON_SETTINGS}
 
 # create injected index.html with json settings
-envsubst < ${INDEX} > ${INDEX}
+envsubst < ${INDEX} > ${INDEX}.tmp
 echo -------------------------------------
-
+cat ${INDEX}.tmp > ${INDEX}
 cat ${INDEX}
 
 exec /run.sh
