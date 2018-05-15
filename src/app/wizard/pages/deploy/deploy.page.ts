@@ -32,7 +32,7 @@ export class DeployPage implements OnInit {
               private history: History,
               private kc: KeycloakService,
               private config: Config) {
-    this.wsUrl = Location.stripTrailingSlash(config.get("mission_control_url"));
+      this.wsUrl = config.get("backend_websocket_url");
   }
 
   ngOnInit() {

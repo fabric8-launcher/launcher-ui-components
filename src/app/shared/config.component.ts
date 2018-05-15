@@ -9,7 +9,6 @@ export class LaunchConfig extends Config {
   protected readonly settings = {
     origin: 'launcher',
     backend_url:  process.env.LAUNCHER_BACKEND_URL,
-    mission_control_url: process.env.LAUNCHER_MISSIONCONTROL_URL,
     keycloak_url: process.env.LAUNCHER_KEYCLOAK_URL,
     keycloak_realm: process.env.LAUNCHER_KEYCLOAK_REALM,
     keycloak_client_id: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID
@@ -33,15 +32,31 @@ export class LaunchConfig extends Config {
   }
 
   private postProcessSettings() {
-    const backend_url = Location.stripTrailingSlash(this.settings['backend_url']);
-    this.settings['backend_api_url'] = backend_url;
-    this.settings['backend_url'] = backend_url + '/launchpad';
+    const backendApiUrl = Location.stripTrailingSlash(this.settings['backend_url']);
 
-    let missionControl = this.settings['mission_control_url'];
-    if (missionControl && (missionControl.startsWith("/") || missionControl.startsWith(":"))) {
-      missionControl = (missionControl.startsWith(":") ? location.hostname : location.host) + missionControl;
-      this.settings['mission_control_url'] = (location.protocol === "https:" ? "wss://" : "ws://") + missionControl;
+    if(!backendApiUrl){
+      throw new Error("Invalid backend_url: " + backendApiUrl);
     }
+
+    this.settings['backend_api_url'] = backendApiUrl;
+    this.settings['backend_websocket_url'] = this.createBackendWebsocketUrl(backendApiUrl);
+
+    //Used by old wizard
+    this.settings['backend_url'] = backendApiUrl + '/launchpad';
+  }
+
+  private createBackendWebsocketUrl(backendApiUrl:string){
+    let url = backendApiUrl.substring(0, backendApiUrl.indexOf('/api'));
+    if (url.indexOf('https') !== -1) {
+      return url.replace('https', 'wss');
+    } else if (url.indexOf('http') !== -1) {
+      return url.replace('http', 'ws');
+    } else if (url.startsWith("/") || url.startsWith(":")) {
+      // /launch/api
+      url  = (url.startsWith(":") ? location.hostname : location.host) + url;
+      return (location.protocol === "https:" ? "wss://" : "ws://") + url;
+    }
+    throw new Error("Error while creating websocket url from backend url: " + backendApiUrl);
   }
 
   get(key: string): string {
