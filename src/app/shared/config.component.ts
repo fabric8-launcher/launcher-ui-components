@@ -24,7 +24,11 @@ export class LaunchConfig extends Config {
 
   private processInitConfig() {
     if (settings) {
-      Object.assign(this.settings, settings);
+      for (const property in settings) {
+        if (settings.hasOwnProperty(property) && settings[property]) {
+          this.settings[property] = settings[property];
+        }
+      }
     }
   }
 

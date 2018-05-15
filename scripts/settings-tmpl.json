@@ -3,6 +3,6 @@
   "mission_control_url": "${LAUNCHER_MISSIONCONTROL_URL}",
   "keycloak_url": "${LAUNCHER_KEYCLOAK_URL}",
   "keycloak_realm": "${LAUNCHER_KEYCLOAK_REALM}",
-  "keycloak_client_id": "openshiftio-public",
+  "keycloak_client_id": "${LAUNCHER_KEYCLOAK_CLIENT_ID}",
   "segment_tracker_token": "${LAUNCHER_TRACKER_SEGMENT_TOKEN}"
 }
