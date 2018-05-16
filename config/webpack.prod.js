@@ -9,7 +9,7 @@ const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || '/launch/api';
 const LAUNCHER_KEYCLOAK_URL = process.env.LAUNCHER_KEYCLOAK_URL;
 const LAUNCHER_KEYCLOAK_REALM = process.env.LAUNCHER_KEYCLOAK_REALM;
 const LAUNCHER_KEYCLOAK_CLIENT_ID = process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public';
-const LAUNCHER_SENTRY_DSN = process.env.LAUNCHER_SENTRY_DSN || 'https://12813ed59a0546eaaf068d90127044c9@errortracking.prod-preview.openshift.io/29';
+const LAUNCHER_FRONTEND_SENTRY_DSN = process.env.LAUNCHER_FRONTEND_SENTRY_DSN || 'https://12813ed59a0546eaaf068d90127044c9@errortracking.prod-preview.openshift.io/29';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/launch/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
@@ -19,7 +19,7 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   LAUNCHER_KEYCLOAK_URL: LAUNCHER_KEYCLOAK_URL,
   LAUNCHER_KEYCLOAK_REALM: LAUNCHER_KEYCLOAK_REALM,
   LAUNCHER_KEYCLOAK_CLIENT_ID: LAUNCHER_KEYCLOAK_CLIENT_ID,
-  LAUNCHER_SENTRY_DSN: LAUNCHER_SENTRY_DSN
+  LAUNCHER_FRONTEND_SENTRY_DSN: LAUNCHER_FRONTEND_SENTRY_DSN
 });
 
 module.exports = webpackMerge(commonConfig, {
@@ -51,7 +51,7 @@ module.exports = webpackMerge(commonConfig, {
         'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_URL),
         'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_REALM),
         'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_CLIENT_ID),
-        'LAUNCHER_SENTRY_DSN': JSON.stringify(METADATA.LAUNCHER_SENTRY_DSN)
+        'LAUNCHER_FRONTEND_SENTRY_DSN': JSON.stringify(METADATA.LAUNCHER_FRONTEND_SENTRY_DSN)
       }
     })
   ]
