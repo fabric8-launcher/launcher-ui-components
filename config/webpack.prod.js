@@ -9,7 +9,7 @@ const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || '/launch/api';
 const LAUNCHER_KEYCLOAK_URL = process.env.LAUNCHER_KEYCLOAK_URL;
 const LAUNCHER_KEYCLOAK_REALM = process.env.LAUNCHER_KEYCLOAK_REALM;
 const LAUNCHER_KEYCLOAK_CLIENT_ID = process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public';
-const LAUNCHER_FRONTEND_SENTRY_DSN = process.env.LAUNCHER_FRONTEND_SENTRY_DSN;
+const LAUNCHER_FRONTEND_SENTRY_DSN = process.env.LAUNCHER_FRONTEND_SENTRY_DSN || 'https://12813ed59a0546eaaf068d90127044c9@errortracking.prod-preview.openshift.io/29';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/launch/';
 
 const METADATA = webpackMerge(commonConfig.metadata, {
