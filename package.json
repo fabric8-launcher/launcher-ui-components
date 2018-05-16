@@ -40,6 +40,7 @@
     "watch:test": "npm run test:unit -- --auto-watch --no-single-run"
   },
   "dependencies": {
+    "@angular/animations": "4.4.6",
     "@angular/common": "4.4.6",
     "@angular/compiler": "4.4.6",
     "@angular/compiler-cli": "4.4.6",
@@ -54,7 +55,7 @@
     "core-js": "2.4.1",
     "jssha": "2.3.1",
     "ngx-bootstrap": "^2.0.5",
-    "ngx-forge": "0.0.79",
+    "ngx-forge": "^0.1.6",
     "ngx-modal": "0.0.29",
     "patternfly": "3.24.0",
     "raven-js": "^3.24.2",
