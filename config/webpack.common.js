@@ -68,7 +68,9 @@ module.exports = {
         test: /\.scss$/,
         include: helpers.root('src', 'app'),
         loaders: ['exports-loader?module.exports.toString()', 'css', 'postcss', 'sass']
-      }
+      },
+      { test: /\.less$/,
+        loader: 'style-loader!css-loader!less-loader' }
     ]
   },
 
