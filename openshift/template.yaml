@@ -106,7 +106,7 @@ objects:
             valueFrom:
               configMapKeyRef:
                 name: launcher
-                key: launcher.keycloak.clientId
+                key: launcher.keycloak.client.id
                 optional: true
           - name: LAUNCHER_TRACKER_SEGMENT_TOKEN
             valueFrom:
