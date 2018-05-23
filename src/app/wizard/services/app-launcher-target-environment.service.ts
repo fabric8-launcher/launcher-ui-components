@@ -15,7 +15,7 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
    * @returns {Observable<TargetEnvironment>} The target environments
    */
   getTargetEnvironments(): Observable<TargetEnvironment[]> {
-    return this.tokenService.availableClusters.map(clusters => [{
+    return this.tokenService.clusters.map(clusters => [{
       description: 'Here is a brief description of what OpenShift is. ' +
         'There is a distinction between what OpenShift does compared to OpenShift.io.',
       benefits: [
@@ -30,7 +30,7 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
       /* tslint:enable */
       id: 'os',
       styleClass: 'card-pf-footer--logo-os',
-      clusters: clusters
+      clusters: clusters.filter(c => c.connected)
     }, {
       description: 'When you build and run locally, you will receive a .zip file ' +
         'containing the setup you have established for your application.',
