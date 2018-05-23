@@ -5,6 +5,15 @@ import { Observable } from "rxjs";
 import { TokenService, HelperService, TokenProvider, Cluster } from 'ngx-forge';
 import { KeycloakService } from '../../shared/keycloak.service';
 
+class ConnectedCluster {
+  connected: boolean;
+  cluster: {
+    id: string;
+    type: string;
+  };
+}
+
+
 @Injectable()
 export class AppLauncherTokenService implements TokenService {
 
@@ -43,15 +52,25 @@ export class AppLauncherTokenService implements TokenService {
   }
 
   get clusters(): Observable<Cluster[]> {
-    const endPoint: string = this.END_POINT + this.API_BASE + '/all';
+    const endPoint: string = this.END_POINT + this.API_BASE;
     return this.fetchClusters(endPoint);
   }
 
   private fetchClusters(endPoint: string, filter?: Function): Observable<Cluster[]> {
     return this.options.flatMap((option) => {
       return this.http.get(endPoint, option)
-                  .map(response => filter ? filter(response.json()) : response.json() as Cluster[])
+                  .map(response => filter ? filter(response.json()) : this.toClusters(response.json() as ConnectedCluster[]))
                   .catch(this.handleError);
+    });
+  }
+
+  private toClusters(clusters: ConnectedCluster[]): Cluster[] {
+    return clusters.map(c => {
+      return {
+        id: c.cluster.id,
+        type: c.cluster.type,
+        connected: c.connected
+      } as Cluster;
     });
   }
 
