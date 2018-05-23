@@ -38,19 +38,8 @@ export class AppLauncherTokenService implements TokenService {
     }));
   }
 
-  get availableClusters(): Observable<Cluster[]> {
-    const endPoint: string = this.END_POINT + this.API_BASE;
-    return this.fetchClusters(endPoint, this.filter);
-  };
-
-  private filter(response: any[]): Cluster[] {
-    let result: Cluster[] = [];
-    for (let element of response) {
-      if (element.connected) {
-        result.push(element.cluster);
-      }
-    }
-    return result;
+  createOathLink(cluster: string): string {
+    return this.keycloak.linkAccount(cluster, location.href);
   }
 
   get clusters(): Observable<Cluster[]> {
@@ -79,7 +68,5 @@ export class AppLauncherTokenService implements TokenService {
     return Observable.throw(errMsg);
   }
 
-  createOathLink(cluster: string): string {
-    return this.keycloak.linkAccount(cluster, location.href);
-  }
+
 }
