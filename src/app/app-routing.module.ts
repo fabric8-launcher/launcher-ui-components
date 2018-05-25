@@ -8,7 +8,7 @@ import { GettingStartedComponent } from "./wizard/pages/getting-started/getting-
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "filtered-wizard/all",
+    redirectTo: "new-wizard",
     pathMatch: "full",
   },
   {

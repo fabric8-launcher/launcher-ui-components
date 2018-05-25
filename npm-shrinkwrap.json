@@ -6881,9 +6881,9 @@
       "integrity": "sha512-IduTVb78RDVlrz2+bn6GXK/REfM/RsRnz/AENwmrgTOg1AtvahJ9qANxXRNn33Kv9GJmkOYy/MhD3DyzeMb16w=="
     },
     "ngx-forge": {
-      "version": "0.2.4",
-      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.2.4.tgz",
-      "integrity": "sha512-N1QcgjLFt7jmEGsbP1SbBdwYUWVZzMDdmQ2cRMQOkIAbR3cxfi+Of/lkIbpP8kxRbwKDmHYkWnr1Q1CN4ePftw==",
+      "version": "0.2.9",
+      "resolved": "https://registry.npmjs.org/ngx-forge/-/ngx-forge-0.2.9.tgz",
+      "integrity": "sha512-4akUicNqZr2tF+tegXVCvbzVKfINMWliVL0pwzXSUWfVvkrckxh9aeVNl0Q+YiDjiKb/H4gb1RuhPO5vMzKYhQ==",
       "requires": {
         "@angular/animations": "4.4.6",
         "@angular/core": "4.4.6",
