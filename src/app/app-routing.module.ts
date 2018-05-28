@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {IntroComponent} from "./wizard/pages/intro/intro.component";
-import {WizardComponent} from "./wizard/new-wizard.component";
+import {WizardComponent} from "./wizard/wizard.component";
 import {GettingStartedComponent} from "./wizard/pages/getting-started/getting-started.component";
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
     component: GettingStartedComponent,
     pathMatch: 'full'
   },
-  { path: '**', redirectTo: '/wizard', pathMatch: 'full' }
+  { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({

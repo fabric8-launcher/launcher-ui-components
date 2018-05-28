@@ -10,9 +10,6 @@ export class AuthenticationDirective {
   constructor(private el: ElementRef, private keycloak: KeycloakService) {
   }
 
-  ngOnInit() {
-  }
-
   ngDoCheck() {
     let authenticated = this.keycloak.isAuthenticated();
     let render = !authenticated;
