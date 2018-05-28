@@ -69,7 +69,7 @@ const routes: Routes = [
     component: GettingStartedComponent,
     pathMatch: 'full'
   },
-  { path: '**', redirectTo: '/filtered-wizard/all', pathMatch: 'full' }
+  { path: '**', redirectTo: '/new-wizard', pathMatch: 'full' }
 ];
 
 @NgModule({
