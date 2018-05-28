@@ -41,6 +41,6 @@ unit_tests.log
 Thumbs.db
 
 # Package manager files
-package-lock.json
+npm-shrinkwrap.json
 yarn.lock
 yarn-error.log
