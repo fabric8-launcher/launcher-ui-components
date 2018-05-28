@@ -44,6 +44,6 @@ export class GettingStartedComponent implements OnInit {
   }
 
   routeToApp(): void {
-    this.router.navigate(['/new-wizard', this.projectName]);
+    this.router.navigate(['/wizard', this.projectName]);
   }
 }
