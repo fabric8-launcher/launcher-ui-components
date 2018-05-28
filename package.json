@@ -2,7 +2,7 @@
   "name": "launcher-frontend",
   "version": "0.0.7",
   "description": "A frontend for a launcher, microservices booster generator",
-  "homepage": "https://developers.redhat.com/launch/",
+  "homepage": "http://launcher.fabric8.io/",
   "repository": {
     "type": "git",
     "url": "https://github.com/fabric-launcher"
@@ -72,8 +72,6 @@
     "@types/selenium-webdriver": "3.0.8",
     "@types/uuid": "3.4.3",
     "angular2-template-loader": "0.4.0",
-    "asciidoctor.js": "1.5.6-preview.5",
-    "asciidoctorindex-loader": "0.0.5",
     "autoprefixer": "6.3.7",
     "codelyzer": "4.3.0",
     "cpy-cli": "1.0.1",
@@ -81,7 +79,6 @@
     "exports-loader": "0.6.3",
     "extract-text-webpack-plugin": "2.0.0-beta.1",
     "file-loader": "0.9.0",
-    "ghooks": "2.0.3",
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.22.0",
     "istanbul-instrumenter-loader": "3.0.1",
