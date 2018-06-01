@@ -1,24 +1,12 @@
-== Release Instructions
+Release Instructions
+====================
 
-=== Done manually on local development machines until we have this on a parameterized CI build
+This updates the running version in production (https://developers.redhat.com/launch)
 
-Replace the `tag`, `developmentVersion`, and `releaseVersion` parameters as necessary.  Please keep tags to form `vX` where `v` is always a `v` and `X` is the release number.
-
-Tag and checkout into a branch 
-```
-git tag vX
-git checkout -b vX refs/tags/vX
-```
-
-Build and deploy docker image to Docker Hub (requires permissions)
-```
-npm run build:prod
-docker build -t fabric8/launcher-frontend:vX -f Dockerfile.deploy .
-docker push fabric8/launcher-frontend:vX
-```
-
-All good?  Push the Git tag.
-```
-git checkout master
-git push upstream master --tags
-```
+. Provide a pull-request to the https://github.com/openshiftio/saas-launchpad/blob/master/launchpad-services/frontend.yaml file
+changing the https://github.com/openshiftio/saas-launchpad/blob/master/launchpad-services/frontend.yaml#L2[hash commit] to the
+https://github.com/fabric8-launcher/launcher-frontend/commits/master[commit SHA1 in this repository] that you want to promote
+. Wait for the `ci.centos.org PR build` to pass, indicating that it's safe to merge (the image was built previously and exists in the repository)
+. Merge the pull-request. The service should be available in a few minutes
+.. watch the pod being replaced in https://console.dsaas.openshift.com/console/project/launchpad-production/overview
+. Profit!
