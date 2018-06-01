@@ -1,6 +1,6 @@
-import {Component} from "@angular/core";
-import { Router } from "@angular/router";
-import {ForgeService} from "ngx-forge";
+import { Component } from "@angular/core";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-footer",
@@ -9,18 +9,26 @@ import {ForgeService} from "ngx-forge";
 })
 
 export class FooterComponent {
-  version: string;
-  wizard: boolean;
+  wizard: boolean = false;
 
-  constructor(private forgeService: ForgeService, private router: Router) {
-    router.events.subscribe((url: any) => {
-      this.wizard = url.url.indexOf('filtered-wizard') !== -1;
-    });
+  constructor(private router: Router, private route: ActivatedRoute) {
+    FooterComponent.isIntroPage(router, route).subscribe(intro => this.wizard = intro);
   }
 
-  ngOnInit() {
-    this.forgeService.version().then(version => {
-      this.version = version.backendVersion;
-    });
+
+  static isIntroPage(router: Router, route: ActivatedRoute): Observable<boolean> {
+    return router
+      .events
+      .filter(e => e instanceof NavigationEnd)
+      .map(() => route)
+      .map(route => {
+        if (route.firstChild) {
+          route = route.firstChild;
+        }
+        return route;
+      })
+      .filter(route => route.outlet === 'primary')
+      .mergeMap(route => route.data)
+      .map(e => e['name'] === 'intro')
   }
 }
