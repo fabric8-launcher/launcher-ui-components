@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {KeycloakService} from "../shared/keycloak.service";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: "app-header",
@@ -11,12 +12,10 @@ import {Router} from "@angular/router";
 export class HeaderComponent {
   collapse: boolean;
   frontpage: boolean;
-  oldUI: boolean;
 
-  constructor(private router: Router, private keycloak: KeycloakService) {
-    router.events.subscribe((url: any) => {
-      this.frontpage = url.url === "/";
-      this.oldUI = url.url.indexOf("launchpad-new-project") !== -1;
+  constructor(private router: Router, private route: ActivatedRoute, private keycloak: KeycloakService) {
+    FooterComponent.isIntroPage(router, route).subscribe(intro => {
+      this.frontpage = intro;
     });
   }
 }
