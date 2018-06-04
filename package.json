@@ -71,7 +71,7 @@
     "@types/node": "6.0.45",
     "@types/selenium-webdriver": "3.0.8",
     "@types/uuid": "3.4.3",
-    "angular2-template-loader": "0.4.0",
+    "angular2-template-loader": "0.6.2",
     "autoprefixer": "6.3.7",
     "codelyzer": "4.3.0",
     "cpy-cli": "1.0.1",
