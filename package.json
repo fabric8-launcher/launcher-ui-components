@@ -96,7 +96,7 @@
     "karma-phantomjs-launcher": "1.0.2",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "3.0.0",
-    "marked": "0.3.19",
+    "marked": "0.4.0",
     "mocha": "3.0.2",
     "node-sass": "4.7.2",
     "npm-run-all": "2.2.0",
