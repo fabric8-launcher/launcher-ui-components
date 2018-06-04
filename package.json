@@ -61,7 +61,7 @@
     "raven-js": "3.24.2",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.5.2",
-    "uuid": "3.1.0",
+    "uuid": "3.2.1",
     "zone.js": "0.8.4"
   },
   "devDependencies": {
