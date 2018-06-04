@@ -107,7 +107,7 @@
     "precss": "1.4.0",
     "protractor": "4.0.8",
     "raw-loader": "0.5.1",
-    "resolve-url-loader": "1.6.0",
+    "resolve-url-loader": "2.3.0",
     "rimraf": "2.5.4",
     "sass-loader": "5.0.1",
     "style-loader": "0.13.1",
