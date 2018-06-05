@@ -55,7 +55,7 @@
     "core-js": "2.4.1",
     "jssha": "2.3.1",
     "ngx-bootstrap": "2.0.5",
-    "ngx-forge": "0.2.21",
+    "ngx-forge": "0.2.22",
     "ngx-modal": "0.0.29",
     "patternfly": "3.30.1",
     "raven-js": "3.24.2",
