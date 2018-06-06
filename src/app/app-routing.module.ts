@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {IntroComponent} from "./wizard/pages/intro/intro.component";
 import {WizardComponent} from "./wizard/wizard.component";
 import {GettingStartedComponent} from "./wizard/pages/getting-started/getting-started.component";
+import { AuthGuardService as AuthGuard } from "./shared/authguard.service";
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: 'wizard/:projectName',
     component: WizardComponent,
+    canActivate: [AuthGuard],
     pathMatch: 'full'
     
   },
