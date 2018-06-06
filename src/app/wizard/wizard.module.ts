@@ -22,6 +22,7 @@ import {
 import {KeycloakService} from "../shared/keycloak.service";
 import {KeycloakTokenProvider} from "../shared/keycloak-token.provider";
 import {TokenService as LegacyTokenService} from "../shared/token.service";
+import { AuthGuardService } from "../shared/authguard.service";
 
 import { PopoverModule } from 'ngx-bootstrap/popover';
 
@@ -65,6 +66,7 @@ import { errorHandlerFactory } from "../shared/error.component";
     AuthenticationDirective
   ],
   providers: [
+    AuthGuardService,
     KeycloakService,
     { provide: APP_INITIALIZER, useFactory: (keycloak: KeycloakService) => () => keycloak.init(), deps: [KeycloakService], multi: true },
     { provide: TokenProvider, useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak), deps: [KeycloakService] },
