@@ -7,7 +7,7 @@ import {
 } from 'ngx-forge';
 
 import { AppLauncherGitproviderService } from './app-launcher-gitprovider.service';
-import { LaunchConfig } from 'app/shared/config.component';
+import { LaunchConfig } from '../../shared/config.component';
 
 
 function initTestBed() {
