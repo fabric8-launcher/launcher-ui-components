@@ -6,6 +6,7 @@ class RavenErrorHandler extends ErrorHandler {
   handleError(err: any): void {
     if (err) {
       Raven.captureException(err.originalError || err);
+      Raven.showReportDialog();
     }
     super.handleError(err);
   }
