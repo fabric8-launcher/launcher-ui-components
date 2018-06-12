@@ -5,22 +5,39 @@ import { Observable } from 'rxjs';
 import { GitHubDetails, GitProviderService, HelperService, TokenProvider, TokenService } from 'ngx-forge';
 import { KeycloakService } from '../../shared/keycloak.service';
 import { AppLauncherTokenService } from './app-launcher-token.service';
-import { HttpService } from './http.service';
 
 @Injectable()
-export class AppLauncherGitproviderService extends HttpService implements GitProviderService {
+export class AppLauncherGitproviderService implements GitProviderService {
 
-    private static API_BASE: string = '/services/git/';
+    private END_POINT: string = '';
+    private API_BASE: string = '/services/git/';
+    private ORIGIN: string = '';
+    private PROVIDER: string = 'GitHub';
     private gitHubUserLogin: string;
 
     constructor(
-      private _http: Http,
-      private _helperService: HelperService,
-      private _tokenProvider: TokenProvider,
+      private http: Http,
+      private helperService: HelperService,
+      private tokenProvider: TokenProvider,
       private keycloak: KeycloakService,
       private tokenService: TokenService
     ) {
-      super(_http, _helperService, _tokenProvider)
+      if (this.helperService) {
+        this.END_POINT = this.helperService.getBackendUrl();
+        this.ORIGIN = this.helperService.getOrigin();
+      }
+    }
+
+    private get options(): Observable<RequestOptions> {
+      let headers = new Headers();
+      headers.append('X-App', this.ORIGIN);
+      headers.set('x-git-provider', this.PROVIDER);
+      return Observable.fromPromise(this.tokenProvider.token.then((token) => {
+        headers.append('Authorization', 'Bearer ' + token);
+        return new RequestOptions({
+          headers: headers
+        });
+      }));
     }
 
   /**
@@ -38,7 +55,15 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @returns {Observable<any>}
    */
   private getGitHubUserData(): Observable<any> {
-    return this.httpGet(AppLauncherGitproviderService.API_BASE, 'user');
+    let url = this.END_POINT + this.API_BASE + 'user';
+    let res = this.options.flatMap((option) => {
+      return this.http.get(url, option)
+        .map(response => response.json() as any)
+        .catch(error => {
+          return Observable.throw(error);
+        });
+      });
+    return res;
   }
 
 
@@ -49,8 +74,17 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @returns {Observable<any>}
    */
   getUserOrgs(userName: string): Observable<any> {
-    return this.httpGet(AppLauncherGitproviderService.API_BASE, 'user');
+    let url = this.END_POINT + this.API_BASE + 'organizations';
+    let res = this.options.flatMap((option) => {
+      return this.http.get(url, option)
+        .map(response => response.json() as any)
+        .catch(error => {
+          return Observable.throw(error);
+        });
+      });
+    return res;
   }
+
 
   /**
    * Returns GitHub details associated with the logged in user
@@ -94,11 +128,21 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    */
   isGitHubRepo(org: string, repoName: string): Observable<boolean> {
     let fullName = org + '/' + repoName;
-    let res = this.options().flatMap((option) => {
-      return this._http.get(this.createUrl(org), option)
+    let url: string;
+    if (this.gitHubUserLogin === org) {
+      url = this.END_POINT + this.API_BASE + 'repositories';
+    } else {
+      url = this.END_POINT + this.API_BASE + 'repositories/?organization=' + org;
+    }
+    let res = this.options.flatMap((option) => {
+      return this.http.get(url, option)
         .map(response => {
-            let repoList: string[] = response.json();
-            return repoList.indexOf(fullName) !== -1;
+            let repoList: string[] =  response.json();
+            if (repoList.indexOf(fullName) === -1) {
+              return false;
+            } else {
+              return true;
+            }
           })
         .catch(error => {
           return Observable.throw(error);
@@ -117,13 +161,20 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
     if (org === undefined) {
       return Observable.from([]);
     }
-    let res = this.options().flatMap((option) => {
-      return this._http.get(this.createUrl(org), option)
+    let url = this.END_POINT + this.API_BASE + 'repositories';
+    let location = org + '/';
+    if (this.gitHubUserLogin !== org) {
+      url += '?organization=' + org;
+    }
+    let res = this.options.flatMap((option) => {
+      return this.http.get(url, option)
         .map(response => {
             let repoList: string[] = [];
             if (response) {
-              let responseList: string[] = response.json();
-              responseList.forEach((ele) => repoList.push(ele.replace(org + '/', '')));
+              let responseList: string[] =  response.json();
+              responseList.forEach(function(ele) {
+                repoList.push(ele.replace(location, ''));
+              });
             }
             return repoList;
           })
@@ -132,14 +183,6 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
         });
       });
     return res;
-  }
-
-  private createUrl(org: string) {
-    let url = this.joinPath([this._helperService.getBackendUrl(), AppLauncherGitproviderService.API_BASE, 'repositories']);
-    if (this.gitHubUserLogin !== org) {
-      url += '?organization=' + org;
-    }
-    return url;
   }
 
   // Private
@@ -153,5 +196,19 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
 
   private redirectToAuth(url: string) {
     window.location.href = url;
+  }
+
+  private handleError(error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 }
