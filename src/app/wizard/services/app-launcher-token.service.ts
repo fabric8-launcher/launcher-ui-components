@@ -10,6 +10,7 @@ class ConnectedCluster {
   connected: boolean;
   cluster: {
     id: string;
+    name: string;
     type: string;
   };
 }
@@ -50,6 +51,7 @@ export class AppLauncherTokenService extends HttpService implements TokenService
     return clusters.map(c => {
       return {
         id: c.cluster.id,
+        name: c.cluster.name,
         type: c.cluster.type,
         connected: c.connected
       } as Cluster;
