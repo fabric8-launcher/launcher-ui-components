@@ -1,12 +1,13 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpModule } from "@angular/http";
-import { Logger } from "./shared/logger.service";
 import { FormsModule } from "@angular/forms";
+import { Broadcaster } from 'ngx-base';
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
+import { HeaderComponent } from "./header/header.component";
+import { Logger } from "./shared/logger.service";
 import { WizardModule } from "./wizard/wizard.module";
 
 
@@ -24,6 +25,7 @@ import { WizardModule } from "./wizard/wizard.module";
     FooterComponent
   ],
   providers: [
+    Broadcaster,
     Logger
   ],
   bootstrap: [ AppComponent ]
