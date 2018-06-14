@@ -28,11 +28,11 @@ export class HttpService {
     return result;
   }
 
-  protected options(cluster?: Cluster): Observable<RequestOptions> {
+  protected options(cluster?: Cluster, retry?: number): Observable<RequestOptions> {
     let headers = new Headers();
     headers.append('X-App', this.helperService.getOrigin());
     headers.append('X-Git-Provider', 'GitHub');
-    headers.append('X-Execution-Step-Index', '0');
+    headers.append('X-Execution-Step-Index', String(retry || 0));
     if (cluster) {
       headers.append('X-OpenShift-Cluster', cluster.id);
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
