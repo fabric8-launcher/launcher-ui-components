@@ -44,3 +44,6 @@ Thumbs.db
 npm-shrinkwrap.json
 yarn.lock
 yarn-error.log
+
+# misc
+.history
