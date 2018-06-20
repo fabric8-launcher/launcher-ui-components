@@ -42,7 +42,6 @@ Thumbs.db
 
 # Package manager files
 npm-shrinkwrap.json
-yarn.lock
 yarn-error.log
 
 # misc

@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
+import { Observable } from 'rxjs-compat';
 
-import {
-  HelperService,
-  Pipeline,
-  PipelineService,
-  TokenProvider
-} from 'ngx-forge';
+import { Pipeline, PipelineService } from 'ngx-forge';
 
 @Injectable()
 export class AppLauncherPipelineService implements PipelineService {
 
-  constructor() {}
-
-  getPipelines(filterByRuntime: string = 'maven'): Observable<Pipeline[]> {
-    return Observable.of([]);
+  public getPipelines(filterByRuntime: string = 'maven'): Observable<Pipeline[]> {
+    return of([]);
   }
 }

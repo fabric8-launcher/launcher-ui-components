@@ -1,5 +1,6 @@
 @import url(https://overpass-30e2.kxcdn.com/overpass.css);
-$assetPath : "../../../../assets/img/project-select-icons/";
+
+$assetPath: "../../../../assets/img/project-select-icons/";
 
 .content {
   display: flex;
@@ -85,8 +86,9 @@ $assetPath : "../../../../assets/img/project-select-icons/";
   background: no-repeat center;
   margin: auto;
   width: 100%;
-  height:110px;
+  height: 110px;
 }
+
 .boot {
   background-image: url(#{$assetPath}spring-boot-logo.png);
   background-size: 25%;
@@ -113,9 +115,9 @@ $assetPath : "../../../../assets/img/project-select-icons/";
 
 $red_berry: #8e0000;
 $red_base: #c00;
-$black_10: rgba(0,0,0,.1);
+$black_10: rgba(0, 0, 0, .1);
 $white: #fff;
-$black_20: rgba(0,0,0,.2);
+$black_20: rgba(0, 0, 0, .2);
 
 %ribbon-base {
   position: absolute;
@@ -143,12 +145,15 @@ $black_20: rgba(0,0,0,.2);
     text-align: center;
   }
 }
+
 .ribbon::before {
   @extend %ribbon-base;
 }
+
 .ribbon::after {
   @extend %ribbon-base;
 }
+
 .ribbon-top-right {
   top: -10px;
   right: -10px;

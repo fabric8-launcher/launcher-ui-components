@@ -1,55 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
+import { Observable } from 'rxjs-compat';
 
-import { GitHubDetails, GitProviderService, HelperService, TokenProvider, TokenService } from 'ngx-forge';
+import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-forge';
 import { KeycloakService } from '../../shared/keycloak.service';
-import { AppLauncherTokenService } from './app-launcher-token.service';
 import { HttpService } from './http.service';
+import { filter, flatMap, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AppLauncherGitproviderService extends HttpService implements GitProviderService {
 
-    private static API_BASE: string = '/services/git/';
-    private gitHubUserLogin: string;
+  private static API_BASE: string = '/services/git/';
+  private gitHubUserLogin: string;
 
-    constructor(
-      private _http: Http,
-      private _helperService: HelperService,
-      private _tokenProvider: TokenProvider,
-      private keycloak: KeycloakService,
-      private tokenService: TokenService
-    ) {
-      super(_http, _helperService, _tokenProvider)
-    }
+  constructor(
+    private _http: HttpClient,
+    private _helperService: HelperService,
+    private _tokenProvider: TokenProvider,
+    private keycloak: KeycloakService
+  ) {
+    super(_http, _helperService, _tokenProvider);
+  }
 
   /**
    * Connect GitHub account
    *
    * @param {string} redirectUrl The GitHub redirect URL
    */
-  connectGitHubAccount(redirectUrl: string): void {
+  public connectGitHubAccount(redirectUrl: string): void {
     this.redirectToAuth(this.keycloak.linkAccount('github', redirectUrl));
   }
 
   /**
-   * Get GitHub repos associated with given user name
-   *
-   * @returns {Observable<any>}
-   */
-  private getGitHubUserData(): Observable<any> {
-    return this.httpGet(AppLauncherGitproviderService.API_BASE, 'user');
-  }
-
-
-   /**
    * Get GitHub Organizations associated with given user name
    *
-   * @param userName The GitHub user name
+   * @param {string} userName The GitHub user name
    * @returns {Observable<any>}
    */
-  getUserOrgs(userName: string): Observable<any> {
-    return this.httpGet(AppLauncherGitproviderService.API_BASE, 'organizations');
+  public getUserOrgs(userName: string): Observable<any> {
+    return this.backendHttpGet(AppLauncherGitproviderService.API_BASE, 'organizations');
   }
 
   /**
@@ -57,32 +47,24 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    *
    * @returns {Observable<GitHubDetails>} The GitHub details associated with the logged in user
    */
-  getGitHubDetails(): Observable<GitHubDetails> {
-    return this.getGitHubUserData().flatMap(user => {
-      if (user && user.login) {
-        let orgs = [];
-        return this.getUserOrgs(user.login).flatMap(orgsArr => {
-          if (orgsArr && orgsArr.length >= 0) {
-            orgs = orgsArr;
-            this.gitHubUserLogin = user.login;
-            orgs.push(this.gitHubUserLogin);
-            let gitHubDetails = {
-              authenticated: true,
-              avatar: user.avatarUrl,
-              login: user.login,
-              organizations: orgs,
-              organization: user.login
-            } as GitHubDetails;
-            return Observable.of(gitHubDetails);
-          } else {
-            return Observable.empty();
-          }
-        });
-      } else {
-        return Observable.empty();
-      }
-    });
-
+  public getGitHubDetails(): Observable<GitHubDetails> {
+    return this.backendHttpGet<{ login: string; avatarUrl: string; }>(AppLauncherGitproviderService.API_BASE, 'user').pipe(
+      filter((user) => Boolean(user && user.login)),
+      flatMap((user) => this.getUserOrgs(user.login).pipe(map((orgs) => ({ user, orgs })))),
+      filter((data) => data.orgs && data.orgs.length >= 0),
+      map((data) => {
+        data.orgs.push(data.user.login);
+        // TODO fix this... realllly ugly
+        this.gitHubUserLogin = data.user.login;
+        return {
+          authenticated: true,
+          avatar: data.user.avatarUrl,
+          login: data.user.login,
+          organizations: data.orgs,
+          organization: data.user.login
+        } as GitHubDetails;
+      })
+    );
   }
 
   /**
@@ -92,19 +74,14 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @param {string} repoName The GitHub repos name (e.g., ngx-launcher)
    * @returns {Observable<boolean>} True if GitHub repo exists
    */
-  isGitHubRepo(org: string, repoName: string): Observable<boolean> {
-    let fullName = org + '/' + repoName;
-    let res = this.options().flatMap((option) => {
-      return this._http.get(this.createUrl(org), option)
-        .map(response => {
-            let repoList: string[] = response.json();
-            return repoList.indexOf(fullName) !== -1;
-          })
-        .catch(error => {
-          return Observable.throw(error);
-        });
-      });
-    return res;
+  public isGitHubRepo(org: string, repoName: string): Observable<boolean> {
+    const fullName = org + '/' + repoName;
+    return this.backendHttpGet(this.createUrl(org)).pipe(
+      map((json) => {
+        const repoList: string[] = json as string[];
+        return repoList.indexOf(fullName) !== -1;
+      })
+    );
   }
 
   /**
@@ -113,42 +90,28 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @param {string} org The GitHub org (e.g., fabric8-launcher/ngx-launcher)
    * @returns {Observable<any>} list of existing GitHub repos
    */
-  getGitHubRepoList(org: string): Observable<any> {
+  public getGitHubRepoList(org: string): Observable<any> {
     if (org === undefined) {
-      return Observable.from([]);
+      return of([]);
     }
-    let res = this.options().flatMap((option) => {
-      return this._http.get(this.createUrl(org), option)
-        .map(response => {
-            let repoList: string[] = [];
-            if (response) {
-              let responseList: string[] = response.json();
-              responseList.forEach((ele) => repoList.push(ele.replace(org + '/', '')));
-            }
-            return repoList;
-          })
-        .catch(error => {
-          return Observable.throw(error);
-        });
-      });
-    return res;
+    return this.backendHttpGet(this.createUrl(org)).pipe(
+      map((json) => {
+        const repoList: string[] = [];
+        if (json) {
+          const responseList: string[] = json as string[];
+          responseList.forEach((ele) => repoList.push(ele.replace(org + '/', '')));
+        }
+        return repoList;
+      })
+    );
   }
 
   private createUrl(org: string) {
-    let url = this.joinPath([this._helperService.getBackendUrl(), AppLauncherGitproviderService.API_BASE, 'repositories']);
+    let url = this.joinPath(AppLauncherGitproviderService.API_BASE, 'repositories');
     if (this.gitHubUserLogin !== org) {
       url += '?organization=' + org;
     }
     return url;
-  }
-
-  // Private
-  private getRequestParam(name: string): string {
-    let param = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search);
-    if (param !== null) {
-      return decodeURIComponent(param[1]);
-    }
-    return null;
   }
 
   private redirectToAuth(url: string) {

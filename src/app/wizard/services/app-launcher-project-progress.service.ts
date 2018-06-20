@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  Subject
-} from 'rxjs';
+import { Subject } from 'rxjs-compat';
 
-import {
-  Config,
-  ProjectProgressService
-} from 'ngx-forge';
+import { Config, ProjectProgressService } from 'ngx-forge';
 
 @Injectable()
 export class AppLauncherProjectProgressService implements ProjectProgressService {
-  progressMessages = new Subject<MessageEvent>();
+  public progressMessages = new Subject<MessageEvent>();
   private socket: WebSocket;
   private readonly END_POINT: string = '';
 
@@ -18,7 +13,7 @@ export class AppLauncherProjectProgressService implements ProjectProgressService
     this.END_POINT = config.get('backend_websocket_url');
   }
 
-  getProgress(uuidLink: string): WebSocket {
+  public getProgress(uuidLink: string): WebSocket {
     this.socket = new WebSocket(this.END_POINT + uuidLink);
     this.socket.onmessage = (event: MessageEvent) => {
       this.progressMessages.next(event);

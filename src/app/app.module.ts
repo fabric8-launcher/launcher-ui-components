@@ -1,21 +1,20 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { HttpModule } from "@angular/http";
-import { FormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { Logger } from './shared/logger.service';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { WizardModule } from './wizard/wizard.module';
 import { Broadcaster } from 'ngx-base';
-import { AppComponent } from "./app.component";
-import { AppRoutingModule } from "./app-routing.module";
-import { FooterComponent } from "./footer/footer.component";
-import { HeaderComponent } from "./header/header.component";
-import { Logger } from "./shared/logger.service";
-import { WizardModule } from "./wizard/wizard.module";
-
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     WizardModule
   ],
@@ -28,6 +27,7 @@ import { WizardModule } from "./wizard/wizard.module";
     Broadcaster,
     Logger
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

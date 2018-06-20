@@ -1,9 +1,10 @@
-<nav id="header_wrapper" class="navbar navbar-default navbar-pf" [class.navbar-static-top]="frontpage" [class.navbar-fixed-top]="!frontpage" [class.wizard]="!frontpage" role="navigation">
+<nav id="header_wrapper" class="navbar navbar-default navbar-pf" [class.navbar-static-top]="frontpage"
+     [class.navbar-fixed-top]="!frontpage" [class.wizard]="!frontpage" role="navigation">
   <div id="header_nav" class="navbar-header">
     <a class="navbar-brand page-scroll" routerLink="/">
       <img class="header-logo" src="../../assets/img/RHD-logo.svg" alt="Red Hat Developer Program">
     </a>
-    <ul class="nav navbar-nav navbar-right"  *ngIf="!keycloak.skip">
+    <ul class="nav navbar-nav navbar-right" *ngIf="!keycloak.skip">
       <li id="loggedout" *ngIf="!keycloak.isAuthenticated()">
         <a id="login" href="javascript:void(0)" (click)="keycloak.login()">
           <i class="pficon pficon-user"></i> Log In

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
+import { of } from 'rxjs';
+import { Observable } from 'rxjs-compat';
 import { TargetEnvironment, TargetEnvironmentService } from 'ngx-forge';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
    *
    * @returns {Observable<TargetEnvironment>} The target environments
    */
-  getTargetEnvironments(): Observable<TargetEnvironment[]> {
+  public getTargetEnvironments(): Observable<TargetEnvironment[]> {
     const targetEnvironments = [{
       /* tslint:disable */
       description: 'Here is a brief description of what OpenShift is. ' +
@@ -42,6 +42,6 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
       styleClass: 'card-pf-footer--logo-zip'
       /* tslint:enable */
     }] as TargetEnvironment[];
-    return Observable.from([targetEnvironments]);
+    return of(targetEnvironments);
   }
 }

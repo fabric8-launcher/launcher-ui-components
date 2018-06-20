@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
-import { Observable } from "rxjs";
-
-import { TokenService, HelperService, TokenProvider, Cluster } from 'ngx-forge';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs-compat';
+import { Cluster, HelperService, TokenProvider, TokenService } from 'ngx-forge';
 import { KeycloakService } from '../../shared/keycloak.service';
 import { HttpService } from './http.service';
+import { catchError, map } from 'rxjs/operators';
 
 class ConnectedCluster {
-  connected: boolean;
-  cluster: {
+  public connected: boolean;
+  public cluster: {
     id: string;
     name: string;
     type: string;
   };
 }
-
 
 @Injectable()
 export class AppLauncherTokenService extends HttpService implements TokenService {
@@ -22,7 +21,7 @@ export class AppLauncherTokenService extends HttpService implements TokenService
   private static API_BASE: string = '/services/openshift/clusters';
 
   constructor(
-    private _http: Http,
+    private _http: HttpClient,
     private _helperService: HelperService,
     private _tokenProvider: TokenProvider,
     private keycloak: KeycloakService
@@ -30,25 +29,27 @@ export class AppLauncherTokenService extends HttpService implements TokenService
     super(_http, _helperService, _tokenProvider);
   }
 
-  createOathLink(cluster: string): string {
+  public createOathLink(cluster: string): string {
     return this.keycloak.linkAccount(cluster, location.href);
   }
 
   get clusters(): Observable<Cluster[]> {
-    const endPoint: string = this.joinPath([this._helperService.getBackendUrl(), AppLauncherTokenService.API_BASE]);
-    return this.fetchClusters(endPoint);
+    return this.fetchClusters();
   }
 
-  private fetchClusters(endPoint: string, filter?: Function): Observable<Cluster[]> {
-    return this.options().flatMap((option) => {
-      return this._http.get(endPoint, option)
-                  .map(response => filter ? filter(response.json()) : this.toClusters(response.json() as ConnectedCluster[]))
-                  .catch(this.handleError);
-    });
+  private fetchClusters(): Observable<Cluster[]> {
+    return this.fetchConnectedClusters().pipe(
+      map((response) => this.toClusters(response)),
+      catchError(HttpService.handleError)
+    );
+  }
+
+  private fetchConnectedClusters(): Observable<ConnectedCluster[]> {
+    return this.backendHttpGet(AppLauncherTokenService.API_BASE);
   }
 
   private toClusters(clusters: ConnectedCluster[]): Cluster[] {
-    return clusters.map(c => {
+    return clusters.map((c) => {
       return {
         id: c.cluster.id,
         name: c.cluster.name,

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs-compat';
 
-import { HelperService, MissionRuntimeService, Catalog, TokenProvider } from 'ngx-forge';
+import { Catalog, HelperService, MissionRuntimeService, TokenProvider } from 'ngx-forge';
 import { HttpService } from './http.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AppLauncherMissionRuntimeService extends MissionRuntimeService {
@@ -11,7 +11,7 @@ export class AppLauncherMissionRuntimeService extends MissionRuntimeService {
   private httpService: HttpService;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private helperService: HelperService,
     private tokenProvider: TokenProvider
   ) {
@@ -19,7 +19,7 @@ export class AppLauncherMissionRuntimeService extends MissionRuntimeService {
     this.httpService = new HttpService(http, helperService, tokenProvider);
   }
 
-  getCatalog(): Observable<Catalog> {
-    return this.httpService.httpGet(AppLauncherMissionRuntimeService.API_BASE);
+  public getCatalog(): Observable<Catalog> {
+    return this.httpService.backendHttpGet(AppLauncherMissionRuntimeService.API_BASE);
   }
 }

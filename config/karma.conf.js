@@ -1,99 +1,48 @@
-/**
- * @author: @AngularClass
- */
+
 
 module.exports = function (config) {
-  var testWebpackConfig = require('./webpack.test.js')({ env: 'test' });
-
-  var configuration = {
-
-    // base path that will be used to resolve all patterns (e.g. files, exclude)
+  const webpackConfig = require('./webpack.test');
+  const configuration = {
     basePath: '',
 
-    /*
-     * Frameworks to use
-     *
-     * available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-     */
     frameworks: ['jasmine'],
 
-    // list of files to exclude
-    exclude: [],
-
-    // Don't fail on empty testsuite
-    failOnEmptyTestSuite: false,
-
-    /*
-     * list of files / patterns to load in the browser
-     *
-     * we are building the test environment in ./spec-bundle.js
-     */
     files: [
-      { pattern: './src/assets/images/*', watched: false, included: false, served: true },
-      { pattern: './config/spec-bundle.js', watched: false }
+      { pattern: './config/karma-test-shim.js', watched: false },
+      { pattern: './src/assets/**/*', watched: false, included: false, served: true, nocache: false }
     ],
 
-    /*
-     * preprocess matching files before serving them to the browser
-     * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-     */
-    preprocessors: { './config/spec-bundle.js': ['coverage', 'webpack', 'sourcemap'] },
+    proxies: {
+      "/assets/": "/base/src/assets/"
+    },
 
-    // Webpack Config at ./webpack.test.js
-    webpack: testWebpackConfig,
+    preprocessors: {
+      './config/karma-test-shim.js': ['coverage', 'webpack', 'sourcemap']
+    },
+    webpack: webpackConfig,
 
     coverageReporter: {
       type: 'in-memory'
     },
-
     remapCoverageReporter: {
       'text-summary': null,
       json: './coverage/coverage.json',
       html: './coverage/html'
     },
-
-    // Webpack please don't spam the console when running in karma!
-    webpackMiddleware: { stats: 'errors-only' },
-
-    /*
-     * test results reporter to use
-     *
-     * possible values: 'dots', 'progress'
-     * available reporters: https://npmjs.org/browse/keyword/karma-reporter
-     */
-    reporters: ['mocha', 'coverage'],
-
-    // web server port
+    webpackMiddleware: {
+      logLevel: 'warn',
+      stats: {
+        chunks: false
+      }
+    },
+    webpackServer: {
+      noInfo: true
+    },
+    reporters: ['mocha', 'coverage', 'remap-coverage'],
     port: 9876,
-
-    // enable / disable colors in the output (reporters and logs)
     colors: true,
-
-    /*
-     * level of logging
-     * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-     */
     logLevel: config.LOG_INFO,
-
-    // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
-
-    /*
-     * start these browsers
-     * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-     */
-    /*
-        browsers: [
-          'Chrome'
-        ],
-
-        customLaunchers: {
-          ChromeTravisCi: {
-            base: 'Chrome',
-            flags: ['--no-sandbox']
-          }
-        },
-    */
     browsers: ['PhantomJS_custom'],
     customLaunchers: {
       'PhantomJS_custom': {
@@ -113,18 +62,17 @@ module.exports = function (config) {
       // (useful if karma exits without killing phantom)
       exitOnResourceError: true
     },
-
-    /*
-     * Continuous Integration mode
-     * if true, Karma captures browsers, runs the tests and exits
-     */
     singleRun: true
   };
 
-  if (process.env.TRAVIS) {
-    configuration.browsers = [
-      'ChromeTravisCi'
-    ];
+  if (process.env.TRAVIS){
+    configuration.browsers = ['ChromeTravisCi'];
+    configuration.customLaunchers = {
+      'ChromeTravisCi': {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    }
   }
 
   config.set(configuration);

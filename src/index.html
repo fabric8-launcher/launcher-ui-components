@@ -15,16 +15,17 @@
   <script>
     // Parse settings injected by environment pre-processing
     try {
-      const jsonSettings = "${LAUNCHER_JSON_SETTINGS}";
-      window.settings = JSON.parse(jsonSettings);
+      //jsonSettings will be replaced by script 'scripts/entrypoint.sh'
+      const jsonSettings = "$LAUNCHER_JSON_SETTINGS";
+      window.injectedSettings = JSON.parse(jsonSettings);
       console.info("Injected settings contains: " + jsonSettings);
     } catch (e) {
-      window.settings = undefined;
+      window.injectedSettings = undefined;
       console.info("Injected settings are undefined");
     }
 
     // Add segment tracking
-    const segmentTrackerToken = settings ? settings['segment_tracker_token'] : null;
+    const segmentTrackerToken = injectedSettings ? injectedSettings['segment_tracker_token'] : null;
     if(segmentTrackerToken) {
       !function () {
         var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {

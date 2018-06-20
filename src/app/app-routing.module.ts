@@ -1,28 +1,27 @@
-import {NgModule} from "@angular/core";
-import {RouterModule, Routes} from "@angular/router";
-import {IntroComponent} from "./wizard/pages/intro/intro.component";
-import {WizardComponent} from "./wizard/wizard.component";
-import {GettingStartedComponent} from "./wizard/pages/getting-started/getting-started.component";
-import { AuthGuardService as AuthGuard } from "./shared/authguard.service";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { IntroComponent } from './wizard/pages/intro/intro.component';
+import { WizardComponent } from './wizard/wizard.component';
+import { GettingStartedComponent } from './wizard/pages/getting-started/getting-started.component';
+import { AuthGuardService as AuthGuard } from './shared/authguard.service';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: IntroComponent,
     data: {
-      name: "intro"
+      name: 'intro'
     },
-    pathMatch: "full",
+    pathMatch: 'full',
   },
   {
     path: 'wizard/:projectName',
     component: WizardComponent,
     canActivate: [AuthGuard],
     pathMatch: 'full'
-    
   },
   {
-    path: "wizard",
+    path: 'wizard',
     component: GettingStartedComponent,
     pathMatch: 'full'
   },
@@ -30,7 +29,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

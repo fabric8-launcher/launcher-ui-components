@@ -1,4 +1,4 @@
-import {Config, HelperService} from "ngx-forge";
+import { Config, HelperService } from 'ngx-forge';
 
 export class LaunchHelper extends HelperService {
   private readonly launchConfig: Config;
@@ -8,11 +8,11 @@ export class LaunchHelper extends HelperService {
     this.launchConfig = config;
   }
 
-  getBackendUrl(): string {
+  public getBackendUrl(): string {
     return this.launchConfig.get('backend_api_url');
   }
 
-  getOrigin(): string {
+  public getOrigin(): string {
     return this.launchConfig.get('origin');
   }
 }

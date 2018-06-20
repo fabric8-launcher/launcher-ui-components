@@ -7,39 +7,41 @@ Fabric8-Launcher Frontend
 If this is the first time you are starting the UI, you need to run
 
 ```bash
-$ npm install
-```
-
-If you trying to refresh your install you can run:
-
-```bash
-$ npm run reinstall
+$ yarn install
 ```
 
 Start the app by executing the following.
 
 ```bash
-$ npm start
+$ export KEYCLOAK=OFFICIAL && export BACKEND=LOCAL && ./run.sh
 ```
 
-The frontend will use your localhost backend as default. 
+The frontend will use your localhost backend and official keycloak. 
 
-If you want the UI to use another version of the backend, you need to set the following environment variables:
-
-```bash   
-$ export LAUNCHER_BACKEND_URL=http://localhost:8080/api/
-```
+If you want the UI to use another version of the backend or keycloak, you need to change the following environment variables:`
+- BACKEND: `LOCAL` or `PROD` or `PROD_PREVIEW`
+- KEYCLOAK (only available when `BACKEND=LOCAL`): `OFFICIAL` or `NO` or `LOCAL`
 
 More details on running a local version of the backend are available [here][1].
+
+
+## Test
+
+Run the `yarn` command as given below:
+
+```bash
+yarn test
+```
+
 
 ## Production Build
 
 If `LAUNCHER_BACKEND_URL` environment variables is not set, the frontend location will be used to target the backend.
 
-Run the `npm` command as given below:
+Run the `yarn` command as given below:
 
 ```bash
-npm run build:prod
+yarn build:prod
 ```
 
 The build output will be under `dist` directory.

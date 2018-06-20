@@ -1,4 +1,4 @@
-$assetPath : "../../assets/img/";
+$assetPath: "../../assets/img/";
 
 footer {
   background-color: #010101;
@@ -33,6 +33,7 @@ footer {
     }
   }
 }
+
 @media (max-width: 1024px) {
   footer {
     .conditions {
@@ -46,6 +47,7 @@ footer {
     }
   }
 }
+
 @media (max-width: 768px) {
   footer {
     .conditions {

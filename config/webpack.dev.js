@@ -1,68 +1,59 @@
-var webpack = require('webpack');
-var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var commonConfig = require('./webpack.common.js');
-var helpers = require('./helpers');
+const helpers = require('./helpers');
+const webpackMerge = require('webpack-merge');
+const commonConfig = require('./webpack.common.js');
 
-const ENV = process.env.ENV || process.env.NODE_ENV || 'development';
-// if env is 'inmemory', the inmemory debug resource is used
-const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8080/api';
-const LAUNCHER_KEYCLOAK_URL = process.env.LAUNCHER_KEYCLOAK_URL || '';
-const LAUNCHER_KEYCLOAK_REALM = process.env.LAUNCHER_KEYCLOAK_REALM || '';
-const LAUNCHER_KEYCLOAK_CLIENT_ID = process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public';
-const LAUNCHER_FRONTEND_SENTRY_DSN = process.env.LAUNCHER_FRONTEND_SENTRY_DSN;
-const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const EvalSourceMapDevToolPlugin = require('webpack/lib/EvalSourceMapDevToolPlugin');
 
-const METADATA = webpackMerge(commonConfig.metadata, {
+const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
+
+const METADATA = Object.assign({}, {
   ENV: ENV,
-  PUBLIC_PATH: PUBLIC_PATH,
-  LAUNCHER_BACKEND_URL: LAUNCHER_BACKEND_URL,
-  LAUNCHER_KEYCLOAK_URL: LAUNCHER_KEYCLOAK_URL,
-  LAUNCHER_KEYCLOAK_REALM: LAUNCHER_KEYCLOAK_REALM,
-  LAUNCHER_KEYCLOAK_CLIENT_ID: LAUNCHER_KEYCLOAK_CLIENT_ID,
-  LAUNCHER_FRONTEND_SENTRY_DSN: LAUNCHER_FRONTEND_SENTRY_DSN
+  PUBLIC_PATH: process.env.PUBLIC_PATH || '/',
+  LAUNCHER_BACKEND_URL: process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8080/api',
+  LAUNCHER_KEYCLOAK_URL: process.env.LAUNCHER_KEYCLOAK_URL || '',
+  LAUNCHER_KEYCLOAK_REALM: process.env.LAUNCHER_KEYCLOAK_REALM || '',
+  LAUNCHER_KEYCLOAK_CLIENT_ID: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public',
+  LAUNCHER_FRONTEND_SENTRY_DSN: process.env.LAUNCHER_FRONTEND_SENTRY_DSN
 });
 
-module.exports = webpackMerge(commonConfig, {
-  devtool: 'cheap-module-eval-source-map',
-
+module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
   output: {
     path: helpers.root('dist'),
     publicPath: METADATA.PUBLIC_PATH,
-    filename: '[name].js',
+    filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js',
-    sourceMapFilename: '[name].map'
+    library: 'ac_[name]',
+    libraryTarget: 'var',
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css'),
+    new EvalSourceMapDevToolPlugin({
+      moduleFilenameTemplate: '[resource-path]',
+      sourceRoot: 'webpack:///'
+    }),
+    new LoaderOptionsPlugin({
+      debug: true,
+      options: { }
+    }),
 
-    /**
-     * Plugin: DefinePlugin
-     * Description: Define free variables.
-     * Useful for having development builds with debug logging or adding global constants.
-     *
-     * Environment helpers
-     *
-     * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-     */
-    // NOTE: when adding more properties, make sure you include them in custom-typings.d.ts
-    new webpack.DefinePlugin({
-      'process.env': {
-        'ENV': JSON.stringify(METADATA.ENV),
-        'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH),
-        'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
-        'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_URL),
-        'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_REALM),
-        'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_CLIENT_ID),
-        'LAUNCHER_FRONTEND_SENTRY_DSN': JSON.stringify(METADATA.LAUNCHER_FRONTEND_SENTRY_DSN)
-      }
-    })
   ],
-
   devServer: {
     historyApiFallback: true,
-    stats: 'minimal',
-    inline: true
+    watchOptions: {
+      // if you're using Docker you may need this
+      // aggregateTimeout: 300,
+      // poll: 1000,
+      ignored: /node_modules/
+    }
+  },
+  node: {
+    global: true,
+    crypto: 'empty',
+    process: true,
+    module: false,
+    clearImmediate: false,
+    setImmediate: false,
+    fs: 'empty'
   }
 });
