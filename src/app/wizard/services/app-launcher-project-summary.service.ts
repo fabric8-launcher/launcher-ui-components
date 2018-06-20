@@ -37,10 +37,10 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
    * @param {Summary} summary The project summary
    * @returns {Observable<boolean>}
    */
-  setup(summary: Summary): Observable<boolean> {
+  setup(summary: Summary, retry?: number): Observable<boolean> {
     const summaryEndPoint: string = this.joinPath([this._helperService.getBackendUrl(),
       (this.isTargetOpenshift(summary) ? AppLauncherProjectSummaryService.LAUNCH : AppLauncherProjectSummaryService.ZIP)]);
-    return this.options(summary.cluster).flatMap((option) => {
+    return this.options(summary.cluster, retry).flatMap((option) => {
       if (this.isTargetOpenshift(summary)) {
         return this._http.post(summaryEndPoint, this.getPayload(summary), option)
           .map(response => {
