@@ -68,7 +68,7 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
     return pattern.test(projectVersion);
   }
 
-  getApplicationsInASpace(): Observable<any[]> {
+  getApplicationsInASpace(spaceId: string): Observable<any[]> {
     return Observable.of([]);
   }
 }
