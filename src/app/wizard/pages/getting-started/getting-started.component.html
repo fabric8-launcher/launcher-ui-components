@@ -2,7 +2,7 @@
   <div class="blank-slate-pf ">
     <h1>
       To continue, please log into or register an account for free
-      <br /> with the Red Hat Developer Program.
+      <br/> with the Red Hat Developer Program.
     </h1>
     <div class="blank-slate-pf-main-action">
       <button class="btn btn-primary btn-lg" (click)="keycloak.login()">Log in or register</button>
@@ -23,11 +23,12 @@
                     Name your application
                   </label>
                   <span class="code-imports--step_pencil">
-                    <input id="projectName" name="projectName" type="text" class="form-control code-imports--step_input col-sm-5"
-                        placeholder="Add application name"
-                        aria-label="Application Name Input" required
-                        (keyup)="validateProjectName()"
-                        [(ngModel)]="projectName">
+                    <input id="projectName" name="projectName" type="text"
+                           class="form-control code-imports--step_input col-sm-5"
+                           placeholder="Add application name"
+                           aria-label="Application Name Input" required
+                           (keyup)="validateProjectName()"
+                           [(ngModel)]="projectName">
                   </span>
                   <ng-template #helpTemplate>
                     Names must:
@@ -48,7 +49,8 @@
                   </span>
                 </div>
                 <div class="row code-imports--step_toolbar">
-                  <button id="routeToApp" class="btn btn-primary" aria-label="Continue" (click)="routeToApp()" [disabled]="form.invalid">
+                  <button id="routeToApp" class="btn btn-primary" aria-label="Continue" (click)="routeToApp()"
+                          [disabled]="form.invalid">
                     Continue
                   </button>
                 </div>

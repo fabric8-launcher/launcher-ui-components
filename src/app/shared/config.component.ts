@@ -1,14 +1,14 @@
-import {Injectable} from "@angular/core";
-import {Location} from "@angular/common";
-import {Config} from "ngx-forge";
+import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
+import { Config } from 'ngx-forge';
 
-declare var settings: object;
+declare var injectedSettings: object;
 
 @Injectable()
 export class LaunchConfig extends Config {
   protected readonly settings = {
     origin: 'launcher',
-    backend_url:  process.env.LAUNCHER_BACKEND_URL,
+    backend_url: process.env.LAUNCHER_BACKEND_URL,
     keycloak_url: process.env.LAUNCHER_KEYCLOAK_URL,
     keycloak_realm: process.env.LAUNCHER_KEYCLOAK_REALM,
     keycloak_client_id: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID,
@@ -19,48 +19,48 @@ export class LaunchConfig extends Config {
     super();
     this.processInitConfig();
     this.postProcessSettings();
-    console.info("LaunchConfig is: " + JSON.stringify(this.settings));
+    console.info('LaunchConfig is: ' + JSON.stringify(this.settings));
+  }
+
+  public get(key: string): string {
+    return this.settings[key];
   }
 
   private processInitConfig() {
-    if (settings) {
-      for (const property in settings) {
-        if (settings.hasOwnProperty(property) && settings[property]) {
-          this.settings[property] = settings[property];
+    if (injectedSettings) {
+      for (const property in injectedSettings) {
+        if (injectedSettings.hasOwnProperty(property) && injectedSettings[property]) {
+          this.settings[property] = injectedSettings[property];
         }
       }
     }
   }
-  
+
   private postProcessSettings() {
     const backendApiUrl = Location.stripTrailingSlash(this.settings['backend_url']);
 
-    if(!backendApiUrl){
-      throw new Error("Invalid backend_url: " + backendApiUrl);
+    if (!backendApiUrl) {
+      throw new Error('Invalid backend_url: ' + backendApiUrl);
     }
 
     this.settings['backend_api_url'] = backendApiUrl;
     this.settings['backend_websocket_url'] = this.createBackendWebsocketUrl(backendApiUrl);
 
-    //Used by old wizard
+    // Used by old wizard
     this.settings['backend_url'] = backendApiUrl + '/launchpad';
   }
 
-  private createBackendWebsocketUrl(backendApiUrl:string){
+  private createBackendWebsocketUrl(backendApiUrl: string) {
     let url = backendApiUrl.substring(0, backendApiUrl.indexOf('/api'));
     if (url.indexOf('https') !== -1) {
       return url.replace('https', 'wss');
     } else if (url.indexOf('http') !== -1) {
       return url.replace('http', 'ws');
-    } else if (url.startsWith("/") || url.startsWith(":")) {
+    } else if (url.startsWith('/') || url.startsWith(':')) {
       // /launch/api
-      url  = (url.startsWith(":") ? location.hostname : location.host) + url;
-      return (location.protocol === "https:" ? "wss://" : "ws://") + url;
+      url = (url.startsWith(':') ? location.hostname : location.host) + url;
+      return (location.protocol === 'https:' ? 'wss://' : 'ws://') + url;
     }
-    throw new Error("Error while creating websocket url from backend url: " + backendApiUrl);
-  }
-
-  get(key: string): string {
-    return this.settings[key];
+    throw new Error('Error while creating websocket url from backend url: ' + backendApiUrl);
   }
 }

@@ -1,19 +1,22 @@
-import {Directive, ElementRef, Input} from "@angular/core";
-import {KeycloakService} from "./keycloak.service";
+import { Directive, DoCheck, ElementRef, Input } from '@angular/core';
+import { KeycloakService } from './keycloak.service';
 
 @Directive({
-  selector: "[authentication]"
+  selector: '[authentication]'
 })
-export class AuthenticationDirective {
-  @Input("authentication") invert: boolean;
+export class AuthenticationDirective implements DoCheck {
+
+  @Input('authentication') public authentication: boolean;
 
   constructor(private el: ElementRef, private keycloak: KeycloakService) {
   }
 
-  ngDoCheck() {
-    let authenticated = this.keycloak.isAuthenticated();
+  public ngDoCheck() {
+    const authenticated = this.keycloak.isAuthenticated();
     let render = !authenticated;
-    if (this.invert) render = !render;
-    this.el.nativeElement.style.display = render ? "none" : "block";
+    if (this.authentication) {
+      render = !render;
+    }
+    this.el.nativeElement.style.display = render ? 'none' : 'block';
   }
 }

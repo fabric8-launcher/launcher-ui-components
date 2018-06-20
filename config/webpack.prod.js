@@ -1,58 +1,70 @@
-var webpack = require('webpack');
-var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var commonConfig = require('./webpack.common.js');
-var helpers = require('./helpers');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HashedModuleIdsPlugin = require('webpack/lib/HashedModuleIdsPlugin');
+const SourceMapDevToolPlugin = require('webpack/lib/SourceMapDevToolPlugin');
+const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const commonConfig = require('./webpack.common.js');
+const helpers = require('./helpers');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const LAUNCHER_BACKEND_URL = process.env.LAUNCHER_BACKEND_URL || '/launch/api';
-const LAUNCHER_KEYCLOAK_URL = process.env.LAUNCHER_KEYCLOAK_URL;
-const LAUNCHER_KEYCLOAK_REALM = process.env.LAUNCHER_KEYCLOAK_REALM;
-const LAUNCHER_KEYCLOAK_CLIENT_ID = process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public';
-const LAUNCHER_FRONTEND_SENTRY_DSN = process.env.LAUNCHER_FRONTEND_SENTRY_DSN;
-const PUBLIC_PATH = process.env.PUBLIC_PATH || '/launch/';
 
-const METADATA = webpackMerge(commonConfig.metadata, {
+const METADATA = Object.assign({}, {
   ENV: ENV,
-  PUBLIC_PATH: PUBLIC_PATH,
-  BACKEND_URL: LAUNCHER_BACKEND_URL,
-  LAUNCHER_KEYCLOAK_URL: LAUNCHER_KEYCLOAK_URL,
-  LAUNCHER_KEYCLOAK_REALM: LAUNCHER_KEYCLOAK_REALM,
-  LAUNCHER_KEYCLOAK_CLIENT_ID: LAUNCHER_KEYCLOAK_CLIENT_ID,
-  LAUNCHER_FRONTEND_SENTRY_DSN: LAUNCHER_FRONTEND_SENTRY_DSN
+  PUBLIC_PATH: process.env.PUBLIC_PATH || '/launch/',
+  LAUNCHER_BACKEND_URL: process.env.LAUNCHER_BACKEND_URL || '/launch/api',
+  LAUNCHER_KEYCLOAK_URL: process.env.LAUNCHER_KEYCLOAK_URL,
+  LAUNCHER_KEYCLOAK_REALM: process.env.LAUNCHER_KEYCLOAK_REALM,
+  LAUNCHER_KEYCLOAK_CLIENT_ID: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public',
+  LAUNCHER_FRONTEND_SENTRY_DSN: process.env.LAUNCHER_FRONTEND_SENTRY_DSN
 });
 
-module.exports = webpackMerge(commonConfig, {
-  devtool: 'source-map',
-
+module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
   output: {
     path: helpers.root('dist'),
     publicPath: METADATA.PUBLIC_PATH,
-    filename: '[name].[hash].js',
-    chunkFilename: '[id].[hash].chunk.js'
-  },
+    filename: '[name].[chunkhash].bundle.js',
+    sourceMapFilename: '[file].map',
+    chunkFilename: '[name].[chunkhash].chunk.js'
 
-  htmlLoader: {
-    minimize: false // workaround for ng2
   },
-
   plugins: [
-    new webpack.NoErrorsPlugin(),
-    // FIXME: https://github.com/webpack/webpack/issues/2644
-    // new webpack.optimize.DedupePlugin(),
-    // FIXME: webpack's --optimize-minimize option is not working
-    //new webpack.optimize.UglifyJsPlugin(),
-    new ExtractTextPlugin('[name].[hash].css'),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'ENV': JSON.stringify(METADATA.ENV),
-        'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH),
-        'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
-        'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_URL),
-        'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_REALM),
-        'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_CLIENT_ID),
-        'LAUNCHER_FRONTEND_SENTRY_DSN': JSON.stringify(METADATA.LAUNCHER_FRONTEND_SENTRY_DSN)
+    new SourceMapDevToolPlugin({
+      filename: '[file].map[query]',
+      moduleFilenameTemplate: '[resource-path]',
+      fallbackModuleFilenameTemplate: '[resource-path]?[hash]',
+      sourceRoot: 'webpack:///'
+    }),
+    new PurifyPlugin(), /* buildOptimizer */
+    new HashedModuleIdsPlugin(),
+    new MiniCssExtractPlugin({ filename: '[name]-[hash].css', chunkFilename: '[name]-[chunkhash].css' }),
+    new UglifyJsPlugin({
+      sourceMap: false,
+      parallel: true,
+      uglifyOptions: {
+        ecma: 5,
+        warnings: false,
+        ie8: false,
+        mangle: true,
+        compress: {
+          pure_getters: true,
+          passes: 3
+        },
+        output: {
+          ascii_only: true,
+          comments: false
+        }
       }
     })
-  ]
+  ],
+  node: {
+    global: true,
+    crypto: 'empty',
+    process: false,
+    module: false,
+    clearImmediate: false,
+    setImmediate: false,
+    fs: 'empty'
+  }
 });

@@ -1,16 +1,16 @@
-import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "wizard",
-  templateUrl: "./wizard.component.html"
+  selector: 'wizard',
+  templateUrl: './wizard.component.html'
 })
 export class WizardComponent {
 
   constructor(private router: Router) {
   }
 
-  back(): void {
+  public back(): void {
     this.router.navigate(['/']);
   }
 }

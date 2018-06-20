@@ -1,5 +1,5 @@
-import {TokenProvider} from "ngx-forge";
-import {KeycloakService} from "./keycloak.service";
+import { TokenProvider } from 'ngx-forge';
+import { KeycloakService } from './keycloak.service';
 
 export class KeycloakTokenProvider extends TokenProvider {
 
@@ -7,7 +7,7 @@ export class KeycloakTokenProvider extends TokenProvider {
     super();
   }
 
-  getToken(): string | Promise<string> {
+  public getToken(): string | Promise<string> {
     return this.keycloak.getToken();
   }
 }

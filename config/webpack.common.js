@@ -1,101 +1,132 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const helpers = require('./helpers');
-const precss = require('precss');
-const autoprefixer = require('autoprefixer')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const ngcWepack = require('ngc-webpack');
 
-module.exports = {
-  entry: {
-    'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
-    'app': './src/main.ts'
-  },
+module.exports = function ({ env, metadata }) {
+  const isProd = env === 'production';
+  const entry = {
+    polyfills: './src/polyfills.ts',
+    vendor: './src/vendor.ts',
+    main:      './src/main.ts',
+  };
 
-  resolve: {
-    extensions: ['', '.webpack.js', '.wep.js', '.js', '.ts']
-  },
+  return {
+    entry: entry,
+    resolve: {
+      mainFields: ['browser', 'module', 'main' ],
+      extensions: ['.ts', '.js', '.json'],
+      modules: [helpers.root('src'), helpers.root('node_modules')]
+    },
+    module: {
 
-  node: {
-    fs: "empty"
-  },
+      rules: [
+        {
+          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          loader: '@ngtools/webpack'
+        },
+        {
+          test: /\.css$/,
+          exclude: helpers.root('src', 'app'),
+          use: [
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { sourceMap: true}},
+            'postcss-loader',
+          ],
+        },
 
-  stats: {
-    colors: true,
-    reasons: true
-  },
+        {
+          test: /\.css$/,
+          include: helpers.root('src', 'app'),
+          use: ['raw-loader', 'postcss-loader'],
+        },
 
-  module: {
-    loaders: [
-      {
-        test: /\.ts$/,
-        loaders: ['ts', 'angular2-template-loader'],
-        exclude: [/\.(spec|e2e)\.ts$/]
-      },
-      {
-        test: /\.html$/,
-        loader: 'html'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      { 
-        test: /\.index$/,
-        loader: "asciidoctorindex?plain=true&document-attributes=https://raw.githubusercontent.com/openshiftio/appdev-documentation/master/docs/topics/templates/document-attributes.adoc"
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file?name=assets/[name].[hash].[ext]'
-      },
-      {
-        test: /\.css$/,
-        exclude: helpers.root('src', 'app'),
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
-      },
-      {
-        test: /\.css$/,
-        include: helpers.root('src', 'app'),
-        loader: 'raw!postcss'
-      },
-      {
-        test: /\.scss$/,
-        exclude: helpers.root('src', 'app'),
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!resolve-url!sass?sourceMap')
-      },
-      {
-        test: /\.scss$/,
-        include: helpers.root('src', 'app'),
-        loaders: ['exports-loader?module.exports.toString()', 'css', 'postcss', 'sass']
-      }
-    ]
-  },
+        {
+          test: /\.scss$/,
+          exclude: helpers.root('src', 'app'),
+          use: [
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { sourceMap: true}},
+            'postcss-loader',
+            'resolve-url-loader',
+            { loader: 'sass-loader', options: { sourceMap: true}}
+          ],
+        },
 
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']
-    }),
+        {
+          test: /\.scss$/,
+          include: helpers.root('src', 'app'),
+          use: [
+            'to-string-loader',
+            'css-loader',
+            'postcss-loader',
+            'sass-loader'
+          ]
+        },
+        {
+          test: /\.html$/,
+          use: 'raw-loader',
+          exclude: [helpers.root('src/index.html')]
+        },
+        {
+          test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+          use: 'file-loader'
+        }
+      ],
 
-    /**
-     * Plugin: ContextReplacementPlugin
-     * Description: Provides context to Angular's use of System.import
-     *
-     * See: https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
-     * See: https://github.com/angular/angular/issues/11580
-     */
-    new webpack.ContextReplacementPlugin(
-      // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)@angular/,
-      helpers.root('src') // location of your src
-    ),
-
-    new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    })
-  ],
-
-  postcss: function () {
-      return [precss, autoprefixer({ browsers: ['last 2 versions'] })];
-  }
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          'ENV': JSON.stringify(metadata.ENV),
+          'NODE_ENV': JSON.stringify(metadata.ENV),
+          'PUBLIC_PATH' : JSON.stringify(metadata.PUBLIC_PATH),
+          'LAUNCHER_BACKEND_URL' : JSON.stringify(metadata.LAUNCHER_BACKEND_URL),
+          'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_URL),
+          'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_REALM),
+          'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(metadata.LAUNCHER_KEYCLOAK_CLIENT_ID),
+          'LAUNCHER_FRONTEND_SENTRY_DSN': JSON.stringify(metadata.LAUNCHER_FRONTEND_SENTRY_DSN)
+        }
+      }),
+      new ngcWepack.NgcWebpackPlugin({
+        mainPath: entry.main,
+        tsConfigPath: 'tsconfig.json',
+        sourceMap: true,
+        skipCodeGeneration: true
+      }),
+      new MiniCssExtractPlugin({ filename: '[name]-[hash].css', chunkFilename: '[name]-[chunkhash].css' }),
+      new HtmlWebpackPlugin({
+        template: 'src/index.html',
+        chunksSortMode: function (a, b) {
+          const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"];
+          return entryPoints.indexOf(a.names[0]) - entryPoints.indexOf(b.names[0]);
+        },
+        inject: 'body',
+        xhtml: true,
+        minify: isProd ? {
+          caseSensitive: true,
+          collapseWhitespace: true,
+          keepClosingSlash: true
+        } : false
+      }),
+      new ScriptExtHtmlWebpackPlugin({
+        sync: /inline|polyfills|vendor/,
+        defaultAttribute: 'async',
+        preload: [/polyfills|vendor|main/],
+        prefetch: [/chunk/]
+      }),
+      new LoaderOptionsPlugin({}),
+    ],
+    node: {
+      global: true,
+      crypto: 'empty',
+      process: true,
+      module: false,
+      clearImmediate: false,
+      setImmediate: false
+    }
+  };
 };

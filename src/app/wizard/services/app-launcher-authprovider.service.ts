@@ -9,7 +9,7 @@ export class AuthAPIProvider extends AuthHelperService {
     super();
   }
 
-  getAuthApiURl(): any {
+  public getAuthApiURl(): any {
     return this.apiUrl;
   }
 }

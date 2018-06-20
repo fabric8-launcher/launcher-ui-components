@@ -1,26 +1,26 @@
-import { Component } from "@angular/core";
-import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
+import { Component, HostBinding } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  selector: "body",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
-  host: {
-    "[class.cards-pf]": "intro"
-  }
+  selector: 'body',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @HostBinding('class.cards-pf') private intro: boolean;
+
   constructor(private router: Router, private route: ActivatedRoute) {
     router.events.subscribe((url: any) => {
-      this.intro = url.url !== "/" && url.url !== "/wizard";
+      this.intro = url.url !== '/' && url.url !== '/wizard';
     });
 
-    router.events.distinctUntilChanged((previous: any, current: any) => {
+    router.events.pipe(distinctUntilChanged(((previous: any, current: any) => {
       if (current instanceof NavigationEnd) {
         return previous.url === current.url;
       }
       return true;
-    }).subscribe((x: any) => {
+    }))).subscribe(() => {
       let snapshot = route.snapshot;
       let activated = route.firstChild;
       if (activated != null) {
@@ -39,5 +39,4 @@ export class AppComponent {
     });
   }
 
-  intro: boolean;
 }

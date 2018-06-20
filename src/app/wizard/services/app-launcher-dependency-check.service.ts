@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs-compat';
+import { of } from 'rxjs';
 
 import { DependencyCheck, DependencyCheckService } from 'ngx-forge';
 
 @Injectable()
 export class AppLauncherDependencyCheckService implements DependencyCheckService {
-  
+
   /**
    * Returns project dependencies
    *
    * @returns {Observable<DependencyCheck>} Project dependencies
    */
-  getDependencyCheck(): Observable<DependencyCheck> {
-    return Observable.of({
+  public getDependencyCheck(): Observable<DependencyCheck> {
+    return of({
       mavenArtifact: 'booster',
       groupId: 'io.openshift.booster',
       projectName: '',
@@ -27,7 +28,7 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
    * @param  {string} projectName
    * @returns boolean
    */
-  validateProjectName(projectName: string): boolean {
+  public validateProjectName(projectName: string): boolean {
     // allows only '-'
     const pattern = /^[a-z][a-z0-9-]{3,63}$/;
     return pattern.test(projectName);
@@ -39,7 +40,7 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
    * @param  {string} artifactId
    * @returns boolean
    */
-  validateArtifactId(artifactId: string): boolean {
+  public validateArtifactId(artifactId: string): boolean {
     // allows only '-'
     return this.validateProjectName(artifactId);
   }
@@ -50,7 +51,7 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
    * @param  {string} groupId
    * @returns boolean
    */
-  validateGroupId(groupId: string): boolean {
+  public validateGroupId(groupId: string): boolean {
     // allows only '.'
     const pattern = /^[a-z][a-z0-9.]{3,63}$/;
     return pattern.test(groupId);
@@ -62,13 +63,13 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
    * @param  {string} projectVersion
    * @returns boolean
    */
-  validateProjectVersion(projectVersion: string): boolean {
+  public validateProjectVersion(projectVersion: string): boolean {
     // allows '.' and '-'
     const pattern = /^[a-z][a-z0-9-.]{3,63}$/;
     return pattern.test(projectVersion);
   }
 
-  getApplicationsInASpace(): Observable<any[]> {
-    return Observable.of([]);
+  public getApplicationsInASpace(): Observable<any[]> {
+    return of([]);
   }
 }
