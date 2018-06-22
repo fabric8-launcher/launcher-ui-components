@@ -5312,7 +5312,7 @@ ngc-webpack@^4.1.2:
     source-map "^0.5.6"
     ts-node "^3.2.0"
 
-ngx-base@2.3.2, ngx-base@^2.3.2:
+ngx-base@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-2.3.2.tgz#97de1269e8a7bd8c0dcacd605cb6be996c82e70d"
 
@@ -5953,19 +5953,6 @@ patternfly-bootstrap-treeview@~2.1.0:
   dependencies:
     bootstrap "3.3.x"
     jquery ">= 2.1.x"
-
-patternfly-ng@^3.1.3:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-3.10.1.tgz#12a4690273c5424eef927a85cc5a80ac967e6b30"
-  dependencies:
-    lodash "^4.17.4"
-    patternfly "^3.28.0"
-  optionalDependencies:
-    "@swimlane/ngx-datatable" "^11.1.7"
-    angular-tree-component "^6.0.0 || ^7.0.0"
-    c3 "^0.4.15"
-    ng2-dragula "^1.5.0"
-    ngx-bootstrap "^1.8.0 || ^2.0.0"
 
 patternfly-ng@^3.10.3:
   version "3.10.3"
