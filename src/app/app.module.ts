@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { Logger } from './shared/logger.service';
@@ -25,7 +26,8 @@ import { Broadcaster } from 'ngx-base';
   ],
   providers: [
     Broadcaster,
-    Logger
+    Logger,
+    {provide: APP_BASE_HREF, useValue: '/launch/'}
   ],
   bootstrap: [AppComponent]
 })
