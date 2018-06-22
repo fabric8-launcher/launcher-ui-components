@@ -70,8 +70,7 @@ module.exports = function ({ env, metadata }) {
         },
         {
           test: /\.html$/,
-          use: 'raw-loader',
-          exclude: [helpers.root('src/index.html')]
+          loader: 'html-loader'
         },
         {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
@@ -79,7 +78,7 @@ module.exports = function ({ env, metadata }) {
             {
               loader: 'file-loader',
               options: {
-                name: 'assets/[name].[hash].[ext]',
+                name: 'assets/[name].[hash].[ext]'
               }
             }
           ]
@@ -101,6 +100,10 @@ module.exports = function ({ env, metadata }) {
           'LAUNCHER_FRONTEND_SENTRY_DSN': JSON.stringify(metadata.LAUNCHER_FRONTEND_SENTRY_DSN)
         }
       }),
+      new webpack.ContextReplacementPlugin(
+        /angular(\\|\/)core(\\|\/)@angular/,
+        helpers.root('src')
+      ),
       new ngcWepack.NgcWebpackPlugin({
         mainPath: entry.main,
         tsConfigPath: 'tsconfig.json',
