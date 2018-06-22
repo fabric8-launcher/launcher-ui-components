@@ -18,6 +18,8 @@ const METADATA = Object.assign({}, {
 });
 
 module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
+  devtool: 'cheap-module-eval-source-map',
+
   output: {
     path: helpers.root('dist'),
     publicPath: METADATA.PUBLIC_PATH,
@@ -39,12 +41,12 @@ module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
 
   ],
   devServer: {
+    contentBase: helpers.root('src'),
     historyApiFallback: true,
+    stats: 'minimal',
+    inline: true,
     open: false,
     watchOptions: {
-      // if you're using Docker you may need this
-      // aggregateTimeout: 300,
-      // poll: 1000,
       ignored: /node_modules/
     }
   },

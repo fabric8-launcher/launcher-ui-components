@@ -13,7 +13,6 @@ module.exports = function ({ env, metadata }) {
     vendor: './src/vendor.ts',
     main:      './src/main.ts',
   };
-
   return {
     entry: entry,
     resolve: {
@@ -73,7 +72,14 @@ module.exports = function ({ env, metadata }) {
         },
         {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-          use: 'file-loader'
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: 'assets/[name].[hash].[ext]',
+              }
+            }
+          ]
         }
       ],
 
@@ -97,15 +103,13 @@ module.exports = function ({ env, metadata }) {
         sourceMap: true,
         skipCodeGeneration: true
       }),
-      new MiniCssExtractPlugin({ filename: '[name]-[hash].css', chunkFilename: '[name]-[chunkhash].css' }),
+      new MiniCssExtractPlugin({ filename: '[name]-[chunkhash].css' }),
       new HtmlWebpackPlugin({
         template: 'src/index.html',
         chunksSortMode: function (a, b) {
           const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"];
           return entryPoints.indexOf(a.names[0]) - entryPoints.indexOf(b.names[0]);
         },
-        inject: 'body',
-        xhtml: true,
         minify: isProd ? {
           caseSensitive: true,
           collapseWhitespace: true,
