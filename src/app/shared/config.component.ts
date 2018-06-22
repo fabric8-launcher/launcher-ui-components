@@ -8,6 +8,7 @@ declare var injectedSettings: object;
 export class LaunchConfig extends Config {
   protected readonly settings = {
     origin: 'launcher',
+    commit_hash: process.env.LAUNCHER_FRONTEND_COMMITHASH,
     backend_url: process.env.LAUNCHER_BACKEND_URL,
     keycloak_url: process.env.LAUNCHER_KEYCLOAK_URL,
     keycloak_realm: process.env.LAUNCHER_KEYCLOAK_REALM,
