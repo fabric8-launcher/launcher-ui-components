@@ -40,6 +40,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
   ],
   devServer: {
     historyApiFallback: true,
+    open: false,
     watchOptions: {
       // if you're using Docker you may need this
       // aggregateTimeout: 300,

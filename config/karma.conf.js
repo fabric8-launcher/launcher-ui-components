@@ -43,37 +43,9 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['PhantomJS_custom'],
-    customLaunchers: {
-      'PhantomJS_custom': {
-        base: 'PhantomJS',
-        options: {
-          windowName: 'alm-window',
-          settings: {
-            webSecurityEnabled: false
-          },
-        },
-        flags: ['--load-images=true'],
-        debug: false
-      }
-    },
-    phantomjsLauncher: {
-      // Have phantomjs exit if a ResourceError is encountered
-      // (useful if karma exits without killing phantom)
-      exitOnResourceError: true
-    },
+    browsers: ['ChromeHeadless'],
     singleRun: true
   };
-
-  if (process.env.TRAVIS){
-    configuration.browsers = ['ChromeTravisCi'];
-    configuration.customLaunchers = {
-      'ChromeTravisCi': {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    }
-  }
 
   config.set(configuration);
 };
