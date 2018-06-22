@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HashedModuleIdsPlugin = require('webpack/lib/HashedModuleIdsPlugin');
@@ -21,13 +20,13 @@ const METADATA = Object.assign({}, {
 });
 
 module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
+  devtool: 'source-map',
   output: {
     path: helpers.root('dist'),
     publicPath: METADATA.PUBLIC_PATH,
     filename: '[name].[chunkhash].bundle.js',
     sourceMapFilename: '[file].map',
     chunkFilename: '[name].[chunkhash].chunk.js'
-
   },
   plugins: [
     new SourceMapDevToolPlugin({
@@ -36,7 +35,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
       fallbackModuleFilenameTemplate: '[resource-path]?[hash]',
       sourceRoot: 'webpack:///'
     }),
-    new PurifyPlugin(), /* buildOptimizer */
+    new PurifyPlugin(),
     new HashedModuleIdsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name]-[hash].css', chunkFilename: '[name]-[chunkhash].css' }),
     new UglifyJsPlugin({
