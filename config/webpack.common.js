@@ -4,9 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const GitRevisionPlugin = require('git-revision-webpack-plugin')
+
 const ngcWepack = require('ngc-webpack');
 
 module.exports = function ({ env, metadata }) {
+  const gitRevisionPlugin = new GitRevisionPlugin();
   const isProd = env === 'production';
   const entry = {
     polyfills: './src/polyfills.ts',
@@ -90,6 +93,7 @@ module.exports = function ({ env, metadata }) {
           'ENV': JSON.stringify(metadata.ENV),
           'NODE_ENV': JSON.stringify(metadata.ENV),
           'PUBLIC_PATH' : JSON.stringify(metadata.PUBLIC_PATH),
+          'LAUNCHER_FRONTEND_COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
           'LAUNCHER_BACKEND_URL' : JSON.stringify(metadata.LAUNCHER_BACKEND_URL),
           'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_URL),
           'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_REALM),
