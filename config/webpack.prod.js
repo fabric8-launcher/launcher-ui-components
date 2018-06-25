@@ -39,7 +39,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
     new HashedModuleIdsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name]-[hash].css', chunkFilename: '[name]-[chunkhash].css' }),
     new UglifyJsPlugin({
-      sourceMap: false,
+      sourceMap: true,
       parallel: true,
       uglifyOptions: {
         ecma: 5,
