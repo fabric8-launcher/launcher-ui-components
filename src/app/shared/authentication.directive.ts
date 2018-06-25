@@ -6,7 +6,7 @@ import { KeycloakService } from './keycloak.service';
 })
 export class AuthenticationDirective implements DoCheck {
 
-  @Input('authentication') public authentication: boolean;
+  @Input() public authentication: boolean;
 
   constructor(private el: ElementRef, private keycloak: KeycloakService) {
   }
