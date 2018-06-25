@@ -17,7 +17,7 @@
   "scripts": {
     "build": "webpack --config config/webpack.dev.js --mode development",
     "build:prod": "webpack --config config/webpack.prod.js -p ",
-    "start": "webpack-dev-server --progress --inline --watch --host 0.0.0.0 --port 8088",
+    "start": "webpack-dev-server --config config/webpack.dev.js --mode development --progress --inline --watch --host 0.0.0.0 --port 8088",
     "test": "npm run lint && karma start",
     "lint": "npm run tslint \"src/**/*.ts\"",
     "tslint": "tslint"
