@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { v4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import * as jsSHA from 'jssha';
 import { of } from 'rxjs';
 import { Observable, Subject } from 'rxjs-compat';
@@ -96,13 +96,13 @@ export class KeycloakService {
     if (this.accountLink.has(provider)) {
       return this.accountLink.get(provider);
     } else if (authz.tokenParsed) {
-      const nonce = v4();
+      const nonce = uuidv4();
       const clientId = this.config.clientId;
       const hash = nonce + this.auth.authz.tokenParsed.session_state
         + clientId + provider;
       const shaObj = new jsSHA('SHA-256', 'TEXT');
       shaObj.update(hash);
-      const hashed = shaObj.getHash('B64');
+      const hashed = KeycloakService.base64ToUri(shaObj.getHash('B64'));
       // tslint:disable-next-line
       const link = `${this.auth.authz.authServerUrl}/realms/${this.config.realm}/broker/${provider}/link?nonce=${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
       this.accountLink.set(provider, link);
@@ -135,5 +135,11 @@ export class KeycloakService {
         resolve('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o');
       }
     });
+  }
+
+  private static base64ToUri(b64: string): string {
+    return b64.replace(/=/g, '')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_');
   }
 }
