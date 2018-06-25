@@ -39,6 +39,7 @@
     "ngx-bootstrap": "3.0.1",
     "ngx-forge": "0.3.13",
     "patternfly": "3.51.1",
+    "patternfly-ng": "3.10.3",
     "raven-js": "^3.26.2",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
