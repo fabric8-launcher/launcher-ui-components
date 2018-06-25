@@ -70,12 +70,14 @@ module.exports = function ({ env, metadata }) {
         },
         {
           test: /\.html$/,
-          use: {
-            loader: 'html-loader',
-            options: {
-              minimize: false // workaround for ng2
+          use: [
+            {
+              loader: 'html-loader',
+              options: {
+                minimize: false // workaround for ng2
+              }
             }
-          }
+          ]
         },
         {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
