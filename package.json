@@ -37,7 +37,7 @@
     "jssha": "^2.3.1",
     "ngx-base": "2.3.2",
     "ngx-bootstrap": "3.0.1",
-    "ngx-forge": "0.3.12",
+    "ngx-forge": "0.3.13",
     "patternfly": "3.51.1",
     "raven-js": "^3.26.2",
     "rxjs": "^6.2.1",
