@@ -48,7 +48,7 @@ export class KeycloakService {
       this.auth.authz = {};
 
       if (this.config.realm) {
-        keycloakAuth.init({ onLoad: 'check-sso', checkLoginIframe: false })
+        keycloakAuth.init({ onLoad: 'check-sso' })
           .error(() => reject())
           .success(() => {
             this.auth.authz = keycloakAuth;
