@@ -1,5 +1,5 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { environment } from 'environments/environment';
+import { environment } from './environment';
 
 import { AppModule } from './app/app.module';
 import { StaticInjector } from 'ngx-forge';

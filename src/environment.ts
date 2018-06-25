@@ -2,9 +2,13 @@
 
 import { ApplicationRef, enableProdMode, NgModuleRef } from '@angular/core';
 import { disableDebugTools, enableDebugTools } from '@angular/platform-browser';
-import { Environment } from './model';
 
-
+export interface Environment {
+  production: boolean;
+  ENV_PROVIDERS: any;
+  showDevModule: boolean;
+  decorateModuleRef(modRef: NgModuleRef<any>): NgModuleRef<any>;
+}
 
 
 // export const ENV_FIREBASE_CONFIG: any = FIREBASE_CONFIG;
