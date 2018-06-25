@@ -7,10 +7,8 @@ import { StaticInjector } from 'ngx-forge';
 export function main(): Promise<any> {
   return platformBrowserDynamic()
     .bootstrapModule(AppModule)
-    .then((modRef) => {
-      StaticInjector.setInjector(modRef.injector);
-      environment.decorateModuleRef(modRef);
-    })
+    .then((modRef) => environment.decorateModuleRef(modRef))
+    .then((modRef) => StaticInjector.setInjector(modRef.injector))
     .catch((err) => console.error(err));
 }
 
