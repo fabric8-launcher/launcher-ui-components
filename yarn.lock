@@ -3030,9 +3030,9 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
-fabric8-analytics-dependency-editor@^0.0.25:
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/fabric8-analytics-dependency-editor/-/fabric8-analytics-dependency-editor-0.0.25.tgz#815aa538f876df037ed6e9fdbcd0e9f75360ce78"
+fabric8-analytics-dependency-editor@^0.0.27:
+  version "0.0.27"
+  resolved "https://registry.yarnpkg.com/fabric8-analytics-dependency-editor/-/fabric8-analytics-dependency-editor-0.0.27.tgz#247773f4f8bc640d3e2d3f56e9a1e2083d76ffde"
   dependencies:
     c3 "^0.4.18"
     ngx-bootstrap "^1.9.3"
@@ -5378,13 +5378,13 @@ ngx-bootstrap@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz#28e75d14fb1beaee609383d7694de4eb3ba03b26"
 
-ngx-forge@0.3.13:
-  version "0.3.13"
-  resolved "https://registry.yarnpkg.com/ngx-forge/-/ngx-forge-0.3.13.tgz#06ca68787ec44655fcfa76120fb382967f0b7051"
+ngx-forge@0.3.14:
+  version "0.3.14"
+  resolved "https://registry.yarnpkg.com/ngx-forge/-/ngx-forge-0.3.14.tgz#a09ef2b946815f84d8b1a703a1e4d8fc4f01b645"
   dependencies:
     "@thisissoon/angular-inviewport" "^1.3.2"
     angular-2-dropdown-multiselect "^1.6.0"
-    fabric8-analytics-dependency-editor "^0.0.25"
+    fabric8-analytics-dependency-editor "^0.0.27"
     lodash "^4.17.10"
     ngx-base "^2.3.2"
     ngx-bootstrap "^2.0.5"
