@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, EMPTY } from 'rxjs';
 import { Observable } from 'rxjs-compat';
 
 import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-forge';
 import { KeycloakService } from '../../shared/keycloak.service';
 import { HttpService } from './http.service';
-import { filter, flatMap, map } from 'rxjs/operators';
+import { catchError, filter, flatMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -50,6 +50,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
   public getGitHubDetails(): Observable<GitHubDetails> {
     return this.backendHttpGet<{ login: string; avatarUrl: string; }>(AppLauncherGitproviderService.API_BASE, 'user').pipe(
       filter((user) => Boolean(user && user.login)),
+
       flatMap((user) => this.getUserOrgs(user.login).pipe(map((orgs) => ({ user, orgs })))),
       filter((data) => data.orgs && data.orgs.length >= 0),
       map((data) => {
@@ -63,7 +64,11 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
           organizations: data.orgs,
           organization: data.user.login
         } as GitHubDetails;
-      })
+      }),
+      catchError((error: any) => {
+        console.warn(`User has not authorized GitHub: ${error}`);
+        return EMPTY;
+      }),
     );
   }
 
