@@ -6017,22 +6017,9 @@ patternfly-bootstrap-treeview@~2.1.0:
     bootstrap "3.3.x"
     jquery ">= 2.1.x"
 
-patternfly-ng@3.10.3:
-  version "3.10.3"
-  resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-3.10.3.tgz#8d8885f610167a8d0c091cbc44210a9d4157a4e5"
-  dependencies:
-    lodash "^4.17.4"
-    patternfly "^3.28.0"
-  optionalDependencies:
-    "@swimlane/ngx-datatable" "^11.1.7"
-    angular-tree-component "^6.0.0 || ^7.0.0"
-    c3 "^0.4.15"
-    ng2-dragula "^1.5.0"
-    ngx-bootstrap "^1.8.0 || ^2.0.0"
-
-patternfly-ng@^3.10.3:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-3.11.1.tgz#a0a92630ad496d1e37ede2d47deea58dac54978e"
+patternfly-ng@3.11.2, patternfly-ng@^3.10.3:
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-3.11.2.tgz#0f9a8f187f0ef8fbb429a053f23fa8904ac32294"
   dependencies:
     lodash "^4.17.4"
     patternfly "^3.28.0"
