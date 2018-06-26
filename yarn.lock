@@ -459,9 +459,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/webpack@^4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.2.tgz#44213e0dca0924544a2831ee42de2750124ef9b5"
+"@types/webpack@^4.4.3":
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.3.tgz#9424101def0d720747b3c059bf0f7eff2ea57b31"
   dependencies:
     "@types/node" "*"
     "@types/tapable" "*"
