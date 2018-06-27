@@ -88,7 +88,7 @@ export class KeycloakService {
     if (this.skip) {
       return true;
     }
-    return Boolean(this.auth.authz.tokenParsed);
+    return Boolean(this.auth.authz && this.auth.authz.tokenParsed);
   }
 
   public linkAccount(provider: string, redirect?: string): string {
