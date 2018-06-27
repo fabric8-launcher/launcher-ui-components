@@ -128,6 +128,7 @@ export class KeycloakService {
             resolve(this.auth.authz.token);
           })
           .error(() => {
+            this.auth.authz = {};
             reject('Failed to refresh token');
           });
       } else {
