@@ -31,7 +31,7 @@
     "@angular/http": "~6.0.6",
     "@angular/platform-browser": "~6.0.6",
     "@angular/platform-browser-dynamic": "~6.0.6",
-    "@angular/platform-server": "~6.0.6",
+    "@angular/platform-server": "~6.0.7",
     "@angular/router": "~6.0.5",
     "core-js": "~2.5.7",
     "jssha": "~2.3.1",
