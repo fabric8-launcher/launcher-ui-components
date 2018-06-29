@@ -1,7 +1,6 @@
 const webpackMerge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HashedModuleIdsPlugin = require('webpack/lib/HashedModuleIdsPlugin');
-const SourceMapDevToolPlugin = require('webpack/lib/SourceMapDevToolPlugin');
 const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
@@ -29,17 +28,11 @@ module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
     chunkFilename: '[name].[chunkhash].chunk.js'
   },
   plugins: [
-    new SourceMapDevToolPlugin({
-      filename: '[file].map[query]',
-      moduleFilenameTemplate: '[resource-path]',
-      fallbackModuleFilenameTemplate: '[resource-path]?[hash]',
-      sourceRoot: 'webpack:///'
-    }),
     new PurifyPlugin(),
     new HashedModuleIdsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name]-[hash].css', chunkFilename: '[name]-[chunkhash].css' }),
     new UglifyJsPlugin({
-      sourceMap: false,
+      sourceMap: true,
       parallel: true,
       uglifyOptions: {
         ecma: 5,

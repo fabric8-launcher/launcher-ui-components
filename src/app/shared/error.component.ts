@@ -7,7 +7,6 @@ class RavenErrorHandler extends ErrorHandler {
     const safeErr = err || new Error('Undefined error, this is a strange error to investigate!');
     if (safeErr) {
       Raven.captureException(safeErr['originalError'] || safeErr);
-      Raven.showReportDialog();
     }
     super.handleError(err);
   }
