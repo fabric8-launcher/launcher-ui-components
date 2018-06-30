@@ -223,6 +223,10 @@
   version "11.3.2"
   resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-11.3.2.tgz#cefeda7f75a6f69394e4f8e05b197942584f054d"
 
+"@swimlane/ngx-datatable@^13.0.0":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-13.0.1.tgz#6e949e19130b2054e2715d30d158751c4fbaa502"
+
 "@thisissoon/angular-inviewport@^1.3.2":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@thisissoon/angular-inviewport/-/angular-inviewport-1.4.3.tgz#d7a80c232b42fb790b6fe25d3e4fe3785826b778"
@@ -5370,7 +5374,7 @@ ngx-base@2.3.2, ngx-base@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-2.3.2.tgz#97de1269e8a7bd8c0dcacd605cb6be996c82e70d"
 
-ngx-bootstrap@3.0.1:
+ngx-bootstrap@3.0.1, ngx-bootstrap@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.0.1.tgz#e98d2fc6340f32a9d358cd08e8fda7dcb23bdab3"
 
@@ -6021,7 +6025,19 @@ patternfly-bootstrap-treeview@~2.1.0:
     bootstrap "3.3.x"
     jquery ">= 2.1.x"
 
-patternfly-ng@3.11.2, patternfly-ng@^3.10.3:
+patternfly-ng@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-4.0.0.tgz#04a73480f7c07b58925fa0b516aa8dc16fa72d6f"
+  dependencies:
+    lodash "^4.17.10"
+    patternfly "^3.28.0"
+  optionalDependencies:
+    "@swimlane/ngx-datatable" "^13.0.0"
+    c3 "^0.4.15"
+    ng2-dragula "^1.5.0"
+    ngx-bootstrap "^3.0.0"
+
+patternfly-ng@^3.10.3:
   version "3.11.2"
   resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-3.11.2.tgz#0f9a8f187f0ef8fbb429a053f23fa8904ac32294"
   dependencies:
