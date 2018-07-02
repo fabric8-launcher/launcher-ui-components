@@ -10,30 +10,13 @@ import { KeycloakService } from '../../../shared/keycloak.service';
   styleUrls: ['./getting-started.component.scss'],
   templateUrl: './getting-started.component.html'
 })
-export class GettingStartedComponent implements OnInit, OnDestroy {
+export class GettingStartedComponent {
   public projectName: string = '';
 
   private subscriptions: Subscription[] = [];
 
   constructor(private keycloak: KeycloakService,
-              private dependencyCheckService: DependencyCheckService,
               private router: Router) {
-  }
-
-  public ngOnInit(): void {
-    this.subscriptions.push(this.dependencyCheckService.getDependencyCheck().subscribe((val) => {
-      this.projectName = val.projectName;
-    }));
-  }
-
-  public ngOnDestroy() {
-    this.subscriptions.forEach((sub) => {
-      sub.unsubscribe();
-    });
-  }
-
-  public validateProjectName() {
-    this.dependencyCheckService.validateProjectName(this.projectName);
   }
 
   public cancel(): void {

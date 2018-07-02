@@ -28,6 +28,9 @@ input,
     border-radius: 0;
     font-size: 1.2em;
     color: $color-pf-white;
+    &.ng-invalid.ng-dirty.ng-touched {
+      border-bottom-color: $color-pf-red-100;
+    }
     &:focus {
       border-bottom-color: $color-pf-blue;
       box-shadow: none;
@@ -44,9 +47,8 @@ input,
   .code-imports {
     color: $color-pf-white;
     .alert-danger {
-      background-color: transparent;
-      border: none;
-      color: $color-pf-red-100;
+      background-color: black;
+      color: $color-pf-white;
     }
     &--step {
       margin-top: 5%;
