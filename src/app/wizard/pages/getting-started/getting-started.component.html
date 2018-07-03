@@ -15,6 +15,10 @@
       <section class="container-fluid">
         <form class="form" #spaceForm="ngForm">
           <div class="row">
+            <div class="alert alert-danger alert-dismissable" *ngIf="projectNameInput.invalid && (projectNameInput.dirty || projectNameInput.touched)">
+              <span class="pficon pficon-error-circle-o"></span>
+              <strong>Syntax Error.</strong> See a full list of naming requirements below the input field.
+            </div>
             <div class="col-sm-4 col-sm-offset-4">
               <h1 class="code-imports--step_title">Create Application</h1>
               <form #form="ngForm">
@@ -25,9 +29,8 @@
                   <span class="code-imports--step_pencil">
                     <input id="projectName" name="projectName" type="text"
                            class="form-control code-imports--step_input col-sm-5"
-                           placeholder="Add application name"
-                           aria-label="Application Name Input" required
-                           (keyup)="validateProjectName()"
+                           placeholder="Add application name" #projectNameInput="ngModel"
+                           aria-label="Application Name Input" required pattern="[a-z][a-z0-9-.]{3,63}"
                            [(ngModel)]="projectName">
                   </span>
                   <ng-template #helpTemplate>
@@ -35,8 +38,8 @@
                     <ul>
                       <li>Be unique
                       <li>Contain 4-65 characters
-                      <li>Contain only letters, numbers, spaces or hyphens
-                      <li>Not start or end with spaces or hyphens
+                      <li>Contain only letters (lower case), numbers or hyphens
+                      <li>Not start or end with hyphens
                     </ul>
                   </ng-template>
                 </div>
