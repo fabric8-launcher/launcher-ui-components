@@ -42,7 +42,7 @@
     "zone.js": "~0.8.26",
     "ngx-base": "2.3.2",
     "ngx-bootstrap": "3.0.1",
-    "ngx-forge": "0.5.2",
+    "ngx-forge": "0.6.0",
     "patternfly": "3.51.2",
     "patternfly-ng": "3.11.2"
   },
