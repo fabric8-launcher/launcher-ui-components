@@ -2,7 +2,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Config, GitHubDetails, HelperService, TokenProvider } from 'ngx-forge';
+import { Config, GitHubDetails, HelperService, TokenProvider } from 'ngx-launcher';
 
 import { AppLauncherGitproviderService } from './app-launcher-gitprovider.service';
 import { LaunchConfig } from '../../shared/config.component';

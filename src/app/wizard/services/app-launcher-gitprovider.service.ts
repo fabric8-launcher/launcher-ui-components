@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, EMPTY } from 'rxjs';
 import { Observable } from 'rxjs-compat';
 
-import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-forge';
+import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-launcher';
 import { KeycloakService } from '../../shared/keycloak.service';
 import { HttpService } from './http.service';
 import { catchError, filter, flatMap, map } from 'rxjs/operators';

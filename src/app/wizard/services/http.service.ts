@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Cluster, HelperService, TokenProvider } from 'ngx-forge';
+import { Cluster, HelperService, TokenProvider } from 'ngx-launcher';
 import { catchError, flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs-compat';
 import { throwError } from 'rxjs';

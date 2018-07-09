@@ -1,4 +1,4 @@
-import { TokenProvider } from 'ngx-forge';
+import { TokenProvider } from 'ngx-launcher';
 import { KeycloakService } from './keycloak.service';
 
 export class KeycloakTokenProvider extends TokenProvider {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs-compat';
 
-import { Pipeline, PipelineService } from 'ngx-forge';
+import { Pipeline, PipelineService } from 'ngx-launcher';
 
 @Injectable()
 export class AppLauncherPipelineService implements PipelineService {

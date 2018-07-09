@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs-compat';
 
-import { Catalog, HelperService, MissionRuntimeService, TokenProvider } from 'ngx-forge';
+import { Catalog, HelperService, MissionRuntimeService, TokenProvider } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 

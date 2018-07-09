@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as jsSHA from 'jssha';
 import { of } from 'rxjs';
 import { Observable, Subject } from 'rxjs-compat';
-import { Config } from 'ngx-forge';
+import { Config } from 'ngx-launcher';
 import * as Keycloak from '../../assets/keycloak/keycloak.js';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs-compat';
-import { Cluster, HelperService, TokenProvider, TokenService } from 'ngx-forge';
+import { Cluster, HelperService, TokenProvider, TokenService } from 'ngx-launcher';
 import { KeycloakService } from '../../shared/keycloak.service';
 import { HttpService } from './http.service';
 import { catchError, map } from 'rxjs/operators';
