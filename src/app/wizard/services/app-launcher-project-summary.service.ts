@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs-compat';
 
-import { HelperService, ProjectSummaryService, Summary, TokenProvider } from 'ngx-forge';
+import { HelperService, ProjectSummaryService, Summary, TokenProvider } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { catchError, flatMap } from 'rxjs/operators';
 

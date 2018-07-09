@@ -2,7 +2,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { environment } from './environment';
 
 import { AppModule } from './app/app.module';
-import { StaticInjector } from 'ngx-forge';
+import { StaticInjector } from 'ngx-launcher';
 
 export function main(): Promise<any> {
   return platformBrowserDynamic()

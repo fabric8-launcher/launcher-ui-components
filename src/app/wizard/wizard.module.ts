@@ -17,7 +17,7 @@ import {
   TargetEnvironmentService,
   TokenProvider,
   TokenService
-} from 'ngx-forge';
+} from 'ngx-launcher';
 
 import { KeycloakService } from '../shared/keycloak.service';
 import { KeycloakTokenProvider } from '../shared/keycloak-token.provider';

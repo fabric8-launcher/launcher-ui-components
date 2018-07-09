@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs-compat';
 import { of } from 'rxjs';
 
-import { DependencyCheck, DependencyCheckService } from 'ngx-forge';
+import { DependencyCheck, DependencyCheckService } from 'ngx-launcher';
 
 @Injectable()
 export class AppLauncherDependencyCheckService implements DependencyCheckService {

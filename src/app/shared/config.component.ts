@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { Config } from 'ngx-forge';
+import { Config } from 'ngx-launcher';
 
 declare var injectedSettings: object;
 

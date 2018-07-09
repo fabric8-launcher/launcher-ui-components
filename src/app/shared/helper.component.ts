@@ -1,4 +1,4 @@
-import { Config, HelperService } from 'ngx-forge';
+import { Config, HelperService } from 'ngx-launcher';
 
 export class LaunchHelper extends HelperService {
   private readonly launchConfig: Config;

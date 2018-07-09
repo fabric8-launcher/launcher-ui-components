@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { DependencyCheckService } from 'ngx-forge';
+import { DependencyCheckService } from 'ngx-launcher';
 import { KeycloakService } from '../../../shared/keycloak.service';
 
 @Component({

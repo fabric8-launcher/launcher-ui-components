@@ -1,5 +1,5 @@
 import { ErrorHandler } from '@angular/core';
-import { Config } from 'ngx-forge';
+import { Config } from 'ngx-launcher';
 import * as Raven from 'raven-js';
 
 class RavenErrorHandler extends ErrorHandler {
