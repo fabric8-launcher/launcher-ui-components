@@ -5366,9 +5366,9 @@ ngc-webpack@~4.1.2:
     source-map "^0.5.6"
     ts-node "^3.2.0"
 
-ngx-base@2.3.2, ngx-base@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-2.3.2.tgz#97de1269e8a7bd8c0dcacd605cb6be996c82e70d"
+ngx-base@2.3.3, ngx-base@^2.3.2:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-2.3.3.tgz#65d15c3bb88059c7f6d564222be2fa61bde0446f"
 
 ngx-bootstrap@3.0.1:
   version "3.0.1"
