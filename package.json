@@ -40,7 +40,7 @@
     "rxjs-compat": "~6.2.1",
     "uuid": "~3.2.1",
     "zone.js": "~0.8.26",
-    "ngx-base": "2.3.2",
+    "ngx-base": "2.3.4",
     "ngx-bootstrap": "3.0.1",
     "ngx-launcher": "1.0.2",
     "patternfly": "3.51.2",
