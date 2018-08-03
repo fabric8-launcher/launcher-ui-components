@@ -1,7 +1,16 @@
-
+function isArgDev(argument) {
+  return argument === '--dev' || argument === '--debug';
+}
 
 module.exports = function (config) {
   const webpackConfig = require('./webpack.test');
+  const isDev = process.argv.some(isArgDev);
+  const preprocessors = ['webpack', 'sourcemap'];
+  if (isDev) {
+    console.log('DEV MODE');
+  } else {
+    preprocessors.unshift('coverage');
+  }
   const configuration = {
     basePath: '',
 
@@ -17,7 +26,7 @@ module.exports = function (config) {
     },
 
     preprocessors: {
-      './config/karma-test-shim.js': ['coverage', 'webpack', 'sourcemap']
+      './config/karma-test-shim.js': preprocessors
     },
     webpack: webpackConfig,
 

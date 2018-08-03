@@ -26,7 +26,6 @@ import { AuthGuardService } from '../shared/authguard.service';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { WizardComponent } from './wizard.component';
-import { LaunchConfig } from '../shared/config.component';
 
 import { IntroComponent } from './pages/intro/intro.component';
 
@@ -64,7 +63,6 @@ import { errorHandlerFactory } from '../shared/error.component';
   ],
   providers: [
     AuthGuardService,
-    KeycloakService,
     {
       provide: APP_INITIALIZER,
       useFactory: (keycloak: KeycloakService) => () => keycloak.init(),
@@ -77,7 +75,6 @@ import { errorHandlerFactory } from '../shared/error.component';
       deps: [KeycloakService]
     },
     History,
-    { provide: Config, useClass: LaunchConfig },
     { provide: ErrorHandler, useFactory: errorHandlerFactory, deps: [Config] },
     { provide: HelperService, useClass: LaunchHelper, deps: [Config] },
     { provide: GitProviderService, useClass: AppLauncherGitproviderService },

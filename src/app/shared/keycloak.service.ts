@@ -2,28 +2,27 @@ import { Injectable } from '@angular/core';
 
 import { v4 as uuidv4 } from 'uuid';
 import * as jsSHA from 'jssha';
-import { of } from 'rxjs';
-import { Observable, Subject } from 'rxjs-compat';
 import { Config } from 'ngx-launcher';
 import * as Keycloak from '../../assets/keycloak/keycloak.js';
 
+export class Auth {
+  public authz?: {
+    authServerUrl?: string;
+    tokenParsed?: {
+      session_state: string;
+      name: string;
+      preferred_username: string;
+    };
+    token?: string;
+    updateToken?: any;
+    login?: any;
+  };
+  public logoutUrl?: string;
+}
+
 @Injectable()
 export class KeycloakService {
-  public auth: {
-    authz?: {
-      authServerUrl?: string;
-      tokenParsed?: {
-        session_state: string;
-        name: string;
-        preferred_username: string;
-      };
-      token?: string;
-      updateToken?: any;
-      login?: any;
-    };
-    logoutUrl?: string
-  } = {};
-  public loginSubject: Subject<string> = new Subject<string>();
+  public auth: Auth = {};
   public accountLink: Map<string, string> = new Map<string, string>();
   private skip: boolean;
   private readonly config: {
@@ -43,18 +42,15 @@ export class KeycloakService {
   public init(): Promise<KeycloakService> {
     return new Promise<KeycloakService>((resolve, reject) => {
       this.skip = !this.config.realm;
-      const keycloakAuth: any = Keycloak(this.config);
-
       this.auth.authz = {};
-
-      if (this.config.realm) {
+      if (!this.skip) {
+        const keycloakAuth: any = Keycloak(this.config);
         keycloakAuth.init({ onLoad: 'check-sso', checkLoginIframe: false })
           .error(() => reject())
           .success(() => {
             this.auth.authz = keycloakAuth;
             // tslint:disable-next-line
             this.auth.logoutUrl = `${keycloakAuth.authServerUrl}/realms/${this.config.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
-            this.loginSubject.next(keycloakAuth.token);
             const identify = window['analytics'] && window['analytics']['identify'];
             if (identify && keycloakAuth.authenticated) {
               identify(keycloakAuth.tokenParsed.email, keycloakAuth.tokenParsed);
@@ -68,30 +64,32 @@ export class KeycloakService {
   }
 
   public logout() {
+    if (this.skip) {
+      return;
+    }
     this.auth.authz = null;
     this.accountLink = new Map<string, string>();
     window.location.href = this.auth.logoutUrl;
   }
 
   public login(redirectUri?: string) {
-    this.auth.authz.login({ redirectUri });
-  }
-
-  get onLogin(): Observable<string> {
-    if (this.auth.authz && this.auth.authz.token) {
-      return of(this.auth.authz.token);
+    if (this.skip) {
+      return;
     }
-    return this.loginSubject.asObservable();
+    this.auth.authz.login({ redirectUri });
   }
 
   public isAuthenticated(): boolean {
     if (this.skip) {
       return true;
     }
-    return Boolean(this.auth.authz && this.auth.authz.tokenParsed);
+    return Boolean(this.auth.authz.tokenParsed);
   }
 
   public linkAccount(provider: string, redirect?: string): string {
+    if (this.skip) {
+      return null;
+    }
     const authz = this.auth.authz;
     if (this.accountLink.has(provider)) {
       return this.accountLink.get(provider);

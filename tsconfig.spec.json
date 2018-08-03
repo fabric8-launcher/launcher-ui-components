@@ -13,12 +13,13 @@
     "importHelpers": true,
     "strictNullChecks": false,
     "lib": [
-      "dom",
-      "es6"
+      "es2015",
+      "dom"
     ],
     "baseUrl": "./src",
     "paths": {
-      "@angular/*": ["node_modules/@angular/*"]
+      "@angular/*": ["../node_modules/@angular/*"],
+      "rxjs/*": ["../node_modules/rxjs/*"]
     },
     "typeRoots": [
       "node_modules/@types"
@@ -37,6 +38,11 @@
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true
+  },
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "genDir": "compiled"
   },
   "compileOnSave": false,
   "buildOnSave": false,
