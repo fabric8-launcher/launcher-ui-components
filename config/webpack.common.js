@@ -6,7 +6,7 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin')
 
-const ngcWepack = require('ngc-webpack');
+const ngTools = require('@ngtools/webpack');
 
 module.exports = function ({ env, metadata }) {
   const gitRevisionPlugin = new GitRevisionPlugin();
@@ -24,7 +24,6 @@ module.exports = function ({ env, metadata }) {
       modules: [helpers.root('src'), helpers.root('node_modules')]
     },
     module: {
-
       rules: [
         {
           test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
@@ -111,7 +110,7 @@ module.exports = function ({ env, metadata }) {
         /angular(\\|\/)core(\\|\/)@angular/,
         helpers.root('src')
       ),
-      new ngcWepack.NgcWebpackPlugin({
+      new ngTools.AngularCompilerPlugin({
         mainPath: entry.main,
         tsConfigPath: 'tsconfig.json',
         sourceMap: true,

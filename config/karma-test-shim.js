@@ -11,6 +11,8 @@ require('zone.js/dist/jasmine-patch'); // put here since zone.js 0.6.14
 require('zone.js/dist/async-test');
 require('zone.js/dist/fake-async-test');
 
+require('rxjs/Rx');
+
 const testing = require('@angular/core/testing');
 const browser = require('@angular/platform-browser-dynamic/testing');
 
