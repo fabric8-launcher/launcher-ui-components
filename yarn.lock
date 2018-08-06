@@ -5367,11 +5367,11 @@ ngc-webpack@~4.1.2:
     source-map "^0.5.6"
     ts-node "^3.2.0"
 
-ngx-base@2.3.2, ngx-base@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-2.3.2.tgz#97de1269e8a7bd8c0dcacd605cb6be996c82e70d"
+ngx-base@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-3.0.0.tgz#ff2286e094417f237c29558edb1c6735156a9ded"
 
-ngx-base@^2.3.6:
+ngx-base@^2.3.2, ngx-base@^2.3.6:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-2.3.6.tgz#0fe0353648c919290a0c0ed94342b640d4bb8167"
 
