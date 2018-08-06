@@ -6030,9 +6030,9 @@ patternfly-bootstrap-treeview@~2.1.0:
     bootstrap "3.3.x"
     jquery ">= 2.1.x"
 
-patternfly-ng@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-4.2.2.tgz#c60359c9f4fcdc2b1e44a68d2cf73b032c508441"
+patternfly-ng@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/patternfly-ng/-/patternfly-ng-4.3.0.tgz#d8b9de775d72bda9bef9d20c5fe864589f8691ad"
   dependencies:
     lodash "^4.17.10"
     patternfly "^3.28.0"
