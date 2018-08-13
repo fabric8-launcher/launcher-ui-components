@@ -5391,9 +5391,9 @@ ngx-bootstrap@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz#28e75d14fb1beaee609383d7694de4eb3ba03b26"
 
-ngx-launcher@1.0.18:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-1.0.18.tgz#d7270e597d72dec93b580c4b8074f73e02b60f60"
+ngx-launcher@1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-1.0.19.tgz#3f1b2cdb027935694eefda8f82f0d377e28d53a9"
   dependencies:
     "@thisissoon/angular-inviewport" "^1.3.2"
     angular-2-dropdown-multiselect "^1.6.0"
