@@ -69,7 +69,7 @@ class MockDisabledConfig extends Config {
 
 class MockKeycloakCore {
   tokenParsed: object;
-  authServerUrl = 'http://mock.fr';
+  authServerUrl: string;
   token: string;
   countInit: number = 0;
   countLogin: number = 0;
@@ -79,6 +79,7 @@ class MockKeycloakCore {
   init() {
     const promise = new KeycloakPromise();
     this.countInit++;
+    this.authServerUrl = 'http://mock.fr';
     promise.setSuccess();
     return promise.promise;
   }
@@ -157,6 +158,7 @@ describe('Service: KeycloakAuthService', () => {
   });
 
   it('Should not be authenticated after login and logout', () => {
+    authService.init().then(() => {});
     authService.login().then(() => {});
     expect(authService.isAuthenticated()).toBeTruthy();
     authService.logout();
