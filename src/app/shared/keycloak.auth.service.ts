@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 export class KeycloakAuthService extends AuthService {
 
-  private readonly logoutUrl?: string;
+  private logoutUrl?: string;
   private readonly clientId?: string;
   private readonly realm?: string;
   private readonly url?: string;
@@ -20,8 +20,6 @@ export class KeycloakAuthService extends AuthService {
       this.url = config.get('keycloak_url');
       this.clientId = config.get('keycloak_client_id');
       this.keycloak = keycloakCoreFactory({ url: this.url, realm: this.realm, clientId: this.clientId });
-      // tslint:disable-next-line
-      this.logoutUrl = `${this.keycloak.authServerUrl}/realms/${this.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
     }
   }
 
@@ -35,6 +33,7 @@ export class KeycloakAuthService extends AuthService {
         .success(() => {
           this.initUser();
           // tslint:disable-next-line
+          this.logoutUrl = `${this.keycloak.authServerUrl}/realms/${this.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
           const identify = window['analytics'] && window['analytics']['identify'];
           if (identify && this.keycloak.authenticated) {
             identify(this.keycloak.tokenParsed.email, this.keycloak.tokenParsed);
@@ -64,6 +63,9 @@ export class KeycloakAuthService extends AuthService {
     super.logout();
     if (this.keycloak) {
       this.keycloak.clearToken();
+      if (!this.logoutUrl) {
+        throw new Error('Logout url must be set in order to logout.');
+      }
       this.doRedirect(this.logoutUrl);
     }
   }
