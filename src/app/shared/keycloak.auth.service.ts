@@ -116,7 +116,7 @@ export class KeycloakAuthService extends AuthService {
         name: _.get(this.keycloak, 'tokenParsed.name'),
         preferredName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
         token: this.keycloak.token,
-        sessionState: this.keycloak.session_state,
+        sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: new Map<string, string>(),
       };
     }

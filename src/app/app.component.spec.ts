@@ -23,7 +23,6 @@ import { AuthService } from './shared/auth.service';
 const launchMockData = require('../assets/mock/demo-catalog-launch.json') as Catalog;
 
 class MockAuthService extends AuthService {
-  private authenticated: boolean = false;
 
   public init(): Promise<AuthService> {
     return Promise.resolve(this);
@@ -41,10 +40,6 @@ class MockAuthService extends AuthService {
 
   public logout() {
     this._user = null;
-  }
-
-  public isAuthenticated(): boolean {
-    return this.authenticated;
   }
 
   public linkAccount(provider: string, redirect?: string): string {
