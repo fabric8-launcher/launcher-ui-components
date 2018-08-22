@@ -2,14 +2,13 @@ import { Config } from 'ngx-launcher';
 import { AuthService } from './auth.service';
 import { KeycloakAuthService } from './keycloak.auth.service';
 
-
 class KeycloakPromise {
-  result: any;
-  error: boolean;
-  success: boolean;
-  successCallback: Function;
-  errorCallback: Function;
-  promise: object = {
+  private result: any;
+  private error: boolean;
+  private success: boolean;
+  private successCallback: (result: any) => void;
+  private errorCallback: (result: any) => void;
+  public promise: object = {
     success: (callback) => {
       if (this.success) {
         callback(this.result);
@@ -26,9 +25,9 @@ class KeycloakPromise {
       }
       return this.promise;
     }
-  }
+  };
 
-  setSuccess(result?) {
+  public setSuccess(result?) {
     this.success = true;
     this.result = result;
     if (this.successCallback) {
@@ -36,7 +35,7 @@ class KeycloakPromise {
     }
   }
 
-  setError(result?) {
+  public setError(result?) {
     this.error = true;
     this.result = result;
     if (this.errorCallback) {
@@ -61,10 +60,10 @@ class MockConfig extends Config {
 class MockKeycloakCore {
   tokenParsed: object;
   token: string;
-  countInit:number = 0;
-  countLogin:number = 0;
-  countClearToken:number = 0;
-  countUpdateToken:number = 0;
+  countInit: number = 0;
+  countLogin: number = 0;
+  countClearToken: number = 0;
+  countUpdateToken: number = 0;
 
   init() {
     const promise = new KeycloakPromise();
@@ -107,7 +106,7 @@ describe('Service: KeycloakAuthService', () => {
   beforeEach(() => {
     mockKeycloakCore = new MockKeycloakCore();
     authService = new KeycloakAuthService(new MockConfig(), () => mockKeycloakCore);
-  }
+  });
 
   it('Should login and logout correctly', () => {
     authService.init().then(() => {

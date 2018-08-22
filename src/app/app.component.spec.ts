@@ -51,7 +51,6 @@ class MockAuthService extends AuthService {
     return `linkAccount:${provider}`;
   }
 
-
   public getToken(): Promise<string> {
     if (!this.isAuthenticated()) {
       return Promise.reject();
@@ -59,7 +58,7 @@ class MockAuthService extends AuthService {
     return Promise.resolve(this.user.token);
   }
 
-  isEnabled(): boolean {
+  public isEnabled(): boolean {
     return true;
   }
 }

@@ -8,7 +8,6 @@ import * as _ from 'lodash';
 export class KeycloakAuthService extends AuthService {
 
   private readonly logoutUrl?: string;
-  private readonly authServerUrl?: string;
   private readonly clientId?: string;
   private readonly realm?: string;
   private readonly url?: string;
@@ -17,15 +16,16 @@ export class KeycloakAuthService extends AuthService {
   constructor(config: Config, keycloakCoreFactory = KeycloakCore) {
     super();
     this.realm = config.get('keycloak_realm');
-    if(this.realm) {
+    if (this.realm) {
       this.url = config.get('keycloak_url');
-      this.clientId=  config.get('keycloak_client_id');
+      this.clientId = config.get('keycloak_client_id');
       this.keycloak = keycloakCoreFactory({ url: this.url, realm: this.realm, clientId: this.clientId });
+      // tslint:disable-next-line
       this.logoutUrl = `${this.keycloak.authServerUrl}/realms/${this.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
     }
   }
 
-  init(): Promise<AuthService> {
+  public init(): Promise<AuthService> {
     return new Promise<AuthService>((resolve, reject) => {
       if (!this.keycloak) {
         resolve(this);
@@ -44,8 +44,8 @@ export class KeycloakAuthService extends AuthService {
     });
   }
 
-  login() {
-    if(!this.keycloak) {
+  public login() {
+    if (!this.keycloak) {
       return;
     }
     this.keycloak.login()
@@ -54,33 +54,21 @@ export class KeycloakAuthService extends AuthService {
       })
       .error((e) => {
         console.warn('Failed to login', e);
-    });
+      });
   }
 
-  private initUser() {
-    if (this.keycloak.token) {
-      this._user = {
-        name: _.get(this.keycloak, 'tokenParsed.name'),
-        preferredName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
-        token: this.keycloak.token,
-        sessionState: this.keycloak.session_state,
-        accountLink: new Map<string, string>(),
-      };
-    }
-  }
-
-  logout() {
+  public logout() {
     super.logout();
-    if(this.keycloak) {
+    if (this.keycloak) {
       this.keycloak.clearToken();
       window.location.href = this.logoutUrl;
     }
   }
 
-  getToken(): Promise<string> {
+  public getToken(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       if (this.keycloak) {
-        if(this.isAuthenticated()) {
+        if (this.isAuthenticated()) {
           this.keycloak.updateToken(5)
             .success(() => {
               resolve(this.user.token);
@@ -117,8 +105,21 @@ export class KeycloakAuthService extends AuthService {
     shaObj.update(hash);
     const hashed = KeycloakAuthService.base64ToUri(shaObj.getHash('B64'));
     // tslint:disable-next-line
-    const link = `${this.keycloak.authServerUr}/realms/${this.realm}/broker/${provider}/link?nonce=${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
+    const link = `${this.keycloak.authServerUrl}/realms/${this.realm}/broker/${provider}/link?nonce=${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
     this.user.accountLink.set(provider, link);
+    return link;
+  }
+
+  private initUser() {
+    if (this.keycloak.token) {
+      this._user = {
+        name: _.get(this.keycloak, 'tokenParsed.name'),
+        preferredName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
+        token: this.keycloak.token,
+        sessionState: this.keycloak.session_state,
+        accountLink: new Map<string, string>(),
+      };
+    }
   }
 
   private static base64ToUri(b64: string): string {

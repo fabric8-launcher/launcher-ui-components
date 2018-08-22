@@ -1,19 +1,23 @@
-
 export class User {
-  token: string;
-  accountLink: Map<string, string>;
-  name: string;
-  sessionState: string;
-  preferredName: string;
+  public token: string;
+  public accountLink: Map<string, string>;
+  public name: string;
+  public sessionState: string;
+  public preferredName: string;
 }
 
 export abstract class AuthService {
   protected _user?: User;
-  abstract init(): Promise<AuthService>;
-  abstract login();
-  abstract isEnabled(): boolean;
-  abstract getToken(): Promise<string>;
-  abstract linkAccount(provider: string, redirect?: string): string;
+
+  public abstract init(): Promise<AuthService>;
+
+  public abstract login();
+
+  public abstract isEnabled(): boolean;
+
+  public abstract getToken(): Promise<string>;
+
+  public abstract linkAccount(provider: string, redirect?: string): string;
 
   get user(): User {
     return this._user;
@@ -22,7 +26,6 @@ export abstract class AuthService {
   public logout() {
     this.clearUser();
   }
-
 
   public isAuthenticated(): boolean {
     return Boolean(this.user);

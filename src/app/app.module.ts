@@ -14,7 +14,6 @@ import { LaunchConfig } from './shared/config.component';
 import { AuthService } from './shared/auth.service';
 import { KeycloakAuthService } from './shared/keycloak.auth.service';
 
-
 @NgModule({
   imports: [
     BrowserModule,
