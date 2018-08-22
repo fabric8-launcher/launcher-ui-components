@@ -1,5 +1,5 @@
 import { Config } from 'ngx-launcher';
-import { AuthService } from './auth.service';
+import { AuthService, User } from './auth.service';
 import { KeycloakAuthService } from './keycloak.auth.service';
 
 class KeycloakPromise {
@@ -57,8 +57,19 @@ class MockConfig extends Config {
   }
 }
 
+class MockDisabledConfig extends Config {
+  protected readonly settings = {
+    origin: 'launcher',
+  };
+
+  public get(key: string): string {
+    return this.settings[key];
+  }
+}
+
 class MockKeycloakCore {
   tokenParsed: object;
+  authServerUrl = 'http://mock.fr';
   token: string;
   countInit: number = 0;
   countLogin: number = 0;
@@ -69,20 +80,20 @@ class MockKeycloakCore {
     const promise = new KeycloakPromise();
     this.countInit++;
     promise.setSuccess();
-    return promise;
+    return promise.promise;
   }
 
   login() {
     const promise = new KeycloakPromise();
     this.tokenParsed = {
       name: 'andy',
-      preferred_name: 'pref',
+      preferred_username: 'pref',
       session_state: 'session',
     };
     this.token = 'token';
     this.countLogin++;
     promise.setSuccess();
-    return promise;
+    return promise.promise;
   }
 
   clearToken() {
@@ -95,23 +106,97 @@ class MockKeycloakCore {
     const promise = new KeycloakPromise();
     this.countUpdateToken++;
     promise.setSuccess();
-    return promise;
+    return promise.promise;
   }
 }
 
 describe('Service: KeycloakAuthService', () => {
   let mockKeycloakCore: MockKeycloakCore;
   let authService: AuthService;
+  let currentLocation;
+  const expectedUser:User = {
+    token: 'token',
+    accountLink: {},
+    name: 'andy',
+    sessionState: 'session',
+    preferredName: 'pref'
+  } as User;
 
   beforeEach(() => {
     mockKeycloakCore = new MockKeycloakCore();
-    authService = new KeycloakAuthService(new MockConfig(), () => mockKeycloakCore);
+    authService = new KeycloakAuthService(new MockConfig(), () => mockKeycloakCore, (url) => currentLocation = url);
   });
 
-  it('Should login and logout correctly', () => {
+  it('Should init and not be authenticated when core is not authenticated', (done) => {
     authService.init().then(() => {
       expect(mockKeycloakCore.countInit).toBe(1);
+      expect(authService.isAuthenticated()).toBeFalsy();
+      expect(authService.user).toBeFalsy();
+      done();
     });
+  });
+
+  it('Should init and be authenticated when core is authenticated', (done) => {
+    mockKeycloakCore.login();
+    authService.init().then(() => {
+      expect(mockKeycloakCore.countInit).toBe(1);
+      expect(authService.isAuthenticated()).toBeTruthy();
+      expect(authService.user).toEqual(expectedUser);
+      done();
+    });
+  });
+
+  it('Should be authenticated after login', (done) => {
+    authService.login().then((loggedUser) => {
+      expect(mockKeycloakCore.countLogin).toBe(1);
+      expect(authService.isAuthenticated()).toBeTruthy();
+      expect(authService.user).toEqual(expectedUser);
+      expect(loggedUser).toEqual(expectedUser);
+      done();
+    });
+  });
+
+  it('Should not be authenticated after login and logout', () => {
+    authService.login().then(() => {});
+    expect(authService.isAuthenticated()).toBeTruthy();
+    authService.logout();
+    expect(mockKeycloakCore.countClearToken).toBe(1);
+    expect(currentLocation).toContain('http://mock.fr/realms/test-realm/protocol/openid-connect/logout?redirect_uri=');
+    expect(authService.isAuthenticated()).toBeFalsy();
+    expect(authService.user).toBeNull();
+  });
+
+  it('Should not return token when not authenticated', (done) => {
+    authService.getToken().then(() => {
+      fail(new Error('Promise should not be resolved'));
+      done();
+    }, () => {
+      done();
+    });
+  });
+
+  it('Should return token when authenticated', (done) => {
+    authService.login().then(() => {});
+    expect(authService.isAuthenticated()).toBeTruthy();
+    authService.getToken().then((token) => {
+      expect(mockKeycloakCore.countUpdateToken).toBe(1);
+      expect(token).toBe(expectedUser.token);
+      done();
+    });
+  });
+
+  it('Should not use core when auth is disabled', () => {
+    authService = new KeycloakAuthService(new MockDisabledConfig(), () => mockKeycloakCore);
+    authService.init().then(() => {});
+    authService.login().then(() => {});
+    authService.getToken().then(() => {});
+    authService.logout();
+    expect(authService.isEnabled()).toBeFalsy();
+    expect(authService.isAuthenticated).toBeTruthy();
+    expect(mockKeycloakCore.countInit).toBe(0);
+    expect(mockKeycloakCore.countLogin).toBe(0);
+    expect(mockKeycloakCore.countUpdateToken).toBe(0);
+    expect(mockKeycloakCore.countClearToken).toBe(0);
   });
 
 });
