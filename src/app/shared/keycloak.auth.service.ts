@@ -34,10 +34,7 @@ export class KeycloakAuthService extends AuthService {
           this.initUser();
           // tslint:disable-next-line
           this.logoutUrl = `${this.keycloak.authServerUrl}/realms/${this.realm}/protocol/openid-connect/logout?redirect_uri=${document.baseURI}`;
-          const identify = window['analytics'] && window['analytics']['identify'];
-          if (identify && this.keycloak.authenticated) {
-            identify(this.keycloak.tokenParsed.email, this.keycloak.tokenParsed);
-          }
+
           resolve(this);
         });
     });
@@ -124,6 +121,10 @@ export class KeycloakAuthService extends AuthService {
         sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: {},
       };
+      const identify = window['analytics'] && window['analytics']['identify'];
+      if (identify && this.keycloak.authenticated) {
+        identify(this.keycloak.tokenParsed.email, this.keycloak.tokenParsed);
+      }
     }
   }
 
