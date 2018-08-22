@@ -5,12 +5,12 @@ import { KeycloakService } from './keycloak.service';
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
-  constructor(private keycloak: KeycloakService) {
+  constructor(private keycloakService: KeycloakService) {
   }
 
   public canActivate(): boolean {
-    if (!this.keycloak.isAuthenticated()) {
-      this.keycloak.login();
+    if (!this.keycloakService.isAuthenticated()) {
+      this.keycloakService.login();
       return false;
     }
     return true;

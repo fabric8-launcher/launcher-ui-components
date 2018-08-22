@@ -6,8 +6,9 @@ import { Config, GitHubDetails, HelperService, TokenProvider } from 'ngx-launche
 
 import { AppLauncherGitproviderService } from './app-launcher-gitprovider.service';
 import { LaunchConfig } from '../../shared/config.component';
-import { KeycloakService } from '../../shared/keycloak.service';
 import { LaunchHelper } from '../../shared/helper.component';
+import { KeycloakService } from '../../shared/keycloak.service';
+import { KeycloakServiceImpl } from '../../shared/keycloak.service.impl';
 
 class MockTokenProvider extends TokenProvider {
   public getGitHubToken(): string | Promise<string> {
@@ -30,7 +31,7 @@ describe('Service: AppLauncherGitproviderService', () => {
       providers: [
         { provide: Config, useClass: LaunchConfig },
         { provide: HelperService, useClass: LaunchHelper, deps: [Config] },
-        KeycloakService,
+        { provide: KeycloakService, useClass: KeycloakServiceImpl, deps: [Config] },
         { provide: TokenProvider, useClass: MockTokenProvider },
         AppLauncherGitproviderService
       ]

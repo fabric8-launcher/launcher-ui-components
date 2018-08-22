@@ -19,8 +19,7 @@ import {
   TokenService
 } from 'ngx-launcher';
 
-import { KeycloakService } from '../shared/keycloak.service';
-import { KeycloakTokenProvider } from '../shared/keycloak-token.provider';
+import { AuthTokenProvider } from '../shared/auth-token.provider';
 import { AuthGuardService } from '../shared/authguard.service';
 
 import { PopoverModule } from 'ngx-bootstrap/popover';
@@ -45,6 +44,7 @@ import { ModalModule } from 'ngx-modal';
 import { GettingStartedComponent } from './pages/getting-started/getting-started.component';
 import { LaunchHelper } from '../shared/helper.component';
 import { errorHandlerFactory } from '../shared/error.component';
+import { KeycloakService } from '../shared/keycloak.service';
 
 @NgModule({
   imports: [
@@ -65,13 +65,13 @@ import { errorHandlerFactory } from '../shared/error.component';
     AuthGuardService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (keycloak: KeycloakService) => () => keycloak.init(),
+      useFactory: (keycloakService: KeycloakService) => () => keycloakService.init(),
       deps: [KeycloakService],
       multi: true
     },
     {
       provide: TokenProvider,
-      useFactory: (keycloak: KeycloakService) => new KeycloakTokenProvider(keycloak),
+      useFactory: (keycloakService: KeycloakService) => new AuthTokenProvider(keycloakService),
       deps: [KeycloakService]
     },
     History,
@@ -86,7 +86,7 @@ import { errorHandlerFactory } from '../shared/error.component';
     { provide: DependencyCheckService, useClass: AppLauncherDependencyCheckService },
     {
       provide: AuthHelperService,
-      useFactory: (keycloak: KeycloakService) => keycloak.getToken().then((token) => new AuthAPIProvider(token)),
+      useFactory: (keycloakService: KeycloakService) => keycloakService.getToken().then((token) => new AuthAPIProvider(token)),
       deps: [KeycloakService]
     },
     { provide: TokenService, useClass: AppLauncherTokenService }

@@ -8,11 +8,11 @@ export class AuthenticationDirective implements DoCheck {
 
   @Input() public authentication: boolean;
 
-  constructor(private el: ElementRef, private keycloak: KeycloakService) {
+  constructor(private el: ElementRef, private keycloakService: KeycloakService) {
   }
 
   public ngDoCheck() {
-    const authenticated = this.keycloak.isAuthenticated();
+    const authenticated = this.keycloakService.isAuthenticated();
     let render = !authenticated;
     if (this.authentication) {
       render = !render;

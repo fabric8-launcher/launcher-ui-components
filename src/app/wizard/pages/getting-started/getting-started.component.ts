@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-
-import { DependencyCheckService } from 'ngx-launcher';
 import { KeycloakService } from '../../../shared/keycloak.service';
 
 @Component({
@@ -15,7 +13,7 @@ export class GettingStartedComponent {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private keycloak: KeycloakService,
+  constructor(private KeycloakService: KeycloakService,
               private router: Router) {
   }
 
