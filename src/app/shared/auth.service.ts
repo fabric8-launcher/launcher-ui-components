@@ -1,6 +1,6 @@
 export class User {
   public token: string;
-  public accountLink: Map<string, string>;
+  public accountLink: object;
   public name: string;
   public sessionState: string;
   public preferredName: string;
@@ -11,7 +11,7 @@ export abstract class AuthService {
 
   public abstract init(): Promise<AuthService>;
 
-  public abstract login();
+  public abstract login(): Promise<User>;
 
   public abstract isEnabled(): boolean;
 
@@ -28,6 +28,9 @@ export abstract class AuthService {
   }
 
   public isAuthenticated(): boolean {
+    if (!this.isEnabled()) {
+      return true;
+    }
     return Boolean(this.user);
   }
 

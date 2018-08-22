@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from './app.routes';
 import { WizardModule } from './wizard/wizard.module';
-import { AuthService } from './shared/auth.service';
+import { AuthService, User } from './shared/auth.service';
 
 // tslint:disable-next-line
 const launchMockData = require('../assets/mock/demo-catalog-launch.json') as Catalog;
@@ -25,10 +25,10 @@ const launchMockData = require('../assets/mock/demo-catalog-launch.json') as Cat
 class MockAuthService extends AuthService {
 
   public init(): Promise<AuthService> {
-    return Promise.resolve(this);
+    return Promise.resolve(this as AuthService);
   }
 
-  public login() {
+  public login(): Promise<User> {
     this._user = {
       name: 'andy',
       preferredName: 'pref',
@@ -36,6 +36,7 @@ class MockAuthService extends AuthService {
       sessionState: 'session',
       accountLink: new Map<string, string>(),
     };
+    return Promise.resolve(this._user);
   }
 
   public logout() {
