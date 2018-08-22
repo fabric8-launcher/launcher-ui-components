@@ -1,6 +1,6 @@
 import { Config } from 'ngx-launcher';
-import { KeycloakService } from './keycloak.service';
-import { KeycloakServiceImpl } from './keycloak.service.impl';
+import { AuthService } from './auth.service';
+import { KeycloakAuthService } from './keycloak.auth.service';
 
 
 class KeycloakPromise {
@@ -100,17 +100,17 @@ class MockKeycloakCore {
   }
 }
 
-describe('Service: KeycloakService', () => {
+describe('Service: KeycloakAuthService', () => {
   let mockKeycloakCore: MockKeycloakCore;
-  let keycloakService: KeycloakService;
+  let authService: AuthService;
 
   beforeEach(() => {
     mockKeycloakCore = new MockKeycloakCore();
-    keycloakService = new KeycloakServiceImpl(new MockConfig(), () => mockKeycloakCore);
+    authService = new KeycloakAuthService(new MockConfig(), () => mockKeycloakCore);
   }
 
   it('Should login and logout correctly', () => {
-    keycloakService.init().then(() => {
+    authService.init().then(() => {
       expect(mockKeycloakCore.countInit).toBe(1);
     });
   });

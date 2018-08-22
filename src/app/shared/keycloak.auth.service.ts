@@ -1,12 +1,17 @@
 import * as KeycloakCore from '../../assets/keycloak/keycloak.js';
 import { Config } from 'ngx-launcher';
-import { KeycloakService } from './keycloak.service';
+import { AuthService } from './auth.service';
 import { v4 as uuidv4 } from 'uuid';
 import * as jsSHA from 'jssha';
 import * as _ from 'lodash';
 
-export class KeycloakServiceImpl extends KeycloakService {
+export class KeycloakAuthService extends AuthService {
 
+  private readonly logoutUrl?: string;
+  private readonly authServerUrl?: string;
+  private readonly clientId?: string;
+  private readonly realm?: string;
+  private readonly url?: string;
   private readonly keycloak?: any;
 
   constructor(config: Config, keycloakCoreFactory = KeycloakCore) {
@@ -20,8 +25,8 @@ export class KeycloakServiceImpl extends KeycloakService {
     }
   }
 
-  init(): Promise<KeycloakService> {
-    return new Promise<KeycloakService>((resolve, reject) => {
+  init(): Promise<AuthService> {
+    return new Promise<AuthService>((resolve, reject) => {
       if (!this.keycloak) {
         resolve(this);
       }
@@ -110,7 +115,7 @@ export class KeycloakServiceImpl extends KeycloakService {
       + clientId + provider;
     const shaObj = new jsSHA('SHA-256', 'TEXT');
     shaObj.update(hash);
-    const hashed = KeycloakServiceImpl.base64ToUri(shaObj.getHash('B64'));
+    const hashed = KeycloakAuthService.base64ToUri(shaObj.getHash('B64'));
     // tslint:disable-next-line
     const link = `${this.keycloak.authServerUr}/realms/${this.realm}/broker/${provider}/link?nonce=${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
     this.user.accountLink.set(provider, link);

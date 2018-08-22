@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { KeycloakService } from '../../../shared/keycloak.service';
+import { AuthService } from '../../../shared/auth.service';
 
 @Component({
   selector: 'getting-started',
@@ -13,7 +13,7 @@ export class GettingStartedComponent {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private KeycloakService: KeycloakService,
+  constructor(private authService: AuthService,
               private router: Router) {
   }
 

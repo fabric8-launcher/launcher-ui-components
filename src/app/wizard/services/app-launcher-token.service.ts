@@ -4,7 +4,7 @@ import { Observable } from 'rxjs-compat';
 import { Cluster, HelperService, TokenProvider, TokenService } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { catchError, map } from 'rxjs/operators';
-import { KeycloakService } from '../../shared/keycloak.service';
+import { AuthService } from '../../shared/auth.service';
 
 class ConnectedCluster {
   public connected: boolean;
@@ -24,13 +24,13 @@ export class AppLauncherTokenService extends HttpService implements TokenService
     private _http: HttpClient,
     private _helperService: HelperService,
     private _tokenProvider: TokenProvider,
-    private keycloakService: KeycloakService
+    private authService: AuthService
   ) {
     super(_http, _helperService, _tokenProvider);
   }
 
   public createOathLink(cluster: string): string {
-    return this.keycloakService.linkAccount(cluster, location.href);
+    return this.authService.linkAccount(cluster, location.href);
   }
 
   get clusters(): Observable<Cluster[]> {

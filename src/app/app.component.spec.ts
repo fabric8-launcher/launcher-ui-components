@@ -17,15 +17,15 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from './app.routes';
 import { WizardModule } from './wizard/wizard.module';
-import { KeycloakService } from './shared/keycloak.service';
+import { AuthService } from './shared/auth.service';
 
 // tslint:disable-next-line
 const launchMockData = require('../assets/mock/demo-catalog-launch.json') as Catalog;
 
-class MockKeycloakService extends KeycloakService {
+class MockAuthService extends AuthService {
   private authenticated: boolean = false;
 
-  public init(): Promise<KeycloakService> {
+  public init(): Promise<AuthService> {
     return Promise.resolve(this);
   }
 
@@ -70,7 +70,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let element: HTMLElement;
   let router: Router;
-  let keycloakService: AuthService;
+  let authService: AuthService;
 
   function completeTick(millis?: number) {
     tick(millis);
@@ -134,13 +134,13 @@ describe('AppComponent', () => {
         Broadcaster,
         Logger,
         { provide: Config, useClass: LaunchConfig },
-        { provide: KeycloakService, useClass: MockKeycloakService },
+        { provide: AuthService, useClass: MockAuthService },
       ]
     }).compileComponents().then(() => {
       router = TestBed.get(Router);
       fixture = TestBed.createComponent(AppComponent);
       mockHttp = TestBed.get(HttpTestingController);
-      keycloakService = TestBed.get(KeycloakService);
+      authService = TestBed.get(AuthService);
       element = fixture.nativeElement;
       router.initialNavigation();
     }).then(done);
@@ -157,12 +157,12 @@ describe('AppComponent', () => {
     expect(loginButton).toBeTruthy('Login button is not in the view');
     loginButton.nativeElement.click();
     completeTick();
-    expect(keycloakService.isAuthenticated).toBeTruthy('User should be authenticated');
+    expect(authService.isAuthenticated).toBeTruthy('User should be authenticated');
   }));
 
   it('Should set application name and start wizard and go through all steps', fakeAsync(() => {
     fixture.detectChanges();
-    keycloakService.login();
+    authService.login();
     router.navigate(['/wizard']);
     completeTick();
 

@@ -11,8 +11,8 @@ import { WizardModule } from './wizard/wizard.module';
 import { Broadcaster } from 'ngx-base';
 import { Config } from 'ngx-launcher';
 import { LaunchConfig } from './shared/config.component';
-import { KeycloakService } from './shared/keycloak.service';
-import { KeycloakServiceImpl } from './shared/keycloak.service.impl';
+import { AuthService } from './shared/auth.service';
+import { KeycloakAuthService } from './shared/keycloak.auth.service';
 
 
 @NgModule({
@@ -32,7 +32,7 @@ import { KeycloakServiceImpl } from './shared/keycloak.service.impl';
     Broadcaster,
     Logger,
     { provide: Config, useClass: LaunchConfig },
-    { provide: KeycloakService, useClass: KeycloakServiceImpl, deps: [Config] },
+    { provide: AuthService, useClass: KeycloakAuthService, deps: [Config] },
   ],
   bootstrap: [AppComponent]
 })

@@ -7,14 +7,9 @@ export class User {
   preferredName: string;
 }
 
-export abstract class KeycloakService {
-  protected logoutUrl?: string;
-  protected authServerUrl?: string;
-  protected clientId?: string;
-  protected realm?: string;
-  protected url?: string;
+export abstract class AuthService {
   protected _user?: User;
-  abstract init(): Promise<KeycloakService>;
+  abstract init(): Promise<AuthService>;
   abstract login();
   abstract isEnabled(): boolean;
   abstract getToken(): Promise<string>;

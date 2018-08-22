@@ -1,13 +1,13 @@
 import { TokenProvider } from 'ngx-launcher';
-import { KeycloakService } from './keycloak.service';
+import { AuthService } from './auth.service';
 
 export class AuthTokenProvider extends TokenProvider {
 
-  constructor(private keycloakService: KeycloakService) {
+  constructor(private authService: AuthService) {
     super();
   }
 
   public getToken(): string | Promise<string> {
-    return this.keycloakService.getToken();
+    return this.authService.getToken();
   }
 }

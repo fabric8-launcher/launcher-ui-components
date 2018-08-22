@@ -44,7 +44,7 @@ import { ModalModule } from 'ngx-modal';
 import { GettingStartedComponent } from './pages/getting-started/getting-started.component';
 import { LaunchHelper } from '../shared/helper.component';
 import { errorHandlerFactory } from '../shared/error.component';
-import { KeycloakService } from '../shared/keycloak.service';
+import { AuthService } from '../shared/auth.service';
 
 @NgModule({
   imports: [
@@ -65,14 +65,14 @@ import { KeycloakService } from '../shared/keycloak.service';
     AuthGuardService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (keycloakService: KeycloakService) => () => keycloakService.init(),
-      deps: [KeycloakService],
+      useFactory: (authService: AuthService) => () => authService.init(),
+      deps: [AuthService],
       multi: true
     },
     {
       provide: TokenProvider,
-      useFactory: (keycloakService: KeycloakService) => new AuthTokenProvider(keycloakService),
-      deps: [KeycloakService]
+      useFactory: (authService: AuthService) => new AuthTokenProvider(authService),
+      deps: [AuthService]
     },
     History,
     { provide: ErrorHandler, useFactory: errorHandlerFactory, deps: [Config] },
@@ -86,8 +86,8 @@ import { KeycloakService } from '../shared/keycloak.service';
     { provide: DependencyCheckService, useClass: AppLauncherDependencyCheckService },
     {
       provide: AuthHelperService,
-      useFactory: (keycloakService: KeycloakService) => keycloakService.getToken().then((token) => new AuthAPIProvider(token)),
-      deps: [KeycloakService]
+      useFactory: (authService: AuthService) => authService.getToken().then((token) => new AuthAPIProvider(token)),
+      deps: [AuthService]
     },
     { provide: TokenService, useClass: AppLauncherTokenService }
   ]
