@@ -1,5 +1,5 @@
 import { Directive, DoCheck, ElementRef, Input } from '@angular/core';
-import { KeycloakService } from './keycloak.service';
+import { AuthService } from './auth.service';
 
 @Directive({
   selector: '[authentication]'
@@ -8,11 +8,11 @@ export class AuthenticationDirective implements DoCheck {
 
   @Input() public authentication: boolean;
 
-  constructor(private el: ElementRef, private keycloak: KeycloakService) {
+  constructor(private el: ElementRef, private authService: AuthService) {
   }
 
   public ngDoCheck() {
-    const authenticated = this.keycloak.isAuthenticated();
+    const authenticated = this.authService.isAuthenticated();
     let render = !authenticated;
     if (this.authentication) {
       render = !render;

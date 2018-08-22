@@ -9,9 +9,10 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { WizardModule } from './wizard/wizard.module';
 import { Broadcaster } from 'ngx-base';
-import { KeycloakService } from './shared/keycloak.service';
 import { Config } from 'ngx-launcher';
 import { LaunchConfig } from './shared/config.component';
+import { AuthService } from './shared/auth.service';
+import { KeycloakAuthService } from './shared/keycloak.auth.service';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import { LaunchConfig } from './shared/config.component';
     Broadcaster,
     Logger,
     { provide: Config, useClass: LaunchConfig },
-    KeycloakService
+    { provide: AuthService, useClass: KeycloakAuthService, deps: [Config] },
   ],
   bootstrap: [AppComponent]
 })

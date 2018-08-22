@@ -4,25 +4,25 @@
     <a class="navbar-brand page-scroll" routerLink="/">
       <img class="header-logo" src="../../assets/img/RHD-logo.svg" alt="Red Hat Developer Program">
     </a>
-    <ul class="nav navbar-nav navbar-right" *ngIf="!keycloak.skip">
-      <li id="loggedout" *ngIf="!keycloak.isAuthenticated()">
-        <a id="login" href="javascript:void(0)" (click)="keycloak.login()">
+    <ul class="nav navbar-nav navbar-right" *ngIf="authService.isEnabled()">
+      <li id="loggedout" *ngIf="!authService.isAuthenticated()">
+        <a id="login" href="javascript:void(0)" (click)="authService.login()">
           <i class="pficon pficon-user"></i> Log In
         </a>
       </li>
-      <li class="dropdown" [class.open]="collapse" id="loggedin" *ngIf="keycloak.isAuthenticated()">
+      <li class="dropdown" [class.open]="collapse" id="loggedin" *ngIf="authService.isAuthenticated()">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" (click)="collapse = !collapse">
           <div id="header_dropdownToggle_header">
             <span class="nav-item-icon">
               <span class="pficon pficon-user" id="nouserimage"></span>
-              {{keycloak.user}}
+              {{authService.user.name}}
             </span>
             <span class="nav-item-text" id="name"></span> <b class="caret"></b>
           </div>
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a id="logout" href="javascript:void(0)" (click)="keycloak.logout()">
+            <a id="logout" href="javascript:void(0)" (click)="authService.logout()">
               <span class="nav-item-text">Sign out</span>
             </a>
           </li>

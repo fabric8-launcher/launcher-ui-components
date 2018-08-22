@@ -5,7 +5,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Catalog, Config } from 'ngx-launcher';
 
 import { LaunchConfig } from './shared/config.component';
-import { KeycloakService } from './shared/keycloak.service';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Broadcaster } from 'ngx-base';
@@ -18,39 +17,44 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from './app.routes';
 import { WizardModule } from './wizard/wizard.module';
+import { AuthService } from './shared/auth.service';
 
 // tslint:disable-next-line
 const launchMockData = require('../assets/mock/demo-catalog-launch.json') as Catalog;
 
-class MockKeycloakService extends KeycloakService {
-  private authenticated: boolean = false;
+class MockAuthService extends AuthService {
 
-  public init(): Promise<KeycloakService> {
+  public init(): Promise<AuthService> {
     return Promise.resolve(this);
   }
 
-  public login(redirectUri?: string) {
-    this.authenticated = true;
+  public login() {
+    this._user = {
+      name: 'andy',
+      preferredName: 'pref',
+      token: 'token',
+      sessionState: 'session',
+      accountLink: new Map<string, string>(),
+    };
   }
 
   public logout() {
-    this.authenticated = false;
-  }
-
-  public isAuthenticated(): boolean {
-    return this.authenticated;
+    this._user = null;
   }
 
   public linkAccount(provider: string, redirect?: string): string {
     return `linkAccount:${provider}`;
   }
 
-  get user(): string {
-    return 'Andy';
+  public getToken(): Promise<string> {
+    if (!this.isAuthenticated()) {
+      return Promise.reject();
+    }
+    return Promise.resolve(this.user.token);
   }
 
-  public getToken(): Promise<string> {
-    return Promise.resolve('token');
+  public isEnabled(): boolean {
+    return true;
   }
 }
 
@@ -60,7 +64,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let element: HTMLElement;
   let router: Router;
-  let keycloakService: KeycloakService;
+  let authService: AuthService;
 
   function completeTick(millis?: number) {
     tick(millis);
@@ -124,13 +128,13 @@ describe('AppComponent', () => {
         Broadcaster,
         Logger,
         { provide: Config, useClass: LaunchConfig },
-        { provide: KeycloakService, useClass: MockKeycloakService },
+        { provide: AuthService, useClass: MockAuthService },
       ]
     }).compileComponents().then(() => {
       router = TestBed.get(Router);
       fixture = TestBed.createComponent(AppComponent);
       mockHttp = TestBed.get(HttpTestingController);
-      keycloakService = TestBed.get(KeycloakService);
+      authService = TestBed.get(AuthService);
       element = fixture.nativeElement;
       router.initialNavigation();
     }).then(done);
@@ -147,12 +151,12 @@ describe('AppComponent', () => {
     expect(loginButton).toBeTruthy('Login button is not in the view');
     loginButton.nativeElement.click();
     completeTick();
-    expect(keycloakService.isAuthenticated).toBeTruthy('User should be authenticated');
+    expect(authService.isAuthenticated).toBeTruthy('User should be authenticated');
   }));
 
   it('Should set application name and start wizard and go through all steps', fakeAsync(() => {
     fixture.detectChanges();
-    keycloakService.login();
+    authService.login();
     router.navigate(['/wizard']);
     completeTick();
 

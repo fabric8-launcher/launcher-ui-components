@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { KeycloakService } from '../shared/keycloak.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,7 @@ export class HeaderComponent {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private keycloak: KeycloakService) {
+              private authService: AuthService) {
     FooterComponent.isIntroPage(router, route).subscribe((intro) => {
       this.frontpage = intro;
     });

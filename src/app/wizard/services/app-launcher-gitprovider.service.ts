@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { of, EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { Observable } from 'rxjs-compat';
 
 import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-launcher';
-import { KeycloakService } from '../../shared/keycloak.service';
 import { HttpService } from './http.service';
 import { catchError, filter, flatMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../shared/auth.service';
 
 @Injectable()
 export class AppLauncherGitproviderService extends HttpService implements GitProviderService {
@@ -18,7 +18,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
     private _http: HttpClient,
     private _helperService: HelperService,
     private _tokenProvider: TokenProvider,
-    private keycloak: KeycloakService
+    private authService: AuthService
   ) {
     super(_http, _helperService, _tokenProvider);
   }
@@ -29,7 +29,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @param {string} redirectUrl The GitHub redirect URL
    */
   public connectGitHubAccount(redirectUrl: string): void {
-    this.redirectToAuth(this.keycloak.linkAccount('github', redirectUrl));
+    this.redirectToAuth(this.authService.linkAccount('github', redirectUrl));
   }
 
   /**
