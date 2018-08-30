@@ -37,7 +37,7 @@
     "jssha": "2.3.1",
     "raven-js": "3.26.2",
     "rxjs": "6.2.2",
-    "rxjs-compat": "6.2.2",
+    "rxjs-compat": "6.3.0",
     "uuid": "3.2.1",
     "zone.js": "0.8.26",
     "ngx-base": "3.2.1",
