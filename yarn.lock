@@ -5373,9 +5373,9 @@ ng2-dragula@^1.5.0:
   dependencies:
     dragula "^3.7.2"
 
-ngx-base@3.2.1, ngx-base@^3.0.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-3.2.1.tgz#4407e3369ffda47661305d2404e3539f018b637e"
+ngx-base@3.3.0, ngx-base@^3.0.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-3.3.0.tgz#35da3dd21498301d56c19524f84978977385e1b7"
 
 ngx-base@^2.3.6:
   version "2.3.6"
