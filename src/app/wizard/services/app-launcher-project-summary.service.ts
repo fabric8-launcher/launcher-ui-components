@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { of } from 'rxjs';
-import { Observable } from 'rxjs-compat';
+import { Observable, of } from 'rxjs';
 
 import { HelperService, ProjectSummaryService, Summary, TokenProvider } from 'ngx-launcher';
 import { HttpService } from './http.service';

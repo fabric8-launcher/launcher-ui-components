@@ -2,9 +2,7 @@ import { Location } from '@angular/common';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Cluster, HelperService, TokenProvider } from 'ngx-launcher';
 import { catchError, flatMap } from 'rxjs/operators';
-import { Observable } from 'rxjs-compat';
-import { throwError } from 'rxjs';
-import { fromPromise } from 'rxjs-compat/observable/fromPromise';
+import { from, Observable, throwError } from 'rxjs';
 
 export class HttpService {
 
@@ -53,7 +51,7 @@ export class HttpService {
     if (cluster) {
       headers = headers.append('X-OpenShift-Cluster', cluster.id);
     }
-    return fromPromise(this.tokenProvider.token.then((token) => {
+    return from(this.tokenProvider.token.then((token) => {
       return {
         headers: headers.append('Authorization', 'Bearer ' + token)
       };

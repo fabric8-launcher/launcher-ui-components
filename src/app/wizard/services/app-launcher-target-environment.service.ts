@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { Observable } from 'rxjs-compat';
+import { Observable, of } from 'rxjs';
 import { TargetEnvironment, TargetEnvironmentService } from 'ngx-launcher';
 
 @Injectable()
