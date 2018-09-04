@@ -59,7 +59,7 @@
     "@types/node": "10.3.5",
     "@types/selenium-webdriver": "3.0.10",
     "@types/uglify-js": "3.0.2",
-    "@types/uuid": "3.4.3",
+    "@types/uuid": "3.4.4",
     "@types/webpack": "4.4.2",
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "8.6.3",
