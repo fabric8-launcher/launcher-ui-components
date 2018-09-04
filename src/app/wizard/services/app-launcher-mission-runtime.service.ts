@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs-compat';
 
 import { Catalog, HelperService, MissionRuntimeService, TokenProvider } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AppLauncherMissionRuntimeService extends MissionRuntimeService {

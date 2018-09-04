@@ -39,7 +39,6 @@ module.exports = {
         exclude: [
           helpers.root('node_modules/@angular'),
           helpers.root('node_modules/ngx-modal'),
-          helpers.root('node_modules/rxjs-compat'),
           helpers.root('node_modules/fabric8-analytics-dependency-editor')
         ]
       },

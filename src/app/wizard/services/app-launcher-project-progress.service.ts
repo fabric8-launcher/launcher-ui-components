@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs-compat';
+import { Subject } from 'rxjs';
 
 import { Config, ProjectProgressService } from 'ngx-launcher';
 

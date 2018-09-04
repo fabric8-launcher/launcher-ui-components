@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs-compat';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 import { DependencyCheck, DependencyCheckService } from 'ngx-launcher';
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, of } from 'rxjs';
-import { Observable } from 'rxjs-compat';
+import { EMPTY, of, Observable } from 'rxjs';
 
 import { GitHubDetails, GitProviderService, HelperService, TokenProvider } from 'ngx-launcher';
 import { HttpService } from './http.service';
