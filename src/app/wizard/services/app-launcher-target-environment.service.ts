@@ -13,12 +13,11 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
   public getTargetEnvironments(): Observable<TargetEnvironment[]> {
     const targetEnvironments = [{
       /* tslint:disable */
-      description: 'Here is a brief description of what OpenShift is. ' +
-      'There is a distinction between what OpenShift does compared to OpenShift.io.',
+      description: 'Benefit of using OpenShift as a project environment',
       benefits: [
-        'In your GitHub namespace, create repository containg your project\'s code.',
-        'Configure OpenShift to build and deploy your code on each push to your repository\'s master branch.',
-        'Here is a benefit of using OpenShift as a project environment.'
+        'A repository is created in GitHub containing your new application’s code.',
+        'Edit the code locally using the tool of your choice.',
+        'Use OpenShift to build and deploy your code automatically on each push to your repository’s master branch.'
       ],
       footer: 'OpenShift',
       header: 'Code Locally, Build and Deploy',
@@ -26,12 +25,11 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
       id: 'os',
       styleClass: 'card-pf-footer--logo-os'
     }, {
-      description: 'When you build and run locally, you will receive a .zip file ' +
-      'containing the setup you have established for your application.',
+      description: 'You will receive a .zip file that you can build and run locally, ' +
+      'It will contain the setup and instructions to run it in OpenShift.',
       benefits: [
-        'Scaffold a project based on your chosen runtime.',
-        'Configure OpenShift to build and deploy your code on each push to your repository\'s master branch.',
-        'Here is a benefit of using OpenShift as a project environment.'
+        'Scaffolding for your new application is generated.',
+        'Download the project as a ZIP file and manually deploy your application to another OpenShift instance.'
       ],
       footer: '.ZIP File',
       header: 'Build and Run Locally',
