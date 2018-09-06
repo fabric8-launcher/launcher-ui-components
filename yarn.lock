@@ -27,6 +27,15 @@
     rxjs "^6.0.0"
     source-map "^0.5.6"
 
+"@angular-devkit/core@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-0.8.0.tgz#d31c26677f7d5302e279946823933bbc95049e56"
+  dependencies:
+    ajv "~6.4.0"
+    chokidar "^2.0.3"
+    rxjs "~6.2.0"
+    source-map "^0.5.6"
+
 "@angular-devkit/schematics@0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-0.7.0.tgz#23d0f9ed693eeaa9ee97921c064030eca4310c4f"
@@ -199,12 +208,12 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@ngtools/webpack@6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-6.1.0.tgz#69679994edb40f3979a1c2d9cf378f7deffca902"
+"@ngtools/webpack@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-6.2.0.tgz#be9e25ff34d9bda4cc0ca0cab674f0a24261e6c0"
   dependencies:
-    "@angular-devkit/core" "0.7.0"
-    rxjs "^6.0.0"
+    "@angular-devkit/core" "0.8.0"
+    rxjs "~6.2.0"
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
@@ -7348,7 +7357,7 @@ rxjs@6.3.1:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^6.0.0, rxjs@^6.1.0:
+rxjs@^6.0.0, rxjs@^6.1.0, rxjs@~6.2.0:
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.2.2.tgz#eb75fa3c186ff5289907d06483a77884586e1cf9"
   dependencies:
