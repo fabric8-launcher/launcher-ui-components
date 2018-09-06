@@ -9,13 +9,13 @@
     "@angular-devkit/core" "0.7.0"
     rxjs "^6.0.0"
 
-"@angular-devkit/build-optimizer@0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.7.3.tgz#7c58a46a37dbec44e8db21b443d95ff29e363ca4"
+"@angular-devkit/build-optimizer@0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.8.1.tgz#fbbaeb6085d82353f46af5fa0d931b57e6332423"
   dependencies:
     loader-utils "^1.1.0"
     source-map "^0.5.6"
-    typescript "~2.9.1"
+    typescript "~2.9.2"
     webpack-sources "^1.1.0"
 
 "@angular-devkit/core@0.7.0":
@@ -8379,7 +8379,7 @@ typescript@2.9.1:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.1.tgz#fdb19d2c67a15d11995fd15640e373e09ab09961"
 
-typescript@2.9.2, typescript@^2.4.2, typescript@~2.9.1:
+typescript@2.9.2, typescript@^2.4.2, typescript@~2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
 
