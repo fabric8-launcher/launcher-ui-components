@@ -25,7 +25,6 @@ If you want the UI to use another version of the backend or keycloak, you need t
 
 More details on running a local version of the backend are available [here][1].
 
-
 ## Test
 
 Run the `yarn` command as given below:
@@ -33,7 +32,6 @@ Run the `yarn` command as given below:
 ```bash
 yarn test
 ```
-
 
 ## Production Build
 
