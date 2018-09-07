@@ -5415,9 +5415,9 @@ ngx-bootstrap@3.0.1, ngx-bootstrap@^3.0.0, ngx-bootstrap@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.0.1.tgz#e98d2fc6340f32a9d358cd08e8fda7dcb23bdab3"
 
-ngx-launcher@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-2.0.3.tgz#c85cd7f80bd41082b7bdf7e432ae3bb49d0cf159"
+ngx-launcher@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-2.0.4.tgz#76467885c68bc4e1c30ace776bc50cce1689ce14"
   dependencies:
     "@thisissoon/angular-inviewport" "^3.0.1"
     fabric8-analytics-dependency-editor "^1.0.0"
