@@ -62,7 +62,7 @@
     "@types/webpack": "4.4.2",
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "8.6.3",
-    "awesome-typescript-loader": "5.2.0",
+    "awesome-typescript-loader": "5.2.1",
     "codelyzer": "4.4.2",
     "css-loader": "0.28.11",
     "exports-loader": "0.7.0",
