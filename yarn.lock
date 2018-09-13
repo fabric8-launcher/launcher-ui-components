@@ -236,12 +236,6 @@
   version "13.1.0"
   resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-13.1.0.tgz#a79edc7eaed762a2f7868209a2ff597bbfc7137b"
 
-"@thisissoon/angular-inviewport@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@thisissoon/angular-inviewport/-/angular-inviewport-3.0.1.tgz#3f17ab5f25d694a0bdb7b0c7506e948fc6a99a30"
-  dependencies:
-    tslib "^1.9.0"
-
 "@types/c3@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@types/c3/-/c3-0.6.0.tgz#74fe73461f18386ae460e8113ea4883ab7fbeab1"
@@ -5415,11 +5409,10 @@ ngx-bootstrap@3.0.1, ngx-bootstrap@^3.0.0, ngx-bootstrap@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.0.1.tgz#e98d2fc6340f32a9d358cd08e8fda7dcb23bdab3"
 
-ngx-launcher@2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-2.0.5.tgz#16b58f7f1001d57934d52b02f13b1a72e9ff3050"
+ngx-launcher@2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-2.0.6.tgz#0713cdcae5097f4b6698f0ad5397b036d34dc77c"
   dependencies:
-    "@thisissoon/angular-inviewport" "^3.0.1"
     fabric8-analytics-dependency-editor "^1.0.0"
     lodash "^4.17.10"
     ngx-base "^3.1.1"
