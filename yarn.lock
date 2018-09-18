@@ -6099,9 +6099,9 @@ patternfly-ng@^4.0.1:
     ng2-dragula "^1.5.0"
     ngx-bootstrap "^3.0.0"
 
-patternfly@3.54.2, patternfly@^3.28.0:
-  version "3.54.2"
-  resolved "https://registry.yarnpkg.com/patternfly/-/patternfly-3.54.2.tgz#58b4b424462c4b01aaebf41db2da3bcd63bedfbf"
+patternfly@3.54.4, patternfly@^3.28.0:
+  version "3.54.4"
+  resolved "https://registry.yarnpkg.com/patternfly/-/patternfly-3.54.4.tgz#10ca7f36a7511972999a1ec5050edc7f22c1232c"
   dependencies:
     bootstrap "~3.3.7"
     font-awesome "^4.7.0"
