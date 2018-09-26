@@ -7,11 +7,18 @@ import { catchError, filter, flatMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../shared/auth.service';
 
+interface GitUser {
+  login: string;
+  avatarUrl: string;
+  organizations: string[];
+  repositories: string[];
+}
+
 @Injectable()
 export class AppLauncherGitproviderService extends HttpService implements GitProviderService {
 
   private static API_BASE: string = '/services/git/';
-  private repositories:object = {};
+  private repositories: object = {};
 
   constructor(
     private _http: HttpClient,
@@ -47,7 +54,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @returns {Observable<GitHubDetails>} The GitHub details associated with the logged in user
    */
   public getGitHubDetails(): Observable<GitHubDetails> {
-    return this.backendHttpGet<{ login: string; avatarUrl: string; organizations: string[], repositories: string[] }>(AppLauncherGitproviderService.API_BASE, 'user').pipe(
+    return this.backendHttpGet<GitUser>(AppLauncherGitproviderService.API_BASE, 'user').pipe(
       filter((user) => Boolean(user && user.login)),
       map((user) => {
         this.repositories[user.login] = user.repositories;
@@ -106,11 +113,11 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
   }
 
   private static removeOrganizationPrefix(repositories: string[]): string[] {
-    return repositories.map((ele) => ele.replace( new RegExp('^[^/]+/'), ''));
+    return repositories.map((ele) => ele.replace(new RegExp('^[^/]+/'), ''));
   }
 
   private createUrl(org: string) {
-    let url = this.joinPath(AppLauncherGitproviderService.API_BASE, 'repositories');
+    const url = this.joinPath(AppLauncherGitproviderService.API_BASE, 'repositories');
     return `${url}?organization=${org}`;
   }
 
