@@ -7,11 +7,18 @@ import { catchError, filter, flatMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../shared/auth.service';
 
+interface GitUser {
+  login: string;
+  avatarUrl: string;
+  organizations: string[];
+  repositories: string[];
+}
+
 @Injectable()
 export class AppLauncherGitproviderService extends HttpService implements GitProviderService {
 
   private static API_BASE: string = '/services/git/';
-  private gitHubUserLogin: string;
+  private repositories: object = {};
 
   constructor(
     private _http: HttpClient,
@@ -47,21 +54,16 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @returns {Observable<GitHubDetails>} The GitHub details associated with the logged in user
    */
   public getGitHubDetails(): Observable<GitHubDetails> {
-    return this.backendHttpGet<{ login: string; avatarUrl: string; }>(AppLauncherGitproviderService.API_BASE, 'user').pipe(
+    return this.backendHttpGet<GitUser>(AppLauncherGitproviderService.API_BASE, 'user').pipe(
       filter((user) => Boolean(user && user.login)),
-
-      flatMap((user) => this.getUserOrgs(user.login).pipe(map((orgs) => ({ user, orgs })))),
-      filter((data) => data.orgs && data.orgs.length >= 0),
-      map((data) => {
-        data.orgs.push(data.user.login);
-        // TODO fix this... realllly ugly
-        this.gitHubUserLogin = data.user.login;
+      map((user) => {
+        this.repositories[user.login] = user.repositories;
         return {
           authenticated: true,
-          avatar: data.user.avatarUrl,
-          login: data.user.login,
-          organizations: data.orgs,
-          organization: data.user.login
+          avatar: user.avatarUrl,
+          login: user.login,
+          organizations: [...user.organizations, user.login],
+          organization: user.login
         } as GitHubDetails;
       }),
       catchError((error: any) => {
@@ -79,11 +81,10 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @returns {Observable<boolean>} True if GitHub repo exists
    */
   public isGitHubRepo(org: string, repoName: string): Observable<boolean> {
-    const fullName = org + '/' + repoName;
-    return this.backendHttpGet(this.createUrl(org)).pipe(
-      map((json) => {
-        const repoList: string[] = json as string[];
-        return repoList.indexOf(fullName) !== -1;
+    const fullName = `${org}/${repoName}`;
+    return this.getRepositories(org).pipe(
+      map((repositories) => {
+        return repositories.indexOf(fullName) !== -1;
       })
     );
   }
@@ -94,28 +95,30 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @param {string} org The GitHub org (e.g., fabric8-launcher/ngx-launcher)
    * @returns {Observable<any>} list of existing GitHub repos
    */
-  public getGitHubRepoList(org: string): Observable<any> {
+  public getGitHubRepoList(org: string): Observable<string[]> {
+    return this.getRepositories(org).pipe(map(AppLauncherGitproviderService.removeOrganizationPrefix));
+  }
+
+  private getRepositories(org: string): Observable<string[]> {
     if (org === undefined) {
       return of([]);
     }
+    if (this.repositories[org]) {
+      return of(this.repositories[org]);
+    }
     return this.backendHttpGet(this.createUrl(org)).pipe(
-      map((json) => {
-        const repoList: string[] = [];
-        if (json) {
-          const responseList: string[] = json as string[];
-          responseList.forEach((ele) => repoList.push(ele.replace(org + '/', '')));
-        }
-        return repoList;
-      })
+      map((json) => json ? json as string[] : []),
+      map((repositories) => this.repositories[org] = repositories)
     );
   }
 
+  private static removeOrganizationPrefix(repositories: string[]): string[] {
+    return repositories.map((ele) => ele.replace(new RegExp('^[^/]+/'), ''));
+  }
+
   private createUrl(org: string) {
-    let url = this.joinPath(AppLauncherGitproviderService.API_BASE, 'repositories');
-    if (this.gitHubUserLogin !== org) {
-      url += '?organization=' + org;
-    }
-    return url;
+    const url = this.joinPath(AppLauncherGitproviderService.API_BASE, 'repositories');
+    return `${url}?organization=${org}`;
   }
 
   private redirectToAuth(url: string) {

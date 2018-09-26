@@ -56,12 +56,23 @@ describe('Service: AppLauncherGitproviderService', () => {
     tick();
 
     const reqUser = mockHttp.expectOne(`${serviceUrl}/user`);
-    reqUser.flush({ login: 'user-login', avatarUrl: 'http://avatar-url' });
+    reqUser.flush({ login: 'user-login', avatarUrl: 'http://avatar-url', organizations: ['org1', 'org2'], repositories: ['user-login/repo-1', 'user-login/repo-2'] });
     tick();
 
-    const reqOrgs = mockHttp.expectOne(`${serviceUrl}/organizations`);
-    reqOrgs.flush(['org1', 'org2']);
+    appLauncherGitproviderService.getGitHubRepoList(gitHubDetails.login).subscribe((repositories) => {
+      expect(repositories).toEqual(['repo-1', 'repo-2']);
+    });
     tick();
+
+    appLauncherGitproviderService.getGitHubRepoList('org1').subscribe((repositories) => {
+      expect(repositories).toEqual(['repo-1', 'repo-3']);
+    });
+    tick();
+
+    const reqRepo = mockHttp.expectOne(`${serviceUrl}/repositories?organization=org1`);
+    reqRepo.flush(['org1/repo-1', 'org1/repo-3']);
+    tick();
+
   }));
 
   it('Get GitHubDetails empty orgs', fakeAsync(() => {
@@ -79,25 +90,10 @@ describe('Service: AppLauncherGitproviderService', () => {
     tick();
 
     const reqUser = mockHttp.expectOne(`${serviceUrl}/user`);
-    reqUser.flush({ login: 'user-login', avatarUrl: 'http://avatar-url' });
-    tick();
-
-    const reqOrgs = mockHttp.expectOne(`${serviceUrl}/organizations`);
-    reqOrgs.flush([]);
+    reqUser.flush({ login: 'user-login', avatarUrl: 'http://avatar-url', organizations: [], repositories: ['user-login/repo-1'] });
     tick();
   }));
 
-  it('Get UserOrgs', fakeAsync(() => {
-    const orgs = ['fabric-ui'];
-    appLauncherGitproviderService.getUserOrgs('login').subscribe((val) => {
-      expect(val).toEqual(orgs);
-    });
-    tick();
-
-    const reqOrgs = mockHttp.expectOne(`${serviceUrl}/organizations`);
-    reqOrgs.flush(['fabric-ui']);
-    tick();
-  }));
 
   it('Check if GitHubRepo exists', fakeAsync(() => {
     appLauncherGitproviderService.isGitHubRepo('fabric-ui', 'test-repo').subscribe((val: any) => {
@@ -108,6 +104,13 @@ describe('Service: AppLauncherGitproviderService', () => {
     const reqOrgs = mockHttp.expectOne(`${serviceUrl}/repositories?organization=fabric-ui`);
     reqOrgs.flush(['fabric-ui/test-repo']);
     tick();
+
+    appLauncherGitproviderService.isGitHubRepo('fabric-ui', 'test-repo-1').subscribe((val: any) => {
+      expect(val).toBeFalsy();
+    });
+    tick();
+
+    mockHttp.expectNone(`${serviceUrl}/repositories?organization=fabric-ui`);
   }));
 
   afterEach(() => {

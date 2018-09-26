@@ -191,16 +191,9 @@ describe('AppComponent', () => {
     completeTick();
 
     const reqUser = mockHttp.expectOne(`${serviceUrl}/services/git/user`);
-    reqUser.flush({ login: 'andy', avatarUrl: 'avatarUrl' });
+    reqUser.flush({ login: 'andy', avatarUrl: 'avatarUrl', repositories: ['ia3andy/repo1', 'ia3andy/repo2'], organizations: [] });
     completeTick();
 
-    const reqOrg = mockHttp.expectOne(`${serviceUrl}/services/git/organizations`);
-    reqOrg.flush([]);
-    completeTick();
-
-    const reqRep = mockHttp.expectOne(`${serviceUrl}/services/git/repositories`);
-    reqRep.flush(['ia3andy/repo1', 'ia3andy/repo2']);
-    completeTick();
     tick(501);
 
     // Step 1: TargetEnvironment
