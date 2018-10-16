@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
-import { HelperService, ProjectSummaryService, Summary, TokenProvider } from 'ngx-launcher';
+import { HelperService, ProjectSummaryService, TokenProvider, Projectile } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { catchError, flatMap } from 'rxjs/operators';
 
@@ -24,20 +24,20 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   /**
    * Set up the project for the given summary
    *
-   * @param {Summary} summary The project summary
+   * @param {Summary} projectile The project summary
    * @returns {Observable<boolean>}
    */
-  public setup(summary: Summary, retry?: number): Observable<any> {
-    const target = this.isTargetOpenshift(summary) ?
+  public setup(projectile: Projectile<any>, retry?: number): Observable<any> {
+    const target = this.isTargetOpenshift(projectile) ?
       AppLauncherProjectSummaryService.LAUNCH : AppLauncherProjectSummaryService.ZIP;
     const summaryEndPoint: string = this.joinPath(this._helperService.getBackendUrl(), target);
-    return this.options(summary.cluster, retry).pipe(
+    return this.options(null, retry).pipe(
       flatMap((option) => {
-        if (this.isTargetOpenshift(summary)) {
-          return this._http.post(summaryEndPoint, this.getPayload(summary), option)
+        if (this.isTargetOpenshift(projectile)) {
+          return this._http.post(summaryEndPoint, projectile.toHttpPayload(), option)
             .pipe(catchError(HttpService.handleError));
         } else {
-          window.open(summaryEndPoint + '?' + this.getPayload(summary));
+          window.open(summaryEndPoint + '?' + projectile.toHttpPayload());
           // todo fix need of returning dummy uuid_link
           return of({ uuid_link: 'zip' });
         }
@@ -53,24 +53,8 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return of({});
   }
 
-  private isTargetOpenshift(summary: Summary) {
-    return summary.targetEnvironment === 'os';
-  }
-
-  private getPayload(summary: Summary): HttpParams {
-    const body = new HttpParams()
-      .append('mission', summary.mission.id)
-      .append('runtime', summary.runtime.id)
-      .append('runtimeVersion', summary.runtime.version.id)
-      .append('projectName', summary.dependencyCheck.projectName)
-      .append('projectVersion', summary.dependencyCheck.projectVersion)
-      .append('groupId', summary.dependencyCheck.groupId)
-      .append('artifactId', summary.dependencyCheck.mavenArtifact)
-      .append('gitRepository', summary.gitHubDetails.repository);
-    if (summary.gitHubDetails.login !== summary.gitHubDetails.organization) {
-      return body.append('gitOrganization', summary.gitHubDetails.organization);
-    }
-    return body;
+  private isTargetOpenshift(summary: Projectile<any>) {
+    return summary.sharedState.state.targetEnvironment === 'os';
   }
 
 }
