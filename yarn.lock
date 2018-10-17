@@ -3535,10 +3535,10 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fabric8-analytics-dependency-editor@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/fabric8-analytics-dependency-editor/-/fabric8-analytics-dependency-editor-1.0.2.tgz#44e6a0c5b48fa43e1dc2d9688ae30ce049dc4d42"
-  integrity sha512-o9tBI6jNTHAa2aVyZPuFpmbRDHfGhBCpx/eChocs50fd+BguWbDG78Y5OVQU4FLuD4wnmdrmXF3MWlrksw+TEA==
+fabric8-analytics-dependency-editor@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/fabric8-analytics-dependency-editor/-/fabric8-analytics-dependency-editor-1.0.3.tgz#8da65cfc1271b52a77bb9732e11b79996409d56d"
+  integrity sha512-bksydiKmPz0OoCa89An1nKSHo0PHggj+syxx21KYOUSMSvb6O5SGupovC3MZBEwVzWZwDJRh3XTU6EztYy8VcQ==
   dependencies:
     c3 "^0.4.18"
     lodash "^4.17.10"
@@ -6260,12 +6260,12 @@ ngx-bootstrap@3.0.1, ngx-bootstrap@^3.0.0, ngx-bootstrap@^3.0.1:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.0.1.tgz#e98d2fc6340f32a9d358cd08e8fda7dcb23bdab3"
   integrity sha512-ni91yYtn8ldgf/pxrlwl9lkVcLURGzopSpJnEbbgG1v1EZWTobI8y7J3mx4Kxptkn0EeiQwnLel67G7XJSox4A==
 
-ngx-launcher@2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-2.0.7.tgz#14e13156b949876e94019891244a2d61214c0551"
-  integrity sha512-yfBBBttElebbon5bXAwmnxKHp9v5ILzHatqoU5HbcDc0nkFhqHMjhneYxta3Y5aOz7Wzv6JqgKySLdNVzG74ug==
+ngx-launcher@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-3.0.3.tgz#cf831d6e7639d80358b475e1c322228a741dcd79"
+  integrity sha512-6FMfdEgmV3Zd68pD8xfNeWhY49Q+k+Bl+pXThYg9F+wpz6hgxl0ggrBYJmkoplX/NkX2Jx9pKGkolJbDVID0xQ==
   dependencies:
-    fabric8-analytics-dependency-editor "^1.0.0"
+    fabric8-analytics-dependency-editor "^1.0.3"
     lodash "^4.17.10"
     ngx-base "^3.1.1"
     ngx-bootstrap "^3.0.1"
