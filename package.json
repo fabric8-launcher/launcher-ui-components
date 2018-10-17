@@ -41,7 +41,7 @@
     "zone.js": "0.8.26",
     "ngx-base": "3.3.1",
     "ngx-bootstrap": "3.0.1",
-    "ngx-launcher": "2.0.7",
+    "ngx-launcher": "3.0.2",
     "patternfly": "3.54.2",
     "patternfly-ng": "4.3.0"
   },
