@@ -57,7 +57,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
     return this.backendHttpGet<GitUser>(AppLauncherGitproviderService.API_BASE, 'user').pipe(
       filter((user) => Boolean(user && user.login)),
       map((user) => {
-        this.repositories[user.login] = user.repositories;
+        this.repositories[''] = AppLauncherGitproviderService.removeOrganizationPrefix(user.repositories);
         const selectableOrgs = {};
         for (const org of user.organizations) {
           selectableOrgs[org] = org;
@@ -67,8 +67,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
           authenticated: true,
           avatar: user.avatarUrl,
           login: user.login,
-          organizations: selectableOrgs,
-          organization: user.login
+          organizations: selectableOrgs
         } as GitHubDetails;
       }),
       catchError((error: any) => {
@@ -86,7 +85,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
    * @returns {Observable<boolean>} True if GitHub repo exists
    */
   public isGitHubRepo(org: string, repoName: string): Observable<boolean> {
-    const fullName = `${org}/${repoName}`;
+    const fullName = org ? `${org}/${repoName}` : repoName;
     return this.getRepositories(org).pipe(
       map((repositories) => {
         return repositories.indexOf(fullName) !== -1;
@@ -104,10 +103,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
     return this.getRepositories(org).pipe(map(AppLauncherGitproviderService.removeOrganizationPrefix));
   }
 
-  private getRepositories(org: string): Observable<string[]> {
-    if (org === undefined) {
-      return of([]);
-    }
+  private getRepositories(org: string = ''): Observable<string[]> {
     if (this.repositories[org]) {
       return of(this.repositories[org]);
     }
