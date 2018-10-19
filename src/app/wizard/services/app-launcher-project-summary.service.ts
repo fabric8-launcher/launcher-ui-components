@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   constructor(
     private _http: HttpClient,
     private _helperService: HelperService,
-    _tokenProvider: TokenProvider
+    private _tokenProvider: TokenProvider
   ) {
     super(_http, _helperService, _tokenProvider);
   }
@@ -31,7 +31,7 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     const target = this.isTargetOpenshift(projectile) ?
       AppLauncherProjectSummaryService.LAUNCH : AppLauncherProjectSummaryService.ZIP;
     const summaryEndPoint: string = this.joinPath(this._helperService.getBackendUrl(), target);
-    return this.options(projectile.getState('TargetEnvironment').state.cluster, retry).pipe(
+    return this.options(null, retry).pipe(
       flatMap((option) => {
         if (this.isTargetOpenshift(projectile)) {
           return this._http.post(summaryEndPoint, projectile.toHttpPayload(), option)
