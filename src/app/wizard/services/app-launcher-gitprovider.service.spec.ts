@@ -46,8 +46,7 @@ describe('Service: AppLauncherGitproviderService', () => {
       authenticated: true,
       avatar: 'http://avatar-url',
       login: 'user-login',
-      organization: 'user-login',
-      organizations: ['org1', 'org2', 'user-login']
+      organizations: {org1: 'org1', org2: 'org2', 'user-login': undefined}
     } as GitHubDetails;
 
     appLauncherGitproviderService.getGitHubDetails().subscribe((val: GitHubDetails) => {
@@ -59,7 +58,7 @@ describe('Service: AppLauncherGitproviderService', () => {
     reqUser.flush({ login: 'user-login', avatarUrl: 'http://avatar-url', organizations: ['org1', 'org2'], repositories: ['user-login/repo-1', 'user-login/repo-2'] });
     tick();
 
-    appLauncherGitproviderService.getGitHubRepoList(gitHubDetails.login).subscribe((repositories) => {
+    appLauncherGitproviderService.getGitHubRepoList('').subscribe((repositories) => {
       expect(repositories).toEqual(['repo-1', 'repo-2']);
     });
     tick();
@@ -80,8 +79,7 @@ describe('Service: AppLauncherGitproviderService', () => {
       authenticated: true,
       avatar: 'http://avatar-url',
       login: 'user-login',
-      organization: 'user-login',
-      organizations: ['user-login']
+      organizations: {'user-login': undefined}
     } as GitHubDetails;
 
     appLauncherGitproviderService.getGitHubDetails().subscribe((val: GitHubDetails) => {
