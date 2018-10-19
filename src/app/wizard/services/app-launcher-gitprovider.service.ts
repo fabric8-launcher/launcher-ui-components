@@ -58,15 +58,11 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
       filter((user) => Boolean(user && user.login)),
       map((user) => {
         this.repositories[user.login] = user.repositories;
-        for (const org of user.organizations) {
-          selectableOrgs[org] = org;
-        }
-        selectableOrgs[user.login] = undefined;
         return {
           authenticated: true,
           avatar: user.avatarUrl,
           login: user.login,
-          organizations: selectableOrgs,
+          organizations: [...user.organizations, user.login],
           organization: user.login
         } as GitHubDetails;
       }),
