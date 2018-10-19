@@ -15,11 +15,57 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
     return of({
       mavenArtifact: 'booster',
       groupId: 'io.openshift.booster',
-      projectName: undefined,
+      projectName: '',
       projectVersion: '1.0.0-SNAPSHOT',
-      spacePath: undefined,
-      targetEnvironment: undefined
+      spacePath: '/myspace'
     });
+  }
+
+  /**
+   * Validate the project name and returns a boolean value
+   *
+   * @param  {string} projectName
+   * @returns boolean
+   */
+  public validateProjectName(projectName: string): boolean {
+    // allows only '-'
+    const pattern = /^[a-z][a-z0-9-]{3,63}$/;
+    return pattern.test(projectName);
+  }
+
+  /**
+   * Validate the artifact id and returns a boolean value
+   *
+   * @param  {string} artifactId
+   * @returns boolean
+   */
+  public validateArtifactId(artifactId: string): boolean {
+    // allows only '-'
+    return this.validateProjectName(artifactId);
+  }
+
+  /**
+   * Validates the group id with a regex and returns a boolean value
+   *
+   * @param  {string} groupId
+   * @returns boolean
+   */
+  public validateGroupId(groupId: string): boolean {
+    // allows only '.'
+    const pattern = /^[a-z][a-z0-9.]{3,63}$/;
+    return pattern.test(groupId);
+  }
+
+  /**
+   * Validates the project version with a regex and returns a boolean value
+   *
+   * @param  {string} projectVersion
+   * @returns boolean
+   */
+  public validateProjectVersion(projectVersion: string): boolean {
+    // allows '.' and '-'
+    const pattern = /^[a-z][a-z0-9-.]{3,63}$/;
+    return pattern.test(projectVersion);
   }
 
   public getApplicationsInASpace(): Observable<any[]> {

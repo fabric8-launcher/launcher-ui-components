@@ -1,28 +1,3 @@
 <div class="container-fluid">
-  <f8launcher (onCancel)="back()" [gettingStartedInfo]="true">
-    <div class="f8launcher-container_nav">
-      <f8launcher-step-indicator #stepIndicator></f8launcher-step-indicator>
-    </div>
-    <div class="f8launcher-container_main">
-      <f8launcher-targetenvironment-step #targetEnvStep [hidden]="false" id="TargetEnvironment" styleClass="target-environment"
-        title="Select Target Environment">
-      </f8launcher-targetenvironment-step>
-      <f8launcher-missionruntime-step #missionRuntimeStep id="MissionRuntime" styleClass="mission-runtime"
-        title="Select Mission & Runtime" [canChangeVersion]="true">
-      </f8launcher-missionruntime-step>
-      <f8launcher-gitprovider-step #gitProvider [hidden]="!(targetEnvStep.selection.dependencyCheck.targetEnvironment === 'os' && targetEnvStep.completed)"
-        id="GitProvider" styleClass="git-provider" title="Authorize Git Provider">
-      </f8launcher-gitprovider-step>
-      <f8launcher-projectsummary-step id="ProjectSummary" styleClass="project-summary" title="Confirm Application Summary & Setup">
-        <f8launcher-mission-runtime-review [stepId]="missionRuntimeStep.id"></f8launcher-mission-runtime-review>
-        <f8launcher-target-environment-review stepId="shared"></f8launcher-target-environment-review>
-        <f8launcher-gitprovider-review [stepId]="gitProvider.id" *ngIf="targetEnvStep.selection.dependencyCheck.targetEnvironment === 'os' && targetEnvStep.completed"></f8launcher-gitprovider-review>
-      </f8launcher-projectsummary-step>
-    </div>
-    <div class="f8launcher-container_completed-footer">
-      <button class="btn btn-primary btn-lg" (click)="back()">
-        View New Application
-      </button>
-    </div>
-  </f8launcher>
+  <f8launcher flow="launch" authentication (onCancel)="back()" (onComplete)="back()"></f8launcher>
 </div>
