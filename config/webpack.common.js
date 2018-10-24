@@ -103,7 +103,8 @@ module.exports = function ({ env, metadata }) {
           'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_URL),
           'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_REALM),
           'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(metadata.LAUNCHER_KEYCLOAK_CLIENT_ID),
-          'LAUNCHER_FRONTEND_SENTRY_DSN': JSON.stringify(metadata.LAUNCHER_FRONTEND_SENTRY_DSN)
+          'LAUNCHER_FRONTEND_SENTRY_DSN': JSON.stringify(metadata.LAUNCHER_FRONTEND_SENTRY_DSN),
+          'LAUNCHER_TARGETENVIRONMENT_SKIP': JSON.stringify(metadata.LAUNCHER_TARGETENVIRONMENT_SKIP)
         }
       }),
       new webpack.ContextReplacementPlugin(
