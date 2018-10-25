@@ -6249,10 +6249,10 @@ ngx-bootstrap@3.0.1, ngx-bootstrap@^3.0.0, ngx-bootstrap@^3.0.1:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.0.1.tgz#e98d2fc6340f32a9d358cd08e8fda7dcb23bdab3"
   integrity sha512-ni91yYtn8ldgf/pxrlwl9lkVcLURGzopSpJnEbbgG1v1EZWTobI8y7J3mx4Kxptkn0EeiQwnLel67G7XJSox4A==
 
-ngx-launcher@3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-3.0.5.tgz#f0a7856886583e5ac4076f9df13968f2c9b1c953"
-  integrity sha512-MDcaXGcIh2Qu7t8qV6Trmw66hXajkZC4pbkSNCDtyqBmgxTufiOEnp2YV3Pa9QxVms0RobJ9CelyQNn+OcrCLQ==
+ngx-launcher@3.0.11:
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-3.0.11.tgz#897c2c64b52385a7a237707c939b23cb037ac8ad"
+  integrity sha512-dcLbTnPorN5t7WRgxWKRMLQQ+jVexSeDpnDmsyEyG0CqYMc3zhuA1UotE98Phn2ZSw4TzgI7m3RMhWstAfzyIg==
   dependencies:
     fabric8-analytics-dependency-editor "^1.0.3"
     lodash "^4.17.10"
