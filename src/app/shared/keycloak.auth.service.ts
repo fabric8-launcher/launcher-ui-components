@@ -37,6 +37,11 @@ export class KeycloakAuthService extends AuthService {
 
           resolve(this);
         });
+      this.keycloak.onTokenExpired = () => {
+        this.getToken().then(() => {
+          this.initUser();
+        });
+      };
     });
   }
 
