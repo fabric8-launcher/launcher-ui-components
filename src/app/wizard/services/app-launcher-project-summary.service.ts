@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { HelperService, ProjectSummaryService, TokenProvider, Projectile } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { catchError, flatMap } from 'rxjs/operators';
+import { AppLauncherAppCreatorService } from './app-launcher-app-creator.service';
 
 @Injectable()
 export class AppLauncherProjectSummaryService extends HttpService implements ProjectSummaryService {
@@ -33,7 +34,10 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     const summaryEndPoint: string = this.joinPath(this._helperService.getBackendUrl(), target);
     return this.options(projectile.getState('TargetEnvironment').state.cluster, retry).pipe(
       flatMap((option) => {
-        if (this.isTargetOpenshift(projectile)) {
+        if (this.isCreatorFlow(projectile)) {
+          return this._http.post(this.joinPath(AppLauncherAppCreatorService.API_URL, 'launch'), projectile.toJson(), option)
+            .pipe(catchError(HttpService.handleError));
+        } else if (this.isTargetOpenshift(projectile)) {
           return this._http.post(summaryEndPoint, projectile.toHttpPayload(), option)
             .pipe(catchError(HttpService.handleError));
         } else {
@@ -55,6 +59,10 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
 
   private isTargetOpenshift(summary: Projectile<any>) {
     return summary.sharedState.state.targetEnvironment === 'os';
+  }
+
+  private isCreatorFlow(projectile: Projectile<any>): boolean {
+    return projectile.getState('Capabilities') !== undefined;
   }
 
 }

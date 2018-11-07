@@ -10,18 +10,15 @@ import { AuthService } from '../../../shared/auth.service';
 })
 export class GettingStartedComponent {
   public projectName: string = '';
+  public creationType = '';
 
-  private subscriptions: Subscription[] = [];
-
-  constructor(private authService: AuthService,
-              private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   public cancel(): void {
     this.router.navigate(['/']);
   }
 
   public routeToApp(): void {
-    this.router.navigate(['/wizard', this.projectName]);
+    this.router.navigate(['/wizard' + this.creationType, this.projectName]);
   }
 }
