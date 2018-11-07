@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/auth.service';
 
 @Component({
@@ -12,7 +11,7 @@ export class GettingStartedComponent {
   public projectName: string = '';
   public creationType = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public authService: AuthService) {}
 
   public cancel(): void {
     this.router.navigate(['/']);
