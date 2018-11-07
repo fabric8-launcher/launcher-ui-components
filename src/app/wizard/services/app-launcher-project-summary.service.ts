@@ -35,7 +35,10 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return this.options(projectile.getState('TargetEnvironment').state.cluster, retry).pipe(
       flatMap((option) => {
         if (this.isCreatorFlow(projectile)) {
-          return this._http.post(this.joinPath(AppLauncherAppCreatorService.API_URL, 'launch'), projectile.toJson(), option)
+          this.copyProperties(projectile);
+          const json = projectile.toJson();
+          json.name = projectile.sharedState.state.projectName;
+          return this._http.post(this.joinPath(AppLauncherAppCreatorService.API_URL, 'launch'), json, option)
             .pipe(catchError(HttpService.handleError));
         } else if (this.isTargetOpenshift(projectile)) {
           return this._http.post(summaryEndPoint, projectile.toHttpPayload(), option)
@@ -65,4 +68,14 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return projectile.getState('Capabilities') !== undefined;
   }
 
+  private copyProperties(projectile: Projectile<any>) {
+    const capabilities = projectile.getState('Capabilities').state.capabilities;
+    const runtimeId = projectile.getState('Runtimes').state.id;
+    for (const capability of capabilities) {
+      capability['runtime'] = runtimeId;
+      capability['artifactId'] = projectile.sharedState.state.mavenArtifact;
+      capability['groupId'] = projectile.sharedState.state.groupId;
+      capability['version'] = projectile.sharedState.state.projectVersion;
+    }
+  }
 }

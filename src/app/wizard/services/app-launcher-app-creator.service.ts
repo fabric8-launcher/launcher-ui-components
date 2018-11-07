@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Runtime, HelperService, TokenProvider } from 'ngx-launcher';
 import { Capability } from 'ngx-launcher';
@@ -36,6 +36,9 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
   private filter(capabilities: Capability[]): Capability[] {
     for (const capability of capabilities) {
       delete capability.props.runtime;
+      delete capability.props.artifactId;
+      delete capability.props.groupId;
+      delete capability.props.version;
     }
     return capabilities;
   }
