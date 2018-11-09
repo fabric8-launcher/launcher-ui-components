@@ -35,10 +35,13 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
 
   private filter(capabilities: Capability[]): Capability[] {
     for (const capability of capabilities) {
-      delete capability.props.runtime;
-      delete capability.props.artifactId;
-      delete capability.props.groupId;
-      delete capability.props.version;
+      const props = [];
+      for (const prop of capability.props) {
+        if (!prop.shared) {
+          props.push(prop);
+        }
+      }
+      capability.props = props as [{ shared?: boolean; }];
     }
     return capabilities;
   }
