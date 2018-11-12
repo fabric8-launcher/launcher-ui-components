@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Runtime, HelperService, TokenProvider } from 'ngx-launcher';
+import { Runtime, HelperService, TokenProvider, Config } from 'ngx-launcher';
 import { Capability, Property } from 'ngx-launcher';
 import { AppCreatorService } from 'ngx-launcher';
 import { HttpService } from './http.service';
@@ -10,13 +10,13 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AppLauncherAppCreatorService extends HttpService implements AppCreatorService {
-  // TODO make configurable
   private enums: any;
 
   constructor(
     _http: HttpClient,
     _helperService: HelperService,
-    _tokenProvider: TokenProvider
+    _tokenProvider: TokenProvider,
+    private config: Config
   ) {
     super(_http, _helperService, _tokenProvider);
   }
@@ -26,11 +26,11 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
   }
 
   public getCapabilities(): Observable<Capability[]> {
-    return this.httpGet(AppLauncherAppCreatorService.API_URL, 'capabilities');
+    return this.httpGet(this.config.get('creator_url'), 'capabilities');
   }
 
   public getRuntimes(): Observable<Runtime[]> {
-    return this.httpGet<any>(AppLauncherAppCreatorService.API_URL, 'enums').pipe(map((value) => {
+    return this.httpGet<any>(this.config.get('creator_url'), 'enums').pipe(map((value) => {
       this.enums = value;
       return value.runtime;
     }));

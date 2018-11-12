@@ -10,6 +10,8 @@ export class LaunchConfig extends Config {
     origin: 'launcher',
     commit_hash: process.env.LAUNCHER_FRONTEND_COMMITHASH,
     backend_url: process.env.LAUNCHER_BACKEND_URL,
+    creator_url: process.env.LAUNCHER_CREATOR_URL,
+    creator_enabled: process.env.LAUNCHER_CREATOR_ENABLED,
     keycloak_url: process.env.LAUNCHER_KEYCLOAK_URL,
     keycloak_realm: process.env.LAUNCHER_KEYCLOAK_REALM,
     keycloak_client_id: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID,

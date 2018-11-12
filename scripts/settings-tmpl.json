@@ -1,5 +1,7 @@
 {
   "backend_url": "${LAUNCHER_BACKEND_URL}",
+  "creator_url": "${LAUNCHER_CREATOR_URL}",
+  "creator_enabled": "${LAUNCHER_CREATOR_ENABLED}",
   "keycloak_url": "${LAUNCHER_KEYCLOAK_URL}",
   "keycloak_realm": "${LAUNCHER_KEYCLOAK_REALM}",
   "keycloak_client_id": "${LAUNCHER_KEYCLOAK_CLIENT_ID}",

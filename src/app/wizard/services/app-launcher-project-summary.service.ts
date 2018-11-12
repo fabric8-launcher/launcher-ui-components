@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
-import { HelperService, ProjectSummaryService, TokenProvider, Projectile } from 'ngx-launcher';
+import { HelperService, ProjectSummaryService, TokenProvider, Projectile, Config } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { catchError, flatMap } from 'rxjs/operators';
 import { AppLauncherAppCreatorService } from './app-launcher-app-creator.service';
@@ -17,7 +17,8 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   constructor(
     private _http: HttpClient,
     private _helperService: HelperService,
-    _tokenProvider: TokenProvider
+    _tokenProvider: TokenProvider,
+    private config: Config
   ) {
     super(_http, _helperService, _tokenProvider);
   }
@@ -38,7 +39,7 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
           this.copyProperties(projectile);
           const json = projectile.toJson();
           json.name = projectile.sharedState.state.projectName;
-          return this._http.post(this.joinPath(AppLauncherAppCreatorService.API_URL, 'launch'), json, option)
+          return this._http.post(this.joinPath(this.config.get('creator_url'), 'launch'), json, option)
             .pipe(catchError(HttpService.handleError));
         } else if (this.isTargetOpenshift(projectile)) {
           return this._http.post(summaryEndPoint, projectile.toHttpPayload(), option)
