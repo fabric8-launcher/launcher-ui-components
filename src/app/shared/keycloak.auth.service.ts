@@ -112,7 +112,7 @@ export class KeycloakAuthService extends AuthService {
     shaObj.update(hash);
     const hashed = KeycloakAuthService.base64ToUri(shaObj.getHash('B64'));
     // tslint:disable-next-line
-    const link = `${this.keycloak.authServerUrl}/realms/${this.realm}/broker/${provider}/link?nonce=${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURI(redirect || location.href)}`;
+    const link = `${this.keycloak.authServerUrl}/realms/${this.realm}/broker/${provider}/link?nonce=${encodeURI(nonce)}&hash=${hashed}&client_id=${encodeURI(clientId)}&redirect_uri=${encodeURIComponent(redirect || location.href)}`;
     this.user.accountLink[provider] = link;
     return link;
   }
