@@ -72,10 +72,11 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     const capabilities = projectile.getState('Capabilities').state.capabilities;
     const runtimeId = projectile.getState('Runtimes').state.id;
     for (const capability of capabilities) {
-      capability['runtime'] = runtimeId;
-      capability['artifactId'] = projectile.sharedState.state.mavenArtifact;
-      capability['groupId'] = projectile.sharedState.state.groupId;
-      capability['version'] = projectile.sharedState.state.projectVersion;
+      capability.shared = {};
+      capability.shared['runtime'] = runtimeId;
+      capability.shared['artifactId'] = projectile.sharedState.state.mavenArtifact;
+      capability.shared['groupId'] = projectile.sharedState.state.groupId;
+      capability.shared['version'] = projectile.sharedState.state.projectVersion;
     }
   }
 }

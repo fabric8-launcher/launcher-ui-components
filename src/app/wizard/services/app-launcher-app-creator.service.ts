@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Runtime, HelperService, TokenProvider } from 'ngx-launcher';
-import { Capability } from 'ngx-launcher';
+import { Capability, Property } from 'ngx-launcher';
 import { AppCreatorService } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class AppLauncherAppCreatorService extends HttpService implements AppCreatorService {
   // TODO make configurable
-  public static API_URL = 'http://api-creator-backend.devtools-dev.ext.devshift.net';
+  private enums: any;
 
   constructor(
     _http: HttpClient,
@@ -30,18 +30,22 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
   }
 
   public getRuntimes(): Observable<Runtime[]> {
-    return this.httpGet(AppLauncherAppCreatorService.API_URL, 'runtimes');
+    return this.httpGet<any>(AppLauncherAppCreatorService.API_URL, 'enums').pipe(map((value) => {
+      this.enums = value;
+      return value.runtime;
+    }));
   }
 
   private filter(capabilities: Capability[]): Capability[] {
     for (const capability of capabilities) {
-      const props = [];
+      const props: Property[] = [];
       for (const prop of capability.props) {
-        if (!prop.shared) {
+        if (!prop.shared || prop.id === 'runtime') {
+          prop.values = prop.id === 'runtime' ? prop.values : this.enums[prop.id];
           props.push(prop);
         }
       }
-      capability.props = props as [{ shared?: boolean; }];
+      capability.props = props;
     }
     return capabilities;
   }
