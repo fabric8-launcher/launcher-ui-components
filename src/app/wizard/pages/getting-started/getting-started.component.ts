@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/auth.service';
+import { Config } from 'ngx-launcher';
 
 @Component({
   selector: 'getting-started',
@@ -10,11 +10,11 @@ import { AuthService } from '../../../shared/auth.service';
 })
 export class GettingStartedComponent {
   public projectName: string = '';
+  public creationType = '';
+  public creatorEnabled = true;
 
-  private subscriptions: Subscription[] = [];
-
-  constructor(private authService: AuthService,
-              private router: Router) {
+  constructor(private router: Router, public authService: AuthService, config: Config) {
+    this.creatorEnabled = config.get('creator_enabled') === 'true';
   }
 
   public cancel(): void {
@@ -22,6 +22,6 @@ export class GettingStartedComponent {
   }
 
   public routeToApp(): void {
-    this.router.navigate(['/wizard', this.projectName]);
+    this.router.navigate(['/wizard' + this.creationType, this.projectName]);
   }
 }

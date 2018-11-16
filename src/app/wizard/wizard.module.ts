@@ -16,7 +16,8 @@ import {
   ProjectSummaryService,
   TargetEnvironmentService,
   TokenProvider,
-  TokenService
+  TokenService,
+  AppCreatorService
 } from 'ngx-launcher';
 
 import { AuthTokenProvider } from '../shared/auth-token.provider';
@@ -45,6 +46,8 @@ import { GettingStartedComponent } from './pages/getting-started/getting-started
 import { LaunchHelper } from '../shared/helper.component';
 import { errorHandlerFactory } from '../shared/error.component';
 import { AuthService } from '../shared/auth.service';
+import { CreatorWizardComponent } from './creator-wizard.component';
+import { AppLauncherAppCreatorService } from './services/app-launcher-app-creator.service';
 
 @NgModule({
   imports: [
@@ -58,6 +61,7 @@ import { AuthService } from '../shared/auth.service';
   declarations: [
     GettingStartedComponent,
     WizardComponent,
+    CreatorWizardComponent,
     IntroComponent,
     AuthenticationDirective
   ],
@@ -77,6 +81,7 @@ import { AuthService } from '../shared/auth.service';
     History,
     { provide: ErrorHandler, useFactory: errorHandlerFactory, deps: [Config] },
     { provide: HelperService, useClass: LaunchHelper, deps: [Config] },
+    { provide: AppCreatorService, useClass: AppLauncherAppCreatorService },
     { provide: GitProviderService, useClass: AppLauncherGitproviderService },
     { provide: MissionRuntimeService, useClass: AppLauncherMissionRuntimeService },
     { provide: PipelineService, useClass: AppLauncherPipelineService },
