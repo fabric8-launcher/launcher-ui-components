@@ -26,7 +26,7 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
   }
 
   public getCapabilities(): Observable<Capability[]> {
-    return this.httpGet(this.config.get('creator_url'), 'capabilities');
+    return this.getRuntimes().pipe(() => this.httpGet(this.config.get('creator_url'), 'capabilities'));
   }
 
   public getRuntimes(): Observable<Runtime[]> {
