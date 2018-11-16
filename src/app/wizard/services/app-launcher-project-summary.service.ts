@@ -6,7 +6,6 @@ import { Observable, of } from 'rxjs';
 import { HelperService, ProjectSummaryService, TokenProvider, Projectile, Config } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { catchError, flatMap } from 'rxjs/operators';
-import { AppLauncherAppCreatorService } from './app-launcher-app-creator.service';
 
 @Injectable()
 export class AppLauncherProjectSummaryService extends HttpService implements ProjectSummaryService {
@@ -36,10 +35,10 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return this.options(projectile.getState('TargetEnvironment').state.cluster, retry).pipe(
       flatMap((option) => {
         if (this.isCreatorFlow(projectile)) {
-          this.copyProperties(projectile);
           const json = projectile.toJson();
-          json.name = projectile.sharedState.state.projectName;
-          return this._http.post(this.joinPath(this.config.get('creator_url'), 'launch'), json, option)
+          this.copyProperties(projectile, json);
+          const endpoint = this.isTargetOpenshift(projectile) ? 'launch' : 'zip';
+          return this._http.post(this.joinPath(this.config.get('creator_url'), endpoint), json, option)
             .pipe(catchError(HttpService.handleError));
         } else if (this.isTargetOpenshift(projectile)) {
           return this._http.post(summaryEndPoint, projectile.toHttpPayload(), option)
@@ -69,15 +68,13 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return projectile.getState('Capabilities') !== undefined;
   }
 
-  private copyProperties(projectile: Projectile<any>) {
-    const capabilities = projectile.getState('Capabilities').state.capabilities;
+  private copyProperties(projectile: Projectile<any>, object) {
     const runtimeId = projectile.getState('Runtimes').state.id;
-    for (const capability of capabilities) {
-      capability.shared = {};
-      capability.shared['runtime'] = runtimeId;
-      capability.shared['artifactId'] = projectile.sharedState.state.mavenArtifact;
-      capability.shared['groupId'] = projectile.sharedState.state.groupId;
-      capability.shared['version'] = projectile.sharedState.state.projectVersion;
-    }
+    object.name = projectile.sharedState.state.projectName;
+    object.shared = {};
+    object.shared['runtime'] = runtimeId;
+    object.shared['artifactId'] = projectile.sharedState.state.mavenArtifact;
+    object.shared['groupId'] = projectile.sharedState.state.groupId;
+    object.shared['version'] = projectile.sharedState.state.projectVersion;
   }
 }
