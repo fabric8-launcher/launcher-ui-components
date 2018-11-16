@@ -120,6 +120,12 @@ objects:
                 name: launcher
                 key: launcher.frontend.sentry.dsn
                 optional: true
+          - name: LAUNCHER_TARGETENVIRONMENT_SKIP
+            valueFrom:
+              configMapKeyRef:
+                name: launcher
+                key: launcher.frontend.targetenvironment.skip
+                optional: true
           resources: {}
           terminationMessagePath: /dev/termination-log
           readinessProbe:

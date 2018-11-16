@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 
-import { DependencyCheck, DependencyCheckService } from 'ngx-launcher';
+import { DependencyCheck, DependencyCheckService, Config } from 'ngx-launcher';
 
 @Injectable()
 export class AppLauncherDependencyCheckService implements DependencyCheckService {
+
+  constructor(private config: Config) {}
 
   /**
    * Returns project dependencies
@@ -18,7 +20,7 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
       projectName: undefined,
       projectVersion: '1.0.0-SNAPSHOT',
       spacePath: undefined,
-      targetEnvironment: undefined
+      targetEnvironment: this.config.get('targetenvironment_skip') === 'true' ? 'os' : undefined
     });
   }
 
