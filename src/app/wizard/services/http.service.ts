@@ -24,12 +24,16 @@ export class HttpService {
     return throwError(errMsg);
   }
 
-  public backendHttpGet<T>(...endpoint: string[]): Observable<T> {
-    endpoint.unshift(this.helperService.getBackendUrl());
+  public httpGet<T>(url: string, ...endpoint: string[]): Observable<T> {
+    endpoint.unshift(url);
     return this.options().pipe(
       flatMap((options) => this.http.get<T>(this.joinPath(...endpoint), options)),
       catchError(HttpService.handleError)
     );
+  }
+
+  public backendHttpGet<T>(...endpoint: string[]): Observable<T> {
+    return this.httpGet(this.helperService.getBackendUrl(), ...endpoint);
   }
 
   protected joinPath(...parts: string[]): string {

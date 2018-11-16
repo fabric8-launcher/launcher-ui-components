@@ -100,6 +100,8 @@ module.exports = function ({ env, metadata }) {
           'PUBLIC_PATH' : JSON.stringify(metadata.PUBLIC_PATH),
           'LAUNCHER_FRONTEND_COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
           'LAUNCHER_BACKEND_URL' : JSON.stringify(metadata.LAUNCHER_BACKEND_URL),
+          'LAUNCHER_CREATOR_ENABLED': JSON.stringify(metadata.LAUNCHER_CREATOR_ENABLED),
+          'LAUNCHER_CREATOR_URL' : JSON.stringify(metadata.LAUNCHER_CREATOR_URL),
           'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_URL),
           'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(metadata.LAUNCHER_KEYCLOAK_REALM),
           'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(metadata.LAUNCHER_KEYCLOAK_CLIENT_ID),

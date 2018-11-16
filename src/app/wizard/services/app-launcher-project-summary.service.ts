@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
-import { HelperService, ProjectSummaryService, TokenProvider, Projectile } from 'ngx-launcher';
+import { HelperService, ProjectSummaryService, TokenProvider, Projectile, Config } from 'ngx-launcher';
 import { HttpService } from './http.service';
 import { catchError, flatMap } from 'rxjs/operators';
+import { AppLauncherAppCreatorService } from './app-launcher-app-creator.service';
 
 @Injectable()
 export class AppLauncherProjectSummaryService extends HttpService implements ProjectSummaryService {
@@ -16,7 +17,8 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   constructor(
     private _http: HttpClient,
     private _helperService: HelperService,
-    _tokenProvider: TokenProvider
+    _tokenProvider: TokenProvider,
+    private config: Config
   ) {
     super(_http, _helperService, _tokenProvider);
   }
@@ -33,7 +35,13 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     const summaryEndPoint: string = this.joinPath(this._helperService.getBackendUrl(), target);
     return this.options(projectile.getState('TargetEnvironment').state.cluster, retry).pipe(
       flatMap((option) => {
-        if (this.isTargetOpenshift(projectile)) {
+        if (this.isCreatorFlow(projectile)) {
+          this.copyProperties(projectile);
+          const json = projectile.toJson();
+          json.name = projectile.sharedState.state.projectName;
+          return this._http.post(this.joinPath(this.config.get('creator_url'), 'launch'), json, option)
+            .pipe(catchError(HttpService.handleError));
+        } else if (this.isTargetOpenshift(projectile)) {
           return this._http.post(summaryEndPoint, projectile.toHttpPayload(), option)
             .pipe(catchError(HttpService.handleError));
         } else {
@@ -57,4 +65,19 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return summary.sharedState.state.targetEnvironment === 'os';
   }
 
+  private isCreatorFlow(projectile: Projectile<any>): boolean {
+    return projectile.getState('Capabilities') !== undefined;
+  }
+
+  private copyProperties(projectile: Projectile<any>) {
+    const capabilities = projectile.getState('Capabilities').state.capabilities;
+    const runtimeId = projectile.getState('Runtimes').state.id;
+    for (const capability of capabilities) {
+      capability.shared = {};
+      capability.shared['runtime'] = runtimeId;
+      capability.shared['artifactId'] = projectile.sharedState.state.mavenArtifact;
+      capability.shared['groupId'] = projectile.sharedState.state.groupId;
+      capability.shared['version'] = projectile.sharedState.state.projectVersion;
+    }
+  }
 }

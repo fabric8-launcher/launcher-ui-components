@@ -78,7 +78,7 @@ input,
         margin-bottom: 10px;
       }
       &_content {
-        height: 350px;
+        height: 200px;
         background-color: transparent;
         color: $color-pf-white;
         border: 0;
@@ -93,6 +93,33 @@ input,
           font-size: 8em;
         }
       }
+      .codebase-card-container {
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        &-radio {
+          height: 70%;
+          &-input {
+            display: flex;
+            align-items: center;
+            height: 100px;
+          }
+        }
+        &-create-app-image {
+          height: 80px;
+        }
+        &-import-app-image {
+          height: 80px;
+        }
+        &-desp {
+          align-self: flex-start;
+          height: 100%;
+          .card-pf-item {
+            font-size: 1em;
+          }
+        }
+      }
+
       &_toolbar {
         margin-top: 40px;
         text-align: center;
