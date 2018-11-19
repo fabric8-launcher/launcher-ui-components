@@ -48,6 +48,7 @@ import { errorHandlerFactory } from '../shared/error.component';
 import { AuthService } from '../shared/auth.service';
 import { CreatorWizardComponent } from './creator-wizard.component';
 import { AppLauncherAppCreatorService } from './services/app-launcher-app-creator.service';
+import { FlowChoiceComponent } from './pages/flow-choice/flow-choice.component';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { AppLauncherAppCreatorService } from './services/app-launcher-app-creato
   declarations: [
     GettingStartedComponent,
     WizardComponent,
+    FlowChoiceComponent,
     CreatorWizardComponent,
     IntroComponent,
     AuthenticationDirective
