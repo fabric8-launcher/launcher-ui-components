@@ -13,7 +13,7 @@ const METADATA = Object.assign({}, {
   PUBLIC_PATH: process.env.PUBLIC_PATH || '/launch/',
   LAUNCHER_BACKEND_URL: process.env.LAUNCHER_BACKEND_URL || '/launch/api',
   LAUNCHER_CREATOR_ENABLED: process.env.LAUNCHER_CREATOR_ENABLED || 'false',
-  LAUNCHER_CREATOR_URL: process.env.LAUNCHER_CREATOR_URL || 'http://api-creator-backend.devtools-dev.ext.devshift.net',
+  LAUNCHER_CREATOR_URL: process.env.LAUNCHER_CREATOR_URL || '/launch/creator/',
   LAUNCHER_KEYCLOAK_URL: process.env.LAUNCHER_KEYCLOAK_URL,
   LAUNCHER_KEYCLOAK_REALM: process.env.LAUNCHER_KEYCLOAK_REALM,
   LAUNCHER_KEYCLOAK_CLIENT_ID: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public',
@@ -21,7 +21,7 @@ const METADATA = Object.assign({}, {
   LAUNCHER_TARGETENVIRONMENT_SKIP: process.env.LAUNCHER_TARGETENVIRONMENT_SKIP || false
 });
 
-module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA  }), {
+module.exports = webpackMerge(commonConfig({ env: ENV, metadata: METADATA }), {
   devtool: 'source-map',
   output: {
     path: helpers.root('dist'),

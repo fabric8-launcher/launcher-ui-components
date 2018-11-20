@@ -19,6 +19,7 @@ case "$BACKEND" in
 "LOCAL")
     # Local backend
     export LAUNCHER_BACKEND_URL=http://localhost:8080/api/
+    export LAUNCHER_CREATOR_URL=http://localhost:8081/
     if [ -z "$KEYCLOAK" ]; then
 
         # Default KeyCloak will be used if KEYCLOAK variable is not set before.
@@ -34,11 +35,13 @@ case "$BACKEND" in
     # Official KeyCloak
     export KEYCLOAK=OFFICIAL
     export LAUNCHER_BACKEND_URL=https://forge.api.prod-preview.openshift.io/api
+    export LAUNCHER_CREATOR_URL=https://forge.api.prod-preview.openshift.io/creator/
     ;;
 "PROD")
     # Local KeyCloak
     export KEYCLOAK=OFFICIAL
     export LAUNCHER_BACKEND_URL=https://forge.api.openshift.io/api
+    export LAUNCHER_CREATOR_URL=https://forge.api.openshift.io/creator/
     ;;
 *)
     echo ERROR: Failed to setup environment. Please choose a BACKEND mode.
