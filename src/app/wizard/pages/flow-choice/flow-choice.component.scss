@@ -2,3 +2,26 @@
   display: grid;
   grid-template-rows: 1fr auto 550px;
 }
+
+.description {
+  padding: 0 20px;
+}
+
+.flow-container {
+  display:flex;
+  margin-top: 20px;
+  padding: 0 50px;
+}
+
+div.flow {
+  margin-bottom: 20px;
+}
+
+.flow-card {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.selected-card {
+  border: 2px solid #0088ce;
+}

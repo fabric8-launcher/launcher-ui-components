@@ -2,63 +2,56 @@
   <div>
     <div class="container-fluid">
       <h1>{{title}}</h1>
+      <div class="col-xs-12 col-md-6 description">
+        <p>
+          You can choose to either use one of the example applications or have your new project be assembled from a list
+          of capabilities.
+        </p>
+      </div>
+
     </div>
   </div>
-  <div>
-    <div *ngIf="!creatorEnabled">
-      <div class="row row-cards-pf">
-        <div class="col-sm-10 col-md-4 col-md-offset-2">
-          <div class="container-fluid container-cards-pf">
-            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select code-imports--step_content">
-              <div class="card-pf-body" (click)="creatorFlow = false">
-                <div class="row codebase-card-container">
-                  <div class="col-sm-1 codebase-card-container-radio">
-                    <div class="list-view-pf-checkbox codebase-card-container-radio-input">
-                      <input name="import" type="radio" [(ngModel)]="creatorFlow" [value]="false">
-                    </div>
-                  </div>
-                  <div class="col-sm-8 codebase-card-container-desp">
-                    <h2 class="card-pf-title">
-                      From a Template
-                    </h2>
-                    <div class="card-pf-items">
-                      <div class="card-pf-item">
-                        Choose from a variety of Red Hat certified templates to generate the foundation for a new
-                        application in the OpenShift ecosystem.
-                      </div>
-                    </div>
-                  </div>
+  <div *ngIf="!creatorEnabled">
+    <div class="flow-container">
+        <div class="card-pf flow-card" [class.selected-card]="!selection.creatorFlow" (click)="selection.creatorFlow = false">
+          <div class="card-pf-body">
+            <div class="col-sm-1 codebase-card-container-radio">
+              <div class="list-view-pf-checkbox codebase-card-container-radio-input">
+                <input name="import" type="radio" [(ngModel)]="selection.creatorFlow" [value]="false">
+              </div>
+            </div>
+            <div class="col-sm-8 flow">
+              <h2 class="card-pf-title">
+                From a Example
+              </h2>
+              <div class="card-pf-items">
+                <div class="card-pf-item">
+                  Choose from a variety of Red Hat certified example to generate the foundation for a new
+                  application in the OpenShift ecosystem.
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-10 col-md-4">
-          <div class="container-fluid container-cards-pf">
-            <div class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select code-imports--step_content">
-              <div class="card-pf-body" (click)="creatorFlow = true">
-                <div class="row codebase-card-container">
-                  <div class="col-sm-1 codebase-card-container-radio">
-                    <div class="list-view-pf-checkbox codebase-card-container-radio-input">
-                      <input name="import" type="radio" [(ngModel)]="creatorFlow" [value]="true">
-                    </div>
-                  </div>
-                  <div class="col-sm-8 codebase-card-container-desp">
-                    <h2 class="card-pf-title">
-                      Pick the capabilities
-                    </h2>
-                    <div class="card-pf-items">
-                      <div class="card-pf-item">
-                        Pick the capabilities that you want your new application to have.
-                      </div>
-                    </div>
-                  </div>
+        <div class="card-pf flow-card" [class.selected-card]="selection.creatorFlow" (click)="selection.creatorFlow = true">
+          <div class="card-pf-body">
+            <div class="col-sm-1 codebase-card-container-radio">
+              <div class="list-view-pf-checkbox codebase-card-container-radio-input">
+                <input name="import" type="radio" [(ngModel)]="selection.creatorFlow" [value]="true">
+              </div>
+            </div>
+            <div class="col-sm-8 flow">
+              <h2 class="card-pf-title">
+                Pick the capabilities
+              </h2>
+              <div class="card-pf-items">
+                <div class="card-pf-item">
+                  Pick the capabilities that you want your new application to have.
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
   <div *ngIf="launcherComponent">

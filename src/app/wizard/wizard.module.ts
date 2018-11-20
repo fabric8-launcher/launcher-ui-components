@@ -42,7 +42,6 @@ import { AppLauncherTokenService } from './services/app-launcher-token.service';
 import { AuthenticationDirective } from '../shared/authentication.directive';
 
 import { ModalModule } from 'ngx-modal';
-import { GettingStartedComponent } from './pages/getting-started/getting-started.component';
 import { LaunchHelper } from '../shared/helper.component';
 import { errorHandlerFactory } from '../shared/error.component';
 import { AuthService } from '../shared/auth.service';
@@ -60,7 +59,6 @@ import { FlowChoiceComponent } from './pages/flow-choice/flow-choice.component';
     PopoverModule.forRoot()
   ],
   declarations: [
-    GettingStartedComponent,
     WizardComponent,
     FlowChoiceComponent,
     CreatorWizardComponent,

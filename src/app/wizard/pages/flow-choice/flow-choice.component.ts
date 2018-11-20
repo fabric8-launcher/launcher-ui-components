@@ -8,17 +8,31 @@ import { LauncherComponent, LauncherStep, Projectile, StepState } from 'ngx-laun
   styleUrls: ['./flow-choice.component.scss']
 })
 export class FlowChoiceComponent extends LauncherStep implements OnInit {
-  public completed: boolean;
-  public creatorFlow: boolean = false;
+  public completed: boolean = true;
+  public selection: Selection = new Selection();
 
   constructor(@Host() @Optional() public launcherComponent: LauncherComponent,
-              projectile: Projectile<any>) {
+              private projectile: Projectile<any>) {
     super(projectile);
   }
 
   public ngOnInit(): void {
+    const state = new StepState(this.selection, [
+      { name: 'flow', value: 'creatorFlow', restorePath: undefined }
+    ]);
+    this.projectile.setState(this.id, state);
+
     if (this.launcherComponent) {
       this.launcherComponent.addStep(this);
     }
+    this.restore();
   }
+
+  public restoreModel(model: any): void {
+    this.selection.creatorFlow = model.flow;
+  }
+}
+
+export class Selection {
+  public creatorFlow: boolean = false;
 }

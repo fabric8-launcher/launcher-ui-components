@@ -11,7 +11,7 @@ export class IntroComponent {
   }
 
   public launch() {
-    this.router.navigate(['/wizard'])
+    this.router.navigate(['/wizard', 'app-name'])
       .catch((e) => console.error(e));
   }
 
