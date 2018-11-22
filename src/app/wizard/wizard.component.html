@@ -19,9 +19,9 @@
         title="Select Target Environment">
       </f8launcher-targetenvironment-step>
       <flow-choice id="FlowChoice" title="Example or Create New" #flowStep [hidden]="!creatorEnabled || !targetEnvStep.selection.cluster || targetEnvStep.selection.cluster.type === 'starter'"></flow-choice>
-      <f8launcher-missionruntime-step #missionRuntimeStep id="MissionRuntime" styleClass="mission-runtime"
+      <missionruntime-step #missionRuntimeStep id="MissionRuntime" styleClass="mission-runtime"
         title="Select Mission & Runtime" [canChangeVersion]="true" [hidden]="flowStep.selection.creatorFlow">
-      </f8launcher-missionruntime-step>
+      </missionruntime-step>
       <f8launcher-runtime-step id="Runtimes" title="Select a Runtime" [hidden]="!flowStep.selection.creatorFlow"></f8launcher-runtime-step>
       <f8launcher-capabilities-step id="Capabilities" title="Select a Capability" [hidden]="!flowStep.selection.creatorFlow"></f8launcher-capabilities-step>
       <f8launcher-gitprovider-step #gitProvider [hidden]="!(targetEnvStep.selection.dependencyCheck.targetEnvironment === 'os' && targetEnvStep.completed)"

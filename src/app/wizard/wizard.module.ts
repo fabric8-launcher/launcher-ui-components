@@ -23,6 +23,7 @@ import {
 import { AuthTokenProvider } from '../shared/auth-token.provider';
 import { AuthGuardService } from '../shared/authguard.service';
 
+import { BsDropdownConfig, BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { WizardComponent } from './wizard.component';
@@ -47,6 +48,7 @@ import { errorHandlerFactory } from '../shared/error.component';
 import { AuthService } from '../shared/auth.service';
 import { AppLauncherAppCreatorService } from './services/app-launcher-app-creator.service';
 import { FlowChoiceComponent } from './pages/flow-choice/flow-choice.component';
+import { MissionRuntimeStepComponent } from './pages/mission-runtime-step/mission-runtime-step.component';
 
 @NgModule({
   imports: [
@@ -55,15 +57,18 @@ import { FlowChoiceComponent } from './pages/flow-choice/flow-choice.component';
     ModalModule,
     LauncherModule,
     BrowserAnimationsModule,
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    BsDropdownModule.forRoot(),
   ],
   declarations: [
     WizardComponent,
     FlowChoiceComponent,
+    MissionRuntimeStepComponent,
     IntroComponent,
     AuthenticationDirective
   ],
   providers: [
+    BsDropdownConfig,
     AuthGuardService,
     {
       provide: APP_INITIALIZER,

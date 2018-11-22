@@ -1,0 +1,75 @@
+<section id="MissionRuntime" class="f8launcher-section-mission-runtime f8launcher-container_main--start"
+         [ngClass]="{'hidden': hidden}" #section>
+
+  <h1>{{title}}</h1>
+
+  <div>
+    <div class="container-fluid">
+      <div class="card-pf padding-10">
+        Already decided what runtime you want to use? Select it here:
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-secondary" [class.active]="!booster.runtime.id" (click)="clearRuntime()">
+            Any
+          </button>
+          <button type="button" class="btn btn-secondary" [class.active]="runtime.id === booster.runtime.id" (click)="selectRuntime(runtime)"
+            *ngFor="let runtime of runtimes">
+            {{runtime.name}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid container-cards-pf">
+      <div class="card-pf row">
+        <div class="list-group-item col-xs-12 col-md-6" *ngFor="let mission of missions" [class.disabled]="mission.disabled"
+          [class.selected-list-item]="mission.id === booster.mission.id">
+          <div (click)="selectBooster(mission)">
+            <div class="checkbox">
+              <input type="radio" name="mission" [disabled]="mission.disabled" [(ngModel)]="booster.mission.id" [value]="mission.id"
+                (ngModelChange)="selectBooster(mission)">
+            </div>
+            <div class="list-group-item-heading">
+              {{mission.name}}
+            </div>
+          </div>
+          <div class="list-group-item-text">
+            {{mission.description}}
+            <div *ngIf="booster.mission.id == mission.id">
+              <div class="dropdown" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle" dropdownToggle>
+                  {{booster.runtime.name || 'Select Runtime'}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" *dropdownMenu [attr.aria-labelledby]="mission.id + 'dropdown'">
+                  <li *ngFor="let runtime of runtimes">
+                    <a href="javascript:void(0)" class="dropdown-item" role="menuitem" tabindex="-1" (click)="selectBooster(null, runtime)" *ngIf="!runtime.disabled">
+                      {{runtime.name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="dropdown" dropdown *ngIf="booster.runtime.id">
+                <button type="button" class="btn btn-default dropdown-toggle" dropdownToggle>
+                  {{booster.runtime.version.name}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" *dropdownMenu [attr.aria-labelledby]="booster.runtime.id + 'dropdown'">
+                  <li *ngFor="let version of booster.runtime.versions">
+                    <a href="javascript:void(0)" class="dropdown-item" role="menuitem" tabindex="-1" (click)="selectBooster(null, booster.runtime, version)">
+                      {{version.name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="launcherComponent">
+    <f8launcher-button-next-step [disabled]="!completed" [navFromId]="id"></f8launcher-button-next-step>
+  </div>
+</section>
