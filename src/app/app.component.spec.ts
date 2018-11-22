@@ -158,23 +158,8 @@ describe('AppComponent', () => {
   it('Should set application name and start wizard and go through all steps', fakeAsync(() => {
     fixture.detectChanges();
     authService.login();
-    router.navigate(['/wizard']);
+    router.navigate(['/wizard/app-name']);
     completeTick();
-
-    // Step 0: Application name
-    const projectNameInput = fixture.debugElement.query(By.css('#projectName'));
-    const routeToAppButton = fixture.debugElement.query(By.css('#routeToApp'));
-    expect(projectNameInput).toBeTruthy('Project Name input is not in the view');
-    expect(routeToAppButton).toBeTruthy('Route to App button is not in the view');
-
-    projectNameInput.componentInstance.projectName = 'my-new-test-project'; // FIXME remove when it works
-    completeTick();
-
-    expect(projectNameInput.componentInstance.projectName).toBe('my-new-test-project');
-
-    routeToAppButton.nativeElement.click();
-    completeTick();
-    expect(router.url).toBe('/wizard/my-new-test-project');
 
     tick();
 

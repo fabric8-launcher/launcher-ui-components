@@ -4,54 +4,52 @@
       <h1>{{title}}</h1>
       <div class="col-xs-12 col-md-6 description">
         <p>
-          You can choose to either use one of the example applications or have your new project be assembled from a list
-          of capabilities.
+          You can choose to either use one of the example applications or have your new project be assembled from a
+          list of capabilities.
         </p>
       </div>
 
     </div>
   </div>
-  <div *ngIf="!creatorEnabled">
-    <div class="flow-container">
-        <div class="card-pf flow-card" [class.selected-card]="!selection.creatorFlow" (click)="selection.creatorFlow = false">
-          <div class="card-pf-body">
-            <div class="col-sm-1 codebase-card-container-radio">
-              <div class="list-view-pf-checkbox codebase-card-container-radio-input">
-                <input name="import" type="radio" [(ngModel)]="selection.creatorFlow" [value]="false">
-              </div>
-            </div>
-            <div class="col-sm-8 flow">
-              <h2 class="card-pf-title">
-                From a Example
-              </h2>
-              <div class="card-pf-items">
-                <div class="card-pf-item">
-                  Choose from a variety of Red Hat certified example to generate the foundation for a new
-                  application in the OpenShift ecosystem.
-                </div>
-              </div>
+  <div class="flow-container">
+    <div class="card-pf flow-card" [class.selected-card]="!selection.creatorFlow" (click)="selection.creatorFlow = false">
+      <div class="card-pf-body">
+        <div class="col-sm-1 codebase-card-container-radio">
+          <div class="list-view-pf-checkbox codebase-card-container-radio-input">
+            <input name="import" type="radio" [(ngModel)]="selection.creatorFlow" [value]="false">
+          </div>
+        </div>
+        <div class="col-sm-8 flow">
+          <h2 class="card-pf-title">
+            From a Example
+          </h2>
+          <div class="card-pf-items">
+            <div class="card-pf-item">
+              Choose from a variety of Red Hat certified example to generate the foundation for a new
+              application in the OpenShift ecosystem.
             </div>
           </div>
         </div>
-        <div class="card-pf flow-card" [class.selected-card]="selection.creatorFlow" (click)="selection.creatorFlow = true">
-          <div class="card-pf-body">
-            <div class="col-sm-1 codebase-card-container-radio">
-              <div class="list-view-pf-checkbox codebase-card-container-radio-input">
-                <input name="import" type="radio" [(ngModel)]="selection.creatorFlow" [value]="true">
-              </div>
-            </div>
-            <div class="col-sm-8 flow">
-              <h2 class="card-pf-title">
-                Pick the capabilities
-              </h2>
-              <div class="card-pf-items">
-                <div class="card-pf-item">
-                  Pick the capabilities that you want your new application to have.
-                </div>
-              </div>
+      </div>
+    </div>
+    <div class="card-pf flow-card" [class.selected-card]="selection.creatorFlow" (click)="selection.creatorFlow = true">
+      <div class="card-pf-body">
+        <div class="col-sm-1 codebase-card-container-radio">
+          <div class="list-view-pf-checkbox codebase-card-container-radio-input">
+            <input name="import" type="radio" [(ngModel)]="selection.creatorFlow" [value]="true">
+          </div>
+        </div>
+        <div class="col-sm-8 flow">
+          <h2 class="card-pf-title">
+            Pick the capabilities
+          </h2>
+          <div class="card-pf-items">
+            <div class="card-pf-item">
+              Pick the capabilities that you want your new application to have.
             </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
   <div *ngIf="launcherComponent">
