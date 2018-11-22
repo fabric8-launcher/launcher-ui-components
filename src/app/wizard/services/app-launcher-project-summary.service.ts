@@ -73,8 +73,15 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     object.name = projectile.sharedState.state.projectName;
     object.shared = {};
     object.shared['runtime'] = runtimeId;
-    object.shared['artifactId'] = projectile.sharedState.state.mavenArtifact;
-    object.shared['groupId'] = projectile.sharedState.state.groupId;
-    object.shared['version'] = projectile.sharedState.state.projectVersion;
+    const version = {};
+    version['version'] = projectile.sharedState.state.projectVersion;
+    if (runtimeId === 'nodejs') {
+      version['name'] = object.name;
+      object.shared.nodejs = version;
+    } else {
+      version['artifactId'] = projectile.sharedState.state.mavenArtifact;
+      version['groupId'] = projectile.sharedState.state.groupId;
+      object.shared.maven = version;
+    }
   }
 }
