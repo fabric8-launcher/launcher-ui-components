@@ -22,8 +22,8 @@
     <div class="container-fluid container-cards-pf">
       <div class="card-pf row">
         <div class="list-group-item col-xs-12 col-md-6" *ngFor="let mission of missions" [class.disabled]="mission.disabled"
-          [class.selected-list-item]="mission.id === booster.mission.id">
-          <div (click)="selectBooster(mission)">
+          [class.selected-list-item]="mission.id === booster.mission.id" (click)="selectBooster(mission)">
+          <div>
             <div class="checkbox">
               <input type="radio" name="mission" [disabled]="mission.disabled" [(ngModel)]="booster.mission.id" [value]="mission.id"
                 (ngModelChange)="selectBooster(mission)">

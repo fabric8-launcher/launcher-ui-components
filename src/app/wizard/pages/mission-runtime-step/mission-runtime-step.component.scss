@@ -17,6 +17,7 @@
   }
 
   .list-group-item {
+    cursor: pointer;
     &.selected-list-item {
       background-color: #def3ff;
     }
