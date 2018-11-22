@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 
 import { Runtime, HelperService, TokenProvider, Config } from 'ngx-launcher';
 import { Capability, Property } from 'ngx-launcher';
@@ -11,6 +11,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class AppLauncherAppCreatorService extends HttpService implements AppCreatorService {
   private enums: any;
+
+  private readonly url = this.config.get('creator_url');
 
   constructor(
     _http: HttpClient,
@@ -26,11 +28,11 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
   }
 
   public getCapabilities(): Observable<Capability[]> {
-    return this.getRuntimes().pipe(() => this.httpGet(this.config.get('creator_url'), 'capabilities'));
+    return this.getRuntimes().pipe(flatMap(() => this.httpGet<Capability[]>(this.url, 'capabilities')));
   }
 
   public getRuntimes(): Observable<Runtime[]> {
-    return this.httpGet<any>(this.config.get('creator_url'), 'enums').pipe(map((value) => {
+    return this.httpGet<any>(this.url, 'enums').pipe(map((value) => {
       this.enums = value;
       return value.runtime;
     }));
