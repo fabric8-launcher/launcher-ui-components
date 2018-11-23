@@ -18,6 +18,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from './app.routes';
 import { WizardModule } from './wizard/wizard.module';
 import { AuthService, User } from './shared/auth.service';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 // tslint:disable-next-line
 const launchMockData = require('../assets/mock/demo-catalog-launch.json') as Catalog;
@@ -61,6 +62,7 @@ class MockAuthService extends AuthService {
 
 describe('AppComponent', () => {
   const serviceUrl = 'http://localhost:8080/api';
+  const creatorUrl = 'http://localhost:8081';
   let mockHttp: HttpTestingController;
   let fixture: ComponentFixture<AppComponent>;
   let element: HTMLElement;
@@ -76,7 +78,7 @@ describe('AppComponent', () => {
   }
 
   function getMissionsSection(): Element {
-    return element.querySelectorAll('#MissionRuntime .card-pf-body')[0];
+    return element.querySelectorAll('#MissionRuntime .card-pf.row')[0];
   }
 
   function getMissionItem(index: number): Element {
@@ -84,11 +86,15 @@ describe('AppComponent', () => {
   }
 
   function getRuntimesSection(): Element {
-    return element.querySelectorAll('#MissionRuntime .card-pf-body')[1];
+    return element.querySelectorAll('#MissionRuntime .card-pf .selected-list-item')[0];
   }
 
   function getRuntimeItem(index: number): Element {
-    return getRuntimesSection().querySelectorAll('.list-group-item')[index];
+    const element = getRuntimesSection();
+    const button = element.querySelector<HTMLButtonElement>('.dropdown button');
+    button.click();
+    completeTick();
+    return element.querySelectorAll('ul li')[index];
   }
 
   function checkStepCompletion(stepId: string) {
@@ -106,13 +112,24 @@ describe('AppComponent', () => {
     completeTick();
   }
 
+  function selectRuntime(item: Element) {
+    const runtime = item.querySelector('a');
+    runtime.click();
+    completeTick();
+  }
+
   function isBoosterItemSelected(item: Element): boolean {
     return item.classList.contains('selected-list-item');
+  }
+
+  function isRuntimeSelected(item: Element): boolean {
+    return item.querySelectorAll('button').length === 2;
   }
 
   beforeEach(async((done) => {
     TestBed.configureTestingModule({
       imports: [
+        BsDropdownModule.forRoot(),
         BrowserModule,
         FormsModule,
         HttpClientTestingModule,
@@ -147,11 +164,11 @@ describe('AppComponent', () => {
     const launchButton = fixture.debugElement.query(By.css('.launch-box a.btn'));
     expect(launchButton).toBeTruthy('Launch link is not in the view');
     launchButton.nativeElement.click();
-    completeTick();
+    tick();
     const loginButton = fixture.debugElement.query(By.css('.blank-slate-pf-main-action button'));
     expect(loginButton).toBeTruthy('Login button is not in the view');
     loginButton.nativeElement.click();
-    completeTick();
+    tick();
     expect(authService.isAuthenticated).toBeTruthy('User should be authenticated');
   }));
 
@@ -179,6 +196,9 @@ describe('AppComponent', () => {
     reqUser.flush({ login: 'andy', avatarUrl: 'avatarUrl', repositories: ['ia3andy/repo1', 'ia3andy/repo2'], organizations: [] });
     completeTick();
 
+    mockHttp.match(`${creatorUrl}/enums`);
+    completeTick();
+
     tick(501);
 
     // Step 1: TargetEnvironment
@@ -195,8 +215,8 @@ describe('AppComponent', () => {
     expect(isBoosterItemSelected(missionItem)).toBeTruthy();
 
     const runtimeItem = getRuntimeItem(0);
-    selectBoosterItem(runtimeItem);
-    expect(isBoosterItemSelected(runtimeItem)).toBeTruthy();
+    selectRuntime(runtimeItem);
+    expect(isRuntimeSelected(missionItem)).toBeTruthy();
 
     checkStepCompletion('MissionRuntime');
 
@@ -208,8 +228,8 @@ describe('AppComponent', () => {
     launchButton.click();
     completeTick(1000);
 
-    const reqLaunch = mockHttp.expectOne(`${serviceUrl}/launcher/launch`);
-    reqLaunch.flush({ uuid_link: '/uuid/1234' });
+    const reqLaunch = mockHttp.expectOne(`${creatorUrl}/launch`);
+    reqLaunch.flush({ id: '1234' });
 
     completeTick(500);
 
