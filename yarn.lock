@@ -6246,12 +6246,7 @@ ng2-dragula@^1.5.0:
   dependencies:
     dragula "^3.7.2"
 
-ngx-base@3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-3.3.1.tgz#f7430ec5263179a2808eac6ab07f6c7e95f4a3bc"
-  integrity sha512-ApPz8CvqukEOzSRfX0qMwnE9iNGlrmlxeMKmM5c0rSJMu+B1R3ENeKd8pkx+jr+pAH9WkuKuqcYruiSMbeEv8A==
-
-ngx-base@^4.0.0:
+ngx-base@4.0.0, ngx-base@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-4.0.0.tgz#cb20c79ae1f57d742c3d9acb3123ee25f9c3fdb5"
   integrity sha512-GmxnTwed6dgZIwZ90hhTkcCaiGGNmt2w1kQR1xNCxckA7878ThYPByam9igWIR7InX/KJ6JWDxiW4V5TpFENcg==
