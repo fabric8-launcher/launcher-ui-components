@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 
-import { Runtime, HelperService, TokenProvider, Config } from 'ngx-launcher';
+import { Enums, HelperService, TokenProvider, Config } from 'ngx-launcher';
 import { Capability, Property } from 'ngx-launcher';
 import { AppCreatorService } from 'ngx-launcher';
 import { HttpService } from './http.service';
@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AppLauncherAppCreatorService extends HttpService implements AppCreatorService {
-  private enums: any;
+  private enums: Enums;
 
   private readonly url = this.config.get('creator_url');
 
@@ -28,13 +28,13 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
   }
 
   public getCapabilities(): Observable<Capability[]> {
-    return this.getRuntimes().pipe(flatMap(() => this.httpGet<Capability[]>(this.url, 'capabilities')));
+    return this.getEnums().pipe(flatMap(() => this.httpGet<Capability[]>(this.url, 'capabilities')));
   }
 
-  public getRuntimes(): Observable<Runtime[]> {
-    return this.httpGet<any>(this.url, 'enums').pipe(map((value) => {
+  public getEnums(): Observable<Enums> {
+    return this.httpGet<Enums>(this.url, 'enums').pipe(map((value) => {
       this.enums = value;
-      return value.runtime;
+      return value;
     }));
   }
 
@@ -44,6 +44,7 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
       for (const prop of capability.props) {
         if (!prop.shared || prop.id === 'runtime') {
           prop.values = prop.id === 'runtime' ? prop.values : this.enums[prop.id];
+          prop['value'] = prop['default'];
           props.push(prop);
         }
       }
