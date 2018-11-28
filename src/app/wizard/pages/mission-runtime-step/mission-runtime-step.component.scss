@@ -1,0 +1,82 @@
+.f8launcher-section-mission-runtime {
+  .padding-10 {
+    padding: 10px;
+  }
+
+  .disabled {
+    img {
+      opacity: .5;
+    }
+  }
+  .f8launcher-section-mission-runtime-desp {
+    padding-left: 0;
+  }
+  .card-pf-heading {
+    border-bottom: unset;
+    margin-bottom: 0;
+  }
+
+  .list-group-item {
+    cursor: pointer;
+    &.selected-list-item {
+      background-color: #def3ff;
+    }
+  }
+  .container-cards-pf {
+    margin-top: 10px;
+  }
+  .list-group-item-header {
+    margin-left: 16px;
+    margin-right: -16px;
+    margin-top: -2px;
+    padding: 0;
+  }
+
+  .list-group-item-heading {
+    font-weight: 600;
+    margin-left: 10px;
+    padding-left: 8px;
+    border-left: 1px solid #d1d1d1;
+  }
+
+  .list-group-item-text {
+    margin-left: 12px;
+  }
+
+  .description-more {
+    margin-top: 5px;
+  }
+
+  .f8launcher-tags {
+    right: 0;
+  }
+
+  .list-group-item-header {
+    display: none;
+  }
+
+  .checkbox {
+    position: absolute;
+    left: 4px;
+    margin-top: 2px;
+  }
+
+  .prerequisite .list-group-item-header { display: block; }
+  .suggested .list-group-item-header { display: block; }
+  .contribute .list-group-item-header { display: block; }
+  .disabled .list-group-item-header { display: block; }
+  .advanced .list-group-item-header { display: block; }
+  .community .list-group-item-header { display: block; }
+
+  .list-view-pf.shrinked {
+
+    .list-view-pf-main-info {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+
+    .list-group-item-text, .f8launcher-tags-label-text {
+      display: none;
+    }
+  }
+}

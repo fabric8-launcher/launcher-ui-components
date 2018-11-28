@@ -12,8 +12,8 @@ const METADATA = Object.assign({}, {
   ENV: ENV,
   PUBLIC_PATH: process.env.PUBLIC_PATH || '/',
   LAUNCHER_BACKEND_URL: process.env.LAUNCHER_BACKEND_URL || 'http://localhost:8080/api',
-  LAUNCHER_CREATOR_ENABLED: process.env.LAUNCHER_CREATOR_ENABLED || 'true',
-  LAUNCHER_CREATOR_URL: process.env.LAUNCHER_CREATOR_URL || 'http://api-creator-backend.devtools-dev.ext.devshift.net',
+  LAUNCHER_CREATOR_ENABLED: process.env.LAUNCHER_CREATOR_ENABLED || 'false',
+  LAUNCHER_CREATOR_URL: process.env.LAUNCHER_CREATOR_URL || 'http://localhost:8081',
   LAUNCHER_KEYCLOAK_URL: process.env.LAUNCHER_KEYCLOAK_URL || '',
   LAUNCHER_KEYCLOAK_REALM: process.env.LAUNCHER_KEYCLOAK_REALM || '',
   LAUNCHER_KEYCLOAK_CLIENT_ID: process.env.LAUNCHER_KEYCLOAK_CLIENT_ID || 'openshiftio-public',
@@ -23,6 +23,7 @@ const METADATA = Object.assign({}, {
 
 module.exports = {
 
+  mode: 'development',
   devtool: 'inline-source-map',
 
   resolve: {
@@ -99,6 +100,8 @@ module.exports = {
         'NODE_ENV': JSON.stringify(METADATA.ENV),
         'PUBLIC_PATH' : JSON.stringify(METADATA.PUBLIC_PATH),
         'LAUNCHER_BACKEND_URL' : JSON.stringify(METADATA.LAUNCHER_BACKEND_URL),
+        'LAUNCHER_CREATOR_URL' : JSON.stringify(METADATA.LAUNCHER_CREATOR_URL),
+        'LAUNCHER_CREATOR_ENABLED' : JSON.stringify(METADATA.LAUNCHER_CREATOR_ENABLED),
         'LAUNCHER_KEYCLOAK_URL' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_URL),
         'LAUNCHER_KEYCLOAK_REALM' : JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_REALM),
         'LAUNCHER_KEYCLOAK_CLIENT_ID': JSON.stringify(METADATA.LAUNCHER_KEYCLOAK_CLIENT_ID),
