@@ -2,7 +2,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Catalog, Config } from 'ngx-launcher';
+import { Catalog, Config, AppCreatorService } from 'ngx-launcher';
 
 import { LaunchConfig } from './shared/config.component';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { routes } from './app.routes';
 import { WizardModule } from './wizard/wizard.module';
 import { AuthService, User } from './shared/auth.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { of } from 'rxjs';
 
 // tslint:disable-next-line
 const launchMockData = require('../assets/mock/demo-catalog-launch.json') as Catalog;
@@ -147,6 +148,7 @@ describe('AppComponent', () => {
         Logger,
         { provide: Config, useClass: LaunchConfig },
         { provide: AuthService, useClass: MockAuthService },
+        { provide: AppCreatorService, useValue: { getFilteredCapabilities: () => of([]), getRuntimes: () => of([])}}
       ]
     }).compileComponents().then(() => {
       router = TestBed.get(Router);
@@ -229,7 +231,7 @@ describe('AppComponent', () => {
     completeTick(1000);
 
     const reqLaunch = mockHttp.expectOne(`${creatorUrl}/launch`);
-    reqLaunch.flush({ id: '1234' });
+    reqLaunch.flush({ uuid_link: '/1234' });
 
     completeTick(500);
 
