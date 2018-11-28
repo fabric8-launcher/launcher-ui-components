@@ -148,7 +148,7 @@ describe('AppComponent', () => {
         Logger,
         { provide: Config, useClass: LaunchConfig },
         { provide: AuthService, useClass: MockAuthService },
-        { provide: AppCreatorService, useValue: { getFilteredCapabilities: () => of([]), getRuntimes: () => of([])}}
+        { provide: AppCreatorService, useValue: { getFilteredCapabilities: () => of([]), getEnums: () => of([])}}
       ]
     }).compileComponents().then(() => {
       router = TestBed.get(Router);
