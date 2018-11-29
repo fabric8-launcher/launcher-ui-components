@@ -6268,7 +6268,7 @@ ngx-launcher@3.3.1:
     patternfly-ng "^4.5.1"
     tslib "^1.9.0"
 
-ngx-modal@^0.0.29:
+ngx-modal@0.0.29:
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/ngx-modal/-/ngx-modal-0.0.29.tgz#698aa252a79323a0ca47ad4ddee994d620ae6f15"
   integrity sha1-aYqiUqeTI6DKR61N3umU1iCubxU=
