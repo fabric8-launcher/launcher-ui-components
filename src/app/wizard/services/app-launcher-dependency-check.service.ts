@@ -15,8 +15,8 @@ export class AppLauncherDependencyCheckService implements DependencyCheckService
    */
   public getDependencyCheck(): Observable<DependencyCheck> {
     return of({
-      mavenArtifact: 'booster',
-      groupId: 'io.openshift.booster',
+      mavenArtifact: undefined,
+      groupId: 'com.yourcompany.newapp',
       projectName: undefined,
       projectVersion: '1.0.0-SNAPSHOT',
       spacePath: undefined,
