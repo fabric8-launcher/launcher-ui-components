@@ -65,16 +65,7 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   }
 
   private isCreatorFlow(projectile: Projectile<any>): boolean {
-    return !this.isEmpty(projectile.getState('Capabilities').state);
-  }
-
-  private isEmpty(obj): boolean {
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        return false;
-      }
-    }
-    return true;
+    return projectile.getState('FlowChoice').state.creatorFlow;
   }
 
   private copyProperties(projectile: Projectile<any>, object) {
