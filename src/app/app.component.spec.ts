@@ -230,8 +230,8 @@ describe('AppComponent', () => {
     launchButton.click();
     completeTick(1000);
 
-    const reqLaunch = mockHttp.expectOne(`${creatorUrl}/launch`);
-    reqLaunch.flush({ uuid_link: '/1234' });
+    const reqLaunch = mockHttp.expectOne(`${serviceUrl}/launcher/launch`);
+    reqLaunch.flush({ uuid_link: '/uuid/1234' });
 
     completeTick(500);
 
