@@ -65,14 +65,23 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   }
 
   private isCreatorFlow(projectile: Projectile<any>): boolean {
-    return projectile.getState('Capabilities') !== undefined;
+    return !this.isEmpty(projectile.getState('Capabilities').state);
+  }
+
+  private isEmpty(obj): boolean {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private copyProperties(projectile: Projectile<any>, object) {
     const runtimeId = projectile.getState('Runtimes').state.id;
     object.name = projectile.sharedState.state.projectName;
     object.shared = {};
-    object.shared['runtime'] = runtimeId;
+    object.shared.runtime = projectile.getState('Runtimes').state.value;
     const version = {};
     version['version'] = projectile.sharedState.state.projectVersion;
     if (runtimeId === 'nodejs') {
