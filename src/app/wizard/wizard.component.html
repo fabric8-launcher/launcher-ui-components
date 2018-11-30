@@ -18,7 +18,7 @@
       <f8launcher-targetenvironment-step #targetEnvStep [hidden]="isHidden()" id="TargetEnvironment" styleClass="target-environment"
         title="Select Target Environment">
       </f8launcher-targetenvironment-step>
-      <flow-choice id="FlowChoice" title="Example or Create New" #flowStep [hidden]="!creatorEnabled || !targetEnvStep.selection.cluster || targetEnvStep.selection.cluster.type === 'starter'"></flow-choice>
+      <flow-choice id="FlowChoice" title="Example or Create New" #flowStep [hidden]="!creatorEnabled || (targetEnvStep.selection.cluster && targetEnvStep.selection.cluster.type === 'starter')"></flow-choice>
       <missionruntime-step #missionRuntimeStep id="MissionRuntime" styleClass="mission-runtime"
         title="Select Mission & Runtime" [canChangeVersion]="true" [hidden]="flowStep.selection.creatorFlow">
       </missionruntime-step>
