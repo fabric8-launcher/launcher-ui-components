@@ -24,7 +24,8 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
   }
 
   public getFilteredCapabilities(): Observable<Capability[]> {
-    return this.getCapabilities().pipe(map((capabilities) => this.filter(capabilities)));
+    return this.getCapabilities().pipe(map((capabilities) =>
+      this.filter(capabilities, (cap) => cap.metadata.category !== 'frontend')));
   }
 
   public getCapabilities(): Observable<Capability[]> {
@@ -38,7 +39,8 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
     }));
   }
 
-  private filter(capabilities: Capability[]): Capability[] {
+  private filter(capabilities: Capability[],
+                 filterFunction: (value: Capability, index: number, array: Capability[]) => any): Capability[] {
     for (const capability of capabilities) {
       const props: Property[] = [];
       for (const prop of capability.props) {
@@ -50,6 +52,6 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
       }
       capability.props = props;
     }
-    return capabilities;
+    return capabilities.filter(filterFunction);
   }
 }

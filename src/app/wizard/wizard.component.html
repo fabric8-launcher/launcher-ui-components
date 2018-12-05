@@ -22,6 +22,8 @@
       <missionruntime-step #missionRuntimeStep id="MissionRuntime" styleClass="mission-runtime"
         title="Select Mission & Runtime" [canChangeVersion]="true" [hidden]="flowStep.selection.creatorFlow">
       </missionruntime-step>
+      <f8launcher-frontend-step id="Frontend" title="Select Frontend">
+      </f8launcher-frontend-step>
       <f8launcher-runtime-step id="Runtimes" title="Select a Runtime" [hidden]="!flowStep.selection.creatorFlow"></f8launcher-runtime-step>
       <f8launcher-capabilities-step id="Capabilities" title="Select a Capability" [hidden]="!flowStep.selection.creatorFlow"></f8launcher-capabilities-step>
       <f8launcher-gitprovider-step #gitProvider [hidden]="!(targetEnvStep.selection.dependencyCheck.targetEnvironment === 'os' && targetEnvStep.completed)"
