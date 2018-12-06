@@ -83,5 +83,14 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
       version['groupId'] = projectile.sharedState.state.groupId;
       object.shared.maven = version;
     }
+
+    const uniqueTierCount = object.capabilities.map((v) => v.tier)
+      .filter((value, index, self) => self.indexOf(value) === index).lenght;
+    if (uniqueTierCount === 1) {
+      object.capabilities.map((c) => {
+        delete c.tier;
+        return c;
+      });
+    }
   }
 }
