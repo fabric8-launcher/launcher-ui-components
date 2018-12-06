@@ -13,7 +13,7 @@ export class AppLauncherTargetEnvironmentService implements TargetEnvironmentSer
   public getTargetEnvironments(): Observable<TargetEnvironment[]> {
     const targetEnvironments = [{
       id: 'os',
-      header: 'Code Locally, Build and Deploy',
+      header: 'Build and Deploy Online',
       footer: 'OpenShift',
       /* tslint:disable */
       description: 'Benefit of using OpenShift as a project environment',
