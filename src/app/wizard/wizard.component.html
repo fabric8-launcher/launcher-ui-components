@@ -24,8 +24,8 @@
       </missionruntime-step>
       <f8launcher-frontend-step id="Frontend" title="Front-end">
       </f8launcher-frontend-step>
-      <f8launcher-runtime-step id="Runtimes" title="Backend Runtime" [hidden]="!flowStep.selection.creatorFlow"></f8launcher-runtime-step>
-      <f8launcher-capabilities-step id="Capabilities" title="Backend Capabilities" [hidden]="!flowStep.selection.creatorFlow"></f8launcher-capabilities-step>
+      <f8launcher-runtime-step id="Runtimes" title="Backend Runtime" [hidden]="!flowStep.selection.creatorFlow" #runtime></f8launcher-runtime-step>
+      <f8launcher-capabilities-step id="Capabilities" title="Backend Capabilities" [hidden]="!flowStep.selection.creatorFlow || !runtime.selectedRuntime.value.name"></f8launcher-capabilities-step>
       <f8launcher-gitprovider-step #gitProvider [hidden]="!(targetEnvStep.selection.dependencyCheck.targetEnvironment === 'os' && targetEnvStep.completed)"
         id="GitProvider" styleClass="git-provider" title="Git Provider">
       </f8launcher-gitprovider-step>
