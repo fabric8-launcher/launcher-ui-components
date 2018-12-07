@@ -6256,10 +6256,10 @@ ngx-bootstrap@^3.1.1:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.1.1.tgz#36ef4f6928352ee7fd186831d97731cfa571d137"
   integrity sha512-LY9ZnzkTA67MOUcQoA3i6JM4TGPCDUnjUMZctSesic0E9617bPrKDnb2VPOEU4VFTXWMhu6xbPcXsvLrc6m/lg==
 
-ngx-launcher@3.4.6:
-  version "3.4.6"
-  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-3.4.6.tgz#6178e23fa46b34c1cdea23f67b5241e5a97366ac"
-  integrity sha512-YyAj/0UVlkYuODh0KgLIRKAOni66si4oD2Pt3V59x0cYWdKmJJg+hg7IjmVEBqfhD8s/jmaNX8g6VuEv/y89WA==
+ngx-launcher@3.4.7:
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/ngx-launcher/-/ngx-launcher-3.4.7.tgz#9cbbad9e1128cb4b23983a6171c30bc8eff05aa4"
+  integrity sha512-AMnKMsqpZ3/tPL/IrMkrf6AsoVQF4RF2IuYQVRd4ANEzYtNTeCyX5RZo8kJHYiqYW4SsORRh3PBQRNqbrjGnMw==
   dependencies:
     lodash "^4.17.11"
     ngx-base "^4.0.0"
