@@ -7,11 +7,40 @@ import { HelperService, ProjectSummaryService, TokenProvider, Projectile, Config
 import { HttpService } from './http.service';
 import { catchError, flatMap } from 'rxjs/operators';
 
+import * as _ from 'lodash';
+
 @Injectable()
 export class AppLauncherProjectSummaryService extends HttpService implements ProjectSummaryService {
 
   private static LAUNCH: string = '/launcher/launch';
   private static ZIP: string = '/launcher/zip';
+  private static template = {
+    project: {
+      application: 'fubar',
+      tiers: [
+        {
+          tier: 'support',
+          shared: {},
+          capabilities: [{
+            module: 'welcome',
+          }],
+        },
+        {
+          tier: 'backend',
+          shared: {},
+          capabilities: [
+          ],
+        },
+        {
+          tier: 'frontend',
+          shared: {},
+          capabilities: [{
+            module: 'web-app',
+          }],
+        }
+      ]
+    }
+  };
 
   constructor(
     private _http: HttpClient,
@@ -35,8 +64,7 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return this.options(projectile.getState('TargetEnvironment').state.cluster, retry).pipe(
       flatMap((option) => {
         if (this.isCreatorFlow(projectile)) {
-          const json = projectile.toJson();
-          this.copyProperties(projectile, json);
+          const json = this.copyProperties(projectile);
           const endpoint = this.isTargetOpenshift(projectile) ? 'launch' : 'zip';
           return this._http.post(this.joinPath(this.config.get('creator_url'), endpoint), json, option)
             .pipe(catchError(HttpService.handleError));
@@ -68,20 +96,58 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     return projectile.getState('FlowChoice').state.creatorFlow;
   }
 
-  private copyProperties(projectile: Projectile<any>, object) {
-    const runtimeId = projectile.getState('Runtimes').state.id;
-    object.name = projectile.sharedState.state.projectName;
-    object.shared = {};
-    object.shared.runtime = projectile.getState('Runtimes').state.value;
-    const version = {};
-    version['version'] = projectile.sharedState.state.projectVersion;
-    if (runtimeId === 'nodejs') {
-      version['name'] = object.name;
-      object.shared.nodejs = version;
+  private copyProperties(projectile: Projectile<any>): any {
+    const result = _.cloneDeep(AppLauncherProjectSummaryService.template);
+    result.project.application = projectile.sharedState.state.projectName;
+
+    const capabilityState = projectile.getState('Capabilities').state;
+    const capabilities = new Map(capabilityState.capabilities as Map<string, any>);
+
+    const frontend = projectile.getState('Frontend').state;
+    if (frontend.value.name) {
+      result.project.tiers[2].shared.framework = frontend.value.name;
+      capabilities.delete(frontend.value.name);
     } else {
-      version['artifactId'] = projectile.sharedState.state.mavenArtifact;
-      version['groupId'] = projectile.sharedState.state.groupId;
-      object.shared.maven = version;
+      result.project.tiers.splice(2, 1);
     }
+
+    if (capabilities.has('welcome')) {
+      capabilities.delete('welcome');
+    } else {
+      result.project.tiers.splice(0, 1);
+    }
+
+    const runtime = projectile.getState('Runtimes').state;
+    if (runtime.value.name) {
+      result.project.tiers[1].shared.runtime = runtime.value;
+      result.project.tiers[1].capabilities = Array.from(capabilities.values());
+      const version = {};
+      version['version'] = projectile.sharedState.state.projectVersion;
+      if (runtime.id === 'nodejs') {
+        version['name'] = result.project.application;
+        result.project.tiers[1].shared.nodejs = version;
+      } else {
+        version['artifactId'] = projectile.sharedState.state.mavenArtifact;
+        version['groupId'] = projectile.sharedState.state.groupId;
+        result.project.tiers[1].shared.maven = version;
+      }
+    } else {
+      result.project.tiers.splice(1, 1);
+    }
+
+    Object.assign(result, this.stateToObject(projectile.getState('GitProvider')));
+    Object.assign(result, this.stateToObject(projectile.getState('TargetEnvironment')));
+    result.projectName = result.project.application;
+    return result;
+  }
+
+  private stateToObject(state: any) {
+    const result = {};
+    state.save().map((f) => {
+      if (f.value) {
+        result[f.name] = f.value;
+      }
+    });
+    return result;
   }
 }
