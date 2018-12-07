@@ -211,6 +211,11 @@ describe('AppComponent', () => {
 
     checkStepCompletion('TargetEnvironment');
 
+    const flowInput = element.querySelectorAll<HTMLInputElement>('input[name="flow"');
+    expect(flowInput.length).toBe(2, 'There must be 2 flow choices');
+    flowInput.item(1).click();
+    completeTick();
+
     // Step 2: Booster selection
     const missionItem = getMissionItem(0);
     selectBoosterItem(missionItem);
