@@ -138,6 +138,11 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     Object.assign(result, this.stateToObject(projectile.getState('GitProvider')));
     Object.assign(result, this.stateToObject(projectile.getState('TargetEnvironment')));
     result.projectName = result.project.application;
+
+    const nroTiers = result.project.tiers.reduce((sum, tier) => tier.capabilities.length === 0 ? sum : sum + 1, 0);
+    if (nroTiers < 3) {
+      result.project.tiers.forEach((t) => delete t.tier);
+    }
     return result;
   }
 
