@@ -34,5 +34,5 @@ export class FlowChoiceComponent extends LauncherStep implements OnInit {
 }
 
 export class Selection {
-  public creatorFlow: boolean = false;
+  public creatorFlow: boolean = true;
 }
