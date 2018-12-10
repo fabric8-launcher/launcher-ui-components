@@ -15,7 +15,7 @@ export class HttpService {
 
   public static handleError(error: HttpErrorResponse) {
     let errMsg: string;
-    if (error.error instanceof ErrorEvent || error.error.message) {
+    if (error.error instanceof ErrorEvent || (error.error && error.error.message)) {
       errMsg = `An error occurred: ${error.error.message}`;
     } else {
       errMsg = `Backend returned code ${error.status}, ` +
