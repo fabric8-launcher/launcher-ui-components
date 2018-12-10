@@ -89,7 +89,7 @@
     "node-sass": "4.9.0",
     "postcss-loader": "2.1.5",
     "precss": "3.1.2",
-    "raw-loader": "0.5.1",
+    "raw-loader": "1.0.0",
     "resolve-url-loader": "2.3.0",
     "sass-loader": "7.0.2",
     "script-ext-html-webpack-plugin": "2.1.3",
