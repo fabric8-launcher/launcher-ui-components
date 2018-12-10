@@ -11,40 +11,42 @@
     </div>
   </div>
   <div>
-    <div class="card-pf flow-card" [class.selected-card]="selection.creatorFlow" (click)="selection.creatorFlow = true">
-      <div class="card-pf-body">
-        <div class="col-sm-1 codebase-card-container-radio">
-          <div class="list-view-pf-checkbox codebase-card-container-radio-input">
-            <input name="flow" type="radio" [(ngModel)]="selection.creatorFlow" [value]="true">
+    <div class="flow-container">
+      <div class="card-pf flow-card" [class.selected-card]="selection.creatorFlow" (click)="selection.creatorFlow = true">
+        <div class="card-pf-body">
+          <div class="col-sm-1 codebase-card-container-radio">
+            <div class="list-view-pf-checkbox codebase-card-container-radio-input">
+              <input name="flow" type="radio" [(ngModel)]="selection.creatorFlow" [value]="true">
+            </div>
           </div>
-        </div>
-        <div class="col-sm-8 flow">
-          <h2 class="card-pf-title">
-            Create a new Application
-          </h2>
-          <div class="card-pf-items">
-            <div class="card-pf-item">
-              Pick the capabilities that you want your new application to have.
+          <div class="col-sm-8 flow">
+            <h2 class="card-pf-title">
+              Create a new Application
+            </h2>
+            <div class="card-pf-items">
+              <div class="card-pf-item">
+                Pick the capabilities that you want your new application to have.
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card-pf flow-card" [class.selected-card]="!selection.creatorFlow" (click)="selection.creatorFlow = false">
-      <div class="card-pf-body">
-        <div class="col-sm-1 codebase-card-container-radio">
-          <div class="list-view-pf-checkbox codebase-card-container-radio-input">
-            <input name="flow" type="radio" [(ngModel)]="selection.creatorFlow" [value]="false">
+      <div class="card-pf flow-card" [class.selected-card]="!selection.creatorFlow" (click)="selection.creatorFlow = false">
+        <div class="card-pf-body">
+          <div class="col-sm-1 codebase-card-container-radio">
+            <div class="list-view-pf-checkbox codebase-card-container-radio-input">
+              <input name="flow" type="radio" [(ngModel)]="selection.creatorFlow" [value]="false">
+            </div>
           </div>
-        </div>
-        <div class="col-sm-8 flow">
-          <h2 class="card-pf-title">
-            Deploy an Example Application
-          </h2>
-          <div class="card-pf-items">
-            <div class="card-pf-item">
-              Choose from a variety of Red Hat certified examples to generate the foundation for a new
-              application in the OpenShift ecosystem.
+          <div class="col-sm-8 flow">
+            <h2 class="card-pf-title">
+              Deploy an Example Application
+            </h2>
+            <div class="card-pf-items">
+              <div class="card-pf-item">
+                Choose from a variety of Red Hat certified examples to generate the foundation for a new
+                application in the OpenShift ecosystem.
+              </div>
             </div>
           </div>
         </div>
