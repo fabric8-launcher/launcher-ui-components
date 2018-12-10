@@ -1,6 +1,6 @@
 import { Component, Host, OnInit, Optional } from '@angular/core';
 
-import { LauncherComponent, LauncherStep, Projectile, StepState } from 'ngx-launcher';
+import { LauncherComponent, LauncherStep, Projectile, StepState, Config } from 'ngx-launcher';
 
 @Component({
   selector: 'flow-choice',
@@ -9,11 +9,13 @@ import { LauncherComponent, LauncherStep, Projectile, StepState } from 'ngx-laun
 })
 export class FlowChoiceComponent extends LauncherStep implements OnInit {
   public completed: boolean = true;
-  public selection: Selection = new Selection();
+  public selection: Selection;
 
   constructor(@Host() @Optional() public launcherComponent: LauncherComponent,
+              private config: Config,
               private projectile: Projectile<any>) {
     super(projectile);
+    this.selection = new Selection(this.config.get('creator_enabled') === 'true');
   }
 
   public ngOnInit(): void {
@@ -34,5 +36,16 @@ export class FlowChoiceComponent extends LauncherStep implements OnInit {
 }
 
 export class Selection {
-  public creatorFlow: boolean = true;
+  private _creatorFlow: boolean;
+  constructor(flowEnable: boolean) {
+    this._creatorFlow = flowEnable;
+  }
+
+  get creatorFlow(): boolean {
+    return this._creatorFlow;
+  }
+
+  set creatorFlow(creatorFlow: boolean) {
+    this._creatorFlow = creatorFlow;
+  }
 }
