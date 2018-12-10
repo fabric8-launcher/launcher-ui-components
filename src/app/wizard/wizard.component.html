@@ -22,7 +22,7 @@
       <missionruntime-step #missionRuntimeStep id="MissionRuntime" styleClass="mission-runtime"
         title="Mission & Runtime" [canChangeVersion]="true" [hidden]="flowStep.selection.creatorFlow">
       </missionruntime-step>
-      <f8launcher-frontend-step id="Frontend" title="Front-end">
+      <f8launcher-frontend-step id="Frontend" title="Front-end" [hidden]="!flowStep.selection.creatorFlow">
       </f8launcher-frontend-step>
       <f8launcher-runtime-step id="Runtimes" title="Back-end Runtime" [hidden]="!flowStep.selection.creatorFlow" #runtime></f8launcher-runtime-step>
       <f8launcher-capabilities-step id="Capabilities" title="Back-end Capabilities" [hidden]="!flowStep.selection.creatorFlow || !runtime.selectedRuntime.value.name"></f8launcher-capabilities-step>
