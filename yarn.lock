@@ -6247,15 +6247,10 @@ ngx-base@4.0.0, ngx-base@^4.0.0:
   resolved "https://registry.yarnpkg.com/ngx-base/-/ngx-base-4.0.0.tgz#cb20c79ae1f57d742c3d9acb3123ee25f9c3fdb5"
   integrity sha512-GmxnTwed6dgZIwZ90hhTkcCaiGGNmt2w1kQR1xNCxckA7878ThYPByam9igWIR7InX/KJ6JWDxiW4V5TpFENcg==
 
-ngx-bootstrap@3.0.1, ngx-bootstrap@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.0.1.tgz#e98d2fc6340f32a9d358cd08e8fda7dcb23bdab3"
-  integrity sha512-ni91yYtn8ldgf/pxrlwl9lkVcLURGzopSpJnEbbgG1v1EZWTobI8y7J3mx4Kxptkn0EeiQwnLel67G7XJSox4A==
-
-ngx-bootstrap@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.1.1.tgz#36ef4f6928352ee7fd186831d97731cfa571d137"
-  integrity sha512-LY9ZnzkTA67MOUcQoA3i6JM4TGPCDUnjUMZctSesic0E9617bPrKDnb2VPOEU4VFTXWMhu6xbPcXsvLrc6m/lg==
+ngx-bootstrap@3.1.2, ngx-bootstrap@^3.0.0, ngx-bootstrap@^3.1.1:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.1.2.tgz#f466f6290b456806dac2a9b95a12f9dc4979782f"
+  integrity sha512-ULooVAtHBir96PDOz8aDP+slkoY+YX3EWeYV7rwkwMQooc6MaFc+EFBBrAkQf1n0N/rJ4Z9GGccRS5vk/1JFog==
 
 ngx-launcher@3.4.13:
   version "3.4.13"
