@@ -57,7 +57,7 @@
     "@types/jasmine": "2.8.8",
     "@types/jssha": "0.0.29",
     "@types/node": "10.3.5",
-    "@types/selenium-webdriver": "3.0.13",
+    "@types/selenium-webdriver": "3.0.14",
     "@types/uglify-js": "3.0.2",
     "@types/uuid": "3.4.4",
     "@types/webpack": "4.4.2",
