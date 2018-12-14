@@ -17,22 +17,22 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   private static template = {
     project: {
       application: 'fubar',
-      tiers: [
+      parts: [
         {
-          tier: 'backend',
+          subFolderName: 'backend',
           shared: {},
           capabilities: [
           ],
         },
         {
-          tier: 'support',
+          subFolderName: 'support',
           shared: {},
           capabilities: [{
             module: 'welcome',
           }],
         },
         {
-          tier: 'frontend',
+          subFolderName: 'frontend',
           shared: {},
           capabilities: [{
             module: 'web-app',
@@ -99,52 +99,52 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
   private copyProperties(projectile: Projectile<any>): any {
     const result = _.cloneDeep(AppLauncherProjectSummaryService.template);
     result.project.application = projectile.sharedState.state.projectName;
-    let nroTiers = 0;
+    let nrOfParts = 0;
 
     const capabilityState = projectile.getState('Capabilities').state;
     const capabilities = new Map(capabilityState.capabilities as Map<string, any>);
 
     const frontend = projectile.getState('Frontend').state;
     if (frontend.value.name) {
-      nroTiers++;
-      result.project.tiers[2].shared.framework = frontend.value;
+      nrOfParts++;
+      result.project.parts[2].shared.framework = frontend.value;
       capabilities.delete(frontend.value.name);
     } else {
-      result.project.tiers.splice(2, 1);
+      result.project.parts.splice(2, 1);
     }
 
     const runtime = projectile.getState('Runtimes').state;
-    if (capabilities.has('welcome') && nroTiers === 1 && runtime.value.name) {
-      nroTiers++;
+    if (capabilities.has('welcome') && nrOfParts === 1 && runtime.value.name) {
+      nrOfParts++;
       capabilities.delete('welcome');
     } else {
-      result.project.tiers.splice(1, 1);
+      result.project.parts.splice(1, 1);
     }
 
     if (runtime.value.name) {
-      nroTiers++;
-      result.project.tiers[0].shared.runtime = runtime.value;
-      result.project.tiers[0].capabilities = Array.from(capabilities.values());
+      nrOfParts++;
+      result.project.parts[0].shared.runtime = runtime.value;
+      result.project.parts[0].capabilities = Array.from(capabilities.values());
       const version = {};
       version['version'] = projectile.sharedState.state.projectVersion;
       if (runtime.id === 'nodejs') {
         version['name'] = result.project.application;
-        result.project.tiers[0].shared.nodejs = version;
+        result.project.parts[0].shared.nodejs = version;
       } else {
         version['artifactId'] = projectile.sharedState.state.mavenArtifact;
         version['groupId'] = projectile.sharedState.state.groupId;
-        result.project.tiers[0].shared.maven = version;
+        result.project.parts[0].shared.maven = version;
       }
     } else {
-      result.project.tiers.splice(0, 1);
+      result.project.parts.splice(0, 1);
     }
 
     Object.assign(result, this.stateToObject(projectile.getState('GitProvider')));
     Object.assign(result, this.stateToObject(projectile.getState('TargetEnvironment')));
     result.projectName = result.project.application;
 
-    if (nroTiers < 3) {
-      result.project.tiers.forEach((t) => delete t.tier);
+    if (nrOfParts < 3) {
+      result.project.parts.forEach((t) => delete t.subFolderName);
     }
     return result;
   }
