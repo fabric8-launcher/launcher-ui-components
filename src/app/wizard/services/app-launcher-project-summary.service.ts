@@ -107,7 +107,7 @@ export class AppLauncherProjectSummaryService extends HttpService implements Pro
     const frontend = projectile.getState('Frontend').state;
     if (frontend.value.name) {
       nrOfParts++;
-      result.project.parts[2].shared.framework = frontend.value;
+      result.project.parts[2].shared.runtime = frontend.value;
       capabilities.delete(frontend.value.name);
     } else {
       result.project.parts.splice(2, 1);
