@@ -10,6 +10,7 @@ import { LauncherComponent, LauncherStep, Projectile, StepState, Config } from '
 export class FlowChoiceComponent extends LauncherStep implements OnInit {
   public completed: boolean = true;
   public selection: Selection;
+  private _hidden = false;
 
   constructor(@Host() @Optional() public launcherComponent: LauncherComponent,
               private config: Config,
@@ -32,6 +33,15 @@ export class FlowChoiceComponent extends LauncherStep implements OnInit {
 
   public restoreModel(model: any): void {
     this.selection.creatorFlow = model.flow;
+  }
+
+  get hidden(): boolean {
+    return this._hidden;
+  }
+
+  set hidden(_hidden: boolean) {
+    this.selection.creatorFlow = !_hidden;
+    this._hidden = _hidden;
   }
 }
 
