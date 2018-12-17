@@ -2157,7 +2157,7 @@ commander@2.17.x, commander@~2.17.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
   integrity sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==
 
-commander@2.19.0, commander@^2.12.1, commander@^2.9.0:
+commander@2.19.0, commander@^2.12.1, commander@^2.15.1, commander@^2.9.0:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
   integrity sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
@@ -7897,6 +7897,14 @@ process@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
+
+project-name-generator@2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/project-name-generator/-/project-name-generator-2.1.5.tgz#02fe00f41205c3f7d12780e206e8795beecb2b7c"
+  integrity sha512-deZX2f9ijkheLjCBaM5lGYgWnddQYxqaby6szdv0R6YlsmmEWz8tYyFq8B9BTYCZbXHsBS9cWTSqkAa4tSA1RA==
+  dependencies:
+    commander "^2.15.1"
+    lodash "^4.17.10"
 
 promise-inflight@^1.0.1:
   version "1.0.1"
