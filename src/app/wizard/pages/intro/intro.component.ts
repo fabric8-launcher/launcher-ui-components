@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { generate } from 'project-name-generator';
 
 @Component({
   selector: 'intro',
@@ -11,7 +12,7 @@ export class IntroComponent {
   }
 
   public launch() {
-    this.router.navigate(['/wizard', 'app-name'])
+    this.router.navigate(['/wizard', generate().dashed])
       .catch((e) => console.error(e));
   }
 
