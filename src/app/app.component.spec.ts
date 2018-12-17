@@ -148,7 +148,7 @@ describe('AppComponent', () => {
         Logger,
         { provide: Config, useClass: LaunchConfig },
         { provide: AuthService, useClass: MockAuthService },
-        { provide: AppCreatorService, useValue: { getFilteredCapabilities: () => of([]), getEnums: () => of([])}}
+        { provide: AppCreatorService, useValue: { getFilteredCapabilities: () => of([]), getEnums: () => of({'runtime.name': []})}}
       ]
     }).compileComponents().then(() => {
       router = TestBed.get(Router);
@@ -204,14 +204,14 @@ describe('AppComponent', () => {
     tick(501);
 
     // Step 1: TargetEnvironment
-    const targetEnvInput = element.querySelectorAll<HTMLInputElement>('input[name="target-environment"');
+    const targetEnvInput = element.querySelectorAll<HTMLInputElement>('input[name="target-environment"]');
     expect(targetEnvInput.length).toBe(2, 'There must be 2 target environments');
     targetEnvInput.item(0).click();
     completeTick();
 
     checkStepCompletion('TargetEnvironment');
 
-    const flowInput = element.querySelectorAll<HTMLInputElement>('input[name="flow"');
+    const flowInput = element.querySelectorAll<HTMLInputElement>('input[name="flow"]');
     expect(flowInput.length).toBe(2, 'There must be 2 flow choices');
     flowInput.item(1).click();
     completeTick();
