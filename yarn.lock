@@ -501,15 +501,10 @@
   resolved "https://registry.yarnpkg.com/@types/jssha/-/jssha-0.0.29.tgz#95e83dba98787ff796d2d5f37a1925abf41bc9cb"
   integrity sha1-leg9uph4f/eW0tXzehklq/Qbycs=
 
-"@types/node@*":
-  version "10.12.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
-  integrity sha512-3TUHC3jsBAB7qVRGxT6lWyYo2v96BMmD2PTcl47H25Lu7UXtFH/2qqmKiVrnel6Ne//0TFYf6uvNX+HW2FRkLQ==
-
-"@types/node@10.3.5":
-  version "10.3.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.5.tgz#8423cdf6e6fb83433e489900d7600d3b61c8260c"
-  integrity sha512-6lRwZN0Y3TuglwaaZN2XPocobmzLlhxcqDjKFjNYSsXG/TFAGYkCqkzZh4+ms8iTHHQE6gJXLHPV7TziVGeWhg==
+"@types/node@*", "@types/node@10.12.16":
+  version "10.12.16"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.16.tgz#006a67ab106673f4c0d5928b7bcb5072e336a148"
+  integrity sha512-Ash6o4tVo3dRojXVW1Ot7Ec/ohBpFqxseuQRCXKd38BnldUTG5fn/+MOhlfcKuQy34vz+Zl9Ipixc0wAGLHNXA==
 
 "@types/selenium-webdriver@3.0.14":
   version "3.0.14"
