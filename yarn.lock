@@ -7743,10 +7743,10 @@ range-parser@^1.0.3, range-parser@^1.2.0, range-parser@~1.2.0:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
   integrity sha1-9JvmtIeJTdxA3MlKMi9hEJLgDV4=
 
-raven-js@3.26.2:
-  version "3.26.2"
-  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.26.2.tgz#9153af2416e96ccf4e0b9cbc6c90c34dda0d7e88"
-  integrity sha512-d+PXxMUYK020ug4dCkPGtyseawRiXEMKBYxmRrOishm+g1ul41AwK1O//3eUToiCdof0cXA/HoYtXR4o2Ff9UQ==
+raven-js@3.27.0:
+  version "3.27.0"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.27.0.tgz#9f47c03e17933ce756e189f3669d49c441c1ba6e"
+  integrity sha512-vChdOL+yzecfnGA+B5EhEZkJ3kY3KlMzxEhShKh6Vdtooyl0yZfYNFQfYzgMf2v4pyQa+OTZ5esTxxgOOZDHqw==
 
 raw-body@2.3.3:
   version "2.3.3"

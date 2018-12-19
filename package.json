@@ -42,7 +42,7 @@
     "patternfly": "3.54.2",
     "patternfly-ng": "4.3.0",
     "project-name-generator": "2.1.5",
-    "raven-js": "3.26.2",
+    "raven-js": "3.27.0",
     "rxjs": "6.3.3",
     "uuid": "3.3.2",
     "zone.js": "0.8.26"
