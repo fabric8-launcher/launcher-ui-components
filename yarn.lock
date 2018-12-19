@@ -99,10 +99,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/http@6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-6.1.0.tgz#8712f418d5b9f9047c306da95e31465178e1beef"
-  integrity sha512-Tky6T93xX22m7zeXSdxALXglKh00QerubV9+exKLUethDGE/xvdRKKdsiMo72w+4yj/1bXAd4fXw+SDneUco7Q==
+"@angular/http@7.1.4":
+  version "7.1.4"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-7.1.4.tgz#03568b174cf8caaa6fa84a4f0e5ced5f68dfb6c3"
+  integrity sha512-Lrjb99sHu0Cv7MBbVLev1I1Fe+DJcwG4v7juZB/5nE5opKmbQo3Lfqvt2dVrMOxHeju9ReFznEnuGNMK6+m6pQ==
   dependencies:
     tslib "^1.9.0"
 
