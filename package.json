@@ -63,7 +63,7 @@
     "@types/uuid": "3.4.4",
     "@types/webpack": "4.4.2",
     "angular2-template-loader": "0.6.2",
-    "autoprefixer": "8.6.3",
+    "autoprefixer": "9.4.3",
     "awesome-typescript-loader": "5.2.0",
     "codelyzer": "4.4.2",
     "css-loader": "0.28.11",
