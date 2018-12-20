@@ -55,7 +55,7 @@
     "@compodoc/compodoc": "1.1.7",
     "@ngtools/webpack": "6.1.0",
     "@types/core-js": "2.5.0",
-    "@types/jasmine": "3.3.2",
+    "@types/jasmine": "3.3.4",
     "@types/jssha": "0.0.29",
     "@types/node": "10.3.5",
     "@types/selenium-webdriver": "3.0.14",
