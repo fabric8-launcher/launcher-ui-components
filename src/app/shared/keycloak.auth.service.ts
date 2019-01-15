@@ -1,4 +1,5 @@
 import * as KeycloakCore from '../../assets/keycloak/keycloak.js';
+import { Broadcaster } from 'ngx-base';
 import { Config } from 'ngx-launcher';
 import { AuthService, User } from './auth.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -13,7 +14,8 @@ export class KeycloakAuthService extends AuthService {
   private readonly url?: string;
   private readonly keycloak?: any;
 
-  constructor(config: Config, keycloakCoreFactory = KeycloakCore, private doRedirect = (url) => window.location.href = url ) {
+  constructor(config: Config, private broadcaster: Broadcaster, keycloakCoreFactory = KeycloakCore,
+              private doRedirect = (url: string) => window.location.href = url) {
     super();
     this.realm = config.get('keycloak_realm');
     if (this.realm) {
@@ -126,10 +128,8 @@ export class KeycloakAuthService extends AuthService {
         sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: {},
       };
-      const identify = window['analytics'] && window['analytics']['identify'];
-      if (identify && this.keycloak.authenticated) {
-        identify(this.keycloak.tokenParsed.email, this.keycloak.tokenParsed);
-      }
+
+      this.broadcaster.broadcast('login', this.keycloak.tokenParsed);
     }
   }
 

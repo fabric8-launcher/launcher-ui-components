@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Config } from 'ngx-launcher';
 import { AuthService } from 'app/shared/auth.service';
+import { AnalyticService } from './services/app-launcher-analytic.service';
 
 @Component({
   selector: 'wizard',
@@ -10,7 +11,8 @@ import { AuthService } from 'app/shared/auth.service';
 export class WizardComponent {
 
   constructor(private router: Router, private config: Config,
-              public authService: AuthService) {
+              public authService: AuthService, analyticService: AnalyticService) {
+    analyticService.track();
   }
 
   public back(): void {
