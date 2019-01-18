@@ -39,6 +39,7 @@ import { AppLauncherProjectSummaryService } from './services/app-launcher-projec
 import { AppLauncherTargetEnvironmentService } from './services/app-launcher-target-environment.service';
 import { AppLauncherDependencyCheckService } from './services/app-launcher-dependency-check.service';
 import { AppLauncherTokenService } from './services/app-launcher-token.service';
+import { AnalyticService } from './services/app-launcher-analytic.service';
 
 import { AuthenticationDirective } from '../shared/authentication.directive';
 
@@ -68,6 +69,7 @@ import { MissionRuntimeStepComponent } from './pages/mission-runtime-step/missio
     AuthenticationDirective
   ],
   providers: [
+    AnalyticService,
     BsDropdownConfig,
     AuthGuardService,
     {

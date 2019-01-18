@@ -1,6 +1,7 @@
 import { Config } from 'ngx-launcher';
 import { AuthService, User } from './auth.service';
 import { KeycloakAuthService } from './keycloak.auth.service';
+import { Broadcaster } from 'ngx-base';
 
 class KeycloakPromise {
   private result: any;
@@ -113,6 +114,7 @@ class MockKeycloakCore {
 
 describe('Service: KeycloakAuthService', () => {
   let mockKeycloakCore: MockKeycloakCore;
+  const mockBroadcast = { broadcast: (key, data) => {}} as Broadcaster;
   let authService: AuthService;
   let currentLocation;
   const expectedUser:User = {
@@ -125,7 +127,8 @@ describe('Service: KeycloakAuthService', () => {
 
   beforeEach(() => {
     mockKeycloakCore = new MockKeycloakCore();
-    authService = new KeycloakAuthService(new MockConfig(), () => mockKeycloakCore, (url) => currentLocation = url);
+    authService = new KeycloakAuthService(new MockConfig(), mockBroadcast,
+      () => mockKeycloakCore, (url) => currentLocation = url);
   });
 
   it('Should init and not be authenticated when core is not authenticated', (done) => {
@@ -188,7 +191,7 @@ describe('Service: KeycloakAuthService', () => {
   });
 
   it('Should not use core when auth is disabled', () => {
-    authService = new KeycloakAuthService(new MockDisabledConfig(), () => mockKeycloakCore);
+    authService = new KeycloakAuthService(new MockDisabledConfig(), mockBroadcast, () => mockKeycloakCore);
     authService.init().then(() => {});
     authService.login().then(() => {});
     authService.getToken().then(() => {});

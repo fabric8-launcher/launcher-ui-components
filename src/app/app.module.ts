@@ -31,7 +31,7 @@ import { KeycloakAuthService } from './shared/keycloak.auth.service';
     Broadcaster,
     Logger,
     { provide: Config, useClass: LaunchConfig },
-    { provide: AuthService, useClass: KeycloakAuthService, deps: [Config] },
+    { provide: AuthService, useClass: KeycloakAuthService, deps: [Config, Broadcaster] },
   ],
   bootstrap: [AppComponent]
 })
