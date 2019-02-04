@@ -1,0 +1,291 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectCapabilities /> renders the HubNSpoke correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="select-capabilities"
+  >
+    <ul
+      aria-label="select-capability"
+      class="pf-c-data-list pf-u-box-shadow-md"
+      role="list"
+    >
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          Relational Persistence
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Sets up basic CRUD (Create, Read, Update, Delete) operations with a relational database
+        </div>
+      </li>
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          HTTP API
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Exposes an HTTP API for receiving invocations across network boundaries
+        </div>
+      </li>
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          Web Application
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Adds a simple Hello World web application to the user's project
+        </div>
+      </li>
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          Welcome Application
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Deploys a Welcome Application where all selected capabilities can be tested. Required.
+        </div>
+      </li>
+    </ul>
+    <button
+      class="pf-c-button pf-m-primary pf-m-block"
+      type="button"
+    >
+      Save
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<SelectCapabilities /> renders the SelectCapabilities correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="select-capabilities"
+  >
+    <ul
+      aria-label="select-capability"
+      class="pf-c-data-list pf-u-box-shadow-md"
+      role="list"
+    >
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          Relational Persistence
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Sets up basic CRUD (Create, Read, Update, Delete) operations with a relational database
+        </div>
+      </li>
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          HTTP API
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Exposes an HTTP API for receiving invocations across network boundaries
+        </div>
+      </li>
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          Web Application
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Adds a simple Hello World web application to the user's project
+        </div>
+      </li>
+      <li
+        aria-labelledby="Selection item"
+        class="pf-c-data-list__item"
+      >
+        <div
+          class="pf-c-data-list__check"
+        >
+          <input
+            aria-invalid="false"
+            aria-labelledby="Selection item check"
+            class="pf-c-check__input"
+            name="Selection item check"
+            type="checkbox"
+          />
+        </div>
+        <div
+          class="pf-c-data-list__cell"
+        >
+          <img />
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-2"
+        >
+          Welcome Application
+        </div>
+        <div
+          class="pf-c-data-list__cell pf-m-flex-3"
+        >
+          Deploys a Welcome Application where all selected capabilities can be tested. Required.
+        </div>
+      </li>
+    </ul>
+    <button
+      class="pf-c-button pf-m-primary pf-m-block"
+      type="button"
+    >
+      Save
+    </button>
+  </div>
+</DocumentFragment>
+`;
