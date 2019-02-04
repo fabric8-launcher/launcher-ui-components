@@ -1,0 +1,9 @@
+sudo: false
+language: node_js
+cache:
+  yarn: true
+install:
+    - yarn build:prod
+script:
+    - yarn test
+
