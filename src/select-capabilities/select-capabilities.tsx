@@ -53,7 +53,7 @@ function CapabilityCard(props: CapabilityCardProps) {
   return (
     <DataListItem aria-labelledby={props.id} isExpanded={props.selected}>
       <DataListCheck aria-labelledby={elId} name="Selection item check" onChange={onChangeSelected}
-                     checked={props.selected}/>
+                     checked={props.selected} isDisabled={props.disabled}/>
       <DataListCell width={1} style={{flex: 'none'}}><img src={props.icon}/></DataListCell>
       <DataListCell width={1}><Title size="lg">{props.name}</Title></DataListCell>
       <DataListCell width={3}>{props.description}</DataListCell>
@@ -116,6 +116,13 @@ export function SelectCapabilities(props: SelectCapabilitiesProps) {
     }
   };
 
+  const onCancel = () => {
+    setItems(props.items);
+    if (props.onCancel) {
+      props.onCancel();
+    }
+  };
+
   return (
     <div className="select-capabilities" style={{padding: '20px'}}>
       <DataList aria-label="select-capability">
@@ -134,7 +141,7 @@ export function SelectCapabilities(props: SelectCapabilitiesProps) {
           <Button variant="primary" onClick={onSave}>Save</Button>
         </ToolbarGroup>
         <ToolbarGroup>
-          <Button variant="secondary" onClick={props.onCancel}>Cancel</Button>
+          <Button variant="secondary" onClick={onCancel}>Cancel</Button>
         </ToolbarGroup>
       </Toolbar>
     </div>
