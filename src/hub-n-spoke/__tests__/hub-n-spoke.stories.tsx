@@ -6,6 +6,6 @@ import {mockItems} from "./mock-items";
 
 
 storiesOf('HubNSpoke', module)
-  .add('simple', () => (
+  .add('default', () => (
     <HubNSpoke items={mockItems}/>
   ));

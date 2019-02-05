@@ -11,13 +11,13 @@
     "@types/react-dom": "16.0.11",
     "@types/storybook__addon-actions": "3.4.1",
     "@types/storybook__react": "4.0.0",
+    "launcher-client": "*",
     "node-sass": "4.11.0",
     "normalizr": "3.3.0",
     "react": "next",
     "react-docgen-typescript-loader": "3.0.1",
     "react-dom": "next",
-    "typescript": "3.2.4",
-    "launcher-client": "*"
+    "typescript": "3.2.4"
   },
   "scripts": {
     "build": "tsc && tsc -m es6 --outDir build/dist-esm && webpack -d",
@@ -40,6 +40,7 @@
     "@storybook/addon-links": "4.1.9",
     "@storybook/addons": "4.1.9",
     "@storybook/react": "4.1.9",
+    "@storybook/storybook-deployer": "2.8.1",
     "awesome-typescript-loader": "5.2.1",
     "babel-loader": "8.0.5",
     "identity-obj-proxy": "3.0.0",
