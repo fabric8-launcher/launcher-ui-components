@@ -35,12 +35,12 @@ interface CapabilityItem {
   disabled?: boolean;
 }
 
-type CapabilityCardProps = CapabilityItem & {
+type CapabilityElementProps = CapabilityItem & {
   onChange(changes: { id: string, selected: boolean, data?: any }): void;
 }
 
 
-function CapabilityCard(props: CapabilityCardProps) {
+function CapabilityElement(props: CapabilityElementProps) {
   const onChangeSelected = (selected) => {
     props.onChange({id: props.id, selected, data: props.data})
   };
@@ -95,7 +95,7 @@ interface SelectCapabilitiesProps {
   onCancel?();
 }
 
-export function SelectCapabilities(props: SelectCapabilitiesProps) {
+export function CapabilitiesPicker(props: SelectCapabilitiesProps) {
 
   const [items, setItems] = useState<CapabilityItem[]>(props.items);
 
@@ -128,7 +128,7 @@ export function SelectCapabilities(props: SelectCapabilitiesProps) {
       <DataList aria-label="select-capability">
         {
           items.map((cap, i) => (
-            <CapabilityCard
+            <CapabilityElement
               {...cap}
               key={i}
               onChange={onChange}

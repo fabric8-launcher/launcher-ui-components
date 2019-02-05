@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import {storiesOf} from '@storybook/react';
-import {SelectCapabilities} from "../select-capabilities";
 import {action} from "@storybook/addon-actions";
 import {mockLauncherClient, propsWithValuesMapper} from 'launcher-client';
 import {capabilityToItem} from "../capabilities-adapter";
+import {CapabilitiesPicker} from "../capabilities-picker";
 
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
@@ -21,7 +21,7 @@ function LoadData<T>(props: { loader: Promise<T>, default: T, children: any }) {
 
 };
 
-storiesOf('SelectCapabilities', module)
+storiesOf('CapabilitiesPicker', module)
   .add('default', () => {
     const itemsLoader = client.capabilities().then(c => {
       return client.enums().then(e => {
@@ -33,7 +33,7 @@ storiesOf('SelectCapabilities', module)
 
     return (
       <LoadData loader={itemsLoader} default={[]}>
-        {items => (<SelectCapabilities items={items} onSave={action('save')} onCancel={action('cancel')}/>)}
+        {items => (<CapabilitiesPicker items={items} onSave={action('save')} onCancel={action('cancel')}/>)}
       </LoadData>
     );
   });
