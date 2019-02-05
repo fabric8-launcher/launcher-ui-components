@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {cleanup, render} from "react-testing-library";
 import {mockLauncherClient, propsWithValuesMapper} from 'launcher-client';
-import {capabilityToItem} from "../capabilities-adapter";
+import {capabilityToItem, defaultCapabilitiesPickerValue} from "../capabilities-adapter";
 import {CapabilitiesPicker} from "../capabilities-picker";
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
@@ -16,7 +16,7 @@ describe('<CapabilitiesPicker />', () => {
       .map(propsWithValuesMapper(enums))
       .map(capabilityToItem)
       .filter(c => c.category !== 'frontend');
-    const comp = render(<CapabilitiesPicker items={items}/>);
+    const comp = render(<CapabilitiesPicker items={items} value={defaultCapabilitiesPickerValue}/>);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 });

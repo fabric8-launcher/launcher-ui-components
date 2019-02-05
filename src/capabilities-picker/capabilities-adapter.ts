@@ -8,7 +8,10 @@ export function capabilityToItem(c: Capability) {
     category: c.metadata.category,
     icon: c.metadata.icon,
     fields: c.props,
-    selected: c.module === 'welcome',
     disabled: c.module === 'welcome'
   };
 }
+
+export const defaultCapabilitiesPickerValue = [
+  { id: 'welcome', selected: true },
+];

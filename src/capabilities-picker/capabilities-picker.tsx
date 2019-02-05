@@ -30,39 +30,44 @@ interface CapabilityItem {
   category: string;
   fields?: Field[];
   icon?: string;
-  selected: boolean;
-  data?: any;
   disabled?: boolean;
 }
 
-type CapabilityElementProps = CapabilityItem & {
-  onChange(changes: { id: string, selected: boolean, data?: any }): void;
+interface CapabilityValue {
+  id: string;
+  selected: boolean;
+  data?: any;
+}
+
+type CapabilityItemProps = CapabilityItem & {
+  value: CapabilityValue;
+  onChange(value: CapabilityValue): void;
 }
 
 
-function CapabilityElement(props: CapabilityElementProps) {
+function CapabilityItem(props: CapabilityItemProps) {
   const onChangeSelected = (selected) => {
-    props.onChange({id: props.id, selected, data: props.data})
+    props.onChange({...props.value, selected})
   };
 
   const onChangeData = (data) => {
-    props.onChange({id: props.id, data, selected: props.selected})
+    props.onChange({...props.value, data})
   };
   const elId = `toggle-capability-props-form-${props.id}`;
   const fields = (props.fields || []).filter(f => f.type === 'enum');
   return (
-    <DataListItem aria-labelledby={props.id} isExpanded={props.selected}>
+    <DataListItem aria-labelledby={props.id} isExpanded={props.value.selected}>
       <DataListCheck aria-labelledby={elId} name="Selection item check" onChange={onChangeSelected}
-                     checked={props.selected} isDisabled={props.disabled}/>
+                     checked={props.value.selected} isDisabled={props.disabled}/>
       <DataListCell width={1} style={{flex: 'none'}}><img src={props.icon}/></DataListCell>
       <DataListCell width={1}><Title size="lg">{props.name}</Title></DataListCell>
       <DataListCell width={3}>{props.description}</DataListCell>
-      {fields.length > 0 && props.selected && (
-        <DataListContent isHidden={!props.selected} aria-label={`capability-props-form-${props.id}`}>
+      {fields.length > 0 && props.value.selected && (
+        <DataListContent isHidden={!props.value.selected} aria-label={`capability-props-form-${props.id}`}>
           {fields.map(f => {
-            const selectedValue = (props.data && props.data[f.id]) || f.default;
+            const selectedValue = (props.value.data && props.value.data[f.id]) || f.default;
             const onFieldChange = (v) => {
-              const newData = {...props.data, [f.id]: v};
+              const newData = {...props.value.data, [f.id]: v};
               onChangeData(newData);
             };
             return (
@@ -79,45 +84,39 @@ function CapabilityElement(props: CapabilityElementProps) {
   );
 }
 
-export interface FieldValue {
-  id: string;
-  name: string;
-  description?: string;
-  icon?: string;
-  metadata?: object;
-}
-
 interface SelectCapabilitiesProps {
   items: CapabilityItem[];
+  value?: CapabilityValue[]
 
-  onSave?(items: CapabilityItem[]);
-
+  onSave?(value: CapabilityValue[]);
   onCancel?();
 }
 
 export function CapabilitiesPicker(props: SelectCapabilitiesProps) {
 
-  const [items, setItems] = useState<CapabilityItem[]>(props.items);
+  const [value, setValue] = useState<CapabilityValue[]>(props.value || [] );
 
   useEffect(() => {
-    setItems(props.items);
-  }, [props.items]);
+    if(props.value) {
+      setValue(props.value);
+    }
+  }, [props.value]);
 
-  const itemsMap = new Map(items.map(i => [i.id, i] as [string, CapabilityItem]));
+  const capabilitiesValuesById = new Map(value.map(i => [i.id, i] as [string, CapabilityValue]));
 
-  const onChange = (changes: { id: string, selected: boolean, data?: any }) => {
-    itemsMap.set(changes.id, {...itemsMap.get(changes.id)!, ...changes});
-    setItems(Array.from(itemsMap.values()));
+  const onChange = (value: CapabilityValue) => {
+    capabilitiesValuesById.set(value.id, {...capabilitiesValuesById.get(value.id)!, ...value});
+    setValue(Array.from(capabilitiesValuesById.values()));
   };
 
   const onSave = () => {
     if (props.onSave) {
-      props.onSave(items);
+      props.onSave(value);
     }
   };
 
   const onCancel = () => {
-    setItems(props.items);
+    setValue(props.value || []);
     if (props.onCancel) {
       props.onCancel();
     }
@@ -127,10 +126,11 @@ export function CapabilitiesPicker(props: SelectCapabilitiesProps) {
     <div className="select-capabilities" style={{padding: '20px'}}>
       <DataList aria-label="select-capability">
         {
-          items.map((cap, i) => (
-            <CapabilityElement
+          props.items.map((cap, i) => (
+            <CapabilityItem
               {...cap}
               key={i}
+              value={capabilitiesValuesById.get(cap.id) || { id: cap.id, selected: false }}
               onChange={onChange}
             />
           ))

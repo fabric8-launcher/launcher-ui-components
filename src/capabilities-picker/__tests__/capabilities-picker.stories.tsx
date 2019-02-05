@@ -3,7 +3,7 @@ import '@patternfly/react-core/dist/styles/base.css';
 import {storiesOf} from '@storybook/react';
 import {action} from "@storybook/addon-actions";
 import {mockLauncherClient, propsWithValuesMapper} from 'launcher-client';
-import {capabilityToItem} from "../capabilities-adapter";
+import {capabilityToItem, defaultCapabilitiesPickerValue} from "../capabilities-adapter";
 import {CapabilitiesPicker} from "../capabilities-picker";
 
 
@@ -33,7 +33,7 @@ storiesOf('CapabilitiesPicker', module)
 
     return (
       <LoadData loader={itemsLoader} default={[]}>
-        {items => (<CapabilitiesPicker items={items} onSave={action('save')} onCancel={action('cancel')}/>)}
+        {items => (<CapabilitiesPicker items={items} value={defaultCapabilitiesPickerValue} onSave={action('save')} onCancel={action('cancel')}/>)}
       </LoadData>
     );
   });

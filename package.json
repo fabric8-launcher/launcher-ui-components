@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "tsc && tsc -m es6 --outDir build/dist-esm && webpack -d",
-    "test": "jest --env=jsdom",
+    "test": "jest",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
