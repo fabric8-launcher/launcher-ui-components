@@ -1,7 +1,7 @@
 Fabric8-Launcher Frontend
 =========================
 
-[![Build Status](https://ci.centos.org/view/Devtools/job/devtools-launcher-frontend-generator-build-master/badge/icon)](https://ci.centos.org/view/Devtools/job/devtools-launcher-frontend-generator-build-master/)
+[![Build Status](https://travis-ci.com/fabric8-launcher/launcher-frontend.svg?branch=master)](https://travis-ci.com/fabric8-launcher/launcher-frontend)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=72209295)](https://dependabot.com)
 
