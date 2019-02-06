@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Card, CardBody, CardHeader, Gallery, GalleryItem, Radio, Title} from '@patternfly/react-core';
 import {InputProps} from '../core/types';
 import * as style from './item-picker.scss';
+import classNames from 'classnames';
 
 export interface ViewItem {
   id: string;
@@ -22,7 +23,7 @@ function ListItem(props: ListItemProps) {
     onSelect(props.id);
   };
   return (
-    <Card onClick={doOnSelect}>
+    <Card onClick={doOnSelect} className={classNames({ selected })}>
       <CardHeader>
         <Radio
           aria-label={`Choose ${props.id} as ${props.group}`}

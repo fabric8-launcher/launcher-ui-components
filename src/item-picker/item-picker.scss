@@ -1,5 +1,10 @@
 article.pf-c-card {
   cursor: pointer;
+  border-left: 3px solid transparent;
+
+  &.selected {
+    border-left: 3px solid #007bba;
+  }
 }
 
 div.pf-c-card__body {
