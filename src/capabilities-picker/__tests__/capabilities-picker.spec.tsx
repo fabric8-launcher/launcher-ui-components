@@ -16,7 +16,7 @@ describe('<CapabilitiesPicker />', () => {
       .map(propsWithValuesMapper(enums))
       .map(capabilityToItem)
       .filter(c => c.category !== 'frontend');
-    const comp = render(<CapabilitiesPicker items={items} value={defaultCapabilitiesPickerValue}/>);
+    const comp = render(<CapabilitiesPicker items={items} value={defaultCapabilitiesPickerValue} onChange={() => {}}/>);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 });
