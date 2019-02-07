@@ -4,13 +4,14 @@ import {RuntimeItem} from "./runtime-picker";
 import {useLauncherClient} from "../../launcher-client-context";
 
 export function runtimeMatcherByCategory(category: string) {
-  return (r) => r.metadata.category.indexOf(category) >= 0;
+  return (r) => r.metadata.categories.indexOf(category) >= 0;
 }
 
 export function RuntimesLoader(props: { category: string, children: (items: RuntimeItem[]) => any }) {
   const client = useLauncherClient();
+  const loader = () => client.enum('runtime.name').then(r => r.filter(runtimeMatcherByCategory(props.category)));
   return (
-    <DataLoader loader={() => client.enum('runtime.name')} default={[]}>
+    <DataLoader loader={loader} default={[]}>
       { props.children }
     </DataLoader>
   );
