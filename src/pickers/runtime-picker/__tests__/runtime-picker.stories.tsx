@@ -4,25 +4,45 @@ import {storiesOf} from '@storybook/react';
 import {action} from "@storybook/addon-actions";
 import {mockLauncherClient} from 'launcher-client';
 import {FormPanel} from "../../../core/form-panel/form-panel";
-import {defaultRuntimePickerValue} from "../runtime-adapter";
-import {RuntimePicker} from "../runtime-picker";
-import {DataLoader} from "../../../core/data-loader/data-loader";
+import {defaultRuntimePickerValue, RuntimePicker} from "../runtime-picker";
+import {RuntimesLoader} from "../runtimes-loader";
+import {LauncherClientContext} from "../../../launcher-client-context";
 
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
 storiesOf('RuntimePicker', module)
-  .add('default', () => {
+  .add('frontend', () => {
     return (
-      <DataLoader loader={() => client.enum('runtime.name')} default={[]}>
-        {items => (
-          <FormPanel value={defaultRuntimePickerValue} onSave={action('save')}
-                     onCancel={action('cancel')}>
-            {
-              (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)
-            }
-          </FormPanel>
-        )}
-      </DataLoader>
+      <LauncherClientContext.Provider value={client}>
+        <RuntimesLoader category="frontend">
+          {items => (
+            <FormPanel value={defaultRuntimePickerValue} onSave={action('save')}
+                       onCancel={action('cancel')}>
+              {
+                (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)
+              }
+            </FormPanel>
+          )}
+        </RuntimesLoader>
+      </LauncherClientContext.Provider>
+
+    );
+  })
+  .add('backend', () => {
+    return (
+      <LauncherClientContext.Provider value={client}>
+        <RuntimesLoader category="backend">
+          {items => (
+            <FormPanel value={defaultRuntimePickerValue} onSave={action('save')}
+                       onCancel={action('cancel')}>
+              {
+                (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)
+              }
+            </FormPanel>
+          )}
+        </RuntimesLoader>
+      </LauncherClientContext.Provider>
+
     );
   });

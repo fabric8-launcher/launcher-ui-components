@@ -13,7 +13,7 @@ interface Field {
   default?: string
 }
 
-interface CapabilityItem {
+export interface CapabilityItem {
   id: string;
   name: string;
   description: string;
@@ -30,6 +30,11 @@ export interface CapabilityValue {
 }
 
 type CapabilityItemProps = CapabilityItem & InputProps<CapabilityValue>
+
+
+export const defaultCapabilitiesPickerValue = [
+  { id: 'welcome', selected: true },
+];
 
 
 function CapabilityItem(props: CapabilityItemProps) {

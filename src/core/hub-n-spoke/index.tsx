@@ -89,7 +89,6 @@ interface HubAndSpokeProps {
 }
 
 export function HubNSpoke(props: HubAndSpokeProps) {
-
   const [selectedHub, setSelectedHub] = useState<HubItem | undefined>(undefined);
 
   const hub: Hub = {
