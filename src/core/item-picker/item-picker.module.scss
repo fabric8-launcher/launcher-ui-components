@@ -1,13 +1,15 @@
-article.pf-c-card {
+.item {
   cursor: pointer;
   border: 2px solid transparent;
 
-  &.selected {
-    border: 2px solid #007bba;
-  }
+
 }
 
-div.pf-c-card__body {
+.selected {
+  border: 2px solid #007bba;
+}
+
+.body {
   text-align: center;
   height: 280px;
   display: flex;
@@ -19,11 +21,11 @@ div.pf-c-card__body {
   }
 
   p {
-    margin-top:auto;
+    margin-top: auto;
   }
 }
 
-div.pf-c-card__header {
+.header {
   display: flex;
 
   h1 {
@@ -32,3 +34,5 @@ div.pf-c-card__header {
     margin-left: 10px;
   }
 }
+
+

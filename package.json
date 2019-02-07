@@ -43,6 +43,7 @@
     "@storybook/addons": "4.1.9",
     "@storybook/react": "4.1.9",
     "@storybook/storybook-deployer": "2.8.1",
+    "@types/classnames": "2.2.7",
     "awesome-typescript-loader": "5.2.1",
     "babel-loader": "8.0.5",
     "identity-obj-proxy": "3.0.0",

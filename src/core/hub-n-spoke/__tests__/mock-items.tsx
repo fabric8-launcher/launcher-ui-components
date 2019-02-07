@@ -1,4 +1,4 @@
-import {HubItem} from "../index";
+import {HubItem} from "..";
 import * as React from "react";
 
 export const mockItems: HubItem[] = [

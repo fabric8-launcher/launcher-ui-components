@@ -1,7 +1,7 @@
 import * as React from "react";
 import {DataList, DataListCell, DataListCheck, DataListContent, DataListItem, Title} from "@patternfly/react-core";
 import {FieldEnum} from "./fields/field-enum";
-import {InputProps} from "../core/types";
+import {InputProps} from "../../core/types";
 
 interface Field {
   id: string;
@@ -85,17 +85,19 @@ export function CapabilitiesPicker(props: CapabilitiesPickerProps) {
   };
 
   return (
-    <DataList aria-label="select-capability" className="select-capabilities">
-      {
-        props.items.map((cap, i) => (
-          <CapabilityItem
-            {...cap}
-            key={i}
-            value={capabilitiesValuesById.get(cap.id) || {id: cap.id, selected: false}}
-            onChange={onChange}
-          />
-        ))
-      }
-    </DataList>
+    <React.Fragment>
+      <DataList aria-label="select-capability" className="select-capabilities">
+        {
+          props.items.map((cap, i) => (
+            <CapabilityItem
+              {...cap}
+              key={i}
+              value={capabilitiesValuesById.get(cap.id) || {id: cap.id, selected: false}}
+              onChange={onChange}
+            />
+          ))
+        }
+      </DataList>
+    </React.Fragment>
   );
 }

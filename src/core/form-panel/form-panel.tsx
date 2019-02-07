@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useState} from "react";
 import {Button, Toolbar, ToolbarGroup} from "@patternfly/react-core";
-import {InputProps} from "../core/types";
+import {InputProps} from "../types";
 
 interface FormPanelProps<T> {
   value: T;
