@@ -1,33 +1,18 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: {
-    'my-lib': './src/index.ts',
-    'my-lib.min': './src/index.ts'
-  },
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].js',
+    publicPath: '',
+    filename: 'hub-n-spoke.js',
     libraryTarget: 'umd',
-    library: 'hub-n-spoke',
-    umdNamedDefine: true
   },
   resolve: {
+    aliasFields: ['browser'],
     extensions: ['.ts', '.tsx', '.js']
   },
   devtool: 'source-map',
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          minimize: true,
-          sourceMap: true,
-          include: /\.min\.js$/,
-        }
-      })
-    ]
-  },
   module: {
     rules: [
       {
@@ -48,8 +33,13 @@ module.exports = {
           {
             loader: "sass-loader"
           }
-        ]
+        ],
+        exclude: /node_modules/
       }
     ]
+  },
+  externals: {
+    'react': 'react',
+    'react-dom': 'react-dom',
   }
 }
