@@ -41,5 +41,6 @@ module.exports = {
   externals: {
     'react': 'react',
     'react-dom': 'react-dom',
+    '@patternfly/react-core': '@patternfly/react-core'
   }
 }

@@ -6,7 +6,6 @@
     "@patternfly/react-core": "1.51.6",
     "@patternfly/react-icons": "2.10.6",
     "classnames": "2.2.6",
-    "css-loader": "^2.1.0",
     "launcher-client": "*"
   },
   "peerDependencies": {
@@ -14,7 +13,7 @@
     "react-dom": "16.8.1"
   },
   "scripts": {
-    "build": "tsc && tsc -m es6 --outDir build/dist-esm && webpack -d",
+    "build": "rm -rf ./build && tsc && tsc -m es6 --outDir build/dist-esm && webpack -d",
     "test": "jest",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
@@ -44,7 +43,7 @@
     "@types/storybook__addon-actions": "3.4.1",
     "@types/storybook__react": "4.0.0",
     "awesome-typescript-loader": "5.2.1",
-    "babel-loader": "8.0.5",
+    "css-loader": "2.1.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
     "node-sass": "4.11.0",
