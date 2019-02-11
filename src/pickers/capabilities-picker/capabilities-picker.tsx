@@ -32,7 +32,7 @@ export interface CapabilityValue {
 type CapabilityItemProps = CapabilityItem & InputProps<CapabilityValue>
 
 export const defaultCapabilitiesPickerValue = [
-  { id: 'welcome', selected: true },
+  {id: 'welcome', selected: true},
 ];
 
 
@@ -47,12 +47,21 @@ function CapabilityItem(props: CapabilityItemProps) {
   const elId = `toggle-capability-props-form-${props.id}`;
   const fields = (props.fields || []).filter(f => f.type === 'enum');
   return (
-    <DataListItem aria-labelledby={props.id} isExpanded={props.value.selected} onClick={() => onChangeSelected(!props.value.selected)}>
+    <DataListItem aria-labelledby={props.id} isExpanded={props.value.selected}>
       <DataListCheck aria-labelledby={elId} name="Selection item check" onChange={onChangeSelected}
                      checked={props.value.selected} isDisabled={props.disabled}/>
-      <DataListCell width={1} style={{flex: 'none'}}><img src={props.icon}/></DataListCell>
-      <DataListCell width={1}><Title size="lg">{props.name}</Title></DataListCell>
-      <DataListCell width={3}>{props.description}</DataListCell>
+      <DataListCell width={1} style={{flex: 'none', cursor: 'pointer'}}
+                    onClick={() => onChangeSelected(!props.value.selected)}>
+        <img src={props.icon}/>
+      </DataListCell>
+      <DataListCell width={1} onClick={() => onChangeSelected(!props.value.selected)} style={{cursor: 'pointer'}}>
+        <Title size="lg">{props.name}</Title>
+      </DataListCell>
+      <DataListCell width={3}
+                    onClick={() => onChangeSelected(!props.value.selected)}
+                    style={{cursor: 'pointer'}}>
+        {props.description}
+      </DataListCell>
       {fields.length > 0 && props.value.selected && (
         <DataListContent isHidden={!props.value.selected} aria-label={`capability-props-form-${props.id}`}>
           {fields.map(f => {
