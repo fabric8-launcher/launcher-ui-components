@@ -46,19 +46,20 @@ function CapabilityItem(props: CapabilityItemProps) {
   };
   const elId = `toggle-capability-props-form-${props.id}`;
   const fields = (props.fields || []).filter(f => f.type === 'enum');
+  const toggleSelect = () => onChangeSelected(!props.value.selected);
   return (
     <DataListItem aria-labelledby={props.id} isExpanded={props.value.selected}>
       <DataListCheck aria-labelledby={elId} name="Selection item check" onChange={onChangeSelected}
                      checked={props.value.selected} isDisabled={props.disabled}/>
       <DataListCell width={1} style={{flex: 'none', cursor: 'pointer'}}
-                    onClick={() => onChangeSelected(!props.value.selected)}>
+                    onClick={toggleSelect}>
         <img src={props.icon}/>
       </DataListCell>
-      <DataListCell width={1} onClick={() => onChangeSelected(!props.value.selected)} style={{cursor: 'pointer'}}>
+      <DataListCell width={1} onClick={toggleSelect} style={{cursor: 'pointer'}}>
         <Title size="lg">{props.name}</Title>
       </DataListCell>
       <DataListCell width={3}
-                    onClick={() => onChangeSelected(!props.value.selected)}
+                    onClick={toggleSelect}
                     style={{cursor: 'pointer'}}>
         {props.description}
       </DataListCell>
