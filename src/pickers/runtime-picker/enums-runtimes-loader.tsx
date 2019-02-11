@@ -7,7 +7,7 @@ export function runtimeMatcherByCategory(category: string) {
   return (r) => r.metadata.categories.indexOf(category) >= 0;
 }
 
-export function RuntimesLoader(props: { category: string, children: (items: RuntimeItem[]) => any }) {
+export function EnumsRuntimesLoader(props: { category: string, children: (items: RuntimeItem[]) => any }) {
   const client = useLauncherClient();
   const loader = () => client.enum('runtime.name').then(r => r.filter(runtimeMatcherByCategory(props.category)));
   return (

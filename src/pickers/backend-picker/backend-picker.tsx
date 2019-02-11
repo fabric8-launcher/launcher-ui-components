@@ -7,7 +7,7 @@ import {InputProps} from "../../core/types";
 import {DescriptiveHeader} from "../../core/descriptive-header";
 import * as React from "react";
 import {RuntimePicker} from "../runtime-picker/runtime-picker";
-import {RuntimesLoader} from "../runtime-picker/runtimes-loader";
+import {EnumsRuntimesLoader} from "../runtime-picker/enums-runtimes-loader";
 import {CapabilitiesItemsLoader} from "../capabilities-picker/capability-loader";
 
 interface BackendValue {
@@ -50,12 +50,12 @@ export function BackendPicker(props: BackendPickerProps) {
   return (
     <React.Fragment>
       <RuntimeHeader/>
-      <RuntimesLoader category="backend">
+      <EnumsRuntimesLoader category="backend">
         {(items) => (
           <RuntimePicker items={items} value={props.value.runtime}
                          onChange={(runtime) => props.onChange({...props.value, runtime})}/>
         )}
-      </RuntimesLoader>
+      </EnumsRuntimesLoader>
       {props.value.runtime && (
         <React.Fragment>
           <CapabilitiesHeader/>

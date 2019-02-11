@@ -31,7 +31,6 @@ export interface CapabilityValue {
 
 type CapabilityItemProps = CapabilityItem & InputProps<CapabilityValue>
 
-
 export const defaultCapabilitiesPickerValue = [
   { id: 'welcome', selected: true },
 ];
