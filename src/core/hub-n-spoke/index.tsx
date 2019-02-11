@@ -13,7 +13,7 @@ export interface HubItem {
     width?: 'half' | 'full';
   };
   form: {
-    component: ReactElement<any>;
+    component: (props: {close: () => void}) => ReactElement<any>;
   };
 }
 
@@ -66,7 +66,7 @@ function HubFormCard(props: HubFormCardProps) {
     }
   };
   return (
-    <GridItem className="hub-and-spoke-item" span={12}>
+    <GridItem className="hub-and-spoke-item hub-and-spoke-item-form" span={12}>
       <div className="hub-and-spoke-header">
         <h1>
           {props.title}
@@ -106,7 +106,7 @@ export function HubNSpoke(props: HubAndSpokeProps) {
       <Grid className="hub-and-spoke-container" gutter={'sm'}>
         {hub.selected ? (
             <HubFormCard id={hub.selected.id} title={hub.selected.title}>
-              {hub.selected.form.component}
+              {hub.selected.form.component({close: hub.close})}
             </HubFormCard>
         ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i} />))}
       </Grid>

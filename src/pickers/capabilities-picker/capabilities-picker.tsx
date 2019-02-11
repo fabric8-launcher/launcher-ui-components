@@ -75,7 +75,9 @@ function CapabilityItem(props: CapabilityItemProps) {
   );
 }
 
-interface CapabilitiesPickerProps extends InputProps<CapabilityValue[]> {
+export type CapabilitiesPickerValue = CapabilityValue[];
+
+interface CapabilitiesPickerProps extends InputProps<CapabilitiesPickerValue> {
   items: CapabilityItem[];
 }
 

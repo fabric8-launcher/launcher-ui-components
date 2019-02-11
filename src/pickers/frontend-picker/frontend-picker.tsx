@@ -1,24 +1,22 @@
 import {InputProps} from "../../core/types";
 import {DescriptiveHeader} from "../../core/descriptive-header";
 import * as React from "react";
-import {RuntimePicker} from "../runtime-picker/runtime-picker";
+import {RuntimePicker, RuntimePickerValue} from "../runtime-picker/runtime-picker";
 import {EnumsRuntimesLoader} from "../runtime-picker/enums-runtimes-loader";
 
-interface FrontendValue {
-  runtime?: {
-    id: string;
-  };
+export interface FrontendPickerValue {
+  runtime?: RuntimePickerValue;
 }
 
-export function isFrontendValueValid(value: FrontendValue) {
+export function isFrontendPickerValueValid(value: FrontendPickerValue) {
   return !!value.runtime;
 }
 
-export const defaultFrontendValue: FrontendValue = {
+export const defaultFrontendPickerValue: FrontendPickerValue = {
 };
 
 
-interface FrontendPickerProps extends InputProps<FrontendValue> {
+interface FrontendPickerProps extends InputProps<FrontendPickerValue> {
 }
 
 

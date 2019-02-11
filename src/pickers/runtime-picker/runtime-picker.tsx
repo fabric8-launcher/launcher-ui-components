@@ -3,7 +3,7 @@ import ItemPicker from "../../core/item-picker/item-picker";
 import * as React from "react";
 
 
-interface RuntimeValue {
+export interface RuntimePickerValue {
   id: string;
 }
 
@@ -14,7 +14,7 @@ export interface RuntimeItem {
   icon?: string;
 }
 
-interface RuntimePickerProps extends InputProps<RuntimeValue | undefined> {
+interface RuntimePickerProps extends InputProps<RuntimePickerValue | undefined> {
   items: RuntimeItem[];
 }
 

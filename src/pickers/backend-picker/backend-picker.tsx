@@ -1,32 +1,30 @@
 import {
   CapabilitiesPicker,
-  CapabilityValue,
+  CapabilitiesPickerValue,
   defaultCapabilitiesPickerValue
 } from "../capabilities-picker/capabilities-picker";
 import {InputProps} from "../../core/types";
 import {DescriptiveHeader} from "../../core/descriptive-header";
 import * as React from "react";
-import {RuntimePicker} from "../runtime-picker/runtime-picker";
+import {RuntimePicker, RuntimePickerValue} from "../runtime-picker/runtime-picker";
 import {EnumsRuntimesLoader} from "../runtime-picker/enums-runtimes-loader";
 import {CapabilitiesItemsLoader} from "../capabilities-picker/capability-loader";
 
-interface BackendValue {
-  runtime?: {
-    id: string;
-  };
-  capabilities: CapabilityValue[];
+export interface BackendPickerValue {
+  runtime?: RuntimePickerValue;
+  capabilities: CapabilitiesPickerValue;
 }
 
-export function isBackendValueValid(value: BackendValue) {
+export function isBackendPickerValueValid(value: BackendPickerValue) {
   return value.capabilities.filter(c => c.selected).length > 1 && !!value.runtime;
 }
 
-export const defaultBackendValue: BackendValue = {
+export const defaultBackendPickerValue: BackendPickerValue = {
   capabilities: defaultCapabilitiesPickerValue,
 };
 
 
-interface BackendPickerProps extends InputProps<BackendValue> {
+interface BackendPickerProps extends InputProps<BackendPickerValue> {
 }
 
 export function CapabilitiesHeader() {

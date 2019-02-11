@@ -9,7 +9,7 @@ export const mockItems: HubItem[] = [
       component: (<p>this is hub 1 overview</p>),
     },
     form: {
-      component: (<p>this is hub 1 edition form</p>),
+      component: ({close}) => (<p>this is hub 1 edition form</p>),
     }
   },
   {
@@ -19,7 +19,7 @@ export const mockItems: HubItem[] = [
       component: (<p>this is hub 2 overview</p>),
     },
     form: {
-      component: (<p>this is hub 2 edition form</p>),
+      component: ({close}) => (<p>this is hub 2 edition form</p>),
     }
   },
   {
@@ -30,7 +30,7 @@ export const mockItems: HubItem[] = [
       width: 'full',
     },
     form: {
-      component: (<p>this is hub 3 edition form</p>),
+      component: ({close}) => (<p>this is hub 3 edition form</p>),
     }
   }
 ];
