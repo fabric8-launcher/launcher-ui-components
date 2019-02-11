@@ -5,6 +5,7 @@ import {InputProps} from "../types";
 
 interface FormPanelProps<T> {
   value: T;
+  isValid?(value: T): boolean;
   children: (inputProps: InputProps<T>) => any;
 
   onSave?(value: any);
@@ -35,7 +36,7 @@ export function FormPanel<T>(props: FormPanelProps<T>) {
       { props.children({value, onChange}) }
       <Toolbar style={{marginTop: '20px'}}>
         <ToolbarGroup>
-          <Button variant="primary" onClick={onSave}>Save</Button>
+          <Button variant="primary" onClick={onSave} isDisabled={props.isValid && !props.isValid(value)}>Save</Button>
         </ToolbarGroup>
         <ToolbarGroup>
           <Button variant="secondary" onClick={onCancel}>Cancel</Button>

@@ -1,4 +1,8 @@
-import {CapabilitiesPicker, CapabilityValue} from "../capabilities-picker/capabilities-picker";
+import {
+  CapabilitiesPicker,
+  CapabilityValue,
+  defaultCapabilitiesPickerValue
+} from "../capabilities-picker/capabilities-picker";
 import {InputProps} from "../../core/types";
 import {DescriptiveHeader} from "../../core/descriptive-header";
 import * as React from "react";
@@ -13,8 +17,12 @@ interface BackendValue {
   capabilities: CapabilityValue[];
 }
 
+export function isBackendValueValid(value: BackendValue) {
+  return value.capabilities.filter(c => c.selected).length > 1 && !!value.runtime;
+}
+
 export const defaultBackendValue: BackendValue = {
-  capabilities: [],
+  capabilities: defaultCapabilitiesPickerValue,
 };
 
 
