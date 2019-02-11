@@ -1,7 +1,7 @@
 import {Capability, propsWithValuesMapper} from "launcher-client";
-import {useLauncherClient} from "../../launcher-client-context";
-import {DataLoader} from "../../core/data-loader/data-loader";
-import {CapabilityItem} from "./capabilities-picker";
+import {useLauncherClient} from "../launcher-client-context";
+import {DataLoader} from "../core/data-loader/data-loader";
+import {CapabilityItem} from "../pickers/capabilities-picker/capabilities-picker";
 import * as React from "react";
 
 

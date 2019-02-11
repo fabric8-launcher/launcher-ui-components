@@ -14,6 +14,8 @@ import {
 } from '../pickers/frontend-picker/frontend-picker';
 import {HubNSpoke} from '../core/hub-n-spoke';
 import {FormPanel} from '../core/form-panel/form-panel';
+import {BackendOverview} from '../overviews/backend-overview';
+import {FrontendOverview} from '../overviews/frontend-overview';
 
 
 interface CustomApp {
@@ -35,14 +37,8 @@ export function CreateCustomAppFlow() {
       id: 'frontend',
       title: 'Frontend',
       overview: {
-        component: (
-          <div>
-            {
-              customApp.frontend.runtime ?
-                (<p>you selected {customApp.frontend.runtime.id}</p>) :
-                (<p>you can select a Frontend</p>)
-            }
-          </div>
+        component: ({edit}) => (
+          <FrontendOverview value={customApp.frontend} onClick={edit} />
         ),
       },
       form: {
@@ -61,15 +57,8 @@ export function CreateCustomAppFlow() {
       id: 'backend',
       title: 'Backend',
       overview: {
-        component: (
-          <div>
-            {
-              customApp.backend.runtime ?
-                (<p>you selected runtime {customApp.backend.runtime.id}
-                and capabilities {customApp.backend.capabilities.filter(c => c.selected).map(c => c.id).join(', ')}</p>) :
-                (<p>you can select a Backend</p>)
-            }
-          </div>
+        component: ({edit}) => (
+          <BackendOverview value={customApp.backend} onClick={edit} />
         ),
       },
       form: {

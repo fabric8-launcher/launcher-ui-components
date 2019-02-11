@@ -6,7 +6,7 @@ export const mockItems: HubItem[] = [
     id: 'hub1',
     title: 'Hub1',
     overview: {
-      component: (<p>this is hub 1 overview</p>),
+      component:  ({edit}) => (<p>this is hub 1 overview</p>),
     },
     form: {
       component: ({close}) => (<p>this is hub 1 edition form</p>),
@@ -16,7 +16,7 @@ export const mockItems: HubItem[] = [
     id: 'hub2',
     title: 'Hub2',
     overview: {
-      component: (<p>this is hub 2 overview</p>),
+      component: ({edit}) => (<p>this is hub 2 overview</p>),
     },
     form: {
       component: ({close}) => (<p>this is hub 2 edition form</p>),
@@ -26,7 +26,7 @@ export const mockItems: HubItem[] = [
     id: 'hub3',
     title: 'Hub3',
     overview: {
-      component: (<p>this is hub 3 overview</p>),
+      component: ({edit}) => (<p>this is hub 3 overview</p>),
       width: 'full',
     },
     form: {

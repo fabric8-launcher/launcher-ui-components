@@ -5,7 +5,7 @@ import {action} from "@storybook/addon-actions";
 import {mockLauncherClient} from 'launcher-client';
 import {CapabilitiesPicker, defaultCapabilitiesPickerValue} from "../capabilities-picker";
 import {FormPanel} from "../../../core/form-panel/form-panel";
-import {CapabilitiesItemsLoader} from "../capability-loader";
+import {CapabilitiesItemsLoader} from "../../../loaders/capabilities-loader";
 import {LauncherClientContext} from "../../../launcher-client-context";
 
 

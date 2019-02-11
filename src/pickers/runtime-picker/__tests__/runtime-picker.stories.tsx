@@ -5,7 +5,7 @@ import {action} from "@storybook/addon-actions";
 import {mockLauncherClient} from 'launcher-client';
 import {FormPanel} from "../../../core/form-panel/form-panel";
 import {defaultRuntimePickerValue, RuntimePicker} from "../runtime-picker";
-import {EnumsRuntimesLoader} from "../enums-runtimes-loader";
+import {EnumsRuntimesLoaders} from "../../../loaders/enums-runtimes-loaders";
 import {LauncherClientContext} from "../../../launcher-client-context";
 
 
@@ -15,7 +15,7 @@ storiesOf('RuntimePicker', module)
   .add('frontend', () => {
     return (
       <LauncherClientContext.Provider value={client}>
-        <EnumsRuntimesLoader category="frontend">
+        <EnumsRuntimesLoaders category="frontend">
           {items => (
             <FormPanel value={defaultRuntimePickerValue} onSave={action('save')}
                        onCancel={action('cancel')}>
@@ -24,7 +24,7 @@ storiesOf('RuntimePicker', module)
               }
             </FormPanel>
           )}
-        </EnumsRuntimesLoader>
+        </EnumsRuntimesLoaders>
       </LauncherClientContext.Provider>
 
     );
@@ -32,7 +32,7 @@ storiesOf('RuntimePicker', module)
   .add('backend', () => {
     return (
       <LauncherClientContext.Provider value={client}>
-        <EnumsRuntimesLoader category="backend">
+        <EnumsRuntimesLoaders category="backend">
           {items => (
             <FormPanel value={defaultRuntimePickerValue} onSave={action('save')}
                        onCancel={action('cancel')}>
@@ -41,7 +41,7 @@ storiesOf('RuntimePicker', module)
               }
             </FormPanel>
           )}
-        </EnumsRuntimesLoader>
+        </EnumsRuntimesLoaders>
       </LauncherClientContext.Provider>
 
     );

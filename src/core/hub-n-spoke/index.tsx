@@ -9,7 +9,7 @@ export interface HubItem {
   id: string;
   title: string;
   overview: {
-    component: ReactElement<any>;
+    component: (props: {edit: () => void}) => ReactElement<any>;
     width?: 'half' | 'full';
   };
   form: {
@@ -46,7 +46,7 @@ export function HubOverviewCard(props: HubItem) {
         </div>
       </div>
       <div className="hub-and-spoke-body">
-        {props.overview.component}
+        {props.overview.component({edit: onEdit})}
       </div>
     </GridItem>
   );

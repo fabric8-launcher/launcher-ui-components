@@ -2,7 +2,7 @@ import {InputProps} from "../../core/types";
 import {DescriptiveHeader} from "../../core/descriptive-header";
 import * as React from "react";
 import {RuntimePicker, RuntimePickerValue} from "../runtime-picker/runtime-picker";
-import {EnumsRuntimesLoader} from "../runtime-picker/enums-runtimes-loader";
+import {EnumsRuntimesLoaders} from "../../loaders/enums-runtimes-loaders";
 
 export interface FrontendPickerValue {
   runtime?: RuntimePickerValue;
@@ -33,12 +33,12 @@ export function FrontendPicker(props: FrontendPickerProps) {
   return (
     <React.Fragment>
       <FrontendHeader/>
-      <EnumsRuntimesLoader category="frontend">
+      <EnumsRuntimesLoaders category="frontend">
         {(items) => (
           <RuntimePicker items={items} value={props.value.runtime}
                          onChange={(runtime) => props.onChange({...props.value, runtime})}/>
         )}
-      </EnumsRuntimesLoader>
+      </EnumsRuntimesLoaders>
     </React.Fragment>
   );
 }
