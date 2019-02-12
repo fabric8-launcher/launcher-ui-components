@@ -16,8 +16,11 @@ storiesOf('CapabilitiesPicker', module)
       <LauncherClientContext.Provider value={client}>
         <CapabilitiesLoader categories={['backend', 'support']}>
           {capabilities => (
-            <FormPanel value={defaultCapabilitiesPickerValue} onSave={action('save')}
-                       onCancel={action('cancel')}>
+            <FormPanel
+              value={defaultCapabilitiesPickerValue}
+              onSave={action('save')}
+              onCancel={action('cancel')}
+            >
               {
                 (inputProps) => (<CapabilitiesPicker {...inputProps} items={capabilities.map(capabilityToItem)}/>)}
             </FormPanel>

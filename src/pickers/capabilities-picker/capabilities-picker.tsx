@@ -48,18 +48,28 @@ function CapabilityItem(props: CapabilityItemProps) {
   const toggleSelect = () => onChangeSelected(!props.value.selected);
   return (
     <DataListItem aria-labelledby={props.id} isExpanded={props.value.selected}>
-      <DataListCheck aria-labelledby={elId} name="Selection item check" onChange={onChangeSelected}
-                     checked={props.value.selected} isDisabled={props.disabled}/>
-      <DataListCell width={1} style={{flex: 'none', cursor: 'pointer'}}
-                    onClick={toggleSelect}>
+      <DataListCheck
+        aria-labelledby={elId}
+        name="Selection item check"
+        onChange={onChangeSelected}
+        checked={props.value.selected}
+        isDisabled={props.disabled}
+      />
+      <DataListCell
+        width={1}
+        style={{flex: 'none', cursor: 'pointer'}}
+        onClick={toggleSelect}
+      >
         <img src={props.icon}/>
       </DataListCell>
       <DataListCell width={1} onClick={toggleSelect} style={{cursor: 'pointer'}}>
         <Title size="lg">{props.name}</Title>
       </DataListCell>
-      <DataListCell width={3}
-                    onClick={toggleSelect}
-                    style={{cursor: 'pointer'}}>
+      <DataListCell
+        width={3}
+        onClick={toggleSelect}
+        style={{cursor: 'pointer'}}
+      >
         {props.description}
       </DataListCell>
       {fields.length > 0 && props.value.selected && (
@@ -71,10 +81,16 @@ function CapabilityItem(props: CapabilityItemProps) {
               onChangeData(newData);
             };
             return (
-              <FieldEnum key={f.id} parent={props.id} id={f.id} name={f.name} description={f.description}
-                         values={f.values!}
-                         required={f.required} value={selectedValue}
-                         onChange={onFieldChange}
+              <FieldEnum
+                key={f.id}
+                parent={props.id}
+                id={f.id}
+                name={f.name}
+                description={f.description}
+                values={f.values!}
+                required={f.required}
+                value={selectedValue}
+                onChange={onFieldChange}
               />
             );
           })}

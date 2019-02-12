@@ -15,7 +15,9 @@ interface FieldEnumProps {
 
 export function FieldEnum(props: FieldEnumProps) {
   const onChange = (_, event) => {
-    props.onChange && props.onChange(event.currentTarget.value);
+    if (props.onChange) {
+      props.onChange(event.currentTarget.value);
+    }
   };
   return (
     <Form isHorizontal>

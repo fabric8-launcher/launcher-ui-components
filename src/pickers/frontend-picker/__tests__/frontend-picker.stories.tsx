@@ -13,9 +13,12 @@ storiesOf('FrontendPicker', module)
   .add('default', () => {
     return (
       <LauncherClientContext.Provider value={client}>
-        <FormPanel value={defaultFrontendPickerValue} onSave={action('save')}
-                   isValid={isFrontendPickerValueValid}
-                   onCancel={action('cancel')}>
+        <FormPanel
+          value={defaultFrontendPickerValue}
+          onSave={action('save')}
+          isValid={isFrontendPickerValueValid}
+          onCancel={action('cancel')}
+        >
           {
             (inputProps) => (<FrontendPicker {...inputProps}/>)}
         </FormPanel>
