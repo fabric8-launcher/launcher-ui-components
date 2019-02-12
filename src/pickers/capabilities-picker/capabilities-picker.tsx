@@ -1,16 +1,16 @@
-import * as React from "react";
-import {DataList, DataListCell, DataListCheck, DataListContent, DataListItem, Title} from "@patternfly/react-core";
-import {FieldEnum} from "./fields/field-enum";
-import {InputProps} from "../../core/types";
+import * as React from 'react';
+import { DataList, DataListCell, DataListCheck, DataListContent, DataListItem, Title } from '@patternfly/react-core';
+import { FieldEnum } from './fields/field-enum';
+import { InputProps } from '../../core/types';
 
 interface Field {
   id: string;
   name: string;
   description: string;
   required: boolean;
-  values?: Array<{ id: string, name: string }>
+  values?: Array<{ id: string, name: string }>;
   type: string;
-  default?: string
+  default?: string;
 }
 
 export interface CapabilityItem {
@@ -29,20 +29,19 @@ export interface CapabilityValue {
   data?: any;
 }
 
-type CapabilityItemProps = CapabilityItem & InputProps<CapabilityValue>
+type CapabilityItemProps = CapabilityItem & InputProps<CapabilityValue>;
 
 export const defaultCapabilitiesPickerValue = [
   {id: 'welcome', selected: true},
 ];
 
-
 function CapabilityItem(props: CapabilityItemProps) {
   const onChangeSelected = (selected) => {
-    props.onChange({...props.value, selected})
+    props.onChange({...props.value, selected});
   };
 
   const onChangeData = (data) => {
-    props.onChange({...props.value, data})
+    props.onChange({...props.value, data});
   };
   const elId = `toggle-capability-props-form-${props.id}`;
   const fields = (props.fields || []).filter(f => f.type === 'enum');

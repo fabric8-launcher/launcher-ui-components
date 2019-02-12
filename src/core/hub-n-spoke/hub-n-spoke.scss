@@ -29,6 +29,10 @@ div.hub-and-spoke-container{
 
     .hub-and-spoke-body {
       padding: 10px;
+
+      & > * {
+        margin: 0 auto;
+      }
     }
   }
 

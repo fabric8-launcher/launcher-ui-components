@@ -2,13 +2,13 @@ import {
   CapabilitiesPicker,
   CapabilitiesPickerValue,
   defaultCapabilitiesPickerValue
-} from "../capabilities-picker/capabilities-picker";
-import {InputProps} from "../../core/types";
-import {DescriptiveHeader} from "../../core/descriptive-header";
-import * as React from "react";
-import {RuntimePicker, RuntimePickerValue} from "../runtime-picker/runtime-picker";
-import {EnumsRuntimesLoaders} from "../../loaders/enums-runtimes-loaders";
-import {CapabilitiesItemsLoader} from "../../loaders/capabilities-loader";
+} from '../capabilities-picker/capabilities-picker';
+import { InputProps } from '../../core/types';
+import { DescriptiveHeader } from '../../core/descriptive-header';
+import * as React from 'react';
+import { RuntimePicker, RuntimePickerValue } from '../runtime-picker/runtime-picker';
+import { EnumsRuntimesLoaders } from '../../loaders/enums-runtimes-loaders';
+import { CapabilitiesLoader, capabilityToItem } from '../../loaders/capabilities-loader';
 
 export interface BackendPickerValue {
   runtime?: RuntimePickerValue;
@@ -22,7 +22,6 @@ export function isBackendPickerValueValid(value: BackendPickerValue) {
 export const defaultBackendPickerValue: BackendPickerValue = {
   capabilities: defaultCapabilitiesPickerValue,
 };
-
 
 interface BackendPickerProps extends InputProps<BackendPickerValue> {
 }
@@ -43,7 +42,6 @@ export function RuntimeHeader() {
   );
 }
 
-
 export function BackendPicker(props: BackendPickerProps) {
   return (
     <React.Fragment>
@@ -57,15 +55,14 @@ export function BackendPicker(props: BackendPickerProps) {
       {props.value.runtime && (
         <React.Fragment>
           <CapabilitiesHeader/>
-          <CapabilitiesItemsLoader categories={["backend", "support"]}>
-            {(items) => (
-              <CapabilitiesPicker items={items} value={props.value.capabilities}
+          <CapabilitiesLoader categories={['backend', 'support']}>
+            {(capabilities) => (
+              <CapabilitiesPicker items={capabilities.map(capabilityToItem)} value={props.value.capabilities}
                                   onChange={(capabilities) => props.onChange({...props.value, capabilities})}/>
             )}
-          </CapabilitiesItemsLoader>
+          </CapabilitiesLoader>
         </React.Fragment>
       )}
     </React.Fragment>
   );
 }
-

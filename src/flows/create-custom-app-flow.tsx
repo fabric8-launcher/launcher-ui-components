@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   BackendPicker,
   BackendPickerValue,
@@ -12,11 +12,10 @@ import {
   FrontendPickerValue,
   isFrontendPickerValueValid
 } from '../pickers/frontend-picker/frontend-picker';
-import {HubNSpoke} from '../core/hub-n-spoke';
-import {FormPanel} from '../core/form-panel/form-panel';
-import {BackendOverview} from '../overviews/backend-overview';
-import {FrontendOverview} from '../overviews/frontend-overview';
-
+import { HubNSpoke } from '../core/hub-n-spoke';
+import { FormPanel } from '../core/form-panel/form-panel';
+import { BackendOverview } from '../overviews/backend-overview';
+import { FrontendOverview } from '../overviews/frontend-overview';
 
 interface CustomApp {
   backend: BackendPickerValue;
@@ -27,7 +26,6 @@ const defaultCustomApp = {
   backend: defaultBackendPickerValue,
   frontend: defaultFrontendPickerValue,
 };
-
 
 export function CreateCustomAppFlow() {
   const [customApp, setCustomApp] = useState<CustomApp>(defaultCustomApp);
@@ -43,12 +41,11 @@ export function CreateCustomAppFlow() {
       },
       form: {
         component: ({close}) => (
-          <FormPanel value={customApp.frontend} onSave={(frontend) => { setCustomApp({...customApp, frontend}); close() }}
+          <FormPanel value={customApp.frontend} onSave={(frontend) => { setCustomApp({...customApp, frontend}); close(); }}
                      onCancel={close}
                      isValid={isFrontendPickerValueValid}>
             {
-              (inputProps) => (<FrontendPicker {...inputProps}/>)
-            }
+              (inputProps) => (<FrontendPicker {...inputProps}/>)}
           </FormPanel>
         ),
       }
@@ -63,18 +60,16 @@ export function CreateCustomAppFlow() {
       },
       form: {
         component: ({close}) => (
-          <FormPanel value={customApp.backend} onSave={(backend) => { setCustomApp({...customApp, backend}); close() }}
+          <FormPanel value={customApp.backend} onSave={(backend) => { setCustomApp({...customApp, backend}); close(); }}
                      onCancel={close}
                      isValid={isBackendPickerValueValid}>
             {
-              (inputProps) => (<BackendPicker {...inputProps}/>)
-            }
+              (inputProps) => (<BackendPicker {...inputProps}/>)}
           </FormPanel>
         ),
       }
     }
   ];
-
 
   return (
     <HubNSpoke items={items}/>

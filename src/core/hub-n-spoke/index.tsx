@@ -9,17 +9,19 @@ export interface HubItem {
   id: string;
   title: string;
   overview: {
-    component: (props: {edit: () => void}) => ReactElement<any>;
+    component: (props: { edit: () => void }) => ReactElement<any>;
     width?: 'half' | 'full';
   };
   form: {
-    component: (props: {close: () => void}) => ReactElement<any>;
+    component: (props: { close: () => void }) => ReactElement<any>;
   };
 }
 
 interface Hub {
   selected?: HubItem;
+
   open(item: HubItem);
+
   close();
 }
 
@@ -73,7 +75,7 @@ function HubFormCard(props: HubFormCardProps) {
         </h1>
         <div className="hub-and-spoke-nav">
           <Button variant="plain" aria-label={`close-${props.id}`} onClick={onClose}>
-            <WindowCloseIcon />
+            <WindowCloseIcon/>
           </Button>
         </div>
       </div>
@@ -105,10 +107,10 @@ export function HubNSpoke(props: HubAndSpokeProps) {
     <HubContext.Provider value={hub}>
       <Grid className="hub-and-spoke-container" gutter={'sm'}>
         {hub.selected ? (
-            <HubFormCard id={hub.selected.id} title={hub.selected.title}>
-              {hub.selected.form.component({close: hub.close})}
-            </HubFormCard>
-        ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i} />))}
+          <HubFormCard id={hub.selected.id} title={hub.selected.title}>
+            {hub.selected.form.component({close: hub.close})}
+          </HubFormCard>
+        ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
       </Grid>
     </HubContext.Provider>
   );

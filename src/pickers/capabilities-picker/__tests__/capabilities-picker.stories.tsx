@@ -1,13 +1,12 @@
 import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
-import {storiesOf} from '@storybook/react';
-import {action} from "@storybook/addon-actions";
-import {mockLauncherClient} from 'launcher-client';
-import {CapabilitiesPicker, defaultCapabilitiesPickerValue} from "../capabilities-picker";
-import {FormPanel} from "../../../core/form-panel/form-panel";
-import {CapabilitiesItemsLoader} from "../../../loaders/capabilities-loader";
-import {LauncherClientContext} from "../../../launcher-client-context";
-
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { mockLauncherClient } from 'launcher-client';
+import { CapabilitiesPicker, defaultCapabilitiesPickerValue } from '../capabilities-picker';
+import { FormPanel } from '../../../core/form-panel/form-panel';
+import { CapabilitiesLoader, capabilityToItem } from '../../../loaders/capabilities-loader';
+import { LauncherClientContext } from '../../../launcher-client-context';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
@@ -15,16 +14,15 @@ storiesOf('CapabilitiesPicker', module)
   .add('backend', () => {
     return (
       <LauncherClientContext.Provider value={client}>
-        <CapabilitiesItemsLoader categories={['backend', 'support']}>
-          {items => (
+        <CapabilitiesLoader categories={['backend', 'support']}>
+          {capabilities => (
             <FormPanel value={defaultCapabilitiesPickerValue} onSave={action('save')}
                        onCancel={action('cancel')}>
               {
-                (inputProps) => (<CapabilitiesPicker {...inputProps} items={items}/>)
-              }
+                (inputProps) => (<CapabilitiesPicker {...inputProps} items={capabilities.map(capabilityToItem)}/>)}
             </FormPanel>
           )}
-        </CapabilitiesItemsLoader>
+        </CapabilitiesLoader>
       </LauncherClientContext.Provider>
     );
   });

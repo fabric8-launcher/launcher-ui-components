@@ -1,12 +1,11 @@
 import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
-import {storiesOf} from '@storybook/react';
-import {mockLauncherClient} from 'launcher-client';
-import {LauncherClientContext} from "../../launcher-client-context";
-import {action} from '@storybook/addon-actions';
-import {FrontendOverview} from '../frontend-overview';
-import {defaultFrontendPickerValue} from '../../pickers/frontend-picker/frontend-picker';
-
+import { storiesOf } from '@storybook/react';
+import { mockLauncherClient } from 'launcher-client';
+import { LauncherClientContext } from '../../launcher-client-context';
+import { action } from '@storybook/addon-actions';
+import { FrontendOverview } from '../frontend-overview';
+import { defaultFrontendPickerValue } from '../../pickers/frontend-picker/frontend-picker';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 

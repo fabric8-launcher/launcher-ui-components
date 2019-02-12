@@ -1,8 +1,8 @@
-import {InputProps} from "../../core/types";
-import {DescriptiveHeader} from "../../core/descriptive-header";
-import * as React from "react";
-import {RuntimePicker, RuntimePickerValue} from "../runtime-picker/runtime-picker";
-import {EnumsRuntimesLoaders} from "../../loaders/enums-runtimes-loaders";
+import { InputProps } from '../../core/types';
+import { DescriptiveHeader } from '../../core/descriptive-header';
+import * as React from 'react';
+import { RuntimePicker, RuntimePickerValue } from '../runtime-picker/runtime-picker';
+import { EnumsRuntimesLoaders } from '../../loaders/enums-runtimes-loaders';
 
 export interface FrontendPickerValue {
   runtime?: RuntimePickerValue;
@@ -15,10 +15,8 @@ export function isFrontendPickerValueValid(value: FrontendPickerValue) {
 export const defaultFrontendPickerValue: FrontendPickerValue = {
 };
 
-
 interface FrontendPickerProps extends InputProps<FrontendPickerValue> {
 }
-
 
 export function FrontendHeader() {
   return (
@@ -27,7 +25,6 @@ export function FrontendHeader() {
 
   );
 }
-
 
 export function FrontendPicker(props: FrontendPickerProps) {
   return (
@@ -42,4 +39,3 @@ export function FrontendPicker(props: FrontendPickerProps) {
     </React.Fragment>
   );
 }
-

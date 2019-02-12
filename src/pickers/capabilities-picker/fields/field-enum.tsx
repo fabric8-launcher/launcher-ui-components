@@ -1,6 +1,5 @@
-import {Form, FormGroup, Radio} from "@patternfly/react-core";
-import * as React from "react";
-
+import { Form, FormGroup, Radio } from '@patternfly/react-core';
+import * as React from 'react';
 
 interface FieldEnumProps {
   parent: string;
@@ -28,7 +27,7 @@ export function FieldEnum(props: FieldEnumProps) {
             label={v.name}
             aria-label={`Select ${v} as ${props.name}`}
             checked={props.value === v.id}
-            name={"select-" + props.id}
+            name={'select-' + props.id}
             id={`select-${props.parent}-${props.id}`}
             value={v.id}
             onChange={onChange}

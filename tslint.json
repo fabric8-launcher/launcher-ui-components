@@ -5,6 +5,7 @@
     // Custom
     "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
     "interface-name": [false, "always-prefix"],
+    "whitespace": [true, "check-module", "check-rest-spread"],
     "only-arrow-functions": false,
     "arrow-parens": false,
     "jsx-no-multiline-js": false,

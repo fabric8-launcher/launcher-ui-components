@@ -1,7 +1,6 @@
-import {InputProps} from "../../core/types";
-import ItemPicker from "../../core/item-picker/item-picker";
-import * as React from "react";
-
+import { InputProps } from '../../core/types';
+import ItemPicker from '../../core/item-picker/item-picker';
+import * as React from 'react';
 
 export interface RuntimePickerValue {
   id: string;
@@ -26,6 +25,6 @@ export function RuntimePicker(props: RuntimePickerProps) {
   };
   return (
     <ItemPicker value={props.value && props.value.id} onChange={onChange} items={props.items} group="runtime"/>
-  )
+  );
 
 }

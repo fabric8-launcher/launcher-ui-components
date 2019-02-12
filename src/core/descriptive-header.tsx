@@ -1,6 +1,5 @@
-import {Title} from "@patternfly/react-core";
-import * as React from "react";
-
+import { Title } from '@patternfly/react-core';
+import * as React from 'react';
 
 export function DescriptiveHeader(props: { title: string, description: string }) {
   return (

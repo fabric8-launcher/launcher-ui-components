@@ -1,18 +1,16 @@
-import * as React from "react";
-import {useState} from "react";
-import {Button, Toolbar, ToolbarGroup} from "@patternfly/react-core";
-import {InputProps} from "../types";
+import * as React from 'react';
+import { useState } from 'react';
+import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
+import { InputProps } from '../types';
 
 interface FormPanelProps<T> {
   value: T;
-  isValid?(value: T): boolean;
   children: (inputProps: InputProps<T>) => any;
+  isValid?(value: T): boolean;
 
   onSave?(value: any);
   onCancel?();
 }
-
-
 
 export function FormPanel<T>(props: FormPanelProps<T>) {
 
@@ -33,7 +31,7 @@ export function FormPanel<T>(props: FormPanelProps<T>) {
 
   return (
     <div className="form-panel" style={{padding: '20px'}}>
-      { props.children({value, onChange}) }
+      {props.children({value, onChange})}
       <Toolbar style={{marginTop: '20px'}}>
         <ToolbarGroup>
           <Button variant="primary" onClick={onSave} isDisabled={props.isValid && !props.isValid(value)}>Save</Button>

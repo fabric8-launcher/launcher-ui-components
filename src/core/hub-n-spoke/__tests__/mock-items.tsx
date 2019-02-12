@@ -1,5 +1,5 @@
-import {HubItem} from "..";
-import * as React from "react";
+import { HubItem } from '..';
+import * as React from 'react';
 
 export const mockItems: HubItem[] = [
   {
