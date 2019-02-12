@@ -9,7 +9,7 @@ export function runtimeMatcherByCategory(category: string) {
 
 export function RuntimeLoader(props: { id: string, children: (runtime?: RuntimeItem) => any }) {
   const client = useLauncherClient();
-  const loader = () => client.enum('runtime.name').then(r => r.find(r => r.id === props.id));
+  const loader = () => client.enum('runtime.name').then(runtimes => runtimes.find(r => r.id === props.id));
   return (
     <DataLoader loader={loader} default={undefined}>
       {props.children}

@@ -6,7 +6,7 @@ interface FieldEnumProps {
   id: string;
   name: string;
   description: string;
-  values: Array<{id: string, name: string}>;
+  values: Array<{ id: string, name: string }>;
   required: boolean;
   value: string;
 
@@ -19,8 +19,11 @@ export function FieldEnum(props: FieldEnumProps) {
   };
   return (
     <Form isHorizontal>
-      <FormGroup label={props.description} isRequired={props.required}
-                 fieldId={`capability-prop-${props.parent}-${props.id}`}>
+      <FormGroup
+        label={props.description}
+        isRequired={props.required}
+        fieldId={`capability-prop-${props.parent}-${props.id}`}
+      >
         {props.values.map(v => (
           <Radio
             key={v.id}

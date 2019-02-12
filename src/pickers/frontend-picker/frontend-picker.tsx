@@ -12,16 +12,18 @@ export function isFrontendPickerValueValid(value: FrontendPickerValue) {
   return !!value.runtime;
 }
 
-export const defaultFrontendPickerValue: FrontendPickerValue = {
-};
+export const defaultFrontendPickerValue: FrontendPickerValue = {};
 
 interface FrontendPickerProps extends InputProps<FrontendPickerValue> {
 }
 
 export function FrontendHeader() {
   return (
-    <DescriptiveHeader title="Frontend"
-                       description="You may optionally select a frontend application to bootstrap your web-based development. These options scaffold a starting point in your framework of choice."/>
+    <DescriptiveHeader
+      title="Frontend"
+      description="You may optionally select a frontend application to bootstrap your web-based development.
+                        These options scaffold a starting point in your framework of choice."
+    />
 
   );
 }
@@ -32,8 +34,11 @@ export function FrontendPicker(props: FrontendPickerProps) {
       <FrontendHeader/>
       <EnumsRuntimesLoaders category="frontend">
         {(items) => (
-          <RuntimePicker items={items} value={props.value.runtime}
-                         onChange={(runtime) => props.onChange({...props.value, runtime})}/>
+          <RuntimePicker
+            items={items}
+            value={props.value.runtime}
+            onChange={(runtime) => props.onChange({...props.value, runtime})}
+          />
         )}
       </EnumsRuntimesLoaders>
     </React.Fragment>

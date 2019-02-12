@@ -13,9 +13,12 @@ storiesOf('BackendPicker', module)
   .add('default', () => {
     return (
       <LauncherClientContext.Provider value={client}>
-        <FormPanel value={defaultBackendPickerValue} onSave={action('save')}
-                   isValid={isBackendPickerValueValid}
-                   onCancel={action('cancel')}>
+        <FormPanel
+          value={defaultBackendPickerValue}
+          onSave={action('save')}
+          isValid={isBackendPickerValueValid}
+          onCancel={action('cancel')}
+        >
           {
             (inputProps) => (<BackendPicker {...inputProps}/>)}
         </FormPanel>

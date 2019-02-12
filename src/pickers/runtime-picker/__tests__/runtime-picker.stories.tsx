@@ -16,8 +16,11 @@ storiesOf('RuntimePicker', module)
       <LauncherClientContext.Provider value={client}>
         <EnumsRuntimesLoaders category="frontend">
           {items => (
-            <FormPanel value={defaultRuntimePickerValue} onSave={action('save')}
-                       onCancel={action('cancel')}>
+            <FormPanel
+              value={defaultRuntimePickerValue}
+              onSave={action('save')}
+              onCancel={action('cancel')}
+            >
               {
                 (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
             </FormPanel>
@@ -32,8 +35,11 @@ storiesOf('RuntimePicker', module)
       <LauncherClientContext.Provider value={client}>
         <EnumsRuntimesLoaders category="backend">
           {items => (
-            <FormPanel value={defaultRuntimePickerValue} onSave={action('save')}
-                       onCancel={action('cancel')}>
+            <FormPanel
+              value={defaultRuntimePickerValue}
+              onSave={action('save')}
+              onCancel={action('cancel')}
+            >
               {
                 (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
             </FormPanel>

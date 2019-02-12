@@ -36,14 +36,20 @@ export function CreateCustomAppFlow() {
       title: 'Frontend',
       overview: {
         component: ({edit}) => (
-          <FrontendOverview value={customApp.frontend} onClick={edit} />
+          <FrontendOverview value={customApp.frontend} onClick={edit}/>
         ),
       },
       form: {
         component: ({close}) => (
-          <FormPanel value={customApp.frontend} onSave={(frontend) => { setCustomApp({...customApp, frontend}); close(); }}
-                     onCancel={close}
-                     isValid={isFrontendPickerValueValid}>
+          <FormPanel
+            value={customApp.frontend}
+            onSave={(frontend) => {
+              setCustomApp({...customApp, frontend});
+              close();
+            }}
+            onCancel={close}
+            isValid={isFrontendPickerValueValid}
+          >
             {
               (inputProps) => (<FrontendPicker {...inputProps}/>)}
           </FormPanel>
@@ -55,14 +61,20 @@ export function CreateCustomAppFlow() {
       title: 'Backend',
       overview: {
         component: ({edit}) => (
-          <BackendOverview value={customApp.backend} onClick={edit} />
+          <BackendOverview value={customApp.backend} onClick={edit}/>
         ),
       },
       form: {
         component: ({close}) => (
-          <FormPanel value={customApp.backend} onSave={(backend) => { setCustomApp({...customApp, backend}); close(); }}
-                     onCancel={close}
-                     isValid={isBackendPickerValueValid}>
+          <FormPanel
+            value={customApp.backend}
+            onSave={(backend) => {
+              setCustomApp({...customApp, backend});
+              close();
+            }}
+            onCancel={close}
+            isValid={isBackendPickerValueValid}
+          >
             {
               (inputProps) => (<BackendPicker {...inputProps}/>)}
           </FormPanel>
