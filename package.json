@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rm -rf ./build && tsc && tsc -m es6 --outDir build/dist-esm && webpack -d",
     "test": "jest",
-    "storybook": "start-storybook -p 9009 -s public",
+    "storybook": "start-storybook -p 9009 -s public --ci",
     "build-storybook": "build-storybook -s public",
     "publish-storybook": "storybook-to-ghpages"
   },
@@ -30,6 +30,7 @@
     "@babel/core": "7.2.2",
     "@storybook/addon-actions": "4.1.11",
     "@storybook/addon-links": "4.1.11",
+    "@storybook/addon-storysource": "4.1.11",
     "@storybook/addons": "4.1.11",
     "@storybook/react": "4.1.11",
     "@storybook/storybook-deployer": "2.8.1",
