@@ -17,6 +17,7 @@ import {InputProps} from '../../core/types';
 
 export interface ExamplePickerValue {
   missionId?: string;
+  runtimeId?: string;
 }
 
 interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
@@ -58,10 +59,19 @@ export function ExamplePicker(props: ExamplePickerProps) {
                 <DataListCell width={2}>{mission.description}</DataListCell>
                 <DataListContent aria-label={'Detail for ' + mission.name} isHidden={!isSelected}>
                   <Dropdown
-                    onSelect={() => { }}
+                    onSelect={() => setOpen(false)}
                     toggle={<DropdownToggle onToggle={setOpen}>Select Runtime</DropdownToggle>}
                     isOpen={open}
-                    dropdownItems={props.runtimes.map((runtime) => (<DropdownItem key={runtime.id}>{runtime.name}</DropdownItem>))}
+                    dropdownItems={props.runtimes.map((runtime) => (
+                      <DropdownItem
+                        onClick={(event) => {
+                          props.onChange({missionId: mission.id, runtimeId: runtime.id});
+                          event.stopPropagation();
+                        }}
+                        key={runtime.id}
+                      >{runtime.name}
+                      </DropdownItem>
+                    ))}
                   >
                   </Dropdown>
                 </DataListContent>
