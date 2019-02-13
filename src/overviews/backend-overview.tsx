@@ -2,6 +2,7 @@ import { BackendPickerValue } from '../pickers/backend-picker/backend-picker';
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
+import { CapabilitiesByModuleLoader } from '../loaders/capabilities-loader';
 
 interface BackendOverviewProps {
   value: BackendPickerValue;
@@ -28,7 +29,14 @@ export function BackendOverview(props: BackendOverviewProps) {
         <EmptyState>
           <Title size="lg">Your Backend will run on {runtime!.name}</Title>
           <EmptyStateBody>
-            It will feature: {props.value.capabilities.filter(c => c.selected).map(c => c.id).join(', ')}
+            <CapabilitiesByModuleLoader categories={['backend', 'support']}>
+              { capabilitiesById => (
+                <div>
+                  It will feature: {props.value.capabilities.filter(c => c.selected).map(c => capabilitiesById.get(c.id)!.name).join(', ')}
+                </div>
+              )}
+            </CapabilitiesByModuleLoader>
+
           </EmptyStateBody>
         </EmptyState>
       )}

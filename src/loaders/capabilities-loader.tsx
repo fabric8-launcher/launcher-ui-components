@@ -34,3 +34,11 @@ export function CapabilitiesLoader(props: { categories: string[], children: (cap
     </DataLoader>
   );
 }
+
+export function CapabilitiesByModuleLoader(props: { categories: string[], children: (capabilitiesById: Map<string, Capability>) => any }) {
+  return (
+    <CapabilitiesLoader categories={props.categories} >
+      {(capabilities) => props.children(new Map(capabilities.map(c => [c.module, c] as [string, Capability])))}
+    </CapabilitiesLoader>
+  );
+}

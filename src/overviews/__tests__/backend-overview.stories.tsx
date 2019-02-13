@@ -24,7 +24,8 @@ storiesOf('BackendOverview', module)
         id: 'vertx'
       },
       capabilities: [
-        {id: 'welcome', selected: true}
+        {id: 'welcome', selected: true},
+        {id: 'database', selected: true}
       ],
     };
 
