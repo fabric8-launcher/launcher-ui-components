@@ -22,6 +22,16 @@ interface RepoPickerProps extends InputProps<RepoPickerValue> {
   gitInfo: GitInfo;
 }
 
+const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
+
+const validateRepository = (value: RepoPickerValue): boolean => {
+  return !value.org || REPOSITORY_VALUE_REGEXP.test(value.org) && REPOSITORY_VALUE_REGEXP.test(value.repo);
+}
+
+const existingrepository = (props: RepoPickerProps): boolean => {
+  return props.gitInfo.repositories.indexOf(`${props.value.org}/${props.value.repo}`) === -1
+}
+
 export function RepoPicker(props: RepoPickerProps) {
   return (
     <Grid>
@@ -41,6 +51,10 @@ export function RepoPicker(props: RepoPickerProps) {
               value={props.value.org}
               onChange={value => props.onChange({ ...props.value, org: value })}
               aria-label="Select organization">
+              <FormSelectOption
+                value={props.gitInfo.login}
+                label={props.gitInfo.login}
+              />
               {props.gitInfo.organizations.map((org, index) => (
                 <FormSelectOption
                   key={index}
@@ -54,6 +68,10 @@ export function RepoPicker(props: RepoPickerProps) {
             label="Repository"
             isRequired
             fieldId="ghRepo"
+            helperTextInvalid={
+              !existingrepository(props) ? `Repository already exists ${props.value.org}/${props.value.repo}` : 'Invalid repository name'
+            }
+            isValid={validateRepository(props.value) && existingrepository(props)}
           >
             <TextInput
               isRequired
@@ -64,7 +82,7 @@ export function RepoPicker(props: RepoPickerProps) {
               aria-describedby="Select Repository"
               onChange={value => props.onChange({ ...props.value, repo: value })}
               value={props.value.repo}
-              isValid={props.gitInfo.repositories.indexOf(props.value.repo) === -1}
+              isValid={validateRepository(props.value) && existingrepository(props)}
             />
           </FormGroup>
         </Form>
