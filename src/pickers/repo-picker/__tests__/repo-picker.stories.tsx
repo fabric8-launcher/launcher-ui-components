@@ -17,7 +17,7 @@ storiesOf('RepoPicker', module)
       <LauncherClientContext.Provider value={client}>
         <RepoLoader>
           {gitInfo => (
-            <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
+            <FormPanel value={{repo: ''}} onSave={action('save')} onCancel={action('cancel')}>
               {(inputProps) => (<RepoPicker {...inputProps} gitInfo={gitInfo}/>)}
             </FormPanel>
           )}

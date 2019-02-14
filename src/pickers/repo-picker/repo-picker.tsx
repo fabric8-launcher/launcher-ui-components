@@ -1,5 +1,13 @@
 import React from 'react';
-import { Grid, GridItem, Form, FormGroup, TextInput } from '@patternfly/react-core';
+import {
+  Grid,
+  GridItem,
+  Form,
+  FormGroup,
+  TextInput,
+  FormSelect,
+  FormSelectOption
+} from '@patternfly/react-core';
 
 import { GitInfo } from 'launcher-client';
 
@@ -7,7 +15,7 @@ import { InputProps } from "../../core/types";
 
 export interface RepoPickerValue {
   org?: string;
-  repo?: string;
+  repo: string;
 }
 
 interface RepoPickerProps extends InputProps<RepoPickerValue> {
@@ -18,32 +26,34 @@ export function RepoPicker(props: RepoPickerProps) {
   return (
     <Grid>
       <GridItem span={4}>
-        <img src={props.gitInfo.avatarUrl} width="135px"></img>
+        <img src={props.gitInfo.avatarUrl}></img>
       </GridItem>
       <GridItem span={8}>
-        <h3>Authorized Account Information</h3>
+        <h3>Choose a Repository</h3>
         <Form>
           <FormGroup
             label="Location"
             isRequired
             fieldId="ghOrg"
-            helperText="Select organization"
           >
-            <TextInput
-              isRequired
-              type="text"
+            <FormSelect
               id="ghOrg"
-              name="ghOrg-name"
-              placeholder="Select organization"
-              aria-describedby="Select organization"
-              value={'value1'}
-            />
+              value={props.value.org}
+              onChange={value => props.onChange({ ...props.value, org: value })}
+              aria-label="Select organization">
+              {props.gitInfo.organizations.map((org, index) => (
+                <FormSelectOption
+                  key={index}
+                  value={org}
+                  label={org}
+                />
+              ))}
+            </FormSelect>
           </FormGroup>
           <FormGroup
             label="Repository"
             isRequired
             fieldId="ghRepo"
-            helperText="Select Repository"
           >
             <TextInput
               isRequired
@@ -52,7 +62,9 @@ export function RepoPicker(props: RepoPickerProps) {
               name="ghRepo-name"
               placeholder="Select Repository"
               aria-describedby="Select Repository"
-              value={'value1'}
+              onChange={value => props.onChange({ ...props.value, repo: value })}
+              value={props.value.repo}
+              isValid={props.gitInfo.repositories.indexOf(props.value.repo) === -1}
             />
           </FormGroup>
         </Form>
