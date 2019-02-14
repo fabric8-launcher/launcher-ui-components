@@ -16,9 +16,9 @@ storiesOf('ExamplePicker', module)
     return (
       <LauncherClientContext.Provider value={client}>
         <ExamplesLoader>
-          {missions => (
+          {result => (
             <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
-              {(inputProps) => (<ExamplePicker {...inputProps} missions={missions}/>)}
+              {(inputProps) => (<ExamplePicker {...inputProps} {...result}/>)}
             </FormPanel>
           )}
         </ExamplesLoader>
