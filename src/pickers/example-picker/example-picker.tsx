@@ -12,7 +12,6 @@ import {
 import { ExampleMission, ExampleRuntime } from 'launcher-client';
 import { InputProps } from '../../core/types';
 
-
 export interface ExamplePickerValue {
   missionId?: string;
   runtimeId?: string;
@@ -58,7 +57,8 @@ export function ExamplePicker(props: ExamplePickerProps) {
                     id={mission.id + 'runtime-select'}
                     value={props.value.runtimeId}
                     onChange={value => props.onChange({ ...props.value, runtimeId: value })}
-                    aria-label="Select Runtime">
+                    aria-label="Select Runtime"
+                  >
                     {props.runtimes.map((runtime, index) => (
                       <FormSelectOption
                         key={index}

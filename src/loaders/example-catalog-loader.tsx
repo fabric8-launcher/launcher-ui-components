@@ -1,8 +1,8 @@
 import React from 'react';
 import * as _ from 'lodash';
 import { Example, ExampleMission, ExampleRuntime } from 'launcher-client';
-import { useLauncherClient } from '../../launcher-client-context';
-import { DataLoader } from '../../core/data-loader/data-loader';
+import { useLauncherClient } from '../launcher-client-context';
+import { DataLoader } from '../core/data-loader/data-loader';
 
 export function createMissions(examples: Example[]): ExampleMission[] {
   const groupedByMission = _.groupBy(examples, (e) => e.mission.id);
@@ -41,7 +41,7 @@ export function createRuntimes(examples: Example[]): ExampleRuntime[] {
   });
 }
 
-export function ExamplesLoader(props: {children: (obj: {missions: ExampleMission[], runtimes: ExampleRuntime[]}) => any }) {
+export function ExampleCatalogLoader(props: {children: (obj: {missions: ExampleMission[], runtimes: ExampleRuntime[]}) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.exampleCatalog().then(examples => {
     return {
