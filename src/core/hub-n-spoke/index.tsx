@@ -88,6 +88,7 @@ function HubFormCard(props: HubFormCardProps) {
 
 interface HubAndSpokeProps {
   items: HubItem[];
+  toolbar?: React.ReactNode;
 }
 
 export function HubNSpoke(props: HubAndSpokeProps) {
@@ -104,14 +105,17 @@ export function HubNSpoke(props: HubAndSpokeProps) {
   };
 
   return (
-    <HubContext.Provider value={hub}>
-      <Grid className="hub-and-spoke-container" gutter={'sm'}>
-        {hub.selected ? (
-          <HubFormCard id={hub.selected.id} title={hub.selected.title}>
-            {hub.selected.form.component({close: hub.close})}
-          </HubFormCard>
-        ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
-      </Grid>
-    </HubContext.Provider>
+    <div className="hub-and-spoke-container">
+      <HubContext.Provider value={hub}>
+        <Grid className="hub-and-spoke-container" gutter={'sm'}>
+          {hub.selected ? (
+            <HubFormCard id={hub.selected.id} title={hub.selected.title}>
+              {hub.selected.form.component({close: hub.close})}
+            </HubFormCard>
+          ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
+        </Grid>
+        {!hub.selected && props.toolbar}
+      </HubContext.Provider>
+    </div>
   );
 }
