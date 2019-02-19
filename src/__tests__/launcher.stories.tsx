@@ -8,7 +8,7 @@ import { Launcher } from '../launcher';
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
 storiesOf('Launcher', module)
-  .add('default', () => {
+  .add('component', () => {
     return (
       <LauncherClientContext.Provider value={client}>
         <Launcher />

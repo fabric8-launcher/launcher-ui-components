@@ -11,8 +11,8 @@ import { ExampleCatalogLoader } from '../../../loaders/example-catalog-loader';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
-storiesOf('ExamplePicker', module)
-  .add('default', () => {
+storiesOf('Pickers', module)
+  .add('ExamplePicker', () => {
     return (
       <LauncherClientContext.Provider value={client}>
         <ExampleCatalogLoader>

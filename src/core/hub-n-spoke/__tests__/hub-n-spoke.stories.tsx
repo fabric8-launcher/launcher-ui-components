@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { HubNSpoke } from '..';
 import { mockItems } from './mock-items';
 
-storiesOf('HubNSpoke', module)
-  .add('default', () => (
+storiesOf('Core', module)
+  .add('HubNSpoke', () => (
     <HubNSpoke items={mockItems}/>
   ));

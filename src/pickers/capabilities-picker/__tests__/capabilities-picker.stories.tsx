@@ -10,8 +10,8 @@ import { LauncherClientContext } from '../../../launcher-client-context';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
-storiesOf('CapabilitiesPicker', module)
-  .add('backend', () => {
+storiesOf('Pickers', module)
+  .add('CapabilitiesPicker', () => {
     return (
       <LauncherClientContext.Provider value={client}>
         <CapabilitiesLoader categories={['backend', 'support']}>

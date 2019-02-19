@@ -10,8 +10,8 @@ import { LauncherClientContext } from '../../../launcher-client-context';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
-storiesOf('RuntimePicker', module)
-  .add('frontend', () => {
+storiesOf('Pickers', module)
+  .add('RuntimePicker: frontend', () => {
     return (
       <LauncherClientContext.Provider value={client}>
         <EnumsRuntimesLoaders category="frontend">
@@ -30,7 +30,7 @@ storiesOf('RuntimePicker', module)
 
     );
   })
-  .add('backend', () => {
+  .add('RuntimePicker: backend', () => {
     return (
       <LauncherClientContext.Provider value={client}>
         <EnumsRuntimesLoaders category="backend">

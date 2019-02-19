@@ -7,8 +7,8 @@ import { CreateNewAppFlow } from '../create-new-app-flow';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
-storiesOf('CreateNewAppFlow', module)
-  .add('default', () => {
+storiesOf('Flows', module)
+  .add('CreateNewAppFlow', () => {
     return (
       <LauncherClientContext.Provider value={client}>
         <CreateNewAppFlow />

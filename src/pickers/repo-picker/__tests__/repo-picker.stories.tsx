@@ -11,8 +11,8 @@ import { defaultRepoPickerValue, isRepoPickerValueValid, RepoPicker } from '../r
 
 const client = mockLauncherClient({ creatorUrl: 'efe', launcherURL: 'eqg' });
 
-storiesOf('RepoPicker', module)
-  .add('default', () => {
+storiesOf('Pickers', module)
+  .add('RepoPicker', () => {
     return (
       <LauncherClientContext.Provider value={client}>
         <GitInfoLoader>
