@@ -1,14 +1,14 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
-import { FrontendPickerValue } from '../pickers/frontend-picker/frontend-picker';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
+import { FrontendFormValue } from './frontend-form';
 
 interface FrontendOverviewProps {
-  value: FrontendPickerValue;
+  value: FrontendFormValue;
   onClick: () => void;
 }
 
-export function FrontendOverview(props: FrontendOverviewProps) {
+export function FrontendFormOverview(props: FrontendOverviewProps) {
 
   if (!props.value.runtime) {
     return (

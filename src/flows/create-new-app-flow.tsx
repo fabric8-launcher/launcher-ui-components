@@ -1,34 +1,27 @@
 import * as React from 'react';
 import { useState } from 'react';
-import {
-  BackendPicker,
-  BackendPickerValue,
-  defaultBackendPickerValue,
-  isBackendPickerValueValid
-} from '../pickers/backend-picker/backend-picker';
-import {
-  defaultFrontendPickerValue,
-  FrontendPicker,
-  FrontendPickerValue,
-  isFrontendPickerValueValid
-} from '../pickers/frontend-picker/frontend-picker';
+import { BackendForm, BackendFormValue, defaultBackendFormValue, } from '../forms/backend-form';
+import { defaultFrontendFormValue, FrontendForm, FrontendFormValue, } from '../forms/frontend-form';
 import { HubNSpoke } from '../core/hub-n-spoke';
-import { FormPanel } from '../core/form-panel/form-panel';
-import { BackendOverview } from '../overviews/backend-overview';
-import { FrontendOverview } from '../overviews/frontend-overview';
+import { BackendFormOverview } from '../forms/backend-form-overview';
+import { FrontendFormOverview } from '../forms/frontend-form-overview';
 import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
+import { defaultRepositoryFormValue, RepositoryForm, RepositoryFormValue } from '../forms/repository-form';
+import { RepositoryFormOverview } from '../forms/repository-form-overview';
 
 interface CustomApp {
-  backend: BackendPickerValue;
-  frontend: FrontendPickerValue;
+  backend: BackendFormValue;
+  frontend: FrontendFormValue;
+  repository: RepositoryFormValue;
 }
 
 const defaultCustomApp = {
-  backend: defaultBackendPickerValue,
-  frontend: defaultFrontendPickerValue,
+  backend: defaultBackendFormValue,
+  frontend: defaultFrontendFormValue,
+  repository: defaultRepositoryFormValue,
 };
 
-export function CreateNewAppFlow(props: {onCancel?: () => void }) {
+export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<CustomApp>(defaultCustomApp);
 
   const items = [
@@ -37,23 +30,19 @@ export function CreateNewAppFlow(props: {onCancel?: () => void }) {
       title: 'Frontend',
       overview: {
         component: ({edit}) => (
-          <FrontendOverview value={app.frontend} onClick={edit}/>
+          <FrontendFormOverview value={app.frontend} onClick={edit}/>
         ),
       },
       form: {
         component: ({close}) => (
-          <FormPanel
+          <FrontendForm
             value={app.frontend}
             onSave={(frontend) => {
               setApp({...app, frontend});
               close();
             }}
             onCancel={close}
-            isValid={isFrontendPickerValueValid}
-          >
-            {
-              (inputProps) => (<FrontendPicker {...inputProps}/>)}
-          </FormPanel>
+          />
         ),
       }
     },
@@ -62,23 +51,40 @@ export function CreateNewAppFlow(props: {onCancel?: () => void }) {
       title: 'Backend',
       overview: {
         component: ({edit}) => (
-          <BackendOverview value={app.backend} onClick={edit}/>
+          <BackendFormOverview value={app.backend} onClick={edit}/>
         ),
       },
       form: {
         component: ({close}) => (
-          <FormPanel
+          <BackendForm
             value={app.backend}
             onSave={(backend) => {
               setApp({...app, backend});
               close();
             }}
             onCancel={close}
-            isValid={isBackendPickerValueValid}
-          >
-            {
-              (inputProps) => (<BackendPicker {...inputProps}/>)}
-          </FormPanel>
+          />
+        ),
+      }
+    },
+    {
+      id: 'repository',
+      title: 'Repository',
+      overview: {
+        component: ({edit}) => (
+          <RepositoryFormOverview value={app.repository} onClick={edit}/>
+        ),
+      },
+      form: {
+        component: ({close}) => (
+          <RepositoryForm
+            value={app.repository}
+            onSave={(repository) => {
+              setApp({...app, repository});
+              close();
+            }}
+            onCancel={close}
+          />
         ),
       }
     }

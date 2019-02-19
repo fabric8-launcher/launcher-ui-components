@@ -18,21 +18,35 @@ export interface RepoPickerValue {
   repo: string;
 }
 
-interface RepoPickerProps extends InputProps<RepoPickerValue> {
+interface RepoPickerProps extends InputProps<RepoPickerValue | undefined> {
   gitInfo: GitInfo;
 }
 
 const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
-const validateRepository = (value: RepoPickerValue): boolean => {
-  return !value.org || REPOSITORY_VALUE_REGEXP.test(value.org) && REPOSITORY_VALUE_REGEXP.test(value.repo);
+export const isRepoPickerValueValid = (value?: RepoPickerValue): boolean => {
+  return !!value && ((!value.org || REPOSITORY_VALUE_REGEXP.test(value.org)) && REPOSITORY_VALUE_REGEXP.test(value.repo));
 };
 
-const isExistingRepository = (props: RepoPickerProps): boolean => {
-  return props.gitInfo.repositories.indexOf(`${props.value.org}/${props.value.repo}`) !== -1;
+export const defaultRepoPickerValue = undefined;
+
+export const normalizeRepositoryPath = (value: RepoPickerValue) => {
+  if (value.org) {
+    return `${value.org}/${value.repo}`;
+  }
+  return value.repo;
+};
+
+const isExistingRepository = (repositories: string[], value: RepoPickerValue): boolean => {
+  return !!value && isRepoPickerValueValid(value) && repositories.indexOf(normalizeRepositoryPath(value)) !== -1;
 };
 
 export function RepoPicker(props: RepoPickerProps) {
+  const repo = props.value && props.value.repo || '';
+  const helperRepoInvalid = !!props.value && isExistingRepository(props.gitInfo.repositories, props.value) ?
+    `Repository already exists ${normalizeRepositoryPath(props.value)}` : 'Invalid repository name';
+  const isRepoValid = !props.value || (isRepoPickerValueValid(props.value)
+    && !isExistingRepository(props.gitInfo.repositories, props.value));
   return (
     <Grid>
       <GridItem span={4}>
@@ -48,8 +62,8 @@ export function RepoPicker(props: RepoPickerProps) {
           >
             <FormSelect
               id="ghOrg"
-              value={props.value.org}
-              onChange={value => props.onChange({ ...props.value, org: value })}
+              value={props.value && props.value.org}
+              onChange={value => props.onChange({...props.value, org: value})}
               aria-label="Select organization"
             >
               <FormSelectOption
@@ -69,9 +83,8 @@ export function RepoPicker(props: RepoPickerProps) {
             label="Repository"
             isRequired
             fieldId="ghRepo"
-            helperTextInvalid={
-              !isExistingRepository(props) ? `Repository already exists ${props.value.org}/${props.value.repo}` : 'Invalid repository name'}
-            isValid={validateRepository(props.value) && !isExistingRepository(props)}
+            helperTextInvalid={helperRepoInvalid}
+            isValid={isRepoValid}
           >
             <TextInput
               isRequired
@@ -80,9 +93,9 @@ export function RepoPicker(props: RepoPickerProps) {
               name="ghRepo-name"
               placeholder="Select Repository"
               aria-describedby="Select Repository"
-              onChange={value => props.onChange({ ...props.value, repo: value })}
-              value={props.value.repo}
-              isValid={validateRepository(props.value) && !isExistingRepository(props)}
+              onChange={value => props.onChange({...props.value, repo: value})}
+              value={repo}
+              isValid={isRepoValid}
             />
           </FormGroup>
         </Form>

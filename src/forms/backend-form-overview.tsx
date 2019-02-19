@@ -1,15 +1,15 @@
-import { BackendPickerValue } from '../pickers/backend-picker/backend-picker';
+import { BackendFormValue } from './backend-form';
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
 import { CapabilitiesByModuleLoader } from '../loaders/capabilities-loader';
 
 interface BackendOverviewProps {
-  value: BackendPickerValue;
+  value: BackendFormValue;
   onClick: () => void;
 }
 
-export function BackendOverview(props: BackendOverviewProps) {
+export function BackendFormOverview(props: BackendOverviewProps) {
 
   if (!props.value.runtime) {
     return (

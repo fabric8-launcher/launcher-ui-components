@@ -8,7 +8,7 @@ interface FormPanelProps<T> {
   children: (inputProps: InputProps<T>) => any;
   isValid?(value: T): boolean;
 
-  onSave?(value: any);
+  onSave?(value: T);
   onCancel?();
 }
 
