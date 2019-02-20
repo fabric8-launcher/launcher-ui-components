@@ -11,6 +11,13 @@ import { ClusterPicker } from '../cluster-picker';
 
 const client = mockLauncherClient({ creatorUrl: 'efe', launcherURL: 'eqg' });
 
+function authorizationLinkGenerator(id?: string) {
+  if (!!id) {
+    return 'http://www.authorize-cluster.com/' + id;
+  }
+  return 'http://www.authorize-cluster.com/';
+}
+
 storiesOf('Pickers', module)
   .add('ClusterPicker', () => {
     return (
@@ -18,7 +25,7 @@ storiesOf('Pickers', module)
         <OpenshiftClustersLoader>
           {result => (
             <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
-              {(inputProps) => (<ClusterPicker {...inputProps} {...result} />)}
+              {(inputProps) => (<ClusterPicker {...inputProps} {...result} authorizationLinkGenerator={authorizationLinkGenerator} />)}
             </FormPanel>
           )}
         </OpenshiftClustersLoader>
@@ -28,7 +35,7 @@ storiesOf('Pickers', module)
   .add('ClusterPicker: EmptyState', () => {
     return (
       <FormPanel value={{}}>
-        {(inputProps) => (<ClusterPicker {...inputProps} clusters={[]} />)}
+        {(inputProps) => (<ClusterPicker {...inputProps} clusters={[]} authorizationLinkGenerator={authorizationLinkGenerator} />)}
       </FormPanel>
     );
   });

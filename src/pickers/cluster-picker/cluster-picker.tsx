@@ -21,22 +21,26 @@ export interface ClusterPickerValue {
 
 interface ClusterPickerProps extends InputProps<ClusterPickerValue> {
   clusters: OpenShiftCluster[];
+  authorizationLinkGenerator: (id?: string) => string;
 }
 
 export function ClusterPicker(props: ClusterPickerProps) {
   if (props.clusters.length === 0) {
     return (
       <EmptyState>
-        <EmptyStateIcon icon={ServerIcon} />
+        <EmptyStateIcon icon={ServerIcon}/>
         <Title size="lg">No Active Clusters Found</Title>
         <EmptyStateBody>
-          <p>
-            We couldn't find an active cluster associated to your account.
-          </p>
-          <p>
-            Go and <a href="https://manage.openshift.com/">activate a cluster</a>.
-          </p>
+          We couldn't find an active cluster associated to your account.
         </EmptyStateBody>
+        <Button
+          // @ts-ignore
+          component="a"
+          href={props.authorizationLinkGenerator()}
+          target="_blank"
+        >
+          activate a cluster
+        </Button>
       </EmptyState>
     );
   }
@@ -48,14 +52,14 @@ export function ClusterPicker(props: ClusterPickerProps) {
             const isSelected = props.value.clusterId === cluster.id;
             const onChangeSelected = () => {
               if (cluster.connected) {
-                props.onChange({ clusterId: cluster.id });
+                props.onChange({clusterId: cluster.id});
               }
             };
 
             if (!props.value.clusterId) {
               const connectedClusters = props.clusters.filter(c => c.connected);
               if (connectedClusters.length >= 1) {
-                props.onChange({ clusterId: connectedClusters[0].id });
+                props.onChange({clusterId: connectedClusters[0].id});
               }
             }
             return (
@@ -64,9 +68,9 @@ export function ClusterPicker(props: ClusterPickerProps) {
                 aria-labelledby={cluster.name}
                 value={cluster.id}
                 key={i}
-                style={cluster.connected ? { cursor: 'pointer' } : { cursor: 'not-allowed'}}
+                style={cluster.connected ? {cursor: 'pointer'} : {cursor: 'not-allowed'}}
               >
-                <DataListCell width={1} style={{ flex: 'none' }}>
+                <DataListCell width={1} style={{flex: 'none'}}>
                   <Radio
                     aria-label={`Choose ${cluster.name} as cluster`}
                     value={cluster.id}
@@ -80,16 +84,25 @@ export function ClusterPicker(props: ClusterPickerProps) {
                 <DataListCell
                   width={1}
                   onClick={onChangeSelected}
-                  style={{ flex: 'none' }}
+                  style={{flex: 'none'}}
                 >
-                  <ServerIcon />
+                  <ServerIcon/>
                 </DataListCell>
                 <DataListCell width={3} onClick={onChangeSelected}>
                   <Title size="md" style={!cluster.connected ? {color: '#ccc'} : {}}>{cluster.name}</Title>
                 </DataListCell>
-                <DataListCell width={1}>
-                  <Button onClick={() => { }} isDisabled={!cluster.connected}>Authorize</Button>
-                </DataListCell>
+                {!cluster.connected && (
+                  <DataListCell width={1}>
+                    <Button
+                      // @ts-ignore
+                      component="a"
+                      href={props.authorizationLinkGenerator(cluster.id)}
+                      target="_blank"
+                    >
+                      Authorize
+                    </Button>
+                  </DataListCell>
+                )}
               </DataListItem>
             );
           })

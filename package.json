@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "main": "build/hub-n-spoke.js",
   "dependencies": {
-    "@patternfly/react-core": "1.51.6",
-    "@patternfly/react-icons": "2.10.6",
+    "@patternfly/react-core": "2.1.4",
+    "@patternfly/react-icons": "3.0.2",
     "classnames": "2.2.6",
     "launcher-client": "^1.0.1",
     "react": "16.8.1",
