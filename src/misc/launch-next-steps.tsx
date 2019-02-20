@@ -17,7 +17,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
     <React.Fragment>
       {!props.error && (
         <React.Fragment>
-          <Alert variant="success" aria-label="launch-success">Your application deployment has started</Alert>
+          <Alert variant="success" title="Launch Success" aria-label="launch-success">Your application deployment has started</Alert>
           <h2>Follow your application delivery</h2>
           <p>You can follow your application deployment in your OpenShift Console</p>
           <Button variant="link" href={deploymentLink} target={'_blank'}>
@@ -39,7 +39,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
         </React.Fragment>
       )}
       {props.error && (
-        <Alert variant="danger" aria-label="error-during-launch">
+        <Alert variant="danger" title="Launch Error" aria-label="error-during-launch">
           <p>Holy guacamole... something weird happened, please reload the page to try again.</p>
           <p>{props.error.toString()}</p>
         </Alert>
