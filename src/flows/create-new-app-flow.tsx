@@ -13,6 +13,7 @@ import { useLauncherClient } from '../contexts/launcher-client-context';
 import { LaunchNextSteps } from '../misc/launch-next-steps';
 import { StatusMessage } from 'launcher-client';
 import _ from 'lodash';
+import { toNewAppPayload } from './launcher-client-adapters';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR'
@@ -28,7 +29,7 @@ const defaultCustomApp = {
   backend: defaultBackendFormValue,
   frontend: defaultFrontendFormValue,
   srcLocation: {
-    repository: { name: _.uniqueId('my-app-') }
+    repository: { name: 'my-app-' + _.random(1, 1000) }
   },
 };
 
@@ -118,42 +119,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
 
     setRun({ status: Status.RUNNING, statusMessages: [] });
 
-    let parts: any[] = [];
-
-    if (app.frontend.runtime) {
-      parts.push({
-        category: 'frontend',
-        shared: {
-          runtime: { name: app.frontend.runtime!.id, version: 'community' }
-        }
-      });
-    }
-
-    if (app.backend.runtime) {
-      parts.push({
-        category: 'backend',
-        shared: {
-          runtime: { name: app.backend.runtime!.id, version: 'community' }
-        },
-        capabilities: app.backend.capabilities
-          .filter(c => c.selected)
-          .map(c => ({ module: c.id, props: c.data }))
-      });
-    }
-
-    if(parts.length > 1) {
-      parts = parts.map(p => ({ ...p, subFolderName: p.category }));
-    }
-
-    const payload = {
-      name: app.srcLocation.repository!.name,
-      repository:  app.srcLocation.repository!.name,
-      organization: app.srcLocation.repository!.org || '',
-      clusterId: 'local',
-      projectName: app.srcLocation.repository!.name,
-      parts,
-    };
-    client.launch(payload).then((result) => {
+    client.launch(toNewAppPayload(app)).then((result) => {
       setRun((prev) => ({ ...prev, result }));
       client.follow(result.id, result.events, {
         onMessage: (statusMessages) => {
