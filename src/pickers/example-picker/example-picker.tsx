@@ -12,14 +12,17 @@ import {
 import { ExampleMission, ExampleRuntime } from 'launcher-client';
 import { InputProps } from '../../core/types';
 
+
 export interface ExamplePickerValue {
   missionId?: string;
   runtimeId?: string;
+  versionId?: string;
 }
 
 interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
   missions: ExampleMission[];
   runtimes: ExampleRuntime[];
+  runtimesMap: { [name: string]: any };
 }
 
 export function ExamplePicker(props: ExamplePickerProps) {
@@ -57,8 +60,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
                     id={mission.id + 'runtime-select'}
                     value={props.value.runtimeId}
                     onChange={value => props.onChange({ ...props.value, runtimeId: value })}
-                    aria-label="Select Runtime"
-                  >
+                    aria-label="Select Runtime">
                     {props.runtimes.map((runtime, index) => (
                       <FormSelectOption
                         key={index}
@@ -67,6 +69,21 @@ export function ExamplePicker(props: ExamplePickerProps) {
                       />
                     ))}
                   </FormSelect>
+                  {props.value.runtimeId &&
+                    <FormSelect
+                      id={mission.id + 'version-select'}
+                      value={props.value.versionId}
+                      onChange={value => props.onChange({ ...props.value, versionId: value })}
+                      aria-label="Select Version">
+                      {props.runtimesMap[props.value.runtimeId].version.map((version, index) => (
+                        <FormSelectOption
+                          key={index}
+                          value={version.id}
+                          label={version.name}
+                        />
+                      ))}
+                    </FormSelect>
+                  }
                 </DataListContent>
               </DataListItem>
             );
