@@ -24,7 +24,7 @@ interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
 }
 
 export function ExamplePicker(props: ExamplePickerProps) {
-  const runtimesMap = _.keyBy(filter({ runtime: { id: '', name: '', version: '' } }, props.catalog), 'id');
+  const runtimesMap = _.keyBy(filter({ runtime: { id: '', name: '', version: '' } }, props.catalog) as ExampleRuntime[], 'id');
 
   return (
     <React.Fragment>
@@ -62,7 +62,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
                     onChange={value => props.onChange({ ...props.value, runtimeId: value })}
                     aria-label="Select Runtime"
                   >
-                    {_.map(runtimesMap).map((runtime: ExampleRuntime, index) => {
+                    {_.map(runtimesMap).map((runtime, index) => {
                       if (!props.value.runtimeId) {
                         props.value.runtimeId = runtime.id;
                       }
