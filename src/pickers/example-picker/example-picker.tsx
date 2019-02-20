@@ -9,25 +9,28 @@ import {
   FormSelect,
   FormSelectOption
 } from '@patternfly/react-core';
-import { ExampleMission, ExampleRuntime } from 'launcher-client';
+import * as _ from 'lodash';
+import { Catalog, filter, ExampleRuntime } from 'launcher-client';
 import { InputProps } from '../../core/types';
 
 export interface ExamplePickerValue {
   missionId?: string;
   runtimeId?: string;
+  versionId?: string;
 }
 
 interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
-  missions: ExampleMission[];
-  runtimes: ExampleRuntime[];
+  catalog: Catalog;
 }
 
 export function ExamplePicker(props: ExamplePickerProps) {
+  const runtimesMap = _.keyBy(filter({runtime: {id: '', name: '', version: ''}}, props.catalog), 'id');
+
   return (
     <React.Fragment>
       <DataList aria-label="select-mission">
         {
-          props.missions.map((mission, i) => {
+          props.catalog.missions.map((mission, i) => {
             const isSelected = props.value.missionId === mission.id;
             const onChangeSelected = () => {
               props.onChange({ missionId: mission.id });
@@ -59,7 +62,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
                     onChange={value => props.onChange({ ...props.value, runtimeId: value })}
                     aria-label="Select Runtime"
                   >
-                    {props.runtimes.map((runtime, index) => (
+                    {_.map(runtimesMap).map((runtime: ExampleRuntime, index) => (
                       <FormSelectOption
                         key={index}
                         value={runtime.id}
@@ -67,6 +70,22 @@ export function ExamplePicker(props: ExamplePickerProps) {
                       />
                     ))}
                   </FormSelect>
+                  {props.value.runtimeId &&
+                    <FormSelect
+                      id={mission.id + 'version-select'}
+                      value={props.value.versionId}
+                      onChange={value => props.onChange({ ...props.value, versionId: value })}
+                      aria-label="Select Version"
+                    >
+                      {runtimesMap[props.value.runtimeId].version.map((version, index) => (
+                        <FormSelectOption
+                          key={index}
+                          value={version.id}
+                          label={version.name}
+                        />
+                      ))}
+                    </FormSelect>
+                  }
                 </DataListContent>
               </DataListItem>
             );

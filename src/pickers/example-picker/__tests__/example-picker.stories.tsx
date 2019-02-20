@@ -7,7 +7,7 @@ import { mockLauncherClient } from 'launcher-client';
 
 import { ExamplePicker } from '../example-picker';
 import { LauncherClientContext } from '../../../launcher-client-context';
-import { ExampleCatalogLoader } from '../../../loaders/example-catalog-loader';
+import { ExamplesLoader } from '../../../loaders/example-catalog-loader';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
@@ -15,13 +15,13 @@ storiesOf('Pickers', module)
   .add('ExamplePicker', () => {
     return (
       <LauncherClientContext.Provider value={client}>
-        <ExampleCatalogLoader>
+        <ExamplesLoader>
           {result => (
             <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
               {(inputProps) => (<ExamplePicker {...inputProps} {...result}/>)}
             </FormPanel>
           )}
-        </ExampleCatalogLoader>
+        </ExamplesLoader>
       </LauncherClientContext.Provider>
     );
   });
