@@ -3,10 +3,10 @@ import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { mockLauncherClient } from 'launcher-client';
-import { LauncherClientContext } from '../../launcher-client-context';
+import { LauncherClientContext } from '../../contexts/launcher-client-context';
 import { BackendForm, defaultBackendFormValue } from '../backend-form';
 import { defaultFrontendFormValue, FrontendForm } from '../frontend-form';
-import { defaultRepositoryFormValue, RepositoryForm } from '../repository-form';
+import { defaultSrcLocationFormValue, SrcLocationForm } from '../src-location-form';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
@@ -28,7 +28,7 @@ storiesOf('Forms', module)
   .add('FrontendForm', () => {
     return (
       <LauncherClientContext.Provider value={client}>
-        <RepositoryForm value={defaultRepositoryFormValue} onSave={action('save')} onCancel={action('cancel')} />
+        <SrcLocationForm value={defaultSrcLocationFormValue} onSave={action('save')} onCancel={action('cancel')} />
       </LauncherClientContext.Provider>
     );
   });

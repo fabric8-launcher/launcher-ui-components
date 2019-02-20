@@ -13,15 +13,19 @@ import {
 } from '@patternfly/react-core';
 import * as React from 'react';
 import { useState } from 'react';
-import { CreateNewAppFlow } from './flows/create-new-app-flow';
+import { CreateNewAppFlow } from '../flows/create-new-app-flow';
 import * as style from './launcher.module.scss';
 import { CubesIcon } from '@patternfly/react-icons';
 
+enum Type {
+  NEW = 'NEW', EXAMPLE = 'EXAMPLE', IMPORT = 'IMPORT'
+}
+
 export function Launcher() {
-  const [type, setType] = useState<string | undefined>(undefined);
-  const createNewApp = () => setType('new');
-  const createExampleApp = () => setType('example');
-  const importApp = () => setType('import');
+  const [type, setType] = useState<Type | undefined>(undefined);
+  const createNewApp = () => setType(Type.NEW);
+  const createExampleApp = () => setType(Type.EXAMPLE);
+  const importApp = () => setType(Type.IMPORT);
   const resetType = () => setType(undefined);
   return (
     <div id="launcher-component" className={style.launcher}>
@@ -57,10 +61,10 @@ export function Launcher() {
           </GridItem>
         </Grid>
       )}
-      {type && type === 'new' && (
+      {type && type === Type.NEW && (
         <CreateNewAppFlow onCancel={resetType}/>
       )}
-      {type && type !== 'new' && (
+      {type && type !== Type.NEW && (
         <EmptyState className={style.empty}>
           <EmptyStateIcon icon={CubesIcon} />
           <Title size="lg">Unavailable</Title>

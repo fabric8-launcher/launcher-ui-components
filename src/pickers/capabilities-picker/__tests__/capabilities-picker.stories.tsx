@@ -6,7 +6,7 @@ import { mockLauncherClient } from 'launcher-client';
 import { CapabilitiesPicker, defaultCapabilitiesPickerValue } from '../capabilities-picker';
 import { FormPanel } from '../../../core/form-panel/form-panel';
 import { CapabilitiesLoader, capabilityToItem } from '../../../loaders/capabilities-loader';
-import { LauncherClientContext } from '../../../launcher-client-context';
+import { LauncherClientContext } from '../../../contexts/launcher-client-context';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 

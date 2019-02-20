@@ -9,9 +9,9 @@ import {
   FormSelect,
   FormSelectOption
 } from '@patternfly/react-core';
-import * as _ from 'lodash';
 import { Catalog, filter, ExampleRuntime } from 'launcher-client';
 import { InputProps } from '../../core/types';
+import _ from 'lodash';
 
 export interface ExamplePickerValue {
   missionId?: string;
@@ -24,7 +24,7 @@ interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
 }
 
 export function ExamplePicker(props: ExamplePickerProps) {
-  const runtimesMap = _.keyBy(filter({runtime: {id: '', name: '', version: ''}}, props.catalog), 'id');
+  const runtimesMap = _.keyBy(filter({runtime: {id: '', name: '', version: ''}}, props.catalog) as ExampleRuntime[], 'id');
 
   return (
     <React.Fragment>
@@ -62,7 +62,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
                     onChange={value => props.onChange({ ...props.value, runtimeId: value })}
                     aria-label="Select Runtime"
                   >
-                    {_.map(runtimesMap).map((runtime: ExampleRuntime, index) => (
+                    {_.map(runtimesMap).map((runtime, index) => (
                       <FormSelectOption
                         key={index}
                         value={runtime.id}
@@ -77,6 +77,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
                       onChange={value => props.onChange({ ...props.value, versionId: value })}
                       aria-label="Select Version"
                     >
+                      // @ts-ignore
                       {runtimesMap[props.value.runtimeId].version.map((version, index) => (
                         <FormSelectOption
                           key={index}

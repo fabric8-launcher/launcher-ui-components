@@ -13,39 +13,39 @@ import { GitInfo } from 'launcher-client';
 
 import { InputProps } from '../../core/types';
 
-export interface RepoPickerValue {
+export interface RepositoryPickerValue {
   org?: string;
-  repo: string;
+  name: string;
 }
 
-interface RepoPickerProps extends InputProps<RepoPickerValue | undefined> {
+interface RepositoryPickerProps extends InputProps<RepositoryPickerValue | undefined> {
   gitInfo: GitInfo;
 }
 
 const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
-export const isRepoPickerValueValid = (value?: RepoPickerValue): boolean => {
-  return !!value && ((!value.org || REPOSITORY_VALUE_REGEXP.test(value.org)) && REPOSITORY_VALUE_REGEXP.test(value.repo));
+export const isRepositoryPickerValueValid = (value?: RepositoryPickerValue): boolean => {
+  return !!value && ((!value.org || REPOSITORY_VALUE_REGEXP.test(value.org)) && REPOSITORY_VALUE_REGEXP.test(value.name));
 };
 
 export const defaultRepoPickerValue = undefined;
 
-export const normalizeRepositoryPath = (value: RepoPickerValue) => {
+export const normalizeRepositoryPath = (value: RepositoryPickerValue) => {
   if (value.org) {
-    return `${value.org}/${value.repo}`;
+    return `${value.org}/${value.name}`;
   }
-  return value.repo;
+  return value.name;
 };
 
-const isExistingRepository = (repositories: string[], value: RepoPickerValue): boolean => {
-  return !!value && isRepoPickerValueValid(value) && repositories.indexOf(normalizeRepositoryPath(value)) !== -1;
+const isExistingRepository = (repositories: string[], value: RepositoryPickerValue): boolean => {
+  return !!value && isRepositoryPickerValueValid(value) && repositories.indexOf(normalizeRepositoryPath(value)) !== -1;
 };
 
-export function RepoPicker(props: RepoPickerProps) {
-  const repo = props.value && props.value.repo || '';
+export function RepositoryPicker(props: RepositoryPickerProps) {
+  const name = props.value && props.value.name || '';
   const helperRepoInvalid = !!props.value && isExistingRepository(props.gitInfo.repositories, props.value) ?
     `Repository already exists ${normalizeRepositoryPath(props.value)}` : 'Invalid repository name';
-  const isRepoValid = !props.value || (isRepoPickerValueValid(props.value)
+  const isRepoValid = !props.value || (isRepositoryPickerValueValid(props.value)
     && !isExistingRepository(props.gitInfo.repositories, props.value));
   return (
     <Grid>
@@ -93,8 +93,8 @@ export function RepoPicker(props: RepoPickerProps) {
               name="ghRepo-name"
               placeholder="Select Repository"
               aria-describedby="Select Repository"
-              onChange={value => props.onChange({...props.value, repo: value})}
-              value={repo}
+              onChange={value => props.onChange({...props.value, name: value})}
+              value={name}
               isValid={isRepoValid}
             />
           </FormGroup>

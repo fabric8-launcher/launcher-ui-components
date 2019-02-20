@@ -2,7 +2,7 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { mockLauncherClient } from 'launcher-client';
-import { LauncherClientContext } from '../../launcher-client-context';
+import { LauncherClientContext } from '../../contexts/launcher-client-context';
 import { BackendFormOverview } from '../backend-form-overview';
 import { defaultBackendFormValue } from '../backend-form';
 import { action } from '@storybook/addon-actions';

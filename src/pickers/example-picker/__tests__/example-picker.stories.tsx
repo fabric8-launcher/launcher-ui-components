@@ -6,8 +6,8 @@ import { FormPanel } from '../../../core/form-panel/form-panel';
 import { mockLauncherClient } from 'launcher-client';
 
 import { ExamplePicker } from '../example-picker';
-import { LauncherClientContext } from '../../../launcher-client-context';
 import { ExamplesLoader } from '../../../loaders/example-catalog-loader';
+import { LauncherClientContext } from '../../../contexts/launcher-client-context';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 

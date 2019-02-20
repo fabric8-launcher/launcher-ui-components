@@ -6,7 +6,7 @@ import { mockLauncherClient } from 'launcher-client';
 import { FormPanel } from '../../../core/form-panel/form-panel';
 import { defaultRuntimePickerValue, RuntimePicker } from '../runtime-picker';
 import { EnumsRuntimesLoaders } from '../../../loaders/enums-runtimes-loaders';
-import { LauncherClientContext } from '../../../launcher-client-context';
+import { LauncherClientContext } from '../../../contexts/launcher-client-context';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 

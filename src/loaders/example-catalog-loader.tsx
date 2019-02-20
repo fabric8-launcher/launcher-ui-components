@@ -1,7 +1,7 @@
 import React from 'react';
-import { Catalog } from 'launcher-client';
-import { useLauncherClient } from '../launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';
+import { useLauncherClient } from '../contexts/launcher-client-context';
+import { Catalog } from 'launcher-client';
 
 export function ExamplesLoader(props: {children: (obj: {catalog: Catalog}) => any }) {
   const client = useLauncherClient();

@@ -1,16 +1,16 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
-import { RepositoryFormValue } from './repository-form';
-import { normalizeRepositoryPath } from '../pickers/repo-picker/repo-picker';
+import { SrcLocationFormValue } from './src-location-form';
+import { normalizeRepositoryPath } from '../pickers/repository-picker/repository-picker';
 
 interface RepositoryFormOverviewProps {
-  value: RepositoryFormValue;
+  value: SrcLocationFormValue;
   onClick: () => void;
 }
 
-export function RepositoryFormOverview(props: RepositoryFormOverviewProps) {
+export function SrcLocationFormOverview(props: RepositoryFormOverviewProps) {
 
-  if (!props.value.repo) {
+  if (!props.value.repository) {
     return (
       <EmptyState>
         <Title size="lg">You can select where your application source code will be located.</Title>
@@ -23,7 +23,7 @@ export function RepositoryFormOverview(props: RepositoryFormOverviewProps) {
   }
   return (
     <EmptyState>
-      <Title size="lg">Your code will be located in '{normalizeRepositoryPath(props.value.repo)}'</Title>
+      <Title size="lg">Your code will be located in '{normalizeRepositoryPath(props.value.repository)}'</Title>
     </EmptyState>
   );
 }

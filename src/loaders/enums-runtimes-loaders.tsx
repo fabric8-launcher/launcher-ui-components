@@ -1,7 +1,7 @@
 import { DataLoader } from '../core/data-loader/data-loader';
 import React from 'react';
 import { RuntimeItem } from '../pickers/runtime-picker/runtime-picker';
-import { useLauncherClient } from '../launcher-client-context';
+import { useLauncherClient } from '../contexts/launcher-client-context';
 
 export function runtimeMatcherByCategory(category: string) {
   return (r) => r.metadata.categories.indexOf(category) >= 0;
