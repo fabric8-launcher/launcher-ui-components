@@ -53,7 +53,10 @@ export function ClusterPicker(props: ClusterPickerProps) {
             };
 
             if (!props.value.clusterId) {
-                props.onChange({ clusterId: cluster.id });
+              const connectedClusters = props.clusters.filter(c => c.connected);
+              if (connectedClusters.length >= 1) {
+                props.onChange({ clusterId: connectedClusters[0].id });
+              }
             }
             return (
               <DataListItem

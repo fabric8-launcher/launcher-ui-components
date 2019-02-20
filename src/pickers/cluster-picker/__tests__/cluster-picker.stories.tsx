@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../../core/form-panel/form-panel';
 import { mockLauncherClient } from 'launcher-client';
 
-import { LauncherClientContext } from '../../../launcher-client-context';
+import { LauncherClientContext } from '../../../contexts/launcher-client-context';
 import { OpenshiftClustersLoader } from '../../../loaders/openshiftcluster-loader';
 import { ClusterPicker } from '../cluster-picker';
 
