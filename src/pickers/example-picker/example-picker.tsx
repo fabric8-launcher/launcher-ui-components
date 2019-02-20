@@ -24,7 +24,7 @@ interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
 }
 
 export function ExamplePicker(props: ExamplePickerProps) {
-  const runtimesMap = _.keyBy(filter({runtime: {id: '', name: '', version: ''}}, props.catalog) as ExampleRuntime[], 'id');
+  const runtimesMap = _.keyBy(filter({ runtime: { id: '', name: '', version: '' } }, props.catalog), 'id');
 
   return (
     <React.Fragment>
@@ -41,7 +41,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
                 aria-labelledby={mission.name}
                 value={mission.id}
                 key={i}
-                style={{cursor: 'pointer'}}
+                style={{ cursor: 'pointer' }}
               >
                 <DataListCell width={1} style={{ flex: 'none' }}>
                   <Radio
@@ -62,13 +62,19 @@ export function ExamplePicker(props: ExamplePickerProps) {
                     onChange={value => props.onChange({ ...props.value, runtimeId: value })}
                     aria-label="Select Runtime"
                   >
-                    {_.map(runtimesMap).map((runtime, index) => (
-                      <FormSelectOption
-                        key={index}
-                        value={runtime.id}
-                        label={runtime.name}
-                      />
-                    ))}
+                    {_.map(runtimesMap).map((runtime: ExampleRuntime, index) => {
+                      if (!props.value.runtimeId) {
+                        props.value.runtimeId = runtime.id;
+                      }
+                      return (
+                        <FormSelectOption
+                          key={index}
+                          value={runtime.id}
+                          label={runtime.name}
+                        />
+                      );
+                    }
+                    )}
                   </FormSelect>
                   {props.value.runtimeId &&
                     <FormSelect
@@ -78,13 +84,19 @@ export function ExamplePicker(props: ExamplePickerProps) {
                       aria-label="Select Version"
                     >
                       // @ts-ignore
-                      {runtimesMap[props.value.runtimeId].version.map((version, index) => (
-                        <FormSelectOption
-                          key={index}
-                          value={version.id}
-                          label={version.name}
-                        />
-                      ))}
+                      {runtimesMap[props.value.runtimeId].version.map((version, index) => {
+                        if (!props.value.versionId) {
+                          props.value.versionId = version.id;
+                        }
+                        return (
+                          <FormSelectOption
+                            key={index}
+                            value={version.id}
+                            label={version.name}
+                          />
+                        );
+                      }
+                      )}
                     </FormSelect>
                   }
                 </DataListContent>
