@@ -8455,10 +8455,10 @@ last-call-webpack-plugin@^3.0.0:
     lodash "^4.17.5"
     webpack-sources "^1.1.0"
 
-launcher-client@*:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/launcher-client/-/launcher-client-0.0.3.tgz#03dd14e67243bb13e377c64570e811e413e40a4c"
-  integrity sha512-BfwFFdRYgLFKYh5WD787n8j2N+pREKcsUVe0+wa7OCaFquZjnwx6fEJwx5cOaeSCC12E5+Gd7UOCr6S5AaYeQw==
+launcher-client@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/launcher-client/-/launcher-client-1.0.1.tgz#3f6fdc709a43c1e8142d0447af2f1e891efcef49"
+  integrity sha512-SCrpjAVM7BWT6tzNduH/xHrrcmzCJHGzxl8igc+JuGviXZMe89hZ9YWbJv+IcsZAT/Z7rU3F6O21tsCFnPM8YA==
   dependencies:
     axios "0.18.0"
     injection-js "2.2.1"
