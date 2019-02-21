@@ -50,7 +50,6 @@ export class HttpService {
   protected options(cluster?: Cluster, retry: number = 0): Observable<object> {
     let headers = new HttpHeaders()
       .append('X-App', this.helperService.getOrigin())
-      .append('X-Git-Provider', 'GitHub')
       .append('X-Execution-Step-Index', String(retry));
     if (cluster) {
       headers = headers.append('X-OpenShift-Cluster', cluster.id);
