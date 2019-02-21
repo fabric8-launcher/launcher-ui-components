@@ -1,0 +1,12 @@
+{
+  "name": "keycloak-app",
+  "version": "0.0.0",
+  "scripts": {
+  },
+  "dependencies": {
+    "react-router-dom": "4.3.1",
+    "uuid": "3.3.2",
+    "keycloak-js": "4.8.3",
+    "jssha": "2.3.1"
+  }
+}

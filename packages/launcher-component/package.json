@@ -1,0 +1,26 @@
+{
+  "name": "launcher-component",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "rm -rf ./build && tsc && tsc -m es6 --outDir build/dist-esm && webpack -d",
+    "test": "jest",
+    "storybook": "start-storybook -p 9009 -s public --ci",
+    "storybook:build": "build-storybook -s public",
+    "storybook:publish": "storybook-to-ghpages"
+  },
+  "dependencies": {
+    "launcher-client": "^1.0.1"
+  },
+  "devDependencies": {
+    "react-scripts": "2.1.3",
+    "@storybook/addon-actions": "4.1.11",
+    "@storybook/addon-links": "4.1.11",
+    "@storybook/addon-storysource": "4.1.11",
+    "@storybook/addons": "4.1.11",
+    "@storybook/react": "4.1.11",
+    "@storybook/storybook-deployer": "2.8.1",
+    "@types/storybook__addon-actions": "3.4.1",
+    "@types/storybook__react": "4.0.0",
+    "react-docgen-typescript-loader": "3.0.1"
+  }
+}

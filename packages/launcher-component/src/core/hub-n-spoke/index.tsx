@@ -10,7 +10,7 @@ export interface HubItem {
   title: string;
   overview: {
     component: (props: { edit: () => void }) => ReactElement<any>;
-    width?: 'half' | 'full';
+    width?: 'third' | 'half' | 'full';
   };
   form: {
     component: (props: { close: () => void }) => ReactElement<any>;
@@ -25,17 +25,26 @@ interface Hub {
   close();
 }
 
+const width = {
+  quarter: 3,
+  third: 4,
+  half: 6,
+  full: 12,
+};
+
 export const HubContext = React.createContext<Hub | undefined>(undefined);
 
 export function HubOverviewCard(props: HubItem) {
   const hub = useContext(HubContext);
-  const size = props.overview.width === 'full' ? 12 : 6;
+  const w = props.overview.width || 'quarter';
+  const size = width[w];
   const onEdit = () => {
     if (hub) {
       hub.open(props);
     }
   };
   return (
+    // @ts-ignore
     <GridItem className="hub-and-spoke-item" span={size}>
       <div className="hub-and-spoke-header">
         <h1>
