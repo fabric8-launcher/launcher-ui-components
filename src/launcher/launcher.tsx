@@ -14,6 +14,7 @@ import {
 import * as React from 'react';
 import { useState } from 'react';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
+import { CreateExampleAppFlow } from '../flows/create-example-app-flow';
 import * as style from './launcher.module.scss';
 import { CubesIcon } from '@patternfly/react-icons';
 
@@ -64,7 +65,10 @@ export function Launcher() {
       {type && type === Type.NEW && (
         <CreateNewAppFlow onCancel={resetType}/>
       )}
-      {type && type !== Type.NEW && (
+      {type && type === Type.EXAMPLE && (
+        <CreateExampleAppFlow onCancel={resetType}/>
+      )}
+      {type && type === Type.IMPORT && (
         <EmptyState className={style.empty}>
           <EmptyStateIcon icon={CubesIcon} />
           <Title size="lg">Unavailable</Title>

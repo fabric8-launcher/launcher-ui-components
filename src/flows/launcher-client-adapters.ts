@@ -36,3 +36,24 @@ export function toNewAppPayload(app) {
     parts,
   };
 }
+
+export function toExamplePayload(app) {
+  const parts: any[] = [];
+
+  parts.push({
+    category: 'example',
+    shared: {
+      mission: { id: app.example.missionId },
+      runtime: { name: app.example.runtimeId, version: app.example.versionId }
+    }
+  });
+
+  return {
+    name: app.srcLocation.repository!.name,
+    repository:  app.srcLocation.repository!.name,
+    organization: app.srcLocation.repository!.org || '',
+    clusterId: 'local',
+    projectName: app.srcLocation.repository!.name,
+    parts,
+  };
+}
