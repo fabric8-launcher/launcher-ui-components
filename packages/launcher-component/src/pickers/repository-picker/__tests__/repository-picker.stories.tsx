@@ -17,8 +17,31 @@ storiesOf('Pickers', module)
       <LauncherClientContext.Provider value={client}>
         <GitInfoLoader>
           {gitInfo => (
-            <FormPanel value={defaultRepoPickerValue} onSave={action('save')} onCancel={action('cancel')} isValid={isRepositoryPickerValueValid}>
-              {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo}/>)}
+            <FormPanel
+              value={defaultRepoPickerValue}
+              onSave={action('save')}
+              onCancel={action('cancel')}
+              isValid={isRepositoryPickerValueValid}
+            >
+              {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo} />)}
+            </FormPanel>
+          )}
+        </GitInfoLoader>
+      </LauncherClientContext.Provider>
+    );
+  })
+  .add('RepositoryPicker: import', () => {
+    return (
+      <LauncherClientContext.Provider value={client}>
+        <GitInfoLoader>
+          {gitInfo => (
+            <FormPanel
+              value={defaultRepoPickerValue}
+              onSave={action('save')}
+              onCancel={action('cancel')}
+              isValid={isRepositoryPickerValueValid}
+            >
+              {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo} import={true} />)}
             </FormPanel>
           )}
         </GitInfoLoader>

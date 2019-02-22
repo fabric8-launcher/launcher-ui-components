@@ -5,10 +5,10 @@ import { GitInfoLoader } from '../loaders/git-info-loader';
 import { FormPanel } from '../core/form-panel/form-panel';
 
 export interface SrcLocationFormValue {
-  repository?: RepositoryPickerValue;
+  repository: RepositoryPickerValue;
 }
 
-export const defaultSrcLocationFormValue = {};
+export const defaultSrcLocationFormValue = { repository: {}};
 
 export function isSrcLocationFormValueValid(value: SrcLocationFormValue) {
   return isRepositoryPickerValueValid(value.repository);
