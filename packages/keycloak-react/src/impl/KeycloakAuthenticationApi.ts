@@ -2,7 +2,7 @@ import * as jsSHA from 'jssha';
 import * as _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import Keycloak from 'keycloak-js';
-import { AuthenticationApi, OptionalUser } from './AuthenticationApi';
+import { AuthenticationApi, OptionalUser } from '../AuthenticationApi';
 import { checkNotNull } from 'launcher-client/dist/client/helpers/preconditions';
 
 interface StoredData {

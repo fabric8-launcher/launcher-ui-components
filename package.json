@@ -9,8 +9,8 @@
     "@patternfly/react-core": "2.1.4",
     "@patternfly/react-icons": "3.0.2",
     "classnames": "2.2.6",
-    "react": "16.8.1",
-    "react-dom": "16.8.1"
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
   },
   "scripts": {
     "launcher-component:storybook": "cd packages/launcher-component && yarn storybook",
@@ -25,11 +25,11 @@
   "devDependencies": {
     "@babel/core": "7.2.2",
     "@types/classnames": "2.2.7",
-    "@types/jest": "23.3.13",
+    "@types/jest": "24.0.6",
+    "@types/node": "11.9.4",
+    "@types/react": "16.8.4",
+    "@types/react-dom": "16.8.2",
     "@types/lodash": "4.14.121",
-    "@types/node": "10.12.18",
-    "@types/react": "16.8.2",
-    "@types/react-dom": "16.8.0",
     "awesome-typescript-loader": "5.2.1",
     "babel-loader": "8.0.5",
     "css-loader": "2.1.0",
@@ -43,9 +43,10 @@
     "ts-jest": "23.10.5",
     "tslint": "5.12.1",
     "tslint-react": "3.6.0",
-    "typescript": "3.2.4",
+    "typescript": "3.3.3333",
     "uglifyjs-webpack-plugin": "2.1.1",
-    "webpack": "4.29.0",
-    "webpack-cli": "3.2.1"
+    "webpack": "4.28.3",
+    "webpack-cli": "3.2.1",
+    "eslint": "5.12.0"
   }
 }

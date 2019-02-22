@@ -1,0 +1,19 @@
+{
+  "name": "keycloak-react",
+  "version": "0.0.0",
+  "main": "build/keycloak-react.js",
+  "module": "build/esm/index.js",
+  "types": "build/esm/index.d.ts",
+  "scripts": {
+    "build": "rm -rf ./build && tsc -d --outDir build/esm && webpack -d"
+  },
+  "dependencies": {
+    "uuid": "3.3.2",
+    "keycloak-js": "4.8.3",
+    "jssha": "2.3.1",
+    "react-router-dom": "4.3.1"
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "4.3.1"
+  }
+}
