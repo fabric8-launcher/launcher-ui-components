@@ -22,7 +22,7 @@ export function DataLoader<T>(props: { loader: () => Promise<T>, default: T, chi
         setLoaded(true);
       });
     }
-  });
+  }, [loaded]);
   if (loaded) {
     return props.children(data);
   }

@@ -12,15 +12,5 @@
 .loader {
   text-align: center;
   margin: 50px 0;
-
-  svg {
-    animation: spin 500ms linear infinite;
-    height: 2em;
-    width: 2em;
-  }
-
-  @keyframes spin {
-    100% { transform: rotate(360deg); }
-  }
 }
 
