@@ -1,43 +1,34 @@
-.itemPicker {
-  :global {
-    .pf-c-card {
-      cursor: pointer;
-      border: 2px solid transparent;
+.card {
+  cursor: pointer;
+  border: 2px solid transparent;
+}
 
-      &.selected {
-        border: 2px solid #007bba;
-      }
+.selected {
+  border: 2px solid #007bba;
+}
 
-      .pf-c-card__body {
-        text-align: center;
-        height: 280px;
-        display: flex;
-        flex-flow: column;
+.body {
+  text-align: center;
+  height: 280px;
+  display: flex;
+  flex-flow: column;
 
-        img {
-          width: 8em;
-          margin: auto;
-        }
+  img {
+    width: 8em;
+    margin: auto;
+  }
 
-        p {
-          margin-top: auto;
-        }
-      }
-
-      .pf-c-card__header {
-        display: flex;
-
-        h1 {
-          border-left: 1px solid #d1d1d1;
-          padding-left: 20px;
-          margin-left: 10px;
-        }
-      }
-
-    }
+  p {
+    margin-top: auto;
   }
 }
 
+.header {
+  display: flex;
 
-
-
+  h1 {
+    border-left: 1px solid #d1d1d1;
+    padding-left: 20px;
+    margin-left: 10px;
+  }
+}
