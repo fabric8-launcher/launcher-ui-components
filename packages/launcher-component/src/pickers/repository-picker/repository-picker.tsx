@@ -43,8 +43,8 @@ const isExistingRepository = (repositories: string[], value: RepositoryPickerVal
 };
 
 export function RepositoryPicker(props: RepositoryPickerProps) {
-  props.value.name = props.value.name || '';
-  props.value.org = props.value.org || props.gitInfo.organizations[0];
+  const name = props.value.name || '';
+  const org = props.value.org || props.gitInfo.organizations[0];
   const helperRepoInvalid = isExistingRepository(props.gitInfo.repositories, props.value) ?
     `Repository already exists ${normalizeRepositoryPath(props.value)}` : 'Invalid repository name';
   const isRepoValid = props.import || (isRepositoryPickerValueValid(props.value)
@@ -65,7 +65,7 @@ export function RepositoryPicker(props: RepositoryPickerProps) {
           >
             <FormSelect
               id="ghOrg"
-              value={props.value.org}
+              value={org}
               onChange={value => props.onChange({ ...props.value, org: value })}
               aria-label="Select organization"
             >
@@ -73,11 +73,11 @@ export function RepositoryPicker(props: RepositoryPickerProps) {
                 value={props.gitInfo.login}
                 label={props.gitInfo.login}
               />
-              {props.gitInfo.organizations.map((org, index) => (
+              {props.gitInfo.organizations.map((o, index) => (
                 <FormSelectOption
                   key={index}
-                  value={org}
-                  label={org}
+                  value={o}
+                  label={o}
                 />)
               )}
             </FormSelect>
@@ -98,14 +98,14 @@ export function RepositoryPicker(props: RepositoryPickerProps) {
                 placeholder="Select Repository"
                 aria-describedby="Select Repository"
                 onChange={value => props.onChange({ ...props.value, name: value })}
-                value={props.value.name}
+                value={name}
                 isValid={isRepoValid}
               />
             }
             {props.import &&
               <FormSelect
                 id="ghRepo"
-                value={props.value.name}
+                value={name}
                 onChange={value => props.onChange({ ...props.value, name: value })}
                 aria-label="Select Repository"
               >
