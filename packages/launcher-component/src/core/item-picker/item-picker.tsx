@@ -23,7 +23,7 @@ function ListItem(props: ListItemProps) {
     onSelect(props.id);
   };
   return (
-    <Card onClick={doOnSelect} className={classNames(style.item, { [style.selected]: selected })}>
+    <Card onClick={doOnSelect} className={classNames({selected})}>
       <CardHeader className={style.header}>
         <Radio
           aria-label={`Choose ${props.id} as ${props.group}`}
@@ -35,7 +35,7 @@ function ListItem(props: ListItemProps) {
         />
         <Title size="lg">{props.name}</Title>
       </CardHeader>
-      <CardBody className={style.body}>
+      <CardBody>
         <img src={props.icon}/>
         <p>
           {props.description}
@@ -54,7 +54,7 @@ function ItemPicker(props: ItemPickerProps) {
   const items = props.items || [];
 
   return (
-    <div className={style.module}>
+    <div className={style.itemPicker}>
       <Gallery gutter="md">
         {
           items.map((viewItem, i) => (
