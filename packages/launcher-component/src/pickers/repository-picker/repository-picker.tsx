@@ -11,6 +11,7 @@ import {
 import { GitInfo } from 'launcher-client';
 
 import { InputProps } from '../../core/types';
+import * as style from './repository-picker.module.scss';
 
 export interface RepositoryPickerValue {
   org?: string;
@@ -50,8 +51,9 @@ export function RepositoryPicker(props: RepositoryPickerProps) {
     && !isExistingRepository(props.gitInfo.repositories, props.value));
   return (
     <Grid>
-      <GridItem span={4}>
-        <img src={props.gitInfo.avatarUrl} />
+      <GridItem span={4} style={{margin: 'auto'}}>
+        <img src={props.gitInfo.avatarUrl} className={style.avatar} />
+        <p><b>{props.gitInfo.login}</b></p>
       </GridItem>
       <GridItem span={8}>
         <h3>Choose a Repository</h3>
