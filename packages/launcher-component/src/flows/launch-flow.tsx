@@ -19,14 +19,14 @@ interface RunState {
   statusMessages: StatusMessage[];
 }
 
-interface ProgressProps {
+interface LaunchFlowProps {
   items: any[];
   isValid: () => boolean;
-  convert: () => LaunchAppPayload;
+  buildAppPayload: () => LaunchAppPayload;
   onCancel?: () => void;
 }
 
-export function Progress(props: ProgressProps) {
+export function LaunchFlow(props: LaunchFlowProps) {
   const [run, setRun] = useState<RunState>({ status: Status.EDITION, statusMessages: []});
   const client = useLauncherClient();
 
@@ -38,7 +38,7 @@ export function Progress(props: ProgressProps) {
 
     setRun({ status: Status.RUNNING, statusMessages: [] });
 
-    client.launch(props.convert()).then((result) => {
+    client.launch(props.buildAppPayload()).then((result) => {
       setRun((prev) => ({ ...prev, result }));
       client.follow(result.id, result.events, {
         onMessage: (statusMessages) => {

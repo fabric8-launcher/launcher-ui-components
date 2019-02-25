@@ -8,7 +8,7 @@ import { toExamplePayload } from './launcher-client-adapters';
 import { ExampleFormOverview } from '../forms/example-form-overview';
 import { ExamplePickerValue } from '../pickers/example-picker/example-picker';
 import { defaultExampleFormValue, ExampleForm, isExampleFormValueValid } from '../forms/example-form';
-import { Progress } from './progress';
+import { LaunchFlow } from './launch-flow';
 
 interface ExampleApp {
   example: ExamplePickerValue;
@@ -71,10 +71,10 @@ export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
   ];
 
   return (
-    <Progress
+    <LaunchFlow
       items={items}
       isValid={() => isExampleFormValueValid(app.example)}
-      convert={() => toExamplePayload(app)}
+      buildAppPayload={() => toExamplePayload(app)}
       onCancel={props.onCancel}
     />
   );

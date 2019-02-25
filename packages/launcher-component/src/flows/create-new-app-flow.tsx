@@ -8,7 +8,7 @@ import { BackendFormOverview } from '../forms/backend-form-overview';
 import { FrontendFormOverview } from '../forms/frontend-form-overview';
 import { SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-form';
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
-import { Progress } from './progress';
+import { LaunchFlow } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
 
 interface CustomApp {
@@ -97,7 +97,12 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   ];
 
   return (
-    <Progress items={items} isValid={isValidForm} convert={() => toNewAppPayload(app)} onCancel={props.onCancel}/>
+    <LaunchFlow
+      items={items}
+      isValid={isValidForm}
+      buildAppPayload={() => toNewAppPayload(app)}
+      onCancel={props.onCancel}
+    />
   );
 
 }
