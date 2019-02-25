@@ -4,9 +4,6 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
   Grid,
   GridItem,
   Title
@@ -16,7 +13,7 @@ import { useState } from 'react';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
 import { CreateExampleAppFlow } from '../flows/create-example-app-flow';
 import style from './launcher.module.scss';
-import { CubesIcon } from '@patternfly/react-icons';
+import { ImportExistingFlow } from '../flows/import-existing-flow';
 
 enum Type {
   NEW = 'NEW', EXAMPLE = 'EXAMPLE', IMPORT = 'IMPORT'
@@ -69,14 +66,7 @@ export function Launcher() {
         <CreateExampleAppFlow onCancel={resetType}/>
       )}
       {type && type === Type.IMPORT && (
-        <EmptyState className={style.empty}>
-          <EmptyStateIcon icon={CubesIcon} />
-          <Title size="lg">Unavailable</Title>
-          <EmptyStateBody>
-            Sorry buddy, don't worry, this feature will be available soon...
-          </EmptyStateBody>
-          <Button variant="primary" onClick={resetType}>Back</Button>
-        </EmptyState>
+        <ImportExistingFlow onCancel={resetType}/>
       )}
 
     </div>
