@@ -5,15 +5,15 @@ import { InputProps } from '../../core/types';
 
 export const defaultBuidImagePickerValue = {};
 
-export interface BuildImageItemValue {
+export interface BuildImageValue {
   imageName?: string;
 }
 
-interface BuildImageItemProps extends InputProps<BuildImageItemValue> {
+interface BuildImageProps extends InputProps<BuildImageValue> {
   result: AnalyzeResult;
 }
 
-export function BuildImagePicker(props: BuildImageItemProps) {
+export function BuildImagePicker(props: BuildImageProps) {
   const imageName = props.result.name;
   return (
     <Fragment>

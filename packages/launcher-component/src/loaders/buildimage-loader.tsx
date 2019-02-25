@@ -13,6 +13,7 @@ export function BuildImageAnalyzerLoader(props: { repository: {org: string, name
   );
 }
 
+// TODO add a way to create full repo url needed for the backend.
 function toRepoUrl(repository: { org: string; name: string; }) {
   return `https://github.com/${repository.org}/${repository.name}`;
 }

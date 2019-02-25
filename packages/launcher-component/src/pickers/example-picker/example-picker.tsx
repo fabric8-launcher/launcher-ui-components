@@ -24,7 +24,8 @@ interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
 }
 
 export function ExamplePicker(props: ExamplePickerProps) {
-  const runtimesMap = _.keyBy(filter({ runtime: { id: '', name: '', version: '' } }, props.catalog) as ExampleRuntime[], 'id');
+  const query = { runtime: { id: '', name: '', version: {id: '', name: ''} } };
+  const runtimesMap = _.keyBy(filter(query, props.catalog) as ExampleRuntime[], 'id');
 
   return (
     <React.Fragment>
