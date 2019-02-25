@@ -3,7 +3,7 @@ import { Button, Grid, GridItem } from '@patternfly/react-core';
 import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 import { ReactElement, useContext, useState } from 'react';
 
-import * as style from './hub-n-spoke.module.scss';
+import style from './hub-n-spoke.module.scss';
 
 export interface HubItem {
   id: string;

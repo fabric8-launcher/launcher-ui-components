@@ -2,7 +2,9 @@
 
 exports[`<HubNSpoke /> renders the HubNSpoke correctly 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="hubNSpoke"
+  >
     <div
       class="pf-l-grid pf-m-gutter hub-and-spoke-container"
     >
@@ -139,7 +141,9 @@ exports[`<HubNSpoke /> renders the HubNSpoke correctly 1`] = `
 
 exports[`<HubNSpoke /> show the edition panel for the clicked hub 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="hubNSpoke"
+  >
     <div
       class="pf-l-grid pf-m-gutter hub-and-spoke-container"
     >
@@ -192,7 +196,9 @@ exports[`<HubNSpoke /> show the edition panel for the clicked hub 1`] = `
 
 exports[`<HubNSpoke /> show the edition panel for the clicked hub 2`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="hubNSpoke"
+  >
     <div
       class="pf-l-grid pf-m-gutter hub-and-spoke-container"
     >

@@ -11,7 +11,7 @@ import {
 import { GitInfo } from 'launcher-client';
 
 import { InputProps } from '../../core/types';
-import * as style from './repository-picker.module.scss';
+import style from './repository-picker.module.scss';
 
 export interface RepositoryPickerValue {
   org?: string;

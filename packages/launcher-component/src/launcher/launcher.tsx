@@ -15,7 +15,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
 import { CreateExampleAppFlow } from '../flows/create-example-app-flow';
-import * as style from './launcher.module.scss';
+import style from './launcher.module.scss';
 import { CubesIcon } from '@patternfly/react-icons';
 
 enum Type {

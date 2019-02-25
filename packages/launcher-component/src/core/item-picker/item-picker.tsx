@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, CardBody, CardHeader, Gallery, GalleryItem, Radio, Title } from '@patternfly/react-core';
 import { InputProps } from '../types';
-import * as style from './item-picker.module.scss';
+import style from './item-picker.module.scss';
 import classNames from 'classnames';
 
 export interface ViewItem {

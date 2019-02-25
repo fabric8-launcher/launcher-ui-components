@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as React from 'react';
 import { InProgressIcon } from '@patternfly/react-icons';
-import * as style from './data-loader.module.scss';
+import style from './data-loader.module.scss';
 
 export function Spin(props: { children: React.ReactNode }) {
   return (
