@@ -1,22 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { HubNSpoke } from '../core/hub-n-spoke';
-import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
+import _ from 'lodash';
+
 import { SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-form';
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
-import { ProcessingApp } from '../misc/processing-app';
-import { useLauncherClient } from '../contexts/launcher-client-context';
-import { LaunchNextSteps } from '../misc/launch-next-steps';
-import { StatusMessage } from 'launcher-client';
-import _ from 'lodash';
 import { toExamplePayload } from './launcher-client-adapters';
 import { ExampleFormOverview } from '../forms/example-form-overview';
 import { ExamplePickerValue } from '../pickers/example-picker/example-picker';
 import { defaultExampleFormValue, ExampleForm, isExampleFormValueValid } from '../forms/example-form';
-
-enum Status {
-  EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR'
-}
+import { Progress } from './progress';
 
 interface ExampleApp {
   example: ExamplePickerValue;
@@ -30,17 +22,8 @@ const defaultCustomApp = {
   },
 };
 
-interface RunState {
-  status: Status;
-  result?: any;
-  error?: any;
-  statusMessages: StatusMessage[];
-}
-
 export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<ExampleApp>(defaultCustomApp);
-  const [run, setRun] = useState<RunState>({ status: Status.EDITION, statusMessages: []});
-  const client = useLauncherClient();
 
   const items = [
     {
@@ -87,52 +70,13 @@ export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
     }
   ];
 
-  const launch = () => {
-    if (!isExampleFormValueValid(app.example)) {
-      console.warn('impossible to create an empty app');
-      return;
-    }
-
-    setRun({ status: Status.RUNNING, statusMessages: [] });
-
-    client.launch(toExamplePayload(app)).then((result) => {
-      setRun((prev) => ({ ...prev, result }));
-      client.follow(result.id, result.events, {
-        onMessage: (statusMessages) => {
-          console.log(statusMessages);
-          setRun((prev) => ({ ...prev, statusMessages: [...prev.statusMessages, statusMessages]  }));
-        },
-        onComplete: () => {
-          setRun((prev) => ({ ...prev, status: Status.COMPLETED }));
-        },
-        onError: (error) => {
-          setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
-        }
-      });
-    });
-  };
-
-  const toolbar = (
-    <Toolbar style={{marginTop: '20px'}}>
-      <ToolbarGroup>
-        <Button variant="primary" onClick={launch}>Launch</Button>
-      </ToolbarGroup>
-      <ToolbarGroup>
-        <Button variant="secondary" onClick={props.onCancel}>Cancel</Button>
-      </ToolbarGroup>
-    </Toolbar>
-  );
-
-  const progressEvents = run.status === Status.RUNNING && run.result && run.result.events;
-  const progressEventsResults = run.status === Status.RUNNING && run.result && run.statusMessages;
-
-  console.log(run);
   return (
-    <React.Fragment>
-      {run.status === Status.EDITION && (<HubNSpoke items={items} toolbar={toolbar}/>)}
-      {run.status === Status.RUNNING && (<ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults} />)}
-      {(run.status === Status.COMPLETED || run.status === Status.ERROR) && (<LaunchNextSteps error={run.error}/>)}
-    </React.Fragment>
+    <Progress
+      items={items}
+      isValid={() => isExampleFormValueValid(app.example)}
+      convert={() => toExamplePayload(app)}
+      onCancel={props.onCancel}
+    />
   );
 
 }
