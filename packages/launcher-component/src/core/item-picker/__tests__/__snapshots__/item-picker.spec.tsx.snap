@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ItemPicker /> renders the ItemPicker correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="pf-l-gallery pf-m-gutter"
+  >
+    <div>
+      <article
+        class="pf-c-card card"
+      >
+        <div
+          class="pf-c-card__header header"
+        >
+          <div
+            class="pf-c-radio"
+          >
+            <input
+              aria-invalid="false"
+              aria-label="Choose item1 as test"
+              class="pf-c-radio__input"
+              id="radio-choose-item1-as-test"
+              name="test"
+              type="radio"
+              value="item1"
+            />
+          </div>
+          <h1
+            class="pf-c-title pf-m-lg"
+          >
+            The test item1
+          </h1>
+        </div>
+        <div
+          class="pf-c-card__body body"
+        >
+          <img />
+          <p />
+        </div>
+      </article>
+    </div>
+    <div>
+      <article
+        class="pf-c-card card"
+      >
+        <div
+          class="pf-c-card__header header"
+        >
+          <div
+            class="pf-c-radio"
+          >
+            <input
+              aria-invalid="false"
+              aria-label="Choose item2 as test"
+              class="pf-c-radio__input"
+              id="radio-choose-item2-as-test"
+              name="test"
+              type="radio"
+              value="item2"
+            />
+          </div>
+          <h1
+            class="pf-c-title pf-m-lg"
+          >
+            The test item2
+          </h1>
+        </div>
+        <div
+          class="pf-c-card__body body"
+        >
+          <img />
+          <p />
+        </div>
+      </article>
+    </div>
+  </div>
+</DocumentFragment>
+`;
