@@ -1,0 +1,22 @@
+{
+  "name": "launcher-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "dependencies": {
+    "react-router-dom": "4.3.1",
+    "keycloak-react": "*"
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "4.3.1",
+    "react-scripts": "2.1.5"
+  }
+}

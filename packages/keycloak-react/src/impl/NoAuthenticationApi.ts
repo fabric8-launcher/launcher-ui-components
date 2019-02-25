@@ -1,4 +1,4 @@
-import { AuthenticationApi, OptionalUser, User } from './AuthenticationApi';
+import { AuthenticationApi, OptionalUser, User } from '../AuthenticationApi';
 
 const anonymousUser: User = {
   userName: 'Anonymous',

@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '',
-    filename: 'hub-n-spoke.js',
+    filename: 'keycloak-react.js',
     libraryTarget: 'umd',
   },
   resolve: {

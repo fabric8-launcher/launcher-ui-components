@@ -23,7 +23,7 @@ function ListItem(props: ListItemProps) {
     onSelect(props.id);
   };
   return (
-    <Card onClick={doOnSelect} className={classNames(style.item, { [style.selected]: selected })}>
+    <Card onClick={doOnSelect} className={classNames(style.card, {[style.selected]: selected})}>
       <CardHeader className={style.header}>
         <Radio
           aria-label={`Choose ${props.id} as ${props.group}`}
@@ -54,22 +54,20 @@ function ItemPicker(props: ItemPickerProps) {
   const items = props.items || [];
 
   return (
-    <div className={style.module}>
-      <Gallery gutter="md">
-        {
-          items.map((viewItem, i) => (
-            <GalleryItem key={i}>
-              <ListItem
-                {...viewItem}
-                group={props.group}
-                onSelect={props.onChange}
-                selected={props.value === viewItem.id}
-              />
-            </GalleryItem>
-          ))
-        }
-      </Gallery>
-    </div>
+    <Gallery gutter="md">
+      {
+        items.map((viewItem, i) => (
+          <GalleryItem key={i}>
+            <ListItem
+              {...viewItem}
+              group={props.group}
+              onSelect={props.onChange}
+              selected={props.value === viewItem.id}
+            />
+          </GalleryItem>
+        ))
+      }
+    </Gallery>
   );
 }
 
