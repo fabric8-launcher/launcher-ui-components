@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import _ from 'lodash';
 
 import { toImportAppPayload } from './launcher-client-adapters';
 import { ImportFormValue, ImportForm, isImportFormValueValid } from '../forms/import-form';
