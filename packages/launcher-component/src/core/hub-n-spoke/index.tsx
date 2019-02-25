@@ -3,7 +3,7 @@ import { Button, Grid, GridItem } from '@patternfly/react-core';
 import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 import { ReactElement, useContext, useState } from 'react';
 
-import './hub-n-spoke.scss';
+import * as style from './hub-n-spoke.module.scss';
 
 export interface HubItem {
   id: string;
@@ -114,7 +114,7 @@ export function HubNSpoke(props: HubAndSpokeProps) {
   };
 
   return (
-    <div className="hub-and-spoke-container">
+    <div className={style.hubNSpoke}>
       <HubContext.Provider value={hub}>
         <Grid className="hub-and-spoke-container" gutter={'sm'}>
           {hub.selected ? (
