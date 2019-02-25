@@ -5,6 +5,7 @@ import { mockLauncherClient } from 'launcher-client';
 import { LauncherClientContext } from '../../contexts/launcher-client-context';
 import { CreateNewAppFlow } from '../create-new-app-flow';
 import { CreateExampleAppFlow } from '../create-example-app-flow';
+import { ImportExistingFlow } from '../import-existing-flow';
 
 const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
 
@@ -21,6 +22,14 @@ storiesOf('Flows', module)
     return (
       <LauncherClientContext.Provider value={client}>
         <CreateExampleAppFlow />
+      </LauncherClientContext.Provider>
+    );
+  })
+
+  .add('ImportExistingFlow', () => {
+    return (
+      <LauncherClientContext.Provider value={client}>
+        <ImportExistingFlow />
       </LauncherClientContext.Provider>
     );
   });

@@ -8,7 +8,7 @@ import { HubNSpoke } from '../core/hub-n-spoke';
 import { ProcessingApp } from '../misc/processing-app';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { LaunchNextSteps } from '../misc/launch-next-steps';
-import { toNewAppPayload } from './launcher-client-adapters';
+import { toImportAppPayload } from './launcher-client-adapters';
 import { ImportFormValue, ImportForm, isImportFormValueValid } from '../forms/import-form';
 import { defaultBuidImagePickerValue } from '../pickers/buildimage-picker/buildimage-picker';
 import { ImportFormOverview } from '../forms/import-form-overview';
@@ -73,7 +73,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
 
     setRun({ status: Status.RUNNING, statusMessages: [] });
 
-    client.launch(toNewAppPayload(app)).then((result) => {
+    client.launch(toImportAppPayload(app)).then((result) => {
       setRun((prev) => ({ ...prev, result }));
       client.follow(result.id, result.events, {
         onMessage: (statusMessages) => {

@@ -57,3 +57,23 @@ export function toExamplePayload(app) {
     parts,
   };
 }
+
+export function toImportAppPayload(app) {
+  const parts: any[] = [];
+
+  parts.push({
+    category: 'import',
+    shared: {
+      buildImage: app.importApp.buildImage.imageName
+    }
+  });
+
+  return {
+    name: app.importApp.repository!.name,
+    repository:  app.importApp.repository!.name,
+    organization: app.importApp.repository!.org || '',
+    clusterId: 'local',
+    projectName: app.importApp.repository!.name,
+    parts,
+  };
+}
