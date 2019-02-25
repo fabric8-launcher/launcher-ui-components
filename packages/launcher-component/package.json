@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "rm -rf ./build && tsc && tsc -m es6 --outDir build/dist-esm && webpack -d",
-    "test": "jest",
+    "test": "jest --config ../../jest.config.js",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "storybook:build": "build-storybook -s public",
     "storybook:publish": "storybook-to-ghpages"

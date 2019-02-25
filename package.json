@@ -13,8 +13,9 @@
     "react-dom": "^16.8.3"
   },
   "scripts": {
-    "launcher-component:storybook": "cd packages/launcher-component && yarn storybook",
-    "launcher-component:storybook:publish": "cd packages/launcher-component && yarn storybook:publish"
+    "launcher-component:test": "yarn workspace launcher-component test",
+    "launcher-component:storybook": "yarn workspace launcher-component storybook",
+    "launcher-component:storybook:publish": "yarn workspace launcher-component storybook:publish"
   },
   "browserslist": [
     ">0.2%",
@@ -35,10 +36,10 @@
     "css-loader": "2.1.0",
     "ghooks": "2.0.4",
     "identity-obj-proxy": "3.0.0",
-    "jest": "23.6.0",
+    "jest": "24.1.0",
     "lerna": "3.13.0",
     "node-sass": "4.11.0",
-    "react-testing-library": "5.5.3",
+    "react-testing-library": "6.0.0",
     "sass-loader": "7.1.0",
     "ts-jest": "23.10.5",
     "tslint": "5.12.1",
