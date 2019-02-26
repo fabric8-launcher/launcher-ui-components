@@ -12,7 +12,7 @@ export function DownloadNextSteps(props: DownloadNextStepsProps) {
     <React.Fragment>
       {!props.error && (
         <React.Fragment>
-          <Alert variant="success" title="Launch Success"  aria-label="launch-success">Your Application is Ready</Alert>
+          <Alert variant="success" title="Launch Success" aria-label="launch-success">Your Application is Ready</Alert>
           <h2>Download your application</h2>
           <p>
             You are ready to start working.
@@ -32,7 +32,7 @@ export function DownloadNextSteps(props: DownloadNextStepsProps) {
         </React.Fragment>
       )}
       {props.error && (
-        <Alert variant="danger" title="Launch Error"  aria-label="error-during-launch">
+        <Alert variant="danger" title="Launch Error" aria-label="error-during-launch">
           <p>Holy guacamole... something weird happened, please reload the page to try again.</p>
           <p>{props.error.toString()}</p>
         </Alert>
