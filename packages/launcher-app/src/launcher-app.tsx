@@ -3,11 +3,15 @@ import '@patternfly/react-core/dist/styles/base.css';
 import './launcher-app.scss';
 import { LoginPage } from './login-page';
 import { AuthContext, AuthRouter, createMockAuthApi, useAuthApi, useStateOnAuthApi } from 'keycloak-react';
+import { Launcher, LauncherClientProvider } from 'launcher-component';
 
 function HomePage() {
   const auth = useAuthApi();
   return (
-    <h1>hello {auth.user!.userName}</h1>
+    <React.Fragment>
+      <h1>hello {auth.user!.userName}</h1>
+      <Launcher/>
+    </React.Fragment>
   );
 }
 
@@ -15,7 +19,9 @@ export function LauncherApp() {
   const auth = useStateOnAuthApi(createMockAuthApi());
   return (
     <AuthContext.Provider value={auth}>
-      <AuthRouter loginPage={LoginPage} homePage={HomePage}/>
+      <LauncherClientProvider authorizationToken={auth.user && auth.user.token}>
+        <AuthRouter loginPage={LoginPage} homePage={HomePage}/>
+      </LauncherClientProvider>
     </AuthContext.Provider>
   );
 }

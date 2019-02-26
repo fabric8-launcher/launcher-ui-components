@@ -2,49 +2,46 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { mockLauncherClient } from 'launcher-client';
-import { LauncherClientContext } from '../../contexts/launcher-client-context';
 import { BackendForm, defaultBackendFormValue } from '../backend-form';
 import { defaultFrontendFormValue, FrontendForm } from '../frontend-form';
 import { defaultSrcLocationFormValue, SrcLocationForm } from '../src-location-form';
-import { ExampleForm, defaultExampleFormValue } from '../example-form';
+import { defaultExampleFormValue, ExampleForm } from '../example-form';
 import { defaultImportFormValue, ImportForm } from '../import-form';
-
-const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
+import { LauncherClientProvider } from '../..';
 
 storiesOf('Forms', module)
   .add('BackendForm', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <BackendForm value={defaultBackendFormValue} onSave={action('save')} onCancel={action('cancel')} />
-      </LauncherClientContext.Provider>
+      </LauncherClientProvider>
     );
   })
   .add('FrontendForm', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+       <LauncherClientProvider>
         <FrontendForm value={defaultFrontendFormValue} onSave={action('save')} onCancel={action('cancel')} />
-      </LauncherClientContext.Provider>
+       </LauncherClientProvider>
     );
   })
   .add('SrcLocationForm', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+       <LauncherClientProvider>
         <SrcLocationForm value={defaultSrcLocationFormValue} onSave={action('save')} onCancel={action('cancel')} />
-      </LauncherClientContext.Provider>
+       </LauncherClientProvider>
     );
   })
   .add('ExampleForm', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+       <LauncherClientProvider>
         <ExampleForm value={defaultExampleFormValue} onSave={action('save')} onCancel={action('cancel')} />
-      </LauncherClientContext.Provider>
+       </LauncherClientProvider>
     );
   })
   .add('ImportForm', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+       <LauncherClientProvider>
         <ImportForm value={defaultImportFormValue} onSave={action('save')} onCancel={action('cancel')} />
-      </LauncherClientContext.Provider>
+       </LauncherClientProvider>
     );
   });

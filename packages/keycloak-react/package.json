@@ -1,11 +1,11 @@
 {
   "name": "keycloak-react",
   "version": "0.0.0",
-  "main": "build/keycloak-react.js",
+  "main": "build/index.js",
   "module": "build/esm/index.js",
-  "types": "build/esm/index.d.ts",
+  "types": "build/types/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./build && tsc -d --outDir build/esm && webpack -d"
+    "build": "rm -rf ./build && rollup -c"
   },
   "dependencies": {
     "uuid": "3.3.2",
@@ -14,6 +14,17 @@
     "react-router-dom": "4.3.1"
   },
   "devDependencies": {
-    "@types/react-router-dom": "4.3.1"
+    "@types/react-router-dom": "4.3.1",
+    "rollup": "1.3.0",
+    "rollup-plugin-babel": "4.3.2",
+    "rollup-plugin-commonjs": "9.2.1",
+    "rollup-plugin-filesize": "6.0.1",
+    "rollup-plugin-peer-deps-external": "2.2.0",
+    "rollup-plugin-postcss": "2.0.3",
+    "rollup-plugin-tslint": "0.2.2",
+    "rollup-plugin-typescript2": "0.19.3"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }

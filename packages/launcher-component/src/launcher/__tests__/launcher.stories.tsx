@@ -1,17 +1,14 @@
 import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
-import { mockLauncherClient } from 'launcher-client';
-import { LauncherClientContext } from '../../contexts/launcher-client-context';
 import { Launcher } from '../launcher';
-
-const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
+import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
 
 storiesOf('Launcher', module)
   .add('component', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <Launcher />
-      </LauncherClientContext.Provider>
+      </LauncherClientProvider>
     );
   });

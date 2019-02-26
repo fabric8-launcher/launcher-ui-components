@@ -3,7 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/keycloak-react",
+    "packages/launcher-component",
+    "packages/launcher-app"
   ],
   "dependencies": {
     "@patternfly/react-core": "2.1.4",
@@ -13,6 +15,8 @@
     "react-dom": "^16.8.3"
   },
   "scripts": {
+    "build:libs": "yarn workspace keycloak-react build && yarn workspace launcher-component build",
+    "build": "yarn workspaces run build",
     "launcher-component:test": "yarn workspace launcher-component test",
     "launcher-component:storybook": "yarn workspace launcher-component storybook",
     "launcher-component:storybook:publish": "yarn workspace launcher-component storybook:publish"
@@ -24,30 +28,22 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "7.2.2",
     "@types/classnames": "2.2.7",
     "@types/jest": "24.0.6",
+    "@types/lodash": "4.14.121",
     "@types/node": "11.9.4",
     "@types/react": "16.8.4",
     "@types/react-dom": "16.8.2",
-    "@types/lodash": "4.14.121",
-    "awesome-typescript-loader": "5.2.1",
-    "babel-loader": "8.0.5",
-    "css-loader": "2.1.0",
+    "eslint": "5.12.0",
     "ghooks": "2.0.4",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.1.0",
     "lerna": "3.13.0",
     "node-sass": "4.11.0",
     "react-testing-library": "6.0.0",
-    "sass-loader": "7.1.0",
     "ts-jest": "24.0.0",
     "tslint": "5.12.1",
     "tslint-react": "3.6.0",
-    "typescript": "3.3.3333",
-    "uglifyjs-webpack-plugin": "2.1.1",
-    "webpack": "4.28.3",
-    "webpack-cli": "3.2.1",
-    "eslint": "5.12.0"
+    "typescript": "3.3.3333"
   }
 }

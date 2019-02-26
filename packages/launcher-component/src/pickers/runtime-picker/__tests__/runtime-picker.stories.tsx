@@ -2,18 +2,15 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { mockLauncherClient } from 'launcher-client';
 import { FormPanel } from '../../../core/form-panel/form-panel';
 import { defaultRuntimePickerValue, RuntimePicker } from '../runtime-picker';
 import { EnumsRuntimesLoaders } from '../../../loaders/enums-runtimes-loaders';
-import { LauncherClientContext } from '../../../contexts/launcher-client-context';
-
-const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
+import { LauncherClientProvider } from '../../..';
 
 storiesOf('Pickers', module)
   .add('RuntimePicker: frontend', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <EnumsRuntimesLoaders category="frontend">
           {items => (
             <FormPanel
@@ -26,13 +23,12 @@ storiesOf('Pickers', module)
             </FormPanel>
           )}
         </EnumsRuntimesLoaders>
-      </LauncherClientContext.Provider>
-
+      </LauncherClientProvider>
     );
   })
   .add('RuntimePicker: backend', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <EnumsRuntimesLoaders category="backend">
           {items => (
             <FormPanel
@@ -45,7 +41,6 @@ storiesOf('Pickers', module)
             </FormPanel>
           )}
         </EnumsRuntimesLoaders>
-      </LauncherClientContext.Provider>
-
+      </LauncherClientProvider>
     );
   });

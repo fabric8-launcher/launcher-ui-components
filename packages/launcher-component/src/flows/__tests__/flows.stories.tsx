@@ -1,35 +1,32 @@
 import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
-import { mockLauncherClient } from 'launcher-client';
-import { LauncherClientContext } from '../../contexts/launcher-client-context';
 import { CreateNewAppFlow } from '../create-new-app-flow';
 import { CreateExampleAppFlow } from '../create-example-app-flow';
 import { ImportExistingFlow } from '../import-existing-flow';
-
-const client = mockLauncherClient({creatorUrl: 'efe', launcherURL: 'eqg'});
+import { LauncherClientProvider } from '../..';
 
 storiesOf('Flows', module)
   .add('CreateNewAppFlow', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <CreateNewAppFlow />
-      </LauncherClientContext.Provider>
+      </LauncherClientProvider>
     );
   })
 
   .add('CreateExampleAppFlow', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <CreateExampleAppFlow />
-      </LauncherClientContext.Provider>
+      </LauncherClientProvider>
     );
   })
 
   .add('ImportExistingFlow', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <ImportExistingFlow />
-      </LauncherClientContext.Provider>
+      </LauncherClientProvider>
     );
   });

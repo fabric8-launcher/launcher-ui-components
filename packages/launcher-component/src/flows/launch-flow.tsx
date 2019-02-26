@@ -1,13 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
-import { Toolbar, ToolbarGroup, Button } from '@patternfly/react-core';
-import { StatusMessage, LaunchAppPayload } from 'launcher-client';
+import React, { useState } from 'react';
+import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
+import { LaunchAppPayload, StatusMessage } from 'launcher-client';
 
 import { useLauncherClient } from '../contexts/launcher-client-context';
-import { HubNSpoke } from '..';
 import { ProcessingApp } from '../misc/processing-app';
 import { LaunchNextSteps } from '../misc/launch-next-steps';
 import { DownloadNextSteps } from '../misc/download-next-steps';
+import { HubNSpoke } from '../core/hub-n-spoke';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'

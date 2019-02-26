@@ -3,13 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import { FormPanel } from '../../../core/form-panel/form-panel';
-import { mockLauncherClient } from 'launcher-client';
-
-import { LauncherClientContext } from '../../../contexts/launcher-client-context';
 import { OpenshiftClustersLoader } from '../../../loaders/openshiftcluster-loader';
 import { ClusterPicker } from '../cluster-picker';
-
-const client = mockLauncherClient({ creatorUrl: 'efe', launcherURL: 'eqg' });
+import { LauncherClientProvider } from '../../..';
 
 function authorizationLinkGenerator(id?: string) {
   if (!!id) {
@@ -21,7 +17,7 @@ function authorizationLinkGenerator(id?: string) {
 storiesOf('Pickers', module)
   .add('ClusterPicker', () => {
     return (
-      <LauncherClientContext.Provider value={client}>
+      <LauncherClientProvider>
         <OpenshiftClustersLoader>
           {result => (
             <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
@@ -29,7 +25,7 @@ storiesOf('Pickers', module)
             </FormPanel>
           )}
         </OpenshiftClustersLoader>
-      </LauncherClientContext.Provider>
+      </LauncherClientProvider>
     );
   })
   .add('ClusterPicker: EmptyState', () => {

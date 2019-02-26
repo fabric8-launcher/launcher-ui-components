@@ -2,7 +2,12 @@ import * as React from 'react';
 
 import { DescriptiveHeader } from '../core/descriptive-header';
 import { FormPanel } from '../core/form-panel/form-panel';
-import { RepositoryPickerValue, defaultRepoPickerValue, RepositoryPicker } from '../pickers/repository-picker/repository-picker';
+import {
+  RepositoryPickerValue,
+  defaultRepoPickerValue,
+  RepositoryPicker,
+  isRepositoryPickerValueValid
+} from '../pickers/repository-picker/repository-picker';
 import { BuildImageValue, defaultBuidImagePickerValue, BuildImagePicker } from '../pickers/buildimage-picker/buildimage-picker';
 import { GitInfoLoader } from '../loaders/git-info-loader';
 import { BuildImageAnalyzerLoader } from '../loaders/buildimage-loader';
@@ -13,7 +18,7 @@ export interface ImportFormValue {
 }
 
 export function isImportFormValueValid(value: ImportFormValue) {
-  return !!value.repository.name && !!value.buildImage.imageName;
+  return isRepositoryPickerValueValid(value.repository) && !!value.buildImage.imageName;
 }
 
 export const defaultImportFormValue: ImportFormValue = {
