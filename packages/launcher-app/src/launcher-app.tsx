@@ -2,16 +2,18 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import './launcher-app.scss';
 import { LoginPage } from './login-page';
-import { AuthContext, AuthRouter, createMockAuthApi, useAuthApi, useStateOnAuthApi } from 'keycloak-react';
+import { AuthContext, AuthRouter, createMockAuthApi, useStateOnAuthApi } from 'keycloak-react';
 import { Launcher, LauncherClientProvider } from 'launcher-component';
+import { Layout } from './layout';
+import { PageSection } from '@patternfly/react-core';
 
 function HomePage() {
-  const auth = useAuthApi();
   return (
-    <React.Fragment>
-      <h1>hello {auth.user!.userName}</h1>
+    <Layout>
+      <PageSection variant="light">
       <Launcher/>
-    </React.Fragment>
+      </PageSection>
+    </Layout>
   );
 }
 

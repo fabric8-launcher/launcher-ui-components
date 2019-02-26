@@ -1,0 +1,78 @@
+$assetPath: "./assets/logo";
+
+.intro {
+  background-image: url(#{$assetPath}/background.png);
+  background-size: cover;
+  padding: 40px;
+  text-align: center;
+}
+
+.mainTitle {
+  color: #fff;
+  font-size: 3em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.subTitle {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.8em;
+}
+
+.loginCard {
+  margin-top: 30px;
+
+}
+
+.loginText {
+  font-size: 1.3em;
+  color: #cccccc;
+}
+
+button.loginButton {
+  background: #fff none !important;
+  border-color: #fff;
+  color: #c00 !important;
+  padding: 9px 40px;
+  margin-top: 40px;
+  line-height: 1.44;
+  font-family: Overpass, sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+%icon {
+  background: no-repeat center;
+  margin: auto;
+  width: 100%;
+  height: 110px;
+}
+
+.thorntail {
+  @extend %icon;
+  background-image: url(#{$assetPath}/runtime/thorntail.svg);
+}
+
+.vertx {
+  @extend %icon;
+  background-image: url(#{$assetPath}/runtime/vertx.svg);
+  background-size: 60%;
+}
+
+.node {
+  @extend %icon;
+  background-image: url(#{$assetPath}/runtime/nodejs-logo.png);
+  background-size: 45%;
+}
+
+.fuse {
+  @extend %icon;
+  background-image: url(#{$assetPath}/runtime/fuse-logo.png);
+  background-size: 45%;
+}
+
+.spring {
+  font-size: 40px;
+  font-weight: 700;
+}
