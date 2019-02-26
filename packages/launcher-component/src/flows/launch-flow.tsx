@@ -7,9 +7,10 @@ import { useLauncherClient } from '../contexts/launcher-client-context';
 import { HubNSpoke } from '..';
 import { ProcessingApp } from '../misc/processing-app';
 import { LaunchNextSteps } from '../misc/launch-next-steps';
+import { DownloadNextSteps } from '../misc/download-next-steps';
 
 enum Status {
-  EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR'
+  EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
 }
 
 interface RunState {
@@ -27,7 +28,7 @@ interface LaunchFlowProps {
 }
 
 export function LaunchFlow(props: LaunchFlowProps) {
-  const [run, setRun] = useState<RunState>({ status: Status.EDITION, statusMessages: []});
+  const [run, setRun] = useState<RunState>({ status: Status.EDITION, statusMessages: [] });
   const client = useLauncherClient();
 
   const launch = () => {
@@ -43,7 +44,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
       client.follow(result.id, result.events, {
         onMessage: (statusMessages) => {
           console.log(statusMessages);
-          setRun((prev) => ({ ...prev, statusMessages: [...prev.statusMessages, statusMessages]  }));
+          setRun((prev) => ({ ...prev, statusMessages: [...prev.statusMessages, statusMessages] }));
         },
         onComplete: () => {
           setRun((prev) => ({ ...prev, status: Status.COMPLETED }));
@@ -55,10 +56,19 @@ export function LaunchFlow(props: LaunchFlowProps) {
     });
   };
 
+  const zip = () => {
+    client.download(props.buildAppPayload()).then((result) => {
+      setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
+    });
+  };
+
   const toolbar = (
-    <Toolbar style={{marginTop: '20px'}}>
+    <Toolbar style={{ marginTop: '20px' }}>
       <ToolbarGroup>
         <Button variant="primary" onClick={launch}>Launch</Button>
+      </ToolbarGroup>
+      <ToolbarGroup>
+        <Button variant="primary" onClick={zip}>Download</Button>
       </ToolbarGroup>
       <ToolbarGroup>
         <Button variant="secondary" onClick={props.onCancel}>Cancel</Button>
@@ -72,9 +82,10 @@ export function LaunchFlow(props: LaunchFlowProps) {
   console.log(run);
   return (
     <React.Fragment>
-      {run.status === Status.EDITION && (<HubNSpoke items={props.items} toolbar={toolbar}/>)}
+      {run.status === Status.EDITION && (<HubNSpoke items={props.items} toolbar={toolbar} />)}
       {run.status === Status.RUNNING && (<ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults} />)}
-      {(run.status === Status.COMPLETED || run.status === Status.ERROR) && (<LaunchNextSteps error={run.error}/>)}
+      {(run.status === Status.COMPLETED || run.status === Status.ERROR) && (<LaunchNextSteps error={run.error} />)}
+      {run.status === Status.DOWNLOADED && (<DownloadNextSteps error={run.error} downloadLink={run.result.downloadLink} />)}
     </React.Fragment>
   );
 }
