@@ -16,7 +16,7 @@
     "react-dom": "^16.8.3"
   },
   "scripts": {
-    "build:libs": "yarn workspace keycloak-react build && yarn workspace launcher-component build",
+    "build:libs": "yarn workspace launcher-client build && yarn workspace keycloak-react build && yarn workspace launcher-component build",
     "build": "yarn workspaces run build",
     "launcher-component:test": "yarn workspace launcher-component test",
     "launcher-component:storybook": "yarn workspace launcher-component storybook",
