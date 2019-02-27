@@ -163,7 +163,7 @@ export interface Example {
 
 export function toRuntime(arg: string) {
   const parts = arg.split('/', 2);
-  return {name: parts[0], version: parts.length > 1 ? parts[1] : undefined};
+  return { name: parts[0], version: parts.length > 1 ? parts[1] : undefined };
 }
 
 export interface AuthorizedRequest {
@@ -190,12 +190,15 @@ export interface LaunchAppResult {
 }
 
 export interface AnalyzeResult {
-  id: string;
-  name: string;
-  metadata: {
-    language: string,
-    isBuilder: boolean
-  };
+  image: string;
+  builderImages: Array<{
+    id: string;
+    name: string;
+    metadata: {
+      language: string,
+      isBuilder: boolean
+    }
+  }>;
 }
 
 export interface Enums {
