@@ -18,6 +18,7 @@
   "scripts": {
     "build:libs": "yarn workspace launcher-client build && yarn workspace keycloak-react build && yarn workspace launcher-component build",
     "build": "yarn workspaces run build",
+    "launcher-app:start": "yarn workspace launcher-app start",
     "launcher-component:test": "yarn workspace launcher-component test",
     "launcher-component:storybook": "yarn workspace launcher-component storybook",
     "launcher-component:storybook:publish": "yarn workspace launcher-component storybook:publish"
