@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { InProgressIcon } from '@patternfly/react-icons';
 import style from './data-loader.module.scss';
 
@@ -14,13 +14,14 @@ export function Spin(props: { children: React.ReactNode }) {
 export function DataLoader<T>(props: { loader: () => Promise<T>, default: T, children: (T) => any }) {
   const [data, setData] = useState<T>(props.default);
   const [loaded, setLoaded] = useState<boolean>(false);
-
+  const loadData = async () => {
+    const d = await props.loader();
+    setData(d);
+    setLoaded(true);
+  };
   useEffect(() => {
     if (!loaded) {
-      props.loader().then((d) => {
-        setData(d);
-        setLoaded(true);
-      });
+      loadData().catch(err => console.error('Error while loading data.', err));
     }
   }, [loaded]);
   if (loaded) {

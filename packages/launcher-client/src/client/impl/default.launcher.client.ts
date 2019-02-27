@@ -47,7 +47,8 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   public async enum(id: string): Promise<PropertyValue[]> {
-    return await this.httpService.get<PropertyValue[]>(this.config.creatorUrl, '/enums');
+    const enums = await this.httpService.get<PropertyValue[]>(this.config.creatorUrl, '/enums');
+    return enums[id] || [];
   }
 
   public async enums(): Promise<Enums> {

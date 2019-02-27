@@ -9,7 +9,10 @@ export function runtimeMatcherByCategory(category: string) {
 
 export function RuntimeLoader(props: { id: string, children: (runtime?: PropertyValue) => any }) {
   const client = useLauncherClient();
-  const loader = () => client.enum('runtime.name').then(runtimes => runtimes.find(r => r.id === props.id));
+  const loader = async () => {
+    const runtimes = await client.enum('runtime.name');
+    return runtimes.find(r => r.id === props.id);
+  };
   return (
     <DataLoader loader={loader} default={undefined}>
       {props.children}
@@ -19,7 +22,10 @@ export function RuntimeLoader(props: { id: string, children: (runtime?: Property
 
 export function EnumsRuntimesLoaders(props: { category: string, children: (items: PropertyValue[]) => any }) {
   const client = useLauncherClient();
-  const loader = () => client.enum('runtime.name').then(r => r.filter(runtimeMatcherByCategory(props.category)));
+  const loader = async () => {
+    const runtimes = await client.enum('runtime.name');
+    return runtimes.filter(runtimeMatcherByCategory(props.category));
+  };
   return (
     <DataLoader loader={loader} default={[]}>
       {props.children}

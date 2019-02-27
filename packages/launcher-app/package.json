@@ -6,7 +6,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:mock-api": "env-cmd .env.mock-api yarn start",
+    "start:staging-api": "env-cmd .env.staging-api yarn start",
+    "start:local-api": "env-cmd .env.local-api yarn start",
+    "start:prod": "run-s build serve",
+    "start:custom": "env-cmd .env.custom yarn start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -18,6 +23,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "4.3.1",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "env-cmd": "8.0.2"
   }
 }
