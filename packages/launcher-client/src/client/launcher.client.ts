@@ -15,7 +15,8 @@ import {
   Catalog,
   ExampleMission,
   ExampleRuntime,
-  AnalyzeResult, AuthorizationTokenProvider
+  AnalyzeResult,
+  GitProvider
 } from './types';
 
 export const defaultAuthorizationTokenProvider = async () => undefined;
@@ -34,6 +35,7 @@ export interface LauncherClient {
   follow(id: string, events: Array<{ name: string }>, listener: StatusListener);
   ocExistsProject(payload: OCExistsProjectPayload): Promise<ExistsResult>;
   ocClusters(): Promise<OpenShiftCluster[]>;
+  gitProviders(): Promise<GitProvider[]>;
   gitRepositoryExists(payload: GitRepositoryExistsPayload): Promise<ExistsResult>;
   gitInfo(options: AuthorizedRequest): Promise<GitInfo>;
 }
