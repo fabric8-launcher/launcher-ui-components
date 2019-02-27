@@ -7,26 +7,25 @@ import { ImportExistingFlow } from '../import-existing-flow';
 import { LauncherClientProvider } from '../..';
 
 storiesOf('Flows', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('CreateNewAppFlow', () => {
     return (
-      <LauncherClientProvider>
-        <CreateNewAppFlow />
-      </LauncherClientProvider>
+      <CreateNewAppFlow/>
     );
   })
 
   .add('CreateExampleAppFlow', () => {
     return (
-      <LauncherClientProvider>
-        <CreateExampleAppFlow />
-      </LauncherClientProvider>
+      <CreateExampleAppFlow/>
     );
   })
 
   .add('ImportExistingFlow', () => {
     return (
-      <LauncherClientProvider>
-        <ImportExistingFlow />
-      </LauncherClientProvider>
+      <ImportExistingFlow/>
     );
   });

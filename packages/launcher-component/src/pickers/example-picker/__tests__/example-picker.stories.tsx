@@ -9,16 +9,19 @@ import { ExamplesLoader } from '../../../loaders/example-catalog-loader';
 import { LauncherClientProvider } from '../../..';
 
 storiesOf('Pickers', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('ExamplePicker', () => {
     return (
-      <LauncherClientProvider>
-        <ExamplesLoader>
-          {result => (
-            <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
-              {(inputProps) => (<ExamplePicker {...inputProps} {...result}/>)}
-            </FormPanel>
-          )}
-        </ExamplesLoader>
-      </LauncherClientProvider>
+      <ExamplesLoader>
+        {result => (
+          <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
+            {(inputProps) => (<ExamplePicker {...inputProps} {...result}/>)}
+          </FormPanel>
+        )}
+      </ExamplesLoader>
     );
   });

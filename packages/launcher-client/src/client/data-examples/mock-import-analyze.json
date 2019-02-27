@@ -1,0 +1,8 @@
+{
+  "id": "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift",
+  "name": "Java Code Builder",
+  "metadata": {
+    "language": "java",
+    "isBuilder": true
+  }
+}

@@ -7,39 +7,40 @@ import { defaultRepoPickerValue, isRepositoryPickerValueValid, RepositoryPicker 
 import { LauncherClientProvider } from '../../..';
 
 storiesOf('Pickers', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('RepositoryPicker', () => {
     return (
-      <LauncherClientProvider>
-        <GitInfoLoader>
-          {gitInfo => (
-            <FormPanel
-              value={defaultRepoPickerValue}
-              onSave={action('save')}
-              onCancel={action('cancel')}
-              isValid={isRepositoryPickerValueValid}
-            >
-              {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo} />)}
-            </FormPanel>
-          )}
-        </GitInfoLoader>
-      </LauncherClientProvider>
+      <GitInfoLoader>
+        {gitInfo => (
+          <FormPanel
+            value={defaultRepoPickerValue}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+            isValid={isRepositoryPickerValueValid}
+          >
+            {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo}/>)}
+          </FormPanel>
+        )}
+      </GitInfoLoader>
     );
   })
   .add('RepositoryPicker: import', () => {
     return (
-      <LauncherClientProvider>
-        <GitInfoLoader>
-          {gitInfo => (
-            <FormPanel
-              value={defaultRepoPickerValue}
-              onSave={action('save')}
-              onCancel={action('cancel')}
-              isValid={isRepositoryPickerValueValid}
-            >
-              {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo} import={true} />)}
-            </FormPanel>
-          )}
-        </GitInfoLoader>
-      </LauncherClientProvider>
+      <GitInfoLoader>
+        {gitInfo => (
+          <FormPanel
+            value={defaultRepoPickerValue}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+            isValid={isRepositoryPickerValueValid}
+          >
+            {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo} import={true}/>)}
+          </FormPanel>
+        )}
+      </GitInfoLoader>
     );
   });

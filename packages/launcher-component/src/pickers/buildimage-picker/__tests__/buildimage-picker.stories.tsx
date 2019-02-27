@@ -9,21 +9,24 @@ import { BuildImagePicker, defaultBuidImagePickerValue } from '../buildimage-pic
 import { LauncherClientProvider } from '../../..';
 
 storiesOf('Pickers', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('BuildImagePicker', () => {
     return (
-      <LauncherClientProvider>
-        <BuildImageAnalyzerLoader repository={{org: 'jean-bon', name: 'bayonne'}}>
-          {result => (
-            <FormPanel
-              value={defaultBuidImagePickerValue}
-              onSave={action('save')}
-              onCancel={action('cancel')}
-            >
-              {
-                (inputProps) => (<BuildImagePicker {...inputProps} result={result}/>)}
-            </FormPanel>
-          )}
-        </BuildImageAnalyzerLoader>
-      </LauncherClientProvider>
+      <BuildImageAnalyzerLoader repository={{org: 'jean-bon', name: 'bayonne'}}>
+        {result => (
+          <FormPanel
+            value={defaultBuidImagePickerValue}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+          >
+            {
+              (inputProps) => (<BuildImagePicker {...inputProps} result={result}/>)}
+          </FormPanel>
+        )}
+      </BuildImageAnalyzerLoader>
     );
   });

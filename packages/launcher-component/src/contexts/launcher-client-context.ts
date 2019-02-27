@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { checkNotNull } from 'launcher-client/dist/client/helpers/preconditions';
-import { LauncherClient } from 'launcher-client';
+import { checkNotNull, LauncherClient } from 'launcher-client';
 
 export const LauncherClientContext = React.createContext<LauncherClient | undefined>(undefined);
 

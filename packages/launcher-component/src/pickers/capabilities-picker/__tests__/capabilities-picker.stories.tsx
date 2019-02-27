@@ -8,21 +8,24 @@ import { CapabilitiesLoader, capabilityToItem } from '../../../loaders/capabilit
 import { LauncherClientProvider } from '../../..';
 
 storiesOf('Pickers', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('CapabilitiesPicker', () => {
     return (
-      <LauncherClientProvider>
-        <CapabilitiesLoader categories={['backend', 'support']}>
-          {capabilities => (
-            <FormPanel
-              value={defaultCapabilitiesPickerValue}
-              onSave={action('save')}
-              onCancel={action('cancel')}
-            >
-              {
-                (inputProps) => (<CapabilitiesPicker {...inputProps} items={capabilities.map(capabilityToItem)}/>)}
-            </FormPanel>
-          )}
-        </CapabilitiesLoader>
-      </LauncherClientProvider>
+      <CapabilitiesLoader categories={['backend', 'support']}>
+        {capabilities => (
+          <FormPanel
+            value={defaultCapabilitiesPickerValue}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+          >
+            {
+              (inputProps) => (<CapabilitiesPicker {...inputProps} items={capabilities.map(capabilityToItem)}/>)}
+          </FormPanel>
+        )}
+      </CapabilitiesLoader>
     );
   });

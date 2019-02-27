@@ -15,23 +15,26 @@ function authorizationLinkGenerator(id?: string) {
 }
 
 storiesOf('Pickers', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('ClusterPicker', () => {
     return (
-      <LauncherClientProvider>
-        <OpenshiftClustersLoader>
-          {result => (
-            <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
-              {(inputProps) => (<ClusterPicker {...inputProps} {...result} authorizationLinkGenerator={authorizationLinkGenerator} />)}
-            </FormPanel>
-          )}
-        </OpenshiftClustersLoader>
-      </LauncherClientProvider>
+      <OpenshiftClustersLoader>
+        {result => (
+          <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
+            {(inputProps) => (<ClusterPicker {...inputProps} {...result} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
+          </FormPanel>
+        )}
+      </OpenshiftClustersLoader>
     );
   })
   .add('ClusterPicker: EmptyState', () => {
     return (
       <FormPanel value={{}}>
-        {(inputProps) => (<ClusterPicker {...inputProps} clusters={[]} authorizationLinkGenerator={authorizationLinkGenerator} />)}
+        {(inputProps) => (<ClusterPicker {...inputProps} clusters={[]} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
       </FormPanel>
     );
   });

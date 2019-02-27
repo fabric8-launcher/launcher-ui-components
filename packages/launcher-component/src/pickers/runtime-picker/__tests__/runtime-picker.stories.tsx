@@ -8,39 +8,40 @@ import { EnumsRuntimesLoaders } from '../../../loaders/enums-runtimes-loaders';
 import { LauncherClientProvider } from '../../..';
 
 storiesOf('Pickers', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('RuntimePicker: frontend', () => {
     return (
-      <LauncherClientProvider>
-        <EnumsRuntimesLoaders category="frontend">
-          {items => (
-            <FormPanel
-              value={defaultRuntimePickerValue}
-              onSave={action('save')}
-              onCancel={action('cancel')}
-            >
-              {
-                (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
-            </FormPanel>
-          )}
-        </EnumsRuntimesLoaders>
-      </LauncherClientProvider>
+      <EnumsRuntimesLoaders category="frontend">
+        {items => (
+          <FormPanel
+            value={defaultRuntimePickerValue}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+          >
+            {
+              (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
+          </FormPanel>
+        )}
+      </EnumsRuntimesLoaders>
     );
   })
   .add('RuntimePicker: backend', () => {
     return (
-      <LauncherClientProvider>
-        <EnumsRuntimesLoaders category="backend">
-          {items => (
-            <FormPanel
-              value={defaultRuntimePickerValue}
-              onSave={action('save')}
-              onCancel={action('cancel')}
-            >
-              {
-                (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
-            </FormPanel>
-          )}
-        </EnumsRuntimesLoaders>
-      </LauncherClientProvider>
+      <EnumsRuntimesLoaders category="backend">
+        {items => (
+          <FormPanel
+            value={defaultRuntimePickerValue}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+          >
+            {
+              (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
+          </FormPanel>
+        )}
+      </EnumsRuntimesLoaders>
     );
   });

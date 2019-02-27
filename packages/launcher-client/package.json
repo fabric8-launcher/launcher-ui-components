@@ -1,0 +1,38 @@
+{
+  "name": "launcher-client",
+  "version": "0.0.0",
+  "homepage": "https://github.com/fabric8-launcher/launcher-client",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabric8-launcher/launcher-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fabric8-launcher/launcher-client/issues"
+  },
+  "main": "build/index.js",
+  "module": "build/esm/index.js",
+  "types": "build/types/index.d.ts",
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.5.0"
+  },
+  "scripts": {
+    "build": "rm -rf ./build && rollup -c",
+    "test": "karma start",
+    "semantic-release": "semantic-release"
+  },
+  "dependencies": {
+    "axios": "0.18.0",
+    "injection-js": "2.2.1",
+    "reflect-metadata": "0.1.12"
+  },
+  "devDependencies": {
+    "@types/axios": "0.14.0",
+    "@types/node": "10.12.18",
+    "axios-mock-adapter": "1.15.0",
+    "rollup-plugin-json": "3.1.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}

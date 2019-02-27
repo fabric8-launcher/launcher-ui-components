@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { checkNotNull } from 'launcher-client/dist/client/helpers/preconditions';
 import { LauncherClientContext } from './launcher-client-context';
-import { defaultLauncherClient, LauncherClient, mockLauncherClient } from 'launcher-client';
+import { checkNotNull, defaultLauncherClient, LauncherClient, mockLauncherClient } from 'launcher-client';
 
 interface LauncherClientProviderProps {
   children: React.ReactNode;
@@ -17,7 +16,7 @@ function buildLauncherClient(props: LauncherClientProviderProps) {
     checkNotNull(props.creatorUrl, 'creatorUrl');
     client = defaultLauncherClient({creatorUrl: props.creatorUrl!, launcherURL: props.launcherUrl!});
   } else {
-    client = mockLauncherClient({creatorUrl: 'http://www.launcher-mock.org/creator', launcherURL: 'http://www.launcher-mock.org/launcher'});
+    client = mockLauncherClient();
   }
   return client;
 }

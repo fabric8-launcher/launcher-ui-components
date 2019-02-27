@@ -10,38 +10,33 @@ import { defaultImportFormValue, ImportForm } from '../import-form';
 import { LauncherClientProvider } from '../..';
 
 storiesOf('Forms', module)
+  .addDecorator((storyFn) => (
+    <LauncherClientProvider>
+      {storyFn()}
+    </LauncherClientProvider>
+  ))
   .add('BackendForm', () => {
     return (
-      <LauncherClientProvider>
-        <BackendForm value={defaultBackendFormValue} onSave={action('save')} onCancel={action('cancel')} />
-      </LauncherClientProvider>
+      <BackendForm value={defaultBackendFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   })
   .add('FrontendForm', () => {
     return (
-       <LauncherClientProvider>
-        <FrontendForm value={defaultFrontendFormValue} onSave={action('save')} onCancel={action('cancel')} />
-       </LauncherClientProvider>
+      <FrontendForm value={defaultFrontendFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   })
   .add('SrcLocationForm', () => {
     return (
-       <LauncherClientProvider>
-        <SrcLocationForm value={defaultSrcLocationFormValue} onSave={action('save')} onCancel={action('cancel')} />
-       </LauncherClientProvider>
+      <SrcLocationForm value={defaultSrcLocationFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   })
   .add('ExampleForm', () => {
     return (
-       <LauncherClientProvider>
-        <ExampleForm value={defaultExampleFormValue} onSave={action('save')} onCancel={action('cancel')} />
-       </LauncherClientProvider>
+      <ExampleForm value={defaultExampleFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   })
   .add('ImportForm', () => {
     return (
-       <LauncherClientProvider>
-        <ImportForm value={defaultImportFormValue} onSave={action('save')} onCancel={action('cancel')} />
-       </LauncherClientProvider>
+      <ImportForm value={defaultImportFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   });
