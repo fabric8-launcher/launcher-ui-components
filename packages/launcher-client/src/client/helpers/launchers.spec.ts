@@ -1,7 +1,7 @@
 import exampleCatalog from '../data-examples/mock-example-catalog.json';
 
-import { Example, Catalog, ExampleMission } from 'client/types';
-import { filter } from './launchers.js';
+import { Catalog, Example, ExampleMission } from '../types';
+import { filter } from './launchers';
 
 describe('Filter examples', () => {
   it('should filter catalog on examples', () => {

@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "rm -rf ./build && rollup -c",
-    "test": "karma start",
+    "test": "jest --config ../../jest.config.js",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
