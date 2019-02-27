@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Alert, Button } from '@patternfly/react-core';
+import { Alert } from '@patternfly/react-core';
 import { DownloadIcon } from '@patternfly/react-icons';
+import { ExternalLink } from './external-link';
 
 interface DownloadNextStepsProps {
   error?: boolean;
@@ -17,9 +18,9 @@ export function DownloadNextSteps(props: DownloadNextStepsProps) {
           <p>
             You are ready to start working.
           </p>
-          <Button variant="link" href={props.downloadLink} target={'_blank'}>
+          <ExternalLink href={props.downloadLink as string}>
             <DownloadIcon /> Download .zip
-          </Button>
+          </ExternalLink>
           <h2>Deploy it on OpenShift</h2>
           <p>
             Your new application contains a tool to help you deploy your new application on OpenShift.

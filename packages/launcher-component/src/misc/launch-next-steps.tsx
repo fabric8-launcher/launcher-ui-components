@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Alert, Button } from '@patternfly/react-core';
+import { Alert } from '@patternfly/react-core';
 import { ClusterIcon, CodeIcon, GiftIcon } from '@patternfly/react-icons';
+import { ExternalLink } from './external-link';
 
 interface LaunchNextStepsProps {
   error?: any;
@@ -19,28 +20,22 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
           <Alert variant="success" title="Launch Success" aria-label="launch-success">Your application deployment has started</Alert>
           <h2>Follow your application delivery</h2>
           <p>You can follow your application deployment in your OpenShift Console</p>
-          {/*
-          // @ts-ignore */}
-          <Button component="a" variant="link" href={deploymentLink} target={'_blank'}>
+          <ExternalLink href={deploymentLink}>
             <ClusterIcon /> OpenShift Console
-          </Button>
+          </ExternalLink>
           <h2>As soon as deployment is done, check out your new application capabilities</h2>
           <p>We prepared a set of examples to let you directly start playing with your new application.
             Those examples are there to get you started,
             soon it will be time for you to remove them and start developing your awesome application.</p>
-          {/*
-          // @ts-ignore */}
-          <Button component="a" variant="link" href={landingPageLink} target={'_blank'}>
+          <ExternalLink href={landingPageLink}>
             <GiftIcon /> Check out your new Application
-          </Button>
+          </ExternalLink>
           <h2>Update your application using Continuous Delivery</h2>
           <p>We set up your application codebase in the GitHub repository you requested</p>
           <p>Your application is automatically configured to build and deploy on OpenShift with new commits.</p>
-          {/*
-          // @ts-ignore */}
-          <Button component="a" variant="link" href={repositoryLink} target={'_blank'}>
+          <ExternalLink href={repositoryLink}>
             <CodeIcon /> Clone your new codebase
-          </Button>
+          </ExternalLink>
         </React.Fragment>
       )}
       {props.error && (
