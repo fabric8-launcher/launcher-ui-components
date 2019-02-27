@@ -14,7 +14,7 @@ interface BuildImageProps extends InputProps<BuildImageValue> {
 }
 
 export function BuildImagePicker(props: BuildImageProps) {
-  const imageName = props.result.name;
+  const imageName = props.result.image;
   return (
     <Fragment>
       <p>Analyzed your code, this is the build image we suggest: <i>"{imageName}"</i></p>
@@ -31,11 +31,14 @@ export function BuildImagePicker(props: BuildImageProps) {
             onChange={value => props.onChange({ imageName: value })}
             aria-label="Select build image"
           >
-            <FormSelectOption
-              key={0}
-              value={props.result.id}
-              label={props.result.name}
-            />
+            {props.result.builderImages.map((image, index) => (
+              <FormSelectOption
+                key={index}
+                value={image.id}
+                label={image.name}
+              />
+            ))
+            }
           </FormSelect>
         </FormGroup>
       </Form>
