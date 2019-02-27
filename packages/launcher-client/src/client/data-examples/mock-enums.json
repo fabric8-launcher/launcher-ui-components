@@ -9,7 +9,8 @@
         "categories": [
           "backend"
         ],
-        "language": "javascript"
+        "language": "javascript",
+        "website": "https://nodejs.org"
       }
     },
     {
@@ -21,7 +22,8 @@
         "categories": [
           "backend"
         ],
-        "language": "java"
+        "language": "java",
+        "website": "https://spring.io/projects/spring-boot"
       }
     },
     {
@@ -33,7 +35,8 @@
         "categories": [
           "backend"
         ],
-        "language": "java"
+        "language": "java",
+        "website": "https://thorntail.io"
       }
     },
     {
@@ -45,7 +48,8 @@
         "categories": [
           "backend"
         ],
-        "language": "java"
+        "language": "java",
+        "website": "https://projects.eclipse.org/projects/rt.vertx"
       }
     },
     {
@@ -57,7 +61,8 @@
         "categories": [
           "frontend"
         ],
-        "language": "javascript"
+        "language": "javascript",
+        "website": "https://reactjs.org"
       }
     },
     {
@@ -69,7 +74,8 @@
         "categories": [
           "frontend"
         ],
-        "language": "javascript"
+        "language": "javascript",
+        "website": "https://angular.io"
       }
     },
     {
@@ -81,7 +87,8 @@
         "categories": [
           "frontend"
         ],
-        "language": "javascript"
+        "language": "javascript",
+        "website": "https://vuejs.org"
       }
     }
   ],

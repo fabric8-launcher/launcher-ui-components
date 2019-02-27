@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Gallery,
   GalleryItem,
@@ -16,6 +17,8 @@ import style from './login-page.module.scss';
 import { useAuthApi } from 'keycloak-react';
 import { Layout } from './layout';
 import { EnumsRuntimesLoaders } from 'launcher-component';
+import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
+import { PropertyValue } from 'launcher-client';
 
 function LoginCard() {
   const auth = useAuthApi();
@@ -32,12 +35,21 @@ function LoginCard() {
   );
 }
 
-function Runtime(props: { name: string; icon?: string; description?: string}) {
+type RuntimeProps = PropertyValue;
+
+function Runtime(props: RuntimeProps) {
   return (
     <GalleryItem>
       <Card>
         <CardHeader><img src={props.icon} alt={props.name}/></CardHeader>
         <CardBody>{props.description}</CardBody>
+        {props.metadata && props.metadata.website && (
+          <CardFooter>
+            <a href={props.metadata.website} target="_blank">
+              Learn more <ExternalLinkSquareAltIcon/>
+            </a>
+          </CardFooter>
+        )}
       </Card>
     </GalleryItem>
   );
