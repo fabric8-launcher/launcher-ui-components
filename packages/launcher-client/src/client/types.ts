@@ -4,7 +4,7 @@ export interface LauncherClientConfig {
 }
 
 export interface AppDescriptor {
-  name: string;
+  application: string;
   parts: Array<{
     subFolderName?: string;
     shared: {
@@ -33,7 +33,7 @@ export class ExampleAppDescriptor {
     this.projectVersion = '1.0.0';
     this.targetEnvironment = 'os';
     this.clusterId = payload.clusterId;
-    const part = payload.parts[0];
+    const part = payload.project.parts[0];
     this.mission = part.shared.mission!.id;
     this.runtime = part.shared.runtime.name;
     this.runtimeVersion = part.shared.runtime.version;
@@ -55,8 +55,12 @@ interface OpenShiftClusterProject {
   projectName: string;
 }
 
-export type DownloadAppPayload = AppDescriptor;
-export type LaunchAppPayload = AppDescriptor & GitRepository & OpenShiftClusterProject;
+interface ProjectDescriptor {
+  project: AppDescriptor;
+}
+
+export type DownloadAppPayload = ProjectDescriptor;
+export type LaunchAppPayload = ProjectDescriptor & GitRepository & OpenShiftClusterProject;
 
 export interface StatusListener {
   onMessage(message: StatusMessage);

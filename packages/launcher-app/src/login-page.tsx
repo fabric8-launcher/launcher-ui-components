@@ -73,7 +73,7 @@ export const LoginPage = () => (
     <PageSection variant={PageSectionVariants.light}>
       <Gallery gutter="md">
         <EnumsRuntimesLoaders category="backend">
-          {runtimes => runtimes.map(r => (<Runtime {...r} />))}
+          {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id}/>))}
         </EnumsRuntimesLoaders>
       </Gallery>
     </PageSection>
@@ -85,7 +85,7 @@ export const LoginPage = () => (
     <PageSection variant={PageSectionVariants.light}>
       <Gallery gutter="md">
         <EnumsRuntimesLoaders category="frontend">
-          {runtimes => runtimes.map(r => (<Runtime {...r} />))}
+          {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id}/>))}
         </EnumsRuntimesLoaders>
       </Gallery>
     </PageSection>

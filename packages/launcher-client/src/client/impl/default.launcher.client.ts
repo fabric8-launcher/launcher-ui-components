@@ -61,7 +61,7 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   public async download(payload: DownloadAppPayload): Promise<DownloadAppResult> {
-    if (payload.parts.length === 1 && payload.parts[0].shared.mission) {
+    if (payload.project.parts.length === 1 && payload.project.parts[0].shared.mission) {
       // TODO example app download (build link)
       throw new Error('Download is not implemented yet for example app');
     }
@@ -78,7 +78,7 @@ export default class DefaultLauncherClient implements LauncherClient {
   public async launch(payload: LaunchAppPayload): Promise<LaunchAppResult> {
     let endpoint: string;
     let p: any = payload;
-    if (payload.parts.length === 1 && payload.parts[0].shared.mission) {
+    if (payload.project.parts.length === 1 && payload.project.parts[0].shared.mission) {
       endpoint = this.config.launcherURL;
       p = ExampleAppDescriptor.toExampleAppDescriptor(payload);
     } else {

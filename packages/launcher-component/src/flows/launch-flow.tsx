@@ -32,7 +32,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
 
   const launch = () => {
     if (!props.isValid()) {
-      console.warn('impossible to create an empty app');
+      console.warn('Your current selection is not valid.');
       return;
     }
 
@@ -51,12 +51,16 @@ export function LaunchFlow(props: LaunchFlowProps) {
           setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
         }
       });
+    }).catch(error => {
+      setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
     });
   };
 
   const zip = () => {
     client.download(props.buildAppPayload()).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
+    }).catch(error => {
+      setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
     });
   };
 

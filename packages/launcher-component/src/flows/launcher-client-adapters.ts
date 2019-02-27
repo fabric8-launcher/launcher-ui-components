@@ -7,7 +7,8 @@ export function toNewAppPayload(app) {
       category: 'frontend',
       shared: {
         runtime: { name: app.frontend.runtime!.id, version: 'community' }
-      }
+      },
+      capabilities: [],
     });
   }
 
@@ -28,12 +29,14 @@ export function toNewAppPayload(app) {
   }
 
   return {
-    name: app.srcLocation.repository!.name,
+    project: {
+      application: app.srcLocation.repository!.name,
+      parts,
+    },
     repository:  app.srcLocation.repository!.name,
     organization: app.srcLocation.repository!.org || '',
     clusterId: 'local',
     projectName: app.srcLocation.repository!.name,
-    parts,
   };
 }
 
@@ -49,12 +52,14 @@ export function toExamplePayload(app) {
   });
 
   return {
-    name: app.srcLocation.repository!.name,
+    project: {
+      application: app.srcLocation.repository!.name,
+      parts,
+    },
     repository:  app.srcLocation.repository!.name,
     organization: app.srcLocation.repository!.org || '',
     clusterId: 'local',
     projectName: app.srcLocation.repository!.name,
-    parts,
   };
 }
 
@@ -69,11 +74,13 @@ export function toImportAppPayload(app) {
   });
 
   return {
-    name: app.importApp.repository!.name,
+    project: {
+      application: app.srcLocation.repository!.name,
+      parts,
+    },
     repository:  app.importApp.repository!.name,
     organization: app.importApp.repository!.org || '',
     clusterId: 'local',
     projectName: app.importApp.repository!.name,
-    parts,
   };
 }

@@ -28,7 +28,7 @@ const defaultCustomApp = {
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<CustomApp>(defaultCustomApp);
 
-  const isValidForm = () => isFrontendFormValueValid(app.frontend) && isBackendFormValueValid(app.backend);
+  const isValidForm = () => isFrontendFormValueValid(app.frontend) || isBackendFormValueValid(app.backend);
 
   const items = [
     {
