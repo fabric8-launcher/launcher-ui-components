@@ -45,7 +45,7 @@ export function HubOverviewCard(props: HubItem) {
   };
   return (
     // @ts-ignore
-    <GridItem className="hub-and-spoke-item" span={size}>
+    <GridItem className="hub-and-spoke-item" sm={Math.min(size * 2, 12)} md={size}>
       <div className="hub-and-spoke-header">
         <h1>
           {props.title}
