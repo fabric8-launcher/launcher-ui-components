@@ -42,7 +42,6 @@ export function LaunchFlow(props: LaunchFlowProps) {
       setRun((prev) => ({ ...prev, result }));
       client.follow(result.id, result.events, {
         onMessage: (statusMessages) => {
-          console.log(statusMessages);
           setRun((prev) => ({ ...prev, statusMessages: [...prev.statusMessages, statusMessages] }));
         },
         onComplete: () => {
@@ -78,12 +77,19 @@ export function LaunchFlow(props: LaunchFlowProps) {
   const progressEvents = run.status === Status.RUNNING && run.result && run.result.events;
   const progressEventsResults = run.status === Status.RUNNING && run.result && run.statusMessages;
 
-  console.log(run);
+  const links = run.statusMessages.filter(m => m.data).map(m => ({ [m.statusMessage]: m.data!.location }))!.reduce(
+    (map, obj) => {
+      const key = Object.keys(obj)[0];
+      map[key] = obj[key];
+      return map;
+    }, {}
+  );
+
   return (
     <React.Fragment>
       {run.status === Status.EDITION && (<HubNSpoke items={props.items} toolbar={toolbar} />)}
       {run.status === Status.RUNNING && (<ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults} />)}
-      {(run.status === Status.COMPLETED || run.status === Status.ERROR) && (<LaunchNextSteps error={run.error} />)}
+      {(run.status === Status.COMPLETED || run.status === Status.ERROR) && (<LaunchNextSteps links={links} error={run.error} />)}
       {run.status === Status.DOWNLOADED && (<DownloadNextSteps error={run.error} downloadLink={run.result.downloadLink} />)}
     </React.Fragment>
   );
