@@ -59,7 +59,7 @@ export default class MockLauncherClient implements LauncherClient {
   }
 
   public async exampleCatalog(): Promise<Catalog> {
-    return exampleCatalog;
+    return exampleCatalog as Catalog;
   }
 
   public async findExampleApps(query: any): Promise<Example[] | ExampleMission[] | ExampleRuntime[] | ExampleRuntime[]> {

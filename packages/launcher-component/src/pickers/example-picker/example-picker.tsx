@@ -84,8 +84,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
                       onChange={value => props.onChange({ ...props.value, versionId: value })}
                       aria-label="Select Version"
                     >
-                      // @ts-ignore
-                      {runtimesMap[props.value.runtimeId].version.map((version, index) => {
+                      {(runtimesMap[props.value.runtimeId] as any).version.map((version, index) => {
                         if (!props.value.versionId) {
                           props.value.versionId = version.id;
                         }

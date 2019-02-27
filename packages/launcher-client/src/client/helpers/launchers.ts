@@ -56,8 +56,7 @@ export function filterExampleMission(query: any, catalog: Catalog): ExampleMissi
   const runtimeById = _.keyBy(catalog.runtimes, 'id');
   const lambda = (name, obj) =>
     _.uniqBy(filterExamples(catalog.boosters, undefined, obj.id), b => b.runtime).map(
-      // @ts-ignore
-      b => copyProperties(runtimeById[b.runtime], query.runtime));
+      b => copyProperties(runtimeById[b.runtime as string], query.runtime));
 
   const result: ExampleMission[] = [];
   if (query.id) {
@@ -77,7 +76,6 @@ export function filterExampleRuntime(query: any, catalog: Catalog): ExampleRunti
   const result: ExampleRuntime[] = [];
   for (let i = 0; i < catalog.runtimes.length; i++) {
     const runtime = catalog.runtimes[i];
-    // @ts-ignore
     result[i] = copyProperties(runtime, query, (name, obj) => runtimeById[obj.id].versions.map(v => copyProperties(v, query.version)));
   }
   return result;

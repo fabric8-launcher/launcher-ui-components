@@ -141,6 +141,7 @@ export interface ExampleRuntime {
   description?: string;
   metadata?: any;
   icon: string;
+  versions: any;
 }
 
 export interface ExampleMission {
