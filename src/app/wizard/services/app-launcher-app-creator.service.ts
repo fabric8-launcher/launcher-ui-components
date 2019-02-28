@@ -25,7 +25,7 @@ export class AppLauncherAppCreatorService extends HttpService implements AppCrea
 
   public getFilteredCapabilities(): Observable<Capability[]> {
     return this.getCapabilities().pipe(map((capabilities) =>
-      this.filter(capabilities, (cap) => cap.metadata.category !== 'frontend')));
+      this.filter(capabilities, (cap) => cap.metadata.category === 'backend' || cap.metadata.category === 'support')));
   }
 
   public getCapabilities(): Observable<Capability[]> {
