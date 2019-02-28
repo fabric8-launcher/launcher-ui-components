@@ -89,6 +89,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
               reject('Failed to refresh token');
             });
         } else {
+          this.currentRefresh = undefined;
           reject('User is not authenticated');
         }
       });
