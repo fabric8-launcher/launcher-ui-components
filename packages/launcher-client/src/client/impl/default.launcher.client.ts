@@ -1,8 +1,9 @@
 import { Locations } from '../helpers/locations';
 import { filter } from '../helpers/launchers';
-import { LauncherClient } from '../launcher.client';
+import { defaultAuthorizationTokenProvider, LauncherClient } from '../launcher.client';
 import {
   AnalyzeResult,
+  AuthorizationTokenProvider,
   Capability,
   Catalog,
   DownloadAppPayload,
@@ -28,9 +29,10 @@ import { HttpService, RequestConfig } from '../http.service';
 
 export default class DefaultLauncherClient implements LauncherClient {
 
-  public authorizationToken?: string;
+  public authorizationTokenProvider: AuthorizationTokenProvider;
 
   constructor(private readonly httpService: HttpService, private readonly config: LauncherClientConfig) {
+    this.authorizationTokenProvider = defaultAuthorizationTokenProvider;
   }
 
   public async exampleCatalog(): Promise<Catalog> {
@@ -43,7 +45,8 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   public async capabilities(): Promise<Capability[]> {
-    return await this.httpService.get<Capability[]>(this.config.creatorUrl, '/capabilities', this.getRequestConfig());
+    const requestConfig = await this.getRequestConfig();
+    return await this.httpService.get<Capability[]>(this.config.creatorUrl, '/capabilities', requestConfig);
   }
 
   public async enum(id: string): Promise<PropertyValue[]> {
@@ -65,10 +68,11 @@ export default class DefaultLauncherClient implements LauncherClient {
       // TODO example app download (build link)
       throw new Error('Download is not implemented yet for example app');
     }
+    const requestConfig = await this.getRequestConfig();
     const r = await this.httpService.post<DownloadAppPayload, { id: string }>(
       this.config.creatorUrl, '/zip',
       payload,
-      this.getRequestConfig()
+      requestConfig
     );
     return ({
       downloadLink: `${this.config.launcherURL}/download?id=${r.id}`
@@ -84,12 +88,13 @@ export default class DefaultLauncherClient implements LauncherClient {
     } else {
       endpoint = this.config.creatorUrl;
     }
-    const r = await this.httpService.post<any, { uuid_link: string, event: [] }>(
-      endpoint, '/launch', p, this.getRequestConfig()
+    const requestConfig = await this.getRequestConfig();
+    const r = await this.httpService.post<any, { uuid_link: string, events: [] }>(
+      endpoint, '/launch', p, requestConfig
     );
     return {
       id: r.uuid_link,
-      events: r.event
+      events: r.events
     };
   }
 
@@ -113,37 +118,41 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   public async gitRepositoryExists(payload: GitRepositoryExistsPayload): Promise<ExistsResult> {
+    const requestConfig = await this.getRequestConfig();
     return await this.httpService.head<ExistsResult>(this.config.launcherURL,
-      `/services/git/repositories/${payload.repositoryName}`,
-      this.getRequestConfig({ gitProvider: payload.gitProvider })
-    );
+      `/services/git/repositories/${payload.repositoryName}`, requestConfig);
   }
 
   public async gitInfo(): Promise<GitInfo> {
-    return await this.httpService.get<GitInfo>(this.config.launcherURL, '/services/git/user', this.getRequestConfig());
+    const requestConfig = await this.getRequestConfig();
+    return await this.httpService.get<GitInfo>(this.config.launcherURL, '/services/git/user', requestConfig);
   }
 
   public async ocClusters(): Promise<OpenShiftCluster[]> {
-    const r = await this.httpService.get<any>(this.config.launcherURL, '/services/openshift/clusters', this.getRequestConfig());
+    const requestConfig = await this.getRequestConfig();
+    const r = await this.httpService.get<any>(this.config.launcherURL, '/services/openshift/clusters', requestConfig);
     return r.map(c => ({
       ...c.cluster, connected: c.connected
     }));
   }
 
   public async ocExistsProject(payload: OCExistsProjectPayload): Promise<ExistsResult> {
+    const requestConfig = await this.getRequestConfig();
     return await this.httpService.head<ExistsResult>(this.config.launcherURL,
       `/services/openshift/projects/${payload.projectName}`,
-      this.getRequestConfig({ clusterId: payload.clusterId })
+      requestConfig
     );
   }
 
-  private getRequestConfig(config: { gitProvider?: string, executionIndex?: number, clusterId?: string } = {}): RequestConfig {
+  private async getRequestConfig(config: { gitProvider?: string, executionIndex?: number, clusterId?: string } = {})
+    : Promise<RequestConfig> {
+    const authorizationToken = await this.authorizationTokenProvider();
     const headers = {};
     if (config.gitProvider) {
       headers['X-Git-Provider'] = config.gitProvider;
     }
-    if (this.authorizationToken) {
-      headers['Authorization'] = `Bearer ${this.authorizationToken}`;
+    if (authorizationToken) {
+      headers['Authorization'] = `Bearer ${authorizationToken}`;
     }
     if (config.executionIndex) {
       headers['X-Execution-Step-Index'] = config.executionIndex;
@@ -151,7 +160,7 @@ export default class DefaultLauncherClient implements LauncherClient {
     if (config.clusterId) {
       headers['X-OpenShift-Cluster'] = config.clusterId;
     }
-    return { headers };
+    return {headers};
   }
 
 }

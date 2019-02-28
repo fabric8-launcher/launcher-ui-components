@@ -7,9 +7,12 @@ import { defaultBuidImagePickerValue } from '../pickers/buildimage-picker/buildi
 import { ImportFormOverview } from '../forms/import-form-overview';
 import { defaultRepoPickerValue } from '../pickers/repository-picker/repository-picker';
 import { LaunchFlow } from './launch-flow';
+import { DeploymentFormOverview } from '../forms/deployment-form-overview';
+import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
 
 interface CustomApp {
   importApp: ImportFormValue;
+  deployment: DeploymentFormValue;
 }
 
 const defaultCustomApp = {
@@ -17,6 +20,7 @@ const defaultCustomApp = {
     repository: defaultRepoPickerValue,
     buildImage: defaultBuidImagePickerValue
   },
+  deployment: defaultDeploymentFormValue,
 };
 
 export function ImportExistingFlow(props: { onCancel?: () => void }) {
@@ -37,6 +41,27 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
             value={app.importApp}
             onSave={(importApp) => {
               setApp({ ...app, importApp });
+              close();
+            }}
+            onCancel={close}
+          />
+        ),
+      }
+    },
+    {
+      id: 'openshift-deployment',
+      title: 'OpenShift Deployment',
+      overview: {
+        component: ({edit}) => (
+          <DeploymentFormOverview value={app.deployment} onClick={edit}/>
+        ),
+      },
+      form: {
+        component: ({close}) => (
+          <DeploymentForm
+            value={app.deployment}
+            onSave={(deployment) => {
+              setApp({...app, deployment});
               close();
             }}
             onCancel={close}

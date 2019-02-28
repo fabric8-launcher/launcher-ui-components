@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { LauncherClientContext } from './launcher-client-context';
-import { checkNotNull, defaultLauncherClient, LauncherClient, mockLauncherClient } from 'launcher-client';
+import { AuthorizationTokenProvider, checkNotNull, defaultLauncherClient, LauncherClient, mockLauncherClient } from 'launcher-client';
 
 interface LauncherClientProviderProps {
   children: React.ReactNode;
   creatorUrl?: string;
   launcherUrl?: string;
-  authorizationToken?: string;
+  authorizationTokenProvider: AuthorizationTokenProvider;
 }
 
 function buildLauncherClient(props: LauncherClientProviderProps) {
@@ -24,7 +24,7 @@ function buildLauncherClient(props: LauncherClientProviderProps) {
 export function LauncherClientProvider(props: LauncherClientProviderProps) {
   const [client] = useState<LauncherClient>(buildLauncherClient(props));
 
-  client.authorizationToken = props.authorizationToken;
+  client.authorizationTokenProvider = props.authorizationTokenProvider;
 
   return (
     <LauncherClientContext.Provider value={client}>

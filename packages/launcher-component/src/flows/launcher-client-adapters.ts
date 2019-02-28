@@ -33,9 +33,9 @@ export function toNewAppPayload(app) {
       application: app.srcLocation.repository!.name,
       parts,
     },
-    repository:  app.srcLocation.repository!.name,
-    organization: app.srcLocation.repository!.org || '',
-    clusterId: 'local',
+    gitRepository:  app.srcLocation.repository!.name,
+    gitOrganization: app.srcLocation.repository!.org || '',
+    clusterId: app.deployment.cluster.clusterId!,
     projectName: app.srcLocation.repository!.name,
   };
 }
@@ -56,8 +56,8 @@ export function toExamplePayload(app) {
       application: app.srcLocation.repository!.name,
       parts,
     },
-    repository:  app.srcLocation.repository!.name,
-    organization: app.srcLocation.repository!.org || '',
+    gitRepository:  app.srcLocation.repository!.name,
+    gitOrganization: app.srcLocation.repository!.org || '',
     clusterId: 'local',
     projectName: app.srcLocation.repository!.name,
   };
@@ -78,8 +78,8 @@ export function toImportAppPayload(app) {
       application: app.srcLocation.repository!.name,
       parts,
     },
-    repository:  app.importApp.repository!.name,
-    organization: app.importApp.repository!.org || '',
+    gitRepository:  app.importApp.repository!.name,
+    gitOrganization: app.importApp.repository!.org || '',
     clusterId: 'local',
     projectName: app.importApp.repository!.name,
   };

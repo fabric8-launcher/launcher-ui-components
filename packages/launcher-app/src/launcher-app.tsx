@@ -2,7 +2,7 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import './launcher-app.scss';
 import { LoginPage } from './login-page';
-import { AuthContext, AuthRouter, newAuthApi, useStateOnAuthApi } from 'keycloak-react';
+import { AuthContext, AuthRouter, newAuthApi, useAuthenticationApiStateProxy } from 'keycloak-react';
 import { DataLoader, Launcher, LauncherClientProvider } from 'launcher-component';
 import { Layout } from './layout';
 import { PageSection } from '@patternfly/react-core';
@@ -18,16 +18,25 @@ function HomePage() {
   );
 }
 
+const authApi = newAuthApi(authenticationMode, keycloakConfig);
+
 export function LauncherApp() {
-  const authApi = useStateOnAuthApi(newAuthApi(authenticationMode, keycloakConfig));
+  const proxyAuthApi = useAuthenticationApiStateProxy(authApi);
   const authLoader = () => {
-    return authApi.init();
+    return proxyAuthApi.init();
+  };
+  const authorizationTokenProvider = async () => {
+    if(!proxyAuthApi.user) {
+      return undefined;
+    }
+    const user = await proxyAuthApi.refreshToken();
+    return user && user.token;
   };
   return (
     <DataLoader loader={authLoader} default={undefined}>
-      <AuthContext.Provider value={authApi}>
+      <AuthContext.Provider value={proxyAuthApi}>
         <LauncherClientProvider
-          authorizationToken={authApi.user && authApi.user.token}
+          authorizationTokenProvider={authorizationTokenProvider}
           creatorUrl={creatorApiUrl}
           launcherUrl={launcherApiUrl}
         >

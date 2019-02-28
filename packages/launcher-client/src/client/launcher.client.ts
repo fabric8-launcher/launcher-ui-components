@@ -15,11 +15,13 @@ import {
   Catalog,
   ExampleMission,
   ExampleRuntime,
-  AnalyzeResult
+  AnalyzeResult, AuthorizationTokenProvider
 } from './types';
 
+export const defaultAuthorizationTokenProvider = async () => undefined;
+
 export interface LauncherClient {
-  authorizationToken?: string;
+  authorizationTokenProvider: AuthorizationTokenProvider;
   exampleCatalog(): Promise<Catalog>;
   findExampleApps(query: Example | ExampleMission | ExampleRuntime | ExampleRuntime):
     Promise<Example[] | ExampleMission[] | ExampleRuntime[] | ExampleRuntime[]>;

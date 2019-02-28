@@ -27,6 +27,7 @@ export class ExampleAppDescriptor {
   public runtime: string;
   public runtimeVersion: string;
   public gitRepository: string;
+  public gitOrganization: string;
 
   constructor(payload: LaunchAppPayload) {
     this.projectName = payload.projectName;
@@ -37,7 +38,8 @@ export class ExampleAppDescriptor {
     this.mission = part.shared.mission!.id;
     this.runtime = part.shared.runtime.name;
     this.runtimeVersion = part.shared.runtime.version;
-    this.gitRepository = payload.repository;
+    this.gitRepository = payload.gitRepository;
+    this.gitOrganization = payload.gitOrganization
   }
 
   public static toExampleAppDescriptor(payload: LaunchAppPayload): ExampleAppDescriptor {
@@ -46,8 +48,8 @@ export class ExampleAppDescriptor {
 }
 
 interface GitRepository {
-  organization: string;
-  repository: string;
+  gitOrganization: string;
+  gitRepository: string;
 }
 
 interface OpenShiftClusterProject {
@@ -212,3 +214,5 @@ export interface Enums {
 export interface DownloadAppResult {
   downloadLink: string;
 }
+
+export type AuthorizationTokenProvider =  () => Promise<string | undefined>;

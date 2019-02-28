@@ -1,4 +1,4 @@
-import { AuthenticationApi, OptionalUser, User } from '../AuthenticationApi';
+import { AuthenticationApi, OptionalUser, User } from '../authentication-api';
 
 const mockUser: User = {
   userName: 'Anonymous',
@@ -17,7 +17,7 @@ export default class MockAuthenticationApi implements AuthenticationApi {
     return Promise.resolve(this._user);
   }
 
-  public linkAccount = (provider: string, redirect?: string): string | undefined => {
+  public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
     alert('Account management is not available on mock mode.');
     return '';
   }

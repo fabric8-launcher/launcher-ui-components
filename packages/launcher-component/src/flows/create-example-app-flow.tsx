@@ -9,10 +9,13 @@ import { ExampleFormOverview } from '../forms/example-form-overview';
 import { ExamplePickerValue } from '../pickers/example-picker/example-picker';
 import { defaultExampleFormValue, ExampleForm, isExampleFormValueValid } from '../forms/example-form';
 import { LaunchFlow } from './launch-flow';
+import { DeploymentFormOverview } from '../forms/deployment-form-overview';
+import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
 
 interface ExampleApp {
   example: ExamplePickerValue;
   srcLocation: SrcLocationFormValue;
+  deployment: DeploymentFormValue;
 }
 
 const defaultCustomApp = {
@@ -20,6 +23,7 @@ const defaultCustomApp = {
   srcLocation: {
     repository: { name: 'my-app-' + _.random(1, 1000) }
   },
+  deployment: defaultDeploymentFormValue,
 };
 
 export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
@@ -61,6 +65,27 @@ export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
             value={app.srcLocation}
             onSave={(srcLocation) => {
               setApp({...app, srcLocation});
+              close();
+            }}
+            onCancel={close}
+          />
+        ),
+      }
+    },
+    {
+      id: 'openshift-deployment',
+      title: 'OpenShift Deployment',
+      overview: {
+        component: ({edit}) => (
+          <DeploymentFormOverview value={app.deployment} onClick={edit}/>
+        ),
+      },
+      form: {
+        component: ({close}) => (
+          <DeploymentForm
+            value={app.deployment}
+            onSave={(deployment) => {
+              setApp({...app, deployment});
               close();
             }}
             onCancel={close}

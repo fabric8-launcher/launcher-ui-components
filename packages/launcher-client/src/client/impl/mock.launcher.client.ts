@@ -1,4 +1,4 @@
-import { LauncherClient } from '../launcher.client';
+import { defaultAuthorizationTokenProvider, LauncherClient } from '../launcher.client';
 import {
   AnalyzeResult,
   Capability,
@@ -53,7 +53,7 @@ const progressDef = {
 
 export default class MockLauncherClient implements LauncherClient {
 
-  public authorizationToken?: string;
+  public authorizationTokenProvider = defaultAuthorizationTokenProvider;
 
   constructor() {
   }

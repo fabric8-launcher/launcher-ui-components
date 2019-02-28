@@ -2,7 +2,7 @@ import * as jsSHA from 'jssha';
 import * as _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import Keycloak from 'keycloak-js';
-import { AuthenticationApi, OptionalUser } from '../AuthenticationApi';
+import { AuthenticationApi, OptionalUser } from '../authentication-api';
 import { checkNotNull } from 'launcher-client';
 
 interface StoredData {
@@ -72,6 +72,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
   };
 
   public refreshToken = (): Promise<OptionalUser> => {
+    // FIXME ensure there is only one call processed at a time
     return new Promise((resolve, reject) => {
       if (this._user) {
         this.keycloak.updateToken(5)
@@ -89,9 +90,12 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
     });
   };
 
-  public linkAccount = (provider: string, redirect?: string): string | undefined => {
+  public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
     if (!this.user) {
-      return undefined;
+      throw new Error('User is not authenticated');
+    }
+    if (!provider) {
+      return 'https://manage.openshift.com/';
     }
     if (this.user.accountLink[provider]) {
       return this.user.accountLink[provider];

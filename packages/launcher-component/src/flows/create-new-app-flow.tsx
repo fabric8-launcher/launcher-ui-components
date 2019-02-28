@@ -10,25 +10,30 @@ import { SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-for
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
 import { LaunchFlow } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
+import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
+import { DeploymentFormOverview } from '../forms/deployment-form-overview';
 
 interface CustomApp {
   backend: BackendFormValue;
   frontend: FrontendFormValue;
   srcLocation: SrcLocationFormValue;
+  deployment: DeploymentFormValue;
 }
 
 const defaultCustomApp = {
   backend: defaultBackendFormValue,
   frontend: defaultFrontendFormValue,
   srcLocation: {
-    repository: { name: 'my-app-' + _.random(1, 1000) }
+    repository: {name: 'my-app-' + _.random(1, 1000)}
   },
+  deployment: defaultDeploymentFormValue,
 };
 
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<CustomApp>(defaultCustomApp);
 
-  const isValidForm = () => isFrontendFormValueValid(app.frontend) || isBackendFormValueValid(app.backend);
+  const isValidForm = () => (isFrontendFormValueValid(app.frontend) || isBackendFormValueValid(app.backend))
+    && !!app.deployment.cluster.clusterId;
 
   const items = [
     {
@@ -87,6 +92,27 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
             value={app.srcLocation}
             onSave={(srcLocation) => {
               setApp({...app, srcLocation});
+              close();
+            }}
+            onCancel={close}
+          />
+        ),
+      }
+    },
+    {
+      id: 'openshift-deployment',
+      title: 'OpenShift Deployment',
+      overview: {
+        component: ({edit}) => (
+          <DeploymentFormOverview value={app.deployment} onClick={edit}/>
+        ),
+      },
+      form: {
+        component: ({close}) => (
+          <DeploymentForm
+            value={app.deployment}
+            onSave={(deployment) => {
+              setApp({...app, deployment});
               close();
             }}
             onCancel={close}

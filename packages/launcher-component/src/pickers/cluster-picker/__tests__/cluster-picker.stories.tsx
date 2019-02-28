@@ -23,9 +23,9 @@ storiesOf('Pickers', module)
   .add('ClusterPicker', () => {
     return (
       <OpenshiftClustersLoader>
-        {result => (
+        {clusters => (
           <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
-            {(inputProps) => (<ClusterPicker {...inputProps} {...result} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
+            {(inputProps) => (<ClusterPicker {...inputProps} clusters={clusters} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
           </FormPanel>
         )}
       </OpenshiftClustersLoader>

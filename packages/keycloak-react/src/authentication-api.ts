@@ -16,5 +16,5 @@ export interface AuthenticationApi {
   logout(): void;
   openAccountManagement(): void;
   refreshToken(): Promise<OptionalUser>;
-  linkAccount(provider: string, redirect?: string): (string | undefined);
+  generateAuthorizationLink(provider?: string, redirect?: string): string;
 }

@@ -1,4 +1,4 @@
-import { AuthenticationApi, OptionalUser, User } from '../AuthenticationApi';
+import { AuthenticationApi, OptionalUser, User } from '../authentication-api';
 
 const anonymousUser: User = {
   userName: 'Anonymous',
@@ -14,8 +14,8 @@ export default class NoAuthenticationApi implements AuthenticationApi {
     return Promise.resolve(anonymousUser);
   }
 
-  public linkAccount = (provider: string, redirect?: string): string | undefined => {
-    throw new Error('linkAccount should not be called in No Authentication mode');
+  public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
+    throw new Error('generateAuthorizationLink should not be called in No Authentication mode');
   }
 
   public login= (): void => {
