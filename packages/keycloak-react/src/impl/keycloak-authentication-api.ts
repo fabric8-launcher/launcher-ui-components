@@ -20,6 +20,7 @@ export interface KeycloakConfig {
 export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   private _user: OptionalUser;
+  private currentRefresh?: Promise<OptionalUser> = undefined;
 
   private static base64ToUri(b64: string): string {
     return b64.replace(/=/g, '')
@@ -72,22 +73,27 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
   };
 
   public refreshToken = (): Promise<OptionalUser> => {
-    // FIXME ensure there is only one call processed at a time
-    return new Promise((resolve, reject) => {
-      if (this._user) {
-        this.keycloak.updateToken(5)
-          .success(() => {
-            this.initUser();
-            resolve(this.user);
-          })
-          .error(() => {
-            this.logout();
-            reject('Failed to refresh token');
-          });
-      } else {
-        reject('User is not authenticated');
-      }
-    });
+    // Ensure there is only one call processed at a time (currentRefresh)
+    if (!this.currentRefresh) {
+      this.currentRefresh = new Promise((resolve, reject) => {
+        if (this._user) {
+          this.keycloak.updateToken(5)
+            .success(() => {
+              this.initUser();
+              resolve(this.user);
+              this.currentRefresh = undefined;
+            })
+            .error(() => {
+              this.currentRefresh = undefined;
+              this.logout();
+              reject('Failed to refresh token');
+            });
+        } else {
+          reject('User is not authenticated');
+        }
+      });
+    }
+    return this.currentRefresh;
   };
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
