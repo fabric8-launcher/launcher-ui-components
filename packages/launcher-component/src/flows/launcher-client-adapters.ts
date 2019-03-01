@@ -8,7 +8,9 @@ export function toNewAppPayload(app) {
       shared: {
         runtime: { name: app.frontend.runtime!.id, version: 'community' }
       },
-      capabilities: [],
+      capabilities: [{
+        module: 'web-app'
+      }],
     });
   }
 
