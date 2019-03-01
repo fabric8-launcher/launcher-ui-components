@@ -60,7 +60,7 @@ export function toExamplePayload(app) {
     },
     gitRepository:  app.srcLocation.repository!.name,
     gitOrganization: app.srcLocation.repository!.org || '',
-    clusterId: 'local',
+    clusterId: app.deployment.cluster.clusterId!,
     projectName: app.srcLocation.repository!.name,
   };
 }
@@ -82,7 +82,7 @@ export function toImportAppPayload(app) {
     },
     gitRepository:  app.importApp.repository!.name,
     gitOrganization: app.importApp.repository!.org || '',
-    clusterId: 'local',
+    clusterId: app.deployment.cluster.clusterId!,
     projectName: app.importApp.repository!.name,
   };
 }

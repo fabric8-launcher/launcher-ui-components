@@ -28,9 +28,13 @@ export class ExampleAppDescriptor {
   public runtimeVersion: string;
   public gitRepository: string;
   public gitOrganization: string;
+  public groupId: string;
+  public artifactId: string;
 
   constructor(payload: LaunchAppPayload) {
     this.projectName = payload.projectName;
+    this.groupId = 'com.yourcompany.newapp';
+    this.artifactId = this.projectName;
     this.projectVersion = '1.0.0';
     this.targetEnvironment = 'os';
     this.clusterId = payload.clusterId;
@@ -39,11 +43,18 @@ export class ExampleAppDescriptor {
     this.runtime = part.shared.runtime.name;
     this.runtimeVersion = part.shared.runtime.version;
     this.gitRepository = payload.gitRepository;
-    this.gitOrganization = payload.gitOrganization
+    this.gitOrganization = payload.gitOrganization;
   }
 
-  public static toExampleAppDescriptor(payload: LaunchAppPayload): ExampleAppDescriptor {
-    return new ExampleAppDescriptor(payload);
+  public static toExampleAppDescriptor(payload: LaunchAppPayload): string {
+    const obj = new ExampleAppDescriptor(payload);
+    const str: string[] = [];
+    for (const p in obj) {
+      if (obj.hasOwnProperty(p) && obj[p]) {
+        str.push(`${encodeURIComponent(p)}=${encodeURIComponent(obj[p])}`);
+      }
+    }
+    return str.join('&');
   }
 }
 
@@ -216,4 +227,4 @@ export interface DownloadAppResult {
   downloadLink: string;
 }
 
-export type AuthorizationTokenProvider =  () => Promise<string | undefined>;
+export type AuthorizationTokenProvider = () => Promise<string | undefined>;

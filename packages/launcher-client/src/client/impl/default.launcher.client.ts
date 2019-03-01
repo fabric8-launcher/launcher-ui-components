@@ -80,15 +80,15 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   public async launch(payload: LaunchAppPayload): Promise<LaunchAppResult> {
-    let endpoint: string;
+    let endpoint = this.config.creatorUrl;
     let p: any = payload;
+
     if (payload.project.parts.length === 1 && payload.project.parts[0].shared.mission) {
-      endpoint = this.config.launcherURL;
+      endpoint = Locations.joinPath(this.config.launcherURL, '/launcher');
       p = ExampleAppDescriptor.toExampleAppDescriptor(payload);
-    } else {
-      endpoint = this.config.creatorUrl;
     }
-    const requestConfig = await this.getRequestConfig();
+
+    const requestConfig = await this.getRequestConfig({ clusterId: payload.clusterId });
     const r = await this.httpService.post<any, { uuid_link: string, events: [] }>(
       endpoint, '/launch', p, requestConfig
     );
@@ -160,7 +160,7 @@ export default class DefaultLauncherClient implements LauncherClient {
     if (config.clusterId) {
       headers['X-OpenShift-Cluster'] = config.clusterId;
     }
-    return {headers};
+    return { headers };
   }
 
 }
