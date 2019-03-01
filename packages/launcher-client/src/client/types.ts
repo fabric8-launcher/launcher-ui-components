@@ -19,34 +19,37 @@ export interface AppDescriptor {
 }
 
 export class ExampleAppDescriptor {
-  public projectName: string;
+  public projectName?: string;
+  public clusterId?: string;
+  public gitRepository?: string;
+  public gitOrganization?: string;
   public projectVersion: string;
   public targetEnvironment: string;
-  public clusterId: string;
   public mission: string;
   public runtime: string;
   public runtimeVersion: string;
-  public gitRepository: string;
-  public gitOrganization: string;
   public groupId: string;
   public artifactId: string;
 
-  constructor(payload: LaunchAppPayload) {
-    this.projectName = payload.projectName;
+  constructor(payload: LaunchAppPayload | DownloadAppPayload) {
     this.groupId = 'com.yourcompany.newapp';
-    this.artifactId = this.projectName;
+    this.artifactId = payload.project.application;
     this.projectVersion = '1.0.0';
     this.targetEnvironment = 'os';
-    this.clusterId = payload.clusterId;
     const part = payload.project.parts[0];
     this.mission = part.shared.mission!.id;
     this.runtime = part.shared.runtime.name;
     this.runtimeVersion = part.shared.runtime.version;
-    this.gitRepository = payload.gitRepository;
-    this.gitOrganization = payload.gitOrganization;
+    if ((payload as LaunchAppPayload).projectName) {
+      const launchPayload = payload as LaunchAppPayload;
+      this.projectName = launchPayload.projectName;
+      this.clusterId = launchPayload.clusterId;
+      this.gitRepository = launchPayload.gitRepository;
+      this.gitOrganization = launchPayload.gitOrganization;
+    }
   }
 
-  public static toExampleAppDescriptor(payload: LaunchAppPayload): string {
+  public static toExampleAppDescriptor(payload: LaunchAppPayload | DownloadAppPayload): string {
     const obj = new ExampleAppDescriptor(payload);
     const str: string[] = [];
     for (const p in obj) {

@@ -65,19 +65,22 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   public async download(payload: DownloadAppPayload): Promise<DownloadAppResult> {
-    if (payload.project.parts.length === 1 && payload.project.parts[0].shared.mission) {
-      // TODO example app download (build link)
-      throw new Error('Download is not implemented yet for example app');
-    }
     const requestConfig = await this.getRequestConfig();
-    const r = await this.httpService.post<DownloadAppPayload, { id: string }>(
-      this.config.creatorUrl, '/zip',
-      payload,
-      requestConfig
-    );
-    return ({
-      downloadLink: `${this.config.launcherURL}/download?id=${r.id}`
-    });
+    if (payload.project.parts.length === 1 && payload.project.parts[0].shared.mission) {
+      return ({
+        downloadLink: Locations.joinPath(this.config.launcherURL, '/launcher/zip?') +
+          ExampleAppDescriptor.toExampleAppDescriptor(payload),
+      });
+    } else {
+      const r = await this.httpService.post<DownloadAppPayload, { id: string }>(
+        this.config.creatorUrl, '/zip',
+        payload,
+        requestConfig
+      );
+      return ({
+        downloadLink: `${this.config.creatorUrl}/download?id=${r.id}`
+      });
+    }
   }
 
   public async gitProviders(): Promise<GitProvider[]> {
