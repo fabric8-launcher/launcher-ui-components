@@ -25,7 +25,7 @@ export function ExampleFormOverview(props: ExampleOverviewProps) {
   return (
     <ExamplesLoader id={props.value.missionId}>
       {result => (
-        <OverviewComplete title={`Your example will be ${(result.catalog as any).name}`}>
+        <OverviewComplete title={`Your example will be ${(result.catalog.missions![0]).name}`}>
           {(result.catalog as any).description}
         </OverviewComplete>
       )}

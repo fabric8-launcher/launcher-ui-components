@@ -31,7 +31,7 @@ export function ExamplePicker(props: ExamplePickerProps) {
     <React.Fragment>
       <DataList aria-label="select-mission">
         {
-          props.catalog.missions.map((mission, i) => {
+          props.catalog.missions!.map((mission, i) => {
             const isSelected = props.value.missionId === mission.id;
             const onChangeSelected = () => {
               props.onChange({ missionId: mission.id });
