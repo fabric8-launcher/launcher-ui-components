@@ -198,6 +198,22 @@ export interface GitRepositoryExistsPayload {
   gitProvider?: string;
 }
 
+export enum GitProviderType {
+  BITBUCKET = 'BITBUCKET',
+  GITEA = 'GITEA',
+  GITHUB = 'GITHUB',
+  GITLAB = 'GITLAB'
+}
+
+export interface GitProvider {
+  id: string;
+  name: string;
+  apiUrl: string;
+  repositoryUrl: string;
+  type: GitProviderType;
+  clientProperties?: any;
+}
+
 export interface ExistsResult {
   exists: boolean;
 }

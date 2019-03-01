@@ -23,7 +23,8 @@ import {
   OpenShiftCluster,
   PropertyValue,
   StatusListener,
-  StatusMessage
+  StatusMessage,
+  GitProvider
 } from '../types';
 import { HttpService, RequestConfig } from '../http.service';
 
@@ -77,6 +78,10 @@ export default class DefaultLauncherClient implements LauncherClient {
     return ({
       downloadLink: `${this.config.launcherURL}/download?id=${r.id}`
     });
+  }
+
+  public async gitProviders(): Promise<GitProvider[]> {
+    return this.httpService.get<GitProvider[]>(this.config.launcherURL, '/services/git/providers');
   }
 
   public async launch(payload: LaunchAppPayload): Promise<LaunchAppResult> {

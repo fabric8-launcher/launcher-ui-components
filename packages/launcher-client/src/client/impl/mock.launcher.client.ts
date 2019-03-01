@@ -17,7 +17,8 @@ import {
   OCExistsProjectPayload,
   OpenShiftCluster,
   PropertyValue,
-  StatusListener
+  StatusListener,
+  GitProvider
 } from '../types';
 
 import capabilities from '../data-examples/mock-capabilities.json';
@@ -26,6 +27,7 @@ import clusters from '../data-examples/mock-clusters.json';
 import gitUser from '../data-examples/mock-git-user.json';
 import exampleCatalog from '../data-examples/mock-example-catalog.json';
 import analyzeResult from '../data-examples/mock-import-analyze.json';
+import gitProviders from '../data-examples/mock-git-providers.json';
 import { filter } from '../helpers/launchers';
 
 const progressDef = {
@@ -120,6 +122,10 @@ export default class MockLauncherClient implements LauncherClient {
         listener.onComplete();
       }
     }, 2500);
+  }
+
+  public async gitProviders(): Promise<GitProvider[]> {
+    return gitProviders as GitProvider[];
   }
 
   public async gitRepositoryExists(payload: GitRepositoryExistsPayload): Promise<ExistsResult> {
