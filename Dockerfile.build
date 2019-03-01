@@ -1,0 +1,6 @@
+FROM nodeshift/centos7-s2i-nodejs:10.x
+
+MAINTAINER Fabric8 Launcher Team <fabric8-launcher@googlegroups.com>
+ENV LANG=en_US.utf8
+
+COPY . ./

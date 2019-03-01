@@ -20,13 +20,13 @@ export const authenticationMode = getEnv(process.env.REACT_APP_AUTHENTICATION, '
 export const isKeycloakMode = authenticationMode === 'keycloak';
 
 export const keycloakConfig = isKeycloakMode ? {
-  clientId: requireEnv(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'REACT_APP_KEYCLOAK_CLIENT_ID'),
-  realm: requireEnv(process.env.REACT_APP_KEYCLOAK_REALM, 'REACT_APP_KEYCLOAK_REALM'),
-  url: requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'REACT_APP_KEYCLOAK_URL'),
+  clientId: requireEnv(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'keycloakClientId'),
+  realm: requireEnv(process.env.REACT_APP_KEYCLOAK_REALM, 'keycloakRealm'),
+  url: requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl'),
 } as KeycloakConfig : undefined;
 
 export const creatorApiUrl =
-  getEnv(process.env.REACT_APP_CREATOR_API_URL, 'process.env.REACT_APP_CREATOR_API_URL');
+  getEnv(process.env.REACT_APP_CREATOR_API_URL, 'creatorApiUrl');
 
 export const launcherApiUrl =
-  getEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'process.env.REACT_APP_LAUNCHER_API_URL');
+  getEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl');

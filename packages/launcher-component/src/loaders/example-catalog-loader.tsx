@@ -3,9 +3,9 @@ import _ from 'lodash';
 
 import { DataLoader } from '../core/data-loader/data-loader';
 import { useLauncherClient } from '../contexts/launcher-client-context';
-import { Catalog, filter } from 'launcher-client';
+import { filter } from 'launcher-client';
 
-export function ExamplesLoader(props: {id?: string, children: (obj: {catalog: Catalog}) => any }) {
+export function ExamplesLoader(props: {id?: string, children: (obj: {catalog: any}) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.exampleCatalog().then(catalog => {
     if (props.id) {
@@ -18,7 +18,7 @@ export function ExamplesLoader(props: {id?: string, children: (obj: {catalog: Ca
     };
   });
   return (
-    <DataLoader loader={itemsLoader} default={{}} >
+    <DataLoader loader={itemsLoader}>
       {props.children}
     </DataLoader>
   );

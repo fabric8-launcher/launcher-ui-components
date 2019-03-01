@@ -7,7 +7,7 @@ export function BuildImageAnalyzerLoader(props: { repository: {org: string, name
   const client = useLauncherClient();
   const itemsLoader = () => client.importAnalyze(toRepoUrl(props.repository));
   return (
-    <DataLoader loader={itemsLoader} default={{}} >
+    <DataLoader loader={itemsLoader}>
       {props.children}
     </DataLoader>
   );

@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "workspaces": [
-    "packages/keycloak-react",
     "packages/launcher-client",
+    "packages/keycloak-react",
     "packages/launcher-component",
     "packages/launcher-app"
   ],
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build:libs": "yarn workspace launcher-client build && yarn workspace keycloak-react build && yarn workspace launcher-component build",
-    "build": "yarn workspaces run build",
+    "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
     "launcher-app:start": "yarn workspace launcher-app start:staging-api",
     "launcher-component:test": "yarn workspace launcher-component test",
     "launcher-component:storybook": "yarn workspace launcher-component storybook",

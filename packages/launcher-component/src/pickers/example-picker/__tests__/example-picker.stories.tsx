@@ -6,7 +6,7 @@ import { FormPanel } from '../../../core/form-panel/form-panel';
 
 import { ExamplePicker } from '../example-picker';
 import { ExamplesLoader } from '../../../loaders/example-catalog-loader';
-import { LauncherClientProvider } from '../../..';
+import { LauncherClientProvider } from '../../../contexts/launcher-client-provider';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (

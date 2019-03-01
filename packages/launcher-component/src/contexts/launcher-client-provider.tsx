@@ -6,7 +6,7 @@ interface LauncherClientProviderProps {
   children: React.ReactNode;
   creatorUrl?: string;
   launcherUrl?: string;
-  authorizationTokenProvider: AuthorizationTokenProvider;
+  authorizationTokenProvider?: AuthorizationTokenProvider;
 }
 
 function buildLauncherClient(props: LauncherClientProviderProps) {
@@ -24,7 +24,9 @@ function buildLauncherClient(props: LauncherClientProviderProps) {
 export function LauncherClientProvider(props: LauncherClientProviderProps) {
   const [client] = useState<LauncherClient>(buildLauncherClient(props));
 
-  client.authorizationTokenProvider = props.authorizationTokenProvider;
+  if (props.authorizationTokenProvider) {
+    client.authorizationTokenProvider = props.authorizationTokenProvider;
+  }
 
   return (
     <LauncherClientContext.Provider value={client}>

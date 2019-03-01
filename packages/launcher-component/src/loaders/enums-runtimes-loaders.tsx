@@ -14,7 +14,7 @@ export function RuntimeLoader(props: { id: string, children: (runtime?: Property
     return runtimes.find(r => r.id === props.id);
   };
   return (
-    <DataLoader loader={loader} default={undefined}>
+    <DataLoader loader={loader}>
       {props.children}
     </DataLoader>
   );
@@ -27,7 +27,7 @@ export function EnumsRuntimesLoaders(props: { category: string, children: (items
     return runtimes.filter(runtimeMatcherByCategory(props.category));
   };
   return (
-    <DataLoader loader={loader} default={[]}>
+    <DataLoader loader={loader}>
       {props.children}
     </DataLoader>
   );

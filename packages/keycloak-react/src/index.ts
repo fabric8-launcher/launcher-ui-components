@@ -1,8 +1,8 @@
 import MockAuthenticationApi from './impl/mock-authentication-api';
 import { KeycloakAuthenticationApi, KeycloakConfig } from './impl/keycloak-authentication-api';
 import NoAuthenticationApi from './impl/no-authentication-api';
-import { checkNotNull } from 'launcher-client';
 import { AuthenticationApi } from './authentication-api';
+import { checkNotNull } from 'launcher-client';
 
 export { AuthContext, useAuthApi, useAuthenticationApiStateProxy } from './auth-context';
 export { AuthRouter } from './auth-router';

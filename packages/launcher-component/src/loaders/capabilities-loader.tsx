@@ -29,7 +29,7 @@ export function CapabilitiesLoader(props: { categories: string[], children: (cap
     });
   });
   return (
-    <DataLoader loader={itemsLoader} default={[]} >
+    <DataLoader loader={itemsLoader}>
       {props.children}
     </DataLoader>
   );

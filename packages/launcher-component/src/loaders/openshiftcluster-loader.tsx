@@ -9,7 +9,7 @@ export function OpenshiftClustersLoader(props: {children: (obj: OpenShiftCluster
     return clusters;
   });
   return (
-    <DataLoader loader={itemsLoader} default={{}} >
+    <DataLoader loader={itemsLoader}>
       {props.children}
     </DataLoader>
   );
@@ -22,7 +22,7 @@ export function OpenshiftClusterLoader(props: {clusterId: string, children: (obj
     return clusters.find(c => c.id === props.clusterId);
   };
   return (
-    <DataLoader loader={itemsLoader} default={undefined} >
+    <DataLoader loader={itemsLoader}>
       {props.children}
     </DataLoader>
   );

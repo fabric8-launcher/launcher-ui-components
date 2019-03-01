@@ -33,7 +33,7 @@ export function LauncherApp() {
     return user && user.token;
   };
   return (
-    <DataLoader loader={authLoader} default={undefined}>
+    <DataLoader loader={authLoader}>
       <AuthContext.Provider value={proxyAuthApi}>
         <LauncherClientProvider
           authorizationTokenProvider={authorizationTokenProvider}

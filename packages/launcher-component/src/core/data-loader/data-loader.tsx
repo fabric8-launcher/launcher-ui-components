@@ -11,22 +11,20 @@ export function Spin(props: { children: React.ReactNode }) {
   );
 }
 
-export function DataLoader<T>(props: { loader: () => Promise<T>, default: T, children: ((arg: T) => any) | React.ReactNode }) {
-  const [data, setData] = useState<T>(props.default);
-  const [loaded, setLoaded] = useState<boolean>(false);
+export function DataLoader<T>(props: { loader: () => Promise<T>, children: ((arg: T) => any) | React.ReactNode }) {
+  const [data, setData] = useState<{ result: T } | undefined>(undefined);
   const loadData = async () => {
-    const d = await props.loader();
-    setData(d);
-    setLoaded(true);
+    const result = await props.loader();
+    setData({ result });
   };
   useEffect(() => {
-    if (!loaded) {
+    if (!data) {
       loadData().catch(err => console.error('Error while loading data.', err));
     }
-  }, [loaded]);
-  if (loaded) {
+  }, [data]);
+  if (!!data) {
     if (props.children instanceof Function) {
-      return props.children(data);
+      return props.children(data.result);
     }
     return props.children;
   }
