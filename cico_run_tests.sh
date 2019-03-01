@@ -33,7 +33,7 @@ docker ps -a | grep -q ${BUILDER_CONT} && docker rm ${BUILDER_CONT}
 rm -rf ${TARGET_DIR}/
 
 #BUILD
-docker build -t ${BUILDER_IMAGE} -f "${DOCKER_IMAGE_DIR}/${DOCKERFILE_BUILD}" .
+docker build -t ${BUILDER_IMAGE} -f ${DOCKERFILE_BUILD} .
 
 mkdir ${TARGET_DIR}/
 docker run --detach=true --name ${BUILDER_CONT} -t -v $(pwd)/${TARGET_DIR}:/${TARGET_DIR}:Z ${BUILDER_IMAGE} /bin/tail -f /dev/null #FIXME
@@ -43,5 +43,5 @@ docker exec ${BUILDER_CONT} npm run build:prod
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
 #BUILD DEPLOY IMAGE
-docker build -t ${DEPLOY_IMAGE} -f "${DOCKERFILE_DIR}/${DOCKERFILE_DEPLOY}" .
+docker build -t ${DEPLOY_IMAGE} -f ${DOCKERFILE_DEPLOY} .
 

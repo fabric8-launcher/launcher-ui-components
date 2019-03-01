@@ -11,8 +11,6 @@ BUILDER_IMAGE="launcher-frontend-builder"
 BUILDER_CONT="launcher-frontend-builder-container"
 DEPLOY_IMAGE="launcher-frontend-deploy"
 DOCKERFILE_BUILD="Dockerfile.build"
-DOCKERFILE_DIR=""
-
 TARGET_DIR="build"
 
 if [ "$TARGET" = "rhel" ]; then
@@ -64,20 +62,20 @@ docker ps -a | grep -q ${BUILDER_CONT} && docker rm ${BUILDER_CONT}
 rm -rf ${TARGET_DIR}/
 
 #BUILD
-docker build -t ${BUILDER_IMAGE} -f "${DOCKERFILE_DIR}/${DOCKERFILE_BUILD}" .
+docker build -t ${BUILDER_IMAGE} -f ${DOCKERFILE_BUILD} .
 
 mkdir ${TARGET_DIR}/
 docker run --detach=true --name ${BUILDER_CONT} -t -v $(pwd)/${TARGET_DIR}:/${TARGET_DIR}:Z ${BUILDER_IMAGE} /bin/tail -f /dev/null #FIXME
 
 docker exec ${BUILDER_CONT} yarn install
-docker exec ${BUILDER_CONT} yarn build:prod
+docker exec ${BUILDER_CONT} yarn build
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
 #LOGIN
 docker_login "${QUAY_USERNAME}" "${QUAY_PASSWORD}" "${REGISTRY_URI}"
 
 #BUILD DEPLOY IMAGE
-docker build -t ${DEPLOY_IMAGE} -f "${DOCKERFILE_DIR}/${DOCKERFILE_DEPLOY}" .
+docker build -t ${DEPLOY_IMAGE} -f ${DOCKERFILE_DEPLOY} .
 
 #PUSH
 if [ -z $CICO_LOCAL ]; then
