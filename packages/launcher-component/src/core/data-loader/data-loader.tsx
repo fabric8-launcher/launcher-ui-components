@@ -11,7 +11,7 @@ export function Spin(props: { children: React.ReactNode }) {
   );
 }
 
-export function DataLoader<T>(props: { loader: () => Promise<T>, default: T, children: ((T) => any) | React.ReactNode }) {
+export function DataLoader<T>(props: { loader: () => Promise<T>, default: T, children: ((arg: T) => any) | React.ReactNode }) {
   const [data, setData] = useState<T>(props.default);
   const [loaded, setLoaded] = useState<boolean>(false);
   const loadData = async () => {
@@ -30,5 +30,5 @@ export function DataLoader<T>(props: { loader: () => Promise<T>, default: T, chi
     }
     return props.children;
   }
-  return (<div className={style.loader}><Spin><InProgressIcon/></Spin></div>);
+  return (<span className={style.loader}><Spin><InProgressIcon/></Spin></span>);
 }
