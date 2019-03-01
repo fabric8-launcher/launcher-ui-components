@@ -51,32 +51,37 @@ export function ImportForm(props: ImportFormProps) {
             />
             <GitInfoLoader>
               {(gitInfo) => (
-                <RepositoryPicker
-                  import={true}
-                  gitInfo={gitInfo}
-                  value={inputProps.value.repository}
-                  onChange={(repository) => inputProps.onChange({...inputProps.value, repository})}
-                />
-              )}
-            </GitInfoLoader>
-            {inputProps.value.repository.name && (
-              <React.Fragment>
-                <DescriptiveHeader
-                  title="Build Image"
-                  description="A build image is needed to build and deploy you app on openshift.
-                  we've detected a likly canditate for you to use but you could change it if you need."
-                />
-                <BuildImageAnalyzerLoader repository={{org: 'jean-bon', name: 'bayonne'}}>
-                  {result => (
-                    <BuildImagePicker
-                      value={inputProps.value.buildImage}
-                      onChange={(buildImage) => inputProps.onChange({...inputProps.value, buildImage})}
-                      result={result}
-                    />
+                <React.Fragment>
+                  <RepositoryPicker
+                    import={true}
+                    gitInfo={gitInfo}
+                    value={inputProps.value.repository}
+                    onChange={(repository) => inputProps.onChange({...inputProps.value, repository})}
+                  />
+                  {inputProps.value.repository.name && (
+                    <React.Fragment>
+                      <DescriptiveHeader
+                        title="Build Image"
+                        description="A build image is needed to build and deploy you app on openshift.
+                        we've detected a likly canditate for you to use but you could change it if you need."
+                      />
+                      <BuildImageAnalyzerLoader
+                        repository={{org: inputProps.value.repository.org ? inputProps.value.repository.org : gitInfo.login,
+                          name: inputProps.value.repository.name}}
+                      >
+                        {result => (
+                          <BuildImagePicker
+                            value={inputProps.value.buildImage}
+                            onChange={(buildImage) => inputProps.onChange({...inputProps.value, buildImage})}
+                            result={result}
+                          />
+                        )}
+                      </BuildImageAnalyzerLoader>
+                    </React.Fragment>
                   )}
-                </BuildImageAnalyzerLoader>
-              </React.Fragment>
-            )}
+                </React.Fragment>
+                )}
+            </GitInfoLoader>
           </React.Fragment>
         )}
     </FormPanel>
