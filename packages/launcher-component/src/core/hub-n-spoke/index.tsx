@@ -12,7 +12,7 @@ export interface HubItem {
     component: (props: { edit: () => void }) => ReactElement<any>;
     width?: 'third' | 'half' | 'full';
   };
-  form: {
+  form?: {
     component: (props: { close: () => void }) => ReactElement<any>;
   };
 }
@@ -51,9 +51,11 @@ export function HubOverviewCard(props: HubItem) {
           {props.title}
         </h1>
         <div className="hub-and-spoke-nav">
-          <Button variant="plain" aria-label={`edit-${props.id}`} onClick={onEdit}>
-            <EditIcon/>
-          </Button>
+          {props.form && (
+            <Button variant="plain" aria-label={`edit-${props.id}`} onClick={onEdit}>
+              <EditIcon/>
+            </Button>
+          )}
         </div>
       </div>
       <div className="hub-and-spoke-body">
@@ -119,7 +121,7 @@ export function HubNSpoke(props: HubAndSpokeProps) {
         <Grid className="hub-and-spoke-container" gutter={'sm'}>
           {hub.selected ? (
             <HubFormCard id={hub.selected.id} title={hub.selected.title}>
-              {hub.selected.form.component({close: hub.close})}
+              {hub.selected.form!.component({close: hub.close})}
             </HubFormCard>
           ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
         </Grid>

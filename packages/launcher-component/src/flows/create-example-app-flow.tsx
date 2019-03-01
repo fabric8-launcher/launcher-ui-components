@@ -37,6 +37,7 @@ export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <ExampleFormOverview value={app.example} onClick={edit}/>
         ),
+        width: 'third',
       },
       form: {
         component: ({close}) => (
@@ -58,6 +59,7 @@ export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <SrcLocationFormOverview value={app.srcLocation} onClick={edit}/>
         ),
+        width: 'third',
       },
       form: {
         component: ({close}) => (
@@ -79,6 +81,7 @@ export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <DeploymentFormOverview value={app.deployment} onClick={edit}/>
         ),
+        width: 'third',
       },
       form: {
         component: ({close}) => (

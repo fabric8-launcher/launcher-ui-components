@@ -16,7 +16,7 @@ export interface BackendFormValue {
 }
 
 export function isBackendFormValueValid(value: BackendFormValue) {
-  return value.capabilities.filter(c => c.selected).length > 1 && !!value.runtime;
+  return value.capabilities.filter(c => c.selected).length > 0 && !!value.runtime;
 }
 
 export const defaultBackendFormValue: BackendFormValue = {
@@ -66,7 +66,7 @@ export function BackendForm(props: BackendFormProps) {
      services, and OpenShift together end-to-end. When done, our friendly Welcome Application will show you how
      everything works."
                 />
-                <CapabilitiesLoader categories={['backend', 'support']}>
+                <CapabilitiesLoader categories={['backend']}>
                   {(capabilities) => (
                     <CapabilitiesPicker
                       items={capabilities.map(capabilityToItem)}

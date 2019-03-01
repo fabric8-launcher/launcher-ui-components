@@ -3,6 +3,7 @@ import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-cor
 import * as React from 'react';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
 import { CapabilitiesByModuleLoader } from '../loaders/capabilities-loader';
+import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 
 interface BackendOverviewProps {
   value: BackendFormValue;
@@ -26,19 +27,16 @@ export function BackendFormOverview(props: BackendOverviewProps) {
   return (
     <RuntimeLoader id={props.value.runtime.id}>
       {runtime => (
-        <EmptyState>
-          <Title size="lg">Your Backend will run on {runtime!.name}</Title>
-          <EmptyStateBody>
-            <CapabilitiesByModuleLoader categories={['backend', 'support']}>
-              { capabilitiesById => (
-                <div>
-                  It will feature: {props.value.capabilities.filter(c => c.selected).map(c => capabilitiesById.get(c.id)!.name).join(', ')}
-                </div>
-              )}
-            </CapabilitiesByModuleLoader>
-
-          </EmptyStateBody>
-        </EmptyState>
+        <OverviewComplete title={`Your ${runtime!.name} backend is configured`}>
+          <CapabilitiesByModuleLoader categories={['backend', 'support']}>
+            {capabilitiesById => (
+              <div>
+                It will feature:
+                {props.value.capabilities.filter(c => c.selected).map(c => capabilitiesById.get(c.id)!.name).join(', ')}
+              </div>
+            )}
+          </CapabilitiesByModuleLoader>
+        </OverviewComplete>
       )}
     </RuntimeLoader>
   );

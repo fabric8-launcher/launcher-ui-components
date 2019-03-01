@@ -2,6 +2,7 @@ import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-cor
 import * as React from 'react';
 import { SrcLocationFormValue } from './src-location-form';
 import { normalizeRepositoryPath } from '../pickers/repository-picker/repository-picker';
+import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 
 interface RepositoryFormOverviewProps {
   value: SrcLocationFormValue;
@@ -22,8 +23,6 @@ export function SrcLocationFormOverview(props: RepositoryFormOverviewProps) {
     );
   }
   return (
-    <EmptyState>
-      <Title size="lg">Your code will be located in '{normalizeRepositoryPath(props.value.repository)}'</Title>
-    </EmptyState>
+    <OverviewComplete title={`Your code will be located in '${normalizeRepositoryPath(props.value.repository)}'`} />
   );
 }

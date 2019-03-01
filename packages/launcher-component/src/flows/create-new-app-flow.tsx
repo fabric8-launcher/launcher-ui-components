@@ -12,6 +12,7 @@ import { LaunchFlow } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
 import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';
+import { WelcomeAppOverview } from '../forms/welcome-app-overview';
 
 interface CustomApp {
   backend: BackendFormValue;
@@ -43,6 +44,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <FrontendFormOverview value={app.frontend} onClick={edit}/>
         ),
+        width: 'third',
       },
       form: {
         component: ({close}) => (
@@ -64,6 +66,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <BackendFormOverview value={app.backend} onClick={edit}/>
         ),
+        width: 'third',
       },
       form: {
         component: ({close}) => (
@@ -79,12 +82,23 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
+      id: 'welcome-app',
+      title: 'Welcome Application',
+      overview: {
+        component: () => (
+          <WelcomeAppOverview />
+        ),
+        width: 'third',
+      }
+    },
+    {
       id: 'srcLocation',
       title: 'Source Location',
       overview: {
         component: ({edit}) => (
           <SrcLocationFormOverview value={app.srcLocation} onClick={edit}/>
         ),
+        width: 'half',
       },
       form: {
         component: ({close}) => (
@@ -106,6 +120,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <DeploymentFormOverview value={app.deployment} onClick={edit}/>
         ),
+        width: 'half',
       },
       form: {
         component: ({close}) => (

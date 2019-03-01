@@ -1,8 +1,8 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
 import { OpenshiftClusterLoader } from '../loaders/openshiftcluster-loader';
-import { CheckCircleIcon } from '@patternfly/react-icons';
 import { DeploymentFormValue } from './deployment-form';
+import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 
 interface DeploymentFormProps {
   value: DeploymentFormValue;
@@ -25,12 +25,9 @@ export function DeploymentFormOverview(props: DeploymentFormProps) {
   return (
     <OpenshiftClusterLoader clusterId={props.value.cluster.clusterId}>
       {result => (
-        <EmptyState>
-          <Title size="lg"><CheckCircleIcon />OpenShift Deployment is configured</Title>
-          <EmptyStateBody>
-            You application will be deployed on the '{result!.name}' OpenShift cluster.
-          </EmptyStateBody>
-        </EmptyState>
+        <OverviewComplete title="OpenShift Deployment is configured">
+          You application will be deployed on the '{result!.name}' OpenShift cluster.
+        </OverviewComplete>
       )}
     </OpenshiftClusterLoader>
   );

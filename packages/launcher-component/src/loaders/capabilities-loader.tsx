@@ -12,7 +12,7 @@ export function capabilityToItem(c: Capability): CapabilityItem {
     category: c.metadata.category,
     icon: c.metadata.icon,
     fields: c.props,
-    disabled: c.module === 'welcome'
+    disabled: c.module === 'health'
   };
 }
 

@@ -2,6 +2,7 @@ import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-cor
 import * as React from 'react';
 import { ExamplePickerValue } from '../pickers/example-picker/example-picker';
 import { ExamplesLoader } from '../loaders/example-catalog-loader';
+import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 
 interface ExampleOverviewProps {
   value: ExamplePickerValue;
@@ -24,12 +25,9 @@ export function ExampleFormOverview(props: ExampleOverviewProps) {
   return (
     <ExamplesLoader id={props.value.missionId}>
       {result => (
-        <EmptyState>
-          <Title size="lg">Your example will be {(result.catalog as any).name}</Title>
-          <EmptyStateBody>
-            {(result.catalog as any).description}
-          </EmptyStateBody>
-        </EmptyState>
+        <OverviewComplete title={`Your example will be ${(result.catalog as any).name}`}>
+          {(result.catalog as any).description}
+        </OverviewComplete>
       )}
     </ExamplesLoader>
   );

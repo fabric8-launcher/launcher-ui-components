@@ -1,6 +1,7 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
 import { ImportFormValue } from './import-form';
+import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 
 interface ImportOverviewProps {
   value: ImportFormValue;
@@ -21,10 +22,8 @@ export function ImportFormOverview(props: ImportOverviewProps) {
     );
   }
   return (
-    <EmptyState>
-      <Title size="lg">
-        We will import {props.value.repository.org}{props.value.repository.org ? '/' : ''}{props.value.repository.name}
-      </Title>
-    </EmptyState>
+    <OverviewComplete title="Import is configured">
+      We will import {props.value.repository.org}{props.value.repository.org ? '/' : ''}{props.value.repository.name}
+    </OverviewComplete>
   );
 }

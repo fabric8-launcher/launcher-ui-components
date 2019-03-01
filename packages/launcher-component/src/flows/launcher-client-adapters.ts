@@ -1,4 +1,3 @@
-
 export function toNewAppPayload(app) {
   let parts: any[] = [];
 
@@ -6,7 +5,7 @@ export function toNewAppPayload(app) {
     parts.push({
       category: 'frontend',
       shared: {
-        runtime: { name: app.frontend.runtime!.id, version: 'community' }
+        runtime: {name: app.frontend.runtime!.id, version: 'community'}
       },
       capabilities: [{
         module: 'web-app'
@@ -18,16 +17,21 @@ export function toNewAppPayload(app) {
     parts.push({
       category: 'backend',
       shared: {
-        runtime: { name: app.backend.runtime!.id, version: 'community' }
+        runtime: {name: app.backend.runtime!.id, version: 'community'}
       },
       capabilities: app.backend.capabilities
         .filter(c => c.selected)
-        .map(c => ({ module: c.id, props: c.data }))
+        .map(c => ({module: c.id, props: c.data}))
     });
   }
 
-  if(parts.length > 1) {
-    parts = parts.map(p => ({ ...p, subFolderName: p.category }));
+  if (parts.length > 1) {
+    parts = [
+      ...parts.map(p => ({...p, subFolderName: p.category})),
+      {category: 'support', subFolderName: 'support', capabilities: {module: 'welcome-app'}}
+    ];
+  } else {
+    parts[0].capabilities.push({module: 'welcome-app'});
   }
 
   return {
@@ -35,7 +39,7 @@ export function toNewAppPayload(app) {
       application: app.srcLocation.repository!.name,
       parts,
     },
-    gitRepository:  app.srcLocation.repository!.name,
+    gitRepository: app.srcLocation.repository!.name,
     gitOrganization: app.srcLocation.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
     projectName: app.srcLocation.repository!.name,
@@ -48,8 +52,8 @@ export function toExamplePayload(app) {
   parts.push({
     category: 'example',
     shared: {
-      mission: { id: app.example.missionId },
-      runtime: { name: app.example.runtimeId, version: app.example.versionId }
+      mission: {id: app.example.missionId},
+      runtime: {name: app.example.runtimeId, version: app.example.versionId}
     }
   });
 
@@ -58,7 +62,7 @@ export function toExamplePayload(app) {
       application: app.srcLocation.repository!.name,
       parts,
     },
-    gitRepository:  app.srcLocation.repository!.name,
+    gitRepository: app.srcLocation.repository!.name,
     gitOrganization: app.srcLocation.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
     projectName: app.srcLocation.repository!.name,
@@ -80,7 +84,7 @@ export function toImportAppPayload(app) {
       application: app.srcLocation.repository!.name,
       parts,
     },
-    gitRepository:  app.importApp.repository!.name,
+    gitRepository: app.importApp.repository!.name,
     gitOrganization: app.importApp.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
     projectName: app.importApp.repository!.name,

@@ -34,6 +34,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
         component: ({ edit }) => (
           <ImportFormOverview value={app.importApp} onClick={edit} />
         ),
+        width: 'half',
       },
       form: {
         component: ({ close }) => (
@@ -55,6 +56,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <DeploymentFormOverview value={app.deployment} onClick={edit}/>
         ),
+        width: 'half',
       },
       form: {
         component: ({close}) => (

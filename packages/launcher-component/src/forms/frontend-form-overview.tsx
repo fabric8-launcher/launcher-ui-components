@@ -2,6 +2,7 @@ import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-cor
 import * as React from 'react';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
 import { FrontendFormValue } from './frontend-form';
+import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 
 interface FrontendOverviewProps {
   value: FrontendFormValue;
@@ -24,9 +25,7 @@ export function FrontendFormOverview(props: FrontendOverviewProps) {
   return (
     <RuntimeLoader id={props.value.runtime.id}>
       {runtime => (
-        <EmptyState>
-          <Title size="lg">Your Frontend will run on {runtime!.name}</Title>
-        </EmptyState>
+        <OverviewComplete title={`Your ${runtime!.name} frontend is configured`} />
       )}
     </RuntimeLoader>
   );
