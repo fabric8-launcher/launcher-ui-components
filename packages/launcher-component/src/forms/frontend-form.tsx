@@ -27,7 +27,6 @@ export function FrontendForm(props: FrontendFormProps) {
     <FormPanel
       value={props.value}
       onSave={props.onSave}
-      isValid={isFrontendFormValueValid}
       onCancel={props.onCancel}
     >
       {

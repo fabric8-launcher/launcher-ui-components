@@ -35,7 +35,6 @@ export function BackendForm(props: BackendFormProps) {
     <FormPanel
       value={props.value}
       onSave={props.onSave}
-      isValid={isBackendFormValueValid}
       onCancel={props.onCancel}
     >
       {

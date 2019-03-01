@@ -28,15 +28,20 @@ const noneItem: RuntimeItem = {
 export const defaultRuntimePickerValue = undefined;
 
 export function RuntimePicker(props: RuntimePickerProps) {
+  const canSelectNone = props.canSelectNone !== false;
   const onChange = (id) => {
+    if(canSelectNone && id === noneItem.id) {
+      props.onChange(undefined);
+      return;
+    }
     props.onChange({id});
   };
-
+  const value = props.value && props.value.id || (canSelectNone ? '' : undefined);
   return (
     <ItemPicker
-      value={props.value && props.value.id}
+      value={value}
       onChange={onChange}
-      items={props.canSelectNone === undefined || props.canSelectNone ? props.items.concat(noneItem) : props.items}
+      items={canSelectNone ? props.items.concat(noneItem) : props.items}
       group="runtime"
     />
   );
