@@ -59,7 +59,7 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   public async importAnalyze(gitImportUrl: string): Promise<AnalyzeResult> {
-    const endpoint = '/import/analyze?gitImportUrl' + encodeURIComponent(gitImportUrl);
+    const endpoint = '/import/analyze?gitImportUrl=' + encodeURIComponent(gitImportUrl);
     return await this.httpService.get<AnalyzeResult>(this.config.creatorUrl, endpoint);
   }
 
