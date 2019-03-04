@@ -12,8 +12,8 @@
     "@patternfly/react-core": "2.1.4",
     "@patternfly/react-icons": "3.0.2",
     "classnames": "2.2.6",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3"
+    "react": "16.8.3",
+    "react-dom": "16.8.3"
   },
   "scripts": {
     "build:libs": "yarn workspace launcher-client build && yarn workspace keycloak-react build && yarn workspace launcher-component build",
@@ -44,10 +44,6 @@
     "lerna": "3.13.0",
     "node-sass": "4.11.0",
     "react-testing-library": "6.0.0",
-    "ts-jest": "24.0.0",
-    "tslint": "5.12.1",
-    "tslint-react": "3.6.0",
-    "typescript": "3.3.3333",
     "rollup": "1.3.0",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.2.1",
@@ -55,6 +51,10 @@
     "rollup-plugin-peer-deps-external": "2.2.0",
     "rollup-plugin-postcss": "2.0.3",
     "rollup-plugin-tslint": "0.2.2",
-    "rollup-plugin-typescript2": "0.19.3"
+    "rollup-plugin-typescript2": "0.19.3",
+    "ts-jest": "24.0.0",
+    "tslint": "5.12.1",
+    "tslint-react": "3.6.0",
+    "typescript": "3.3.3333"
   }
 }
