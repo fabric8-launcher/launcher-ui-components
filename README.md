@@ -18,14 +18,14 @@ $ yarn install
 $ yarn launcher-component:storybook
 ```
 
-### Start Launcher Application dev server (against staging-api)
-```bash
-$ yarn launcher-app:start
-```
-
 ### Build all libraries
 ```bash
 $ yarn build:libs
+```
+
+### Start Launcher Application dev server (against staging-api)
+```bash
+$ yarn launcher-app:start
 ```
 
 ### Publish storybook
