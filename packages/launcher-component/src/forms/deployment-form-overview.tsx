@@ -16,7 +16,7 @@ export function DeploymentFormOverview(props: DeploymentFormProps) {
       <EmptyState>
         <Title size="lg">You need to configure the OpenShift deployment</Title>
         <EmptyStateBody>
-          You are going to choose where your application will be build, deployed and served.
+          You are going to choose where your application will be built, deployed and served.
         </EmptyStateBody>
         <Button variant="primary" onClick={props.onClick}>Configure OpenShift Deployment</Button>
       </EmptyState>
@@ -26,7 +26,7 @@ export function DeploymentFormOverview(props: DeploymentFormProps) {
     <OpenshiftClusterLoader clusterId={props.value.cluster.clusterId}>
       {result => (
         <OverviewComplete title="OpenShift Deployment is configured">
-          You application will be deployed on the '{result!.name}' OpenShift cluster.
+          You application will be deployed to the '{result!.name}' OpenShift cluster.
         </OverviewComplete>
       )}
     </OpenshiftClusterLoader>
