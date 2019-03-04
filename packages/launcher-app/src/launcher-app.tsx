@@ -40,7 +40,7 @@ export function LauncherApp() {
           creatorUrl={creatorApiUrl}
           launcherUrl={launcherApiUrl}
         >
-          <AuthRouter loginPage={LoginPage} homePage={HomePage}/>
+          <AuthRouter loginPage={LoginPage} homePage={HomePage} basename={process.env.PUBLIC_URL}/>
         </LauncherClientProvider>
       </AuthContext.Provider>
     </DataLoader>
