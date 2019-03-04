@@ -41,8 +41,6 @@ function tag_push() {
 # Exit on error
 set -e
 
-
-
 if [ -z $CICO_LOCAL ]; then
     [ -f jenkins-env ] && cat jenkins-env | grep -e PASS -e USER -e GIT -e DEVSHIFT > inherit-env
     [ -f inherit-env ] && . inherit-env
@@ -67,8 +65,8 @@ docker build -t ${BUILDER_IMAGE} -f ${DOCKERFILE_BUILD} .
 mkdir ${TARGET_DIR}/
 docker run --detach=true --name ${BUILDER_CONT} -t -v $(pwd)/${TARGET_DIR}:/${TARGET_DIR}:Z ${BUILDER_IMAGE} /bin/tail -f /dev/null #FIXME
 
-docker exec ${BUILDER_CONT} yarn install
-docker exec ${BUILDER_CONT} yarn build
+docker exec -u root ${BUILDER_CONT} yarn install
+docker exec -u root ${BUILDER_CONT} yarn build
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
 #LOGIN
