@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import _ from 'lodash';
+import { generate } from 'project-name-generator';
 
 import { SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-form';
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
@@ -21,7 +21,7 @@ interface ExampleApp {
 const defaultCustomApp = {
   example: defaultExampleFormValue,
   srcLocation: {
-    repository: { name: 'my-app-' + _.random(1, 1000) }
+    repository: {name: generate().dashed}
   },
   deployment: defaultDeploymentFormValue,
 };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import _ from 'lodash';
+import { generate } from 'project-name-generator';
 
 import { BackendForm, defaultBackendFormValue, isBackendFormValueValid, BackendFormValue, } from '../forms/backend-form';
 import { defaultFrontendFormValue, FrontendForm, isFrontendFormValueValid, FrontendFormValue, } from '../forms/frontend-form';
@@ -25,7 +25,7 @@ const defaultCustomApp = {
   backend: defaultBackendFormValue,
   frontend: defaultFrontendFormValue,
   srcLocation: {
-    repository: {name: 'my-app-' + _.random(1, 1000)}
+    repository: {name: generate().dashed}
   },
   deployment: defaultDeploymentFormValue,
 };
