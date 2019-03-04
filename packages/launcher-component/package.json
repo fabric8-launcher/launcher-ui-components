@@ -12,7 +12,8 @@
     "storybook:publish": "storybook-to-ghpages"
   },
   "dependencies": {
-    "launcher-client": "*"
+    "launcher-client": "*",
+    "project-name-generator": "2.1.6"
   },
   "devDependencies": {
     "@storybook/addon-actions": "4.1.11",
@@ -23,8 +24,8 @@
     "@storybook/storybook-deployer": "2.8.1",
     "@types/storybook__addon-actions": "3.4.1",
     "@types/storybook__react": "4.0.0",
-    "react-docgen-typescript-loader": "3.0.1",
     "awesome-typescript-loader": "5.2.1",
+    "react-docgen-typescript-loader": "3.0.1",
     "react-scripts": "2.1.5"
   },
   "eslintConfig": {
