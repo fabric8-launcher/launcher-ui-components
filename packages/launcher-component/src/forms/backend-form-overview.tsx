@@ -30,10 +30,10 @@ export function BackendFormOverview(props: BackendOverviewProps) {
         <OverviewComplete title={`Your ${runtime!.name} backend is configured`}>
           <CapabilitiesByModuleLoader categories={['backend', 'support']}>
             {capabilitiesById => (
-              <div>
+              <React.Fragment>
                 It will feature:
                 {props.value.capabilities.filter(c => c.selected).map(c => capabilitiesById.get(c.id)!.name).join(', ')}
-              </div>
+              </React.Fragment>
             )}
           </CapabilitiesByModuleLoader>
         </OverviewComplete>

@@ -28,10 +28,10 @@ export function toNewAppPayload(app) {
   if (parts.length > 1) {
     parts = [
       ...parts.map(p => ({...p, subFolderName: p.category})),
-      {category: 'support', subFolderName: 'support', capabilities: {module: 'welcome-app'}}
+      {category: 'support', subFolderName: 'support', capabilities: [{module: 'welcome'}]}
     ];
   } else {
-    parts[0].capabilities.push({module: 'welcome-app'});
+    parts[0].capabilities.push({module: 'welcome'});
   }
 
   return {

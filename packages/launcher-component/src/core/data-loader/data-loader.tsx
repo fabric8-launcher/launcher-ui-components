@@ -11,6 +11,12 @@ export function Spin(props: { children: React.ReactNode }) {
   );
 }
 
+export function Loader() {
+  return (
+    <div className={style.loader}><Spin><InProgressIcon/></Spin></div>
+  );
+}
+
 export function DataLoader<T>(props: { loader: () => Promise<T>, children: ((arg: T) => any) | React.ReactNode }) {
   const [data, setData] = useState<{ result: T } | undefined>(undefined);
   const loadData = async () => {
@@ -28,5 +34,5 @@ export function DataLoader<T>(props: { loader: () => Promise<T>, children: ((arg
     }
     return props.children;
   }
-  return (<span className={style.loader}><Spin><InProgressIcon/></Spin></span>);
+  return (<Loader />);
 }

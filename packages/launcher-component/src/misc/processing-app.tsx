@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DataList, DataListCell, DataListItem } from '@patternfly/react-core';
 import { ErrorCircleOIcon, InProgressIcon, OkIcon, PauseCircleIcon } from '@patternfly/react-icons';
-import { Spin } from '../core/data-loader/data-loader';
+import { Loader, Spin } from '../core/data-loader/data-loader';
 
 interface EventStatus {
   statusMessage: string;
@@ -37,7 +37,7 @@ type Statuses = 'progress' | 'completed' | 'error' | 'paused';
 export function ProcessingApp(props: ProcessingAppProps) {
 
   if(!props.progressEvents) {
-    return (<Spin><InProgressIcon/></Spin>);
+    return (<Loader />);
   }
 
   const progressSteps: Array<{ id: number, name: string, message: string, status: Statuses }> = new Array(4);
