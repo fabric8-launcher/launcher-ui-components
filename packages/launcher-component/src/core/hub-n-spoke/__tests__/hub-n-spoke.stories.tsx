@@ -6,5 +6,5 @@ import { mockItems } from './mock-items';
 
 storiesOf('Core', module)
   .add('HubNSpoke', () => (
-    <HubNSpoke items={mockItems}/>
+    <HubNSpoke title="HubNSpoke" items={mockItems}/>
   ));

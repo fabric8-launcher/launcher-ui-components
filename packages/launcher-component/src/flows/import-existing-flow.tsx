@@ -75,6 +75,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
 
   return (
     <LaunchFlow
+      title="Import an Existing Application"
       items={items}
       isValid={() => isImportFormValueValid(app.importApp)}
       buildAppPayload={() => toImportAppPayload(app)}

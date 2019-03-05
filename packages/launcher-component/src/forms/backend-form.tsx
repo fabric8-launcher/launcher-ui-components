@@ -3,7 +3,7 @@ import {
   CapabilitiesPickerValue,
   defaultCapabilitiesPickerValue
 } from '../pickers/capabilities-picker/capabilities-picker';
-import { DescriptiveHeader } from '../core/descriptive-header';
+import { DescriptiveHeader, Separator } from '../core/stuff';
 import * as React from 'react';
 import { RuntimePicker, RuntimePickerValue } from '../pickers/runtime-picker/runtime-picker';
 import { EnumsRuntimesLoaders } from '../loaders/enums-runtimes-loaders';
@@ -58,6 +58,7 @@ export function BackendForm(props: BackendFormProps) {
             </EnumsRuntimesLoaders>
             {inputProps.value.runtime && (
               <React.Fragment>
+                <Separator />
                 <DescriptiveHeader
                   title="Capabilities"
                   description="Capabilities specify what your application can do.

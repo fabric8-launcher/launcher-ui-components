@@ -16,6 +16,7 @@
     "react-dom": "16.8.3"
   },
   "scripts": {
+    "test": "yarn workspaces run test",
     "build:libs": "yarn workspace launcher-client build && yarn workspace keycloak-react build && yarn workspace launcher-component build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
     "launcher-app:start": "yarn workspace launcher-app start:staging-api",

@@ -2,7 +2,7 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { CreateNewAppFlow } from '../create-new-app-flow';
-import { CreateExampleAppFlow } from '../create-example-app-flow';
+import { DeployExampleAppFlow } from '../deploy-example-app-flow';
 import { ImportExistingFlow } from '../import-existing-flow';
 import { LauncherClientProvider } from '../..';
 
@@ -20,7 +20,7 @@ storiesOf('Flows', module)
 
   .add('CreateExampleAppFlow', () => {
     return (
-      <CreateExampleAppFlow/>
+      <DeployExampleAppFlow/>
     );
   })
 

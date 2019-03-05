@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
 import { InputProps } from '../types';
+import { Separator } from '../stuff';
 
 interface FormPanelProps<T> {
   value: T;
@@ -32,7 +33,8 @@ export function FormPanel<T>(props: FormPanelProps<T>) {
   return (
     <div className="form-panel" style={{padding: '20px'}}>
       {props.children({value, onChange})}
-      <Toolbar style={{marginTop: '20px'}}>
+      <Separator/>
+      <Toolbar>
         <ToolbarGroup>
           <Button variant="primary" onClick={onSave} isDisabled={props.isValid && !props.isValid(value)}>Save</Button>
         </ToolbarGroup>

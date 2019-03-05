@@ -1,4 +1,4 @@
-import { DescriptiveHeader } from '../core/descriptive-header';
+import { DescriptiveHeader } from '../core/stuff';
 import * as React from 'react';
 import { RuntimePicker, RuntimePickerValue } from '../pickers/runtime-picker/runtime-picker';
 import { EnumsRuntimesLoaders } from '../loaders/enums-runtimes-loaders';
@@ -33,7 +33,6 @@ export function FrontendForm(props: FrontendFormProps) {
         (inputProps) => (
           <React.Fragment>
             <DescriptiveHeader
-              title="Frontend"
               description="You may optionally select a frontend application to bootstrap your web-based development.
                         These options scaffold a starting point in your framework of choice."
             />

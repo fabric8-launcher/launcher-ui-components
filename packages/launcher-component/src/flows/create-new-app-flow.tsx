@@ -139,6 +139,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
 
   return (
     <LaunchFlow
+      title="Create a New Application"
       items={items}
       isValid={isValidForm}
       buildAppPayload={() => toNewAppPayload(app)}

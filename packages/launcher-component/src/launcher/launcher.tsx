@@ -2,7 +2,7 @@ import { Button, Card, CardBody, CardFooter, CardHeader, Grid, GridItem } from '
 import * as React from 'react';
 import { useState } from 'react';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
-import { CreateExampleAppFlow } from '../flows/create-example-app-flow';
+import { DeployExampleAppFlow } from '../flows/deploy-example-app-flow';
 import style from './launcher.module.scss';
 import { ImportExistingFlow } from '../flows/import-existing-flow';
 import { CatalogIcon, FileImportIcon, TopologyIcon } from '@patternfly/react-icons';
@@ -28,7 +28,7 @@ export function Launcher() {
                 by picking the capabilities you want (Http Api, Persistence, ...).
                 We take care of setting everything's up to get you started.</CardBody>
               <CardFooter>
-                <Button variant="primary" onClick={createNewApp}>Create a new Application</Button>
+                <Button variant="primary" onClick={createNewApp}>Create a New Application</Button>
               </CardFooter>
             </Card>
           </GridItem>
@@ -47,7 +47,7 @@ export function Launcher() {
               <CardHeader className={style.flowHeader}><FileImportIcon /></CardHeader>
               <CardBody>Import your own existing application in the OpenShift ecosystem. We take</CardBody>
               <CardFooter>
-                <Button variant="primary" onClick={importApp}>Import an existing Application</Button>
+                <Button variant="primary" onClick={importApp}>Import an Existing Application</Button>
               </CardFooter>
             </Card>
           </GridItem>
@@ -57,7 +57,7 @@ export function Launcher() {
         <CreateNewAppFlow onCancel={resetType}/>
       )}
       {type && type === Type.EXAMPLE && (
-        <CreateExampleAppFlow onCancel={resetType}/>
+        <DeployExampleAppFlow onCancel={resetType}/>
       )}
       {type && type === Type.IMPORT && (
         <ImportExistingFlow onCancel={resetType}/>

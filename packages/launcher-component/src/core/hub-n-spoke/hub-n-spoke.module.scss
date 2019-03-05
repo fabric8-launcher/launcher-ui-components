@@ -1,9 +1,16 @@
 .hubNSpoke {
   padding: 10px;
   :global {
+
+    h1.hub-and-spoke-title {
+      font-size: 200%;
+      margin-bottom: 30px;
+    }
+
     .hub-and-spoke-item {
       border: 1px solid #dcdcdc;
       border-radius: 3px;
+      background: white;
 
       .hub-and-spoke-header {
         border-bottom: 1px solid #f1f1f1;

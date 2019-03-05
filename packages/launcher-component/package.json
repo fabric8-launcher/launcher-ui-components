@@ -6,7 +6,7 @@
   "types": "build/types/index.d.ts",
   "scripts": {
     "build": "rm -rf ./build && rollup -c",
-    "test": "jest --config ../../jest.config.js",
+    "test": "jest",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "storybook:build": "build-storybook -s public",
     "storybook:publish": "storybook-to-ghpages"
@@ -16,14 +16,14 @@
     "project-name-generator": "2.1.6"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "4.1.11",
-    "@storybook/addon-links": "4.1.11",
-    "@storybook/addon-storysource": "4.1.11",
-    "@storybook/addons": "4.1.11",
-    "@storybook/react": "4.1.11",
+    "@storybook/addon-actions": "5.0.0",
+    "@storybook/addon-links": "5.0.0",
+    "@storybook/addon-storysource": "5.0.0",
+    "@storybook/addons": "5.0.0",
+    "@storybook/react": "5.0.0",
     "@storybook/storybook-deployer": "2.8.1",
-    "@types/storybook__addon-actions": "3.4.1",
-    "@types/storybook__react": "4.0.0",
+    "@types/storybook__addon-actions": "3.4.2",
+    "@types/storybook__react": "4.0.1",
     "awesome-typescript-loader": "5.2.1",
     "react-docgen-typescript-loader": "3.0.1",
     "react-scripts": "2.1.5"

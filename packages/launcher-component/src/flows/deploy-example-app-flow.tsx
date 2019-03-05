@@ -26,7 +26,7 @@ const defaultCustomApp = {
   deployment: defaultDeploymentFormValue,
 };
 
-export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
+export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<ExampleApp>(defaultCustomApp);
 
   const items = [
@@ -100,6 +100,7 @@ export function CreateExampleAppFlow(props: { onCancel?: () => void }) {
 
   return (
     <LaunchFlow
+      title="Deploy an Example Application"
       items={items}
       isValid={() => isExampleFormValueValid(app.example)}
       buildAppPayload={() => toExamplePayload(app)}

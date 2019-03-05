@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DescriptiveHeader } from '../core/descriptive-header';
+import { DescriptiveHeader } from '../core/stuff';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { ClusterPicker, ClusterPickerValue } from '../pickers/cluster-picker/cluster-picker';
 import { OpenshiftClustersLoader } from '../loaders/openshiftcluster-loader';
@@ -36,7 +36,6 @@ export function DeploymentForm(props: DeploymentFormProps) {
         (inputProps) => (
           <React.Fragment>
             <DescriptiveHeader
-              title="OpenShift Deployment"
               description="Choose an OpenShift cluster to build,
                deploy and serve your application automatically on each push to your repository’s master branch."
             />

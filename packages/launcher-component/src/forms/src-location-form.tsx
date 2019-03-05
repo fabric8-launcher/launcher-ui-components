@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { isRepositoryPickerValueValid, RepositoryPicker, RepositoryPickerValue } from '../pickers/repository-picker/repository-picker';
-import { DescriptiveHeader } from '../core/descriptive-header';
+import { DescriptiveHeader } from '../core/stuff';
 import { GitInfoLoader } from '../loaders/git-info-loader';
 import { FormPanel } from '../core/form-panel/form-panel';
 
@@ -34,7 +34,6 @@ export function SrcLocationForm(props: SrcLocationFormProps) {
         (inputProps) => (
           <React.Fragment>
             <DescriptiveHeader
-              title="Source Location"
               description="You can select where your application source code will be located,
                for now the only available provider is GitHub."
             />

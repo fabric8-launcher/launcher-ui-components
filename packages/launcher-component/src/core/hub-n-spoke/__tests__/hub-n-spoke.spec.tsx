@@ -7,12 +7,12 @@ afterEach(cleanup);
 
 describe('<HubNSpoke />', () => {
   it('renders the HubNSpoke correctly', () => {
-    const comp = render(<HubNSpoke items={mockItems} />);
+    const comp = render(<HubNSpoke title="HubNSpoke" items={mockItems} />);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('show the edition panel for the clicked hub', () => {
-    const comp = render(<HubNSpoke items={mockItems} />);
+    const comp = render(<HubNSpoke title="HubNSpoke" items={mockItems} />);
     const editHub1Button = comp.getByLabelText('edit-hub1');
     fireEvent.click(editHub1Button);
     expect(comp.getByText('this is hub 1 edition form')).toBeDefined();

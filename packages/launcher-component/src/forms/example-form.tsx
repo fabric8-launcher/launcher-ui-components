@@ -1,4 +1,4 @@
-import { DescriptiveHeader } from '../core/descriptive-header';
+import { DescriptiveHeader } from '../core/stuff';
 import * as React from 'react';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { ExamplesLoader } from '../loaders/example-catalog-loader';
@@ -30,7 +30,6 @@ export function ExampleForm(props: ExampleFormProps) {
         (inputProps) => (
           <React.Fragment>
             <DescriptiveHeader
-              title="Example"
               description="Select the use case that you want an Example of.
                         Once the use case is selected you can select the runtime implementation"
             />
