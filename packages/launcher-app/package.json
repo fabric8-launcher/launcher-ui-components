@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "export CI=true && react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "start:mock-api": "env-cmd .env.mock-api yarn start",
     "start:staging-api": "env-cmd .env.staging-api yarn start",
