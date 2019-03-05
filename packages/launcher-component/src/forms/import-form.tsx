@@ -62,7 +62,7 @@ export function ImportForm(props: ImportFormProps) {
                     <React.Fragment>
                       <DescriptiveHeader
                         description="A builder image is needed to build and deploy your application on OpenShift.
-                        We've detected a likely canditate, but you are free to change if needed."
+                        We've detected a likely candidate, but you are free to change if needed."
                       />
                       <BuildImageAnalyzerLoader
                         repository={{org: inputProps.value.repository.org ? inputProps.value.repository.org : gitInfo.login,
