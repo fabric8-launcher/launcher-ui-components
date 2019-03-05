@@ -2,6 +2,7 @@
   "name": "launcher-client",
   "version": "0.0.0",
   "homepage": "https://github.com/fabric8-launcher/launcher-client",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/fabric8-launcher/launcher-client.git"

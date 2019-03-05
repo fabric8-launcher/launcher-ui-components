@@ -1,6 +1,7 @@
 {
   "name": "launcher-component",
   "version": "0.0.0",
+  "license": "Apache-2.0",
   "main": "build/index.js",
   "module": "build/esm/index.js",
   "types": "build/types/index.d.ts",
