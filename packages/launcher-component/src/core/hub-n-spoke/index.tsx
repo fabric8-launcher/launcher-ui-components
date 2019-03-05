@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useContext, useState } from 'react';
-import { Button, Grid, GridItem, Page, PageSection, PageSectionVariants, Text, TextVariants } from '@patternfly/react-core';
+import { Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
 import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 
 import style from './hub-n-spoke.module.scss';
@@ -117,21 +117,18 @@ export function HubNSpoke(props: HubAndSpokeProps) {
   };
 
   return (
-    <Page className={style.hubNSpoke}>
+    <div className={style.hubNSpoke}>
       <HubContext.Provider value={hub}>
-        <PageSection variant={PageSectionVariants.default}>
-          <Text component={TextVariants.h1} className="hub-and-spoke-title">{props.title}</Text>
-          <Grid className="hub-and-spoke-container" gutter={'sm'}>
-            {hub.selected ? (
-              <HubFormCard id={hub.selected.id} title={hub.selected.title}>
-                {hub.selected.form!.component({close: hub.close})}
-              </HubFormCard>
-            ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
-          </Grid>
-          {!hub.selected && props.toolbar}
-        </PageSection>
-
+        <Text component={TextVariants.h1} className="hub-and-spoke-title">{props.title}</Text>
+        <Grid className="hub-and-spoke-container" gutter={'sm'}>
+          {hub.selected ? (
+            <HubFormCard id={hub.selected.id} title={hub.selected.title}>
+              {hub.selected.form!.component({close: hub.close})}
+            </HubFormCard>
+          ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
+        </Grid>
+        {!hub.selected && props.toolbar}
       </HubContext.Provider>
-    </Page>
+    </div>
   );
 }

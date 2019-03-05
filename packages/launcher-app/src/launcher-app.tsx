@@ -11,9 +11,7 @@ import { authenticationMode, creatorApiUrl, keycloakConfig, launcherApiUrl } fro
 function HomePage() {
   return (
     <Layout>
-      <PageSection variant="light">
-        <Launcher/>
-      </PageSection>
+      <Launcher/>
     </Layout>
   );
 }
@@ -26,7 +24,7 @@ export function LauncherApp() {
     return proxyAuthApi.init();
   };
   const authorizationTokenProvider = async () => {
-    if(!proxyAuthApi.user) {
+    if (!proxyAuthApi.user) {
       return undefined;
     }
     const user = await proxyAuthApi.refreshToken();
