@@ -61,9 +61,9 @@ export function ImportForm(props: ImportFormProps) {
                   {inputProps.value.repository.name && (
                     <React.Fragment>
                       <DescriptiveHeader
-                        title="Build Image"
-                        description="A build image is needed to build and deploy you app on openshift.
-                        we've detected a likly canditate for you to use but you could change it if you need."
+                        title="Builder Image"
+                        description="A builder image is needed to build and deploy your application on OpenShift.
+                        We've detected a likely candidate, but you can change it if you need it"
                       />
                       <BuildImageAnalyzerLoader
                         repository={{org: inputProps.value.repository.org ? inputProps.value.repository.org : gitInfo.login,
