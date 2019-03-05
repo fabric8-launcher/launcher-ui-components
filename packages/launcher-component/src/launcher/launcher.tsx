@@ -1,19 +1,11 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Grid,
-  GridItem,
-  Title
-} from '@patternfly/react-core';
+import { Button, Card, CardBody, CardFooter, CardHeader, Grid, GridItem } from '@patternfly/react-core';
 import * as React from 'react';
 import { useState } from 'react';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
 import { CreateExampleAppFlow } from '../flows/create-example-app-flow';
 import style from './launcher.module.scss';
 import { ImportExistingFlow } from '../flows/import-existing-flow';
+import { CatalogIcon, FileImportIcon, TopologyIcon } from '@patternfly/react-icons';
 
 enum Type {
   NEW = 'NEW', EXAMPLE = 'EXAMPLE', IMPORT = 'IMPORT'
@@ -31,29 +23,31 @@ export function Launcher() {
         <Grid gutter="md" className={style.menu}>
           <GridItem span={4}>
             <Card className={style.card}>
-              <CardHeader><Title size="lg">Create a new Application</Title></CardHeader>
-              <CardBody>Pick the capabilities that you want your new application to have.</CardBody>
+              <CardHeader className={style.flowHeader}><TopologyIcon /></CardHeader>
+              <CardBody>You start your own new application
+                by picking the capabilities you want (Http Api, Persistence, ...).
+                We take care of setting everything's up to get you started.</CardBody>
               <CardFooter>
-                <Button variant="primary" onClick={createNewApp}>Go!</Button>
+                <Button variant="primary" onClick={createNewApp}>Create a new Application</Button>
               </CardFooter>
             </Card>
           </GridItem>
           <GridItem span={4}>
             <Card className={style.card}>
-              <CardHeader><Title size="lg">Deploy an Example Application</Title></CardHeader>
+              <CardHeader className={style.flowHeader}><CatalogIcon /></CardHeader>
               <CardBody>Choose from a variety of Red Hat certified examples to generate the
                 foundation for a new application in the OpenShift ecosystem.</CardBody>
               <CardFooter>
-                <Button variant="primary" onClick={createExampleApp}>Go!</Button>
+                <Button variant="primary" onClick={createExampleApp}>Deploy an Example Application</Button>
               </CardFooter>
             </Card>
           </GridItem>
           <GridItem span={4}>
             <Card className={style.card}>
-              <CardHeader><Title size="lg">Import an existing Application</Title></CardHeader>
-              <CardBody>Import your own existing application in the OpenShift ecosystem.</CardBody>
+              <CardHeader className={style.flowHeader}><FileImportIcon /></CardHeader>
+              <CardBody>Import your own existing application in the OpenShift ecosystem. We take</CardBody>
               <CardFooter>
-                <Button variant="primary" onClick={importApp}>Go!</Button>
+                <Button variant="primary" onClick={importApp}>Import an existing Application</Button>
               </CardFooter>
             </Card>
           </GridItem>
