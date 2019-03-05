@@ -24,7 +24,7 @@ function StatusIcon(props: { status: Statuses }) {
     case 'paused':
       return (<PauseCircleIcon/>);
     case 'completed':
-      return (<OkIcon/>);
+      return (<OkIcon style={{color: '#80D228'}}/>);
     case 'error':
       return (<ErrorCircleOIcon/>);
     default:
