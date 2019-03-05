@@ -1,17 +1,38 @@
-import { Brand, Button, ButtonVariant, Page, PageHeader, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
+import {
+  Brand,
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
+  Page,
+  PageHeader,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarItem
+} from '@patternfly/react-core';
 import * as React from 'react';
+import { useState } from 'react';
 import logo from './assets/logo/RHD-logo.svg';
-import { CogIcon } from '@patternfly/react-icons';
 import style from './layout.module.scss';
+import { useAuthApi } from 'keycloak-react';
 
 export function Layout(props: { children: React.ReactNode }) {
-  const PageToolbar = (
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const auth = useAuthApi();
+  const userDropdownItems = [
+    <DropdownItem onClick={auth.logout} key="logout">Logout</DropdownItem>,
+  ];
+  const PageToolbar = auth.user && (
     <Toolbar>
       <ToolbarGroup>
         <ToolbarItem>
-          <Button id="nav-toggle" aria-label="Overflow actions" variant={ButtonVariant.plain}>
-            <CogIcon/>
-          </Button>
+          <Dropdown
+            isPlain
+            position="right"
+            onSelect={() => setIsUserDropdownOpen((prev) => !prev)}
+            isOpen={isUserDropdownOpen}
+            toggle={<DropdownToggle onToggle={setIsUserDropdownOpen}>{auth.user.userPreferredName}</DropdownToggle>}
+            dropdownItems={userDropdownItems}
+          />
         </ToolbarItem>
       </ToolbarGroup>
     </Toolbar>
