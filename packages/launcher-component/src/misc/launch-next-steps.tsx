@@ -21,27 +21,27 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
           <h2>Follow your application delivery</h2>
           <p>You can follow your application deployment in your OpenShift Console</p>
           <ExternalLink href={deploymentLink}>
-            <ClusterIcon /> OpenShift Console
+            <ClusterIcon/> OpenShift Console
           </ExternalLink>
           <h2>As soon as deployment is done, check out your new application capabilities</h2>
           <p>We prepared a set of examples to let you directly start playing with your new application.
             Those examples are there to get you started,
             soon it will be time for you to remove them and start developing your awesome application.</p>
           <ExternalLink href={landingPageLink}>
-            <GiftIcon /> Check out your new Application
+            <GiftIcon/> Check out your new Application
           </ExternalLink>
           <h2>Update your application using Continuous Delivery</h2>
           <p>We set up your application codebase in the GitHub repository you requested</p>
           <p>Your application is automatically configured to build and deploy on OpenShift with new commits.</p>
           <ExternalLink href={repositoryLink}>
-            <CodeIcon /> Clone your new codebase
+            <CodeIcon/> Clone your new codebase
           </ExternalLink>
         </React.Fragment>
       )}
       {props.error && (
         <Alert variant="danger" title="Launch Error" aria-label="error-during-launch">
-          <p>Holy guacamole... something weird happened, please reload the page to try again.</p>
-          <p>{props.error.toString()}</p>
+          Holy guacamole... something weird happened, please reload the page to try again.<br/>
+          {props.error.toString()}
         </Alert>
       )}
     </React.Fragment>

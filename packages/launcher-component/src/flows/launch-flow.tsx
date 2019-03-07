@@ -26,11 +26,13 @@ interface LaunchFlowProps {
   isValid: () => boolean;
   buildAppPayload: () => LaunchAppPayload;
   onCancel?: () => void;
+  canDownload?: boolean;
 }
 
 export function LaunchFlow(props: LaunchFlowProps) {
   const [run, setRun] = useState<RunState>({status: Status.EDITION, statusMessages: []});
   const client = useLauncherClient();
+  const canDownload = props.canDownload === undefined || props.canDownload;
 
   const launch = () => {
     if (!props.isValid()) {
@@ -71,9 +73,11 @@ export function LaunchFlow(props: LaunchFlowProps) {
       <ToolbarGroup>
         <Button variant="primary" onClick={launch}><PlaneDepartureIcon style={{marginRight: '10px'}}/> Launch</Button>
       </ToolbarGroup>
-      <ToolbarGroup>
-        <Button variant="primary" onClick={zip}><DownloadIcon style={{marginRight: '10px'}}/> Download</Button>
-      </ToolbarGroup>
+      {canDownload && (
+        <ToolbarGroup>
+          <Button variant="primary" onClick={zip}><DownloadIcon style={{marginRight: '10px'}}/> Download</Button>
+        </ToolbarGroup>
+      )}
       <ToolbarGroup>
         <Button variant="secondary" onClick={props.onCancel}><ErrorCircleOIcon style={{marginRight: '10px'}}/>Cancel</Button>
       </ToolbarGroup>

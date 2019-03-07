@@ -7,6 +7,7 @@ export interface AppDescriptor {
   application: string;
   parts: Array<{
     subFolderName?: string;
+    category?: string;
     shared: {
       mission?: { id: string; version: string };
       runtime: { name: string; version: string; };

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Form, FormGroup, FormSelect, FormSelectOption } from '@patternfly/react-core';
 import { AnalyzeResult } from 'launcher-client';
 import { InputProps } from '../../core/types';
+import { Loader } from '../../core/data-loader/data-loader';
 
 export const defaultBuidImagePickerValue = {};
 
@@ -14,7 +15,11 @@ interface BuildImageProps extends InputProps<BuildImageValue> {
 }
 
 export function BuildImagePicker(props: BuildImageProps) {
-  const imageName = props.result.image;
+  if (!props.value.imageName) {
+    props.onChange({imageName: props.result.image});
+    return (<Loader />);
+  }
+  const imageName = props.value.imageName;
   return (
     <Fragment>
       <p>Analyzed your code, this is the build image we suggest: <i>"{imageName}"</i></p>
@@ -28,7 +33,7 @@ export function BuildImagePicker(props: BuildImageProps) {
           <FormSelect
             id="imageName"
             value={imageName}
-            onChange={value => props.onChange({ imageName: value })}
+            onChange={value => props.onChange({imageName: value})}
             aria-label="Select build image"
           >
             {props.result.builderImages.map((image, index) => (

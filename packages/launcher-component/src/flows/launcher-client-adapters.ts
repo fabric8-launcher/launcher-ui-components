@@ -1,3 +1,5 @@
+import { normalizeRepositoryPath } from '../pickers/repository-picker/repository-picker';
+
 export function toNewAppPayload(app) {
   let parts: any[] = [];
 
@@ -76,12 +78,21 @@ export function toImportAppPayload(app) {
     category: 'import',
     shared: {
       buildImage: app.importApp.buildImage.imageName
-    }
+    },
+    capabilities: [
+      {
+        module: 'import',
+        props: {
+          gitImportUrl: normalizeRepositoryPath(app.importApp.repository),
+          builderImage: app.importApp.buildImage.imageName,
+        }
+      }
+    ]
   });
 
   return {
     project: {
-      application: app.srcLocation.repository!.name,
+      application: app.importApp.repository!.name,
       parts,
     },
     gitRepository: app.importApp.repository!.name,

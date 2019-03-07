@@ -80,6 +80,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
       isValid={() => isImportFormValueValid(app.importApp)}
       buildAppPayload={() => toImportAppPayload(app)}
       onCancel={props.onCancel}
+      canDownload={false}
     />
   );
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DescriptiveHeader } from '../core/stuff';
+import { DescriptiveHeader, Separator } from '../core/stuff';
 import { FormPanel } from '../core/form-panel/form-panel';
 import {
   RepositoryPickerValue,
@@ -60,7 +60,9 @@ export function ImportForm(props: ImportFormProps) {
                   />
                   {inputProps.value.repository.name && (
                     <React.Fragment>
+                      <Separator />
                       <DescriptiveHeader
+                        title="Builder Image"
                         description="A builder image is needed to build and deploy your application on OpenShift.
                         We've detected a likely candidate, but you are free to change if needed."
                       />

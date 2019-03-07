@@ -34,8 +34,8 @@ export function DownloadNextSteps(props: DownloadNextStepsProps) {
       )}
       {props.error && (
         <Alert variant="danger" title="Launch Error" aria-label="error-during-launch">
-          <p>Holy guacamole... something weird happened, please reload the page to try again.</p>
-          <p>{props.error.toString()}</p>
+          Holy guacamole... something weird happened, please reload the page to try again.<br/>
+          {props.error.toString()}
         </Alert>
       )}
     </React.Fragment>
