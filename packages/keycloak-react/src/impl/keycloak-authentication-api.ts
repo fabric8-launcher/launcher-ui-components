@@ -21,6 +21,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   private _user: OptionalUser;
   private currentRefresh?: Promise<OptionalUser> = undefined;
+  private onUserChangeListener?: (user: OptionalUser) => void = undefined;
 
   private static base64ToUri(b64: string): string {
     return b64.replace(/=/g, '')
@@ -32,6 +33,10 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   constructor(private config: KeycloakConfig, keycloakCoreFactory = Keycloak) {
     this.keycloak = keycloakCoreFactory(config);
+  }
+
+  public setOnUserChangeListener(listener: (user: OptionalUser) => void) {
+    this.onUserChangeListener = listener;
   }
 
   public init = (): Promise<OptionalUser> => {
@@ -61,6 +66,9 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   public logout = () => {
     KeycloakAuthenticationApi.clearStoredData();
+    if (this.onUserChangeListener) {
+      this.onUserChangeListener(undefined);
+    }
     this.keycloak.logout();
     return Promise.resolve();
   };
@@ -129,6 +137,9 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
         sessionState: 'sessionState',
         accountLink: {},
       };
+      if (this.onUserChangeListener) {
+        this.onUserChangeListener(this._user);
+      }
       return;
     }
     if (this.keycloak.token) {
@@ -144,6 +155,9 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
         sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: {},
       };
+      if (this.onUserChangeListener) {
+        this.onUserChangeListener(this._user);
+      }
     }
   }
 

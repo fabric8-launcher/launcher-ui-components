@@ -1,4 +1,5 @@
 import { AuthenticationApi, OptionalUser } from '../authentication-api';
+import { KeycloakAuthenticationApi } from './keycloak-authentication-api';
 
 export default class AuthenticationApiReactStateProxy implements AuthenticationApi {
 
@@ -6,9 +7,10 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
   }
 
   public async init(): Promise<OptionalUser> {
-    const user = await this.authApi.init();
-    this.setUser(user);
-    return user;
+    if(this.authApi instanceof KeycloakAuthenticationApi) {
+      (this.authApi as KeycloakAuthenticationApi).setOnUserChangeListener((changed) => this.setUser(changed));
+    }
+    return await this.authApi.init();
   }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
@@ -17,12 +19,10 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
 
   public login = (): void => {
     this.authApi.login();
-    this.setUser(this.authApi.user);
   };
 
   public logout = (): void => {
     this.authApi.logout();
-    this.setUser(this.authApi.user);
   };
 
   public openAccountManagement = (): void => {
@@ -30,9 +30,7 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
   };
 
   public refreshToken = async (): Promise<OptionalUser> => {
-    const user = await this.authApi.refreshToken();
-    this.setUser(user);
-    return user;
+    return await this.authApi.refreshToken();
   };
 
   public get user() {

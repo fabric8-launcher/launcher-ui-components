@@ -41,5 +41,4 @@ export default class NoAuthenticationApi implements AuthenticationApi {
   public get enabled(): boolean {
     return false;
   }
-
 }

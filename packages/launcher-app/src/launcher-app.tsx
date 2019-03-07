@@ -5,7 +5,6 @@ import { LoginPage } from './login-page';
 import { AuthContext, AuthRouter, newAuthApi, useAuthenticationApiStateProxy } from 'keycloak-react';
 import { DataLoader, Launcher, LauncherClientProvider } from 'launcher-component';
 import { Layout } from './layout';
-import { PageSection } from '@patternfly/react-core';
 import { authenticationMode, creatorApiUrl, keycloakConfig, launcherApiUrl } from './config';
 
 function HomePage() {
