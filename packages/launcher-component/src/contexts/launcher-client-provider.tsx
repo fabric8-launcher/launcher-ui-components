@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LauncherClientContext } from './launcher-client-context';
-import { AuthorizationTokenProvider, checkNotNull, defaultLauncherClient, LauncherClient, mockLauncherClient } from 'launcher-client';
+import { AuthorizationTokenProvider, cachedLauncherClient, checkNotNull, LauncherClient, mockLauncherClient } from 'launcher-client';
 
 interface LauncherClientProviderProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ function buildLauncherClient(props: LauncherClientProviderProps) {
   if (!!props.creatorUrl || !!props.launcherUrl) {
     checkNotNull(props.launcherUrl, 'launcherUrl');
     checkNotNull(props.creatorUrl, 'creatorUrl');
-    client = defaultLauncherClient({creatorUrl: props.creatorUrl!, launcherURL: props.launcherUrl!});
+    client = cachedLauncherClient({creatorUrl: props.creatorUrl!, launcherURL: props.launcherUrl!});
   } else {
     client = mockLauncherClient();
   }

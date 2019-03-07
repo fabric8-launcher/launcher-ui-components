@@ -187,10 +187,6 @@ export function toRuntime(arg: string) {
   return { name: parts[0], version: parts.length > 1 ? parts[1] : undefined };
 }
 
-export interface AuthorizedRequest {
-  authorizationToken?: string;
-}
-
 export interface OCExistsProjectPayload {
   projectName: string;
   clusterId: string;

@@ -1,23 +1,24 @@
 import {
-  AuthorizedRequest,
+  AnalyzeResult,
+  AuthorizationTokenProvider,
   Capability,
+  Catalog,
   DownloadAppPayload,
-  DownloadAppResult, Enums,
+  DownloadAppResult,
+  Enums,
+  Example,
+  ExampleMission,
+  ExampleRuntime,
   ExistsResult,
   GitInfo,
+  GitProvider,
   GitRepositoryExistsPayload,
   LaunchAppPayload,
   LaunchAppResult,
   OCExistsProjectPayload,
-  OpenShiftCluster, PropertyValue,
-  StatusListener,
-  Example,
-  Catalog,
-  ExampleMission,
-  ExampleRuntime,
-  AnalyzeResult,
-  GitProvider,
-  AuthorizationTokenProvider
+  OpenShiftCluster,
+  PropertyValue,
+  StatusListener
 } from './types';
 
 export const defaultAuthorizationTokenProvider = async () => undefined;
@@ -52,5 +53,5 @@ export interface LauncherClient {
 
   gitRepositoryExists(payload: GitRepositoryExistsPayload): Promise<ExistsResult>;
 
-  gitInfo(options: AuthorizedRequest): Promise<GitInfo>;
+  gitInfo(): Promise<GitInfo>;
 }
