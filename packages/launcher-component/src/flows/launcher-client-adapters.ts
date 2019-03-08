@@ -36,13 +36,13 @@ export function toNewAppPayload(app) {
 
   return {
     project: {
-      application: app.srcLocation.repository!.name,
+      application: app.destRepository.repository!.name,
       parts,
     },
-    gitRepository: app.srcLocation.repository!.name,
-    gitOrganization: app.srcLocation.repository!.org || '',
+    gitRepository: app.destRepository.repository!.name,
+    gitOrganization: app.destRepository.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
-    projectName: app.srcLocation.repository!.name,
+    projectName: app.destRepository.repository!.name,
   };
 }
 
@@ -59,13 +59,13 @@ export function toExamplePayload(app) {
 
   return {
     project: {
-      application: app.srcLocation.repository!.name,
+      application: app.destRepository.repository!.name,
       parts,
     },
-    gitRepository: app.srcLocation.repository!.name,
-    gitOrganization: app.srcLocation.repository!.org || '',
+    gitRepository: app.destRepository.repository!.name,
+    gitOrganization: app.destRepository.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
-    projectName: app.srcLocation.repository!.name,
+    projectName: app.destRepository.repository!.name,
   };
 }
 
@@ -74,6 +74,7 @@ export function toImportAppPayload(app) {
 
   parts.push({
     category: 'import',
+    shared: {},
     capabilities: [
       {
         module: 'import',
@@ -87,12 +88,12 @@ export function toImportAppPayload(app) {
 
   return {
     project: {
-      application: app.importApp.destRepository!.name,
+      application: app.destRepository.repository!.name,
       parts,
     },
     gitRepository: app.destRepository.repository!.name,
     gitOrganization: app.destRepository.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
-    projectName: app.importApp.destRepository!.name,
+    projectName: app.destRepository.repository!.name,
   };
 }

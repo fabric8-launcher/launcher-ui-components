@@ -6,7 +6,7 @@ import { BackendForm, defaultBackendFormValue, isBackendFormValueValid, BackendF
 import { defaultFrontendFormValue, FrontendForm, isFrontendFormValueValid, FrontendFormValue, } from '../forms/frontend-form';
 import { BackendFormOverview } from '../forms/backend-form-overview';
 import { FrontendFormOverview } from '../forms/frontend-form-overview';
-import { SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-form';
+import { DestRepositoryForm, DestRepositoryFormValue } from '../forms/dest-repository-form';
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
 import { LaunchFlow } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
@@ -17,14 +17,14 @@ import { WelcomeAppOverview } from '../forms/welcome-app-overview';
 interface CustomApp {
   backend: BackendFormValue;
   frontend: FrontendFormValue;
-  srcLocation: SrcLocationFormValue;
+  destRepository: DestRepositoryFormValue;
   deployment: DeploymentFormValue;
 }
 
 const defaultCustomApp = {
   backend: defaultBackendFormValue,
   frontend: defaultFrontendFormValue,
-  srcLocation: {
+  destRepository: {
     repository: {name: generate().dashed}
   },
   deployment: defaultDeploymentFormValue,
@@ -92,20 +92,20 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'srcLocation',
+      id: 'destRepository',
       title: 'Source Location',
       overview: {
         component: ({edit}) => (
-          <SrcLocationFormOverview value={app.srcLocation} onClick={edit}/>
+          <SrcLocationFormOverview value={app.destRepository} onClick={edit}/>
         ),
         width: 'half',
       },
       form: {
         component: ({close}) => (
-          <SrcLocationForm
-            value={app.srcLocation}
+          <DestRepositoryForm
+            value={app.destRepository}
             onSave={(srcLocation) => {
-              setApp({...app, srcLocation});
+              setApp({...app, destRepository: srcLocation});
               close();
             }}
             onCancel={close}

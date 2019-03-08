@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 import { FrontendFormOverview } from '../frontend-form-overview';
 import { defaultFrontendFormValue } from '../frontend-form';
 import { ImportFormOverview } from '../import-form-overview';
-import { defaultImportFormValue } from '../import-form';
+import { defaultSrcRepositoryFormValue } from '../src-repository-form';
 import { ExampleFormOverview } from '../example-form-overview';
 import { defaultExampleFormValue } from '../example-form';
 import { LauncherClientProvider } from '../..';
@@ -75,7 +75,7 @@ storiesOf('Overviews', module)
   })
   .add('ImportOverview: empty', () => {
     return (
-      <ImportFormOverview value={defaultImportFormValue} onClick={action('overview')}/>
+      <ImportFormOverview value={defaultSrcRepositoryFormValue} onClick={action('overview')}/>
     );
   })
   .add('ImportOverview: selected', () => {

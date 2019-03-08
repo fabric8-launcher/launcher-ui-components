@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { generate } from 'project-name-generator';
 
-import { SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-form';
+import { DestRepositoryForm, DestRepositoryFormValue } from '../forms/dest-repository-form';
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
 import { toExamplePayload } from './launcher-client-adapters';
 import { ExampleFormOverview } from '../forms/example-form-overview';
@@ -14,13 +14,13 @@ import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from 
 
 interface ExampleApp {
   example: ExamplePickerValue;
-  srcLocation: SrcLocationFormValue;
+  destRepository: DestRepositoryFormValue;
   deployment: DeploymentFormValue;
 }
 
 const defaultCustomApp = {
   example: defaultExampleFormValue,
-  srcLocation: {
+  destRepository: {
     repository: {name: generate().dashed}
   },
   deployment: defaultDeploymentFormValue,
@@ -53,20 +53,20 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'srcLocation',
+      id: 'destRepository',
       title: 'Source Location',
       overview: {
         component: ({edit}) => (
-          <SrcLocationFormOverview value={app.srcLocation} onClick={edit}/>
+          <SrcLocationFormOverview value={app.destRepository} onClick={edit}/>
         ),
         width: 'third',
       },
       form: {
         component: ({close}) => (
-          <SrcLocationForm
-            value={app.srcLocation}
+          <DestRepositoryForm
+            value={app.destRepository}
             onSave={(srcLocation) => {
-              setApp({...app, srcLocation});
+              setApp({...app, destRepository: srcLocation});
               close();
             }}
             onCancel={close}

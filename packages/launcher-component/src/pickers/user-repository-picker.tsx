@@ -13,41 +13,41 @@ import { GitInfo } from 'launcher-client';
 import { InputProps } from '../core/types';
 import style from './repository-picker.module.scss';
 
-export interface RepositoryPickerValue {
+export interface UserRepositoryPickerValue {
   org?: string;
   name?: string;
 }
 
-interface RepositoryPickerProps extends InputProps<RepositoryPickerValue> {
+interface UserRepositoryPickerProps extends InputProps<UserRepositoryPickerValue> {
   gitInfo: GitInfo;
   import?: boolean;
 }
 
 const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
-export const isRepositoryPickerValueValid = (value: RepositoryPickerValue): boolean => {
+export const isUserRepositoryPickerValueValid = (value: UserRepositoryPickerValue): boolean => {
   return (!value.org || REPOSITORY_VALUE_REGEXP.test(value.org)) && REPOSITORY_VALUE_REGEXP.test(value.name || '');
 };
 
 export const defaultRepoPickerValue = {};
 
-export const normalizeRepositoryPath = (value: RepositoryPickerValue) => {
+export const normalizeRepositoryPath = (value: UserRepositoryPickerValue) => {
   if (value.org) {
     return `${value.org}/${value.name}`;
   }
   return value.name || '';
 };
 
-const isExistingRepository = (repositories: string[], value: RepositoryPickerValue): boolean => {
+const isExistingRepository = (repositories: string[], value: UserRepositoryPickerValue): boolean => {
   return repositories.indexOf(normalizeRepositoryPath(value)) !== -1;
 };
 
-export function RepositoryPicker(props: RepositoryPickerProps) {
+export function UserRepositoryPicker(props: UserRepositoryPickerProps) {
   const name = props.value.name || '';
   const org = props.value.org || props.gitInfo.organizations[0];
   const helperRepoInvalid = isExistingRepository(props.gitInfo.repositories, props.value) ?
     `Repository already exists ${normalizeRepositoryPath(props.value)}` : 'Invalid repository name';
-  const isRepoValid = props.import || (isRepositoryPickerValueValid(props.value)
+  const isRepoValid = props.import || (isUserRepositoryPickerValueValid(props.value)
     && !isExistingRepository(props.gitInfo.repositories, props.value));
   return (
     <Grid>

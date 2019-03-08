@@ -2,23 +2,23 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { toImportAppPayload } from './launcher-client-adapters';
-import { defaultImportFormValue, ImportForm, ImportFormValue, isImportFormValueValid } from '../forms/import-form';
+import { defaultSrcRepositoryFormValue, SrcRepositoryForm, SrcRepositoryFormValue, isSrcRepositoryFormValueValid } from '../forms/src-repository-form';
 import { ImportFormOverview } from '../forms/import-form-overview';
 import { LaunchFlow } from './launch-flow';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';
 import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
-import { defaultSrcLocationFormValue, SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-form';
+import { defaultDestRepositoryFormValue, DestRepositoryForm, DestRepositoryFormValue } from '../forms/dest-repository-form';
 
 interface CustomApp {
-  srcRepository: ImportFormValue;
-  destRepository: SrcLocationFormValue;
+  srcRepository: SrcRepositoryFormValue;
+  destRepository: DestRepositoryFormValue;
   deployment: DeploymentFormValue;
 }
 
 const defaultCustomApp = {
-  srcRepository: defaultImportFormValue,
-  destRepository: defaultSrcLocationFormValue,
+  srcRepository: defaultSrcRepositoryFormValue,
+  destRepository: defaultDestRepositoryFormValue,
   deployment: defaultDeploymentFormValue,
 };
 
@@ -37,7 +37,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
       },
       form: {
         component: ({ close }) => (
-          <ImportForm
+          <SrcRepositoryForm
             value={app.srcRepository}
             onSave={(srcRepository) => {
               setApp({ ...app, srcRepository });
@@ -59,7 +59,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
       },
       form: {
         component: ({close}) => (
-          <SrcLocationForm
+          <DestRepositoryForm
             value={app.destRepository}
             onSave={(destRepository) => {
               setApp({...app, destRepository});
@@ -98,7 +98,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
     <LaunchFlow
       title="Import an Existing Application"
       items={items}
-      isValid={() => isImportFormValueValid(app.srcRepository)}
+      isValid={() => isSrcRepositoryFormValueValid(app.srcRepository)}
       buildAppPayload={() => toImportAppPayload(app)}
       onCancel={props.onCancel}
       canDownload={false}

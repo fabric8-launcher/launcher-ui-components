@@ -1,33 +1,33 @@
 import * as React from 'react';
-import { isRepositoryPickerValueValid, RepositoryPicker, RepositoryPickerValue } from '../pickers/repository-picker';
+import { isUserRepositoryPickerValueValid, UserRepositoryPicker, UserRepositoryPickerValue } from '../pickers/user-repository-picker';
 import { DescriptiveHeader } from '../core/stuff';
 import { GitInfoLoader } from '../loaders/git-info-loader';
 import { FormPanel } from '../core/form-panel/form-panel';
 
-export interface SrcLocationFormValue {
-  repository: RepositoryPickerValue;
+export interface DestRepositoryFormValue {
+  repository: UserRepositoryPickerValue;
 }
 
-export const defaultSrcLocationFormValue = { repository: {}};
+export const defaultDestRepositoryFormValue = { repository: {}};
 
-export function isSrcLocationFormValueValid(value: SrcLocationFormValue) {
-  return isRepositoryPickerValueValid(value.repository);
+export function isDestRepositoryFromValueValid(value: DestRepositoryFormValue) {
+  return isUserRepositoryPickerValueValid(value.repository);
 }
 
-interface SrcLocationFormProps {
-  value: SrcLocationFormValue;
+interface DestRepositoryFormProps {
+  value: DestRepositoryFormValue;
 
-  onSave?(value: SrcLocationFormValue);
+  onSave?(value: DestRepositoryFormValue);
 
   onCancel?();
 }
 
-export function SrcLocationForm(props: SrcLocationFormProps) {
+export function DestRepositoryForm(props: DestRepositoryFormProps) {
   return (
     <FormPanel
       value={props.value}
       onSave={props.onSave}
-      isValid={isSrcLocationFormValueValid}
+      isValid={isDestRepositoryFromValueValid}
       onCancel={props.onCancel}
     >
       {
@@ -39,7 +39,7 @@ export function SrcLocationForm(props: SrcLocationFormProps) {
             />
             <GitInfoLoader>
               {(gitInfo) => (
-                <RepositoryPicker
+                <UserRepositoryPicker
                   gitInfo={gitInfo}
                   value={inputProps.value.repository}
                   onChange={(repository) => inputProps.onChange({...inputProps.value, repository})}

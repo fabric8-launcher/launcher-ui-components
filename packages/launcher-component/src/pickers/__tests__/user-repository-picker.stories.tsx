@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
 import { GitInfoLoader } from '../../loaders/git-info-loader';
-import { defaultRepoPickerValue, isRepositoryPickerValueValid, RepositoryPicker } from '../repository-picker';
+import { defaultRepoPickerValue, isUserRepositoryPickerValueValid, UserRepositoryPicker } from '../user-repository-picker';
 import { LauncherClientProvider } from '../..';
 
 storiesOf('Pickers', module)
@@ -12,7 +12,7 @@ storiesOf('Pickers', module)
       {storyFn()}
     </LauncherClientProvider>
   ))
-  .add('RepositoryPicker', () => {
+  .add('UserRepositoryPicker', () => {
     return (
       <GitInfoLoader>
         {gitInfo => (
@@ -20,15 +20,15 @@ storiesOf('Pickers', module)
             value={defaultRepoPickerValue}
             onSave={action('save')}
             onCancel={action('cancel')}
-            isValid={isRepositoryPickerValueValid}
+            isValid={isUserRepositoryPickerValueValid}
           >
-            {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo}/>)}
+            {(inputProps) => (<UserRepositoryPicker {...inputProps} gitInfo={gitInfo}/>)}
           </FormPanel>
         )}
       </GitInfoLoader>
     );
   })
-  .add('RepositoryPicker: import', () => {
+  .add('UserRepositoryPicker: import', () => {
     return (
       <GitInfoLoader>
         {gitInfo => (
@@ -36,9 +36,9 @@ storiesOf('Pickers', module)
             value={defaultRepoPickerValue}
             onSave={action('save')}
             onCancel={action('cancel')}
-            isValid={isRepositoryPickerValueValid}
+            isValid={isUserRepositoryPickerValueValid}
           >
-            {(inputProps) => (<RepositoryPicker {...inputProps} gitInfo={gitInfo} import={true}/>)}
+            {(inputProps) => (<UserRepositoryPicker {...inputProps} gitInfo={gitInfo} import={true}/>)}
           </FormPanel>
         )}
       </GitInfoLoader>

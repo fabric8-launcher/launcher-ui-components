@@ -1,17 +1,17 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
-import { ImportFormValue, isImportFormValueValid } from './import-form';
+import { SrcRepositoryFormValue, isSrcRepositoryFormValueValid } from './src-repository-form';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 import { SpecialValue } from '../core/stuff';
 
 interface ImportOverviewProps {
-  value: ImportFormValue;
+  value: SrcRepositoryFormValue;
   onClick: () => void;
 }
 
 export function ImportFormOverview(props: ImportOverviewProps) {
 
-  if (!isImportFormValueValid(props.value)) {
+  if (!isSrcRepositoryFormValueValid(props.value)) {
     return (
       <EmptyState>
         <Title size="lg">You can import an existing application from a git location</Title>

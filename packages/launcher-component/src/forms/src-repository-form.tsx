@@ -6,34 +6,34 @@ import { BuildImagePicker, BuildImageValue, defaultBuidImagePickerValue } from '
 import { BuildImageAnalyzerLoader } from '../loaders/buildimage-loader';
 import { defaultGitImportUrlPickerValue, GitUrlPicker, GitUrlPickerValue, isGitUrlPickerValueValid } from '../pickers/git-url-picker';
 
-export interface ImportFormValue {
+export interface SrcRepositoryFormValue {
   sourceGit: GitUrlPickerValue;
   buildImage: BuildImageValue;
 }
 
-export function isImportFormValueValid(value: ImportFormValue) {
+export function isSrcRepositoryFormValueValid(value: SrcRepositoryFormValue) {
   return isGitUrlPickerValueValid(value.sourceGit) && !!value.buildImage.imageName;
 }
 
-export const defaultImportFormValue: ImportFormValue = {
+export const defaultSrcRepositoryFormValue: SrcRepositoryFormValue = {
   sourceGit: defaultGitImportUrlPickerValue,
   buildImage: defaultBuidImagePickerValue
 };
 
-interface ImportFormProps {
-  value: ImportFormValue;
+interface SrcRepositoryFormProps {
+  value: SrcRepositoryFormValue;
 
-  onSave?(value: ImportFormValue);
+  onSave?(value: SrcRepositoryFormValue);
 
   onCancel?();
 }
 
-export function ImportForm(props: ImportFormProps) {
+export function SrcRepositoryForm(props: SrcRepositoryFormProps) {
   return (
     <FormPanel
       value={props.value}
       onSave={props.onSave}
-      isValid={isImportFormValueValid}
+      isValid={isSrcRepositoryFormValueValid}
       onCancel={props.onCancel}
     >
       {

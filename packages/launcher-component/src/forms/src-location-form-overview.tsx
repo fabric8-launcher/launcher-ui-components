@@ -1,18 +1,18 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
-import { isSrcLocationFormValueValid, SrcLocationFormValue } from './src-location-form';
-import { normalizeRepositoryPath } from '../pickers/repository-picker';
+import { isDestRepositoryFromValueValid, DestRepositoryFormValue } from './dest-repository-form';
+import { normalizeRepositoryPath } from '../pickers/user-repository-picker';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 import { SpecialValue } from '../core/stuff';
 
 interface RepositoryFormOverviewProps {
-  value: SrcLocationFormValue;
+  value: DestRepositoryFormValue;
   onClick: () => void;
 }
 
 export function SrcLocationFormOverview(props: RepositoryFormOverviewProps) {
 
-  if (!isSrcLocationFormValueValid(props.value)) {
+  if (!isDestRepositoryFromValueValid(props.value)) {
     return (
       <EmptyState>
         <Title size="lg">You can select where your application code will be located.</Title>

@@ -4,9 +4,9 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { BackendForm, defaultBackendFormValue } from '../backend-form';
 import { defaultFrontendFormValue, FrontendForm } from '../frontend-form';
-import { defaultSrcLocationFormValue, SrcLocationForm } from '../src-location-form';
+import { defaultDestRepositoryFormValue, DestRepositoryForm } from '../dest-repository-form';
 import { defaultExampleFormValue, ExampleForm } from '../example-form';
-import { defaultImportFormValue, ImportForm } from '../import-form';
+import { defaultSrcRepositoryFormValue, SrcRepositoryForm } from '../src-repository-form';
 import { LauncherClientProvider } from '../..';
 
 storiesOf('Forms', module)
@@ -25,9 +25,9 @@ storiesOf('Forms', module)
       <FrontendForm value={defaultFrontendFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   })
-  .add('SrcLocationForm', () => {
+  .add('DestRepositoryForm', () => {
     return (
-      <SrcLocationForm value={defaultSrcLocationFormValue} onSave={action('save')} onCancel={action('cancel')}/>
+      <DestRepositoryForm value={defaultDestRepositoryFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   })
   .add('ExampleForm', () => {
@@ -35,8 +35,8 @@ storiesOf('Forms', module)
       <ExampleForm value={defaultExampleFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   })
-  .add('ImportForm', () => {
+  .add('SrcRepositoryForm', () => {
     return (
-      <ImportForm value={defaultImportFormValue} onSave={action('save')} onCancel={action('cancel')}/>
+      <SrcRepositoryForm value={defaultSrcRepositoryFormValue} onSave={action('save')} onCancel={action('cancel')}/>
     );
   });
