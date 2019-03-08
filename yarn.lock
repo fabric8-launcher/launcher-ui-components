@@ -10437,10 +10437,10 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
-keycloak-js@4.8.3:
-  version "4.8.3"
-  resolved "https://registry.yarnpkg.com/keycloak-js/-/keycloak-js-4.8.3.tgz#e065f41d144d260afa8466b5b587a65d5f308d30"
-  integrity sha512-TXoZdoOYu2ScYs58L95/xSYjsTto9KRvZ+vt6mv4Dyf4pYhYZSgwMPnmi128qj/z8sm4mL1Z8nncR6XdWgNKMQ==
+keycloak-js@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/keycloak-js/-/keycloak-js-5.0.0.tgz#ed7f640d7a1748135ae8ad1750f8925005d4895f"
+  integrity sha512-zJRgb9E1IV3GLXTMow2cpvRK1PEx9shVDx96uac7zO+uTG2ptLvrYxs1umemjGqDPmy5LJiaUgF30fc9MS3ykQ==
 
 keycode@^2.2.0:
   version "2.2.0"
