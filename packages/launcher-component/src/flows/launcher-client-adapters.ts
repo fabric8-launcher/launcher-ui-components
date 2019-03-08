@@ -1,4 +1,4 @@
-import { normalizeRepositoryPath } from '../pickers/repository-picker/repository-picker';
+import { normalizeRepositoryPath } from '../pickers/repository-picker';
 
 export function toNewAppPayload(app) {
   let parts: any[] = [];

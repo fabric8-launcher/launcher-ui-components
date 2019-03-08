@@ -2,10 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import { FormPanel } from '../../../core/form-panel/form-panel';
-import { OpenshiftClustersLoader } from '../../../loaders/openshiftcluster-loader';
+import { FormPanel } from '../../core/form-panel/form-panel';
+import { OpenshiftClustersLoader } from '../../loaders/openshiftcluster-loader';
 import { ClusterPicker } from '../cluster-picker';
-import { LauncherClientProvider } from '../../..';
+import { LauncherClientProvider } from '../..';
 
 function authorizationLinkGenerator(id?: string) {
   if (!!id) {

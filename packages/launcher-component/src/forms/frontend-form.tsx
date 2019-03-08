@@ -1,6 +1,6 @@
 import { DescriptiveHeader } from '../core/stuff';
 import * as React from 'react';
-import { RuntimePicker, RuntimePickerValue } from '../pickers/runtime-picker/runtime-picker';
+import { RuntimePicker, RuntimePickerValue } from '../pickers/runtime-picker';
 import { EnumsRuntimesLoaders } from '../loaders/enums-runtimes-loaders';
 import { FormPanel } from '../core/form-panel/form-panel';
 

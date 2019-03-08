@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Form, FormGroup, FormSelect, FormSelectOption } from '@patternfly/react-core';
 import { AnalyzeResult } from 'launcher-client';
-import { InputProps } from '../../core/types';
-import { Loader } from '../../core/data-loader/data-loader';
+import { InputProps } from '../core/types';
+import { Loader } from '../core/data-loader/data-loader';
 
 export const defaultBuidImagePickerValue = {};
 

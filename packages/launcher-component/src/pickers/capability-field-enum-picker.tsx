@@ -13,7 +13,7 @@ interface FieldEnumProps {
   onChange?(selected: string);
 }
 
-export function FieldEnum(props: FieldEnumProps) {
+export function CapabilityFieldEnumPicker(props: FieldEnumProps) {
   const onChange = (_, event) => {
     if (props.onChange) {
       props.onChange(event.currentTarget.value);

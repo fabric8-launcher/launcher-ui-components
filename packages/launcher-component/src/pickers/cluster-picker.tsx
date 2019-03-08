@@ -13,7 +13,7 @@ import {
 import { ServerIcon } from '@patternfly/react-icons';
 import { OpenShiftCluster } from 'launcher-client';
 
-import { InputProps } from '../../core/types';
+import { InputProps } from '../core/types';
 
 export interface ClusterPickerValue {
   clusterId?: string;

@@ -7,8 +7,8 @@ import {
   defaultRepoPickerValue,
   RepositoryPicker,
   isRepositoryPickerValueValid
-} from '../pickers/repository-picker/repository-picker';
-import { BuildImageValue, defaultBuidImagePickerValue, BuildImagePicker } from '../pickers/buildimage-picker/buildimage-picker';
+} from '../pickers/repository-picker';
+import { BuildImageValue, defaultBuidImagePickerValue, BuildImagePicker } from '../pickers/buildimage-picker';
 import { GitInfoLoader } from '../loaders/git-info-loader';
 import { BuildImageAnalyzerLoader } from '../loaders/buildimage-loader';
 

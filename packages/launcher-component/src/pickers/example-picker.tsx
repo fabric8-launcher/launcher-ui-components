@@ -10,7 +10,7 @@ import {
   FormSelectOption
 } from '@patternfly/react-core';
 import { Catalog, filter, ExampleRuntime } from 'launcher-client';
-import { InputProps } from '../../core/types';
+import { InputProps } from '../core/types';
 import _ from 'lodash';
 
 export interface ExamplePickerValue {

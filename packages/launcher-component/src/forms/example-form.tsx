@@ -2,7 +2,7 @@ import { DescriptiveHeader } from '../core/stuff';
 import * as React from 'react';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { ExamplesLoader } from '../loaders/example-catalog-loader';
-import { ExamplePicker, ExamplePickerValue } from '../pickers/example-picker/example-picker';
+import { ExamplePicker, ExamplePickerValue } from '../pickers/example-picker';
 
 export function isExampleFormValueValid(value: ExamplePickerValue) {
   return !!value.missionId;

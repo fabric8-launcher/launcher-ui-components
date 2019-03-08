@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DescriptiveHeader } from '../core/stuff';
 import { FormPanel } from '../core/form-panel/form-panel';
-import { ClusterPicker, ClusterPickerValue } from '../pickers/cluster-picker/cluster-picker';
+import { ClusterPicker, ClusterPickerValue } from '../pickers/cluster-picker';
 import { OpenshiftClustersLoader } from '../loaders/openshiftcluster-loader';
 import { useAuthApi } from 'keycloak-react';
 

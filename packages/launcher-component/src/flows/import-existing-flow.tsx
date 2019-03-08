@@ -3,9 +3,9 @@ import { useState } from 'react';
 
 import { toImportAppPayload } from './launcher-client-adapters';
 import { ImportFormValue, ImportForm, isImportFormValueValid } from '../forms/import-form';
-import { defaultBuidImagePickerValue } from '../pickers/buildimage-picker/buildimage-picker';
+import { defaultBuidImagePickerValue } from '../pickers/buildimage-picker';
 import { ImportFormOverview } from '../forms/import-form-overview';
-import { defaultRepoPickerValue } from '../pickers/repository-picker/repository-picker';
+import { defaultRepoPickerValue } from '../pickers/repository-picker';
 import { LaunchFlow } from './launch-flow';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';
 import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';

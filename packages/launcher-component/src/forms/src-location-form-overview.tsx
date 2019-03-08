@@ -1,7 +1,7 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
 import { SrcLocationFormValue } from './src-location-form';
-import { normalizeRepositoryPath } from '../pickers/repository-picker/repository-picker';
+import { normalizeRepositoryPath } from '../pickers/repository-picker';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 
 interface RepositoryFormOverviewProps {

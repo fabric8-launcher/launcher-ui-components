@@ -6,7 +6,7 @@ import { SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-for
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
 import { toExamplePayload } from './launcher-client-adapters';
 import { ExampleFormOverview } from '../forms/example-form-overview';
-import { ExamplePickerValue } from '../pickers/example-picker/example-picker';
+import { ExamplePickerValue } from '../pickers/example-picker';
 import { defaultExampleFormValue, ExampleForm, isExampleFormValueValid } from '../forms/example-form';
 import { LaunchFlow } from './launch-flow';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';

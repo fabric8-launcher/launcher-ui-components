@@ -1,6 +1,6 @@
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import * as React from 'react';
-import { ExamplePickerValue } from '../pickers/example-picker/example-picker';
+import { ExamplePickerValue } from '../pickers/example-picker';
 import { ExamplesLoader } from '../loaders/example-catalog-loader';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 

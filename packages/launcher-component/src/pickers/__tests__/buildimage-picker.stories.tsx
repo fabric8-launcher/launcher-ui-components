@@ -2,11 +2,11 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { FormPanel } from '../../../core/form-panel/form-panel';
+import { FormPanel } from '../../core/form-panel/form-panel';
 
-import { BuildImageAnalyzerLoader } from '../../../loaders/buildimage-loader';
+import { BuildImageAnalyzerLoader } from '../../loaders/buildimage-loader';
 import { BuildImagePicker, defaultBuidImagePickerValue } from '../buildimage-picker';
-import { LauncherClientProvider } from '../../..';
+import { LauncherClientProvider } from '../..';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (

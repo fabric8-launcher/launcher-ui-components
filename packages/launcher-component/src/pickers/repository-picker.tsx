@@ -10,7 +10,7 @@ import {
 } from '@patternfly/react-core';
 import { GitInfo } from 'launcher-client';
 
-import { InputProps } from '../../core/types';
+import { InputProps } from '../core/types';
 import style from './repository-picker.module.scss';
 
 export interface RepositoryPickerValue {

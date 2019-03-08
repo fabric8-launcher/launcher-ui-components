@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isRepositoryPickerValueValid, RepositoryPicker, RepositoryPickerValue } from '../pickers/repository-picker/repository-picker';
+import { isRepositoryPickerValueValid, RepositoryPicker, RepositoryPickerValue } from '../pickers/repository-picker';
 import { DescriptiveHeader } from '../core/stuff';
 import { GitInfoLoader } from '../loaders/git-info-loader';
 import { FormPanel } from '../core/form-panel/form-panel';

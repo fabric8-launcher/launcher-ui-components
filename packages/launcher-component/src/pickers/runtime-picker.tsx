@@ -1,5 +1,5 @@
-import { InputProps } from '../../core/types';
-import ItemPicker from '../../core/item-picker/item-picker';
+import { InputProps } from '../core/types';
+import ItemPicker from '../core/item-picker/item-picker';
 import * as React from 'react';
 
 export interface RuntimePickerValue {

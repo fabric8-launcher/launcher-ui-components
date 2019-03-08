@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataList, DataListCell, DataListCheck, DataListContent, DataListItem, Title } from '@patternfly/react-core';
-import { FieldEnum } from './fields/field-enum';
-import { InputProps } from '../../core/types';
+import { CapabilityFieldEnumPicker } from './capability-field-enum-picker';
+import { InputProps } from '../core/types';
 
 interface Field {
   id: string;
@@ -81,7 +81,7 @@ function CapabilityItem(props: CapabilityItemProps) {
               onChangeData(newData);
             };
             return (
-              <FieldEnum
+              <CapabilityFieldEnumPicker
                 key={f.id}
                 parent={props.id}
                 id={f.id}
