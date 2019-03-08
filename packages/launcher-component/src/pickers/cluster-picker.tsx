@@ -10,7 +10,7 @@ import {
   EmptyStateIcon,
   EmptyStateBody
 } from '@patternfly/react-core';
-import { ServerIcon } from '@patternfly/react-icons';
+import { OpenshiftIcon } from '@patternfly/react-icons';
 import { OpenShiftCluster } from 'launcher-client';
 
 import { InputProps } from '../core/types';
@@ -28,7 +28,7 @@ export function ClusterPicker(props: ClusterPickerProps) {
   if (props.clusters.length === 0) {
     return (
       <EmptyState>
-        <EmptyStateIcon icon={ServerIcon}/>
+        <EmptyStateIcon icon={OpenshiftIcon}/>
         <Title size="lg">No Active Clusters Found</Title>
         <EmptyStateBody>
           We couldn't find an active cluster associated to your account.
@@ -86,7 +86,7 @@ export function ClusterPicker(props: ClusterPickerProps) {
                   onClick={onChangeSelected}
                   style={{flex: 'none'}}
                 >
-                  <ServerIcon/>
+                  <OpenshiftIcon/>
                 </DataListCell>
                 <DataListCell width={3} onClick={onChangeSelected}>
                   <Title size="md" style={!cluster.connected ? {color: '#ccc'} : {}}>{cluster.name}</Title>
