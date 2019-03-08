@@ -63,8 +63,8 @@ export class ExampleAppDescriptor {
 }
 
 interface GitRepository {
-  gitOrganization: string;
-  gitRepository: string;
+  gitOrganization?: string;
+  gitRepository?: string;
 }
 
 interface OpenShiftClusterProject {

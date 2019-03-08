@@ -71,6 +71,8 @@ export function toExamplePayload(app) {
 
 export function toImportAppPayload(app) {
   const parts: any[] = [];
+  const url = app.srcRepository.sourceGit.url;
+  const name = url.substr(url.lastIndexOf('/') + 1);
 
   parts.push({
     category: 'import',
@@ -88,12 +90,10 @@ export function toImportAppPayload(app) {
 
   return {
     project: {
-      application: app.destRepository.repository!.name,
+      application: name,
       parts,
     },
-    gitRepository: app.destRepository.repository!.name,
-    gitOrganization: app.destRepository.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
-    projectName: app.destRepository.repository!.name,
+    projectName: name,
   };
 }
