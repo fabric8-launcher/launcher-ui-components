@@ -45,7 +45,7 @@ export function Launcher() {
           <GridItem span={4}>
             <Card className={style.card}>
               <CardHeader className={style.flowHeader}><FileImportIcon /></CardHeader>
-              <CardBody>Import your own existing application in the OpenShift ecosystem. We take</CardBody>
+              <CardBody>Import your own existing application in the OpenShift ecosystem.</CardBody>
               <CardFooter>
                 <Button variant="primary" onClick={importApp}>Import an Existing Application</Button>
               </CardFooter>
