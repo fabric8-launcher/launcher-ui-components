@@ -16,7 +16,9 @@ function requireEnv(env: string | undefined, name: string): string {
   return checkNotNull(getEnv(env, name), `process.env.${name}`);
 }
 
-export const authenticationMode = getEnv(process.env.REACT_APP_AUTHENTICATION, 'authMode') || 'keycloak';
+export const keycloakUrl = getEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl');
+export const authenticationMode = getEnv(process.env.REACT_APP_AUTHENTICATION, 'authMode')
+  || (keycloakUrl ? 'keycloak' : 'no');
 export const isKeycloakMode = authenticationMode === 'keycloak';
 
 export const keycloakConfig = isKeycloakMode ? {

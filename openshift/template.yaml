@@ -98,12 +98,6 @@ objects:
                       name: launcher
                       key: launcher.creator.url
                       optional: true
-                - name: LAUNCHER_AUTH_MODE
-                  valueFrom:
-                    configMapKeyRef:
-                      name: launcher
-                      key: launcher.auth.mode
-                      optional: true
                 - name: LAUNCHER_KEYCLOAK_URL
                   valueFrom:
                     configMapKeyRef:
