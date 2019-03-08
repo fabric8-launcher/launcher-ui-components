@@ -17,3 +17,9 @@ export function DescriptiveHeader(props: { title?: string, description: string }
     </div>
   );
 }
+
+export function SpecialValue(props: { children: string }) {
+  return (
+    <span className={style.specialValue}>'{props.children}'</span>
+  );
+}

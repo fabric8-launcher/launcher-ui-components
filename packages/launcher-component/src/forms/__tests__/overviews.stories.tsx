@@ -81,7 +81,7 @@ storiesOf('Overviews', module)
   .add('ImportOverview: selected', () => {
 
     const value = {
-      repository: {name: 'bayonne', org: 'jean-bon'},
+      sourceGit: {url: 'https://github.com/fabric8-launcher/launcher-frontend'},
       buildImage: {imageName: 'Java Code Builder'}
     };
 

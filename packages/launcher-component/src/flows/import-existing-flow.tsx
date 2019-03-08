@@ -2,24 +2,23 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { toImportAppPayload } from './launcher-client-adapters';
-import { ImportFormValue, ImportForm, isImportFormValueValid } from '../forms/import-form';
-import { defaultBuidImagePickerValue } from '../pickers/buildimage-picker';
+import { defaultImportFormValue, ImportForm, ImportFormValue, isImportFormValueValid } from '../forms/import-form';
 import { ImportFormOverview } from '../forms/import-form-overview';
-import { defaultRepoPickerValue } from '../pickers/repository-picker';
 import { LaunchFlow } from './launch-flow';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';
 import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
+import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
+import { defaultSrcLocationFormValue, SrcLocationForm, SrcLocationFormValue } from '../forms/src-location-form';
 
 interface CustomApp {
-  importApp: ImportFormValue;
+  srcRepository: ImportFormValue;
+  destRepository: SrcLocationFormValue;
   deployment: DeploymentFormValue;
 }
 
 const defaultCustomApp = {
-  importApp: {
-    repository: defaultRepoPickerValue,
-    buildImage: defaultBuidImagePickerValue
-  },
+  srcRepository: defaultImportFormValue,
+  destRepository: defaultSrcLocationFormValue,
   deployment: defaultDeploymentFormValue,
 };
 
@@ -29,19 +28,41 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
   const items = [
     {
       id: 'import',
-      title: 'Import',
+      title: 'Source Repository to import',
       overview: {
         component: ({ edit }) => (
-          <ImportFormOverview value={app.importApp} onClick={edit} />
+          <ImportFormOverview value={app.srcRepository} onClick={edit} />
         ),
-        width: 'half',
+        width: 'third',
       },
       form: {
         component: ({ close }) => (
           <ImportForm
-            value={app.importApp}
-            onSave={(importApp) => {
-              setApp({ ...app, importApp });
+            value={app.srcRepository}
+            onSave={(srcRepository) => {
+              setApp({ ...app, srcRepository });
+              close();
+            }}
+            onCancel={close}
+          />
+        ),
+      }
+    },
+    {
+      id: 'destRepository',
+      title: 'Destination Repository',
+      overview: {
+        component: ({edit}) => (
+          <SrcLocationFormOverview value={app.destRepository} onClick={edit}/>
+        ),
+        width: 'third',
+      },
+      form: {
+        component: ({close}) => (
+          <SrcLocationForm
+            value={app.destRepository}
+            onSave={(destRepository) => {
+              setApp({...app, destRepository});
               close();
             }}
             onCancel={close}
@@ -56,7 +77,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
         component: ({edit}) => (
           <DeploymentFormOverview value={app.deployment} onClick={edit}/>
         ),
-        width: 'half',
+        width: 'third',
       },
       form: {
         component: ({close}) => (
@@ -77,7 +98,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
     <LaunchFlow
       title="Import an Existing Application"
       items={items}
-      isValid={() => isImportFormValueValid(app.importApp)}
+      isValid={() => isImportFormValueValid(app.srcRepository)}
       buildAppPayload={() => toImportAppPayload(app)}
       onCancel={props.onCancel}
       canDownload={false}

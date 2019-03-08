@@ -16,7 +16,7 @@ storiesOf('Pickers', module)
   ))
   .add('BuildImagePicker', () => {
     return (
-      <BuildImageAnalyzerLoader repository={{org: 'jean-bon', name: 'bayonne'}}>
+      <BuildImageAnalyzerLoader gitUrl="https://github.com/fabric8-launcher/launcher-frontend">
         {result => (
           <FormPanel
             value={defaultBuidImagePickerValue}

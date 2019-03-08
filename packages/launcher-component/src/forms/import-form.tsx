@@ -2,27 +2,21 @@ import * as React from 'react';
 
 import { DescriptiveHeader, Separator } from '../core/stuff';
 import { FormPanel } from '../core/form-panel/form-panel';
-import {
-  RepositoryPickerValue,
-  defaultRepoPickerValue,
-  RepositoryPicker,
-  isRepositoryPickerValueValid
-} from '../pickers/repository-picker';
-import { BuildImageValue, defaultBuidImagePickerValue, BuildImagePicker } from '../pickers/buildimage-picker';
-import { GitInfoLoader } from '../loaders/git-info-loader';
+import { BuildImagePicker, BuildImageValue, defaultBuidImagePickerValue } from '../pickers/buildimage-picker';
 import { BuildImageAnalyzerLoader } from '../loaders/buildimage-loader';
+import { defaultGitImportUrlPickerValue, GitUrlPicker, GitUrlPickerValue, isGitUrlPickerValueValid } from '../pickers/git-url-picker';
 
 export interface ImportFormValue {
-  repository: RepositoryPickerValue;
+  sourceGit: GitUrlPickerValue;
   buildImage: BuildImageValue;
 }
 
 export function isImportFormValueValid(value: ImportFormValue) {
-  return isRepositoryPickerValueValid(value.repository) && !!value.buildImage.imageName;
+  return isGitUrlPickerValueValid(value.sourceGit) && !!value.buildImage.imageName;
 }
 
 export const defaultImportFormValue: ImportFormValue = {
-  repository: defaultRepoPickerValue,
+  sourceGit: defaultGitImportUrlPickerValue,
   buildImage: defaultBuidImagePickerValue
 };
 
@@ -30,6 +24,7 @@ interface ImportFormProps {
   value: ImportFormValue;
 
   onSave?(value: ImportFormValue);
+
   onCancel?();
 }
 
@@ -46,43 +41,31 @@ export function ImportForm(props: ImportFormProps) {
           <React.Fragment>
             <DescriptiveHeader
               title="Source Location"
-              description="You can select where your application source code will be located,
-               for now the only available provider is GitHub."
+              description="You can choose the source repository to import you application from."
             />
-            <GitInfoLoader>
-              {(gitInfo) => (
-                <React.Fragment>
-                  <RepositoryPicker
-                    import={true}
-                    gitInfo={gitInfo}
-                    value={inputProps.value.repository}
-                    onChange={(repository) => inputProps.onChange({...inputProps.value, repository})}
-                  />
-                  {inputProps.value.repository.name && (
-                    <React.Fragment>
-                      <Separator />
-                      <DescriptiveHeader
-                        title="Builder Image"
-                        description="A builder image is needed to build and deploy your application on OpenShift.
+            <GitUrlPicker
+              value={inputProps.value.sourceGit}
+              onChange={(sourceGit) => inputProps.onChange({...inputProps.value, sourceGit})}
+            />
+            {isGitUrlPickerValueValid(inputProps.value.sourceGit) && (
+              <React.Fragment>
+                <Separator/>
+                <DescriptiveHeader
+                  title="Builder Image"
+                  description="A builder image is needed to build and deploy your application on OpenShift.
                         We've detected a likely candidate, but you are free to change if needed."
-                      />
-                      <BuildImageAnalyzerLoader
-                        repository={{org: inputProps.value.repository.org ? inputProps.value.repository.org : gitInfo.login,
-                          name: inputProps.value.repository.name}}
-                      >
-                        {result => (
-                          <BuildImagePicker
-                            value={inputProps.value.buildImage}
-                            onChange={(buildImage) => inputProps.onChange({...inputProps.value, buildImage})}
-                            result={result}
-                          />
-                        )}
-                      </BuildImageAnalyzerLoader>
-                    </React.Fragment>
+                />
+                <BuildImageAnalyzerLoader gitUrl={inputProps.value.sourceGit.url}>
+                  {result => (
+                    <BuildImagePicker
+                      value={inputProps.value.buildImage}
+                      onChange={(buildImage) => inputProps.onChange({...inputProps.value, buildImage})}
+                      result={result}
+                    />
                   )}
-                </React.Fragment>
-                )}
-            </GitInfoLoader>
+                </BuildImageAnalyzerLoader>
+              </React.Fragment>
+            )}
           </React.Fragment>
         )}
     </FormPanel>

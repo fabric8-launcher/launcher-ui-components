@@ -15,7 +15,7 @@ export default class NoAuthenticationApi implements AuthenticationApi {
   }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
-    throw new Error('generateAuthorizationLink should not be called in No Authentication mode');
+    return `http://authorize/${provider}`;
   }
 
   public login= (): void => {

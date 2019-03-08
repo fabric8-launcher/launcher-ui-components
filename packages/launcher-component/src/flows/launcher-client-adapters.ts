@@ -1,5 +1,3 @@
-import { normalizeRepositoryPath } from '../pickers/repository-picker';
-
 export function toNewAppPayload(app) {
   let parts: any[] = [];
 
@@ -76,15 +74,12 @@ export function toImportAppPayload(app) {
 
   parts.push({
     category: 'import',
-    shared: {
-      buildImage: app.importApp.buildImage.imageName
-    },
     capabilities: [
       {
         module: 'import',
         props: {
-          gitImportUrl: normalizeRepositoryPath(app.importApp.repository),
-          builderImage: app.importApp.buildImage.imageName,
+          gitImportUrl: app.srcRepository.sourceGit.url,
+          builderImage: app.srcRepository.buildImage.imageName,
         }
       }
     ]
@@ -92,12 +87,12 @@ export function toImportAppPayload(app) {
 
   return {
     project: {
-      application: app.importApp.repository!.name,
+      application: app.importApp.destRepository!.name,
       parts,
     },
-    gitRepository: app.importApp.repository!.name,
-    gitOrganization: app.importApp.repository!.org || '',
+    gitRepository: app.destRepository.repository!.name,
+    gitOrganization: app.destRepository.repository!.org || '',
     clusterId: app.deployment.cluster.clusterId!,
-    projectName: app.importApp.repository!.name,
+    projectName: app.importApp.destRepository!.name,
   };
 }
