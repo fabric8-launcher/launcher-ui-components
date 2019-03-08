@@ -12,7 +12,7 @@ interface AuthRouterProps {
 
 export function AuthRouter(props: AuthRouterProps) {
   const authApi = useAuthApi();
-  if (!authApi.user) {
+  if (!authApi.user && authApi.enabled) {
     return (
       <BrowserRouter basename={props.basename}>
         <Switch>

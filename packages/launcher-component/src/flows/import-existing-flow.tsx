@@ -9,7 +9,7 @@ import {
   SrcRepositoryFormValue
 } from '../forms/src-repository-form';
 import { ImportFormOverview } from '../forms/import-form-overview';
-import { LaunchFlow } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster } from './launch-flow';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';
 import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
 
@@ -25,6 +25,7 @@ const defaultCustomApp = {
 
 export function ImportExistingFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<CustomApp>(defaultCustomApp);
+  const showDeploymentForm = useAutoSetCluster(setApp);
 
   const items = [
     {
@@ -58,7 +59,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
         ),
         width: 'half',
       },
-      form: {
+      form: showDeploymentForm && {
         component: ({close}) => (
           <DeploymentForm
             value={app.deployment}

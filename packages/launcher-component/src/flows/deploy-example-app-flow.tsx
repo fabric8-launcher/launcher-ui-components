@@ -8,7 +8,7 @@ import { toExamplePayload } from './launcher-client-adapters';
 import { ExampleFormOverview } from '../forms/example-form-overview';
 import { ExamplePickerValue } from '../pickers/example-picker';
 import { defaultExampleFormValue, ExampleForm, isExampleFormValueValid } from '../forms/example-form';
-import { LaunchFlow } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster } from './launch-flow';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';
 import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
 
@@ -28,7 +28,7 @@ const defaultCustomApp = {
 
 export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<ExampleApp>(defaultCustomApp);
-
+  const showDeploymentForm = useAutoSetCluster(setApp);
   const items = [
     {
       id: 'example',
@@ -83,7 +83,7 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
         ),
         width: 'third',
       },
-      form: {
+      form: showDeploymentForm && {
         component: ({close}) => (
           <DeploymentForm
             value={app.deployment}

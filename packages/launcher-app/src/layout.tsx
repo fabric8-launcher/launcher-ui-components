@@ -21,7 +21,7 @@ export function Layout(props: { children: React.ReactNode }) {
   const userDropdownItems = [
     <DropdownItem onClick={auth.logout} key="logout">Logout</DropdownItem>,
   ];
-  const PageToolbar = auth.user && (
+  const PageToolbar = auth.enabled && auth.user && (
     <Toolbar>
       <ToolbarGroup>
         <ToolbarItem>

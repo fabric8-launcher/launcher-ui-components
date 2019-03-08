@@ -8,6 +8,7 @@ import style from './hub-n-spoke.module.scss';
 export interface HubItem {
   id: string;
   title: string;
+  visible?: boolean;
   overview: {
     component: (props: { edit: () => void }) => ReactElement<any>;
     width?: 'third' | 'half' | 'full';
@@ -138,7 +139,8 @@ export function HubNSpoke(props: HubAndSpokeProps) {
             <HubFormCard id={hub.selected.id} title={hub.selected.title}>
               {hub.selected.form!.component({close: hub.close})}
             </HubFormCard>
-          ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
+          ) : props.items.filter(i => i.visible === undefined || i.visible)
+            .map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
         </Grid>
         {props.error && (
           <Error error={props.error}/>

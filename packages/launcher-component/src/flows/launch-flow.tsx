@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
 import { LaunchAppPayload, StatusMessage } from 'launcher-client';
 
@@ -11,6 +11,20 @@ import { DownloadIcon, ErrorCircleOIcon, PlaneDepartureIcon } from '@patternfly/
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
+}
+
+export function useAutoSetCluster(setApp) {
+  const client = useLauncherClient();
+  const [showDeploymentForm, setShowDeploymentForm] = useState(true);
+  useEffect(() => {
+    client.ocClusters().then(c => {
+      if (c.length === 1 && c[0].connected) {
+        setShowDeploymentForm(false);
+        setApp((prev) => ({...prev, deployment: {cluster: {clusterId: c[0].id}}}));
+      }
+    });
+  }, []);
+  return showDeploymentForm;
 }
 
 interface RunState {

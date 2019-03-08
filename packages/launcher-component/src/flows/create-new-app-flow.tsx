@@ -2,13 +2,13 @@ import * as React from 'react';
 import { useState } from 'react';
 import { generate } from 'project-name-generator';
 
-import { BackendForm, defaultBackendFormValue, isBackendFormValueValid, BackendFormValue, } from '../forms/backend-form';
-import { defaultFrontendFormValue, FrontendForm, isFrontendFormValueValid, FrontendFormValue, } from '../forms/frontend-form';
+import { BackendForm, BackendFormValue, defaultBackendFormValue, isBackendFormValueValid, } from '../forms/backend-form';
+import { defaultFrontendFormValue, FrontendForm, FrontendFormValue, isFrontendFormValueValid, } from '../forms/frontend-form';
 import { BackendFormOverview } from '../forms/backend-form-overview';
 import { FrontendFormOverview } from '../forms/frontend-form-overview';
 import { DestRepositoryForm, DestRepositoryFormValue } from '../forms/dest-repository-form';
 import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
-import { LaunchFlow } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
 import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
 import { DeploymentFormOverview } from '../forms/deployment-form-overview';
@@ -32,6 +32,7 @@ const defaultCustomApp = {
 
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp] = useState<CustomApp>(defaultCustomApp);
+  const showDeploymentForm = useAutoSetCluster(setApp);
 
   const isValidForm = () => (isFrontendFormValueValid(app.frontend) || isBackendFormValueValid(app.backend))
     && !!app.deployment.cluster.clusterId;
@@ -86,7 +87,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       title: 'Welcome Application',
       overview: {
         component: () => (
-          <WelcomeAppOverview />
+          <WelcomeAppOverview/>
         ),
         width: 'third',
       }
@@ -122,7 +123,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
         ),
         width: 'half',
       },
-      form: {
+      form: showDeploymentForm && {
         component: ({close}) => (
           <DeploymentForm
             value={app.deployment}
