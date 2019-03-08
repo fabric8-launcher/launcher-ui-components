@@ -17,7 +17,7 @@
     "project-name-generator": "2.1.6"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "5.0.0",
+    "@storybook/addon-actions": "5.0.1",
     "@storybook/addon-links": "5.0.0",
     "@storybook/addon-storysource": "5.0.0",
     "@storybook/addons": "5.0.0",
