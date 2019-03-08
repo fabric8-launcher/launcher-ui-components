@@ -98,9 +98,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
 
   return (
     <React.Fragment>
-      {(run.status === Status.EDITION || run.status === Status.ERROR) && (
-        <HubNSpoke title={props.title} items={props.items} toolbar={toolbar} error={run.error}/>
-      )}
+      <HubNSpoke title={props.title} items={props.items} toolbar={toolbar} error={run.error}/>
       {run.status === Status.RUNNING && (
         <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
       {run.status === Status.COMPLETED && (<LaunchNextSteps links={links} onClose={onCancel}/>)}

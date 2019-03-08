@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, CardHeader, Grid, GridItem } from '@patternfly/react-core';
+import { Button, Card, CardBody, CardFooter, CardHeader, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
 import * as React from 'react';
 import { useState } from 'react';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
@@ -21,6 +21,12 @@ export function Launcher() {
     <div id="launcher-component" className={style.launcher}>
       {!type && (
         <Grid gutter="md" className={style.menu}>
+          <GridItem span={12}>
+            <Text component={TextVariants.h1} className={style.title}>Launcher</Text>
+            <Text component={TextVariants.p} className={style.description}>
+              Create/Import your application, built and deployed on OpenShift.
+            </Text>
+          </GridItem>
           <GridItem span={4}>
             <Card className={style.card}>
               <CardHeader className={style.flowHeader}><TopologyIcon /></CardHeader>
