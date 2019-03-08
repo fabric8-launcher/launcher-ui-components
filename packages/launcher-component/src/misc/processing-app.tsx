@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DataList, DataListCell, DataListItem } from '@patternfly/react-core';
+import { DataList, DataListCell, DataListItem, Modal } from '@patternfly/react-core';
 import { ErrorCircleOIcon, InProgressIcon, OkIcon, PauseCircleIcon } from '@patternfly/react-icons';
 import { Loader, Spin } from '../core/data-loader/data-loader';
 
@@ -34,10 +34,20 @@ function StatusIcon(props: { status: Statuses }) {
 
 type Statuses = 'progress' | 'completed' | 'error' | 'paused';
 
+function Popup(props) {
+  return (
+    <Modal
+      title="Launch in progress..."
+      isOpen
+    >
+      {props.children}
+    </Modal>);
+}
+
 export function ProcessingApp(props: ProcessingAppProps) {
 
-  if(!props.progressEvents) {
-    return (<Loader />);
+  if (!props.progressEvents) {
+    return (<Popup><Loader/></Popup>);
   }
 
   const progressSteps: Array<{ id: number, name: string, message: string, status: Statuses }> = new Array(4);
@@ -64,8 +74,10 @@ export function ProcessingApp(props: ProcessingAppProps) {
   );
 
   return (
-    <DataList aria-label="Progress events">
-      {progressSteps.map(s => (<ProgressEvent key={s.id} event={s}/>))}
-    </DataList>
+    <Popup>
+      <DataList aria-label="Progress events">
+        {progressSteps.map(s => (<ProgressEvent key={s.id} event={s}/>))}
+      </DataList>
+    </Popup>
   );
 }

@@ -33,7 +33,8 @@ export function LaunchFlow(props: LaunchFlowProps) {
   const [run, setRun] = useState<RunState>({status: Status.EDITION, statusMessages: []});
   const client = useLauncherClient();
   const canDownload = props.canDownload === undefined || props.canDownload;
-
+  const onCancel = props.onCancel || (() => {
+  });
   const launch = () => {
     if (!props.isValid()) {
       console.warn('Your current selection is not valid.');
@@ -97,10 +98,13 @@ export function LaunchFlow(props: LaunchFlowProps) {
 
   return (
     <React.Fragment>
-      {run.status === Status.EDITION && (<HubNSpoke title={props.title} items={props.items} toolbar={toolbar}/>)}
-      {run.status === Status.RUNNING && (<ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
-      {(run.status === Status.COMPLETED || run.status === Status.ERROR) && (<LaunchNextSteps links={links} error={run.error}/>)}
-      {run.status === Status.DOWNLOADED && (<DownloadNextSteps error={run.error} downloadLink={run.result.downloadLink}/>)}
+      {(run.status === Status.EDITION || run.status === Status.ERROR) && (
+        <HubNSpoke title={props.title} items={props.items} toolbar={toolbar} error={run.error}/>
+      )}
+      {run.status === Status.RUNNING && (
+        <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
+      {run.status === Status.COMPLETED && (<LaunchNextSteps links={links} onClose={onCancel}/>)}
+      {run.status === Status.DOWNLOADED && (<DownloadNextSteps onClose={onCancel} downloadLink={run.result.downloadLink}/>)}
     </React.Fragment>
   );
 }

@@ -35,7 +35,7 @@ export function BackendFormOverview(props: BackendOverviewProps) {
                 It will feature:
                 <List variant="grid">
                   {props.value.capabilities.filter(c => c.selected)
-                    .map(c => (<ListItem><SpecialValue>{capabilitiesById.get(c.id)!.name}</SpecialValue></ListItem>))}
+                    .map(c => (<ListItem key={c.id}><SpecialValue>{capabilitiesById.get(c.id)!.name}</SpecialValue></ListItem>))}
                 </List>
               </div>
             )}

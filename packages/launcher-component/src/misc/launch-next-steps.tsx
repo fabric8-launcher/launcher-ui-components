@@ -1,49 +1,53 @@
 import * as React from 'react';
-import { Alert } from '@patternfly/react-core';
+import { Button, Modal, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { ClusterIcon, CodeIcon, GiftIcon } from '@patternfly/react-icons';
 import { ExternalLink } from './external-link';
 
 interface LaunchNextStepsProps {
-  error?: any;
-  links: { [x: string]: string | undefined };
+  links?: { [x: string]: string | undefined };
+  onClose: () => void;
 }
 
 export function LaunchNextSteps(props: LaunchNextStepsProps) {
-  const landingPageLink = (props.links['GITHUB_CREATE'] || 'https://fabric8-launcher.github.io/application-creator-landingpage/')
+  const links = props.links || {};
+  const landingPageLink = (links['GITHUB_CREATE'] || 'https://fabric8-launcher.github.io/application-creator-landingpage/')
     + '/blob/master/README.adoc';
-  const repositoryLink = props.links['GITHUB_CREATE'] || 'https://github.com/fabric8-launcher/launcher-creator-frontend';
-  const deploymentLink = props.links['OPENSHIFT_CREATE'] || 'https://manage.openshift.com/';
+  const repositoryLink = links['GITHUB_CREATE'] || 'https://github.com/fabric8-launcher/launcher-creator-frontend';
+  const deploymentLink = links['OPENSHIFT_CREATE'] || 'https://manage.openshift.com/';
   return (
-    <React.Fragment>
-      {!props.error && (
-        <React.Fragment>
-          <Alert variant="success" title="Launch Success" aria-label="launch-success">Your application deployment has started</Alert>
-          <h2>Follow your application delivery</h2>
-          <p>You can follow your application deployment in your OpenShift Console</p>
-          <ExternalLink href={deploymentLink}>
-            <ClusterIcon/> OpenShift Console
-          </ExternalLink>
-          <h2>As soon as deployment is done, check out your new application capabilities</h2>
-          <p>We prepared a set of examples to let you directly start playing with your new application.
-            Those examples are there to get you started,
-            soon it will be time for you to remove them and start developing your awesome application.</p>
-          <ExternalLink href={landingPageLink}>
-            <GiftIcon/> Check out your new Application
-          </ExternalLink>
-          <h2>Update your application using Continuous Delivery</h2>
-          <p>We set up your application codebase in the GitHub repository you requested</p>
-          <p>Your application is automatically configured to build and deploy on OpenShift with new commits.</p>
-          <ExternalLink href={repositoryLink}>
-            <CodeIcon/> Clone your new codebase
-          </ExternalLink>
-        </React.Fragment>
-      )}
-      {props.error && (
-        <Alert variant="danger" title="Launch Error" aria-label="error-during-launch">
-          Holy guacamole... something weird happened, please reload the page to try again.<br/>
-          {props.error.toString()}
-        </Alert>
-      )}
-    </React.Fragment>
+    <Modal
+      title="Your Application deployment has started"
+      isOpen
+      isLarge={false}
+      onClose={props.onClose}
+      actions={[
+        <Button key="launch-new" variant="secondary" onClick={props.onClose}>
+          Launch a new Application
+        </Button>,
+      ]}
+    >
+      <TextContent>
+        <Text component={TextVariants.h3}>Follow your application delivery</Text>
+        <Text component={TextVariants.p}>You can follow your application deployment in your OpenShift Console</Text>
+        <ExternalLink href={deploymentLink}>
+          <ClusterIcon/> OpenShift Console
+        </ExternalLink>
+        <Text component={TextVariants.h3}>As soon as deployment is done, check out your new application capabilities</Text>
+        <Text component={TextVariants.p}>
+          We prepared a set of examples to let you directly start playing with your new application.<br/>
+          Those examples are there to get you started,<br/>
+          soon it will be time for you to remove them and start developing your awesome application.</Text>
+        <ExternalLink href={landingPageLink}>
+          <GiftIcon/> Check out your new Application
+        </ExternalLink>
+        <Text component={TextVariants.h3}>Update your application using Continuous Delivery</Text>
+        <Text component={TextVariants.p}>We set up your application codebase in the GitHub repository you requested</Text>
+        <Text component={TextVariants.p}>Your application is automatically configured
+          to build and deploy on OpenShift with new commits.</Text>
+        <ExternalLink href={repositoryLink}>
+          <CodeIcon/> Clone your new codebase
+        </ExternalLink>
+      </TextContent>
+    </Modal>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useContext, useState } from 'react';
-import { Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
+import { Alert, Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
 import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 
 import style from './hub-n-spoke.module.scss';
@@ -101,6 +101,19 @@ interface HubAndSpokeProps {
   title: string;
   items: HubItem[];
   toolbar?: React.ReactNode;
+  error?: any;
+}
+
+interface ErrorProps {
+  error: any;
+}
+
+export function Error(props: ErrorProps) {
+  return (
+    <Alert variant="danger" title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
+      {props.error.toString()}
+    </Alert>
+  );
 }
 
 export function HubNSpoke(props: HubAndSpokeProps) {
@@ -127,6 +140,9 @@ export function HubNSpoke(props: HubAndSpokeProps) {
             </HubFormCard>
           ) : props.items.map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
         </Grid>
+        {props.error && (
+          <Error error={props.error}/>
+        )}
         {!hub.selected && props.toolbar}
       </HubContext.Provider>
     </div>
