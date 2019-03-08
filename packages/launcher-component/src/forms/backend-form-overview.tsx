@@ -1,9 +1,10 @@
 import { BackendFormValue } from './backend-form';
-import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
+import { Button, EmptyState, EmptyStateBody, List, ListItem, Title } from '@patternfly/react-core';
 import * as React from 'react';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
 import { CapabilitiesByModuleLoader } from '../loaders/capabilities-loader';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
+import { SpecialValue } from '../core/stuff';
 
 interface BackendOverviewProps {
   value: BackendFormValue;
@@ -30,10 +31,13 @@ export function BackendFormOverview(props: BackendOverviewProps) {
         <OverviewComplete title={`Your ${runtime!.name} backend is configured`}>
           <CapabilitiesByModuleLoader categories={['backend', 'support']}>
             {capabilitiesById => (
-              <React.Fragment>
+              <div style={{textAlign: 'left'}}>
                 It will feature:
-                {props.value.capabilities.filter(c => c.selected).map(c => capabilitiesById.get(c.id)!.name).join(', ')}
-              </React.Fragment>
+                <List variant="grid">
+                  {props.value.capabilities.filter(c => c.selected)
+                    .map(c => (<ListItem><SpecialValue>{capabilitiesById.get(c.id)!.name}</SpecialValue></ListItem>))}
+                </List>
+              </div>
             )}
           </CapabilitiesByModuleLoader>
         </OverviewComplete>

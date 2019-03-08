@@ -45,7 +45,11 @@ function CapabilityItem(props: CapabilityItemProps) {
   };
   const elId = `toggle-capability-props-form-${props.id}`;
   const fields = (props.fields || []).filter(f => f.type === 'enum');
-  const toggleSelect = () => onChangeSelected(!props.value.selected);
+  const toggleSelect = () => {
+    if (!props.disabled) {
+      onChangeSelected(!props.value.selected);
+    }
+  };
   return (
     <DataListItem aria-labelledby={props.id} isExpanded={props.value.selected}>
       <DataListCheck

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { OpenshiftClusterLoader } from '../loaders/openshiftcluster-loader';
 import { DeploymentFormValue } from './deployment-form';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
+import { SpecialValue } from '../core/stuff';
 
 interface DeploymentFormProps {
   value: DeploymentFormValue;
@@ -26,7 +27,7 @@ export function DeploymentFormOverview(props: DeploymentFormProps) {
     <OpenshiftClusterLoader clusterId={props.value.cluster.clusterId}>
       {result => (
         <OverviewComplete title="OpenShift Deployment is configured">
-          You application will be deployed to the '{result!.name}' OpenShift cluster.
+          You application will be deployed to the <SpecialValue>{result!.name}</SpecialValue> OpenShift cluster.
         </OverviewComplete>
       )}
     </OpenshiftClusterLoader>
