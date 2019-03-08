@@ -20,6 +20,6 @@ export function DescriptiveHeader(props: { title?: string, description: string }
 
 export function SpecialValue(props: { children: string }) {
   return (
-    <span className={style.specialValue}>'{props.children}'</span>
+    <span className={style.specialValue}>{props.children}</span>
   );
 }

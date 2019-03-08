@@ -32,11 +32,16 @@ export function BackendFormOverview(props: BackendOverviewProps) {
           <CapabilitiesByModuleLoader categories={['backend', 'support']}>
             {capabilitiesById => (
               <div style={{textAlign: 'left'}}>
-                It will feature:
-                <List variant="grid">
-                  {props.value.capabilities.filter(c => c.selected)
-                    .map(c => (<ListItem key={c.id}><SpecialValue>{capabilitiesById.get(c.id)!.name}</SpecialValue></ListItem>))}
-                </List>
+                  Featuring
+                  <List variant="grid" style={{ listStyleType: 'none'}}>
+                    {props.value.capabilities.filter(c => c.selected)
+                      .map(c => (<ListItem key={c.id}><img src={capabilitiesById.get(c.id)!.metadata.icon}/>
+                                  <SpecialValue>{' - ' + capabilitiesById.get(c.id)!.name}</SpecialValue>
+                                 </ListItem>
+                                 )
+                          )
+                    }
+                  </List>
               </div>
             )}
           </CapabilitiesByModuleLoader>
