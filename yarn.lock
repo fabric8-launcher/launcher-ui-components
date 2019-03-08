@@ -2555,10 +2555,10 @@
   resolved "https://registry.yarnpkg.com/@types/lscache/-/lscache-1.0.29.tgz#068a8acca8668c0a2b5d5dcb2800fa334c7b1f60"
   integrity sha1-BoqKzKhmjAorXV3LKAD6M0x7H2A=
 
-"@types/node@*", "@types/node@11.10.5", "@types/node@^11.9.5":
-  version "11.10.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.5.tgz#fbaca34086bdc118011e1f05c47688d432f2d571"
-  integrity sha512-DuIRlQbX4K+d5I+GMnv+UfnGh+ist0RdlvOp+JZ7ePJ6KQONCFQv/gKYSU1ZzbVdFSUCKZOltjmpFAGGv5MdYA==
+"@types/node@*", "@types/node@11.10.6", "@types/node@^11.9.5":
+  version "11.10.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.6.tgz#f8eed81174467679fa127a1dbafbfe30c5b188f1"
+  integrity sha512-OUFTF4A3Lgo3kkisJ60r8BWycCkABa8v7KpqGXY3SusQAQQaFO05wa45ZBwVv4n0gkYA8G6i/Bk9zI6dx5Ss6A==
 
 "@types/node@^10.11.7":
   version "10.12.29"
