@@ -99,10 +99,11 @@ objects:
                       key: launcher.creator.url
                       optional: true
                 - name: LAUNCHER_KEYCLOAK_MODE
-                    valueFrom:
-                      configMapKeyRef:
-                        name: launcher
-                        key: launcher.keycloak.mode
+                  valueFrom:
+                    configMapKeyRef:
+                      name: launcher
+                      key: launcher.keycloak.mode
+                      optional: true
                 - name: LAUNCHER_KEYCLOAK_URL
                   valueFrom:
                     configMapKeyRef:
