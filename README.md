@@ -1,7 +1,7 @@
 Fabric8-Launcher Frontend
 =========================
 
-[![Build Status](https://travis-ci.com/fabric8-launcher/launcher-frontend.svg?branch=master)](https://travis-ci.com/fabric8-launcher/launcher-frontend)
+[![CircleCI](https://circleci.com/gh/fabric8-launcher/launcher-frontend.svg?style=svg)](https://circleci.com/gh/fabric8-launcher/launcher-frontend)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=72209295)](https://dependabot.com)
 
