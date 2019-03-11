@@ -24,14 +24,14 @@ interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
 }
 
 export function ExamplePicker(props: ExamplePickerProps) {
-  const query = { runtime: { id: '', name: '', version: {id: '', name: ''} } };
+  const query = { runtime: { id: '', name: '', version: { id: '', name: '' } } };
   const runtimesMap = _.keyBy(filter(query, props.catalog) as ExampleRuntime[], 'id');
 
   return (
     <React.Fragment>
       <DataList aria-label="select-mission">
         {
-          props.catalog.missions.map((mission, i) => {
+          props.catalog.missions!.map((mission, i) => {
             const isSelected = props.value.missionId === mission.id;
             const onChangeSelected = () => {
               props.onChange({ missionId: mission.id });
@@ -63,19 +63,19 @@ export function ExamplePicker(props: ExamplePickerProps) {
                     onChange={value => props.onChange({ ...props.value, runtimeId: value })}
                     aria-label="Select Runtime"
                   >
-                    {_.map(runtimesMap).map((runtime, index) => {
-                      if (!props.value.runtimeId) {
-                        props.value.runtimeId = runtime.id;
-                      }
-                      return (
-                        <FormSelectOption
-                          key={index}
-                          value={runtime.id}
-                          label={runtime.name}
-                        />
-                      );
+                    <FormSelectOption
+                      key={-1}
+                      value=""
+                      label="Select a Runtime"
+                    />
+                    {_.map(runtimesMap).map((runtime, index) => (
+                      <FormSelectOption
+                        key={index}
+                        value={runtime.id}
+                        label={runtime.name}
+                      />
+                    ))
                     }
-                    )}
                   </FormSelect>
                   {props.value.runtimeId &&
                     <FormSelect
@@ -84,19 +84,19 @@ export function ExamplePicker(props: ExamplePickerProps) {
                       onChange={value => props.onChange({ ...props.value, versionId: value })}
                       aria-label="Select Version"
                     >
-                      {(runtimesMap[props.value.runtimeId] as any).version.map((version, index) => {
-                        if (!props.value.versionId) {
-                          props.value.versionId = version.id;
-                        }
-                        return (
-                          <FormSelectOption
-                            key={index}
-                            value={version.id}
-                            label={version.name}
-                          />
-                        );
+                      <FormSelectOption
+                        key={-1}
+                        value=""
+                        label="Select a Version"
+                      />
+                      {(runtimesMap[props.value.runtimeId] as any).version.map((version, index) => (
+                        <FormSelectOption
+                          key={index}
+                          value={version.id}
+                          label={version.name}
+                        />
+                      ))
                       }
-                      )}
                     </FormSelect>
                   }
                 </DataListContent>
