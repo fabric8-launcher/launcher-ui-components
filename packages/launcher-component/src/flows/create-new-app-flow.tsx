@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import useSessionStorageWithObject from 'react-use-sessionstorage';
 import { generate } from 'project-name-generator';
 
 import { BackendForm, BackendFormValue, defaultBackendFormValue, isBackendFormValueValid, } from '../forms/backend-form';
@@ -25,13 +25,18 @@ const defaultCustomApp = {
   backend: defaultBackendFormValue,
   frontend: defaultFrontendFormValue,
   destRepository: {
-    repository: {name: generate().dashed}
+    repository: { name: generate().dashed }
   },
   deployment: defaultDeploymentFormValue,
 };
 
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
-  const [app, setApp] = useState<CustomApp>(defaultCustomApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<CustomApp>('app', defaultCustomApp);
+  const onCancel = () => {
+    clear();
+    props.onCancel!();
+  };
+
   const showDeploymentForm = useAutoSetCluster(setApp);
 
   const isValidForm = () => (isFrontendFormValueValid(app.frontend) || isBackendFormValueValid(app.backend))
@@ -42,17 +47,17 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       id: 'frontend',
       title: 'Frontend',
       overview: {
-        component: ({edit}) => (
-          <FrontendFormOverview value={app.frontend} onClick={edit}/>
+        component: ({ edit }) => (
+          <FrontendFormOverview value={app.frontend} onClick={edit} />
         ),
         width: 'third',
       },
       form: {
-        component: ({close}) => (
+        component: ({ close }) => (
           <FrontendForm
             value={app.frontend}
             onSave={(frontend) => {
-              setApp({...app, frontend});
+              setApp({ ...app, frontend });
               close();
             }}
             onCancel={close}
@@ -64,17 +69,17 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       id: 'backend',
       title: 'Backend',
       overview: {
-        component: ({edit}) => (
-          <BackendFormOverview value={app.backend} onClick={edit}/>
+        component: ({ edit }) => (
+          <BackendFormOverview value={app.backend} onClick={edit} />
         ),
         width: 'third',
       },
       form: {
-        component: ({close}) => (
+        component: ({ close }) => (
           <BackendForm
             value={app.backend}
             onSave={(backend) => {
-              setApp({...app, backend});
+              setApp({ ...app, backend });
               close();
             }}
             onCancel={close}
@@ -87,7 +92,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       title: 'Welcome Application',
       overview: {
         component: () => (
-          <WelcomeAppOverview/>
+          <WelcomeAppOverview />
         ),
         width: 'third',
       }
@@ -96,17 +101,17 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       id: 'destRepository',
       title: 'Source Location',
       overview: {
-        component: ({edit}) => (
-          <SrcLocationFormOverview value={app.destRepository} onClick={edit}/>
+        component: ({ edit }) => (
+          <SrcLocationFormOverview value={app.destRepository} onClick={edit} />
         ),
         width: 'half',
       },
       form: {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DestRepositoryForm
             value={app.destRepository}
             onSave={(srcLocation) => {
-              setApp({...app, destRepository: srcLocation});
+              setApp({ ...app, destRepository: srcLocation });
               close();
             }}
             onCancel={close}
@@ -118,17 +123,17 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       id: 'openshift-deployment',
       title: 'OpenShift Deployment',
       overview: {
-        component: ({edit}) => (
-          <DeploymentFormOverview value={app.deployment} onClick={edit}/>
+        component: ({ edit }) => (
+          <DeploymentFormOverview value={app.deployment} onClick={edit} />
         ),
         width: 'half',
       },
       form: showDeploymentForm && {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DeploymentForm
             value={app.deployment}
             onSave={(deployment) => {
-              setApp({...app, deployment});
+              setApp({ ...app, deployment });
               close();
             }}
             onCancel={close}
@@ -143,8 +148,11 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       title="Create a New Application"
       items={items}
       isValid={isValidForm}
-      buildAppPayload={() => toNewAppPayload(app)}
-      onCancel={props.onCancel}
+      buildAppPayload={() => {
+        clear();
+        return toNewAppPayload(app);
+      }}
+      onCancel={onCancel}
     />
   );
 

@@ -1,6 +1,6 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
 import * as React from 'react';
-import { useState } from 'react';
+import useLocalStorage from 'react-use-sessionstorage';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
 import { DeployExampleAppFlow } from '../flows/deploy-example-app-flow';
 import style from './launcher.module.scss';
@@ -12,11 +12,11 @@ enum Type {
 }
 
 export function Launcher() {
-  const [type, setType] = useState<Type | undefined>(undefined);
+  const [type, setType] = useLocalStorage('type', '');
   const createNewApp = () => setType(Type.NEW);
   const createExampleApp = () => setType(Type.EXAMPLE);
   const importApp = () => setType(Type.IMPORT);
-  const resetType = () => setType(undefined);
+  const resetType = () => sessionStorage.removeItem('type');
   return (
     <div id="launcher-component" className={style.launcher}>
       {!type && (
