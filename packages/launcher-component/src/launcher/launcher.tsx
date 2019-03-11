@@ -27,7 +27,7 @@ export function Launcher() {
               Create/Import your application, built and deployed on OpenShift.
             </Text>
           </GridItem>
-          <GridItem span={4}>
+          <GridItem md={4} sm={12}>
             <Card className={style.card}>
               <CardHeader className={style.flowHeader}><TopologyIcon /></CardHeader>
               <CardBody>You start your own new application
@@ -38,7 +38,7 @@ export function Launcher() {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem span={4}>
+          <GridItem md={4} sm={12}>
             <Card className={style.card}>
               <CardHeader className={style.flowHeader}><CatalogIcon /></CardHeader>
               <CardBody>Choose from a variety of Red Hat certified examples to generate the
@@ -48,7 +48,7 @@ export function Launcher() {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem span={4}>
+          <GridItem md={4} sm={12}>
             <Card className={style.card}>
               <CardHeader className={style.flowHeader}><FileImportIcon /></CardHeader>
               <CardBody>Import your own existing application in the OpenShift ecosystem.</CardBody>

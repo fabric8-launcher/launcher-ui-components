@@ -1,5 +1,5 @@
 import { BackendFormValue } from './backend-form';
-import { Button, EmptyState, EmptyStateBody, List, ListItem, Title } from '@patternfly/react-core';
+import { Button, EmptyState, EmptyStateBody, List, ListItem, Title, Text, TextVariants, Split, SplitItem } from '@patternfly/react-core';
 import * as React from 'react';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
 import { CapabilitiesByModuleLoader } from '../loaders/capabilities-loader';
@@ -29,22 +29,31 @@ export function BackendFormOverview(props: BackendOverviewProps) {
     <RuntimeLoader id={props.value.runtime.id}>
       {runtime => (
         <OverviewComplete title={`Your ${runtime!.name} backend is configured`}>
-          <CapabilitiesByModuleLoader categories={['backend', 'support']}>
-            {capabilitiesById => (
-              <div style={{textAlign: 'left'}}>
-                  Featuring
-                  <List variant="grid" style={{ listStyleType: 'none'}}>
-                    {props.value.capabilities.filter(c => c.selected)
-                      .map(c => (<ListItem key={c.id}><img src={capabilitiesById.get(c.id)!.metadata.icon}/>
-                                  <SpecialValue>{' - ' + capabilitiesById.get(c.id)!.name}</SpecialValue>
-                                 </ListItem>
-                                 )
+          <Split>
+            <SplitItem isMain={false}>
+              <img src={runtime!.icon} style={{marginRight: '20px', height: '75px'}}/>
+            </SplitItem>
+            <SplitItem isMain={true}>
+              <CapabilitiesByModuleLoader categories={['backend', 'support']}>
+                {capabilitiesById => (
+                  <div style={{textAlign: 'left'}}>
+                    <Text component={TextVariants.p} style={{marginBottom: '10px'}}>Featuring</Text>
+                    <List variant="grid" style={{listStyleType: 'none'}}>
+                      {props.value.capabilities.filter(c => c.selected)
+                        .map(c => (
+                            <ListItem key={c.id}>
+                              <img src={capabilitiesById.get(c.id)!.metadata.icon} style={{marginRight: '10px', verticalAlign: 'middle'}}/>
+                              <SpecialValue>{capabilitiesById.get(c.id)!.name}</SpecialValue>
+                            </ListItem>
                           )
-                    }
-                  </List>
-              </div>
-            )}
-          </CapabilitiesByModuleLoader>
+                        )
+                      }
+                    </List>
+                  </div>
+                )}
+              </CapabilitiesByModuleLoader>
+            </SplitItem>
+          </Split>
         </OverviewComplete>
       )}
     </RuntimeLoader>

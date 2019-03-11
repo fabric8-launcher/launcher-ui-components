@@ -25,7 +25,9 @@ export function FrontendFormOverview(props: FrontendOverviewProps) {
   return (
     <RuntimeLoader id={props.value.runtime.id}>
       {runtime => (
-        <OverviewComplete title={`Your ${runtime!.name} frontend is configured`} />
+        <OverviewComplete title={`Your ${runtime!.name} frontend is configured`}>
+          <img src={runtime!.icon} style={{margin: '5px auto', height: '160px'}}/>
+        </OverviewComplete>
       )}
     </RuntimeLoader>
   );
