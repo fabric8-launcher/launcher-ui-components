@@ -66,9 +66,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   public logout = () => {
     KeycloakAuthenticationApi.clearStoredData();
-    if (this.onUserChangeListener) {
-      this.onUserChangeListener(undefined);
-    }
+    this.triggerUserChange();
     this.keycloak.logout();
     return Promise.resolve();
   };
@@ -163,6 +161,12 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   public get enabled(): boolean {
     return true;
+  }
+
+  private triggerUserChange() {
+    if (this.onUserChangeListener) {
+      this.onUserChangeListener(undefined);
+    }
   }
 
   private static clearStoredData() {

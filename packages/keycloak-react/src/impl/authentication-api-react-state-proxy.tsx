@@ -1,5 +1,4 @@
 import { AuthenticationApi, OptionalUser } from '../authentication-api';
-import { KeycloakAuthenticationApi } from './keycloak-authentication-api';
 
 export default class AuthenticationApiReactStateProxy implements AuthenticationApi {
 
@@ -7,9 +6,7 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
   }
 
   public async init(): Promise<OptionalUser> {
-    if(this.authApi instanceof KeycloakAuthenticationApi) {
-      (this.authApi as KeycloakAuthenticationApi).setOnUserChangeListener((changed) => this.setUser(changed));
-    }
+    this.authApi.setOnUserChangeListener((changed) => this.setUser(changed));
     return await this.authApi.init();
   }
 
@@ -39,6 +36,10 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
 
   public get enabled(): boolean {
     return this.authApi.enabled;
+  }
+
+  public setOnUserChangeListener(listener: (user: OptionalUser) => void) {
+    throw new Error('setOnUserChangeListener should not be called on the proxy');
   }
 
 }
