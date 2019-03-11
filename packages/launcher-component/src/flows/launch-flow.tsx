@@ -8,6 +8,7 @@ import { LaunchNextSteps } from '../misc/launch-next-steps';
 import { DownloadNextSteps } from '../misc/download-next-steps';
 import { HubNSpoke } from '../core/hub-n-spoke';
 import { DownloadIcon, ErrorCircleOIcon, PlaneDepartureIcon } from '@patternfly/react-icons';
+import style from './launch-flow.module.scss';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -84,18 +85,21 @@ export function LaunchFlow(props: LaunchFlowProps) {
   };
 
   const toolbar = (
-    <Toolbar style={{marginTop: '20px'}}>
-      <ToolbarGroup>
-        <Button variant="primary" onClick={launch}><PlaneDepartureIcon style={{marginRight: '10px'}}/> Launch</Button>
+    <Toolbar className={style.toolbar}>
+      <ToolbarGroup className={style.toolbarGroup}>
+        <Button variant="primary" onClick={launch} className={style.toolbarButton}>
+          <PlaneDepartureIcon className={style.buttonIcon}/>Launch
+        </Button>
+        {canDownload && (
+          <Button variant="primary" onClick={zip} className={style.toolbarButton}>
+            <DownloadIcon className={style.buttonIcon}/>Download
+          </Button>
+        )}
+        <Button variant="secondary" onClick={props.onCancel} className={style.toolbarButton}>
+          <ErrorCircleOIcon className={style.buttonIcon}/>Cancel
+        </Button>
       </ToolbarGroup>
-      {canDownload && (
-        <ToolbarGroup>
-          <Button variant="primary" onClick={zip}><DownloadIcon style={{marginRight: '10px'}}/> Download</Button>
-        </ToolbarGroup>
-      )}
-      <ToolbarGroup>
-        <Button variant="secondary" onClick={props.onCancel}><ErrorCircleOIcon style={{marginRight: '10px'}}/>Cancel</Button>
-      </ToolbarGroup>
+
     </Toolbar>
   );
 

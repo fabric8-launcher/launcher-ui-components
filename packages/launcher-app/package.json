@@ -19,7 +19,7 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "react-router-dom": "4.3.1",
+    "react-router-dom": "4.4.0-beta.7",
     "keycloak-react": "*",
     "launcher-component": "*"
   },
