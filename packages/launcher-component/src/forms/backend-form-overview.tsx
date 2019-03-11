@@ -1,5 +1,5 @@
 import { BackendFormValue } from './backend-form';
-import { Button, EmptyState, EmptyStateBody, List, ListItem, Title } from '@patternfly/react-core';
+import { Button, EmptyState, EmptyStateBody, List, ListItem, Title, Text, TextVariants } from '@patternfly/react-core';
 import * as React from 'react';
 import { RuntimeLoader } from '../loaders/enums-runtimes-loaders';
 import { CapabilitiesByModuleLoader } from '../loaders/capabilities-loader';
@@ -32,16 +32,18 @@ export function BackendFormOverview(props: BackendOverviewProps) {
           <CapabilitiesByModuleLoader categories={['backend', 'support']}>
             {capabilitiesById => (
               <div style={{textAlign: 'left'}}>
-                  Featuring
-                  <List variant="grid" style={{ listStyleType: 'none'}}>
-                    {props.value.capabilities.filter(c => c.selected)
-                      .map(c => (<ListItem key={c.id}><img src={capabilitiesById.get(c.id)!.metadata.icon}/>
-                                  <SpecialValue>{' - ' + capabilitiesById.get(c.id)!.name}</SpecialValue>
-                                 </ListItem>
-                                 )
-                          )
-                    }
-                  </List>
+                <Text component={TextVariants.p} style={{marginBottom: '10px'}}>Featuring</Text>
+                <List variant="grid" style={{listStyleType: 'none'}}>
+                  {props.value.capabilities.filter(c => c.selected)
+                    .map(c => (
+                        <ListItem key={c.id}>
+                          <img src={capabilitiesById.get(c.id)!.metadata.icon} style={{marginRight: '10px', verticalAlign: 'middle'}}/>
+                          <SpecialValue>{capabilitiesById.get(c.id)!.name}</SpecialValue>
+                        </ListItem>
+                      )
+                    )
+                  }
+                </List>
               </div>
             )}
           </CapabilitiesByModuleLoader>
