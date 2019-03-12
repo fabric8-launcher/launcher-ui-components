@@ -25,9 +25,32 @@ describe('Filter examples', () => {
   });
 
   it('should filter catalog on mission id', () => {
-    const result = filter({ mission: { id: 'rest-http-secured' } }, exampleCatalog as unknown as Catalog);
+    const result = filter({ mission: { id: 'rest-http-secured', name: '' } }, exampleCatalog as unknown as Catalog);
 
     expect(result.length).toBe(1);
+    expect(result[0].name).toBe('Secured');
+    expect((result[0] as ExampleMission).runtime).toBeUndefined();
+  });
+
+  it('should filter catalog on mission by missionId and runtimeId', () => {
+    const result = filter({ mission: { id: 'crud', name: '', runtime: { id: 'vert.x', icon: '' } } },
+      exampleCatalog as unknown as Catalog);
+
+    expect(result.length).toBeDefined();
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe('CRUD');
+    expect(((result[0] as ExampleMission).runtime!.length)).toBe(1);
+    expect(((result[0] as ExampleMission).runtime![0]).description).toBeUndefined();
+  });
+
+  it('should filter catalog on mission and runtime id', () => {
+    const result = filter({ mission: { id: '', name: '', runtime: { id: 'vert.x', icon: '' } } },
+      exampleCatalog as unknown as Catalog);
+
+    expect(result.length).toBeDefined();
+    expect(result.length).toBe(12);
+    expect(((result[0] as ExampleMission).runtime!.length)).toBe(1);
+    expect(((result[0] as ExampleMission).runtime![0]).description).toBeUndefined();
   });
 
   it('should filter catalog on runtime', () => {
@@ -40,6 +63,13 @@ describe('Filter examples', () => {
     expect(versions.length).toBe(2);
     expect(versions[0].name).toBe('3.5.4.redhat-00002 (RHOAR)');
     expect(versions[0].id).toBeUndefined();
+  });
+
+  it('should filter catalog on runtime by id', () => {
+    const result = filter({ runtime: { id: 'spring-boot', name } }, exampleCatalog as unknown as Catalog);
+
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe('Spring Boot');
   });
 
 });
