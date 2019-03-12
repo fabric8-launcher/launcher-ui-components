@@ -23,10 +23,10 @@ export function ExampleFormOverview(props: ExampleOverviewProps) {
     );
   }
   return (
-    <ExamplesLoader id={props.value.missionId}>
+    <ExamplesLoader query={{missionId: props.value.missionId, runtimeId: props.value.runtimeId}}>
       {result => (
-        <OverviewComplete title={`Your example will be ${(result.catalog as any).name}`}>
-          {(result.catalog as any).description}
+        <OverviewComplete title={`Your example will be ${(result.catalog as any).name} using:`}>
+          <img src={(result.catalog as any).runtime[0].icon} style={{margin: '5px auto', height: '160px'}}/>
         </OverviewComplete>
       )}
     </ExamplesLoader>

@@ -28,7 +28,7 @@ function copyProperties(obj: any, props: any, lambda?): any {
   for (const prop in props) {
     if (props.hasOwnProperty(prop)) {
       const value = _.get(obj, prop);
-      if (relations.indexOf(prop) === -1) {
+      if (relations.indexOf(prop) === -1 || !lambda) {
         result[prop] = value;
       } else {
         result[prop] = lambda(value, obj, prop);
@@ -54,13 +54,17 @@ export function filterExample(query: any, catalog: Catalog): Example[] {
 
 export function filterExampleMission(query: any, catalog: Catalog): ExampleMission[] {
   const runtimeById = _.keyBy(catalog.runtimes, 'id');
-  const lambda = (name, obj) =>
-    _.uniqBy(filterExamples(catalog.boosters, undefined, obj.id), b => b.runtime).map(
+  const lambda = (name, obj) => {
+    if (query.runtime && query.runtime.id) {
+      return filterExampleRuntime(query.runtime, catalog);
+    }
+    return _.uniqBy(catalog.boosters.filter(b => b.mission === obj.id), b => b.runtime).map(
       b => copyProperties(runtimeById[b.runtime as string], query.runtime));
+  };
 
   const result: ExampleMission[] = [];
   if (query.id) {
-    return catalog.missions.filter(m => m.id === query.id).map(m => copyProperties(m, query, lambda));
+    return [copyProperties(catalog.missions.filter(m => m.id === query.id)[0], query, lambda)];
   } else {
     for (let i = 0; i < catalog.missions.length; i++) {
       const mission = catalog.missions[i];
@@ -73,10 +77,15 @@ export function filterExampleMission(query: any, catalog: Catalog): ExampleMissi
 
 export function filterExampleRuntime(query: any, catalog: Catalog): ExampleRuntime[] {
   const runtimeById = _.keyBy(catalog.runtimes, 'id');
+  const lambda = (name, obj) => runtimeById[obj.id].versions.map(v => copyProperties(v, query.version));
+
   const result: ExampleRuntime[] = [];
+  if (query.id) {
+    return [copyProperties(runtimeById[query.id], query, lambda)];
+  }
   for (let i = 0; i < catalog.runtimes.length; i++) {
     const runtime = catalog.runtimes[i];
-    result[i] = copyProperties(runtime, query, (name, obj) => runtimeById[obj.id].versions.map(v => copyProperties(v, query.version)));
+    result[i] = copyProperties(runtime, query, lambda);
   }
   return result;
 }
