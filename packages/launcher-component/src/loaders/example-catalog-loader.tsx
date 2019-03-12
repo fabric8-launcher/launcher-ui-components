@@ -5,12 +5,12 @@ import { DataLoader } from '../core/data-loader/data-loader';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { filter } from 'launcher-client';
 
-export function ExamplesLoader(props: {id?: string, children: (obj: {catalog: any}) => any }) {
+export function ExamplesLoader(props: { query?: { missionId?: string, runtimeId?: string }, children: (obj: { catalog: any }) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.exampleCatalog().then(catalog => {
-    if (props.id) {
+    if (props.query) {
       return {
-        catalog: _.keyBy(filter({mission: {id: '', name: '', description: ''}}, catalog), 'id')[props.id]
+        catalog: filter({ mission: { id: props.query.missionId, name: '', runtime: { id: props.query.runtimeId, icon: '' } } }, catalog)[0]
       };
     }
     return {
