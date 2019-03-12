@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 import { generate } from 'project-name-generator';
 
 import { DestRepositoryForm, DestRepositoryFormValue } from '../forms/dest-repository-form';
@@ -27,7 +27,11 @@ const defaultCustomApp = {
 };
 
 export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
-  const [app, setApp] = useState<ExampleApp>(defaultCustomApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('app', defaultCustomApp);
+  const onCancel = () => {
+    clear();
+    props.onCancel!();
+  };
   const showDeploymentForm = useAutoSetCluster(setApp);
   const items = [
     {
@@ -103,8 +107,11 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
       title="Deploy an Example Application"
       items={items}
       isValid={() => isExampleFormValueValid(app.example)}
-      buildAppPayload={() => toExamplePayload(app)}
-      onCancel={props.onCancel}
+      buildAppPayload={() => {
+        clear();
+        return toExamplePayload(app);
+      }}
+      onCancel={onCancel}
     />
   );
 

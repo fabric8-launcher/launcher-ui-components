@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import { toImportAppPayload } from './launcher-client-adapters';
 import {
@@ -24,7 +24,11 @@ const defaultCustomApp = {
 };
 
 export function ImportExistingFlow(props: { onCancel?: () => void }) {
-  const [app, setApp] = useState<CustomApp>(defaultCustomApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<CustomApp>('app', defaultCustomApp);
+  const onCancel = () => {
+    clear();
+    props.onCancel!();
+  };
   const showDeploymentForm = useAutoSetCluster(setApp);
 
   const items = [
@@ -79,8 +83,11 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
       title="Import an Existing Application"
       items={items}
       isValid={() => isSrcRepositoryFormValueValid(app.srcRepository)}
-      buildAppPayload={() => toImportAppPayload(app)}
-      onCancel={props.onCancel}
+      buildAppPayload={() => {
+        clear();
+        return toImportAppPayload(app);
+      }}
+      onCancel={onCancel}
     />
   );
 

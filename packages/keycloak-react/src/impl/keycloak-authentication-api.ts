@@ -170,6 +170,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
   }
 
   private static clearStoredData() {
+    sessionStorage.clear();
     localStorage.removeItem('kc');
   }
 
