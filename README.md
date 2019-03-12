@@ -28,6 +28,16 @@ $ yarn build:libs
 $ yarn launcher-app:start
 ```
 
+### Start Launcher Application dev server (against production-api)
+```bash
+$ yarn launcher-app:start-production
+```
+
+### Start Launcher Application dev server (against local-api - launcher-backend in 8080 and launcher-creator-backend in 8081)
+```bash
+$ yarn launcher-app:start-local
+```
+
 ### Publish storybook
 ```bash
 $ yarn launcher-component:storybook:publish
