@@ -1,18 +1,18 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
 import * as React from 'react';
-import useLocalStorage from 'react-use-sessionstorage';
 import { CreateNewAppFlow } from '../flows/create-new-app-flow';
 import { DeployExampleAppFlow } from '../flows/deploy-example-app-flow';
 import style from './launcher.module.scss';
 import { ImportExistingFlow } from '../flows/import-existing-flow';
 import { CatalogIcon, FileImportIcon, TopologyIcon } from '@patternfly/react-icons';
+import { useSessionStorage } from 'react-use-sessionstorage';
 
 enum Type {
   NEW = 'NEW', EXAMPLE = 'EXAMPLE', IMPORT = 'IMPORT'
 }
 
 export function Launcher() {
-  const [type, setType] = useLocalStorage('type', '');
+  const [type, setType] = useSessionStorage('type', '');
   const createNewApp = () => setType(Type.NEW);
   const createExampleApp = () => setType(Type.EXAMPLE);
   const importApp = () => setType(Type.IMPORT);

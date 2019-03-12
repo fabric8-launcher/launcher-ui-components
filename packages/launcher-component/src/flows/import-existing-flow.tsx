@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useSessionStorageWithObject from 'react-use-sessionstorage';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import { toImportAppPayload } from './launcher-client-adapters';
 import {

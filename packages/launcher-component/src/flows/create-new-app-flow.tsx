@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useSessionStorageWithObject from 'react-use-sessionstorage';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 import { generate } from 'project-name-generator';
 
 import { BackendForm, BackendFormValue, defaultBackendFormValue, isBackendFormValueValid, } from '../forms/backend-form';
