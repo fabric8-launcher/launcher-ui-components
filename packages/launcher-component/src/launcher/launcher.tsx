@@ -16,7 +16,10 @@ export function Launcher() {
   const createNewApp = () => setType(Type.NEW);
   const createExampleApp = () => setType(Type.EXAMPLE);
   const importApp = () => setType(Type.IMPORT);
-  const resetType = () => sessionStorage.removeItem('type');
+  const resetType = () => {
+    setType('');
+    sessionStorage.removeItem('type');
+  };
   return (
     <div id="launcher-component" className={style.launcher}>
       {!type && (
