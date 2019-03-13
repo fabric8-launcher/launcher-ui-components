@@ -3,6 +3,10 @@ import * as React from 'react';
 
 import style from './stuff.module.scss';
 
+export function optionalBool(val: (boolean | undefined), defaultValue: boolean): boolean {
+  return val === undefined ? defaultValue : val!;
+}
+
 export function Separator() {
   return (
     <hr className={style.separator}/>
