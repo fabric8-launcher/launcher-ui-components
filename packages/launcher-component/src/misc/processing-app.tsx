@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { DataList, DataListCell, DataListItem, Modal } from '@patternfly/react-core';
+import { DataList, DataListCell, DataListItem } from '@patternfly/react-core';
 import { ErrorCircleOIcon, InProgressIcon, OkIcon, PauseCircleIcon } from '@patternfly/react-icons';
 import { Loader, Spin } from '../core/data-loader/data-loader';
+import { FixedModal } from '../core/stuff';
 
 interface EventStatus {
   statusMessage: string;
@@ -36,12 +37,12 @@ type Statuses = 'progress' | 'completed' | 'error' | 'paused';
 
 function Popup(props) {
   return (
-    <Modal
+    <FixedModal
       title="Launch in progress..."
       isOpen
     >
       {props.children}
-    </Modal>);
+    </FixedModal>);
 }
 
 export function ProcessingApp(props: ProcessingAppProps) {
