@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Button, Modal, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Button, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { ClusterIcon, CodeIcon, GiftIcon } from '@patternfly/react-icons';
 import { ExternalLink } from './external-link';
+import { FixedModal } from '../core/stuff';
 
 interface LaunchNextStepsProps {
   links?: { [x: string]: string | undefined };
@@ -15,7 +16,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
   const repositoryLink = links['GITHUB_CREATE'] || 'https://github.com/fabric8-launcher/launcher-creator-frontend';
   const deploymentLink = links['OPENSHIFT_CREATE'] || 'https://manage.openshift.com/';
   return (
-    <Modal
+    <FixedModal
       title="Your Application deployment has started"
       isOpen
       isLarge={false}
@@ -48,6 +49,6 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
           <CodeIcon/> Clone your new codebase
         </ExternalLink>
       </TextContent>
-    </Modal>
+    </FixedModal>
   );
 }

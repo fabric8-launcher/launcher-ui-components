@@ -1,4 +1,4 @@
-import { Title } from '@patternfly/react-core';
+import { Modal, ModalProps, Title } from '@patternfly/react-core';
 import * as React from 'react';
 
 import style from './stuff.module.scss';
@@ -22,4 +22,15 @@ export function SpecialValue(props: { children: string }) {
   return (
     <span className={style.specialValue}>{props.children}</span>
   );
+}
+
+export class FixedModal extends React.Component<ModalProps> {
+
+  public componentWillUnmount(): void {
+    document.body.classList.remove('pf-c-backdrop__open');
+  }
+
+  public render() {
+    return <Modal {...this.props} />;
+  }
 }

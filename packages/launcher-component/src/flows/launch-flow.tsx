@@ -77,6 +77,9 @@ export function LaunchFlow(props: LaunchFlowProps) {
   };
 
   const zip = () => {
+
+    setRun({status: Status.RUNNING, statusMessages: []});
+
     client.download(props.buildAppPayload()).then((result) => {
       setRun((prev) => ({...prev, result, status: Status.DOWNLOADED}));
     }).catch(error => {
