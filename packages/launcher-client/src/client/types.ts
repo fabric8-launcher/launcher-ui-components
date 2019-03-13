@@ -90,6 +90,7 @@ export interface StatusListener {
 export interface StatusMessage {
   statusMessage: string;
   data?: {
+    routes?: { [x: string]: string | undefined }
     location?: string;
     error?: string;
   };
