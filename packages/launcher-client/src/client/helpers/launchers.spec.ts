@@ -1,27 +1,29 @@
 import exampleCatalog from '../data-examples/mock-example-catalog.json';
 
-import { Catalog, Example, ExampleMission } from '../types';
+import { Catalog, Example, ExampleMission, ExampleRuntime } from '../types';
 import { filter, filterExamples } from './launchers';
 
 describe('Filter examples', () => {
   it('should filter catalog on examples', () => {
-    const result = filter({ example: { mission: { name }, runtime: { name }, name } }, exampleCatalog as unknown as Catalog);
+    const catalog = exampleCatalog as unknown as Catalog;
+    const result = filter({ example: { mission: { name }, runtime: { name }, name } }, catalog) as Example[];
 
     expect(result.length).toBeDefined();
     expect(result[0].name).toBe('Eclipse Vert.x - Istio - Circuit Breaker');
     expect(result[0].description).toBeUndefined();
-    expect(((result[0] as Example).mission as ExampleMission).name).toBe('Istio - Circuit Breaker');
-    expect(((result[0] as Example).runtime as ExampleMission).name).toBe('Eclipse Vert.x');
+    expect((result[0].mission as ExampleMission).name).toBe('Istio - Circuit Breaker');
+    expect((result[0].runtime as ExampleRuntime).name).toBe('Eclipse Vert.x');
   });
 
   it('should filter catalog on missions', () => {
-    const result = filter({ mission: { name: '', runtime: { id: '', icon: '' } } }, exampleCatalog as unknown as Catalog);
+    const catalog = exampleCatalog as unknown as Catalog;
+    const result = filter({ mission: { name: '', runtime: { id: '', icon: '' } } }, catalog) as ExampleMission[];
 
     expect(result.length).toBeDefined();
     expect(result[0].name).toBe('CRUD');
-    expect(((result[0] as ExampleMission).runtime!.length)).toBe(5);
-    expect(((result[0] as ExampleMission).runtime![0]).description).toBeUndefined();
-    expect(((result[0] as ExampleMission).runtime![0]).icon).toBeDefined();
+    expect(result[0].runtime!.length).toBe(5);
+    expect(result[0].runtime![0].description).toBeUndefined();
+    expect(result[0].runtime![0].icon).toBeDefined();
   });
 
   it('should filter catalog on mission id', () => {
@@ -34,23 +36,23 @@ describe('Filter examples', () => {
 
   it('should filter catalog on mission by missionId and runtimeId', () => {
     const result = filter({ mission: { id: 'crud', name: '', runtime: { id: 'vert.x', icon: '' } } },
-      exampleCatalog as unknown as Catalog);
+      exampleCatalog as unknown as Catalog) as ExampleMission[];
 
     expect(result.length).toBeDefined();
     expect(result.length).toBe(1);
     expect(result[0].name).toBe('CRUD');
-    expect(((result[0] as ExampleMission).runtime!.length)).toBe(1);
-    expect(((result[0] as ExampleMission).runtime![0]).description).toBeUndefined();
+    expect(result[0].runtime!.length).toBe(1);
+    expect(result[0].runtime![0].description).toBeUndefined();
   });
 
   it('should filter catalog on mission and runtime id', () => {
-    const result = filter({ mission: { id: '', name: '', runtime: { id: 'vert.x', icon: '' } } },
-      exampleCatalog as unknown as Catalog);
+    const result = (filter({ mission: { id: '', name: '', runtime: { id: 'golang', icon: '' } } },
+      exampleCatalog as unknown as Catalog) as ExampleMission[]).filter(m => !!m.runtime);
 
     expect(result.length).toBeDefined();
-    expect(result.length).toBe(12);
-    expect(((result[0] as ExampleMission).runtime!.length)).toBe(1);
-    expect(((result[0] as ExampleMission).runtime![0]).description).toBeUndefined();
+    expect(result.length).toBe(3);
+    expect((result[0].runtime!.length)).toBe(1);
+    expect((result[0].runtime![0]).description).toBeUndefined();
   });
 
   it('should filter catalog on runtime', () => {
