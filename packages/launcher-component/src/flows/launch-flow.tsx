@@ -122,13 +122,15 @@ export function LaunchFlow(props: LaunchFlowProps) {
     }, {}
   );
 
+  const goBackToEdition = () => setRun({status: Status.EDITION, statusMessages: []});
+
   return (
     <React.Fragment>
       <HubNSpoke title={props.title} items={props.items} toolbar={toolbar} error={run.error}/>
       {run.status === Status.RUNNING && (
         <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
       {run.status === Status.COMPLETED && (<LaunchNextSteps links={links} onClose={onCancel}/>)}
-      {run.status === Status.DOWNLOADED && (<DownloadNextSteps onClose={onCancel} downloadLink={run.result.downloadLink}/>)}
+      {run.status === Status.DOWNLOADED && (<DownloadNextSteps onClose={goBackToEdition} downloadLink={run.result.downloadLink}/>)}
     </React.Fragment>
   );
 }
