@@ -48,7 +48,13 @@ const progressDef = {
         location: 'https://console.starter-us-east-2.openshift.com/console/projects'
       }
     },
-    {statusMessage: 'OPENSHIFT_PIPELINE'},
+    {
+      statusMessage: 'OPENSHIFT_PIPELINE', data: {
+        routes: {
+          welcome: 'http://welcome-gullible-rake.7e14.starter-us-west-2.openshiftapps.com/'
+        }
+      }
+    },
     {statusMessage: 'GITHUB_WEBHOOK'},
   ],
 };

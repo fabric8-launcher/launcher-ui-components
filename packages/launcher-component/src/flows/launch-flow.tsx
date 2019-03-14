@@ -109,7 +109,12 @@ export function LaunchFlow(props: LaunchFlowProps) {
   const progressEvents = run.status === Status.RUNNING && run.result && run.result.events;
   const progressEventsResults = run.status === Status.RUNNING && run.result && run.statusMessages;
 
-  const links = run.statusMessages.filter(m => m.data).map(m => ({[m.statusMessage]: m.data!.location}))!.reduce(
+  const links = run.statusMessages.filter(m => m.data).map(m => {
+    if (m.data!.routes) {
+      return m.data!.routes;
+    }
+    return {[m.statusMessage]: m.data!.location};
+  })!.reduce(
     (map, obj) => {
       const key = Object.keys(obj)[0];
       map[key] = obj[key];
