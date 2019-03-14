@@ -12,13 +12,13 @@ enum Type {
 }
 
 export function Launcher() {
-  const [type, setType] = useSessionStorage('type', '');
+  const [type, setType, clear] = useSessionStorage('type', '');
   const createNewApp = () => setType(Type.NEW);
   const createExampleApp = () => setType(Type.EXAMPLE);
   const importApp = () => setType(Type.IMPORT);
   const resetType = () => {
     setType('');
-    sessionStorage.removeItem('type');
+    clear();
   };
   return (
     <div id="launcher-component" className={style.launcher}>
