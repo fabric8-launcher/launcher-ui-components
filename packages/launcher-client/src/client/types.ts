@@ -184,6 +184,8 @@ export interface Example {
   source?: any;
 }
 
+export type AnyExample = Example | ExampleMission | ExampleRuntime;
+
 export function toRuntime(arg: string) {
   const parts = arg.split('/', 2);
   return { name: parts[0], version: parts.length > 1 ? parts[1] : undefined };

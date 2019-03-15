@@ -2,19 +2,17 @@ import { Locations } from '../helpers/locations';
 import { filter } from '../helpers/launchers';
 import { defaultAuthorizationTokenProvider, LauncherClient } from '../launcher.client';
 import {
-  AnalyzeResult,
+  AnalyzeResult, AnyExample,
   AuthorizationTokenProvider,
   Capability,
   Catalog,
   DownloadAppPayload,
   DownloadAppResult,
   Enums,
-  Example,
   ExampleAppDescriptor,
-  ExampleMission,
-  ExampleRuntime,
   ExistsResult,
   GitInfo,
+  GitProvider,
   GitRepositoryExistsPayload,
   LaunchAppPayload,
   LaunchAppResult,
@@ -23,8 +21,7 @@ import {
   OpenShiftCluster,
   PropertyValue,
   StatusListener,
-  StatusMessage,
-  GitProvider
+  StatusMessage
 } from '../types';
 import { HttpService, RequestConfig } from '../http.service';
 
@@ -40,8 +37,8 @@ export default class DefaultLauncherClient implements LauncherClient {
     return await this.httpService.get<Catalog>(this.config.launcherURL, '/booster-catalog');
   }
 
-  public async findExampleApps(query: Example | ExampleMission | ExampleRuntime | ExampleRuntime):
-    Promise<Example[] | ExampleMission[] | ExampleRuntime[] | ExampleRuntime[]> {
+  public async findExampleApps(query: AnyExample):
+    Promise<AnyExample[]> {
     return filter(query, await this.exampleCatalog());
   }
 

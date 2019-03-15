@@ -1,11 +1,12 @@
 import { DescriptiveHeader } from '../core/stuff';
 import * as React from 'react';
 import { FormPanel } from '../core/form-panel/form-panel';
-import { ExamplesLoader } from '../loaders/example-catalog-loader';
+import { ExamplesLoader, ExamplesLoaderWithFilter } from '../loaders/example-catalog-loader';
 import { ExamplePicker, ExamplePickerValue } from '../pickers/example-picker';
 import { FormHub } from '../core/types';
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
+import { ExampleMission } from 'launcher-client';
 
 export interface ExampleFormValue {
   examplePickerValue?: ExamplePickerValue;
@@ -26,13 +27,15 @@ export const ExampleHub: FormHub<ExampleFormValue> = {
       );
     }
     return (
-      <ExamplesLoader query={{missionId: props.value.examplePickerValue!.missionId, runtimeId: props.value.examplePickerValue!.runtimeId}}>
+      <ExamplesLoaderWithFilter
+        query={{missionId: props.value.examplePickerValue!.missionId, runtimeId: props.value.examplePickerValue!.runtimeId}}
+      >
         {result => (
           <OverviewComplete title={`Your example will be ${result.name} using:`}>
-            <img src={result.runtime[0].icon} style={{margin: '5px auto', height: '160px'}}/>
+            <img src={(result as ExampleMission).runtime![0].icon} style={{margin: '5px auto', height: '160px'}}/>
           </OverviewComplete>
         )}
-      </ExamplesLoader>
+      </ExamplesLoaderWithFilter>
     );
   },
   Form: props => (

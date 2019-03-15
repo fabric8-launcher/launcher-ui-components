@@ -1,18 +1,25 @@
 import React from 'react';
-import _ from 'lodash';
 
 import { DataLoader } from '../core/data-loader/data-loader';
 import { useLauncherClient } from '../contexts/launcher-client-context';
-import { filter } from 'launcher-client';
+import { AnyExample, Catalog, filter } from 'launcher-client';
 
-export function ExamplesLoader(props: { query?: { missionId?: string, runtimeId?: string }, children: (obj: any) => any }) {
+export function ExamplesLoaderWithFilter(props: { query: { missionId?: string, runtimeId?: string }, children: (obj: AnyExample) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.exampleCatalog().then(catalog => {
-    if (props.query) {
-      return filter({mission: {id: props.query.missionId, name: '', runtime: {id: props.query.runtimeId, icon: ''}}}, catalog)[0];
-    }
-    return catalog;
+    const anyExamples = filter({mission: {id: props.query.missionId, name: '', runtime: {id: props.query.runtimeId, icon: ''}}}, catalog);
+    return anyExamples[0];
   });
+  return (
+    <DataLoader loader={itemsLoader}>
+      {props.children}
+    </DataLoader>
+  );
+}
+
+export function ExamplesLoader(props: { children: (obj: Catalog) => any }) {
+  const client = useLauncherClient();
+  const itemsLoader = () => client.exampleCatalog();
   return (
     <DataLoader loader={itemsLoader}>
       {props.children}

@@ -1,14 +1,11 @@
 import {
-  AnalyzeResult,
+  AnalyzeResult, AnyExample,
   AuthorizationTokenProvider,
   Capability,
   Catalog,
   DownloadAppPayload,
   DownloadAppResult,
   Enums,
-  Example,
-  ExampleMission,
-  ExampleRuntime,
   ExistsResult,
   GitInfo,
   GitProvider,
@@ -28,8 +25,8 @@ export interface LauncherClient {
 
   exampleCatalog(): Promise<Catalog>;
 
-  findExampleApps(query: Example | ExampleMission | ExampleRuntime | ExampleRuntime):
-    Promise<Example[] | ExampleMission[] | ExampleRuntime[] | ExampleRuntime[]>;
+  findExampleApps(query: AnyExample):
+    Promise<AnyExample[]>;
 
   enum(id: string): Promise<PropertyValue[]>;
 
