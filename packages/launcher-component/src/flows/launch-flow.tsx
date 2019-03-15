@@ -21,7 +21,7 @@ export function useAutoSetCluster(setApp) {
     client.ocClusters().then(c => {
       if (c.length === 1 && c[0].connected) {
         setShowDeploymentForm(false);
-        setApp((prev) => ({...prev, deployment: {cluster: {clusterId: c[0].id}}}));
+        setApp((prev) => ({...prev, deployment: {clusterPickerValue: {clusterId: c[0].id}}}));
       }
     });
   }, []);
@@ -38,7 +38,9 @@ interface RunState {
 interface LaunchFlowProps {
   title: string;
   items: any[];
-  isValid: () => boolean;
+  hint?: string;
+  isReadyForLaunch: boolean;
+  isReadyForDownload: boolean;
   buildAppPayload: () => LaunchAppPayload;
   onCancel?: () => void;
   canDownload?: boolean;
@@ -51,9 +53,8 @@ export function LaunchFlow(props: LaunchFlowProps) {
   const onCancel = props.onCancel || (() => {
   });
   const launch = () => {
-    if (!props.isValid()) {
-      console.warn('Your current selection is not valid.');
-      return;
+    if (!props.isReadyForLaunch) {
+      throw new Error('Launch must not be called when app is not ready!');
     }
 
     setRun({status: Status.RUNNING, statusMessages: []});
@@ -76,7 +77,10 @@ export function LaunchFlow(props: LaunchFlowProps) {
     });
   };
 
-  const zip = () => {
+  const download = () => {
+    if (!props.isReadyForDownload) {
+      throw new Error('Download must not be called when app is not ready!');
+    }
 
     setRun({status: Status.RUNNING, statusMessages: []});
 
@@ -90,11 +94,11 @@ export function LaunchFlow(props: LaunchFlowProps) {
   const toolbar = (
     <Toolbar className={style.toolbar}>
       <ToolbarGroup className={style.toolbarGroup}>
-        <Button variant="primary" onClick={launch} className={style.toolbarButton}>
+        <Button variant="primary" onClick={launch} className={style.toolbarButton} isDisabled={!props.isReadyForLaunch}>
           <PlaneDepartureIcon className={style.buttonIcon}/>Launch
         </Button>
         {canDownload && (
-          <Button variant="primary" onClick={zip} className={style.toolbarButton}>
+          <Button variant="primary" onClick={download} className={style.toolbarButton} isDisabled={!props.isReadyForDownload}>
             <DownloadIcon className={style.buttonIcon}/>Download
           </Button>
         )}
@@ -126,7 +130,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
 
   return (
     <React.Fragment>
-      <HubNSpoke title={props.title} items={props.items} toolbar={toolbar} error={run.error}/>
+      <HubNSpoke title={props.title} items={props.items} toolbar={toolbar} error={run.error} hint={props.hint}/>
       {run.status === Status.RUNNING && (
         <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
       {run.status === Status.COMPLETED && (<LaunchNextSteps links={links} onClose={onCancel}/>)}
