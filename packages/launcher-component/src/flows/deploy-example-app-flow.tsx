@@ -83,7 +83,7 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
     },
     {
       id: 'destRepository',
-      title: 'Source Location',
+      title: 'Destination Repository',
       overview: {
         component: ({edit}) => (
           <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>

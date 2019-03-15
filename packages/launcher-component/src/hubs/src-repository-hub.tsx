@@ -39,6 +39,7 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
   Form: props => (
     <FormPanel
       initialValue={props.initialValue}
+      validator={SrcRepositoryHub.checkCompletion}
       onSave={props.onSave}
       onCancel={props.onCancel}
     >
