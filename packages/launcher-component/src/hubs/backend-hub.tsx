@@ -23,7 +23,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
     if (!BackendHub.checkCompletion(props.value)) {
       return (
         <EmptyState>
-          <Title size="lg">You can select a Backend for your custom application</Title>
+          <Title size="lg">You can configure a Backend for your application</Title>
           <EmptyStateBody>
             By selecting a bunch of capabilities (Http Api, Database, ...), you will be able to bootstrap the backend of
             your application in a few seconds...

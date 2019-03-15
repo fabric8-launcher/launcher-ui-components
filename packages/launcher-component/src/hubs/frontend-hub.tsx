@@ -17,7 +17,7 @@ export const FrontendHub: FormHub<FrontendFormValue> = {
     if (!FrontendHub.checkCompletion(props.value)) {
       return (
         <EmptyState>
-          <Title size="lg">You can select a Frontend for your custom application</Title>
+          <Title size="lg">You can configure a Frontend for your application</Title>
           <EmptyStateBody>
             You will be able to bootstrap the frontend of your application in a few seconds...
           </EmptyStateBody>
