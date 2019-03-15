@@ -1,52 +1,77 @@
 import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
-import { generate } from 'project-name-generator';
 
-import { DestRepositoryForm, DestRepositoryFormValue } from '../forms/dest-repository-form';
-import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
+import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub, DestRepositoryFormValue } from '../hubs/dest-repository-hub';
 import { toExamplePayload } from './launcher-client-adapters';
-import { ExampleFormOverview } from '../forms/example-form-overview';
-import { ExamplePickerValue } from '../pickers/example-picker';
-import { defaultExampleFormValue, ExampleForm, isExampleFormValueValid } from '../forms/example-form';
+import { ExampleHub, ExampleFormValue } from '../hubs/example-hub';
 import { LaunchFlow, useAutoSetCluster } from './launch-flow';
-import { DeploymentFormOverview } from '../forms/deployment-form-overview';
-import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
+import { DeploymentHub, DeploymentFormValue } from '../hubs/deployment-hub';
 
 interface ExampleApp {
-  example: ExamplePickerValue;
+  example: ExampleFormValue;
   destRepository: DestRepositoryFormValue;
   deployment: DeploymentFormValue;
 }
 
-const defaultCustomApp = {
-  example: defaultExampleFormValue,
-  destRepository: {
-    repository: {name: generate().dashed}
-  },
-  deployment: defaultDeploymentFormValue,
+const defaultExampleApp = {
+  example: {},
+  destRepository: createDestRepositoryFormValueWithGeneratedName(),
+  deployment: {},
 };
 
+function getFlowStatus(app: ExampleApp) {
+  if (!ExampleHub.checkCompletion(app.example)) {
+    return {
+      hint: 'You should select an example application.',
+      isReadyForDownload: false,
+      isReadyForLaunch: false,
+    };
+  }
+  if (!DeploymentHub.checkCompletion(app.deployment)) {
+    return {
+      hint: 'If you wish to Launch your application, you should configure OpenShift Deployment.',
+      isReadyForDownload: true,
+      isReadyForLaunch: false,
+    };
+  }
+  if (!DestRepositoryHub.checkCompletion(app.destRepository)) {
+    return {
+      hint: 'If you wish to Launch your application, you should configure the destination repository.',
+      isReadyForDownload: true,
+      isReadyForLaunch: false,
+    };
+  }
+  return {
+    hint: 'Your application is ready to launch!',
+    isReadyForDownload: true,
+    isReadyForLaunch: true,
+  };
+}
+
 export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('app', defaultCustomApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('app', defaultExampleApp);
   const onCancel = () => {
     clear();
     props.onCancel!();
   };
   const showDeploymentForm = useAutoSetCluster(setApp);
+
+  const flowStatus = getFlowStatus(app);
+
   const items = [
     {
       id: 'example',
       title: 'Example',
       overview: {
         component: ({edit}) => (
-          <ExampleFormOverview value={app.example} onClick={edit}/>
+          <ExampleHub.Overview value={app.example} onClick={edit}/>
         ),
         width: 'third',
       },
       form: {
         component: ({close}) => (
-          <ExampleForm
-            value={app.example}
+          <ExampleHub.Form
+            initialValue={app.example}
             onSave={(example) => {
               setApp({...app, example});
               close();
@@ -61,14 +86,14 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
       title: 'Source Location',
       overview: {
         component: ({edit}) => (
-          <SrcLocationFormOverview value={app.destRepository} onClick={edit}/>
+          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>
         ),
         width: 'third',
       },
       form: {
         component: ({close}) => (
-          <DestRepositoryForm
-            value={app.destRepository}
+          <DestRepositoryHub.Form
+            initialValue={app.destRepository}
             onSave={(srcLocation) => {
               setApp({...app, destRepository: srcLocation});
               close();
@@ -83,14 +108,14 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
       title: 'OpenShift Deployment',
       overview: {
         component: ({edit}) => (
-          <DeploymentFormOverview value={app.deployment} onClick={edit}/>
+          <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
         ),
         width: 'third',
       },
       form: showDeploymentForm && {
         component: ({close}) => (
-          <DeploymentForm
-            value={app.deployment}
+          <DeploymentHub.Form
+            initialValue={app.deployment}
             onSave={(deployment) => {
               setApp({...app, deployment});
               close();
@@ -106,7 +131,7 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
     <LaunchFlow
       title="Deploy an Example Application"
       items={items}
-      isValid={() => isExampleFormValueValid(app.example)}
+      {...flowStatus}
       buildAppPayload={() => {
         clear();
         return toExamplePayload(app);

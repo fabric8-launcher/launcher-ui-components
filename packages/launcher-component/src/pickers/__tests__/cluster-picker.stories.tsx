@@ -24,8 +24,14 @@ storiesOf('Pickers', module)
     return (
       <OpenshiftClustersLoader>
         {clusters => (
-          <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
-            {(inputProps) => (<ClusterPicker {...inputProps} clusters={clusters} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
+          <FormPanel
+            initialValue={{}}
+            validator={ClusterPicker.checkCompletion}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+          >
+            {(inputProps) => (
+              <ClusterPicker.Element {...inputProps} clusters={clusters} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
           </FormPanel>
         )}
       </OpenshiftClustersLoader>
@@ -33,8 +39,13 @@ storiesOf('Pickers', module)
   })
   .add('ClusterPicker: EmptyState', () => {
     return (
-      <FormPanel value={{}}>
-        {(inputProps) => (<ClusterPicker {...inputProps} clusters={[]} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
+      <FormPanel
+        initialValue={{}}
+        validator={ClusterPicker.checkCompletion}
+        onSave={action('save')}
+        onCancel={action('cancel')}
+      >
+        {(inputProps) => (<ClusterPicker.Element {...inputProps} clusters={[]} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
       </FormPanel>
     );
   });

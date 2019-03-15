@@ -1,18 +1,14 @@
 import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
-import { generate } from 'project-name-generator';
 
-import { BackendForm, BackendFormValue, defaultBackendFormValue, isBackendFormValueValid, } from '../forms/backend-form';
-import { defaultFrontendFormValue, FrontendForm, FrontendFormValue, isFrontendFormValueValid, } from '../forms/frontend-form';
-import { BackendFormOverview } from '../forms/backend-form-overview';
-import { FrontendFormOverview } from '../forms/frontend-form-overview';
-import { DestRepositoryForm, DestRepositoryFormValue } from '../forms/dest-repository-form';
-import { SrcLocationFormOverview } from '../forms/src-location-form-overview';
+import { BackendHub, BackendFormValue } from '../hubs/backend-hub';
+import { FrontendHub, FrontendFormValue, } from '../hubs/frontend-hub';
+import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub, DestRepositoryFormValue } from '../hubs/dest-repository-hub';
 import { LaunchFlow, useAutoSetCluster } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
-import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
-import { DeploymentFormOverview } from '../forms/deployment-form-overview';
-import { WelcomeAppOverview } from '../forms/welcome-app-overview';
+import { DeploymentHub, DeploymentFormValue } from '../hubs/deployment-hub';
+import { readOnlyCapabilities } from '../loaders/capabilities-loader';
+import { WelcomeAppHub } from '../hubs/welcome-app-hub';
 
 interface CustomApp {
   backend: BackendFormValue;
@@ -22,13 +18,40 @@ interface CustomApp {
 }
 
 const defaultCustomApp = {
-  backend: defaultBackendFormValue,
-  frontend: defaultFrontendFormValue,
-  destRepository: {
-    repository: { name: generate().dashed }
-  },
-  deployment: defaultDeploymentFormValue,
+  backend: {capabilitiesPickerValue: {capabilities: readOnlyCapabilities}},
+  frontend: {},
+  destRepository: createDestRepositoryFormValueWithGeneratedName(),
+  deployment: {},
 };
+
+function getFlowStatus(app: CustomApp) {
+  if (!FrontendHub.checkCompletion(app.frontend) && !BackendHub.checkCompletion(app.backend)) {
+    return {
+      hint: 'You should configure a Frontend and/or a Backend for your application.',
+      isReadyForDownload: false,
+      isReadyForLaunch: false,
+    };
+  }
+  if (!DeploymentHub.checkCompletion(app.deployment)) {
+    return {
+      hint: 'If you wish to Launch your application, you should configure OpenShift Deployment.',
+      isReadyForDownload: true,
+      isReadyForLaunch: false,
+    };
+  }
+  if (!DestRepositoryHub.checkCompletion(app.destRepository)) {
+    return {
+      hint: 'If you wish   to Launch your application, you should configure the destination repository.',
+      isReadyForDownload: true,
+      isReadyForLaunch: false,
+    };
+  }
+  return {
+    hint: 'Your application is ready to launch!',
+    isReadyForDownload: true,
+    isReadyForLaunch: true,
+  };
+}
 
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp, clear] = useSessionStorageWithObject<CustomApp>('app', defaultCustomApp);
@@ -39,25 +62,22 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
 
   const showDeploymentForm = useAutoSetCluster(setApp);
 
-  const isValidForm = () => (isFrontendFormValueValid(app.frontend) || isBackendFormValueValid(app.backend))
-    && !!app.deployment.cluster.clusterId;
-
   const items = [
     {
       id: 'frontend',
       title: 'Frontend',
       overview: {
-        component: ({ edit }) => (
-          <FrontendFormOverview value={app.frontend} onClick={edit} />
+        component: ({edit}) => (
+          <FrontendHub.Overview value={app.frontend} onClick={edit}/>
         ),
         width: 'third',
       },
       form: {
-        component: ({ close }) => (
-          <FrontendForm
-            value={app.frontend}
+        component: ({close}) => (
+          <FrontendHub.Form
+            initialValue={app.frontend}
             onSave={(frontend) => {
-              setApp({ ...app, frontend });
+              setApp({...app, frontend});
               close();
             }}
             onCancel={close}
@@ -69,17 +89,17 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       id: 'backend',
       title: 'Backend',
       overview: {
-        component: ({ edit }) => (
-          <BackendFormOverview value={app.backend} onClick={edit} />
+        component: ({edit}) => (
+          <BackendHub.Overview value={app.backend} onClick={edit}/>
         ),
         width: 'third',
       },
       form: {
-        component: ({ close }) => (
-          <BackendForm
-            value={app.backend}
+        component: ({close}) => (
+          <BackendHub.Form
+            initialValue={app.backend}
             onSave={(backend) => {
-              setApp({ ...app, backend });
+              setApp({...app, backend});
               close();
             }}
             onCancel={close}
@@ -92,7 +112,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       title: 'Welcome Application',
       overview: {
         component: () => (
-          <WelcomeAppOverview />
+          <WelcomeAppHub.Overview/>
         ),
         width: 'third',
       }
@@ -101,17 +121,17 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       id: 'destRepository',
       title: 'Source Location',
       overview: {
-        component: ({ edit }) => (
-          <SrcLocationFormOverview value={app.destRepository} onClick={edit} />
+        component: ({edit}) => (
+          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>
         ),
         width: 'half',
       },
       form: {
-        component: ({ close }) => (
-          <DestRepositoryForm
-            value={app.destRepository}
+        component: ({close}) => (
+          <DestRepositoryHub.Form
+            initialValue={app.destRepository}
             onSave={(srcLocation) => {
-              setApp({ ...app, destRepository: srcLocation });
+              setApp({...app, destRepository: srcLocation});
               close();
             }}
             onCancel={close}
@@ -123,17 +143,17 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       id: 'openshift-deployment',
       title: 'OpenShift Deployment',
       overview: {
-        component: ({ edit }) => (
-          <DeploymentFormOverview value={app.deployment} onClick={edit} />
+        component: ({edit}) => (
+          <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
         ),
         width: 'half',
       },
       form: showDeploymentForm && {
-        component: ({ close }) => (
-          <DeploymentForm
-            value={app.deployment}
+        component: ({close}) => (
+          <DeploymentHub.Form
+            initialValue={app.deployment}
             onSave={(deployment) => {
-              setApp({ ...app, deployment });
+              setApp({...app, deployment});
               close();
             }}
             onCancel={close}
@@ -147,7 +167,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
     <LaunchFlow
       title="Create a New Application"
       items={items}
-      isValid={isValidForm}
+      {...getFlowStatus(app)}
       buildAppPayload={() => {
         clear();
         return toNewAppPayload(app);

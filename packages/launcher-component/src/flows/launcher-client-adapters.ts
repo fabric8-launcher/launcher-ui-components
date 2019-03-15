@@ -1,11 +1,11 @@
 export function toNewAppPayload(app) {
   let parts: any[] = [];
 
-  if (app.frontend.runtime) {
+  if (app.frontend.runtimePickerValue) {
     parts.push({
       category: 'frontend',
       shared: {
-        runtime: {name: app.frontend.runtime!.id, version: 'community'}
+        runtime: {name: app.frontend.runtimePickerValue!.id, version: 'community'}
       },
       capabilities: [{
         module: 'web-app'
@@ -13,11 +13,11 @@ export function toNewAppPayload(app) {
     });
   }
 
-  if (app.backend.runtime) {
+  if (app.backend.runtimePickerValue) {
     parts.push({
       category: 'backend',
       shared: {
-        runtime: {name: app.backend.runtime!.id, version: 'community'}
+        runtime: {name: app.backend.runtimePickerValue!.id, version: 'community'}
       },
       capabilities: app.backend.capabilities
         .filter(c => c.selected)
@@ -36,13 +36,13 @@ export function toNewAppPayload(app) {
 
   return {
     project: {
-      application: app.destRepository.repository!.name,
+      application: app.destRepository.userRepositoryPickerValue!.name,
       parts,
     },
-    gitRepository: app.destRepository.repository!.name,
-    gitOrganization: app.destRepository.repository!.org || '',
-    clusterId: app.deployment.cluster.clusterId!,
-    projectName: app.destRepository.repository!.name,
+    gitRepository: app.destRepository.userRepositoryPickerValue!.name,
+    gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
+    clusterId: app.deployment.clusterPickerValue.clusterId!,
+    projectName: app.destRepository.userRepositoryPickerValue!.name,
   };
 }
 
@@ -59,19 +59,19 @@ export function toExamplePayload(app) {
 
   return {
     project: {
-      application: app.destRepository.repository!.name,
+      application: app.destRepository.userRepositoryPickerValue!.name,
       parts,
     },
-    gitRepository: app.destRepository.repository!.name,
-    gitOrganization: app.destRepository.repository!.org || '',
-    clusterId: app.deployment.cluster.clusterId!,
-    projectName: app.destRepository.repository!.name,
+    gitRepository: app.destRepository.userRepositoryPickerValue!.name,
+    gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
+    clusterId: app.deployment.clusterPickerValue.clusterId!,
+    projectName: app.destRepository.userRepositoryPickerValue!.name,
   };
 }
 
 export function toImportAppPayload(app) {
   const parts: any[] = [];
-  const url = app.srcRepository.sourceGit.url;
+  const url = app.srcRepository.gitUrlPickerValue.url;
   const name = url.substr(url.lastIndexOf('/') + 1);
 
   parts.push({
@@ -81,8 +81,8 @@ export function toImportAppPayload(app) {
       {
         module: 'import',
         props: {
-          gitImportUrl: app.srcRepository.sourceGit.url,
-          builderImage: app.srcRepository.buildImage.imageName,
+          gitImportUrl: app.srcRepository.gitUrlPickerValue.url,
+          builderImage: app.srcRepository.buildImagePickerValue.imageName,
         }
       }
     ]
@@ -93,7 +93,7 @@ export function toImportAppPayload(app) {
       application: name,
       parts,
     },
-    clusterId: app.deployment.cluster.clusterId!,
+    clusterId: app.deployment.clusterPickerValue.clusterId!,
     projectName: name,
   };
 }

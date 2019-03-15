@@ -2,51 +2,68 @@ import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import { toImportAppPayload } from './launcher-client-adapters';
-import {
-  defaultSrcRepositoryFormValue,
-  isSrcRepositoryFormValueValid,
-  SrcRepositoryForm,
-  SrcRepositoryFormValue
-} from '../forms/src-repository-form';
-import { ImportFormOverview } from '../forms/import-form-overview';
+import { SrcRepositoryHub, SrcRepositoryFormValue } from '../hubs/src-repository-hub';
 import { LaunchFlow, useAutoSetCluster } from './launch-flow';
-import { DeploymentFormOverview } from '../forms/deployment-form-overview';
-import { defaultDeploymentFormValue, DeploymentForm, DeploymentFormValue } from '../forms/deployment-form';
+import { DeploymentHub, DeploymentFormValue } from '../hubs/deployment-hub';
 
-interface CustomApp {
+interface ImportApp {
   srcRepository: SrcRepositoryFormValue;
   deployment: DeploymentFormValue;
 }
 
-const defaultCustomApp = {
-  srcRepository: defaultSrcRepositoryFormValue,
-  deployment: defaultDeploymentFormValue,
+const defaultImportApp = {
+  srcRepository: {},
+  deployment: {},
 };
 
+function getFlowStatus(app: ImportApp) {
+  if (!SrcRepositoryHub.checkCompletion(app.srcRepository)) {
+    return {
+      hint: 'You should configure the source repository.',
+      isReadyForDownload: false,
+      isReadyForLaunch: false,
+    };
+  }
+  if (!DeploymentHub.checkCompletion(app.deployment)) {
+    return {
+      hint: 'If you wish to Launch your application, you should configure OpenShift Deployment.',
+      isReadyForDownload: true,
+      isReadyForLaunch: false,
+    };
+  }
+  return {
+    hint: 'Your application is ready to launch!',
+    isReadyForDownload: true,
+    isReadyForLaunch: true,
+  };
+}
+
 export function ImportExistingFlow(props: { onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<CustomApp>('app', defaultCustomApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<ImportApp>('app', defaultImportApp);
   const onCancel = () => {
     clear();
     props.onCancel!();
   };
   const showDeploymentForm = useAutoSetCluster(setApp);
 
+  const flowStatus = getFlowStatus(app);
+
   const items = [
     {
       id: 'import',
       title: 'Source Repository to import',
       overview: {
-        component: ({ edit }) => (
-          <ImportFormOverview value={app.srcRepository} onClick={edit} />
+        component: ({edit}) => (
+          <SrcRepositoryHub.Overview value={app.srcRepository} onClick={edit}/>
         ),
         width: 'half',
       },
       form: {
-        component: ({ close }) => (
-          <SrcRepositoryForm
-            value={app.srcRepository}
+        component: ({close}) => (
+          <SrcRepositoryHub.Form
+            initialValue={app.srcRepository}
             onSave={(srcRepository) => {
-              setApp({ ...app, srcRepository });
+              setApp({...app, srcRepository});
               close();
             }}
             onCancel={close}
@@ -59,14 +76,14 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
       title: 'OpenShift Deployment',
       overview: {
         component: ({edit}) => (
-          <DeploymentFormOverview value={app.deployment} onClick={edit}/>
+          <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
         ),
         width: 'half',
       },
       form: showDeploymentForm && {
         component: ({close}) => (
-          <DeploymentForm
-            value={app.deployment}
+          <DeploymentHub.Form
+            initialValue={app.deployment}
             onSave={(deployment) => {
               setApp({...app, deployment});
               close();
@@ -82,7 +99,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
     <LaunchFlow
       title="Import an Existing Application"
       items={items}
-      isValid={() => isSrcRepositoryFormValueValid(app.srcRepository)}
+      {...flowStatus}
       buildAppPayload={() => {
         clear();
         return toImportAppPayload(app);
