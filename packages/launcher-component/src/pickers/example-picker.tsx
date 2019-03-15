@@ -56,6 +56,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
             <Button variant="tertiary" onClick={() => props.onChange({ ...props.value, missions: undefined, runtimeId: '' })}>Any</Button>
             {_.map(runtimesMap).map((runtime, index) => (
               <Button
+                style={{marginLeft: '5px'}}
                 variant="tertiary"
                 key={index}
                 onClick={() => filterCatalog(runtime.id)}
@@ -66,7 +67,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
             ))}
           </SplitItem>
         </Split>
-        <DataList aria-label="select-mission">
+        <DataList aria-label="select-mission" style={{marginTop: '20px'}}>
           {
             missions!.map((mission, i) => {
               const isSelected = props.value.missionId === mission.id;
