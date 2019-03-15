@@ -52,8 +52,8 @@ export function toExamplePayload(app) {
   parts.push({
     category: 'example',
     shared: {
-      mission: {id: app.example.missionId},
-      runtime: {name: app.example.runtimeId, version: app.example.versionId}
+      mission: {id: app.example.examplePickerValue.missionId},
+      runtime: {name: app.example.examplePickerValue.runtimeId, version: app.example.examplePickerValue.versionId}
     }
   });
 
