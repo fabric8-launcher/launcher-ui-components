@@ -56,7 +56,8 @@ export function filterExampleMission(query: any, catalog: Catalog): ExampleMissi
   const runtimeById = _.keyBy(catalog.runtimes, 'id');
   const lambda = (name, obj) => {
     if (query.runtime && query.runtime.id) {
-      return filterExampleRuntime(query.runtime, catalog);
+      const runtime = catalog.boosters.filter(b => b.mission === obj.id).find(b => b.runtime === query.runtime.id);
+      return runtime ? filterExampleRuntime(query.runtime, catalog) : null;
     }
     return _.uniqBy(catalog.boosters.filter(b => b.mission === obj.id), b => b.runtime).map(
       b => copyProperties(runtimeById[b.runtime as string], query.runtime));
