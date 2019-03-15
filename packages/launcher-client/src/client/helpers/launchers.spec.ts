@@ -1,7 +1,7 @@
 import exampleCatalog from '../data-examples/mock-example-catalog.json';
 
 import { Catalog, Example, ExampleMission } from '../types';
-import { filter } from './launchers';
+import { filter, filterExamples } from './launchers';
 
 describe('Filter examples', () => {
   it('should filter catalog on examples', () => {
@@ -70,6 +70,19 @@ describe('Filter examples', () => {
 
     expect(result.length).toBe(1);
     expect(result[0].name).toBe('Spring Boot');
+  });
+
+  it('should filter check runs on cluster', () => {
+    const catalog = exampleCatalog as unknown as Catalog;
+    let result = filterExamples(catalog.boosters, 'starter');
+
+    expect(result).toBeDefined();
+    expect(result.length).toBe(38);
+
+    result = filterExamples(catalog.boosters, 'pro');
+
+    expect(result).toBeDefined();
+    expect(result.length).toBe(77);
   });
 
 });

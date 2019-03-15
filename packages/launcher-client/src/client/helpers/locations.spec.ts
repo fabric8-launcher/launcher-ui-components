@@ -30,4 +30,14 @@ describe('Location tool test', () => {
     const url = 'https://basic-url/api';
     expect(Locations.createWebsocketUrl(url)).toBe('wss://basic-url');
   });
+
+  it('should create websocket url from openshift url', () => {
+    const url = ':8080/api';
+    expect(Locations.createWebsocketUrl(url)).toBe('ws://localhost:8080');
+  });
+
+  it('should create websocket url http url', () => {
+    const url = 'http://basic-url/api';
+    expect(Locations.createWebsocketUrl(url)).toBe('ws://basic-url');
+  });
 });
