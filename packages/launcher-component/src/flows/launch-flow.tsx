@@ -65,7 +65,9 @@ export function LaunchFlow(props: LaunchFlowProps) {
           setRun((prev) => ({...prev, statusMessages: [...prev.statusMessages, statusMessages]}));
         },
         onComplete: () => {
-          setRun((prev) => ({...prev, status: Status.COMPLETED}));
+          if (run.status !== Status.ERROR) {
+            setRun((prev) => ({...prev, status: Status.COMPLETED}));
+          }
         },
         onError: (error) => {
           setRun((prev) => ({...prev, status: Status.ERROR, error}));
