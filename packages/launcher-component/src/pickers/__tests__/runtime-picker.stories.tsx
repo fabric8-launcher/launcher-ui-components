@@ -3,7 +3,7 @@ import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
-import { defaultRuntimePickerValue, RuntimePicker } from '../runtime-picker';
+import { RuntimePicker } from '../runtime-picker';
 import { EnumsRuntimesLoaders } from '../../loaders/enums-runtimes-loaders';
 import { LauncherClientProvider } from '../..';
 
@@ -18,12 +18,13 @@ storiesOf('Pickers', module)
       <EnumsRuntimesLoaders category="frontend">
         {items => (
           <FormPanel
-            value={defaultRuntimePickerValue}
+            initialValue={{}}
+            validator={RuntimePicker.checkCompletion}
             onSave={action('save')}
             onCancel={action('cancel')}
           >
             {
-              (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
+              (inputProps) => (<RuntimePicker.Element {...inputProps} items={items}/>)}
           </FormPanel>
         )}
       </EnumsRuntimesLoaders>
@@ -34,12 +35,13 @@ storiesOf('Pickers', module)
       <EnumsRuntimesLoaders category="backend">
         {items => (
           <FormPanel
-            value={defaultRuntimePickerValue}
+            initialValue={{}}
+            validator={RuntimePicker.checkCompletion}
             onSave={action('save')}
             onCancel={action('cancel')}
           >
             {
-              (inputProps) => (<RuntimePicker {...inputProps} items={items}/>)}
+              (inputProps) => (<RuntimePicker.Element {...inputProps} items={items}/>)}
           </FormPanel>
         )}
       </EnumsRuntimesLoaders>

@@ -17,9 +17,14 @@ storiesOf('Pickers', module)
   .add('ExamplePicker', () => {
     return (
       <ExamplesLoader>
-        {result => (
-          <FormPanel value={{}} onSave={action('save')} onCancel={action('cancel')}>
-            {(inputProps) => (<ExamplePicker {...inputProps} {...result}/>)}
+        {catalog => (
+          <FormPanel
+            initialValue={{}}
+            validator={ExamplePicker.checkCompletion}
+            onSave={action('save')}
+            onCancel={action('cancel')}
+          >
+            {(inputProps) => (<ExamplePicker.Element {...inputProps} catalog={catalog}/>)}
           </FormPanel>
         )}
       </ExamplesLoader>

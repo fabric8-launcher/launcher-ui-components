@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataList, DataListCell, DataListCheck, DataListContent, DataListItem, Title } from '@patternfly/react-core';
 import { CapabilityFieldEnumPicker } from './capability-field-enum-picker';
-import { InputProps } from '../core/types';
+import { InputProps, Picker } from '../core/types';
 
 interface Field {
   id: string;
@@ -30,10 +30,6 @@ export interface CapabilityValue {
 }
 
 type CapabilityItemProps = CapabilityItem & InputProps<CapabilityValue>;
-
-export const defaultCapabilitiesPickerValue = [
-  {id: 'health', selected: true},
-];
 
 function CapabilityItem(props: CapabilityItemProps) {
   const onChangeSelected = (selected) => {
@@ -104,35 +100,40 @@ function CapabilityItem(props: CapabilityItemProps) {
   );
 }
 
-export type CapabilitiesPickerValue = CapabilityValue[];
+export interface CapabilitiesPickerValue {
+  capabilities?: CapabilityValue[];
+}
 
 interface CapabilitiesPickerProps extends InputProps<CapabilitiesPickerValue> {
   items: CapabilityItem[];
 }
 
-export function CapabilitiesPicker(props: CapabilitiesPickerProps) {
+export const CapabilitiesPicker: Picker<CapabilitiesPickerProps, CapabilitiesPickerValue> = {
+  checkCompletion: (value: CapabilitiesPickerValue) => !!value.capabilities && value.capabilities.filter(c => c.selected).length > 0,
+  Element: (props: CapabilitiesPickerProps) => {
+    const capabilities = props.value.capabilities || [];
+    const capabilitiesValuesById = new Map(capabilities.map(i => [i.id, i] as [string, CapabilityValue]));
 
-  const capabilitiesValuesById = new Map(props.value.map(i => [i.id, i] as [string, CapabilityValue]));
+    const onChange = (value: CapabilityValue) => {
+      capabilitiesValuesById.set(value.id, {...capabilitiesValuesById.get(value.id)!, ...value});
+      props.onChange({capabilities: Array.from(capabilitiesValuesById.values())});
+    };
 
-  const onChange = (value: CapabilityValue) => {
-    capabilitiesValuesById.set(value.id, {...capabilitiesValuesById.get(value.id)!, ...value});
-    props.onChange(Array.from(capabilitiesValuesById.values()));
-  };
-
-  return (
-    <React.Fragment>
-      <DataList aria-label="select-capability" className="select-capabilities">
-        {
-          props.items.map((cap, i) => (
-            <CapabilityItem
-              {...cap}
-              key={i}
-              value={capabilitiesValuesById.get(cap.id) || {id: cap.id, selected: false}}
-              onChange={onChange}
-            />
-          ))
-        }
-      </DataList>
-    </React.Fragment>
-  );
-}
+    return (
+      <React.Fragment>
+        <DataList aria-label="select-capability" className="select-capabilities">
+          {
+            props.items.map((cap, i) => (
+              <CapabilityItem
+                {...cap}
+                key={i}
+                value={capabilitiesValuesById.get(cap.id) || {id: cap.id, selected: false}}
+                onChange={onChange}
+              />
+            ))
+          }
+        </DataList>
+      </React.Fragment>
+    );
+  }
+};

@@ -20,6 +20,8 @@ export function capabilityMatcherByCategories(...categories: string[]) {
   return (c: Capability) => categories.indexOf(c.metadata.category) >= 0;
 }
 
+export const readOnlyCapabilities = [{id: 'health', selected: true}];
+
 export function CapabilitiesLoader(props: { categories: string[], children: (capabilities: Capability[]) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.capabilities().then(c => {

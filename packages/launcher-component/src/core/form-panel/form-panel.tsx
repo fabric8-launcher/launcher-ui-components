@@ -5,17 +5,15 @@ import { InputProps } from '../types';
 import { Separator } from '../stuff';
 
 interface FormPanelProps<T> {
-  value: T;
-  children: (inputProps: InputProps<T>) => any;
-  isValid?(value: T): boolean;
-
+  initialValue: T;
+  validator?(value: T): boolean;
+  children(inputProps: InputProps<T>): any;
   onSave?(value: T);
   onCancel?();
 }
 
 export function FormPanel<T>(props: FormPanelProps<T>) {
-
-  const [value, onChange] = useState<T>(props.value);
+  const [value, onChange] = useState<T>(props.initialValue);
 
   const onSave = () => {
     if (props.onSave) {
@@ -24,19 +22,18 @@ export function FormPanel<T>(props: FormPanelProps<T>) {
   };
 
   const onCancel = () => {
-    onChange(props.value);
+    onChange(props.initialValue);
     if (props.onCancel) {
       props.onCancel();
     }
   };
-
   return (
     <div className="form-panel" style={{padding: '20px'}}>
       {props.children({value, onChange})}
       <Separator/>
       <Toolbar>
         <ToolbarGroup>
-          <Button variant="primary" onClick={onSave} isDisabled={props.isValid && !props.isValid(value)}>Save</Button>
+          <Button variant="primary" onClick={onSave} isDisabled={props.validator && !props.validator(value)}>Save</Button>
         </ToolbarGroup>
         <ToolbarGroup>
           <Button variant="secondary" onClick={onCancel}>Cancel</Button>
