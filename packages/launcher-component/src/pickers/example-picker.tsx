@@ -36,7 +36,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
     const missions = !props.value.missions ? filter(missionQuery, props.catalog) as ExampleMission[] : props.value.missions;
     const filterCatalog = (runtime) => {
       props.onChange({
-        ...props.value, runtimeId: runtime,
+        runtimeId: runtime,
         missions: (filter({
           mission: {
             id: '', name, description: '', runtime:
@@ -59,7 +59,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                 variant="tertiary"
                 key={index}
                 onClick={() => filterCatalog(runtime.id)}
-                isDisabled={props.value.runtimeId === runtime.id}
+                isDisabled={props.value.runtimeId === runtime.id && !!props.value.missions}
               >
                 {runtime.name}
               </Button>
