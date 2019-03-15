@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
 
 import { BuildImageAnalyzerLoader } from '../../loaders/buildimage-loader';
-import { BuildImagePicker, defaultBuidImagePickerValue } from '../buildimage-picker';
+import { BuildImagePicker } from '../buildimage-picker';
 import { LauncherClientProvider } from '../..';
 
 storiesOf('Pickers', module)
@@ -19,12 +19,13 @@ storiesOf('Pickers', module)
       <BuildImageAnalyzerLoader gitUrl="https://github.com/fabric8-launcher/launcher-frontend">
         {result => (
           <FormPanel
-            value={defaultBuidImagePickerValue}
+            initialValue={{}}
+            validator={BuildImagePicker.checkCompletion}
             onSave={action('save')}
             onCancel={action('cancel')}
           >
             {
-              (inputProps) => (<BuildImagePicker {...inputProps} result={result}/>)}
+              (inputProps) => (<BuildImagePicker.Element {...inputProps} result={result}/>)}
           </FormPanel>
         )}
       </BuildImageAnalyzerLoader>

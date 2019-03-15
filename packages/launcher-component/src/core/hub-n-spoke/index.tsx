@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactElement, useContext, useState } from 'react';
-import { Alert, Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
+import { Alert, AlertVariant, Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
 import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 
 import style from './hub-n-spoke.module.scss';
@@ -103,16 +103,21 @@ interface HubAndSpokeProps {
   items: HubItem[];
   toolbar?: React.ReactNode;
   error?: any;
+  hint?: string;
 }
 
-interface ErrorProps {
-  error: any;
-}
-
-export function Error(props: ErrorProps) {
+export function Error(props: { error: any }) {
   return (
-    <Alert variant="danger" title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
+    <Alert variant={AlertVariant.danger} title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
       {props.error.toString()}
+    </Alert>
+  );
+}
+
+export function Hint(props: { value: string }) {
+  return (
+    <Alert variant={AlertVariant.info} title="What should I do?" aria-label="hint-in-hub-n-spoke" style={{margin: '40px'}}>
+      {props.value}
     </Alert>
   );
 }
@@ -134,6 +139,12 @@ export function HubNSpoke(props: HubAndSpokeProps) {
     <div className={style.hubNSpoke}>
       <HubContext.Provider value={hub}>
         <Text component={TextVariants.h1} className="hub-and-spoke-title">{props.title}</Text>
+        {!hub.selected && props.error && (
+          <Error error={props.error}/>
+        )}
+        {!hub.selected && props.hint && (
+          <Hint value={props.hint}/>
+        )}
         <Grid className="hub-and-spoke-container" gutter={'sm'}>
           {hub.selected ? (
             <HubFormCard id={hub.selected.id} title={hub.selected.title}>
@@ -142,9 +153,6 @@ export function HubNSpoke(props: HubAndSpokeProps) {
           ) : props.items.filter(i => i.visible === undefined || i.visible)
             .map((item, i) => (<HubOverviewCard {...item} key={i}/>))}
         </Grid>
-        {props.error && (
-          <Error error={props.error}/>
-        )}
         {!hub.selected && props.toolbar}
       </HubContext.Provider>
     </div>
