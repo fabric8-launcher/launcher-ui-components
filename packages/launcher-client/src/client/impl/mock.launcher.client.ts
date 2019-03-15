@@ -1,24 +1,21 @@
 import { defaultAuthorizationTokenProvider, LauncherClient } from '../launcher.client';
 import {
-  AnalyzeResult,
+  AnalyzeResult, AnyExample,
   Capability,
   Catalog,
   DownloadAppPayload,
   DownloadAppResult,
   Enums,
-  Example,
-  ExampleMission,
-  ExampleRuntime,
   ExistsResult,
   GitInfo,
+  GitProvider,
   GitRepositoryExistsPayload,
   LaunchAppPayload,
   LaunchAppResult,
   OCExistsProjectPayload,
   OpenShiftCluster,
   PropertyValue,
-  StatusListener,
-  GitProvider
+  StatusListener
 } from '../types';
 
 import capabilities from '../data-examples/mock-capabilities.json';
@@ -28,7 +25,7 @@ import gitUser from '../data-examples/mock-git-user.json';
 import exampleCatalog from '../data-examples/mock-example-catalog.json';
 import analyzeResult from '../data-examples/mock-import-analyze.json';
 import gitProviders from '../data-examples/mock-git-providers.json';
-import { filter } from '../helpers/launchers';
+import { filter } from '../..';
 
 const progressDef = {
   success: [
@@ -70,7 +67,7 @@ export default class MockLauncherClient implements LauncherClient {
     return exampleCatalog as Catalog;
   }
 
-  public async findExampleApps(query: any): Promise<Example[] | ExampleMission[] | ExampleRuntime[] | ExampleRuntime[]> {
+  public async findExampleApps(query: AnyExample): Promise<AnyExample[]> {
     return filter(query, await this.exampleCatalog());
   }
 

@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Enums, FieldProperty, Example, Catalog, ExampleMission, ExampleRuntime } from '../types';
+import { AnyExample, Catalog, Enums, Example, ExampleMission, ExampleRuntime, FieldProperty } from '../types';
 
 export function fillPropsValuesWithEnums(propsContainer: { props?: FieldProperty[]; }, enums: Enums) {
   if (!propsContainer.props || propsContainer.props.length === 0) {
@@ -91,7 +91,7 @@ export function filterExampleRuntime(query: any, catalog: Catalog): ExampleRunti
   return result;
 }
 
-export function filter(query: any, catalog: Catalog): Example[] | ExampleMission[] | ExampleRuntime[] {
+export function filter(query: any, catalog: Catalog): AnyExample[] {
   if (query.example) {
     return filterExample(query.example, catalog);
   }

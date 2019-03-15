@@ -1,15 +1,13 @@
 import { LauncherClient } from '../launcher.client';
 import {
   AnalyzeResult,
+  AnyExample,
   AuthorizationTokenProvider,
   Capability,
   Catalog,
   DownloadAppPayload,
   DownloadAppResult,
   Enums,
-  Example,
-  ExampleMission,
-  ExampleRuntime,
   ExistsResult,
   GitInfo,
   GitProvider,
@@ -70,7 +68,7 @@ export default class WithCacheLauncherClient implements LauncherClient {
     return catalog;
   }
 
-  public async findExampleApps(query: Example | ExampleMission | ExampleRuntime): Promise<Example[] | ExampleMission[] | ExampleRuntime[]> {
+  public async findExampleApps(query: AnyExample): Promise<AnyExample[]> {
     return filter(query, await this.exampleCatalog());
   }
 
