@@ -1873,10 +1873,10 @@
     focus-trap-react "^4.0.1"
     tippy.js "^3.4.1"
 
-"@patternfly/react-icons@3.2.1", "@patternfly/react-icons@^3.1.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.2.1.tgz#497c11ab8432fa9caa0086e25cd1ba4cf1f76870"
-  integrity sha512-FFpkA4Deo+5T68b7plPyUvrFadsqrsTQrtRU10V740tafDTb0166ymv8BfMxrVqpDoK7pF0mI6F7Cr7BF0h6rw==
+"@patternfly/react-icons@3.3.1", "@patternfly/react-icons@^3.1.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.3.1.tgz#9a32284913d2a7812c9bddd3d056f10ff92439a6"
+  integrity sha512-2Uf/Nk2b16brXfcKE429kUJ3ohm1R6MP0m52tbjRndJYmXXGOuHmZU28JOdgHUfeZpT2sZoIK1TgylLmKcC3eA==
 
 "@patternfly/react-styles@^2.3.5":
   version "2.3.5"
