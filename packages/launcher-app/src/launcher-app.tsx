@@ -20,7 +20,7 @@ const authApi = newAuthApi(authenticationMode, keycloakConfig);
 export function LauncherApp() {
   const proxyAuthApi = useAuthenticationApiStateProxy(authApi);
   const authLoader = () => {
-    return proxyAuthApi.init();
+    return proxyAuthApi.init().catch(e => console.error(e));
   };
   const authorizationTokenProvider = async () => {
     if (!proxyAuthApi.user) {
