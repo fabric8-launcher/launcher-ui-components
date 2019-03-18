@@ -9,6 +9,7 @@ import { DownloadNextSteps } from '../misc/download-next-steps';
 import { HubNSpoke } from '../core/hub-n-spoke';
 import { DownloadIcon, ErrorCircleOIcon, PlaneDepartureIcon } from '@patternfly/react-icons';
 import style from './launch-flow.module.scss';
+import { ExampleApp, NewApp } from './types';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -16,12 +17,20 @@ enum Status {
 
 export function useAutoSetCluster(setApp) {
   const client = useLauncherClient();
-  const [showDeploymentForm, setShowDeploymentForm] = useState(true);
+  const [showDeploymentForm, setShowDeploymentForm] = useState(false);
   useEffect(() => {
-    client.ocClusters().then(c => {
-      if (c.length === 1 && c[0].connected) {
-        setShowDeploymentForm(false);
-        setApp((prev) => ({...prev, deployment: {clusterPickerValue: {clusterId: c[0].id}}}));
+    client.ocClusters().then(clusters => {
+      const connectedClusters = clusters.filter(cluster => cluster.connected);
+      if (connectedClusters.length === 1) {
+        setShowDeploymentForm(clusters.length > 1);
+        setApp((prev: ExampleApp | NewApp) => {
+          if (prev.deployment.clusterPickerValue && prev.deployment.clusterPickerValue.clusterId) {
+            return prev;
+          }
+          return ({...prev, deployment: {clusterPickerValue: {clusterId: connectedClusters[0].id}}});
+        });
+      } else {
+        setShowDeploymentForm(true);
       }
     });
   }, []);

@@ -27,8 +27,7 @@ export default class MockAuthenticationApi implements AuthenticationApi {
   };
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
-    alert('Account management is not available on mock mode.');
-    return '';
+    return `https://authorize/${provider}`;
   };
 
   public login = (): void => {
@@ -48,7 +47,7 @@ export default class MockAuthenticationApi implements AuthenticationApi {
   };
 
   public openAccountManagement = (): void => {
-    alert('Account management is not available on mock mode.');
+    // alert('Account management is not available on mock mode.');
   };
 
   public refreshToken = (): Promise<OptionalUser> => {

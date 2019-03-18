@@ -39,12 +39,17 @@ $ yarn app:start
 
 ### Start Launcher Application dev server (against production-api)
 ```bash
-$ yarn app:start-production
+$ yarn app:start:production-api
 ```
 
 ### Start Launcher Application dev server (against local-api - launcher-backend in 8080 and launcher-creator-backend in 8081)
 ```bash
-$ yarn app:start-local
+$ yarn app:start:local-api
+```
+
+### Start Launcher Application dev server against a mock api
+```bash
+$ yarn app:start:mock-api
 ```
 
 ### Publish storybook
