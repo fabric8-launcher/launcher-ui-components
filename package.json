@@ -19,7 +19,7 @@
   "scripts": {
     "clean": "rm -rf build && find . -type d -name \"node_modules\" -exec rm -rf {} +",
     "test": "yarn workspaces run test",
-    "libs:build": "yarn client:build && yarn kc:build && yarn yarn comp:build",
+    "libs:build": "yarn client:build && yarn kc:build && yarn comp:build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
     "app:start": "yarn workspace launcher-app start:staging-api",
     "app:start:local-api": "yarn workspace launcher-app start:local-api",
