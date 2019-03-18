@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { ReactElement, useContext, useState } from 'react';
-import { Alert, AlertVariant, Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
+import { ReactElement, useContext, useState, Fragment } from 'react';
+import { Alert, AlertVariant, Button, Grid, GridItem, Text, TextVariants, AlertActionCloseButton } from '@patternfly/react-core';
 import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import style from './hub-n-spoke.module.scss';
 
@@ -115,10 +116,21 @@ export function Error(props: { error: any }) {
 }
 
 export function Hint(props: { value: string }) {
+  const [visible, setVisible] = useSessionStorageWithObject<boolean>('hint', true);
   return (
-    <Alert variant={AlertVariant.info} title="What should I do?" aria-label="hint-in-hub-n-spoke" style={{margin: '40px'}}>
-      {props.value}
-    </Alert>
+    <Fragment >
+      {visible && (
+        <Alert
+          variant={AlertVariant.info}
+          title="What should I do?"
+          aria-label="hint-in-hub-n-spoke"
+          style={{ margin: '40px' }}
+          action={<AlertActionCloseButton onClose={() => setVisible(false)} />}
+        >
+          {props.value}
+        </Alert>
+      )}
+    </Fragment>
   );
 }
 
