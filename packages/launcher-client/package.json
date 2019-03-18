@@ -33,7 +33,7 @@
     "@types/lscache": "1.0.29",
     "@types/node": "11.11.3",
     "axios-mock-adapter": "1.16.0",
-    "rollup-plugin-json": "3.1.0"
+    "rollup-plugin-json": "4.0.0"
   },
   "eslintConfig": {
     "extends": "react-app"
