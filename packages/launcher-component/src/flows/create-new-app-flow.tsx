@@ -49,12 +49,12 @@ function getFlowStatus(app: NewApp) {
 
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('app', defaultCustomApp);
+  const showDeploymentForm = useAutoSetCluster(setApp);
+
   const onCancel = () => {
     clear();
     props.onCancel!();
   };
-
-  const showDeploymentForm = useAutoSetCluster(setApp);
 
   const items = [
     {
