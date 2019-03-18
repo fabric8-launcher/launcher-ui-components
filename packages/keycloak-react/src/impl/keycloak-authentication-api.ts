@@ -42,7 +42,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
   public init = (): Promise<OptionalUser> => {
     return new Promise((resolve, reject) => {
       const sessionKC = KeycloakAuthenticationApi.getStoredData();
-      this.keycloak.init({...sessionKC})
+      this.keycloak.init({...sessionKC, checkLoginIframe: false})
         .error((e) => reject(e))
         .success(() => {
           this.initUser();
@@ -66,8 +66,8 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   public logout = () => {
     KeycloakAuthenticationApi.clearStoredData();
-    this.triggerUserChange();
     this.keycloak.logout();
+    this.triggerUserChange();
     return Promise.resolve();
   };
 
