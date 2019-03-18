@@ -128,7 +128,9 @@ export function HubNSpoke(props: HubAndSpokeProps) {
   const hub: Hub = {
     selected: selectedHub,
     open: (item: HubItem) => {
-      setSelectedHub(item);
+      if(item.form) {
+        setSelectedHub(item);
+      }
     },
     close: () => {
       setSelectedHub(undefined);

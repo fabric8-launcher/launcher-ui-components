@@ -50,6 +50,7 @@ $ yarn app:start-local
 ### Publish storybook
 ```bash
 $ yarn comp:storybook:publish
+```
 
 ## Test
 
