@@ -2,14 +2,10 @@ import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import { toImportAppPayload } from './launcher-client-adapters';
-import { SrcRepositoryHub, SrcRepositoryFormValue } from '../hubs/src-repository-hub';
+import { SrcRepositoryHub } from '../hubs/src-repository-hub';
 import { LaunchFlow, useAutoSetCluster } from './launch-flow';
-import { DeploymentHub, DeploymentFormValue } from '../hubs/deployment-hub';
-
-interface ImportApp {
-  srcRepository: SrcRepositoryFormValue;
-  deployment: DeploymentFormValue;
-}
+import { DeploymentHub } from '../hubs/deployment-hub';
+import { ImportApp } from './types';
 
 const defaultImportApp = {
   srcRepository: {},

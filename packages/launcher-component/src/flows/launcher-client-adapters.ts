@@ -1,4 +1,6 @@
-export function toNewAppPayload(app) {
+import { ExampleApp, ImportApp, NewApp } from './types';
+
+export function toNewAppPayload(app: NewApp) {
   let parts: any[] = [];
 
   if (app.frontend.runtimePickerValue) {
@@ -19,7 +21,7 @@ export function toNewAppPayload(app) {
       shared: {
         runtime: {name: app.backend.runtimePickerValue!.id, version: 'community'}
       },
-      capabilities: app.backend.capabilities
+      capabilities: app.backend.capabilitiesPickerValue!.capabilities!
         .filter(c => c.selected)
         .map(c => ({module: c.id, props: c.data}))
     });
@@ -36,42 +38,42 @@ export function toNewAppPayload(app) {
 
   return {
     project: {
-      application: app.destRepository.userRepositoryPickerValue!.name,
+      application: app.destRepository.userRepositoryPickerValue!.name!,
       parts,
     },
-    gitRepository: app.destRepository.userRepositoryPickerValue!.name,
+    gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
     gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
-    clusterId: app.deployment.clusterPickerValue.clusterId!,
-    projectName: app.destRepository.userRepositoryPickerValue!.name,
+    clusterId: app.deployment.clusterPickerValue!.clusterId!,
+    projectName: app.destRepository.userRepositoryPickerValue!.name!,
   };
 }
 
-export function toExamplePayload(app) {
+export function toExamplePayload(app: ExampleApp) {
   const parts: any[] = [];
 
   parts.push({
     category: 'example',
     shared: {
-      mission: {id: app.example.examplePickerValue.missionId},
-      runtime: {name: app.example.examplePickerValue.runtimeId, version: app.example.examplePickerValue.versionId}
+      mission: {id: app.example.examplePickerValue!.missionId!},
+      runtime: {name: app.example.examplePickerValue!.runtimeId!, version: app.example.examplePickerValue!.versionId!}
     }
   });
 
   return {
     project: {
-      application: app.destRepository.userRepositoryPickerValue!.name,
+      application: app.destRepository.userRepositoryPickerValue!.name!,
       parts,
     },
-    gitRepository: app.destRepository.userRepositoryPickerValue!.name,
+    gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
     gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
-    clusterId: app.deployment.clusterPickerValue.clusterId!,
-    projectName: app.destRepository.userRepositoryPickerValue!.name,
+    clusterId: app.deployment.clusterPickerValue!.clusterId!,
+    projectName: app.destRepository.userRepositoryPickerValue!.name!,
   };
 }
 
-export function toImportAppPayload(app) {
+export function toImportAppPayload(app: ImportApp) {
   const parts: any[] = [];
-  const url = app.srcRepository.gitUrlPickerValue.url;
+  const url = app.srcRepository.gitUrlPickerValue!.url!;
   const name = url.substr(url.lastIndexOf('/') + 1);
 
   parts.push({
@@ -81,8 +83,8 @@ export function toImportAppPayload(app) {
       {
         module: 'import',
         props: {
-          gitImportUrl: app.srcRepository.gitUrlPickerValue.url,
-          builderImage: app.srcRepository.buildImagePickerValue.imageName,
+          gitImportUrl: app.srcRepository.gitUrlPickerValue!.url!,
+          builderImage: app.srcRepository.buildImagePickerValue!.imageName!,
         }
       }
     ]
@@ -93,7 +95,7 @@ export function toImportAppPayload(app) {
       application: name,
       parts,
     },
-    clusterId: app.deployment.clusterPickerValue.clusterId!,
+    clusterId: app.deployment.clusterPickerValue!.clusterId!,
     projectName: name,
   };
 }

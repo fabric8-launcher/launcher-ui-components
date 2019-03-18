@@ -1,21 +1,15 @@
 import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
-import { BackendHub, BackendFormValue } from '../hubs/backend-hub';
-import { FrontendHub, FrontendFormValue, } from '../hubs/frontend-hub';
-import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub, DestRepositoryFormValue } from '../hubs/dest-repository-hub';
+import { BackendHub } from '../hubs/backend-hub';
+import { FrontendHub, } from '../hubs/frontend-hub';
+import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub } from '../hubs/dest-repository-hub';
 import { LaunchFlow, useAutoSetCluster } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
-import { DeploymentHub, DeploymentFormValue } from '../hubs/deployment-hub';
+import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/capabilities-loader';
 import { WelcomeAppHub } from '../hubs/welcome-app-hub';
-
-interface CustomApp {
-  backend: BackendFormValue;
-  frontend: FrontendFormValue;
-  destRepository: DestRepositoryFormValue;
-  deployment: DeploymentFormValue;
-}
+import { NewApp } from './types';
 
 const defaultCustomApp = {
   backend: {capabilitiesPickerValue: {capabilities: readOnlyCapabilities}},
@@ -24,7 +18,7 @@ const defaultCustomApp = {
   deployment: {},
 };
 
-function getFlowStatus(app: CustomApp) {
+function getFlowStatus(app: NewApp) {
   if (!FrontendHub.checkCompletion(app.frontend) && !BackendHub.checkCompletion(app.backend)) {
     return {
       hint: 'You should configure a Frontend and/or a Backend for your application.',
@@ -54,7 +48,7 @@ function getFlowStatus(app: CustomApp) {
 }
 
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<CustomApp>('app', defaultCustomApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('app', defaultCustomApp);
   const onCancel = () => {
     clear();
     props.onCancel!();

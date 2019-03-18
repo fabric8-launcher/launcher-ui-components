@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
-import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub, DestRepositoryFormValue } from '../hubs/dest-repository-hub';
+import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub } from '../hubs/dest-repository-hub';
 import { toExamplePayload } from './launcher-client-adapters';
-import { ExampleHub, ExampleFormValue } from '../hubs/example-hub';
+import { ExampleHub } from '../hubs/example-hub';
 import { LaunchFlow, useAutoSetCluster } from './launch-flow';
-import { DeploymentHub, DeploymentFormValue } from '../hubs/deployment-hub';
-
-interface ExampleApp {
-  example: ExampleFormValue;
-  destRepository: DestRepositoryFormValue;
-  deployment: DeploymentFormValue;
-}
+import { DeploymentHub } from '../hubs/deployment-hub';
+import { ExampleApp } from './types';
 
 const defaultExampleApp = {
   example: {},
