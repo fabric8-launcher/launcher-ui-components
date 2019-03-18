@@ -15,32 +15,41 @@ $ yarn install
 
 ### Start Storybook dev server (launcher-component)
 ```bash
-$ yarn launcher-component:storybook
+$ yarn comp:storybook
 ```
 
-### Build all libraries
+### Build the libraries
+All at once:
 ```bash
-$ yarn build:libs
+$ yarn libs:build
 ```
+
+Or:
+```bash
+$ yarn client:build
+$ yarn kc:build
+$ yarn comp:build
+```
+
 
 ### Start Launcher Application dev server (against staging-api)
 ```bash
-$ yarn launcher-app:start
+$ yarn app:start
 ```
 
 ### Start Launcher Application dev server (against production-api)
 ```bash
-$ yarn launcher-app:start-production
+$ yarn app:start-production
 ```
 
 ### Start Launcher Application dev server (against local-api - launcher-backend in 8080 and launcher-creator-backend in 8081)
 ```bash
-$ yarn launcher-app:start-local
+$ yarn app:start-local
 ```
 
 ### Publish storybook
 ```bash
-$ yarn launcher-component:storybook:publish
+$ yarn comp:storybook:publish
 
 ## Test
 

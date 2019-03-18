@@ -19,15 +19,18 @@
   "scripts": {
     "clean": "rm -rf build && find . -type d -name \"node_modules\" -exec rm -rf {} +",
     "test": "yarn workspaces run test",
-    "build:libs": "yarn workspace launcher-client build && yarn workspace keycloak-react build && yarn workspace launcher-component build",
+    "libs:build": "yarn client:build && yarn kc:build && yarn yarn comp:build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
-    "launcher-app:start": "yarn workspace launcher-app start:staging-api",
-    "launcher-app:start-local": "yarn workspace launcher-app start:local-api",
-    "launcher-app:start-production": "yarn workspace launcher-app start:production-api",
-    "launcher-app:build": "yarn workspace launcher-app build",
-    "launcher-component:test": "yarn workspace launcher-component test",
-    "launcher-component:storybook": "yarn workspace launcher-component storybook",
-    "launcher-component:storybook:publish": "yarn workspace launcher-component storybook:publish"
+    "app:start": "yarn workspace launcher-app start:staging-api",
+    "app:start-local": "yarn workspace launcher-app start:local-api",
+    "app:start-production": "yarn workspace launcher-app start:production-api",
+    "app:build": "yarn workspace launcher-app build",
+    "client:build": "yarn workspace launcher-component build",
+    "kc:build": "yarn workspace launcher-component build",
+    "comp:build": "yarn workspace launcher-component build",
+    "comp:test": "yarn workspace launcher-component test",
+    "comp:storybook": "yarn workspace launcher-component storybook",
+    "comp:storybook:publish": "yarn workspace launcher-component storybook:publish"
   },
   "browserslist": [
     ">0.2%",
