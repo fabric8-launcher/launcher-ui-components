@@ -107,7 +107,7 @@ interface HubAndSpokeProps {
   hint?: string;
 }
 
-export function Error(props: { error: any }) {
+export function AlertError(props: { error: any }) {
   return (
     <Alert variant={AlertVariant.danger} title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
       {props.error.toString()}
@@ -154,7 +154,7 @@ export function HubNSpoke(props: HubAndSpokeProps) {
       <HubContext.Provider value={hub}>
         <Text component={TextVariants.h1} className="hub-and-spoke-title">{props.title}</Text>
         {!hub.selected && props.error && (
-          <Error error={props.error}/>
+          <AlertError error={props.error}/>
         )}
         {!hub.selected && props.hint && !props.error && (
           <Hint value={props.hint}/>
