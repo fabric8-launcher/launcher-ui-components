@@ -156,7 +156,7 @@ export function HubNSpoke(props: HubAndSpokeProps) {
         {!hub.selected && props.error && (
           <Error error={props.error}/>
         )}
-        {!hub.selected && props.hint && (
+        {!hub.selected && props.hint && !props.error && (
           <Hint value={props.hint}/>
         )}
         <Grid className="hub-and-spoke-container" gutter={'sm'}>
