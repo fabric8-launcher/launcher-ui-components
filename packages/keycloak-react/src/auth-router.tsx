@@ -12,9 +12,10 @@ interface AuthRouterProps {
 
 export function AuthRouter(props: AuthRouterProps) {
   const authApi = useAuthApi();
+  const baseName = props.basename && `${props.basename}/`;
   if (!authApi.user && authApi.enabled) {
     return (
-      <BrowserRouter basename={props.basename}>
+      <BrowserRouter basename={baseName}>
         <Switch>
           <Route path="/login" exact component={props.loginPage}/>
           <Redirect to="/login"/>
@@ -23,7 +24,7 @@ export function AuthRouter(props: AuthRouterProps) {
     );
   }
   return (
-    <BrowserRouter basename={props.basename}>
+    <BrowserRouter basename={baseName}>
       <Switch>
         <Route path="/" exact component={props.homePage}/>
         <Redirect to="/"/>
