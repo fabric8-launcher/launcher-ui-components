@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { InProgressIcon } from '@patternfly/react-icons';
-import { AlertError } from '../hub-n-spoke/index';
+import { AlertError } from '../stuff';
+
 import style from './data-loader.module.scss';
 
 export function Spin(props: { children: React.ReactNode }) {
