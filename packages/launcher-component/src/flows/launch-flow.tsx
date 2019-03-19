@@ -32,6 +32,8 @@ export function useAutoSetCluster(setApp) {
       } else {
         setShowDeploymentForm(true);
       }
+    }).catch(e => {
+      console.warn('An error happened while trying to load clusters for auto-selection', e);
     });
   }, []);
   return showDeploymentForm;
