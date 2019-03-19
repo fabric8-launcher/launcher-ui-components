@@ -12,6 +12,7 @@
     "start:mock-api": "env-cmd .env.mock-api yarn start",
     "start:staging-api": "env-cmd .env.staging-api yarn start",
     "start:local-api": "env-cmd .env.local-api yarn start",
+    "start:production-api": "env-cmd .env.production-api yarn start",
     "start:prod": "run-s build serve",
     "start:custom": "env-cmd .env.custom yarn start"
   },
