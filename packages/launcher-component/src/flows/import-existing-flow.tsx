@@ -35,7 +35,7 @@ function getFlowStatus(app: ImportApp) {
 }
 
 export function ImportExistingFlow(props: { onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<ImportApp>('app', defaultImportApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<ImportApp>('import-existing-app', defaultImportApp);
   const onCancel = () => {
     clear();
     props.onCancel!();

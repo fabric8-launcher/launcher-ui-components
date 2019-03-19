@@ -14,6 +14,7 @@ import { useState } from 'react';
 import logo from './assets/logo/RHD-logo.svg';
 import style from './layout.module.scss';
 import { useAuthApi } from 'keycloak-react';
+import { publicUrl } from './config';
 
 export function Layout(props: { children: React.ReactNode }) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -40,7 +41,7 @@ export function Layout(props: { children: React.ReactNode }) {
 
   const Header = (
     <PageHeader
-      logo={<Brand src={logo} alt="Red Hat" className={style.brand} href={process.env.PUBLIC_URL && `${process.env.PUBLIC_URL}/`}/>}
+      logo={<Brand src={logo} alt="Red Hat" className={style.brand} href={publicUrl}/>}
       logoProps={{href:process.env.PUBLIC_URL}}
       toolbar={PageToolbar}
       className={style.header}
