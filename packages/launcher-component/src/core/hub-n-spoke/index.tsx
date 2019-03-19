@@ -5,6 +5,7 @@ import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import style from './hub-n-spoke.module.scss';
+import { AlertError } from '../stuff';
 
 export interface HubItem {
   id: string;
@@ -107,14 +108,6 @@ interface HubAndSpokeProps {
   hint?: string;
 }
 
-export function Error(props: { error: any }) {
-  return (
-    <Alert variant={AlertVariant.danger} title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
-      {props.error.toString()}
-    </Alert>
-  );
-}
-
 export function Hint(props: { value: string }) {
   const [visible, setVisible] = useSessionStorageWithObject<boolean>('hint', true);
   return (
@@ -154,7 +147,7 @@ export function HubNSpoke(props: HubAndSpokeProps) {
       <HubContext.Provider value={hub}>
         <Text component={TextVariants.h1} className="hub-and-spoke-title">{props.title}</Text>
         {!hub.selected && props.error && (
-          <Error error={props.error}/>
+          <AlertError error={props.error}/>
         )}
         {!hub.selected && props.hint && !props.error && (
           <Hint value={props.hint}/>

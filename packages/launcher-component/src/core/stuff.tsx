@@ -1,4 +1,4 @@
-import { Modal, ModalProps, Title } from '@patternfly/react-core';
+import { Modal, ModalProps, Title, Alert, AlertVariant } from '@patternfly/react-core';
 import * as React from 'react';
 
 import style from './stuff.module.scss';
@@ -25,6 +25,14 @@ export function DescriptiveHeader(props: { title?: string, description: string }
 export function SpecialValue(props: { children: string }) {
   return (
     <span className={style.specialValue}>{props.children}</span>
+  );
+}
+
+export function AlertError(props: { error: any }) {
+  return (
+    <Alert variant={AlertVariant.danger} title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
+      {props.error.toString()}
+    </Alert>
   );
 }
 
