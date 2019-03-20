@@ -1,7 +1,7 @@
 import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
-import { Launcher } from '../launcher';
+import { StateLauncher } from '../launcher';
 import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
 
 storiesOf('Launcher', module)
@@ -12,6 +12,6 @@ storiesOf('Launcher', module)
   ))
   .add('component', () => {
     return (
-      <Launcher/>
+      <StateLauncher/>
     );
   });

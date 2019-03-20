@@ -44,7 +44,7 @@ function getFlowStatus(app: ExampleApp) {
 }
 
 export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('app', defaultExampleApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('deploy-example-app', defaultExampleApp);
   const showDeploymentForm = useAutoSetCluster(setApp);
 
   const onCancel = () => {

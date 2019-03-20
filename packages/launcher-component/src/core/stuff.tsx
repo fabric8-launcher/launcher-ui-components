@@ -1,4 +1,4 @@
-import { Modal, ModalProps, Title, Alert, AlertVariant } from '@patternfly/react-core';
+import { Alert, AlertVariant, Button, ButtonProps, Modal, ModalProps, Title } from '@patternfly/react-core';
 import * as React from 'react';
 
 import style from './stuff.module.scss';
@@ -11,6 +11,11 @@ export function Separator() {
   return (
     <hr className={style.separator}/>
   );
+}
+
+export function ButtonLink(props: ButtonProps) {
+  // @ts-ignore
+  return (<Button component="a" {...props} />);
 }
 
 export function DescriptiveHeader(props: { title?: string, description: string }) {
