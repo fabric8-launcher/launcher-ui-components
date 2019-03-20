@@ -15,14 +15,19 @@ import logo from './assets/logo/RHD-logo.svg';
 import style from './layout.module.scss';
 import { useAuthApi } from 'keycloak-react';
 import { useCreateLink } from './use-router';
+import { BaseSyntheticEvent } from 'react';
 
 export function Layout(props: { children: React.ReactNode }) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const rootLink = useCreateLink('/');
   const auth = useAuthApi();
+  const logout = (e: BaseSyntheticEvent) => {
+    e.preventDefault();
+    auth.logout();
+  };
   const userDropdownItems = [
     <DropdownItem component="a" href={auth.getAccountManagementLink()} target="_blank" key="manage">Manage Account</DropdownItem>,
-    <DropdownItem onClick={auth.logout} key="logout">Logout</DropdownItem>,
+    <DropdownItem onClick={logout} key="logout">Logout</DropdownItem>,
   ];
   const PageToolbar = auth.enabled && auth.user && (
     <Toolbar>

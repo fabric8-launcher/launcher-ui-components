@@ -67,8 +67,6 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
   public logout = () => {
     KeycloakAuthenticationApi.clearStoredData();
     this.keycloak.logout();
-    this.triggerUserChange();
-    return Promise.resolve();
   };
 
   public getAccountManagementLink = () => {
@@ -135,9 +133,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
         sessionState: 'sessionState',
         accountLink: {},
       };
-      if (this.onUserChangeListener) {
-        this.onUserChangeListener(this._user);
-      }
+      this.triggerUserChange();
       return;
     }
     if (this.keycloak.token) {
@@ -153,9 +149,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
         sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: {},
       };
-      if (this.onUserChangeListener) {
-        this.onUserChangeListener(this._user);
-      }
+      this.triggerUserChange();
     }
   }
 
@@ -165,7 +159,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   private triggerUserChange() {
     if (this.onUserChangeListener) {
-      this.onUserChangeListener(undefined);
+      this.onUserChangeListener(this._user);
     }
   }
 
