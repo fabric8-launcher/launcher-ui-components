@@ -32,8 +32,8 @@ export default class NoAuthenticationApi implements AuthenticationApi {
     throw new Error('logout should not be called in No Authentication mode');
   };
 
-  public openAccountManagement = (): void => {
-    throw new Error('openAccountManagement should not be called in No Authentication mode');
+  public getAccountManagementLink = () => {
+    throw new Error('getAccountManagementLink should not be called in No Authentication mode');
   };
 
   public refreshToken = (): Promise<OptionalUser> => {

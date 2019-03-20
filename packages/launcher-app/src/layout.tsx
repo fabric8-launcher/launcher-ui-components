@@ -21,6 +21,7 @@ export function Layout(props: { children: React.ReactNode }) {
   const rootLink = useCreateLink('/');
   const auth = useAuthApi();
   const userDropdownItems = [
+    <DropdownItem component="a" href={auth.getAccountManagementLink()} target="_blank" key="manage">Manage Account</DropdownItem>,
     <DropdownItem onClick={auth.logout} key="logout">Logout</DropdownItem>,
   ];
   const PageToolbar = auth.enabled && auth.user && (

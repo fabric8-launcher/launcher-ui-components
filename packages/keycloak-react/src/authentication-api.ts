@@ -14,7 +14,7 @@ export interface AuthenticationApi {
   init(): Promise<OptionalUser>;
   login(): void;
   logout(): void;
-  openAccountManagement(): void;
+  getAccountManagementLink(): string | undefined;
   refreshToken(): Promise<OptionalUser>;
   generateAuthorizationLink(provider?: string, redirect?: string): string;
   setOnUserChangeListener(listener: (user: OptionalUser) => void);

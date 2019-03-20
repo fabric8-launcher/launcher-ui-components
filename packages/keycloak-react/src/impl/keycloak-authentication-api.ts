@@ -71,11 +71,11 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
     return Promise.resolve();
   };
 
-  public openAccountManagement = () => {
+  public getAccountManagementLink = () => {
     if (!this._user) {
-      throw new Error('User is not connected.');
+      return undefined;
     }
-    window.open(this.keycloak.createAccountUrl());
+    return this.keycloak.createAccountUrl();
   };
 
   public refreshToken = (): Promise<OptionalUser> => {

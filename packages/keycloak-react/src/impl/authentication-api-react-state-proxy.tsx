@@ -22,8 +22,8 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
     this.authApi.logout();
   };
 
-  public openAccountManagement = (): void => {
-    this.authApi.openAccountManagement();
+  public getAccountManagementLink = () => {
+    return this.authApi.getAccountManagementLink();
   };
 
   public refreshToken = async (): Promise<OptionalUser> => {

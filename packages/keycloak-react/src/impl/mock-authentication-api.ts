@@ -46,8 +46,8 @@ export default class MockAuthenticationApi implements AuthenticationApi {
     }
   };
 
-  public openAccountManagement = (): void => {
-    // alert('Account management is not available on mock mode.');
+  public getAccountManagementLink = (): string | undefined => {
+    return 'https://account-management';
   };
 
   public refreshToken = (): Promise<OptionalUser> => {
