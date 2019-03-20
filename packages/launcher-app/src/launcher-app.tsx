@@ -22,8 +22,8 @@ function HomePage(props: {}) {
     return (
       <LauncherMenu
         createNewApp={useCreateLink('/flow/new-app')}
-        createExampleApp={useCreateLink('/flow/import-existing-app')}
-        importExistingApp={useCreateLink('/flow/deploy-example-app')}
+        createExampleApp={useCreateLink('/flow/deploy-example-app')}
+        importExistingApp={useCreateLink('/flow/import-existing-app')}
       />
     );
   };
