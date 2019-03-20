@@ -69,7 +69,7 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
           <ExampleHub.Form
             initialValue={app.example}
             onSave={(example) => {
-              setApp({...app, example});
+              setApp((prev) => ({...prev, example}));
               close();
             }}
             onCancel={close}
@@ -91,7 +91,7 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
           <DestRepositoryHub.Form
             initialValue={app.destRepository}
             onSave={(srcLocation) => {
-              setApp({...app, destRepository: srcLocation});
+              setApp((prev) =>({...prev, destRepository: srcLocation}));
               close();
             }}
             onCancel={close}
@@ -113,7 +113,7 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
           <DeploymentHub.Form
             initialValue={app.deployment}
             onSave={(deployment) => {
-              setApp({...app, deployment});
+              setApp((prev) => ({...prev, deployment}));
               close();
             }}
             onCancel={close}

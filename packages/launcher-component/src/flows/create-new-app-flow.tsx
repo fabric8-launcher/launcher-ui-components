@@ -71,7 +71,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
           <FrontendHub.Form
             initialValue={app.frontend}
             onSave={(frontend) => {
-              setApp({...app, frontend});
+              setApp((prev) => ({...prev, frontend}));
               close();
             }}
             onCancel={close}
@@ -93,7 +93,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
           <BackendHub.Form
             initialValue={app.backend}
             onSave={(backend) => {
-              setApp({...app, backend});
+              setApp((prev) => ({...prev, backend}));
               close();
             }}
             onCancel={close}
@@ -125,7 +125,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
           <DestRepositoryHub.Form
             initialValue={app.destRepository}
             onSave={(srcLocation) => {
-              setApp({...app, destRepository: srcLocation});
+              setApp((prev) => ({...prev, destRepository: srcLocation}));
               close();
             }}
             onCancel={close}
@@ -147,7 +147,7 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
           <DeploymentHub.Form
             initialValue={app.deployment}
             onSave={(deployment) => {
-              setApp({...app, deployment});
+              setApp(prev => ({...prev, deployment}));
               close();
             }}
             onCancel={close}

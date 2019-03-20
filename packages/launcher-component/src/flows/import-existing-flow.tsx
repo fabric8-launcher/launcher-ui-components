@@ -59,7 +59,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
           <SrcRepositoryHub.Form
             initialValue={app.srcRepository}
             onSave={(srcRepository) => {
-              setApp({...app, srcRepository});
+              setApp(prev => ({...prev, srcRepository}));
               close();
             }}
             onCancel={close}
@@ -81,7 +81,7 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
           <DeploymentHub.Form
             initialValue={app.deployment}
             onSave={(deployment) => {
-              setApp({...app, deployment});
+              setApp(prev => ({...prev, deployment}));
               close();
             }}
             onCancel={close}
