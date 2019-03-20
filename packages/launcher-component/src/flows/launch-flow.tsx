@@ -77,9 +77,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
           setRun((prev) => ({...prev, statusMessages: [...prev.statusMessages, statusMessages]}));
         },
         onComplete: () => {
-          if (run.status !== Status.ERROR) {
-            setRun((prev) => ({...prev, status: Status.COMPLETED}));
-          }
+          setRun((prev) => ({...prev, status: Status.COMPLETED}));
         },
         onError: (error) => {
           setRun((prev) => ({...prev, status: Status.ERROR, error}));
@@ -147,8 +145,9 @@ export function LaunchFlow(props: LaunchFlowProps) {
       <HubNSpoke title={props.title} items={props.items} toolbar={toolbar} error={run.error} hint={props.hint}/>
       {run.status === Status.RUNNING && (
         <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
-      {run.status === Status.COMPLETED && (<LaunchNextSteps links={links} onClose={onCancel}/>)}
-      {run.status === Status.DOWNLOADED && (<DownloadNextSteps onClose={goBackToEdition} downloadLink={run.result.downloadLink}/>)}
+      {!run.error && run.status === Status.COMPLETED && (<LaunchNextSteps links={links} onClose={onCancel}/>)}
+      {!run.error && run.status === Status.DOWNLOADED
+        && (<DownloadNextSteps onClose={goBackToEdition} downloadLink={run.result.downloadLink}/>)}
     </React.Fragment>
   );
 }
