@@ -48,7 +48,8 @@ const progressDef = {
     {
       statusMessage: 'OPENSHIFT_PIPELINE', data: {
         routes: {
-          welcome: 'http://welcome-gullible-rake.7e14.starter-us-west-2.openshiftapps.com/'
+          'welcome': 'http://welcome-gullible-rake.7e14.starter-us-west-2.openshiftapps.com/',
+          'meaty-spade':'http://meaty-spade-meaty-spade.192.168.42.21.nip.io'
         }
       }
     },
