@@ -14,10 +14,11 @@ import { useState } from 'react';
 import logo from './assets/logo/RHD-logo.svg';
 import style from './layout.module.scss';
 import { useAuthApi } from 'keycloak-react';
-import { publicUrl } from './config';
+import { useCreateLink } from './use-router';
 
 export function Layout(props: { children: React.ReactNode }) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const rootLink = useCreateLink('/');
   const auth = useAuthApi();
   const userDropdownItems = [
     <DropdownItem onClick={auth.logout} key="logout">Logout</DropdownItem>,
@@ -41,7 +42,7 @@ export function Layout(props: { children: React.ReactNode }) {
 
   const Header = (
     <PageHeader
-      logo={<Brand src={logo} alt="Red Hat" className={style.brand} href={publicUrl}/>}
+      logo={<Brand src={logo} alt="Red Hat" className={style.brand} href={rootLink.href} onClick={rootLink.onClick}/>}
       logoProps={{href:process.env.PUBLIC_URL}}
       toolbar={PageToolbar}
       className={style.header}
