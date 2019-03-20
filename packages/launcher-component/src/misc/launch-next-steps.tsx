@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Text, TextContent, TextVariants } from '@patternfly/react-core';
-import { ClusterIcon, CodeIcon, GiftIcon, BookIcon } from '@patternfly/react-icons';
+import { ClusterIcon, CodeIcon, GiftIcon } from '@patternfly/react-icons';
 import { ExternalLink } from './external-link';
 import { FixedModal } from '../core/stuff';
 import { Fragment } from 'react';
@@ -12,8 +12,6 @@ interface LaunchNextStepsProps {
 
 export function LaunchNextSteps(props: LaunchNextStepsProps) {
   const links = props.links || {};
-  const landingPageLink = (links['GITHUB_CREATE'] || 'https://fabric8-launcher.github.io/application-creator-landingpage/')
-    + '/blob/master/README.adoc';
   const repositoryLink = links['GITHUB_CREATE'] || 'https://github.com/fabric8-launcher/launcher-creator-frontend';
   const deploymentLink = links['OPENSHIFT_CREATE'] || 'https://manage.openshift.com/';
   const welcomeLink = links['welcome'];
@@ -49,11 +47,6 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
             </ExternalLink>
           </Fragment>
         }
-        <Text component={TextVariants.h3}>More Information</Text>
-        <Text component={TextVariants.p}>More details on interacting with your booster can be found in your booster’s</Text>
-        <ExternalLink href={landingPageLink}>
-          <BookIcon /> README.adoc
-        </ExternalLink>
         <Text component={TextVariants.h3}>Update your application using Continuous Delivery</Text>
         <Text component={TextVariants.p}>We set up your application codebase in the GitHub repository you requested</Text>
         <Text component={TextVariants.p}>Your application is automatically configured
