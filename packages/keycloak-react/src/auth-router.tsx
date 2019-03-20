@@ -6,16 +6,16 @@ type RouterComponent = React.ComponentType<RouteComponentProps<any>> | React.Com
 
 interface AuthRouterProps {
   loginPage: RouterComponent;
-  homePage: RouterComponent;
+  homePage?: RouterComponent;
   basename?: string;
+  children?: React.ReactNode;
 }
 
 export function AuthRouter(props: AuthRouterProps) {
   const authApi = useAuthApi();
-  const baseName = props.basename && `${props.basename}/`;
   if (!authApi.user && authApi.enabled) {
     return (
-      <BrowserRouter basename={baseName}>
+      <BrowserRouter basename={props.basename}>
         <Switch>
           <Route path="/login" exact component={props.loginPage}/>
           <Redirect to="/login"/>
@@ -23,8 +23,11 @@ export function AuthRouter(props: AuthRouterProps) {
       </BrowserRouter>
     );
   }
+  if(props.children) {
+    return (<React.Fragment>{props.children}</React.Fragment>);
+  }
   return (
-    <BrowserRouter basename={baseName}>
+    <BrowserRouter basename={props.basename}>
       <Switch>
         <Route path="/" exact component={props.homePage}/>
         <Redirect to="/"/>

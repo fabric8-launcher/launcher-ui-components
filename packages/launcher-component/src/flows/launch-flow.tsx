@@ -131,8 +131,9 @@ export function LaunchFlow(props: LaunchFlowProps) {
     return {[m.statusMessage]: m.data!.location};
   })!.reduce(
     (map, obj) => {
-      const key = Object.keys(obj)[0];
-      map[key] = obj[key];
+      for (const key of Object.keys(obj)) {
+        map[key] = obj[key];
+      }
       return map;
     }, {}
   );
