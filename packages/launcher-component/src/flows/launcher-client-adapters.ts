@@ -43,7 +43,7 @@ export function toNewAppPayload(app: NewApp) {
     },
     gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
     gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
-    clusterId: app.deployment.clusterPickerValue!.clusterId!,
+    clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
     projectName: app.destRepository.userRepositoryPickerValue!.name!,
   };
 }
@@ -66,7 +66,7 @@ export function toExamplePayload(app: ExampleApp) {
     },
     gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
     gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
-    clusterId: app.deployment.clusterPickerValue!.clusterId!,
+    clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
     projectName: app.destRepository.userRepositoryPickerValue!.name!,
   };
 }
@@ -95,7 +95,7 @@ export function toImportAppPayload(app: ImportApp) {
       application: name,
       parts,
     },
-    clusterId: app.deployment.clusterPickerValue!.clusterId!,
+    clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
     projectName: name,
   };
 }
