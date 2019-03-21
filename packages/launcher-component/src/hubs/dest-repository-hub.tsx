@@ -7,6 +7,7 @@ import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
+import { useAuthApi } from 'keycloak-react';
 
 export interface DestRepositoryFormValue {
   userRepositoryPickerValue?: UserRepositoryPickerValue;
@@ -36,7 +37,9 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
       </OverviewComplete>
     );
   },
-  Form: props => (
+  Form: props => {
+    const authApi = useAuthApi();
+    return (
     <FormPanel
       initialValue={props.initialValue}
       validator={DestRepositoryHub.checkCompletion}
@@ -53,6 +56,7 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
             <GitInfoLoader>
               {(gitInfo) => (
                 <UserRepositoryPicker.Element
+                  authorizationLinkGenerator={() => authApi.user ? authApi.generateAuthorizationLink('github') : ''}
                   gitInfo={gitInfo}
                   value={inputProps.value.userRepositoryPickerValue || {}}
                   onChange={(userRepositoryPickerValue) => inputProps.onChange({...inputProps.value, userRepositoryPickerValue})}
@@ -62,5 +66,5 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
           </React.Fragment>
         )}
     </FormPanel>
-  )
+  )}
 };
