@@ -233,7 +233,8 @@ export interface AnalyzeResult {
     name: string;
     metadata: {
       language: string,
-      isBuilder: boolean
+      isBuilder: boolean,
+      suggestedEnv?: { [key: string]: string };
     }
   }>;
 }

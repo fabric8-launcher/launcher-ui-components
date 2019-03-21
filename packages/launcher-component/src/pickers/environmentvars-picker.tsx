@@ -7,7 +7,7 @@ import { InputProps, Picker } from '../core/types';
 const VALID_ENV_KEY_REGEXP = new RegExp('^$|^[-._a-zA-Z][-._a-zA-Z0-9]*$');
 
 export interface EnvironmentVarsPickerValue {
-  envVars: Array<{ key: string; value: string }>;
+  envVars?: Array<{ key: string; value: string }>;
 }
 
 interface EnvironmentVarsPickerProps extends InputProps<EnvironmentVarsPickerValue> {
