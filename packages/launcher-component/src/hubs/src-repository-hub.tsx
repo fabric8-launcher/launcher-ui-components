@@ -8,19 +8,19 @@ import { GitUrlPicker, GitUrlPickerValue } from '../pickers/git-url-picker';
 import { FormHub } from '../core/types';
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
-import { EnvironmentVarsPicker, EnvironmentVarsPickerValue } from '../pickers/environmentvars-picker';
-import { Loader } from '..';
+import { EnvironmentVarsPickerValue, EnvironmentVarsPicker } from '../pickers/environmentvars-picker';
+import { AnalyzeResult } from 'launcher-client';
 
 export interface SrcRepositoryFormValue {
   gitUrlPickerValue?: GitUrlPickerValue;
   buildImagePickerValue?: BuildImagePickerValue;
-  envPickerValue?: EnvironmentVarsPickerValue;
+  environmentPickerValue?: EnvironmentVarsPickerValue;
 }
 
 export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
   checkCompletion: value => !!value.gitUrlPickerValue && GitUrlPicker.checkCompletion(value.gitUrlPickerValue)
     && !!value.buildImagePickerValue && BuildImagePicker.checkCompletion(value.buildImagePickerValue)
-    && !!value.envPickerValue && EnvironmentVarsPicker.checkCompletion(value.envPickerValue),
+    && !!value.environmentPickerValue && EnvironmentVarsPicker.checkCompletion(value.environmentPickerValue),
   Overview: props => {
     if (!SrcRepositoryHub.checkCompletion(props.value)) {
       return (
@@ -41,6 +41,24 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
     );
   },
   Form: props => {
+    const convert = object => {
+      const result: Array<{ key: string; value: string }> = [];
+      let i = 0;
+      for (const k in object) {
+        if (object.hasOwnProperty(k)) {
+          result[i++] = { key: k, value: object[k] };
+        }
+      }
+      return result;
+    };
+    const builderImage = (result: AnalyzeResult) => {
+      const image = result.builderImages.find(i => i.id === result.image);
+      if (!image) {
+        throw Error('invalid builder image');
+      }
+      return image;
+    };
+
     return (
       <FormPanel
         initialValue={props.initialValue}
@@ -69,7 +87,7 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
                   />
                   <BuildImageSuggestionsLoader gitUrl={inputProps.value.gitUrlPickerValue!.url!}>
                     {suggestions => {
-                      if (!inputProps.value.buildImagePickerValue) {
+                    <React.Fragment>
                         inputProps.onChange({
                           ...inputProps.value,
                           buildImagePickerValue: {image: suggestions.suggestedBuilderImage.id},
@@ -85,10 +103,10 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
                       }
                       return (
                         <React.Fragment>
-                          <BuildImagePicker.Element
-                            value={inputProps.value.buildImagePickerValue}
-                            onChange={(buildImagePickerValue) => {
-                              inputProps.onChange({...inputProps.value, buildImagePickerValue, envPickerValue: undefined});
+                      <BuildImagePicker.Element
+                        value={inputProps.value.buildImagePickerValue || {}}
+                        onChange={(buildImagePickerValue) => inputProps.onChange({...inputProps.value, buildImagePickerValue})}
+                        result={result}
                             }}
                             builderImages={suggestions.builderImages}
                             suggestedImageName={`${suggestions.suggestedBuilderImage.name}(${suggestions.suggestedBuilderImage.id})`}
@@ -101,16 +119,22 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
                           <EnvironmentVarsPicker.Element
                             value={inputProps.value.envPickerValue}
                             onChange={(envPickerValue) => inputProps.onChange({...inputProps.value, envPickerValue})}
-                          />
-                        </React.Fragment>
-                      );
-                    }}
-                  </BuildImageSuggestionsLoader>
+                      />
+                      <Separator/>
+                      <DescriptiveHeader
+                        title="Environment Variables"
+                        description="A builder image can be configured with some environment variables."
+                      />
+                      <EnvironmentVarsPicker.Element
+                        value={inputProps.value.environmentPickerValue || { envVars: convert(builderImage(result).metadata.suggestedEnv)}}
+                        onChange={(value) => inputProps.onChange({...inputProps.value, value})}
+                      />
+                    </React.Fragment>
                 </React.Fragment>
               )}
             </React.Fragment>
           )}
       </FormPanel>
-    );
+  );},
   },
 };
