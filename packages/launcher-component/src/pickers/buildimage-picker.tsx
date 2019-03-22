@@ -1,28 +1,27 @@
 import React, { Fragment } from 'react';
 import { Alert, Button, DataList, DataListCell, DataListItem, Radio, Title } from '@patternfly/react-core';
-import { AnalyzeResult } from 'launcher-client';
+import { BuilderImage } from 'launcher-client';
 import { InputProps, Picker } from '../core/types';
-import { Loader } from '../core/data-loader/data-loader';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import { SpecialValue } from '../core/stuff';
 
-export interface BuildImagePickerValue  { imageName?: string; advanced?: boolean; }
+export interface BuildImagePickerValue {
+  image?: string;
+  advanced?: boolean;
+}
 
 interface BuildImageProps extends InputProps<BuildImagePickerValue> {
-  result: AnalyzeResult;
+  suggestedImageName: string;
+  builderImages: BuilderImage[];
 }
 
 export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = {
-  checkCompletion: value => !!value.imageName,
+  checkCompletion: value => !!value.image,
   Element: props => {
-    if (!props.value.imageName) {
-      props.onChange({imageName: props.result.image});
-      return (<Loader/>);
-    }
     return (
       <Fragment>
         <p>
-          For your codebase, our runtime detection algorithm suggest this image: <SpecialValue>{props.result.image}</SpecialValue>
+          For your codebase, our runtime detection algorithm suggest this image: <SpecialValue>{props.suggestedImageName}</SpecialValue>
         </p>
         <Button
           // @ts-ignore
@@ -36,10 +35,10 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
         <Fragment>
             <Alert variant="warning" title="Picking the wrong image may result in an failed deployment!" style={{margin: '20px'}}/>
             <DataList aria-label="select-buildImage">
-              {props.result.builderImages.map((image, index) => {
-                const isSelected = props.value.imageName === image.id;
+              {props.builderImages.map((image, index) => {
+                const isSelected = props.value.image === image.id;
                 const onChangeSelected = () => {
-                  props.onChange({...props.value, imageName: image.id});
+                  props.onChange({...props.value, image: image.id});
                 };
 
                 return (
@@ -50,7 +49,7 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
                         value={image.id}
                         checked={isSelected}
                         onChange={onChangeSelected}
-                        name="imageName"
+                        name="image"
                         id={`radio-choose-${image.id}-as-image`}
                       />
                     </DataListCell>

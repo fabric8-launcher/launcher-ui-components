@@ -16,6 +16,7 @@ import style from './layout.module.scss';
 import { useAuthApi } from 'keycloak-react';
 import { useCreateLink } from './use-router';
 import { BaseSyntheticEvent } from 'react';
+import { ReactNode } from 'react';
 
 export function Layout(props: { children: React.ReactNode }) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -25,26 +26,29 @@ export function Layout(props: { children: React.ReactNode }) {
     e.preventDefault();
     auth.logout();
   };
-  const userDropdownItems = [
-    <DropdownItem component="a" href={auth.getAccountManagementLink()} target="_blank" key="manage">Manage Account</DropdownItem>,
-    <DropdownItem onClick={logout} key="logout">Logout</DropdownItem>,
-  ];
-  const PageToolbar = auth.enabled && auth.user && (
-    <Toolbar>
-      <ToolbarGroup>
-        <ToolbarItem>
-          <Dropdown
-            isPlain
-            position="right"
-            onSelect={() => setIsUserDropdownOpen((prev) => !prev)}
-            isOpen={isUserDropdownOpen}
-            toggle={<DropdownToggle onToggle={setIsUserDropdownOpen}>{auth.user.userPreferredName}</DropdownToggle>}
-            dropdownItems={userDropdownItems}
-          />
-        </ToolbarItem>
-      </ToolbarGroup>
-    </Toolbar>
-  );
+  let PageToolbar: ReactNode;
+  if(auth.enabled && auth.user) {
+    const userDropdownItems = [
+      <DropdownItem component="a" href={auth.getAccountManagementLink()} target="_blank" key="manage">Manage Account</DropdownItem>,
+      <DropdownItem onClick={logout} key="logout">Logout</DropdownItem>,
+    ];
+    PageToolbar = auth.enabled && auth.user && (
+      <Toolbar>
+        <ToolbarGroup>
+          <ToolbarItem>
+            <Dropdown
+              isPlain
+              position="right"
+              onSelect={() => setIsUserDropdownOpen((prev) => !prev)}
+              isOpen={isUserDropdownOpen}
+              toggle={<DropdownToggle onToggle={setIsUserDropdownOpen}>{auth.user.userPreferredName}</DropdownToggle>}
+              dropdownItems={userDropdownItems}
+            />
+          </ToolbarItem>
+        </ToolbarGroup>
+      </Toolbar>
+    );
+  }
 
   const Header = (
     <PageHeader

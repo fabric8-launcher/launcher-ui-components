@@ -1,4 +1,5 @@
 import { ExampleApp, ImportApp, NewApp } from './types';
+import { convertToObject } from '../loaders/buildimage-loader';
 
 export function toNewAppPayload(app: NewApp) {
   let parts: any[] = [];
@@ -84,7 +85,8 @@ export function toImportAppPayload(app: ImportApp) {
         module: 'import',
         props: {
           gitImportUrl: app.srcRepository.gitUrlPickerValue!.url!,
-          builderImage: app.srcRepository.buildImagePickerValue!.imageName!,
+          builderImage: app.srcRepository.buildImagePickerValue!.image!,
+          env: convertToObject(app.srcRepository.envPickerValue!.envVars!)
         }
       }
     ]
