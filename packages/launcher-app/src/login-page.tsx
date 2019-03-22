@@ -39,19 +39,17 @@ type RuntimeProps = PropertyValue;
 
 function Runtime(props: RuntimeProps) {
   return (
-    <GalleryItem>
-      <Card style={{height: '100%'}}>
-        <CardHeader><img src={props.icon} alt={props.name}/></CardHeader>
-        <CardBody>{props.description}</CardBody>
-        {props.metadata && props.metadata.website && (
-          <CardFooter>
-            <a href={props.metadata.website} target="_blank">
-              Learn more <ExternalLinkSquareAltIcon/>
-            </a>
-          </CardFooter>
-        )}
-      </Card>
-    </GalleryItem>
+    <Card className={style.card}>
+      <CardHeader><img src={props.icon} alt={props.name} /></CardHeader>
+      <CardBody>{props.description}</CardBody>
+      {props.metadata && props.metadata.website && (
+        <CardFooter>
+          <a href={props.metadata.website} target="_blank">
+            Learn more <ExternalLinkSquareAltIcon />
+          </a>
+        </CardFooter>
+      )}
+    </Card>
   );
 }
 
@@ -62,7 +60,7 @@ export const LoginPage = () => (
         <h1 className={style.mainTitle}>Launcher</h1>
         <h2 className={style.subTitle}>Create/Import your application,</h2>
         <h2 className={style.subTitle}>built and deployed on OpenShift.</h2>
-        <LoginCard/>
+        <LoginCard />
       </div>
     </section>
     <PageSection variant={PageSectionVariants.light}>
@@ -70,24 +68,20 @@ export const LoginPage = () => (
         <Text component={TextVariants.h1}>Supported Backend Runtimes</Text>
       </TextContent>
     </PageSection>
-    <PageSection variant={PageSectionVariants.light}>
-      <Gallery gutter="md">
-        <EnumsRuntimesLoaders category="backend">
-          {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id}/>))}
-        </EnumsRuntimesLoaders>
-      </Gallery>
+    <PageSection variant={PageSectionVariants.light} className={style.container}>
+      <EnumsRuntimesLoaders category="backend">
+        {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id} />))}
+      </EnumsRuntimesLoaders>
     </PageSection>
     <PageSection variant={PageSectionVariants.light}>
       <TextContent>
         <Text component={TextVariants.h1}>Supported Frontend Frameworks</Text>
       </TextContent>
     </PageSection>
-    <PageSection variant={PageSectionVariants.light}>
-      <Gallery gutter="md">
-        <EnumsRuntimesLoaders category="frontend">
-          {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id}/>))}
-        </EnumsRuntimesLoaders>
-      </Gallery>
+    <PageSection variant={PageSectionVariants.light} className={style.container}>
+      <EnumsRuntimesLoaders category="frontend">
+        {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id} />))}
+      </EnumsRuntimesLoaders>
     </PageSection>
   </Layout>
 );
