@@ -25,7 +25,9 @@ storiesOf('Pickers', module)
             onCancel={action('cancel')}
           >
             {
-              (inputProps) => (<BuildImagePicker.Element {...inputProps} result={result}/>)}
+              (inputProps) => (
+                <BuildImagePicker.Element {...inputProps} builderImages={result.builderImages} suggestedImageName={result.image}/>
+              )}
           </FormPanel>
         )}
       </BuildImageAnalyzerLoader>

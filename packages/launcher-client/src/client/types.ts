@@ -226,16 +226,19 @@ export interface LaunchAppResult {
   events: Array<{ name: string, message: string }>;
 }
 
+export interface BuilderImage {
+  id: string;
+  name: string;
+  metadata: {
+    language: string,
+    isBuilder: boolean,
+    suggestedEnv?: { [key: string]: string };
+  }
+}
+
 export interface AnalyzeResult {
   image: string;
-  builderImages: Array<{
-    id: string;
-    name: string;
-    metadata: {
-      language: string,
-      isBuilder: boolean
-    }
-  }>;
+  builderImages: BuilderImage[];
 }
 
 export interface Enums {
