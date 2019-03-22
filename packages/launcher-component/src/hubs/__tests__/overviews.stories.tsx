@@ -83,7 +83,7 @@ storiesOf('Overviews', module)
 
     const value = {
       gitUrlPickerValue: {url: 'https://github.com/fabric8-launcher/launcher-frontend'},
-      buildImagePickerValue: {imageName: 'Java Code Builder'}
+      buildImagePickerValue: {image: 'Java Code Builder'}
     };
 
     return (
