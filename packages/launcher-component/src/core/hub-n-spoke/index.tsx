@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { ReactElement, useContext, useState, Fragment } from 'react';
-import { Alert, AlertVariant, Button, Grid, GridItem, Text, TextVariants, AlertActionCloseButton } from '@patternfly/react-core';
+import { Fragment, ReactElement, useContext, useState } from 'react';
+import { Alert, AlertActionCloseButton, AlertVariant, Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
 import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import style from './hub-n-spoke.module.scss';
-import { AlertError } from '../stuff';
+import { AlertError, optionalBool } from '../stuff';
+import { Loader } from '../data-loader/data-loader';
 
 export interface HubItem {
   id: string;
   title: string;
   visible?: boolean;
+  loading?: boolean;
   overview: {
     component: (props: { edit: () => void }) => ReactElement<any>;
     width?: 'third' | 'half' | 'full';
@@ -41,11 +43,13 @@ export function HubOverviewCard(props: HubItem) {
   const hub = useContext(HubContext);
   const w = props.overview.width || 'quarter';
   const size = width[w];
+
   const onEdit = () => {
     if (hub) {
       hub.open(props);
     }
   };
+  const loading = optionalBool(props.loading, false);
   return (
     // @ts-ignore
     <GridItem className="hub-and-spoke-item" sm={Math.min(size * 2, 12)} md={size}>
@@ -54,7 +58,7 @@ export function HubOverviewCard(props: HubItem) {
           {props.title}
         </h1>
         <div className="hub-and-spoke-nav">
-          {props.form && (
+          {!loading && props.form && (
             <Button variant="plain" aria-label={`edit-${props.id}`} onClick={onEdit}>
               <EditIcon/>
             </Button>
@@ -62,7 +66,7 @@ export function HubOverviewCard(props: HubItem) {
         </div>
       </div>
       <div className="hub-and-spoke-body">
-        {props.overview.component({edit: onEdit})}
+        {loading ? <Loader />: props.overview.component({edit: onEdit})}
       </div>
     </GridItem>
   );
@@ -111,14 +115,14 @@ interface HubAndSpokeProps {
 export function Hint(props: { value: string }) {
   const [visible, setVisible] = useSessionStorageWithObject<boolean>('hint', true);
   return (
-    <Fragment >
+    <Fragment>
       {visible && (
         <Alert
           variant={AlertVariant.info}
           title="What should I do?"
           aria-label="hint-in-hub-n-spoke"
-          style={{ margin: '40px' }}
-          action={<AlertActionCloseButton onClose={() => setVisible(false)} />}
+          style={{margin: '40px'}}
+          action={<AlertActionCloseButton onClose={() => setVisible(false)}/>}
         >
           {props.value}
         </Alert>
@@ -133,7 +137,7 @@ export function HubNSpoke(props: HubAndSpokeProps) {
   const hub: Hub = {
     selected: selectedHub,
     open: (item: HubItem) => {
-      if(item.form) {
+      if (item.form) {
         setSelectedHub(item);
       }
     },

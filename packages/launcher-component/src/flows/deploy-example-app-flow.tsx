@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
-
-import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub } from '../hubs/dest-repository-hub';
+import { generate } from 'project-name-generator';
+import { DestRepositoryHub } from '../hubs/dest-repository-hub';
 import { toExamplePayload } from './launcher-client-adapters';
 import { ExampleHub } from '../hubs/example-hub';
-import { LaunchFlow, useAutoSetCluster } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ExampleApp } from './types';
 
 const defaultExampleApp = {
   example: {},
-  destRepository: createDestRepositoryFormValueWithGeneratedName(),
+  destRepository: {},
   deployment: {},
 };
 
@@ -45,7 +45,8 @@ function getFlowStatus(app: ExampleApp) {
 
 export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('deploy-example-app', defaultExampleApp);
-  const showDeploymentForm = useAutoSetCluster(setApp);
+  const autoSetCluster = useAutoSetCluster(setApp);
+  const autoSetDestRepository = useAutoSetDestRepository(generate().dashed, setApp);
 
   const onCancel = () => {
     clear();
@@ -80,18 +81,19 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
     {
       id: 'destRepository',
       title: 'Destination Repository',
+      loading: autoSetDestRepository.loading,
       overview: {
         component: ({edit}) => (
           <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>
         ),
         width: 'third',
       },
-      form: {
+      form: autoSetDestRepository.showForm && {
         component: ({close}) => (
           <DestRepositoryHub.Form
             initialValue={app.destRepository}
             onSave={(srcLocation) => {
-              setApp((prev) =>({...prev, destRepository: srcLocation}));
+              setApp((prev) => ({...prev, destRepository: srcLocation}));
               close();
             }}
             onCancel={close}
@@ -102,13 +104,14 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
     {
       id: 'openshift-deployment',
       title: 'OpenShift Deployment',
+      loading: autoSetCluster.loading,
       overview: {
         component: ({edit}) => (
           <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
         ),
         width: 'third',
       },
-      form: showDeploymentForm && {
+      form: autoSetCluster.showForm && {
         component: ({close}) => (
           <DeploymentHub.Form
             initialValue={app.deployment}

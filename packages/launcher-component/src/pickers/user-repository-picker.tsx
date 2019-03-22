@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormSelect, FormSelectOption, Grid, GridItem, TextInput, Button } from '@patternfly/react-core';
+import { Form, FormGroup, FormSelect, FormSelectOption, Grid, GridItem, TextInput } from '@patternfly/react-core';
 import { GitInfo } from 'launcher-client';
 
 import { InputProps, Picker } from '../core/types';
@@ -16,7 +16,6 @@ export interface UserRepositoryPickerValue {
 
 interface UserRepositoryPickerProps extends InputProps<UserRepositoryPickerValue> {
   gitInfo: GitInfo;
-  authorizationLinkGenerator: (id?: string) => string;
 }
 
 export function valueToPath(value: UserRepositoryPickerValue, login?: string) {
@@ -108,13 +107,6 @@ export const UserRepositoryPicker: Picker<UserRepositoryPickerProps, UserReposit
                 isDisabled={!props.gitInfo.login}
               />
             </FormGroup>
-            {!props.gitInfo.login && <Button
-              // @ts-ignore
-              component="a"
-              href={props.authorizationLinkGenerator()}
-            >
-              Authorize Account
-            </Button>}
           </Form>
         </GridItem>
       </Grid>
