@@ -13,7 +13,6 @@ storiesOf('Pickers', module)
     </LauncherClientProvider>
   ))
   .add('UserRepositoryPicker', () => {
-    const link = (id?: string | undefined) => '';
     return (
       <GitInfoLoader>
         {gitInfo => (
@@ -23,7 +22,7 @@ storiesOf('Pickers', module)
             onSave={action('save')}
             onCancel={action('cancel')}
           >
-            {(inputProps) => (<UserRepositoryPicker.Element {...inputProps} gitInfo={gitInfo} authorizationLinkGenerator={link} />)}
+            {(inputProps) => (<UserRepositoryPicker.Element {...inputProps} gitInfo={gitInfo}/>)}
           </FormPanel>
         )}
       </GitInfoLoader>
