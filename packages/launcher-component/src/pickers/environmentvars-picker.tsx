@@ -7,17 +7,17 @@ import { InputProps, Picker } from '../core/types';
 const VALID_ENV_KEY_REGEXP = new RegExp('^$|^[-._a-zA-Z][-._a-zA-Z0-9]*$');
 
 export interface EnvironmentVarsPickerValue {
-  envVars?: Array<{ key: string; value: string }>;
+  envVars?: string[][];
 }
 
 interface EnvironmentVarsPickerProps extends InputProps<EnvironmentVarsPickerValue> {
 }
 
-const NEW_ENTRY = {key: '', value: ''};
+const NEW_ENTRY = ['', ''];
 
 export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, EnvironmentVarsPickerValue> = {
   checkCompletion: value => !!value.envVars
-    && value.envVars.filter(entry => !VALID_ENV_KEY_REGEXP.test(entry.key)).length === 0,
+    && value.envVars.filter(entry => !VALID_ENV_KEY_REGEXP.test(entry[0])).length === 0,
   Element: props => {
     const entries = props.value.envVars || [NEW_ENTRY];
     const isValid: (value: string) => boolean = value => VALID_ENV_KEY_REGEXP.test(value || '');
@@ -37,11 +37,11 @@ export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, Environme
                     pattern="[-._a-zA-Z][-._a-zA-Z0-9]*"
                     onChange={newKey => {
                       const newEntries = entries.slice();
-                      newEntries[index] =  {key: newKey, value: entry.value};
+                      newEntries[index] = [newKey, entry[1]];
                       props.onChange({envVars: newEntries});
                     }}
-                    isValid={isValid(entry.key)}
-                    value={entry.key}
+                    isValid={isValid(entry[0])}
+                    value={entry[0]}
                   />
                 </SplitItem>
                 <SplitItem isMain key={'split-value' + index}>
@@ -54,16 +54,16 @@ export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, Environme
                     placeholder="Type the environment variable value"
                     onChange={newValue => {
                       const newEntries = entries.slice();
-                      newEntries[index] =  {key: entry.key, value:newValue};
+                      newEntries[index] = [entry[0], newValue];
                       props.onChange({envVars: newEntries});
                     }}
-                    value={entry.value}
+                    value={entry[1]}
                   />
                 </SplitItem>
                 <SplitItem isMain={false} key={'split-button' + index}>
                   <Button
                     onClick={() => {
-                      let newEntries;
+                      let newEntries: string[][];
                       if (entries.length <= 1) {
                         newEntries = [NEW_ENTRY];
                       } else {

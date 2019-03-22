@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { AnalyzeResult, BuilderImage } from 'launcher-client';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';
@@ -14,9 +15,9 @@ export function BuildImageAnalyzerLoader(props: { gitUrl: string, children: (res
 }
 
 interface BuildImageSuggestions {
- builderImages: BuilderImage[];
- suggestedBuilderImage: BuilderImage;
- getSuggestedEnvPairs: (image: string) => Array<{ key: string; value: string }>;
+  builderImages: BuilderImage[];
+  suggestedBuilderImage: BuilderImage;
+  getSuggestedEnvPairs: (image: string) => string[][];
 }
 
 interface BuildImageSuggestionsLoaderProps {
@@ -25,25 +26,11 @@ interface BuildImageSuggestionsLoaderProps {
 }
 
 const convertToPairs = object => {
-  const result: Array<{ key: string; value: string }> = [];
-  let i = 0;
-  for (const k in object) {
-    if (object.hasOwnProperty(k)) {
-      result[i++] = {key: k, value: object[k]};
-    }
-  }
-  if(result.length === 0) {
-    return [{ key: '', value: ''}];
-  }
-  return result;
+  return (_.toPairs(object) || ['', '']) as string[][];
 };
 
-export const convertToObject = (vars: Array<{ key: string; value: string }>) => {
-  const result = {};
-  for (const env of vars) {
-    result[env.key] = env.value;
-  }
-  return result;
+export const convertToObject = (vars: string[][]) => {
+  return _.fromPairs(vars);
 };
 
 const findBuilderImage = (result: AnalyzeResult, image?: string) => {
@@ -60,7 +47,7 @@ export function BuildImageSuggestionsLoader(props: BuildImageSuggestionsLoaderPr
     const result = await client.importAnalyze(props.gitUrl);
     const suggestedBuilderImage = findBuilderImage(result);
     const getSuggestedEnvPairs = (image: string) => convertToPairs(findBuilderImage(result, image).metadata.suggestedEnv);
-    return {suggestedBuilderImage, getSuggestedEnvPairs, builderImages: result.builderImages};
+    return { suggestedBuilderImage, getSuggestedEnvPairs, builderImages: result.builderImages };
   };
   return (
     <DataLoader loader={itemsLoader}>
