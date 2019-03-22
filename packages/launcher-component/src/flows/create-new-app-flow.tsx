@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
-
+import { generate } from 'project-name-generator';
 import { BackendHub } from '../hubs/backend-hub';
 import { FrontendHub, } from '../hubs/frontend-hub';
-import { createDestRepositoryFormValueWithGeneratedName, DestRepositoryHub } from '../hubs/dest-repository-hub';
-import { LaunchFlow, useAutoSetCluster } from './launch-flow';
+import { DestRepositoryHub } from '../hubs/dest-repository-hub';
+import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
 import { toNewAppPayload } from './launcher-client-adapters';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/capabilities-loader';
@@ -14,7 +14,7 @@ import { NewApp } from './types';
 const defaultCustomApp = {
   backend: {capabilitiesPickerValue: {capabilities: readOnlyCapabilities}},
   frontend: {},
-  destRepository: createDestRepositoryFormValueWithGeneratedName(),
+  destRepository: {},
   deployment: {},
 };
 
@@ -49,7 +49,8 @@ function getFlowStatus(app: NewApp) {
 
 export function CreateNewAppFlow(props: { onCancel?: () => void }) {
   const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('new-app-flow', defaultCustomApp);
-  const showDeploymentForm = useAutoSetCluster(setApp);
+  const autoSetCluster = useAutoSetCluster(setApp);
+  const autoSetDestRepository = useAutoSetDestRepository(generate().dashed, setApp);
 
   const onCancel = () => {
     clear();
@@ -114,13 +115,14 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
     {
       id: 'destRepository',
       title: 'Destination Repository',
+      loading: autoSetDestRepository.loading,
       overview: {
         component: ({edit}) => (
           <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>
         ),
         width: 'half',
       },
-      form: {
+      form: autoSetDestRepository.showForm && {
         component: ({close}) => (
           <DestRepositoryHub.Form
             initialValue={app.destRepository}
@@ -136,13 +138,14 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
     {
       id: 'openshift-deployment',
       title: 'OpenShift Deployment',
+      loading: autoSetCluster.loading,
       overview: {
         component: ({edit}) => (
           <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
         ),
         width: 'half',
       },
-      form: showDeploymentForm && {
+      form: autoSetCluster.showForm && {
         component: ({close}) => (
           <DeploymentHub.Form
             initialValue={app.deployment}

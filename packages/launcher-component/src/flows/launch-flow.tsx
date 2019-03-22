@@ -15,28 +15,57 @@ enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
 }
 
+export function useAutoSetDestRepository(defaultName: string, setApp) {
+  const client = useLauncherClient();
+  const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    client.gitInfo().then(info => {
+      setApp((prev: ExampleApp | NewApp) => {
+        if (prev.destRepository.userRepositoryPickerValue && prev.destRepository.userRepositoryPickerValue.name) {
+          return prev;
+        }
+        return {...prev, destRepository: {userRepositoryPickerValue: {name: defaultName}, isProviderAuthorized: true}};
+      });
+      setShowForm(true);
+      setLoading(false);
+    }).catch(e => {
+      setApp((prev: ExampleApp | NewApp) => {
+        setShowForm(false);
+        return {...prev, destRepository: {isProviderAuthorized: false}};
+      });
+      setLoading(false);
+    });
+  }, []);
+  return {showForm, loading};
+}
+
 export function useAutoSetCluster(setApp) {
   const client = useLauncherClient();
-  const [showDeploymentForm, setShowDeploymentForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     client.ocClusters().then(clusters => {
       const connectedClusters = clusters.filter(cluster => cluster.connected);
       if (connectedClusters.length === 1) {
-        setShowDeploymentForm(clusters.length > 1);
         setApp((prev: ExampleApp | NewApp) => {
           if (prev.deployment.clusterPickerValue && prev.deployment.clusterPickerValue.clusterId) {
             return prev;
           }
           return ({...prev, deployment: {clusterPickerValue: {clusterId: connectedClusters[0].id}}});
         });
+        setShowForm(clusters.length > 1);
+        setLoading(false);
       } else {
-        setShowDeploymentForm(true);
+        setShowForm(true);
+        setLoading(false);
       }
     }).catch(e => {
       console.warn('An error happened while trying to load clusters for auto-selection', e);
+      setLoading(false);
     });
   }, []);
-  return showDeploymentForm;
+  return {showForm, loading};
 }
 
 interface RunState {
@@ -147,7 +176,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
         <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
       {!run.error && run.status === Status.COMPLETED && (<LaunchNextSteps links={links} onClose={onCancel}/>)}
       {!run.error && run.status === Status.DOWNLOADED
-        && (<DownloadNextSteps onClose={goBackToEdition} downloadLink={run.result.downloadLink}/>)}
+      && (<DownloadNextSteps onClose={goBackToEdition} downloadLink={run.result.downloadLink}/>)}
     </React.Fragment>
   );
 }

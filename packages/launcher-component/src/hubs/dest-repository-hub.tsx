@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { generate } from 'project-name-generator';
+
 import { UserRepositoryPicker, UserRepositoryPickerValue, valueToPath } from '../pickers/user-repository-picker';
-import { DescriptiveHeader, SpecialValue } from '../core/stuff';
+import { ButtonLink, DescriptiveHeader, optionalBool, SpecialValue } from '../core/stuff';
 import { GitInfoLoader } from '../loaders/git-info-loader';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
@@ -11,15 +11,27 @@ import { useAuthApi } from 'keycloak-react';
 
 export interface DestRepositoryFormValue {
   userRepositoryPickerValue?: UserRepositoryPickerValue;
-}
-
-export function createDestRepositoryFormValueWithGeneratedName() {
-  return { userRepositoryPickerValue: {name: generate().dashed}};
+  isProviderAuthorized?: boolean;
 }
 
 export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
-  checkCompletion: value => !!value.userRepositoryPickerValue && UserRepositoryPicker.checkCompletion(value.userRepositoryPickerValue),
+  checkCompletion: value => !!value.isProviderAuthorized
+    && !!value.userRepositoryPickerValue && UserRepositoryPicker.checkCompletion(value.userRepositoryPickerValue),
   Overview: props => {
+    const auth = useAuthApi();
+    if (!optionalBool(props.value.isProviderAuthorized, true)) {
+      return (
+        <EmptyState>
+          <Title size="lg">You need to authorize GitHub.</Title>
+          <EmptyStateBody>
+            Once authorized, you will be able to choose a repository provider and a location...
+          </EmptyStateBody>
+          <ButtonLink href={auth.generateAuthorizationLink('github')}>
+            Authorize
+          </ButtonLink>
+        </EmptyState>
+      );
+    }
     if (!DestRepositoryHub.checkCompletion(props.value)) {
       return (
         <EmptyState>
@@ -38,33 +50,32 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
     );
   },
   Form: props => {
-    const authApi = useAuthApi();
     return (
-    <FormPanel
-      initialValue={props.initialValue}
-      validator={DestRepositoryHub.checkCompletion}
-      onSave={props.onSave}
-      onCancel={props.onCancel}
-    >
-      {
-        (inputProps) => (
-          <React.Fragment>
-            <DescriptiveHeader
-              description="You can select where your application source code will be located,
+      <FormPanel
+        initialValue={props.initialValue}
+        validator={DestRepositoryHub.checkCompletion}
+        onSave={props.onSave}
+        onCancel={props.onCancel}
+      >
+        {
+          (inputProps) => (
+            <React.Fragment>
+              <DescriptiveHeader
+                description="You can select where your application source code will be located,
                for now the only available provider is GitHub."
-            />
-            <GitInfoLoader>
-              {(gitInfo) => (
-                <UserRepositoryPicker.Element
-                  authorizationLinkGenerator={() => authApi.user ? authApi.generateAuthorizationLink('github') : ''}
-                  gitInfo={gitInfo}
-                  value={inputProps.value.userRepositoryPickerValue || {}}
-                  onChange={(userRepositoryPickerValue) => inputProps.onChange({...inputProps.value, userRepositoryPickerValue})}
-                />
-              )}
-            </GitInfoLoader>
-          </React.Fragment>
-        )}
-    </FormPanel>
-  )}
+              />
+              <GitInfoLoader>
+                {(gitInfo) => (
+                  <UserRepositoryPicker.Element
+                    gitInfo={gitInfo}
+                    value={inputProps.value.userRepositoryPickerValue || {}}
+                    onChange={(userRepositoryPickerValue) => inputProps.onChange({...inputProps.value, userRepositoryPickerValue})}
+                  />
+                )}
+              </GitInfoLoader>
+            </React.Fragment>
+          )}
+      </FormPanel>
+    );
+  }
 };
