@@ -38,14 +38,6 @@ const convertToPairs = object => {
   return result;
 };
 
-export const convertToObject = (vars: Array<{ key: string; value: string }>) => {
-  const result = {};
-  for (const env of vars) {
-    result[env.key] = env.value;
-  }
-  return result;
-};
-
 const findBuilderImage = (result: AnalyzeResult, image?: string) => {
   const found = result.builderImages.find(i => i.id === (image || result.image));
   if (!found) {
