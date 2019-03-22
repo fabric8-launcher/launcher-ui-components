@@ -63,8 +63,8 @@ export const LoginPage = () => (
         <LoginCard />
       </div>
     </section>
-    <PageSection variant={PageSectionVariants.light}>
-      <TextContent>
+    <PageSection variant={PageSectionVariants.light} style={{paddingBottom: 0}}>
+      <TextContent style={{margin: 0}}>
         <Text component={TextVariants.h1}>Supported Backend Runtimes</Text>
       </TextContent>
     </PageSection>
