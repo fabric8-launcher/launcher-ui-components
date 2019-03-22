@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form, FormGroup, FormSelect, FormSelectOption, Grid, GridItem, TextInput } from '@patternfly/react-core';
+import { Form, FormGroup, FormSelect, FormSelectOption, Grid, GridItem, TextInput, Button } from '@patternfly/react-core';
 import { GitInfo } from 'launcher-client';
 
 import { InputProps, Picker } from '../core/types';
 import style from './repository-picker.module.scss';
+import { BanIcon } from '@patternfly/react-icons';
 
 const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
 
@@ -15,6 +16,7 @@ export interface UserRepositoryPickerValue {
 
 interface UserRepositoryPickerProps extends InputProps<UserRepositoryPickerValue> {
   gitInfo: GitInfo;
+  authorizationLinkGenerator: (id?: string) => string;
 }
 
 export function valueToPath(value: UserRepositoryPickerValue, login?: string) {
@@ -28,7 +30,7 @@ export function valueToPath(value: UserRepositoryPickerValue, login?: string) {
 }
 
 const isDuplicate = (props: UserRepositoryPickerProps): boolean => {
-  return props.gitInfo.repositories.indexOf(valueToPath(props.value, props.gitInfo.login)) !== -1;
+  return !!props.gitInfo.login && props.gitInfo.repositories.indexOf(valueToPath(props.value, props.gitInfo.login)) !== -1;
 };
 
 export const UserRepositoryPicker: Picker<UserRepositoryPickerProps, UserRepositoryPickerValue> = {
@@ -44,8 +46,17 @@ export const UserRepositoryPicker: Picker<UserRepositoryPickerProps, UserReposit
     return (
       <Grid>
         <GridItem span={4} className={style.avatar}>
-          <img src={props.gitInfo.avatarUrl} />
-          <p><b>{props.gitInfo.login}</b></p>
+          {props.gitInfo.login && <span>
+            <img src={props.gitInfo.avatarUrl} />
+            <p><b>{props.gitInfo.login}</b></p>
+          </span>
+          }
+          {!props.gitInfo.login && <span>
+            <BanIcon size="xl" />
+            <p><b>None</b></p>
+          </span>
+          }
+
         </GridItem>
         <GridItem span={8}>
           <h3>Choose a Repository</h3>
@@ -60,13 +71,14 @@ export const UserRepositoryPicker: Picker<UserRepositoryPickerProps, UserReposit
                 value={props.value.org}
                 onChange={value => value ? onChange({ ...props.value, org: value })
                   : onChange({ name: props.value.name })}
+                isDisabled={!props.gitInfo.login}
                 aria-label="Select organization"
               >
                 <FormSelectOption
                   value={undefined}
-                  label={props.gitInfo.login}
+                  label={props.gitInfo.login || 'Not connected to source repository'}
                 />
-                {props.gitInfo.organizations.map((o, index) => (
+                {props.gitInfo.login && props.gitInfo.organizations.map((o, index) => (
                   <FormSelectOption
                     key={index}
                     value={o}
@@ -89,12 +101,20 @@ export const UserRepositoryPicker: Picker<UserRepositoryPickerProps, UserReposit
                 name="ghRepo-name"
                 placeholder="Select Repository"
                 aria-describedby="Select Repository"
-                onChange={value => onChange({...props.value, name: value })}
+                onChange={value => onChange({ ...props.value, name: value })}
                 value={name}
                 pattern={REPOSITORY_VALUE_REGEXP.source}
                 title="Valid repository name"
+                isDisabled={!props.gitInfo.login}
               />
             </FormGroup>
+            {!props.gitInfo.login && <Button
+              // @ts-ignore
+              component="a"
+              href={props.authorizationLinkGenerator()}
+            >
+              Authorize Account
+            </Button>}
           </Form>
         </GridItem>
       </Grid>

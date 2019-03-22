@@ -1873,10 +1873,10 @@
     focus-trap-react "^4.0.1"
     tippy.js "^3.4.1"
 
-"@patternfly/react-icons@3.6.0", "@patternfly/react-icons@^3.1.1":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.6.0.tgz#6d1467788dec4e4dd2307d69c607edb78d2e2652"
-  integrity sha512-epAP77t+tjXXb0iCdV1JkMV1y7yL23hNamfkCIM34VG0LGwSxHKrR3XEGXM8NT0ebiqYhPKKTsn4F2XJUbUJGw==
+"@patternfly/react-icons@3.6.1", "@patternfly/react-icons@^3.1.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.6.1.tgz#e5c55bd0f52c5b48e17117a9db30233eb2f242af"
+  integrity sha512-7PkP7NC3sDmsFAnQIGl+9p14vgx7gj0TZSwtL1ABkAEV9tXcEjWsyyZP2fahfTKVE9aPrOZ/YINsr8+iGCOTnA==
 
 "@patternfly/react-styles@^2.3.5":
   version "2.3.5"
@@ -2455,10 +2455,10 @@
   resolved "https://registry.yarnpkg.com/@types/lscache/-/lscache-1.0.29.tgz#068a8acca8668c0a2b5d5dcb2800fa334c7b1f60"
   integrity sha1-BoqKzKhmjAorXV3LKAD6M0x7H2A=
 
-"@types/node@*", "@types/node@11.11.4", "@types/node@^11.9.5":
-  version "11.11.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.4.tgz#8808bd5a82bbf6f5d412eff1c228d178e7c24bb3"
-  integrity sha512-02tIL+QIi/RW4E5xILdoAMjeJ9kYq5t5S2vciUdFPXv/ikFTb0zK8q9vXkg4+WAJuYXGiVT1H28AkD2C+IkXVw==
+"@types/node@*", "@types/node@11.11.5", "@types/node@^11.9.5":
+  version "11.11.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.5.tgz#0c57e12eb44d44e5b6735593925286553ee7cebf"
+  integrity sha512-pz6wNe/XwyesgfVX7P6B0hY3TnTAYXk6KSTLdpQfbuq3be+hnMoCuFzE+yLTskPdBwmNiGRL2TAsnF09aRugvQ==
 
 "@types/prop-types@*":
   version "15.7.0"
@@ -13847,10 +13847,10 @@ react-syntax-highlighter@^8.0.1:
     prismjs "^1.8.4"
     refractor "^2.4.1"
 
-react-testing-library@6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-6.0.1.tgz#0ddf155cb609529e37359a82cc63eb3f830397fd"
-  integrity sha512-Asyrmdj059WnD8q4pVsKoPtvWfXEk+OCCNKSo9bh5tZ0pb80iXvkr4oppiL8H2qWL+MJUV2PTMneHYxsTeAa/A==
+react-testing-library@6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-6.0.2.tgz#afd7ddaa174e21cf672605e4e4f6f8156c4c9ef9"
+  integrity sha512-hWJIixR/jxJBnemcWI5O2JCMXlwoIpgF1IEUF8EYNEADORSZ9fs8rEJu4ygqyC53l3QOowkNb8D+eF5kGT3srg==
   dependencies:
     "@babel/runtime" "^7.3.1"
     dom-testing-library "^3.13.1"

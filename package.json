@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "@patternfly/react-core": "2.3.6",
-    "@patternfly/react-icons": "3.6.0",
+    "@patternfly/react-icons": "3.6.1",
     "classnames": "2.2.6",
     "react": "16.8.4",
     "react-dom": "16.8.4"
@@ -43,7 +43,7 @@
     "@types/classnames": "2.2.7",
     "@types/jest": "24.0.11",
     "@types/lodash": "4.14.123",
-    "@types/node": "11.11.4",
+    "@types/node": "11.11.5",
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.3",
     "eslint": "5.15.3",
@@ -52,7 +52,7 @@
     "jest": "24.5.0",
     "lerna": "3.13.1",
     "node-sass": "4.11.0",
-    "react-testing-library": "6.0.1",
+    "react-testing-library": "6.0.2",
     "rollup": "1.7.0",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.2.1",
