@@ -42,37 +42,43 @@ button.loginButton {
   text-transform: uppercase;
 }
 
-%icon {
-  background: no-repeat center;
-  margin: auto;
-  width: 100%;
-  height: 110px;
+.container {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-.thorntail {
-  @extend %icon;
-  background-image: url(#{$assetPath}/runtime/thorntail.svg);
+.card {
+  margin-right: 20px;
+  margin-top: 20px;
+  padding: 20px 10px;
+  flex: 1;
+  img {
+    height: 10em;
+    margin: auto;
+    display: block;
+  }
 }
 
-.vertx {
-  @extend %icon;
-  background-image: url(#{$assetPath}/runtime/vertx.svg);
-  background-size: 60%;
-}
+@media (max-width: 425px) {
+  .intro {
+    margin-top: 0;
+  }
+  .mainTitle {
+    font-size: 28pt;
+  }
 
-.node {
-  @extend %icon;
-  background-image: url(#{$assetPath}/runtime/nodejs-logo.png);
-  background-size: 45%;
-}
-
-.fuse {
-  @extend %icon;
-  background-image: url(#{$assetPath}/runtime/fuse-logo.png);
-  background-size: 45%;
-}
-
-.spring {
-  font-size: 40px;
-  font-weight: 700;
+  button.loginButton {
+    font-size: 10pt;
+  }
+  
+  .container {
+    margin-top: 0;
+    display: initial;
+  }
+  .card {
+    margin-top: 5px;
+    margin-right: 0;
+    padding: 0;
+  }
 }
