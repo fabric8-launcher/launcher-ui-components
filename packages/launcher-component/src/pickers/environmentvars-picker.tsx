@@ -17,7 +17,7 @@ const NEW_ENTRY = {key: '', value: ''};
 
 export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, EnvironmentVarsPickerValue> = {
   checkCompletion: value => !!value.envVars
-    && value.envVars.map(entry => VALID_ENV_KEY_REGEXP.test(entry.key)).reduce((a, b) => a && b),
+    && value.envVars.filter(entry => !VALID_ENV_KEY_REGEXP.test(entry.key)).length === 0,
   Element: props => {
     const entries = props.value.envVars || [NEW_ENTRY];
     const isValid: (value: string) => boolean = value => VALID_ENV_KEY_REGEXP.test(value || '');

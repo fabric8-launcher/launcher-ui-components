@@ -84,7 +84,7 @@ export function toImportAppPayload(app: ImportApp) {
         module: 'import',
         props: {
           gitImportUrl: app.srcRepository.gitUrlPickerValue!.url!,
-          builderImage: app.srcRepository.buildImagePickerValue!.imageName!,
+          builderImage: app.srcRepository.buildImagePickerValue!.image!,
         }
       }
     ]
