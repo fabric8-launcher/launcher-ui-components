@@ -1941,13 +1941,13 @@
     react-inspector "^2.3.0"
     uuid "^3.3.2"
 
-"@storybook/addon-links@5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-5.0.4.tgz#a454b18889be4a4a71959a306fa70cd6696f6eb8"
-  integrity sha512-fSxQJXDzFkImQvdbEHz7kRlzsict3CbC5Q/PiTGZnDivRWK58HjPl+mH4i/yQGpzYEpyobrKDY+oy3pPUEYTiw==
+"@storybook/addon-links@5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-5.0.5.tgz#028b6190bc5db97e77c6d257a4e51ab49a425f23"
+  integrity sha512-p7UkmS9CMGgR1b8W3eYACwepWdXh8bkkB1hzOiMRmUXh0Fn/01CtgRVx5iLJkjDTgxyektvc6wxefVdcDs9H1w==
   dependencies:
-    "@storybook/addons" "5.0.4"
-    "@storybook/core-events" "5.0.4"
+    "@storybook/addons" "5.0.5"
+    "@storybook/core-events" "5.0.5"
     common-tags "^1.8.0"
     core-js "^2.6.5"
     global "^4.3.2"
@@ -2087,6 +2087,13 @@
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-5.0.4.tgz#7064e26c880df4dfa49e3795cea02608378a14e4"
   integrity sha512-+soSJ0bWjMSReDY9j7kRTt7uqdaNuPErJaFiaJCDJlENjUaNNlOyGfEtGA2IClh/YD+k12BO0sBFTp59II4QqQ==
+  dependencies:
+    core-js "^2.6.5"
+
+"@storybook/core-events@5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-5.0.5.tgz#831fa76523194a79f23c986ab57393cbbf49d091"
+  integrity sha512-N6E1uhvCHpqixCkLjPEwN7aIMaWt2RZvnW0TW46BnX4W3OOwpSB6xWKM1k8TDDntGAsFwaqB7AuiATBy9VHXOg==
   dependencies:
     core-js "^2.6.5"
 
