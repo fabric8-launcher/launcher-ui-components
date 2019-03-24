@@ -1982,6 +1982,17 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
+"@storybook/addons@5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.0.5.tgz#5f979a5575c58b8a2dcb78c01795aa8321826e2b"
+  integrity sha512-AsEdBCN8R03lwXUT4HjPn4yEER/oGGfbjza0ZLhUJ9JO3dcOuHk69a7ENOsM3BoJANRJuSxbfPwTNPe44Q8Vaw==
+  dependencies:
+    "@storybook/channels" "5.0.5"
+    "@storybook/client-logger" "5.0.5"
+    core-js "^2.6.5"
+    global "^4.3.2"
+    util-deprecate "^1.0.2"
+
 "@storybook/channel-postmessage@5.0.4":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@storybook/channel-postmessage/-/channel-postmessage-5.0.4.tgz#6c943d696f95c27d9d0234aafbc2b2f68ef6adfd"
@@ -1997,6 +2008,13 @@
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-5.0.4.tgz#20012787b337cf568fcb452473b59e21ee698f7b"
   integrity sha512-nRmRVOyU3RKQQTYaOqI0J0BS9cNLjdQgCXGbakA+kNBGP09UP26HCW39vqkesKi3o2apy1W9PINJDqWBF0ghRg==
+  dependencies:
+    core-js "^2.6.5"
+
+"@storybook/channels@5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-5.0.5.tgz#76a7a0ead489a544dc6827e09e8ef66fa5415a78"
+  integrity sha512-PKSGev6fRzquBpeqk473P7M+2GmTveO4v2LFkFyUOQkxKyyGJzbLkfrptgy1SNBpqmPRkiIxGIrab7iN9QUbEg==
   dependencies:
     core-js "^2.6.5"
 
@@ -2024,6 +2042,13 @@
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-5.0.4.tgz#ea94249ef9eb29710583da89ae0f534df9f46e07"
   integrity sha512-vh/pjhe7PqBQFheDA3jymQ6WeJejmZufziKlsBZBqesGwi01gnBj3cOUfbEgYVUVDyMg813KTuPUuTx89B0sHQ==
+  dependencies:
+    core-js "^2.6.5"
+
+"@storybook/client-logger@5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-5.0.5.tgz#35af9420325cc7dcd5952593351620670db0903d"
+  integrity sha512-7J0FfwgYcMw6WsEfE0174C8O0yalN73Aqqo6At3SyYHwy6/UiIPFs2X78MzahIqOqywXEWjCIPoGghmpukuCmw==
   dependencies:
     core-js "^2.6.5"
 
