@@ -1941,13 +1941,13 @@
     react-inspector "^2.3.0"
     uuid "^3.3.2"
 
-"@storybook/addon-links@5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-5.0.3.tgz#266a759269bc4b25b9d942e208d7225a19fa36cb"
-  integrity sha512-h6D8IYbpL75Ix7MQ0Pe2hbCQbfhSYxZ2y7tTdmXHKdP4bdQoB95+eaqvsJR17GFncfBhT6dnvKnkDARkWV468w==
+"@storybook/addon-links@5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-5.0.4.tgz#a454b18889be4a4a71959a306fa70cd6696f6eb8"
+  integrity sha512-fSxQJXDzFkImQvdbEHz7kRlzsict3CbC5Q/PiTGZnDivRWK58HjPl+mH4i/yQGpzYEpyobrKDY+oy3pPUEYTiw==
   dependencies:
-    "@storybook/addons" "5.0.3"
-    "@storybook/core-events" "5.0.3"
+    "@storybook/addons" "5.0.4"
+    "@storybook/core-events" "5.0.4"
     common-tags "^1.8.0"
     core-js "^2.6.5"
     global "^4.3.2"
@@ -1982,6 +1982,17 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
+"@storybook/addons@5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.0.4.tgz#30372602a9ec3a4f25a1f46f84e7975a5920d94f"
+  integrity sha512-r4+DwHstK1g0Wbt3Q4xy9zrqId5fSkx+atv96njb6prhu2RlYm00VF54uIaSi4i/0wi73zVDBlO8bRmLGvnTOQ==
+  dependencies:
+    "@storybook/channels" "5.0.4"
+    "@storybook/client-logger" "5.0.4"
+    core-js "^2.6.5"
+    global "^4.3.2"
+    util-deprecate "^1.0.2"
+
 "@storybook/channel-postmessage@5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@storybook/channel-postmessage/-/channel-postmessage-5.0.3.tgz#3531a78b7e4e0cb04349c5135ff87963457669da"
@@ -1997,6 +2008,13 @@
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-5.0.3.tgz#ab1623b2dc6ab9202f7938bf2210b00259794784"
   integrity sha512-trqHZPOmv3yTgT4EHQn74UhqIPOuFHZzHURKi3JWxDvDntZ+itIDgX8u3jiME0EIEVWwru5QM88j87GfqfzRmA==
+  dependencies:
+    core-js "^2.6.5"
+
+"@storybook/channels@5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-5.0.4.tgz#20012787b337cf568fcb452473b59e21ee698f7b"
+  integrity sha512-nRmRVOyU3RKQQTYaOqI0J0BS9cNLjdQgCXGbakA+kNBGP09UP26HCW39vqkesKi3o2apy1W9PINJDqWBF0ghRg==
   dependencies:
     core-js "^2.6.5"
 
@@ -2023,6 +2041,13 @@
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-5.0.3.tgz#5ec45b3173313aa7912ac95ac1ec530598a9d20e"
   integrity sha512-1izIxCV1QsYfz5c93sUlHI6IlkVF3Rslje0QQeGOQPHZ4Pe73JzUjIlMKww9BAYS7rYbq7asNNplEp4GIgIdYQ==
+  dependencies:
+    core-js "^2.6.5"
+
+"@storybook/client-logger@5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-5.0.4.tgz#ea94249ef9eb29710583da89ae0f534df9f46e07"
+  integrity sha512-vh/pjhe7PqBQFheDA3jymQ6WeJejmZufziKlsBZBqesGwi01gnBj3cOUfbEgYVUVDyMg813KTuPUuTx89B0sHQ==
   dependencies:
     core-js "^2.6.5"
 
@@ -2061,6 +2086,13 @@
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-5.0.3.tgz#1b9d6265f7a2b16a0ddee274975e104d7a02c9f6"
   integrity sha512-a+GbuuhGcfL6ovFlzfYi1oEu2gVa5m2tY5sHEYA03lWdKR2aa4R5Q8haVujox6yxQ6L8gNh1RZff0s1kx64Drw==
+  dependencies:
+    core-js "^2.6.5"
+
+"@storybook/core-events@5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-5.0.4.tgz#7064e26c880df4dfa49e3795cea02608378a14e4"
+  integrity sha512-+soSJ0bWjMSReDY9j7kRTt7uqdaNuPErJaFiaJCDJlENjUaNNlOyGfEtGA2IClh/YD+k12BO0sBFTp59II4QqQ==
   dependencies:
     core-js "^2.6.5"
 
