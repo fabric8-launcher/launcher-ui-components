@@ -1954,15 +1954,15 @@
     prop-types "^15.6.2"
     qs "^6.5.2"
 
-"@storybook/addon-storysource@5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-5.0.3.tgz#f2362e9d0398a2e16e3ed50c05557b8fb0f8eccc"
-  integrity sha512-C3aV6X+OwiBYGf/i7WrEIhEL/GqVl3FppMR/QR6W/Bft5pWOcedktXrJsVHHskVOBg3sxcCJScce/BTy1+3zeQ==
+"@storybook/addon-storysource@5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-5.0.4.tgz#8912028d9c00f5fc6d56f71b4eff83fa5a34530a"
+  integrity sha512-4OGEwpjDmVH9+UG+AQNjB8i6UIqfLFdf/oprukhgBDuFeMo3NvOABoxZdNqaURTt7A3Tva3UtTBo3cExcKuwyw==
   dependencies:
-    "@storybook/addons" "5.0.3"
-    "@storybook/components" "5.0.3"
-    "@storybook/router" "5.0.3"
-    "@storybook/theming" "5.0.3"
+    "@storybook/addons" "5.0.4"
+    "@storybook/components" "5.0.4"
+    "@storybook/router" "5.0.4"
+    "@storybook/theming" "5.0.4"
     core-js "^2.6.5"
     estraverse "^4.2.0"
     loader-utils "^1.2.1"
