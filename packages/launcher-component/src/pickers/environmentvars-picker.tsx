@@ -19,7 +19,7 @@ export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, Environme
   checkCompletion: value => !!value.envVars
     && value.envVars.filter(entry => !VALID_ENV_KEY_REGEXP.test(entry[0])).length === 0,
   Element: props => {
-    const entries = props.value.envVars || [NEW_ENTRY];
+    const entries = prop.value.envVars && props.value.envVars.length > 0 ? props.value.envVars: [NEW_ENTRY];
     const isValid: (value: string) => boolean = value => VALID_ENV_KEY_REGEXP.test(value || '');
     return (
       <Fragment>
