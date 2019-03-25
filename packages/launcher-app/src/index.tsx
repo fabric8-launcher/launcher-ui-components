@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { LauncherApp } from './launcher-app';
 import * as serviceWorker from './service-worker';
+import { SentryBoundary } from './sentry-boundary';
 
-ReactDOM.render(<LauncherApp />, document.getElementById('root'));
+ReactDOM.render(<SentryBoundary><LauncherApp /></SentryBoundary>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
