@@ -69,11 +69,7 @@ export class AppLauncherGitproviderService extends HttpService implements GitPro
           login: user.login,
           organizations: selectableOrgs
         } as GitHubDetails;
-      }),
-      catchError((error: any) => {
-        console.warn(`User has not authorized GitHub: ${error}`);
-        return EMPTY;
-      }),
+      })
     );
   }
 
