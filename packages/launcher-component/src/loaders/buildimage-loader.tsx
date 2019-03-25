@@ -26,7 +26,7 @@ interface BuildImageSuggestionsLoaderProps {
 }
 
 const convertToPairs = object => {
-  return (_.toPairs(object) || ['', '']) as string[][];
+  return _.toPairs(object);
 };
 
 export const convertToObject = (vars: string[][]) => {
