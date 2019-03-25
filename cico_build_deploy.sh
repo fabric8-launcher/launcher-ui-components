@@ -69,9 +69,6 @@ docker exec -u root ${BUILDER_CONT} yarn install
 docker exec -u root ${BUILDER_CONT} yarn build
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
-#LOGIN
-docker_login "${QUAY_USERNAME}" "${QUAY_PASSWORD}" "${REGISTRY_URI}"
-
 #BUILD DEPLOY IMAGE
 docker build -t ${DEPLOY_IMAGE} -f ${DOCKERFILE_DEPLOY} .
 
@@ -79,6 +76,7 @@ docker build -t ${DEPLOY_IMAGE} -f ${DOCKERFILE_DEPLOY} .
 if [ -z $CICO_LOCAL ]; then
     TAG=$(echo $GIT_COMMIT | cut -c1-${DEVSHIFT_TAG_LEN})
 
+    docker_login "${QUAY_USERNAME}" "${QUAY_PASSWORD}" "${REGISTRY_URI}"
     tag_push "${REGISTRY_URL}:${TAG}"
     tag_push "${REGISTRY_URL}:latest"
 
