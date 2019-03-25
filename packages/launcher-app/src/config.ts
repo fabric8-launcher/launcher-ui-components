@@ -34,3 +34,6 @@ export const creatorApiUrl =
 
 export const launcherApiUrl =
   getEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl');
+
+export const sentryDsn =
+  getEnv(process.env.REACT_APP_SENTRY_DSN, 'sentryDsn');
