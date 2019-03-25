@@ -25,7 +25,7 @@ interface BuildImageSuggestionsLoaderProps {
   children: (suggestions: BuildImageSuggestions) => any;
 }
 
-const convertToPairs = object => {
+const convertToPairs = (object?: {[key: string]: string}): string[][] => {
   return _.toPairs(object);
 };
 
