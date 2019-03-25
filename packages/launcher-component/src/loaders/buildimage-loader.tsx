@@ -30,7 +30,7 @@ const convertToPairs = (object?: {[key: string]: string}): string[][] => {
 };
 
 export const convertToObject = (vars: string[][]) => {
-  return _.fromPairs(vars);
+  return _.fromPairs(vars.filter(p => p[0] !== ''));
 };
 
 const findBuilderImage = (result: AnalyzeResult, image?: string) => {
