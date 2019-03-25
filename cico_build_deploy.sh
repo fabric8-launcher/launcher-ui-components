@@ -71,9 +71,6 @@ docker exec ${BUILDER_CONT} yarn install
 docker exec ${BUILDER_CONT} yarn build:prod
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
-#LOGIN
-docker_login "${QUAY_USERNAME}" "${QUAY_PASSWORD}" "${REGISTRY_URI}"
-
 #BUILD DEPLOY IMAGE
 docker build -t ${DEPLOY_IMAGE} -f "${DOCKERFILE}" .
 
@@ -81,12 +78,12 @@ docker build -t ${DEPLOY_IMAGE} -f "${DOCKERFILE}" .
 if [ -z $CICO_LOCAL ]; then
     TAG=$(echo $GIT_COMMIT | cut -c1-${DEVSHIFT_TAG_LEN})
 
+    #LOGIN
+    docker_login "${QUAY_USERNAME}" "${QUAY_PASSWORD}" "${REGISTRY_URI}"
     tag_push "${REGISTRY_URL}:${TAG}"
-    tag_push "${REGISTRY_URL}:latest"
-
+  
     if [[ "$TARGET" != "rhel" && -n "${GENERATOR_DOCKER_HUB_PASSWORD}" ]]; then
         docker_login "${GENERATOR_DOCKER_HUB_USERNAME}" "${GENERATOR_DOCKER_HUB_PASSWORD}"
         tag_push "${DOCKER_HUB_URL}:${TAG}"
-        tag_push "${DOCKER_HUB_URL}:latest"
     fi
 fi
