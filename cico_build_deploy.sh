@@ -3,23 +3,17 @@
 set -x
 
 GENERATOR_DOCKER_HUB_USERNAME=openshiftioadmin
-REGISTRY_URI="quay.io"
 REGISTRY_NS="fabric8"
 REGISTRY_IMAGE="launcher-frontend"
 DOCKER_HUB_URL=${REGISTRY_NS}/${REGISTRY_IMAGE}
 BUILDER_IMAGE="launcher-frontend-builder"
 BUILDER_CONT="launcher-frontend-builder-container"
 DEPLOY_IMAGE="launcher-frontend-deploy"
-
+DEVSHIFT_TAG_LEN=7
+GIT_COMMIT=$(git show --format=%H -q)
 TARGET_DIR="dist"
-
-if [ "$TARGET" = "rhel" ]; then
-    REGISTRY_URL=${REGISTRY_URI}/openshiftio/rhel-${REGISTRY_NS}-${REGISTRY_IMAGE}
-    DOCKERFILE="Dockerfile.deploy.rhel"
-else
-    REGISTRY_URL=${REGISTRY_URI}/openshiftio/${REGISTRY_NS}-${REGISTRY_IMAGE}
-    DOCKERFILE="Dockerfile.deploy"
-fi
+REGISTRY_URL=${REGISTRY_URI}/openshiftio/${REGISTRY_NS}-${REGISTRY_IMAGE}
+DOCKERFILE="Dockerfile.deploy"
 
 function docker_login() {
     local USERNAME=$1
@@ -40,21 +34,6 @@ function tag_push() {
 
 # Exit on error
 set -e
-
-
-
-if [ -z $CICO_LOCAL ]; then
-    [ -f jenkins-env ] && cat jenkins-env | grep -e PASS -e USER -e GIT -e DEVSHIFT > inherit-env
-    [ -f inherit-env ] && . inherit-env
-
-    # We need to disable selinux for now, XXX
-    /usr/sbin/setenforce 0
-
-    # Get all the deps in
-    yum -y install docker make git
-
-    service docker start
-fi
 
 #CLEAN
 docker ps | grep -q ${BUILDER_CONT} && docker stop ${BUILDER_CONT}
@@ -78,9 +57,6 @@ docker build -t ${DEPLOY_IMAGE} -f "${DOCKERFILE}" .
 if [ -z $CICO_LOCAL ]; then
     TAG=$(echo $GIT_COMMIT | cut -c1-${DEVSHIFT_TAG_LEN})
 
-    #LOGIN
-    docker_login "${QUAY_USERNAME}" "${QUAY_PASSWORD}" "${REGISTRY_URI}"
-    tag_push "${REGISTRY_URL}:${TAG}"
   
     if [[ "$TARGET" != "rhel" && -n "${GENERATOR_DOCKER_HUB_PASSWORD}" ]]; then
         docker_login "${GENERATOR_DOCKER_HUB_USERNAME}" "${GENERATOR_DOCKER_HUB_PASSWORD}"
