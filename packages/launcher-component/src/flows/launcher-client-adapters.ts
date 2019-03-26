@@ -75,7 +75,9 @@ export function toExamplePayload(app: ExampleApp) {
 export function toImportAppPayload(app: ImportApp) {
   const parts: any[] = [];
   const url = app.srcRepository.gitUrlPickerValue!.url!;
-  const name = url.substr(url.lastIndexOf('/') + 1);
+  const index = url.lastIndexOf('/');
+  const dotIndex = url.indexOf('.', index);
+  const name = url.substr(index + 1, dotIndex ? dotIndex - index - 1 : undefined);
 
   parts.push({
     category: 'import',
