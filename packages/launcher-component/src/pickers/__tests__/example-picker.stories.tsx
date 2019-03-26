@@ -24,7 +24,7 @@ storiesOf('Pickers', module)
             onSave={action('save')}
             onCancel={action('cancel')}
           >
-            {(inputProps) => (<ExamplePicker.Element {...inputProps} catalog={catalog}/>)}
+            {(inputProps) => (<ExamplePicker.Element {...inputProps} {...catalog}/>)}
           </FormPanel>
         )}
       </ExamplesLoader>

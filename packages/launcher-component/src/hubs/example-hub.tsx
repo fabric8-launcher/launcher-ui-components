@@ -57,7 +57,7 @@ export const ExampleHub: FormHub<ExampleFormValue> = {
                 <ExamplePicker.Element
                   value={inputProps.value.examplePickerValue || {}}
                   onChange={(examplePickerValue) => inputProps.onChange({...inputProps.value, examplePickerValue})}
-                  catalog={catalog}
+                  {...catalog}
                 />
               )}
             </ExamplesLoader>

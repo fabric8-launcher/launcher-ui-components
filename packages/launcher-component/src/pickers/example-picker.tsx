@@ -25,15 +25,15 @@ export interface ExamplePickerValue {
 
 interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
   catalog: Catalog;
+  missions?: ExampleMission[];
 }
 
 export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
   checkCompletion: value => !!value.missionId && !!value.runtimeId && !!value.versionId,
   Element: props => {
     const query = { runtime: { id: '', name: '', version: { id: '', name: '' } } };
-    const missionQuery = { mission: { id: '', name, description: '', runtime: { id: '', name, version: { name, id: '' } } } };
     const runtimesMap = _.keyBy(filter(query, props.catalog) as ExampleRuntime[], 'id');
-    const missions = !props.value.missions ? filter(missionQuery, props.catalog) as ExampleMission[] : props.value.missions;
+    const missions = !props.value.missions ? props.missions : props.value.missions;
     const filterCatalog = (runtime) => {
       props.onChange({
         runtimeId: runtime,
