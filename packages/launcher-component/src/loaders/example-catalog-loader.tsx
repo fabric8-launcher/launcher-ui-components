@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DataLoader } from '../core/data-loader/data-loader';
 import { useLauncherClient } from '../contexts/launcher-client-context';
-import { AnyExample, Catalog, filter } from 'launcher-client';
+import { AnyExample, constructModel, filter, ExampleMission, Catalog } from 'launcher-client';
 
 export function ExamplesLoaderWithFilter(props: { query: { missionId?: string, runtimeId?: string }, children: (obj: AnyExample) => any }) {
   const client = useLauncherClient();
@@ -17,9 +17,15 @@ export function ExamplesLoaderWithFilter(props: { query: { missionId?: string, r
   );
 }
 
-export function ExamplesLoader(props: { children: (obj: Catalog) => any }) {
+export function ExamplesLoader(props: { children: (obj: {catalog: Catalog, missions: ExampleMission[]}) => any }) {
   const client = useLauncherClient();
-  const itemsLoader = () => client.exampleCatalog();
+  const itemsLoader = async () => {
+    const catalog= await client.exampleCatalog();
+    return {
+      catalog,
+      missions: constructModel(catalog)
+    };
+  };
   return (
     <DataLoader loader={itemsLoader}>
       {props.children}

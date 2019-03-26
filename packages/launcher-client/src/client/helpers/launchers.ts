@@ -38,6 +38,39 @@ function copyProperties(obj: any, props: any, lambda?): any {
   return result;
 }
 
+export function constructModel(catalog: Catalog): ExampleMission[] {
+  const runtimeById = _.keyBy(catalog.runtimes, 'id');
+  const versionsForRuntimeMission = _.groupBy(_.map(catalog.boosters, b => ({
+    key: (b.mission + '_' + b.runtime),
+    version: runtimeById[b.runtime as string].versions.find(v => v.id === b.version)
+  })), 'key');
+
+  const versionById = _.reduce(versionsForRuntimeMission, (result, versions) => {
+    // @ts-ignore
+    versions.map(version =>
+      (result[version.key] || (result[version.key] = [])).push(version.version));
+    return result;
+  }, {});
+
+  const runtimeForMission = _.reduce(_.map(catalog.boosters, b => ({
+    key: b.mission,
+    runtime: runtimeById[b.runtime as string]
+  })), (result, mission) => {
+    // @ts-ignore
+    const index = (result[mission.key] || (result[mission.key] = []));
+    if (!index.find(r => r.id === mission.runtime.id)) {
+      mission.runtime.versions = versionById[mission.key + '_' + mission.runtime.id];
+      index.push(mission.runtime);
+    }
+    return result;
+  }, {});
+
+  return catalog.missions.map(m => {
+    m.runtime = runtimeForMission[m.id];
+    return m;
+  });
+}
+
 export function filterExample(query: any, catalog: Catalog): Example[] {
   const missionById = _.keyBy(catalog.missions, 'id');
   const runtimeById = _.keyBy(catalog.runtimes, 'id');
