@@ -1,6 +1,6 @@
 {
   "name": "launcher-app",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "private": true,
   "homepage": "/launch/",
   "license": "Apache-2.0",
@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "@sentry/browser": "4.6.5",
-    "keycloak-react": "*",
-    "launcher-component": "*",
+    "keycloak-react": "^1.0.0-alpha.0",
+    "launcher-component": "^1.0.0-alpha.0",
     "react-router-dom": "5.0.0"
   },
   "devDependencies": {
