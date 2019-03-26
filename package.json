@@ -21,6 +21,7 @@
     "test": "yarn workspaces run test",
     "libs:build": "yarn client:build && yarn kc:build && yarn comp:build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
+    "build:prod": "yarn build && lerna publish",
     "app:start": "yarn workspace launcher-app start:staging-api",
     "app:start:local-api": "yarn workspace launcher-app start:local-api",
     "app:start:production-api": "yarn workspace launcher-app start:production-api",
