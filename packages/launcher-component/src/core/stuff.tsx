@@ -36,7 +36,7 @@ export function SpecialValue(props: { children: string }) {
 export function AlertError(props: { error: any }) {
   return (
     <Alert variant={AlertVariant.danger} title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
-      {props.error.toString()}
+      {props.error.message}
     </Alert>
   );
 }
