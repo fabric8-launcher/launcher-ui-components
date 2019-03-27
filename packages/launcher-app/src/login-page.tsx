@@ -40,7 +40,7 @@ type RuntimeProps = PropertyValue;
 function Runtime(props: RuntimeProps) {
   return (
     <Card className={style.card}>
-      <CardHeader><img src={props.icon} alt={props.name} /></CardHeader>
+      <CardHeader className={style.header}><img src={props.icon} alt={props.name} /></CardHeader>
       <CardBody>{props.description}</CardBody>
       {props.metadata && props.metadata.website && (
         <CardFooter>
