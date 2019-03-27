@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Alert, Button, DataList, DataListCell, DataListItem, Radio, Title } from '@patternfly/react-core';
 import { BuilderImage } from 'launcher-client';
 import { InputProps, Picker } from '../core/types';
-import { PlusCircleIcon } from '@patternfly/react-icons';
+import { PlusCircleIcon, MinusCircleIcon } from '@patternfly/react-icons';
 import { SpecialValue } from '../core/stuff';
 
 export interface BuildImagePickerValue {
@@ -26,24 +26,30 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
         <Button
           // @ts-ignore
           component="a"
+          style={{ border: 'solid #ccc 1px', borderBottomStyle: 'none' }}
           variant="link"
-          onClick={() => props.onChange({...props.value, advanced: true})}
+          onClick={() => props.onChange({ ...props.value, advanced: !props.value.advanced })}
         >
-          <PlusCircleIcon/> Advanced settings
+          {props.value.advanced ? <MinusCircleIcon /> : <PlusCircleIcon />} Advanced settings
         </Button>
         {props.value.advanced &&
-        <Fragment>
-            <Alert variant="warning" title="Picking the wrong image may result in an failed deployment!" style={{margin: '20px'}}/>
+          <div style={{ border: 'solid #ccc 1px' }}>
+            <Alert variant="warning" title="Picking the wrong image may result in an failed deployment!" style={{ margin: '20px' }} />
             <DataList aria-label="select-buildImage">
               {props.builderImages.map((image, index) => {
                 const isSelected = props.value.image === image.id;
                 const onChangeSelected = () => {
-                  props.onChange({...props.value, image: image.id});
+                  props.onChange({ ...props.value, image: image.id });
                 };
 
                 return (
-                  <DataListItem aria-labelledby={image.name} isExpanded={false} key={index}>
-                    <DataListCell width={1} style={{flex: 'none'}}>
+                  <DataListItem
+                    aria-labelledby={image.name}
+                    isExpanded={false}
+                    key={index}
+                    style={isSelected ? { borderLeft: '2px solid #007bba' } : {}}
+                  >
+                    <DataListCell width={1} style={{ flex: 'none' }}>
                       <Radio
                         aria-label={`Choose ${image.name} as mission`}
                         value={image.id}
@@ -53,10 +59,10 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
                         id={`radio-choose-${image.id}-as-image`}
                       />
                     </DataListCell>
-                    <DataListCell width={1} onClick={onChangeSelected} style={{cursor: 'pointer'}}>
+                    <DataListCell width={1} onClick={onChangeSelected} style={{ cursor: 'pointer' }}>
                       <Title size="lg">{image.name}</Title>
                     </DataListCell>
-                    <DataListCell width={2} onClick={onChangeSelected} style={{cursor: 'pointer'}}>
+                    <DataListCell width={2} onClick={onChangeSelected} style={{ cursor: 'pointer' }}>
                       {image.id}
                     </DataListCell>
                   </DataListItem>
@@ -64,7 +70,7 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
               })
               }
             </DataList>
-        </Fragment>
+          </div>
         }
       </Fragment>
     );
