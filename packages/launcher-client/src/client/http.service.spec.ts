@@ -49,7 +49,7 @@ describe('HttpService test', () => {
     try {
       await httpService.get(backendUrl, '/error');
     } catch (error) {
-      expect(error).toEqual(new Error('An error occurred: Network Error'));
+      expect(error.message).toEqual('An error occurred: Network Error');
       done();
     }
   });
