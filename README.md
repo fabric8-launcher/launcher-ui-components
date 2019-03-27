@@ -5,6 +5,8 @@ Fabric8-Launcher Frontend
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=72209295)](https://dependabot.com)
 
+Fabric8 Launcher frontend based on React.js.
+
 If this is the first time you are starting the UI, you need to run
 
 ```bash
