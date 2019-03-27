@@ -2,11 +2,12 @@ import React from 'react';
 import { OpenShiftCluster } from 'launcher-client';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';
+import * as _ from 'lodash';
 
 export function OpenshiftClustersLoader(props: {children: (obj: OpenShiftCluster[]) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.ocClusters().then(clusters => {
-    return clusters;
+    return _.orderBy(clusters, ['connected', 'id'], ['desc', 'asc']);
   });
   return (
     <DataLoader loader={itemsLoader}>

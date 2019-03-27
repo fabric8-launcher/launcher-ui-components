@@ -37,6 +37,26 @@ storiesOf('Pickers', module)
       </OpenshiftClustersLoader>
     );
   })
+  .add('ClusterPicker: Multiple choices', () => {
+    return (
+      <OpenshiftClustersLoader>
+        {clusters => {
+          clusters[1].connected = true;
+          return (
+            <FormPanel
+              initialValue={{}}
+              validator={ClusterPicker.checkCompletion}
+              onSave={action('save')}
+              onCancel={action('cancel')}
+            >
+              {(inputProps) => (
+                <ClusterPicker.Element {...inputProps} clusters={clusters} authorizationLinkGenerator={authorizationLinkGenerator}/>)}
+            </FormPanel>
+          );
+        }}
+      </OpenshiftClustersLoader>
+    );
+  })
   .add('ClusterPicker: EmptyState', () => {
     return (
       <FormPanel
