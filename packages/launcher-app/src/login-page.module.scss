@@ -22,7 +22,6 @@ $assetPath: "./assets/logo";
 
 .loginCard {
   margin-top: 30px;
-
 }
 
 .loginText {
@@ -54,10 +53,17 @@ button.loginButton {
   padding: 20px 10px;
   flex: 1;
   img {
-    height: 10em;
     margin: auto;
     display: block;
+    max-width: 12em;
+    max-height: 9em;
+    width: auto;
+    height: auto;
   }
+}
+
+.header {
+  height: 10em;
 }
 
 @media (max-width: 425px) {
