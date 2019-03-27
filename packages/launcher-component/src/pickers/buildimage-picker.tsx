@@ -26,14 +26,13 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
         <Button
           // @ts-ignore
           component="a"
-          style={{ border: 'solid #ccc 1px', borderBottomStyle: 'none' }}
           variant="link"
           onClick={() => props.onChange({ ...props.value, advanced: !props.value.advanced })}
         >
           {props.value.advanced ? <MinusCircleIcon /> : <PlusCircleIcon />} Advanced settings
         </Button>
         {props.value.advanced &&
-          <div style={{ border: 'solid #ccc 1px' }}>
+          <div>
             <Alert variant="warning" title="Picking the wrong image may result in an failed deployment!" style={{ margin: '20px' }} />
             <DataList aria-label="select-buildImage">
               {props.builderImages.map((image, index) => {
