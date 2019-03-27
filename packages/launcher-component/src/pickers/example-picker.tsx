@@ -42,18 +42,17 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
         missions: filteredMissions!.filter(m => (m.runtime as ExampleRuntime[]).find(r => !!r))
       });
     };
-
     return (
       <React.Fragment>
         <Split>
           <SplitItem isMain>
             Already decided what runtime you want to use? Select it here:
-        </SplitItem>
+          </SplitItem>
           <SplitItem isMain={false}>
-            <Button variant="tertiary" onClick={() => props.onChange({ ...props.value, missions: undefined, runtimeId: '' })}>Any</Button>
+            <Button variant="tertiary" onClick={() => props.onChange({...props.value, missions: undefined, runtimeId: ''})}>Any</Button>
             {_.map(runtimesMap).map((runtime, index) => (
               <Button
-                style={{ marginLeft: '5px' }}
+                style={{marginLeft: '5px'}}
                 variant="tertiary"
                 key={index}
                 onClick={() => filterCatalog(runtime.id)}
@@ -64,44 +63,59 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
             ))}
           </SplitItem>
         </Split>
-        <DataList aria-label="select-mission" style={{ marginTop: '20px' }}>
+        <DataList aria-label="select-mission" style={{marginTop: '20px'}}>
           {
             missions!.map((mission, i) => {
               const isSelected = props.value.missionId === mission.id;
-              const onChangeSelected = () => {
-                props.onChange({ ...props.value, missionId: mission.id });
+              const onChange = (runtimeId = props.value.runtimeId, versionId?) => {
+                if (runtimeId) {
+                  const runtime = (mission.runtime! as any).find(r => r.id === runtimeId);
+                  if (!runtime || !runtime.versions || runtime.versions.lenght <= 0) {
+                    runtimeId = undefined;
+                  } else if(!versionId) {
+                    versionId = runtime.versions[0].id;
+                  }
+                }
+                props.onChange({
+                  ...props.value,
+                  missionId: mission.id,
+                  runtimeId,
+                  versionId,
+                  downloadOnly: mission.metadata.istio || false
+                });
               };
+              const selectedRuntime = (mission.runtime! as any).find(r => r.id === props.value.runtimeId);
               return (
                 <DataListItem
                   isExpanded={isSelected}
                   aria-labelledby={mission.name}
                   value={mission.id}
                   key={i}
-                  style={{ cursor: 'pointer' }}
+                  style={{cursor: 'pointer'}}
                 >
-                  <DataListCell width={1} style={{ flex: 'none' }}>
+                  <DataListCell width={1} style={{flex: 'none'}}>
                     <Radio
                       aria-label={`Choose ${mission.name} as mission`}
                       value={mission.id}
                       checked={isSelected}
-                      onChange={onChangeSelected}
+                      onChange={() => onChange()}
                       name="mission"
                       id={`radio-choose-${mission.id}-as-mission`}
                     />
                   </DataListCell>
-                  <DataListCell width={1} onClick={onChangeSelected}><Title size="lg">{mission.name}</Title></DataListCell>
-                  <DataListCell width={2} onClick={onChangeSelected}>{mission.description}</DataListCell>
+                  <DataListCell width={1} onClick={() => onChange()}><Title size="lg">{mission.name}</Title></DataListCell>
+                  <DataListCell width={2} onClick={() => onChange()}>{mission.description}</DataListCell>
                   <DataListContent aria-label={'Detail for ' + mission.name} isHidden={!isSelected}>
                     <FormSelect
                       isDisabled={mission.runtime!.length === 1}
                       id={mission.id + 'runtime-select'}
-                      value={props.value.runtimeId}
-                      onChange={value => props.onChange({ ...props.value, runtimeId: value })}
+                      value={props.value.runtimeId || ''}
+                      onChange={r => onChange(r)}
                       aria-label="Select Runtime"
                     >
                       {mission.runtime!.length !== 1 && <FormSelectOption
-                        value=""
-                        label="Select a Runtime"
+                          value=""
+                          label="Select a Runtime"
                       />}
                       {mission.runtime!.map((runtime, index) => (
                         <FormSelectOption
@@ -112,33 +126,22 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                       ))
                       }
                     </FormSelect>
-                    {props.value.runtimeId &&
-                      <FormSelect
+                    {!!selectedRuntime &&
+                    <FormSelect
                         id={mission.id + 'version-select'}
                         value={props.value.versionId}
-                        onChange={value => props.onChange(
-                          {
-                            ...props.value,
-                            versionId: value,
-                            downloadOnly: mission.metadata.istio || false
-                          })}
+                        onChange={value => onChange(selectedRuntime.id, value)}
                         aria-label="Select Version"
-                      >
+                    >
+                      {selectedRuntime.versions.map((version, index) => (
                         <FormSelectOption
-                          key={-1}
-                          value=""
-                          label="Select a Version"
+                          key={index}
+                          value={version.id}
+                          label={version.name}
                         />
-                        {(mission.runtime! as any).find(r => r.id === props.value.runtimeId) &&
-                          (mission.runtime! as any).find(r => r.id === props.value.runtimeId).versions.map((version, index) => (
-                            <FormSelectOption
-                              key={index}
-                              value={version.id}
-                              label={version.name}
-                            />
-                          ))
-                        }
-                      </FormSelect>
+                      ))
+                      }
+                    </FormSelect>
                     }
                   </DataListContent>
                 </DataListItem>
