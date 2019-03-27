@@ -29,12 +29,12 @@ export class HttpService {
   }
 
   private handleError(reason: any) {
-    let errMsg: string;
+    let message: string;
     if (reason && reason.message) {
-      errMsg = `An error occurred: ${reason.message}`;
+      message = `An error occurred: ${reason.message}`;
     } else {
-      errMsg = `Backend returned ${reason}`;
+      message = `Backend returned ${reason}`;
     }
-    throw new Error(errMsg);
+    return Promise.reject({...reason, message});
   }
 }
