@@ -54,7 +54,7 @@ export function constructModel(catalog: Catalog): ExampleMission[] {
 
   const runtimeForMission = _.reduce(_.map(catalog.boosters, b => ({
     key: b.mission,
-    runtime: runtimeById[b.runtime as string]
+    runtime: _.cloneDeep(runtimeById[b.runtime as string])
   })), (result, mission) => {
     // @ts-ignore
     const index = (result[mission.key] || (result[mission.key] = []));

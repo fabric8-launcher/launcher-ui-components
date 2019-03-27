@@ -52,7 +52,8 @@ export function useAutoSetCluster(setApp) {
           if (prev.deployment.clusterPickerValue && prev.deployment.clusterPickerValue.clusterId) {
             return prev;
           }
-          return ({...prev, deployment: {clusterPickerValue: {clusterId: connectedClusters[0].id}}});
+          const selectCluster = connectedClusters[0];
+          return ({...prev, deployment: {clusterPickerValue: {clusterId: selectCluster.id, clusterType: selectCluster.type}}});
         });
         setShowForm(clusters.length > 1);
         setLoading(false);

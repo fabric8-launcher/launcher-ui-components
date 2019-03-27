@@ -22,6 +22,14 @@ function getFlowStatus(app: ExampleApp) {
       isReadyForLaunch: false,
     };
   }
+  if (app.example.examplePickerValue!.downloadOnly) {
+    return {
+      hint: `This example is using some specifics that can't be launched by our system for the moment.
+       Please download the ZIP file and follow the instructions in the README.md file to deploy in a local cluster.`,
+      isReadyForDownload: true,
+      isReadyForLaunch: false,
+    };
+  }
   if (!DeploymentHub.checkCompletion(app.deployment)) {
     return {
       hint: 'If you wish to Launch your application, you should configure OpenShift Deployment.',
