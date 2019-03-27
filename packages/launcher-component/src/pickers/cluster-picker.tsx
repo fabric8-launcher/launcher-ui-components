@@ -14,9 +14,11 @@ import { OpenshiftIcon } from '@patternfly/react-icons';
 import { OpenShiftCluster } from 'launcher-client';
 
 import { InputProps, Picker } from '../core/types';
+import { Loader } from '../core/data-loader/data-loader';
 
 export interface ClusterPickerValue {
   clusterId?: string;
+  clusterType?: string;
 }
 
 interface ClusterPickerProps extends InputProps<ClusterPickerValue> {
@@ -25,7 +27,7 @@ interface ClusterPickerProps extends InputProps<ClusterPickerValue> {
 }
 
 export const ClusterPicker: Picker<ClusterPickerProps, ClusterPickerValue> = {
-  checkCompletion: value => !!value.clusterId,
+  checkCompletion: value => !!value.clusterId && !!value.clusterType,
   Element: props => {
     if (props.clusters.length === 0) {
       return (
@@ -54,15 +56,16 @@ export const ClusterPicker: Picker<ClusterPickerProps, ClusterPickerValue> = {
               const isSelected = props.value.clusterId === cluster.id;
               const onChangeSelected = () => {
                 if (cluster.connected) {
-                  props.onChange({clusterId: cluster.id});
+                  props.onChange({clusterId: cluster.id, clusterType: cluster.type});
                 }
               };
 
               if (!props.value.clusterId) {
                 const connectedClusters = props.clusters.filter(c => c.connected);
                 if (connectedClusters.length >= 1) {
-                  props.onChange({clusterId: connectedClusters[0].id});
+                  props.onChange({clusterId: connectedClusters[0].id, clusterType: connectedClusters[0].type});
                 }
+                return (<Loader/>);
               }
               return (
                 <DataListItem

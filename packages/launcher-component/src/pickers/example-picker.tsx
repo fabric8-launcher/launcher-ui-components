@@ -21,6 +21,7 @@ export interface ExamplePickerValue {
   missionId?: string;
   runtimeId?: string;
   versionId?: string;
+  downloadOnly?: boolean;
 }
 
 interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
