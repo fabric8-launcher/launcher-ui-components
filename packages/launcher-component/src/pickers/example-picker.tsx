@@ -12,7 +12,7 @@ import {
   Split,
   SplitItem
 } from '@patternfly/react-core';
-import { Catalog, filter, ExampleRuntime, ExampleMission } from 'launcher-client';
+import { Catalog, ExampleRuntime, ExampleMission } from 'launcher-client';
 import { InputProps, Picker } from '../core/types';
 import _ from 'lodash';
 
@@ -32,18 +32,14 @@ interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
 export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
   checkCompletion: value => !!value.missionId && !!value.runtimeId && !!value.versionId,
   Element: props => {
-    const query = { runtime: { id: '', name: '', version: { id: '', name: '' } } };
-    const runtimesMap = _.keyBy(filter(query, props.catalog) as ExampleRuntime[], 'id');
+    const runtimesMap = _.keyBy(props.catalog.runtimes, 'id');
     const missions = !props.value.missions ? props.missions : props.value.missions;
     const filterCatalog = (runtime) => {
+      const filteredMissions = _.cloneDeep(props.missions);
+      filteredMissions!.map(m => m.runtime = (m.runtime as ExampleRuntime[]).filter(r => r.id === runtime));
       props.onChange({
         runtimeId: runtime,
-        missions: (filter({
-          mission: {
-            id: '', name, description: '', runtime:
-              { id: runtime, name, version: { name, id: '' } }
-          }
-        }, props.catalog) as ExampleMission[]).filter(m => !!m.runtime)
+        missions: filteredMissions!.filter(m => (m.runtime as ExampleRuntime[]).find(r => !!r))
       });
     };
 
@@ -128,7 +124,8 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                           value=""
                           label="Select a Version"
                         />
-                        {(runtimesMap[props.value.runtimeId] as any).version.map((version, index) => (
+                        {(mission.runtime! as any).find(r => r.id === props.value.runtimeId) &&
+                          (mission.runtime! as any).find(r => r.id === props.value.runtimeId).versions.map((version, index) => (
                           <FormSelectOption
                             key={index}
                             value={version.id}
