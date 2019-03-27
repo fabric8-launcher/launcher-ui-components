@@ -10,6 +10,7 @@ import { HubNSpoke } from '../core/hub-n-spoke';
 import { DownloadIcon, ErrorCircleOIcon, PlaneDepartureIcon } from '@patternfly/react-icons';
 import style from './launch-flow.module.scss';
 import { ExampleApp, NewApp } from './types';
+import { gitInfoLoader } from '../loaders/git-info-loader';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -20,21 +21,23 @@ export function useAutoSetDestRepository(defaultName: string, setApp) {
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    client.gitInfo().then(info => {
-      setApp((prev: ExampleApp | NewApp) => {
-        if (prev.destRepository.userRepositoryPickerValue && prev.destRepository.userRepositoryPickerValue.name) {
-          return prev;
-        }
-        return {...prev, destRepository: {userRepositoryPickerValue: {name: defaultName}, isProviderAuthorized: true}};
-      });
-      setShowForm(true);
-      setLoading(false);
-    }).catch(e => {
-      setApp((prev: ExampleApp | NewApp) => {
-        setShowForm(false);
-        return {...prev, destRepository: {isProviderAuthorized: false}};
-      });
-      setLoading(false);
+    gitInfoLoader(client).then(gitInfo => {
+      if (gitInfo.login) {
+        setApp((prev: ExampleApp | NewApp) => {
+          if (prev.destRepository.userRepositoryPickerValue && prev.destRepository.userRepositoryPickerValue.name) {
+            return prev;
+          }
+          return {...prev, destRepository: {userRepositoryPickerValue: {name: defaultName}, isProviderAuthorized: true}};
+        });
+        setShowForm(true);
+        setLoading(false);
+      } else {
+        setApp((prev: ExampleApp | NewApp) => {
+          setShowForm(false);
+          return {...prev, destRepository: {isProviderAuthorized: false}};
+        });
+        setLoading(false);
+      }
     });
   }, []);
   return {showForm, loading};
