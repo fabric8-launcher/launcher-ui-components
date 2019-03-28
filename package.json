@@ -14,7 +14,7 @@
     "@patternfly/react-icons": "3.7.0",
     "classnames": "2.2.6",
     "react": "16.8.6",
-    "react-dom": "16.8.5"
+    "react-dom": "16.8.6"
   },
   "scripts": {
     "clean": "rm -rf build && find . -type d -name \"node_modules\" -exec rm -rf {} +",
