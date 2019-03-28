@@ -65,8 +65,8 @@ docker build -t ${BUILDER_IMAGE} -f ${DOCKERFILE_BUILD} .
 mkdir ${TARGET_DIR}/
 docker run --detach=true --name ${BUILDER_CONT} -t -v $(pwd)/${TARGET_DIR}:/${TARGET_DIR}:Z ${BUILDER_IMAGE} /bin/tail -f /dev/null #FIXME
 
-docker exec -u root ${BUILDER_CONT} yarn install
-docker exec -u root ${BUILDER_CONT} yarn build
+docker exec -u root ${BUILDER_CONT} npx yarn install
+docker exec -u root ${BUILDER_CONT} npx yarn build
 docker exec -u root ${BUILDER_CONT} cp -r ${TARGET_DIR}/ /
 
 #BUILD DEPLOY IMAGE
