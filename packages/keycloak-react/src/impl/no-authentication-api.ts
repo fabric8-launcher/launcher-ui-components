@@ -36,10 +36,8 @@ export default class NoAuthenticationApi implements AuthenticationApi {
     throw new Error('getAccountManagementLink should not be called in No Authentication mode');
   };
 
-  public refreshToken = (): Promise<OptionalUser> => {
-    if (this.onUserChangeListener) {
-      this.onUserChangeListener(anonymousUser);
-    }
+  public refreshToken = (force?: boolean): Promise<OptionalUser> => {
+    this.triggerUserChange();
     return Promise.resolve(anonymousUser);
   };
 

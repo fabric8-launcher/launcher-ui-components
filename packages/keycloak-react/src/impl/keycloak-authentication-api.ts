@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import Keycloak from 'keycloak-js';
 import { AuthenticationApi, OptionalUser } from '../authentication-api';
-import { checkNotNull } from 'launcher-client';
 
 interface StoredData {
   token: string;
@@ -17,10 +16,31 @@ export interface KeycloakConfig {
   url: string;
 }
 
+function takeFirst<R>(fn: (...args: any) => Promise<R>): (...args: any) => Promise<R> {
+  let pending;
+  let resolve;
+  let reject;
+  return function(...args) {
+    if (!pending) {
+      pending = new Promise((_resolve, _reject) => {
+        resolve = _resolve;
+        reject = _reject;
+      });
+      fn(...args).then((val) => {
+        pending = null;
+        resolve(val);
+      }, error => {
+        pending = null;
+        reject(error);
+      });
+    }
+    return pending;
+  };
+}
+
 export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   private _user: OptionalUser;
-  private currentRefresh?: Promise<OptionalUser> = undefined;
   private onUserChangeListener?: (user: OptionalUser) => void = undefined;
 
   private static base64ToUri(b64: string): string {
@@ -33,6 +53,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
 
   constructor(private config: KeycloakConfig, keycloakCoreFactory = Keycloak) {
     this.keycloak = keycloakCoreFactory(config);
+    this.refreshToken = takeFirst(this.refreshToken);
   }
 
   public setOnUserChangeListener(listener: (user: OptionalUser) => void) {
@@ -49,7 +70,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
           resolve(this._user);
         });
       this.keycloak.onTokenExpired = () => {
-        this.refreshToken()
+        this.refreshToken(true)
           .catch(e => console.error(e));
       };
     });
@@ -76,29 +97,23 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
     return this.keycloak.createAccountUrl();
   };
 
-  public refreshToken = (): Promise<OptionalUser> => {
-    // Ensure there is only one call processed at a time (currentRefresh)
-    if (!this.currentRefresh) {
-      this.currentRefresh = new Promise((resolve, reject) => {
-        if (this._user) {
-          this.keycloak.updateToken(5)
-            .success(() => {
-              this.initUser();
-              resolve(this.user);
-              this.currentRefresh = undefined;
-            })
-            .error(() => {
-              this.currentRefresh = undefined;
-              this.logout();
-              reject('Failed to refresh token');
-            });
-        } else {
-          this.currentRefresh = undefined;
-          reject('User is not authenticated');
-        }
-      });
-    }
-    return this.currentRefresh;
+  public refreshToken = (force: boolean = false): Promise<OptionalUser> => {
+    return new Promise<OptionalUser>((resolve, reject) => {
+      if (this._user) {
+        console.info('Checking if token needs to be refreshed...');
+        this.keycloak.updateToken(force ? -1 : 60)
+          .success(() => {
+            this.initUser();
+            resolve(this.user);
+          })
+          .error(() => {
+            this.logout();
+            reject('Failed to refresh token');
+          });
+      } else {
+        reject('User is not authenticated');
+      }
+    });
   };
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
@@ -112,7 +127,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
       return this.user.accountLink[provider];
     }
     const nonce = uuidv4();
-    const clientId = checkNotNull(this.config.clientId, 'clientId');
+    const clientId = this.config.clientId;
     const hash = nonce + this.user.sessionState
       + clientId + provider;
     const shaObj = new jsSHA('SHA-256', 'TEXT');

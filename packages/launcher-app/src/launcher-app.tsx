@@ -60,11 +60,7 @@ export function LauncherApp() {
     return proxyAuthApi.init().catch(e => console.error(e));
   };
   const authorizationTokenProvider = async () => {
-    if (!proxyAuthApi.user) {
-      return undefined;
-    }
-    const user = await proxyAuthApi.refreshToken();
-    return user && user.token;
+    return proxyAuthApi.user && proxyAuthApi.user.token;
   };
   return (
     <DataLoader loader={authLoader}>
