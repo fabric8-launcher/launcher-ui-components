@@ -58,7 +58,7 @@ export class MissionRuntimeStepComponent extends LauncherStep implements OnInit,
       [
         { name: 'mission', value: 'mission.id', restorePath: 'missions.id' },
         { name: 'runtime', value: 'runtime.id', restorePath: 'runtimes.id' },
-        { name: 'runtimeVersion', value: 'runtime.version.id', restorePath: 'runtimes.versions.id' }
+        { name: 'runtimeVersion', value: 'runtime.version.id', restorePath: 'booster.runtime.versions.id' }
       ]
     );
     this.projectile.setState(this.id, state);
