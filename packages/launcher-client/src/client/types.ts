@@ -229,11 +229,11 @@ export interface LaunchAppResult {
 export interface BuilderImage {
   id: string;
   name: string;
-  metadata: {
-    language: string,
-    isBuilder: boolean,
+  metadata?: {
+    language?: string,
+    isBuilder?: boolean,
     suggestedEnv?: { [key: string]: string };
-  }
+  };
 }
 
 export interface AnalyzeResult {
