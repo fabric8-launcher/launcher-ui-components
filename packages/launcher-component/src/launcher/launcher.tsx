@@ -53,7 +53,8 @@ export function LauncherMenu({createNewApp, createExampleApp, importExistingApp}
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem md={4} sm={12}>
+      <GridItem md={4} sm={12} className={style.box}>
+      <div className={style.ribbon}><span>Beta</span></div>
         <Card className={style.card}>
           <CardHeader className={style.flowHeader}><FileImportIcon/></CardHeader>
           <CardBody>Import your own existing application in the OpenShift ecosystem.</CardBody>

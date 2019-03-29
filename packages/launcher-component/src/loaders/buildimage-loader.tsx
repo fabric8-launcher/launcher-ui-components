@@ -46,7 +46,10 @@ export function BuildImageSuggestionsLoader(props: BuildImageSuggestionsLoaderPr
   const itemsLoader = async () => {
     const result = await client.importAnalyze(props.gitUrl);
     const suggestedBuilderImage = findBuilderImage(result);
-    const getSuggestedEnvPairs = (image: string) => convertToPairs(findBuilderImage(result, image).metadata.suggestedEnv);
+    const getSuggestedEnvPairs = (image: string) => {
+      const imageMetadata = findBuilderImage(result, image).metadata;
+      return convertToPairs(imageMetadata ? imageMetadata.suggestedEnv : undefined);
+    };
     return { suggestedBuilderImage, getSuggestedEnvPairs, builderImages: result.builderImages };
   };
   return (
