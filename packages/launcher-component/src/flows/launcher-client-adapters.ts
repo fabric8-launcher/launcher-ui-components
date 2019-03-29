@@ -77,7 +77,8 @@ export function toImportAppPayload(app: ImportApp) {
   const url = app.srcRepository.gitUrlPickerValue!.url!;
   const index = url.lastIndexOf('/');
   const dotIndex = url.indexOf('.', index);
-  const name = url.substr(index + 1, dotIndex > 0 ? dotIndex - index - 1 : undefined);
+  const name = url.substr(index + 1, dotIndex > 0 ? dotIndex - index - 1 : undefined)
+    .toLowerCase().replace(/[^a-z0-9.-]+/gi, '');
 
   parts.push({
     category: 'import',
