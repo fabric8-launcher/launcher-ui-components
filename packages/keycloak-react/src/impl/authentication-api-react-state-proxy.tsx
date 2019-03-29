@@ -2,11 +2,11 @@ import { AuthenticationApi, OptionalUser } from '../authentication-api';
 
 export default class AuthenticationApiReactStateProxy implements AuthenticationApi {
 
-  constructor(private readonly authApi: AuthenticationApi, private _user: OptionalUser, private setUser: (OptionalUser) => void) {
+  constructor(private readonly authApi: AuthenticationApi, private setIsLoggedIn: (isLoggedIn: boolean) => void) {
   }
 
   public async init(): Promise<OptionalUser> {
-    this.authApi.setOnUserChangeListener((changed) => this.setUser(changed));
+    this.authApi.setOnUserChangeListener((changed) => this.setIsLoggedIn(!!changed));
     return await this.authApi.init();
   }
 
@@ -26,12 +26,12 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
     return this.authApi.getAccountManagementLink();
   };
 
-  public refreshToken = async (): Promise<OptionalUser> => {
-    return await this.authApi.refreshToken();
+  public refreshToken = async (force?: boolean): Promise<OptionalUser> => {
+    return await this.authApi.refreshToken(force);
   };
 
   public get user() {
-    return this._user;
+    return this.authApi.user;
   }
 
   public get enabled(): boolean {

@@ -20,9 +20,7 @@ export default class MockAuthenticationApi implements AuthenticationApi {
     if (JSON.parse(sessionStorage.getItem('mock-auth') || 'false')) {
       this.login();
     }
-    if (this.onUserChangeListener) {
-      this.onUserChangeListener(this._user);
-    }
+    this.triggerUserChange();
     return Promise.resolve(this._user);
   };
 
@@ -33,24 +31,20 @@ export default class MockAuthenticationApi implements AuthenticationApi {
   public login = (): void => {
     this._user = mockUser;
     sessionStorage.setItem('mock-auth', JSON.stringify(true));
-    if (this.onUserChangeListener) {
-      this.onUserChangeListener(this._user);
-    }
+    this.triggerUserChange();
   };
 
   public logout = (): void => {
     this._user = undefined;
     sessionStorage.setItem('mock-auth', JSON.stringify(false));
-    if (this.onUserChangeListener) {
-      this.onUserChangeListener(this._user);
-    }
+    this.triggerUserChange();
   };
 
   public getAccountManagementLink = (): string | undefined => {
     return 'https://account-management';
   };
 
-  public refreshToken = (): Promise<OptionalUser> => {
+  public refreshToken = (force?: boolean): Promise<OptionalUser> => {
     this.triggerUserChange();
     return Promise.resolve(this._user);
   };
