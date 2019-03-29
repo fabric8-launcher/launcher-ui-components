@@ -21,9 +21,7 @@ function takeFirst<R>(fn: (...args: any) => Promise<R>): (...args: any) => Promi
   let resolve;
   let reject;
   return function(...args) {
-    console.log('called');
     if (!pending) {
-      console.log('exec');
       pending = new Promise((_resolve, _reject) => {
         resolve = _resolve;
         reject = _reject;
@@ -35,8 +33,6 @@ function takeFirst<R>(fn: (...args: any) => Promise<R>): (...args: any) => Promi
         pending = null;
         reject(error);
       });
-    } else {
-      console.log('skipped')
     }
     return pending;
   };
@@ -161,7 +157,6 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
         refreshToken: this.keycloak.refreshToken,
         idToken: this.keycloak.idToken,
       });
-      const prevToken = this._user && this._user.token;
       this._user = {
         userName: _.get(this.keycloak, 'tokenParsed.name'),
         userPreferredName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
@@ -169,9 +164,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
         sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: {},
       };
-      if (prevToken !== this._user.token) {
-        this.triggerUserChange();
-      }
+      this.triggerUserChange();
     }
   }
 
