@@ -3,16 +3,18 @@ import * as React from 'react';
 import { DescriptiveHeader, Separator, SpecialValue } from '../core/stuff';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { BuildImagePicker, BuildImagePickerValue } from '../pickers/buildimage-picker';
-import { BuildImageSuggestionsLoader } from '../loaders/buildimage-loader';
+import { BuildImageSuggestionsLoader, UrlBranchLoader } from '../loaders/buildimage-loader';
 import { GitUrlPicker, GitUrlPickerValue } from '../pickers/git-url-picker';
 import { FormHub } from '../core/types';
 import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 import { EnvironmentVarsPicker, EnvironmentVarsPickerValue } from '../pickers/environmentvars-picker';
 import { Loader } from '..';
+import { BranchListPicker, BranchListPickerValue } from '../pickers/branchlist-picker';
 
 export interface SrcRepositoryFormValue {
   gitUrlPickerValue?: GitUrlPickerValue;
+  branchListPickerValue?: BranchListPickerValue;
   buildImagePickerValue?: BuildImagePickerValue;
   envPickerValue?: EnvironmentVarsPickerValue;
 }
@@ -61,6 +63,26 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
               />
               {inputProps.value.gitUrlPickerValue && GitUrlPicker.checkCompletion(inputProps.value.gitUrlPickerValue) && (
                 <React.Fragment>
+                  <UrlBranchLoader gitUrl={inputProps.value.gitUrlPickerValue!.url!}>
+                  { result => {
+                    if (!inputProps.value.branchListPickerValue) {
+                      inputProps.onChange({
+                        ...inputProps.value,
+                        branchListPickerValue: {branchList: result.branchList},
+                      });
+                      return (<Loader/>);
+                    }
+                    return (
+                      <BranchListPicker.Element
+                        value={inputProps.value.branchListPickerValue!}
+                        onChange={(branchListPickerValue) => {
+                          inputProps.onChange({...inputProps.value, branchListPickerValue,
+                            gitUrlPickerValue: {...inputProps.value.gitUrlPickerValue, branch: branchListPickerValue.branch}});
+                        }}
+                        {...result}
+                      />);
+                  }}
+                  </UrlBranchLoader>
                   <Separator/>
                   <DescriptiveHeader
                     title="Builder Image"

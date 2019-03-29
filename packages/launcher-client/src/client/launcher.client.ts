@@ -34,7 +34,9 @@ export interface LauncherClient {
 
   capabilities(): Promise<Capability[]>;
 
-  importAnalyze(gitImportUrl: string): Promise<AnalyzeResult>;
+  importAnalyze(gitImportUrl: string, gitImportBranch?: string): Promise<AnalyzeResult>;
+
+  importBranch(gitImportUrl: string): Promise<string[]>;
 
   download(payload: DownloadAppPayload): Promise<DownloadAppResult>;
 

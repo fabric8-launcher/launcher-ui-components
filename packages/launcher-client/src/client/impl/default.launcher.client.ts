@@ -56,9 +56,15 @@ export default class DefaultLauncherClient implements LauncherClient {
     return await this.httpService.get<Enums>(this.config.creatorUrl, '/enums');
   }
 
-  public async importAnalyze(gitImportUrl: string): Promise<AnalyzeResult> {
-    const endpoint = '/import/analyze?gitImportUrl=' + encodeURIComponent(gitImportUrl);
+  public async importAnalyze(gitImportUrl: string, gitImportBranch: string = 'master'): Promise<AnalyzeResult> {
+    const endpoint = '/import/analyze?gitImportUrl=' + encodeURIComponent(gitImportUrl)
+      + '&gitImportBranch' + encodeURIComponent(gitImportBranch);
     return await this.httpService.get<AnalyzeResult>(this.config.creatorUrl, endpoint);
+  }
+
+  public async importBranch(gitImportUrl: string): Promise<string[]> {
+    const endpoint = '/import/branches?gitImportUrl=' + encodeURIComponent(gitImportUrl);
+    return await this.httpService.get<string[]>(this.config.creatorUrl, endpoint);
   }
 
   public async download(payload: DownloadAppPayload): Promise<DownloadAppResult> {

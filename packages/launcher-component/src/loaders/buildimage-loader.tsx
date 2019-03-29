@@ -22,7 +22,17 @@ interface BuildImageSuggestions {
 
 interface BuildImageSuggestionsLoaderProps {
   gitUrl: string;
+  branch?: string;
   children: (suggestions: BuildImageSuggestions) => any;
+}
+
+interface UrlBranchList {
+  branchList: string[];
+}
+
+interface UrlBranchLoaderProps {
+  gitUrl: string;
+  children: (suggestions: UrlBranchList) => any;
 }
 
 const convertToPairs = (object?: {[key: string]: string}): string[][] => {
@@ -44,10 +54,24 @@ const findBuilderImage = (result: AnalyzeResult, image?: string) => {
 export function BuildImageSuggestionsLoader(props: BuildImageSuggestionsLoaderProps) {
   const client = useLauncherClient();
   const itemsLoader = async () => {
-    const result = await client.importAnalyze(props.gitUrl);
+    const result = await client.importAnalyze(props.gitUrl, props.branch);
     const suggestedBuilderImage = findBuilderImage(result);
     const getSuggestedEnvPairs = (image: string) => convertToPairs(findBuilderImage(result, image).metadata.suggestedEnv);
     return { suggestedBuilderImage, getSuggestedEnvPairs, builderImages: result.builderImages };
+  };
+  return (
+    <DataLoader loader={itemsLoader}>
+      {props.children}
+    </DataLoader>
+  );
+}
+
+export function UrlBranchLoader(props: UrlBranchLoaderProps) {
+  const client = useLauncherClient();
+  const itemsLoader = async () => {
+    return {
+      branchList: await client.importBranch(props.gitUrl)
+    };
   };
   return (
     <DataLoader loader={itemsLoader}>

@@ -105,8 +105,12 @@ export default class WithCacheLauncherClient implements LauncherClient {
     return this.client.follow(id, events, listener);
   }
 
-  public async importAnalyze(gitImportUrl: string): Promise<AnalyzeResult> {
-    return this.client.importAnalyze(gitImportUrl);
+  public async importAnalyze(gitImportUrl: string, gitImportBranch: string = 'master'): Promise<AnalyzeResult> {
+    return this.client.importAnalyze(gitImportUrl, gitImportBranch);
+  }
+
+  public async importBranch(gitImportUrl: string): Promise<string[]> {
+    return this.client.importBranch(gitImportUrl);
   }
 
   public async launch(payload: LaunchAppPayload): Promise<LaunchAppResult> {

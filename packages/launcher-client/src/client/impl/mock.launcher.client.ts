@@ -88,6 +88,10 @@ export default class MockLauncherClient implements LauncherClient {
     return analyzeResult;
   }
 
+  public async importBranch(gitImportUrl: string): Promise<string[]> {
+    return ['master', 'develop', 'v1.1', 'build-fix'];
+  }
+
   public async download(payload: DownloadAppPayload): Promise<DownloadAppResult> {
     const output: DownloadAppResult = {
       downloadLink: `http://mock/result.zip`
