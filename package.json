@@ -62,7 +62,7 @@
     "rollup-plugin-postcss": "2.0.3",
     "rollup-plugin-tslint": "0.2.2",
     "rollup-plugin-typescript2": "0.19.3",
-    "ts-jest": "24.0.0",
+    "ts-jest": "24.0.1",
     "tslint": "5.14.0",
     "tslint-react": "4.0.0",
     "typescript": "3.4.1"
