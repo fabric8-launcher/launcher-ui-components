@@ -54,7 +54,7 @@
     "lerna": "3.13.1",
     "node-sass": "4.11.0",
     "react-testing-library": "6.0.3",
-    "rollup": "1.7.3",
+    "rollup": "1.7.4",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.2.2",
     "rollup-plugin-filesize": "6.0.1",
