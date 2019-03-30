@@ -1864,10 +1864,10 @@
     exenv "^1.2.2"
     focus-trap-react "^4.0.1"
 
-"@patternfly/react-icons@3.7.0", "@patternfly/react-icons@^3.6.1":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.7.0.tgz#471a5e82cdb1ee6132df73b072075b436fd03103"
-  integrity sha512-ep1ImwHL/Rzd4p66kZKmWV97aZDe967AHD70qTrwoNU1xELSD2bClckR4P/RK9NY3DVuqkUwGNYFICfcgdpztQ==
+"@patternfly/react-icons@3.7.1", "@patternfly/react-icons@^3.6.1":
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.7.1.tgz#86fe0b75e871ddaeefb21c2d09f520eb6e88f1ea"
+  integrity sha512-Q7MDYKy+/4SjMR4UVK35Dg1srE2i4zwFiMA8UpuKqfqPaE5DsfpJALLeedxIiuMjhVC2XwoEwiQQkNczB2ejQQ==
 
 "@patternfly/react-styles@^2.4.0":
   version "2.4.0"
