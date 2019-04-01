@@ -19,6 +19,13 @@ exports[`<ExamplePicker /> renders the ExamplePicker correctly 1`] = `
       >
         Any
       </button>
+      <button
+        class="pf-c-button pf-m-tertiary"
+        style="margin-left: 5px;"
+        type="button"
+      >
+        Node
+      </button>
     </div>
   </div>
   <ul
@@ -113,6 +120,13 @@ exports[`<ExamplePicker /> show the version dropdown 1`] = `
           type="button"
         >
           Any
+        </button>
+        <button
+          class="pf-c-button pf-m-tertiary"
+          style="margin-left: 5px;"
+          type="button"
+        >
+          Node
         </button>
       </div>
     </div>

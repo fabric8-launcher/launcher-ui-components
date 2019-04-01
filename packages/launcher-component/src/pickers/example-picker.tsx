@@ -12,7 +12,7 @@ import {
   Split,
   SplitItem
 } from '@patternfly/react-core';
-import { Catalog, ExampleRuntime, ExampleMission } from 'launcher-client';
+import { ExampleRuntime, ExampleMission } from 'launcher-client';
 import { InputProps, Picker } from '../core/types';
 import _ from 'lodash';
 
@@ -25,14 +25,14 @@ export interface ExamplePickerValue {
 }
 
 interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
-  catalog: Catalog;
   missions?: ExampleMission[];
 }
 
 export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
   checkCompletion: value => !!value.missionId && !!value.runtimeId && !!value.versionId,
   Element: props => {
-    const runtimesMap = _.keyBy(props.catalog.runtimes, 'id');
+    // @ts-ignore
+    const runtimesMap = _.keyBy(_.flatten(_.map(props.missions, 'runtime')), 'id');
     const missions = !props.value.missions ? props.missions : props.value.missions;
     const filterCatalog = (runtime) => {
       const filteredMissions = _.cloneDeep(props.missions);
