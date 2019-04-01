@@ -40,10 +40,15 @@ function copyProperties(obj: any, props: any, lambda?): any {
 
 export function constructModel(catalog: Catalog): ExampleMission[] {
   const runtimeById = _.keyBy(catalog.runtimes, 'id');
-  const versionsForRuntimeMission = _.groupBy(_.map(catalog.boosters, b => ({
-    key: (b.mission + '_' + b.runtime),
-    version: runtimeById[b.runtime as string].versions.find(v => v.id === b.version)
-  })), 'key');
+  const versionsForRuntimeMission = _.groupBy(_.map(catalog.boosters, b => {
+    const version = runtimeById[b.runtime as string].versions.find(v => v.id === b.version);
+    version.metadata = version.metadata || {};
+    version.metadata.runsOn = b.metadata ? (b.metadata.app.launcher ? b.metadata.app.launcher.runsOn : []) : [];
+    return {
+      key: (b.mission + '_' + b.runtime),
+      version
+    };
+  }), 'key');
 
   const versionById = _.reduce(versionsForRuntimeMission, (result, versions) => {
     // @ts-ignore

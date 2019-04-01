@@ -40,7 +40,7 @@ describe('<ExamplePicker />', () => {
 const missions: ExampleMission[] = [
   {id: 'test', description: 'bla', name: 'Mission Name', metadata: {}, runtime: [
     {id: 'nodejs', name: 'Node', icon: '', versions: [
-      {id: 'community', name: '10.x (Community)'}
+      {id: 'community', name: '10.x (Community)', metadata: { runsOn: 'openshift'}}
     ]}
   ]}
 ];
