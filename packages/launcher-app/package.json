@@ -20,7 +20,7 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "@sentry/browser": "4.6.6",
+    "@sentry/browser": "5.0.0",
     "keycloak-react": "^1.0.0-alpha.0",
     "launcher-component": "^1.0.0-alpha.0",
     "react-router-dom": "5.0.0"
