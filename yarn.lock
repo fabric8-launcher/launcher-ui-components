@@ -2145,10 +2145,10 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@sentry/browser@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.0.1.tgz#63934d7dd106b8f6857677f13e7678d21f667c8e"
-  integrity sha512-qgXCvCwyWK/NupXPYtGrw7Tn6SI8U2AppuRpaOCRCdkRnGhwspnKjXhVbCWAa7WhcHm93BlkSXg0rdKIr2qU7Q==
+"@sentry/browser@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.0.2.tgz#aeaff15dd80ca03ba0bb6fc9c848218b1c1b938d"
+  integrity sha512-MJw08js3sAzKeKg7EEUsRxAaLVfhd9+qsimYw4JTDab1VFvSfc8zLjTvnnqtUNqbUHi04wyYU5uOJO7ZvfcO7Q==
   dependencies:
     "@sentry/core" "5.0.0"
     "@sentry/types" "5.0.0"
