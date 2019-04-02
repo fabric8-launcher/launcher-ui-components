@@ -160,6 +160,7 @@ exports[`<HubNSpoke /> show the edition panel for the clicked hub 1`] = `
       class="pf-l-grid pf-m-gutter hub-and-spoke-container"
     >
       <div
+        aria-label="Edit hub1"
         class="pf-l-grid__item pf-m-12-col hub-and-spoke-item hub-and-spoke-item-form"
       >
         <div
