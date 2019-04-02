@@ -219,6 +219,7 @@ exports[`<ExamplePicker /> show the version dropdown 1`] = `
         class="pf-l-toolbar__group"
       >
         <button
+          aria-label="Save form"
           class="pf-c-button pf-m-primary"
           type="button"
         >
@@ -229,6 +230,7 @@ exports[`<ExamplePicker /> show the version dropdown 1`] = `
         class="pf-l-toolbar__group"
       >
         <button
+          aria-label="Cancel form"
           class="pf-c-button pf-m-secondary"
           type="button"
         >
