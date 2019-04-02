@@ -1,3 +1,4 @@
+/* test-code */
 import { defaultAuthorizationTokenProvider, LauncherClient } from '../launcher.client';
 import {
   AnalyzeResult, AnyExample,
@@ -164,3 +165,4 @@ export default class MockLauncherClient implements LauncherClient {
   }
 
 }
+/* end-test-code */
