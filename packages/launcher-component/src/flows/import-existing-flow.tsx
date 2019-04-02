@@ -46,8 +46,8 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
 
   const items = [
     {
-      id: 'import',
-      title: 'Source Repository to import',
+      id: SrcRepositoryHub.id,
+      title: SrcRepositoryHub.title,
       overview: {
         component: ({edit}) => (
           <SrcRepositoryHub.Overview value={app.srcRepository} onClick={edit}/>
@@ -68,8 +68,8 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'openshift-deployment',
-      title: 'OpenShift Deployment',
+      id: DeploymentHub.id,
+      title: DeploymentHub.title,
       overview: {
         component: ({edit}) => (
           <DeploymentHub.Overview value={app.deployment} onClick={edit}/>

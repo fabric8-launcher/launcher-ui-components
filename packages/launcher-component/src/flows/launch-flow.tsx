@@ -11,6 +11,7 @@ import { DownloadIcon, ErrorCircleOIcon, PlaneDepartureIcon } from '@patternfly/
 import style from './launch-flow.module.scss';
 import { ExampleApp, NewApp } from './types';
 import { gitInfoLoader } from '../loaders/git-info-loader';
+import { effectSafety } from '../core/stuff';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -21,24 +22,30 @@ export function useAutoSetDestRepository(defaultName: string, setApp) {
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    const safety = effectSafety();
     gitInfoLoader(client).then(gitInfo => {
       if (gitInfo.login) {
-        setApp((prev: ExampleApp | NewApp) => {
-          if (prev.destRepository.userRepositoryPickerValue && prev.destRepository.userRepositoryPickerValue.name) {
-            return prev;
-          }
-          return {...prev, destRepository: {userRepositoryPickerValue: {name: defaultName}, isProviderAuthorized: true}};
+        safety.callSafely(() => {
+          setApp((prev: ExampleApp | NewApp) => {
+            if (prev.destRepository.userRepositoryPickerValue && prev.destRepository.userRepositoryPickerValue.name) {
+              return prev;
+            }
+            return {...prev, destRepository: {userRepositoryPickerValue: {name: defaultName}, isProviderAuthorized: true}};
+          });
+          setShowForm(true);
+          setLoading(false);
         });
-        setShowForm(true);
-        setLoading(false);
       } else {
-        setApp((prev: ExampleApp | NewApp) => {
-          setShowForm(false);
-          return {...prev, destRepository: {isProviderAuthorized: false}};
+        safety.callSafely(() => {
+          setApp((prev: ExampleApp | NewApp) => {
+            setShowForm(false);
+            return {...prev, destRepository: {isProviderAuthorized: false}};
+          });
+          setLoading(false);
         });
-        setLoading(false);
       }
     });
+    return safety.unload;
   }, []);
   return {showForm, loading};
 }
@@ -48,26 +55,32 @@ export function useAutoSetCluster(setApp) {
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    const safety = effectSafety();
     client.ocClusters().then(clusters => {
       const connectedClusters = clusters.filter(cluster => cluster.connected);
       if (connectedClusters.length === 1) {
-        setApp((prev: ExampleApp | NewApp) => {
-          if (prev.deployment.clusterPickerValue && prev.deployment.clusterPickerValue.clusterId) {
-            return prev;
-          }
-          const selectCluster = connectedClusters[0];
-          return ({...prev, deployment: {clusterPickerValue: {clusterId: selectCluster.id, clusterType: selectCluster.type}}});
+        safety.callSafely(() => {
+          setApp((prev: ExampleApp | NewApp) => {
+            if (prev.deployment.clusterPickerValue && prev.deployment.clusterPickerValue.clusterId) {
+              return prev;
+            }
+            const selectCluster = connectedClusters[0];
+            return ({...prev, deployment: {clusterPickerValue: {clusterId: selectCluster.id, clusterType: selectCluster.type}}});
+          });
+          setShowForm(clusters.length > 1);
+          setLoading(false);
         });
-        setShowForm(clusters.length > 1);
-        setLoading(false);
       } else {
-        setShowForm(true);
-        setLoading(false);
+        safety.callSafely(() => {
+          setShowForm(true);
+          setLoading(false);
+        });
       }
     }).catch(e => {
       console.warn('An error happened while trying to load clusters for auto-selection', e);
       setLoading(false);
     });
+    return safety.unload;
   }, []);
   return {showForm, loading};
 }
@@ -138,15 +151,32 @@ export function LaunchFlow(props: LaunchFlowProps) {
   const toolbar = (
     <Toolbar className={style.toolbar}>
       <ToolbarGroup className={style.toolbarGroup}>
-        <Button variant="primary" onClick={launch} className={style.toolbarButton} isDisabled={!props.isReadyForLaunch}>
+        <Button
+          variant="primary"
+          onClick={launch}
+          className={style.toolbarButton}
+          isDisabled={!props.isReadyForLaunch}
+          aria-label="Launch Application"
+        >
           <PlaneDepartureIcon className={style.buttonIcon}/>Launch
         </Button>
         {canDownload && (
-          <Button variant="primary" onClick={download} className={style.toolbarButton} isDisabled={!props.isReadyForDownload}>
+          <Button
+            variant="primary"
+            onClick={download}
+            className={style.toolbarButton}
+            isDisabled={!props.isReadyForDownload}
+            aria-label="Download Application"
+          >
             <DownloadIcon className={style.buttonIcon}/>Download
           </Button>
         )}
-        <Button variant="secondary" onClick={props.onCancel} className={style.toolbarButton}>
+        <Button
+          variant="secondary"
+          onClick={props.onCancel}
+          className={style.toolbarButton}
+          aria-label="Cancel"
+        >
           <ErrorCircleOIcon className={style.buttonIcon}/>Cancel
         </Button>
       </ToolbarGroup>

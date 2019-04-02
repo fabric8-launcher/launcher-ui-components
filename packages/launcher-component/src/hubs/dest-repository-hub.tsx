@@ -5,9 +5,10 @@ import { ButtonLink, DescriptiveHeader, optionalBool, SpecialValue } from '../co
 import { GitInfoLoader } from '../loaders/git-info-loader';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
-import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 import { useAuthApi } from 'keycloak-react';
+import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
 
 export interface DestRepositoryFormValue {
   userRepositoryPickerValue?: UserRepositoryPickerValue;
@@ -15,43 +16,45 @@ export interface DestRepositoryFormValue {
 }
 
 export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
+  id: 'dest-repository',
+  title: 'Destination Repository',
   checkCompletion: value => !!value.isProviderAuthorized
     && !!value.userRepositoryPickerValue && UserRepositoryPicker.checkCompletion(value.userRepositoryPickerValue),
   Overview: props => {
     const auth = useAuthApi();
     if (!optionalBool(props.value.isProviderAuthorized, true)) {
       return (
-        <EmptyState>
-          <Title size="lg">You need to authorize GitHub.</Title>
-          <EmptyStateBody>
-            Once authorized, you will be able to choose a repository provider and a location...
-          </EmptyStateBody>
-          <ButtonLink href={auth.generateAuthorizationLink('github')}>
-            Authorize
-          </ButtonLink>
-        </EmptyState>
+        <OverviewEmpty
+          id={`${DestRepositoryHub.id}-unauthorized`}
+          title="You need to authorize GitHub."
+          action={<ButtonLink href={auth.generateAuthorizationLink('github')}>Authorize</ButtonLink>}
+        >
+          Once authorized, you will be able to choose a repository provider and a location...
+        </OverviewEmpty>
       );
     }
     if (!DestRepositoryHub.checkCompletion(props.value)) {
       return (
-        <EmptyState>
-          <Title size="lg">You can select where your application code will be located.</Title>
-          <EmptyStateBody>
-            You will be able to choose a repository provider and a location...
-          </EmptyStateBody>
-          <Button variant="primary" onClick={props.onClick}>Select Destination Repository</Button>
-        </EmptyState>
+        <OverviewEmpty
+          id={DestRepositoryHub.id}
+          title="You need to configure the destination repository"
+          action={<Button variant="primary" onClick={props.onClick}>Select Destination Repository</Button>}
+        >
+          You are going to configure the repository where your application code will be located
+        </OverviewEmpty>
       );
     }
     return (
-      <OverviewComplete title={`Destination Repository is configured`}>
-        You selected <SpecialValue>{valueToPath(props.value.userRepositoryPickerValue!)}</SpecialValue> as destination repository.
+      <OverviewComplete id={DestRepositoryHub.id} title={`Destination Repository is configured`}>
+        <SpecialValue>{valueToPath(props.value.userRepositoryPickerValue!)}</SpecialValue>
+        is configured as destination repository on GitHub.
       </OverviewComplete>
     );
   },
   Form: props => {
     return (
       <FormPanel
+        id={DestRepositoryHub.id}
         initialValue={props.initialValue}
         validator={DestRepositoryHub.checkCompletion}
         onSave={props.onSave}

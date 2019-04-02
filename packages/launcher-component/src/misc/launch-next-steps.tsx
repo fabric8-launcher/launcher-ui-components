@@ -21,6 +21,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
       isOpen
       isLarge={false}
       onClose={props.onClose}
+      aria-label="Your Application has been launched"
       actions={[
         <Button key="launch-new" variant="secondary" onClick={props.onClose}>
           Launch a new Application
@@ -30,7 +31,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
       <TextContent>
         <Text component={TextVariants.h3}>Follow your application delivery</Text>
         <Text component={TextVariants.p}>You can follow your application deployment in your OpenShift Console</Text>
-        {consoleLink && (<ExternalLink href={consoleLink}>
+        {consoleLink && (<ExternalLink aria-label="Console link" href={consoleLink}>
           <ClusterIcon/> OpenShift Console
         </ExternalLink>)}
         {
@@ -41,7 +42,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
                   We prepared a set of examples to let you directly start playing with your new application.<br/>
                   Those examples are there to get you started,<br/>
                   soon it will be time for you to remove them and start developing your awesome application.</Text>
-              <ExternalLink href={welcomeLink}>
+              <ExternalLink href={welcomeLink} aria-label="Welcome Application link">
                   <GiftIcon/> Check out your new Application
               </ExternalLink>
           </Fragment>
@@ -50,7 +51,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
         <Text component={TextVariants.p}>We set up your application codebase in the GitHub repository you requested</Text>
         <Text component={TextVariants.p}>Your application is automatically configured
           to build and deploy on OpenShift with new commits.</Text>
-        {repositoryLink && (<ExternalLink href={repositoryLink}>
+        {repositoryLink && (<ExternalLink href={repositoryLink} aria-label="Repository link">
           <CodeIcon/> Clone your new codebase
         </ExternalLink>)}
       </TextContent>

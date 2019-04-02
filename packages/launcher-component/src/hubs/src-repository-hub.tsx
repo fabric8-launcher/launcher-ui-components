@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { DescriptiveHeader, Separator, SpecialValue } from '../core/stuff';
+import { DescriptiveHeader, Loader, Separator, SpecialValue } from '../core/stuff';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { BuildImagePicker, BuildImagePickerValue } from '../pickers/buildimage-picker';
 import { BuildImageSuggestionsLoader } from '../loaders/buildimage-loader';
 import { GitUrlPicker, GitUrlPickerValue } from '../pickers/git-url-picker';
 import { FormHub } from '../core/types';
-import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 import { EnvironmentVarsPicker, EnvironmentVarsPickerValue } from '../pickers/environmentvars-picker';
-import { Loader } from '..';
+import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
 
 export interface SrcRepositoryFormValue {
   gitUrlPickerValue?: GitUrlPickerValue;
@@ -18,23 +18,25 @@ export interface SrcRepositoryFormValue {
 }
 
 export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
+  id: 'src-repository',
+  title: 'Source Repository to import',
   checkCompletion: value => !!value.gitUrlPickerValue && GitUrlPicker.checkCompletion(value.gitUrlPickerValue)
     && !!value.buildImagePickerValue && BuildImagePicker.checkCompletion(value.buildImagePickerValue)
     && !!value.envPickerValue && EnvironmentVarsPicker.checkCompletion(value.envPickerValue),
   Overview: props => {
     if (!SrcRepositoryHub.checkCompletion(props.value)) {
       return (
-        <EmptyState>
-          <Title size="lg">You can import an existing application from a git location</Title>
-          <EmptyStateBody>
-            You will be able to run the application in a few seconds...
-          </EmptyStateBody>
-          <Button variant="primary" onClick={props.onClick}>Select Import</Button>
-        </EmptyState>
+        <OverviewEmpty
+          id={SrcRepositoryHub.id}
+          title="You can import an existing application from a git location"
+          action={<Button variant="primary" onClick={props.onClick}>Select Import</Button>}
+        >
+          You will be able to run the application in a few seconds...
+        </OverviewEmpty>
       );
     }
     return (
-      <OverviewComplete title="Import is configured">
+      <OverviewComplete id={SrcRepositoryHub.id} title="Import is configured">
         We will import the git repository <SpecialValue>{props.value.gitUrlPickerValue!.url!}</SpecialValue>&nbsp;
         using <SpecialValue>{props.value.buildImagePickerValue!.image!}</SpecialValue> builder image
       </OverviewComplete>
@@ -43,6 +45,7 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
   Form: props => {
     return (
       <FormPanel
+        id={SrcRepositoryHub.id}
         initialValue={props.initialValue}
         validator={SrcRepositoryHub.checkCompletion}
         onSave={props.onSave}

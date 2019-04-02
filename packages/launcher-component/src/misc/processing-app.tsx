@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { DataList, DataListCell, DataListItem } from '@patternfly/react-core';
 import { ErrorCircleOIcon, InProgressIcon, OkIcon, PauseCircleIcon } from '@patternfly/react-icons';
-import { Loader, Spin } from '../core/data-loader/data-loader';
-import { FixedModal } from '../core/stuff';
+import { FixedModal, Loader, Spin } from '../core/stuff';
 
 interface EventStatus {
   statusMessage: string;
@@ -20,20 +19,20 @@ interface ProcessingAppProps {
 
 function StatusIcon(props: { status: Statuses }) {
   switch (props.status) {
-    case 'progress':
+    case 'in-progress':
       return (<Spin><InProgressIcon/></Spin>);
     case 'paused':
       return (<PauseCircleIcon/>);
     case 'completed':
       return (<OkIcon style={{color: '#80D228'}}/>);
-    case 'error':
+    case 'in-error':
       return (<ErrorCircleOIcon/>);
     default:
       throw new Error(`Invalid status ${status}`);
   }
 }
 
-type Statuses = 'progress' | 'completed' | 'error' | 'paused';
+type Statuses = 'in-progress' | 'completed' | 'in-error' | 'paused';
 
 function Popup(props) {
   return (
@@ -48,7 +47,7 @@ function Popup(props) {
 export function ProcessingApp(props: ProcessingAppProps) {
 
   if (!props.progressEvents) {
-    return (<Popup><Loader/></Popup>);
+    return (<Popup><Loader aria-label="Waiting for server response..."/></Popup>);
   }
 
   const progressSteps: Array<{ id: number, name: string, message: string, status: Statuses }> = new Array(4);
@@ -63,20 +62,26 @@ export function ProcessingApp(props: ProcessingAppProps) {
       id: i,
       name: step.name,
       message: step.message,
-      status: status ? (status.data && status.data.error ? 'error' : 'completed') : 'progress',
+      status: status ? (status.data && status.data.error ? 'in-error' : 'completed') : 'in-progress',
     };
   }
 
   const ProgressEvent = ({event}) => (
-    <DataListItem aria-labelledby="Progress event" isExpanded={false}>
+    <DataListItem aria-labelledby={`progress-event-${event.name}`} isExpanded={false}>
       <DataListCell width={1}><StatusIcon status={event.status}/></DataListCell>
-      <DataListCell width={4}>{event.message}</DataListCell>
+      <DataListCell
+        width={4}
+        id={`progress-event-${event.name}`}
+        aria-label={`${event.name} is ${event.status}`}
+      >
+        {event.message}
+      </DataListCell>
     </DataListItem>
   );
 
   return (
     <Popup>
-      <DataList aria-label="Progress events">
+      <DataList aria-label="Receiving launch progress events...">
         {progressSteps.map(s => (<ProgressEvent key={s.id} event={s}/>))}
       </DataList>
     </Popup>

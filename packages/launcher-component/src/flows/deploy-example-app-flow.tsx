@@ -51,10 +51,10 @@ function getFlowStatus(app: ExampleApp) {
   };
 }
 
-export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
+export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () => void }) {
   const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('deploy-example-app', defaultExampleApp);
   const autoSetCluster = useAutoSetCluster(setApp);
-  const autoSetDestRepository = useAutoSetDestRepository(generate().dashed, setApp);
+  const autoSetDestRepository = useAutoSetDestRepository(props.appName || generate().dashed, setApp);
 
   const onCancel = () => {
     clear();
@@ -65,8 +65,8 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
 
   const items = [
     {
-      id: 'example',
-      title: 'Example',
+      id: ExampleHub.id,
+      title: ExampleHub.title,
       overview: {
         component: ({edit}) => (
           <ExampleHub.Overview value={app.example} onClick={edit}/>
@@ -87,8 +87,8 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'destRepository',
-      title: 'Destination Repository',
+      id: DestRepositoryHub.id,
+      title: DestRepositoryHub.title,
       loading: autoSetDestRepository.loading,
       overview: {
         component: ({edit}) => (
@@ -110,8 +110,8 @@ export function DeployExampleAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'openshift-deployment',
-      title: 'OpenShift Deployment',
+      id: DeploymentHub.id,
+      title: DeploymentHub.title,
       loading: autoSetCluster.loading,
       overview: {
         component: ({edit}) => (
