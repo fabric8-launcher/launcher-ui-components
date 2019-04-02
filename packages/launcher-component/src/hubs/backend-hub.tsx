@@ -6,8 +6,9 @@ import { EnumsRuntimesLoaders, RuntimeLoader } from '../loaders/enums-runtimes-l
 import { CapabilitiesByModuleLoader, CapabilitiesLoader, capabilityToItem } from '../loaders/capabilities-loader';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
-import { Button, EmptyState, EmptyStateBody, List, ListItem, Split, SplitItem, Text, TextVariants, Title } from '@patternfly/react-core';
+import { Button, List, ListItem, Split, SplitItem, Text, TextVariants } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
+import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
 
 export interface BackendFormValue {
   runtimePickerValue?: RuntimePickerValue;
@@ -15,6 +16,8 @@ export interface BackendFormValue {
 }
 
 export const BackendHub: FormHub<BackendFormValue> = {
+  id: 'backend',
+  title: 'Backend',
   checkCompletion: value => {
     return !!value.runtimePickerValue && RuntimePicker.checkCompletion(value.runtimePickerValue)
       && !!value.capabilitiesPickerValue && CapabilitiesPicker.checkCompletion(value.capabilitiesPickerValue);
@@ -22,20 +25,20 @@ export const BackendHub: FormHub<BackendFormValue> = {
   Overview: props => {
     if (!BackendHub.checkCompletion(props.value)) {
       return (
-        <EmptyState>
-          <Title size="lg">You can configure a Backend for your application</Title>
-          <EmptyStateBody>
+        <OverviewEmpty
+          id={BackendHub.id}
+          title="You can configure a Backend for your application"
+          action={<Button variant="primary" onClick={props.onClick}>Configure a Backend</Button>}
+        >
             By selecting a bunch of capabilities (Http Api, Database, ...), you will be able to bootstrap the backend of
             your application in a few seconds...
-          </EmptyStateBody>
-          <Button variant="primary" onClick={props.onClick}>Configure a Backend</Button>
-        </EmptyState>
+        </OverviewEmpty>
       );
     }
     return (
       <RuntimeLoader id={props.value.runtimePickerValue!.id!}>
         {runtime => (
-          <OverviewComplete title={`Your ${runtime!.name} backend is configured`}>
+          <OverviewComplete id={BackendHub.id} title={`Your ${runtime!.name} backend is configured`}>
             <Split>
               <SplitItem isMain={false}>
                 <img src={runtime!.icon} style={{marginRight: '20px', height: '75px'}}/>
@@ -72,6 +75,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
   Form: props => {
     return (
       <FormPanel
+        id={BackendHub.id}
         initialValue={props.initialValue}
         // We don't check completion because no backend (with a frontend) is valid
         onSave={props.onSave}

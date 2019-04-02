@@ -4,31 +4,34 @@ import { RuntimePicker, RuntimePickerValue } from '../pickers/runtime-picker';
 import { EnumsRuntimesLoaders, RuntimeLoader } from '../loaders/enums-runtimes-loaders';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
-import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
+import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
 
 export interface FrontendFormValue {
   runtimePickerValue?: RuntimePickerValue;
 }
 
 export const FrontendHub: FormHub<FrontendFormValue> = {
+  id: 'frontend',
+  title: 'Frontend',
   checkCompletion: value => !!value.runtimePickerValue && RuntimePicker.checkCompletion(value.runtimePickerValue),
   Overview: props => {
     if (!FrontendHub.checkCompletion(props.value)) {
       return (
-        <EmptyState>
-          <Title size="lg">You can configure a Frontend for your application</Title>
-          <EmptyStateBody>
-            You will be able to bootstrap the frontend of your application in a few seconds...
-          </EmptyStateBody>
-          <Button variant="primary" onClick={props.onClick}>Configure a Frontend</Button>
-        </EmptyState>
+        <OverviewEmpty
+          id={FrontendHub.id}
+          title="You can configure a Frontend for your application"
+          action={<Button variant="primary" onClick={props.onClick}>Configure a Frontend</Button>}
+        >
+          You will be able to bootstrap the frontend of your application in a few seconds...
+        </OverviewEmpty>
       );
     }
     return (
       <RuntimeLoader id={props.value.runtimePickerValue!.id!}>
         {runtime => (
-          <OverviewComplete title={`Your ${runtime!.name} frontend is configured`}>
+          <OverviewComplete id={FrontendHub.id} title={`Your ${runtime!.name} frontend is configured`}>
             <img src={runtime!.icon} style={{margin: '5px auto', height: '160px'}}/>
           </OverviewComplete>
         )}
@@ -37,6 +40,7 @@ export const FrontendHub: FormHub<FrontendFormValue> = {
   },
   Form: props => (
     <FormPanel
+      id={FrontendHub.id}
       initialValue={props.initialValue}
       // We don't check completion because no backend (with a frontend) is valid
       onSave={props.onSave}

@@ -22,6 +22,8 @@ export interface OverviewProps<T> {
 }
 
 export interface Hub<V = undefined, O = any> {
+  id: string;
+  title: string;
   Overview: FunctionComponent<O>;
 }
 

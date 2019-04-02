@@ -4,26 +4,29 @@ import { FormPanel } from '../core/form-panel/form-panel';
 import { ExamplesLoader, ExamplesLoaderWithFilter } from '../loaders/example-catalog-loader';
 import { ExamplePicker, ExamplePickerValue } from '../pickers/example-picker';
 import { FormHub } from '../core/types';
-import { Button, EmptyState, EmptyStateBody, Title } from '@patternfly/react-core';
+import { Button } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 import { ExampleMission } from 'launcher-client';
+import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
 
 export interface ExampleFormValue {
   examplePickerValue?: ExamplePickerValue;
 }
 
 export const ExampleHub: FormHub<ExampleFormValue> = {
+  id: 'example',
+  title: 'Example',
   checkCompletion: value => !!value.examplePickerValue && ExamplePicker.checkCompletion(value.examplePickerValue),
   Overview: props => {
     if (!ExampleHub.checkCompletion(props.value)) {
       return (
-        <EmptyState>
-          <Title size="lg">You need to select a Example</Title>
-          <EmptyStateBody>
-            You will be able to have an entire application running in a few seconds...
-          </EmptyStateBody>
-          <Button variant="primary" onClick={props.onClick}>Select an Example</Button>
-        </EmptyState>
+        <OverviewEmpty
+          id={ExampleHub.id}
+          title="You need to select a Example"
+          action={<Button variant="primary" onClick={props.onClick}>Select an Example</Button>}
+        >
+          You will be able to have an entire application running in a few seconds...
+        </OverviewEmpty>
       );
     }
     return (
@@ -31,7 +34,7 @@ export const ExampleHub: FormHub<ExampleFormValue> = {
         query={{missionId: props.value.examplePickerValue!.missionId, runtimeId: props.value.examplePickerValue!.runtimeId}}
       >
         {result => (
-          <OverviewComplete title={`Your example will be ${result.name} using:`}>
+          <OverviewComplete id={ExampleHub.id} title={`Your example will be ${result.name} using:`}>
             <img src={(result as ExampleMission).runtime![0].icon} style={{margin: '5px auto', height: '160px'}}/>
           </OverviewComplete>
         )}
@@ -40,6 +43,7 @@ export const ExampleHub: FormHub<ExampleFormValue> = {
   },
   Form: props => (
     <FormPanel
+      id={ExampleHub.id}
       initialValue={props.initialValue}
       validator={ExampleHub.checkCompletion}
       onSave={props.onSave}

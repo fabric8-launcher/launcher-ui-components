@@ -47,10 +47,10 @@ function getFlowStatus(app: NewApp) {
   };
 }
 
-export function CreateNewAppFlow(props: { onCancel?: () => void }) {
+export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => void }) {
   const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('new-app-flow', defaultCustomApp);
   const autoSetCluster = useAutoSetCluster(setApp);
-  const autoSetDestRepository = useAutoSetDestRepository(generate().dashed, setApp);
+  const autoSetDestRepository = useAutoSetDestRepository(props.appName || generate().dashed, setApp);
 
   const onCancel = () => {
     clear();
@@ -59,8 +59,8 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
 
   const items = [
     {
-      id: 'frontend',
-      title: 'Frontend',
+      id: FrontendHub.id,
+      title: FrontendHub.title,
       overview: {
         component: ({edit}) => (
           <FrontendHub.Overview value={app.frontend} onClick={edit}/>
@@ -81,8 +81,8 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'backend',
-      title: 'Backend',
+      id: BackendHub.id,
+      title: BackendHub.title,
       overview: {
         component: ({edit}) => (
           <BackendHub.Overview value={app.backend} onClick={edit}/>
@@ -103,8 +103,8 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'welcome-app',
-      title: 'Welcome Application',
+      id: WelcomeAppHub.id,
+      title: WelcomeAppHub.title,
       overview: {
         component: () => (
           <WelcomeAppHub.Overview/>
@@ -113,8 +113,8 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'destRepository',
-      title: 'Destination Repository',
+      id: DestRepositoryHub.id,
+      title: DestRepositoryHub.title,
       loading: autoSetDestRepository.loading,
       overview: {
         component: ({edit}) => (
@@ -136,8 +136,8 @@ export function CreateNewAppFlow(props: { onCancel?: () => void }) {
       }
     },
     {
-      id: 'openshift-deployment',
-      title: 'OpenShift Deployment',
+      id: DeploymentHub.id,
+      title: DeploymentHub.title,
       loading: autoSetCluster.loading,
       overview: {
         component: ({edit}) => (
