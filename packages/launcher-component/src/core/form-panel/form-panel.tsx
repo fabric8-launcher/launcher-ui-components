@@ -5,10 +5,15 @@ import { InputProps } from '../types';
 import { Separator } from '../stuff';
 
 interface FormPanelProps<T> {
+  id?: string;
   initialValue: T;
+
   validator?(value: T): boolean;
+
   children(inputProps: InputProps<T>): any;
+
   onSave?(value: T);
+
   onCancel?();
 }
 
@@ -27,16 +32,24 @@ export function FormPanel<T>(props: FormPanelProps<T>) {
       props.onCancel();
     }
   };
+  const id = props.id || 'form';
   return (
     <div className="form-panel" style={{padding: '20px'}}>
       {props.children({value, onChange})}
       <Separator/>
       <Toolbar>
         <ToolbarGroup>
-          <Button variant="primary" onClick={onSave} isDisabled={props.validator && !props.validator(value)}>Save</Button>
+          <Button
+            variant="primary"
+            aria-label={'Save ' + id}
+            onClick={onSave}
+            isDisabled={props.validator && !props.validator(value)}
+          >
+            Save
+          </Button>
         </ToolbarGroup>
         <ToolbarGroup>
-          <Button variant="secondary" onClick={onCancel}>Cancel</Button>
+          <Button variant="secondary" aria-label={'Cancel ' + id} onClick={onCancel}>Cancel</Button>
         </ToolbarGroup>
       </Toolbar>
     </div>

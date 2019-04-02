@@ -19,3 +19,20 @@
   font-family: monospace;
   font-weight: bold;
 }
+
+.spin {
+
+  svg {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+}
+
+.loader {
+  text-align: center;
+  margin: 50px 0;
+}
+

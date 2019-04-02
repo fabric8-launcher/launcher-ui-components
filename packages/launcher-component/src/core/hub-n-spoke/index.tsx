@@ -5,8 +5,7 @@ import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import style from './hub-n-spoke.module.scss';
-import { AlertError, optionalBool } from '../stuff';
-import { Loader } from '../data-loader/data-loader';
+import { AlertError, Loader, optionalBool } from '../stuff';
 
 export interface HubItem {
   id: string;
@@ -59,14 +58,14 @@ export function HubOverviewCard(props: HubItem) {
         </h1>
         <div className="hub-and-spoke-nav">
           {!loading && props.form && (
-            <Button variant="plain" aria-label={`edit-${props.id}`} onClick={onEdit}>
+            <Button variant="plain" aria-label={`Open ${props.id} editor`} onClick={onEdit}>
               <EditIcon/>
             </Button>
           )}
         </div>
       </div>
       <div className="hub-and-spoke-body">
-        {loading ? <Loader />: props.overview.component({edit: onEdit})}
+        {loading ? <Loader aria-label={`Loading ${props.id}`} />: props.overview.component({edit: onEdit})}
       </div>
     </GridItem>
   );
@@ -86,13 +85,13 @@ function HubFormCard(props: HubFormCardProps) {
     }
   };
   return (
-    <GridItem className="hub-and-spoke-item hub-and-spoke-item-form" span={12}>
+    <GridItem className="hub-and-spoke-item hub-and-spoke-item-form" span={12} aria-label={`Edit ${props.id}`}>
       <div className="hub-and-spoke-header">
         <h1>
           {props.title}
         </h1>
         <div className="hub-and-spoke-nav">
-          <Button variant="plain" aria-label={`close-${props.id}`} onClick={onClose}>
+          <Button variant="plain" aria-label={`Close ${props.id} editor`} onClick={onClose}>
             <WindowCloseIcon/>
           </Button>
         </div>
@@ -120,7 +119,7 @@ export function Hint(props: { value: string }) {
         <Alert
           variant={AlertVariant.info}
           title="What should I do?"
-          aria-label="hint-in-hub-n-spoke"
+          aria-label="Hint"
           style={{margin: '40px'}}
           action={<AlertActionCloseButton onClose={() => setVisible(false)}/>}
         >

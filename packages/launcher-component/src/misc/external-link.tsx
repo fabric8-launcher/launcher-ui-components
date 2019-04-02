@@ -3,8 +3,9 @@ import { Button } from '@patternfly/react-core';
 import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
 
 export function ExternalLink(props: {
-  children: React.ReactNode
-  href: string
+  'aria-label'?: string;
+  children: React.ReactNode;
+  href: string;
 }) {
   return (
     <Button
@@ -12,6 +13,7 @@ export function ExternalLink(props: {
       component="a"
       variant="link"
       href={props.href}
+      aria-label={props['aria-label']}
       target={'_blank'}
     >
         {props.children} <ExternalLinkSquareAltIcon />

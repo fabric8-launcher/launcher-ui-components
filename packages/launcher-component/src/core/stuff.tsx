@@ -2,9 +2,31 @@ import { Alert, AlertVariant, Button, ButtonProps, Modal, ModalProps, Title } fr
 import * as React from 'react';
 
 import style from './stuff.module.scss';
+import { InProgressIcon } from '@patternfly/react-icons';
 
 export function optionalBool(val: (boolean | undefined), defaultValue: boolean): boolean {
   return val === undefined ? defaultValue : val!;
+}
+
+export function Spin(props: { children: React.ReactNode }) {
+  return (
+    <span className={style.spin}>
+      {props.children}
+    </span>
+  );
+}
+
+export function Loader(props: { 'aria-label'?: string; error?: any; }) {
+  return (
+    <div className={style.loader} aria-label={props['aria-label']}>
+      {!props || !props!.error &&
+      <Spin><InProgressIcon/></Spin>
+      }
+      {props && props.error &&
+      <AlertError error={props.error}/>
+      }
+    </div>
+  );
 }
 
 export function Separator() {
@@ -50,4 +72,22 @@ export class FixedModal extends React.Component<ModalProps> {
   public render() {
     return <Modal {...this.props} />;
   }
+}
+
+export interface EffectSafety {
+  callSafely: (fn: () => void) => void;
+  unload: () => void;
+}
+
+export function effectSafety(): EffectSafety {
+  const unMounted = { status: false };
+  const unload = () => {
+    unMounted.status = true;
+  };
+  const callSafely = (fn: () => void) => {
+    if(!unMounted.status) {
+      fn();
+    }
+  };
+  return { callSafely, unload };
 }

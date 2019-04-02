@@ -27,7 +27,7 @@ exports[`<HubNSpoke /> renders the HubNSpoke correctly 1`] = `
             class="hub-and-spoke-nav"
           >
             <button
-              aria-label="edit-hub1"
+              aria-label="Open hub1 editor"
               class="pf-c-button pf-m-plain"
               type="button"
             >
@@ -69,7 +69,7 @@ exports[`<HubNSpoke /> renders the HubNSpoke correctly 1`] = `
             class="hub-and-spoke-nav"
           >
             <button
-              aria-label="edit-hub2"
+              aria-label="Open hub2 editor"
               class="pf-c-button pf-m-plain"
               type="button"
             >
@@ -111,7 +111,7 @@ exports[`<HubNSpoke /> renders the HubNSpoke correctly 1`] = `
             class="hub-and-spoke-nav"
           >
             <button
-              aria-label="edit-hub3"
+              aria-label="Open hub3 editor"
               class="pf-c-button pf-m-plain"
               type="button"
             >
@@ -160,6 +160,7 @@ exports[`<HubNSpoke /> show the edition panel for the clicked hub 1`] = `
       class="pf-l-grid pf-m-gutter hub-and-spoke-container"
     >
       <div
+        aria-label="Edit hub1"
         class="pf-l-grid__item pf-m-12-col hub-and-spoke-item hub-and-spoke-item-form"
       >
         <div
@@ -172,7 +173,7 @@ exports[`<HubNSpoke /> show the edition panel for the clicked hub 1`] = `
             class="hub-and-spoke-nav"
           >
             <button
-              aria-label="close-hub1"
+              aria-label="Close hub1 editor"
               class="pf-c-button pf-m-plain"
               type="button"
             >
@@ -233,7 +234,7 @@ exports[`<HubNSpoke /> show the edition panel for the clicked hub 2`] = `
             class="hub-and-spoke-nav"
           >
             <button
-              aria-label="edit-hub1"
+              aria-label="Open hub1 editor"
               class="pf-c-button pf-m-plain"
               type="button"
             >
@@ -275,7 +276,7 @@ exports[`<HubNSpoke /> show the edition panel for the clicked hub 2`] = `
             class="hub-and-spoke-nav"
           >
             <button
-              aria-label="edit-hub2"
+              aria-label="Open hub2 editor"
               class="pf-c-button pf-m-plain"
               type="button"
             >
@@ -317,7 +318,7 @@ exports[`<HubNSpoke /> show the edition panel for the clicked hub 2`] = `
             class="hub-and-spoke-nav"
           >
             <button
-              aria-label="edit-hub3"
+              aria-label="Open hub3 editor"
               class="pf-c-button pf-m-plain"
               type="button"
             >

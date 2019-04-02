@@ -14,7 +14,7 @@ import { OpenshiftIcon } from '@patternfly/react-icons';
 import { OpenShiftCluster } from 'launcher-client';
 
 import { InputProps, Picker } from '../core/types';
-import { Loader } from '../core/data-loader/data-loader';
+import { Loader } from '../core/stuff';
 
 export interface ClusterPickerValue {
   clusterId?: string;

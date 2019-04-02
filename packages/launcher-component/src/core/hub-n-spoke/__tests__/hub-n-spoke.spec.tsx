@@ -13,11 +13,11 @@ describe('<HubNSpoke />', () => {
 
   it('show the edition panel for the clicked hub', () => {
     const comp = render(<HubNSpoke title="HubNSpoke" items={mockItems} />);
-    const editHub1Button = comp.getByLabelText('edit-hub1');
+    const editHub1Button = comp.getByLabelText('Open hub1 editor');
     fireEvent.click(editHub1Button);
     expect(comp.getByText('this is hub 1 edition form')).toBeDefined();
     expect(comp.asFragment()).toMatchSnapshot();
-    fireEvent.click(comp.getByLabelText('close-hub1'));
+    fireEvent.click(comp.getByLabelText('Close hub1 editor'));
     expect(comp.getByText('this is hub 2 overview')).toBeDefined();
     expect(comp.asFragment()).toMatchSnapshot();
   });

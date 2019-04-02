@@ -4,12 +4,16 @@ import { AuthorizationTokenProvider, cachedLauncherClient, checkNotNull, Launche
 
 interface LauncherClientProviderProps {
   children: React.ReactNode;
+  client?: LauncherClient;
   creatorUrl?: string;
   launcherUrl?: string;
   authorizationTokenProvider?: AuthorizationTokenProvider;
 }
 
 function buildLauncherClient(props: LauncherClientProviderProps) {
+  if(props.client) {
+    return props.client;
+  }
   let client: LauncherClient;
   if (!!props.creatorUrl || !!props.launcherUrl) {
     checkNotNull(props.launcherUrl, 'launcherUrl');
