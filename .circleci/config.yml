@@ -17,15 +17,26 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn install
-      - run: yarn build
+      - run: 
+          name: Build project
+          command: |
+            export NODE_ENV=development
+            export REACT_APP_CLIENT=mock
+            export REACT_APP_AUTHENTICATION=mock
+            yarn build
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run:
+          name: Deploy Preview
+          command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/upload_preview.sh; fi
+
       # Run tests
       - run: yarn test
 
       # Run coverage
       - run: yarn codecov
+
