@@ -3,8 +3,10 @@ import filesize from 'rollup-plugin-filesize';
 import tslint from 'rollup-plugin-tslint';
 import typescript from 'rollup-plugin-typescript2';
 import json from 'rollup-plugin-json';
+import stripCode from "rollup-plugin-strip-code"
 
 import pkg from './package.json';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const config = {
     input: 'src/index.ts',
@@ -34,6 +36,10 @@ const config = {
             useTsconfigDeclarationDir: true
         }),
         json(),
+        isProduction && stripCode({
+            start_comment: 'test-code',
+            end_comment: 'end-test-code'
+        }),
         filesize(),
     ],
 };
