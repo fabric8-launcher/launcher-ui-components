@@ -7,7 +7,18 @@ import { AnyExample, constructModel, filter, ExampleMission, Catalog } from 'lau
 export function ExamplesLoaderWithFilter(props: { query: { missionId?: string, runtimeId?: string }, children: (obj: AnyExample) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.exampleCatalog().then(catalog => {
-    const anyExamples = filter({mission: {id: props.query.missionId, name: '', runtime: {id: props.query.runtimeId, icon: ''}}}, catalog);
+    const query = {
+      mission: {
+        id: props.query.missionId,
+        name: '',
+        runtime: {
+          id: props.query.runtimeId,
+          name: '',
+          icon: ''
+        }
+      }
+    };
+    const anyExamples = filter(query, catalog);
     return anyExamples[0];
   });
   return (
