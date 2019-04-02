@@ -1,4 +1,9 @@
 module.exports = {
+  collectCoverage: true,
+  clearMocks: true,
+  coverageReporters: [
+    "lcov"
+  ],
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   moduleNameMapper: {
