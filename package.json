@@ -50,7 +50,7 @@
     "eslint": "5.16.0",
     "ghooks": "2.0.4",
     "identity-obj-proxy": "3.0.0",
-    "jest": "24.5.0",
+    "jest": "24.6.0",
     "lerna": "3.13.1",
     "node-sass": "4.11.0",
     "react-testing-library": "6.0.4",
