@@ -33,11 +33,15 @@ export const ExampleHub: FormHub<ExampleFormValue> = {
       <ExamplesLoaderWithFilter
         query={{missionId: props.value.examplePickerValue!.missionId, runtimeId: props.value.examplePickerValue!.runtimeId}}
       >
-        {result => (
-          <OverviewComplete id={ExampleHub.id} title={`Your example will be ${result.name} using:`}>
-            <img src={(result as ExampleMission).runtime![0].icon} style={{margin: '5px auto', height: '160px'}}/>
-          </OverviewComplete>
-        )}
+        {(result) => {
+          const runtime = (result as ExampleMission).runtime![0];
+          return (<OverviewComplete id={ExampleHub.id} title={`Your example will be ${result.name} using:`}>
+            {runtime.icon &&
+              <img src={runtime.icon} style={{ margin: '5px auto', height: '160px' }} />}
+            {!runtime.icon &&
+              <h1>{runtime.name}</h1>}
+          </OverviewComplete>);
+        }}
       </ExamplesLoaderWithFilter>
     );
   },
