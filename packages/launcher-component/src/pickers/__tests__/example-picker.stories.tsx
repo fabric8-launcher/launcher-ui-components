@@ -17,14 +17,14 @@ storiesOf('Pickers', module)
   .add('ExamplePicker', () => {
     return (
       <ExamplesLoader>
-        {catalog => (
+        {missions => (
           <FormPanel
             initialValue={{}}
             validator={ExamplePicker.checkCompletion}
             onSave={action('save')}
             onCancel={action('cancel')}
           >
-            {(inputProps) => (<ExamplePicker.Element {...inputProps} {...catalog}/>)}
+            {(inputProps) => (<ExamplePicker.Element {...inputProps} missions={missions}/>)}
           </FormPanel>
         )}
       </ExamplesLoader>

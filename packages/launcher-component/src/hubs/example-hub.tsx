@@ -57,11 +57,11 @@ export const ExampleHub: FormHub<ExampleFormValue> = {
                         Once the use case is selected you can select the runtime implementation"
             />
             <ExamplesLoader>
-              {catalog => (
+              {missions => (
                 <ExamplePicker.Element
                   value={inputProps.value.examplePickerValue || {}}
                   onChange={(examplePickerValue) => inputProps.onChange({...inputProps.value, examplePickerValue})}
-                  {...catalog}
+                  missions={missions}
                 />
               )}
             </ExamplesLoader>
