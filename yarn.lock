@@ -1878,20 +1878,20 @@
     universal-user-agent "^2.0.0"
     url-template "^2.0.8"
 
-"@patternfly/react-core@2.9.2":
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-2.9.2.tgz#f21cfaaa244d690ff0429f53fff5f937d1c7d16b"
-  integrity sha512-v93pAA9dXTzsgFeR8W4+fg0kC0joB4BISFoSqzb22+/cNvSnEypC/DjBN4pOUEoBvsFC/JI8FotQoj9ZAx3GAw==
+"@patternfly/react-core@2.10.9":
+  version "2.10.9"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-2.10.9.tgz#eae50f10542e9e820c24223cb8f319540131e157"
+  integrity sha512-essayLc3SgQmRFXppGD/9LZg57wg3D+6r3HsU7KPmLf4DoXbvYpfJWD7Ra1dG2m6+WOzPdMjk0Fjg2rqhmbeVQ==
   dependencies:
-    "@patternfly/react-icons" "^3.6.1"
+    "@patternfly/react-icons" "^3.7.1"
     "@patternfly/react-styles" "^2.4.0"
-    "@patternfly/react-tokens" "^2.2.1"
+    "@patternfly/react-tokens" "^2.3.0"
     "@tippy.js/react" "^1.1.1"
     emotion "^9.2.9"
     exenv "^1.2.2"
     focus-trap-react "^4.0.1"
 
-"@patternfly/react-icons@3.7.1", "@patternfly/react-icons@^3.6.1":
+"@patternfly/react-icons@3.7.1", "@patternfly/react-icons@^3.7.1":
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.7.1.tgz#86fe0b75e871ddaeefb21c2d09f520eb6e88f1ea"
   integrity sha512-Q7MDYKy+/4SjMR4UVK35Dg1srE2i4zwFiMA8UpuKqfqPaE5DsfpJALLeedxIiuMjhVC2XwoEwiQQkNczB2ejQQ==
@@ -1914,10 +1914,10 @@
     relative "^3.0.2"
     resolve-from "^4.0.0"
 
-"@patternfly/react-tokens@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-2.2.1.tgz#703d79535884d88a0c2cce517956318d6ba6156c"
-  integrity sha512-DVGrHRPpNvIhS9ekn7lqvXdHHAbkCawwfc8hRCuGvGS2Z6O45u1JFTyKWTyvW9b94pigaDTArtMlp++k5o1Xpw==
+"@patternfly/react-tokens@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-2.3.0.tgz#27ca4ba24ca2fb0a43c4af8a2052a17c041ba429"
+  integrity sha512-ni5abWOau8NwsN6oZNj+NX0QzqE1XX0WtOjBuhZSV4wtKCNwLNRlLHNLXdpVeT4nffhcMdKVV/yFxkgipUC7AA==
 
 "@reach/router@^1.2.1":
   version "1.2.1"
