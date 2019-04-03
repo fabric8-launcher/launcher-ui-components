@@ -7,12 +7,12 @@ PR_NUM=$(printf %s\\n "${URL_SPLIT[@]:(-1)}")
 # So, just replace "/" or "." with "-"
 
 DEPLOY_APP_SUBDOMAIN=`echo "$PR_NUM-pr-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
-DEPLOY_APP_DOMAIN="https://${DEPLOY_SUBDOMAIN}.surge.sh"
+DEPLOY_APP_DOMAIN="https://${DEPLOY_APP_SUBDOMAIN}.surge.sh"
 ALREADY_DEPLOYED_APP=`yarn run surge list | grep ${DEPLOY_APP_DOMAIN}`
 
 yarn build:mock-api
 
-yarn run surge --project build --domain $DEPLOY_APP_DOMAIN;
+yarn run surge --project build --domain ${DEPLOY_APP_DOMAIN};
 
 if [ -z "$ALREADY_DEPLOYED" ]
 then
@@ -23,7 +23,7 @@ then
   echo "Adding github PR comment ${GITHUB_PR_COMMENTS}"
   curl -H "Authorization: token ${GH_PR_TOKEN}" --request POST ${GITHUB_PR_COMMENTS} --data '{"body":"Launcher Frontend preview: '${DEPLOY_APP_DOMAIN}'"}'
 else
-  echo "Already deployed ${DEPLOY_DOMAIN}"
+  echo "Already deployed ${DEPLOY_APP_DOMAIN}"
 fi
 
 DEPLOY_STORYBOOK_SUBDOMAIN=`echo "$PR_NUM-pr-storybook-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
