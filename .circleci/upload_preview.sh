@@ -8,7 +8,7 @@ PR_NUM=$(printf %s\\n "${URL_SPLIT[@]:(-1)}")
 
 DEPLOY_APP_SUBDOMAIN=`echo "$PR_NUM-pr-launcher-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_APP_DOMAIN="https://${DEPLOY_APP_SUBDOMAIN}.surge.sh"
-ALREADY_DEPLOYED_APP=`yarn run surge list | grep ${DEPLOY_APP_DOMAIN}`
+ALREADY_DEPLOYED_APP=`yarn run surge list | grep ${DEPLOY_APP_SUBDOMAIN}`
 
 yarn app:build:mock-api
 
@@ -16,7 +16,7 @@ yarn run surge --project ./packages/launcher-app/build --domain ${DEPLOY_APP_DOM
 
 DEPLOY_STORYBOOK_SUBDOMAIN=`echo "$PR_NUM-pr-storybook-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_STORYBOOK_DOMAIN="https://${DEPLOY_STORYBOOK_SUBDOMAIN}.surge.sh"
-ALREADY_DEPLOYED_STORYBOOK=`yarn run surge list | grep ${DEPLOY_STORYBOOK_DOMAIN}`
+ALREADY_DEPLOYED_STORYBOOK=`yarn run surge list | grep ${DEPLOY_STORYBOOK_SUBDOMAIN}`
 
 yarn comp:storybook:build
 
