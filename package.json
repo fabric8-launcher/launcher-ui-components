@@ -33,6 +33,7 @@
     "comp:build": "yarn workspace launcher-component build",
     "comp:test": "yarn workspace launcher-component test",
     "comp:storybook": "yarn workspace launcher-component storybook",
+    "comp:storybook:build": "yarn workspace launcher-component storybook:build",
     "comp:storybook:publish": "yarn workspace launcher-component storybook:publish"
   },
   "browserslist": [
