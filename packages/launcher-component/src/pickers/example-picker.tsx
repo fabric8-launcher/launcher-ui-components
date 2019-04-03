@@ -68,20 +68,22 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
             missions!.map((mission, i) => {
               const isSelected = props.value.missionId === mission.id;
               const onChange = (runtimeId = props.value.runtimeId, versionId?) => {
+                const runtime = (mission.runtime! as any).find(r => r.id === runtimeId);
                 if (runtimeId) {
-                  const runtime = (mission.runtime! as any).find(r => r.id === runtimeId);
                   if (!runtime || !runtime.versions || runtime.versions.lenght <= 0) {
                     runtimeId = undefined;
                   } else if(!versionId) {
                     versionId = runtime.versions[0].id;
                   }
                 }
+                const version = runtime && runtime.versions.find(v => v.id === versionId);
                 props.onChange({
                   ...props.value,
                   missionId: mission.id,
                   runtimeId,
                   versionId,
-                  downloadOnly: mission.metadata.istio || false
+                  downloadOnly: (version && (version.metadata.runsOn.indexOf('local') !== -1
+                    || version.metadata.runsOn.indexOf('none')) !== -1) || false
                 });
               };
               const selectedRuntime = (mission.runtime! as any).find(r => r.id === props.value.runtimeId);

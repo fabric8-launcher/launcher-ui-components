@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<ExamplePicker /> download only for runsOn "local" 1`] = `
+Object {
+  "downloadOnly": true,
+  "missionId": "test",
+  "runtimeId": "nodejs",
+  "versionId": "community",
+}
+`;
+
+exports[`<ExamplePicker /> download only for runsOn "none" 1`] = `
+Object {
+  "downloadOnly": true,
+  "missionId": "test",
+  "runtimeId": "nodejs",
+  "versionId": "community",
+}
+`;
+
 exports[`<ExamplePicker /> renders the ExamplePicker correctly 1`] = `
 <DocumentFragment>
   <div
@@ -99,6 +117,15 @@ exports[`<ExamplePicker /> renders the ExamplePicker correctly 1`] = `
 `;
 
 exports[`<ExamplePicker /> show the version dropdown 1`] = `
+Object {
+  "downloadOnly": false,
+  "missionId": "test",
+  "runtimeId": "nodejs",
+  "versionId": "community",
+}
+`;
+
+exports[`<ExamplePicker /> show the version dropdown 2`] = `
 <DocumentFragment>
   <div
     class="form-panel"
