@@ -14,7 +14,7 @@ yarn app:build:mock-api
 
 yarn run surge --project ./packages/launcher-app/build --domain ${DEPLOY_APP_DOMAIN};
 
-if [ -z "$ALREADY_DEPLOYED" ]
+if [ -z "$ALREADY_DEPLOYED_APP" ]
 then
   # Using the Issues api instead of the PR api
   # Done so because every PR is an issue, and the issues api allows to post general comments,
