@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ImportExistingFlow /> Configure source repository to import and check full launch until next steps: Console link 1`] = `"https://console.starter-us-east-2.openshift.com/console/projects"`;
+exports[`<ImportExistingFlow /> Configure source repository to import and check full launch until next steps popup: Console link 1`] = `"https://console.starter-us-east-2.openshift.com/console/projects"`;
 
-exports[`<ImportExistingFlow /> Configure source repository to import and check full launch until next steps: payload 1`] = `
+exports[`<ImportExistingFlow /> Configure source repository to import and check full launch until next steps popup: payload 1`] = `
 Object {
   "clusterId": "starter-ca-central-1",
   "project": Object {

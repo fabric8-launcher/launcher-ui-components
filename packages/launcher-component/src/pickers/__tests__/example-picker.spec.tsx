@@ -18,16 +18,13 @@ describe('<ExamplePicker />', () => {
       <FormPanel
         initialValue={{}}
         validator={ExamplePicker.checkCompletion}
-        onSave={value => {
-          expect(value).toMatchSnapshot();
-          handleSave();
-        }}
+        onSave={handleSave}
         onCancel={() => {}}
       >
         {(inputProps) => (<ExamplePicker.Element missions={missions} {...inputProps}/>)}
       </FormPanel>
     );
-    const missionRadio = comp.getByLabelText('Choose Mission Name as mission');
+    const missionRadio = comp.getByLabelText('Choose circuit-breaker as mission');
     fireEvent.click(missionRadio);
     expect(comp.getByLabelText('Select Runtime')).toBeDefined();
     fireEvent.change(comp.getByLabelText('Select Runtime'), { target: { value: 'nodejs' } });
@@ -35,7 +32,8 @@ describe('<ExamplePicker />', () => {
     fireEvent.change(comp.getByLabelText('Select Version'), { target: { value: 'community' } });
     fireEvent.click(comp.getByText('Save'));
     expect(handleSave).toHaveBeenCalledTimes(1);
-    expect(comp.asFragment()).toMatchSnapshot();
+    expect(handleSave.mock.calls[0][0]).toMatchSnapshot('Saved value');
+    expect(comp.asFragment()).toMatchSnapshot('Component');
   });
 
   it('download only for runsOn "local"', () => {
@@ -48,28 +46,29 @@ describe('<ExamplePicker />', () => {
 });
 
 const downloadOnlyTest = runsOn => {
-  let value: any;
+  const handleSave = jest.fn();
   const comp = render(
     <FormPanel
       initialValue={{}}
       validator={ExamplePicker.checkCompletion}
-      onSave={v => value = v}
+      onSave={handleSave}
       onCancel={() => {}}
     >
       {(inputProps) => (<ExamplePicker.Element missions={missions} {...inputProps}/>)}
     </FormPanel>
   );
   missions[0].runtime![0].versions[0].metadata.runsOn = runsOn;
-  const missionRadio = comp.getByLabelText('Choose Mission Name as mission');
+  const missionRadio = comp.getByLabelText('Choose circuit-breaker as mission');
   fireEvent.click(missionRadio);
   fireEvent.change(comp.getByLabelText('Select Runtime'), { target: { value: 'nodejs' } });
   fireEvent.change(comp.getByLabelText('Select Version'), { target: { value: 'community' } });
   fireEvent.click(comp.getByText('Save'));
-  expect(value).toMatchSnapshot();
+  expect(handleSave).toHaveBeenCalledTimes(1);
+  expect(handleSave.mock.calls[0][0]).toMatchSnapshot('Saved value');
 };
 
 const missions: ExampleMission[] = [
-  {id: 'test', description: 'bla', name: 'Mission Name', metadata: {}, runtime: [
+  {id: 'circuit-breaker', description: 'circuit-breaker description', name: 'Circuit Breaker', metadata: {}, runtime: [
     {id: 'nodejs', name: 'Node', icon: '', versions: [
       {id: 'community', name: '10.x (Community)', metadata: { runsOn: 'openshift'}}
     ]}
