@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'jest-dom/extend-expect';
 import { cleanup, fireEvent, render } from 'react-testing-library';
 import { CreateNewAppFlow } from '../create-new-app-flow';
-import { LauncherClientProvider } from '../..';
+import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
 import { mockLauncherClient } from 'launcher-client';
 import { flushPromises, launchCheckPayloadAndProgress } from './flow-helpers';
 

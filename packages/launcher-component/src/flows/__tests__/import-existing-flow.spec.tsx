@@ -1,9 +1,10 @@
 import * as React from 'react';
 import 'jest-dom/extend-expect';
 import { cleanup, fireEvent, render } from 'react-testing-library';
-import { ImportExistingFlow, LauncherClientProvider } from '../..';
+import { ImportExistingFlow } from '../import-existing-flow';
 import { mockLauncherClient } from 'launcher-client';
 import { flushPromises, launchCheckPayloadAndProgress } from './flow-helpers';
+import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
 
 afterEach(() => {
   console.log('cleanup()');
@@ -40,8 +41,10 @@ describe('<ImportExistingFlow />', () => {
     const comp = render(<LauncherClientProvider><ImportExistingFlow /></LauncherClientProvider>);
     expect(comp.getByLabelText('openshift-deployment is not configured')).toBeDefined();
 
-    // Resolve overview promises
+    // Resolve data from auto loader
     await flushPromises();
+
+    // Resolve overview promises
     await flushPromises();
 
     expect(comp.getByLabelText('openshift-deployment is configured')).toBeDefined();
@@ -53,6 +56,9 @@ describe('<ImportExistingFlow />', () => {
   it('Configure source repository to import and check full launch until next steps', async () => {
     const mockClient = mockLauncherClient();
     const comp = render(<LauncherClientProvider client={mockClient}><ImportExistingFlow /></LauncherClientProvider>);
+
+    // Resolve data from auto loader
+    await flushPromises();
 
     // Resolve overview promises
     await flushPromises();
