@@ -27,6 +27,7 @@ async function configureSrc(comp, url) {
   expect(comp.getByLabelText('Edit src-repository')).toBeDefined();
 
   fireEvent.change(comp.getByLabelText('Git repository url'), { target: { value: url } });
+  fireEvent.click(comp.getByText('Done'));
 
   // Resolve fetch url
   await flushPromises();
