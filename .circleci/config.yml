@@ -16,27 +16,28 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
 
+      # Run install
       - run: yarn install
-      - run: 
-          name: Build libs
-          command: |
-            yarn libs:build
 
+      # Save deps cache
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          name: Deploy Preview
-          command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/upload_preview.sh; fi
+      # Run build
+      - run: yarn build
 
       # Run tests
       - run: yarn test
 
-      # Run build
-      - run: yarn build
-
       # Run coverage
       - run: yarn codecov
+
+      # Run Deploy Preview
+      - run:
+          name: Deploy Preview
+          command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/upload_preview.sh; fi
+
+
 
