@@ -133,7 +133,6 @@ describe('<CreateNewAppFlow />', () => {
     expect(comp.getByLabelText('backend is configured')).toBeDefined();
 
     fireEvent.click(comp.getByLabelText('Launch Application'));
-
     expect(mockClient.currentPayload).toMatchSnapshot('payload');
   });
 
@@ -150,7 +149,6 @@ describe('<CreateNewAppFlow />', () => {
     expect(comp.getByLabelText('backend is configured')).toBeDefined();
 
     fireEvent.click(comp.getByLabelText('Launch Application'));
-
     expect(mockClient.currentPayload).toMatchSnapshot('payload');
   });
 });

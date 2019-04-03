@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DeployExampleAppFlow /> Choose example backend and check full launch until next steps popup: payload 1`] = `
+Object {
+  "clusterId": "starter-ca-central-1",
+  "gitOrganization": "",
+  "gitRepository": "my-test-app",
+  "project": Object {
+    "application": "my-test-app",
+    "parts": Array [
+      Object {
+        "category": "example",
+        "shared": Object {
+          "mission": Object {
+            "id": "crud",
+          },
+          "runtime": Object {
+            "name": "vert.x",
+            "version": "redhat",
+          },
+        },
+      },
+    ],
+  },
+  "projectName": "my-test-app",
+}
+`;

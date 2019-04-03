@@ -63,7 +63,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
             ))}
           </SplitItem>
         </Split>
-        <DataList aria-label="select-mission" style={{marginTop: '20px'}}>
+        <DataList aria-label="Choose an example" style={{marginTop: '20px'}}>
           {
             missions!.map((mission, i) => {
               const isSelected = props.value.missionId === mission.id;
@@ -97,7 +97,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                 >
                   <DataListCell width={1} style={{flex: 'none'}}>
                     <Radio
-                      aria-label={`Choose ${mission.name} as mission`}
+                      aria-label={`Choose ${mission.id} as mission`}
                       value={mission.id}
                       checked={isSelected}
                       onChange={() => onChange()}
@@ -107,7 +107,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                   </DataListCell>
                   <DataListCell width={1} onClick={() => onChange()}><Title size="lg">{mission.name}</Title></DataListCell>
                   <DataListCell width={2} onClick={() => onChange()}>{mission.description}</DataListCell>
-                  <DataListContent aria-label={'Detail for ' + mission.name} isHidden={!isSelected}>
+                  <DataListContent aria-label={'Detail for ' + mission.id} isHidden={!isSelected}>
                     <FormSelect
                       isDisabled={mission.runtime!.length === 1}
                       id={mission.id + 'runtime-select'}

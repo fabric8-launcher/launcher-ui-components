@@ -53,7 +53,7 @@ describe('<ImportExistingFlow />', () => {
     expect(comp.getByLabelText('Download Application')).toHaveAttribute('disabled');
   });
 
-  it('Configure source repository to import and check full launch until next steps', async () => {
+  it('Configure source repository to import and check full launch until next steps popup', async () => {
     const mockClient = mockLauncherClient();
     const comp = render(<LauncherClientProvider client={mockClient}><ImportExistingFlow /></LauncherClientProvider>);
 
