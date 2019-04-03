@@ -9,9 +9,7 @@ DEPLOY_SUBDOMAIN=`echo "$PR_NUM-pr-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_U
 DEPLOY_DOMAIN="https://${DEPLOY_SUBDOMAIN}.surge.sh"
 ALREADY_DEPLOYED=`yarn run surge list | grep ${DEPLOY_SUBDOMAIN}`
 
-# Copy build to /launch/ too
-cp -r build launch
-mv launch build
+yarn build:mock-api
 
 yarn run surge --project build --domain $DEPLOY_DOMAIN;
 

@@ -18,12 +18,9 @@ jobs:
 
       - run: yarn install
       - run: 
-          name: Build project
+          name: Build libs
           command: |
-            export NODE_ENV=development
-            export REACT_APP_CLIENT=mock
-            export REACT_APP_AUTHENTICATION=mock
-            yarn build
+            yarn libs:build
 
       - save_cache:
           paths:
@@ -36,6 +33,9 @@ jobs:
 
       # Run tests
       - run: yarn test
+
+      # Run build
+      - run: yarn build
 
       # Run coverage
       - run: yarn codecov
