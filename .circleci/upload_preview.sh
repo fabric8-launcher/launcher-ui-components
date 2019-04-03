@@ -6,25 +6,13 @@ PR_NUM=$(printf %s\\n "${URL_SPLIT[@]:(-1)}")
 # https://en.wikipedia.org/wiki/Domain_Name_System#Domain_name_syntax
 # So, just replace "/" or "." with "-"
 
-DEPLOY_APP_SUBDOMAIN=`echo "$PR_NUM-pr-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
+DEPLOY_APP_SUBDOMAIN=`echo "$PR_NUM-pr-launcher-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_APP_DOMAIN="https://${DEPLOY_APP_SUBDOMAIN}.surge.sh"
 ALREADY_DEPLOYED_APP=`yarn run surge list | grep ${DEPLOY_APP_DOMAIN}`
 
 yarn app:build:mock-api
 
 yarn run surge --project ./packages/launcher-app/build --domain ${DEPLOY_APP_DOMAIN};
-
-if [ -z "$ALREADY_DEPLOYED_APP" ]
-then
-  # Using the Issues api instead of the PR api
-  # Done so because every PR is an issue, and the issues api allows to post general comments,
-  # while the PR api requires that comments are made to specific files and specific commits
-  GITHUB_PR_COMMENTS="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${PR_NUM}/comments"
-  echo "Adding github PR comment ${GITHUB_PR_COMMENTS}"
-  curl -H "Authorization: token ${GH_PR_TOKEN}" --request POST ${GITHUB_PR_COMMENTS} --data '{"body":"Launcher Frontend preview: '${DEPLOY_APP_DOMAIN}'"}'
-else
-  echo "Already deployed ${DEPLOY_APP_DOMAIN}"
-fi
 
 DEPLOY_STORYBOOK_SUBDOMAIN=`echo "$PR_NUM-pr-storybook-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_STORYBOOK_DOMAIN="https://${DEPLOY_STORYBOOK_SUBDOMAIN}.surge.sh"
@@ -34,14 +22,14 @@ yarn comp:storybook:build
 
 yarn run surge --project ./packages/launcher-component/storybook-static --domain ${DEPLOY_STORYBOOK_DOMAIN};
 
-if [ -z "$ALREADY_DEPLOYED_STORYBOOK" ]
+if [ -z "$ALREADY_DEPLOYED_APP" ]
 then
   # Using the Issues api instead of the PR api
   # Done so because every PR is an issue, and the issues api allows to post general comments,
   # while the PR api requires that comments are made to specific files and specific commits
   GITHUB_PR_COMMENTS="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${PR_NUM}/comments"
   echo "Adding github PR comment ${GITHUB_PR_COMMENTS}"
-  curl -H "Authorization: token ${GH_PR_TOKEN}" --request POST ${GITHUB_PR_COMMENTS} --data '{"body":"Storybook preview: '${DEPLOY_STORYBOOK_DOMAIN}'"}'
+  curl -H "Authorization: token ${GH_PR_TOKEN}" --request POST ${GITHUB_PR_COMMENTS} --data '{"body":"This PR was deployed in the following URLs for your appreciation:\n- Launcher Frontend preview: '${DEPLOY_APP_DOMAIN}'\n- Storybook preview: '${DEPLOY_STORYBOOK_DOMAIN}'"}'
 else
   echo "Already deployed ${DEPLOY_STORYBOOK_DOMAIN}"
 fi
