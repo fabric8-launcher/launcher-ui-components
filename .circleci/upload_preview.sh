@@ -10,9 +10,9 @@ DEPLOY_APP_SUBDOMAIN=`echo "$PR_NUM-pr-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_P
 DEPLOY_APP_DOMAIN="https://${DEPLOY_APP_SUBDOMAIN}.surge.sh"
 ALREADY_DEPLOYED_APP=`yarn run surge list | grep ${DEPLOY_APP_DOMAIN}`
 
-yarn build:mock-api
+yarn app:build:mock-api
 
-yarn run surge --project build --domain ${DEPLOY_APP_DOMAIN};
+yarn run surge --project ./packages/launcher-app/build --domain ${DEPLOY_APP_DOMAIN};
 
 if [ -z "$ALREADY_DEPLOYED" ]
 then
