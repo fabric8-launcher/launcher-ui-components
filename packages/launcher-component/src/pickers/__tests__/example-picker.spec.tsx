@@ -18,7 +18,10 @@ describe('<ExamplePicker />', () => {
       <FormPanel
         initialValue={{}}
         validator={ExamplePicker.checkCompletion}
-        onSave={handleSave}
+        onSave={value => {
+          expect(value).toMatchSnapshot();
+          handleSave();
+        }}
         onCancel={() => {}}
       >
         {(inputProps) => (<ExamplePicker.Element missions={missions} {...inputProps}/>)}
@@ -35,7 +38,35 @@ describe('<ExamplePicker />', () => {
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
+  it('download only for runsOn "local"', () => {
+    downloadOnlyTest('local');
+  });
+
+  it('download only for runsOn "none"', () => {
+    downloadOnlyTest('none');
+  });
 });
+
+const downloadOnlyTest = runsOn => {
+  let value: any;
+  const comp = render(
+    <FormPanel
+      initialValue={{}}
+      validator={ExamplePicker.checkCompletion}
+      onSave={v => value = v}
+      onCancel={() => {}}
+    >
+      {(inputProps) => (<ExamplePicker.Element missions={missions} {...inputProps}/>)}
+    </FormPanel>
+  );
+  missions[0].runtime![0].versions[0].metadata.runsOn = runsOn;
+  const missionRadio = comp.getByLabelText('Choose Mission Name as mission');
+  fireEvent.click(missionRadio);
+  fireEvent.change(comp.getByLabelText('Select Runtime'), { target: { value: 'nodejs' } });
+  fireEvent.change(comp.getByLabelText('Select Version'), { target: { value: 'community' } });
+  fireEvent.click(comp.getByText('Save'));
+  expect(value).toMatchSnapshot();
+};
 
 const missions: ExampleMission[] = [
   {id: 'test', description: 'bla', name: 'Mission Name', metadata: {}, runtime: [
