@@ -6,7 +6,7 @@ function getEnv(env: string | undefined, name: string): string | undefined {
   if (config && config[name] && config[name].length > 0) {
     return config[name];
   }
-  if(env && env.length === 0) {
+  if (env && env.length === 0) {
     return undefined;
   }
   return env;
@@ -29,11 +29,13 @@ export const keycloakConfig = isKeycloakMode ? {
   url: requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl'),
 } as KeycloakConfig : undefined;
 
+const launcherClientApiMode = process.env.REACT_APP_CLIENT !== 'mock';
+
 export const creatorApiUrl =
-  getEnv(process.env.REACT_APP_CREATOR_API_URL, 'creatorApiUrl');
+  getEnv(launcherClientApiMode ? process.env.REACT_APP_CREATOR_API_URL : undefined, 'creatorApiUrl');
 
 export const launcherApiUrl =
-  getEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl');
+  getEnv(launcherClientApiMode ? process.env.REACT_APP_LAUNCHER_API_URL : undefined, 'launcherApiUrl');
 
 export const sentryDsn =
   getEnv(process.env.REACT_APP_SENTRY_DSN, 'sentryDsn');

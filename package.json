@@ -22,6 +22,7 @@
     "libs:build": "yarn client:build && yarn kc:build && yarn comp:build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
     "build:prod": "yarn build && yarn comp:storybook:publish && lerna publish",
+    "app:build:mock-api": "yarn workspace launcher-app run build:mock-api",
     "app:start": "yarn workspace launcher-app start:staging-api",
     "app:start:local-api": "yarn workspace launcher-app start:local-api",
     "app:start:production-api": "yarn workspace launcher-app start:production-api",
@@ -32,6 +33,7 @@
     "comp:build": "yarn workspace launcher-component build",
     "comp:test": "yarn workspace launcher-component test",
     "comp:storybook": "yarn workspace launcher-component storybook",
+    "comp:storybook:build": "yarn workspace launcher-component storybook:build",
     "comp:storybook:publish": "yarn workspace launcher-component storybook:publish"
   },
   "browserslist": [
@@ -64,6 +66,7 @@
     "rollup-plugin-postcss": "2.0.3",
     "rollup-plugin-tslint": "0.2.2",
     "rollup-plugin-typescript2": "0.19.3",
+    "surge": "0.20.3",
     "ts-jest": "24.0.1",
     "tslint": "5.15.0",
     "tslint-react": "4.0.0",
