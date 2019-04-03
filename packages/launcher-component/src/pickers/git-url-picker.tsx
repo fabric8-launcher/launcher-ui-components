@@ -20,6 +20,7 @@ export const GitUrlPicker: Picker<GitUrlPickerProps, GitUrlPickerValue> = {
       type="text"
       id="git-url-picker"
       name="git-url-picker"
+      aria-label="Git repository url"
       placeholder="Type the git repository url"
       onChange={value => props.onChange({...props.value, url: value.length > 0 ? value.trim() : undefined})}
       value={props.value.url || ''}

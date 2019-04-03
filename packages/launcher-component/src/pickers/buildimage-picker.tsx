@@ -50,12 +50,12 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
                   >
                     <DataListCell width={1} style={{ flex: 'none' }}>
                       <Radio
-                        aria-label={`Choose ${image.name} as mission`}
+                        aria-label={`Choose ${image.name}`}
                         value={image.id}
                         checked={isSelected}
                         onChange={onChangeSelected}
                         name="image"
-                        id={`radio-choose-${image.id}-as-image`}
+                        id={`radio-choose-${image.id}`}
                       />
                     </DataListCell>
                     <DataListCell width={1} onClick={onChangeSelected} style={{ cursor: 'pointer' }}>
