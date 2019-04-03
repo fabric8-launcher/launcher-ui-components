@@ -2,42 +2,52 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10-browsers
+workflows:
+  version: 2
+  build-test-and-approval-deploy:
+    jobs:
+      build:
+        docker:
+          - image: circleci/node:10-browsers
 
-    steps:
-      - checkout
+        steps:
+          - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+          # Download and cache dependencies
+          - restore_cache:
+              keys:
+                - v1-dependencies-{{ checksum "package.json" }}
 
-      # Run install
-      - run: yarn install
+          # Run install
+          - run: yarn install
 
-      # Save deps cache
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          # Save deps cache
+          - save_cache:
+              paths:
+                - node_modules
+              key: v1-dependencies-{{ checksum "package.json" }}
 
-      # Run build
-      - run: yarn build
+          # Run build
+          - run: yarn build
 
-      # Run tests
-      - run: yarn test
+          # Run tests
+          - run: yarn test
 
-      # Run coverage
-      - run: yarn codecov
+          # Run coverage
+          - run: yarn codecov
 
-      # Run Deploy Preview
-      - run:
-          name: Deploy Preview
-          command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/upload_preview.sh; fi
+          # Run Deploy Preview
+          - run:
+              name: Deploy Preview
+              command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/upload_surge.sh; fi
 
+          - hold: # <<< A job that will require manual approval in the CircleCI web application.
+              type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
+              requires: # We only run the "hold" job when Deploy Preview has succeeded
+              - Deploy Preview
 
-
+          - run:
+              name: Tear down preview PRs
+              command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/cleanup_surge.sh; fi
+              requires: # We only run the "Tear down preview PRs" job when Deploy Preview has succeeded
+              - Deploy Preview
