@@ -7,7 +7,6 @@ Fabric8-Launcher Frontend
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=72209295)](https://dependabot.com)
 
 Fabric8 Launcher frontend based on React.js.
-
 If this is the first time you are starting the UI, you need to run
 
 ```bash
