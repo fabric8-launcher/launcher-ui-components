@@ -97,18 +97,16 @@ export default class MockLauncherClient implements LauncherClient {
   public async download(payload: DownloadAppPayload): Promise<DownloadAppResult> {
     this.currentPayload = payload;
     await waitForTick(`download(${JSON.stringify(payload)})`, 500);
-    const output: DownloadAppResult = {
+    return {
       downloadLink: `http://mock/result.zip`
     };
-    return Promise.resolve(output)
-      .then((d) => new Promise<DownloadAppResult>(resolve => setTimeout(() => resolve(d), 1000)));
   }
 
   public async launch(payload: LaunchAppPayload): Promise<LaunchAppResult> {
     this.currentPayload = payload;
     await waitForTick(`launch(${JSON.stringify(payload)})`, 1000);
     console.info(`calling launch with projectile: ${JSON.stringify(payload)}`);
-    const output: LaunchAppResult = {
+    return {
       id: `success`,
       events: [
         {name: 'GITHUB_CREATE', message: 'Creating your new GitHub repository'},
@@ -118,7 +116,6 @@ export default class MockLauncherClient implements LauncherClient {
         {name: 'GITHUB_WEBHOOK', message: 'Configuring to trigger builds on Git pushes'}
       ]
     };
-    return output;
   }
 
   public follow(id: string, events: Array<{ name: string }>, listener: StatusListener) {

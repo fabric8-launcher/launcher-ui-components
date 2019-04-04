@@ -3,15 +3,15 @@ import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
 import { LaunchAppPayload, StatusMessage } from 'launcher-client';
 
 import { useLauncherClient } from '../contexts/launcher-client-context';
-import { ProcessingApp } from '../misc/processing-app';
-import { LaunchNextSteps } from '../misc/launch-next-steps';
-import { DownloadNextSteps } from '../misc/download-next-steps';
 import { HubNSpoke } from '../core/hub-n-spoke';
 import { DownloadIcon, ErrorCircleOIcon, PlaneDepartureIcon } from '@patternfly/react-icons';
 import style from './launch-flow.module.scss';
 import { ExampleApp, NewApp } from './types';
 import { gitInfoLoader } from '../loaders/git-info-loader';
 import { effectSafety } from '../core/stuff';
+import { ProcessingApp } from '../next-steps/processing-app';
+import { DownloadNextSteps } from '../next-steps/download-next-steps';
+import { LaunchNextSteps } from '../next-steps/launch-next-steps';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'

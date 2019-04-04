@@ -1,5 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<CreateNewAppFlow /> Check that launch is working after download for the same application: payload 1`] = `
+Object {
+  "clusterId": "starter-ca-central-1",
+  "gitOrganization": "",
+  "gitRepository": "my-test-app",
+  "project": Object {
+    "application": "my-test-app",
+    "parts": Array [
+      Object {
+        "capabilities": Array [
+          Object {
+            "module": "health",
+            "props": undefined,
+          },
+          Object {
+            "module": "rest",
+            "props": undefined,
+          },
+          Object {
+            "module": "database",
+            "props": undefined,
+          },
+          Object {
+            "module": "welcome",
+          },
+        ],
+        "category": "backend",
+        "shared": Object {
+          "runtime": Object {
+            "name": "quarkus",
+            "version": "community",
+          },
+        },
+      },
+    ],
+  },
+  "projectName": "my-test-app",
+}
+`;
+
+exports[`<CreateNewAppFlow /> Configure backend and check full download until next steps: Download link 1`] = `"http://mock/result.zip"`;
+
+exports[`<CreateNewAppFlow /> Configure backend and check full download until next steps: payload 1`] = `
+Object {
+  "clusterId": "starter-ca-central-1",
+  "gitOrganization": "",
+  "gitRepository": "my-test-app",
+  "project": Object {
+    "application": "my-test-app",
+    "parts": Array [
+      Object {
+        "capabilities": Array [
+          Object {
+            "module": "health",
+            "props": undefined,
+          },
+          Object {
+            "module": "rest",
+            "props": undefined,
+          },
+          Object {
+            "module": "database",
+            "props": undefined,
+          },
+          Object {
+            "module": "welcome",
+          },
+        ],
+        "category": "backend",
+        "shared": Object {
+          "runtime": Object {
+            "name": "quarkus",
+            "version": "community",
+          },
+        },
+      },
+    ],
+  },
+  "projectName": "my-test-app",
+}
+`;
+
 exports[`<CreateNewAppFlow /> Configure backend and check full launch until next steps: Console link 1`] = `"https://console.starter-us-east-2.openshift.com/console/projects"`;
 
 exports[`<CreateNewAppFlow /> Configure backend and check full launch until next steps: Repository link 1`] = `"https://github.com/fabric8-launcher/launcher-backend"`;
@@ -62,6 +144,38 @@ Object {
           },
           Object {
             "module": "database",
+            "props": undefined,
+          },
+          Object {
+            "module": "welcome",
+          },
+        ],
+        "category": "backend",
+        "shared": Object {
+          "runtime": Object {
+            "name": "quarkus",
+            "version": "community",
+          },
+        },
+      },
+    ],
+  },
+  "projectName": "my-test-app",
+}
+`;
+
+exports[`<CreateNewAppFlow /> Configure backend with no capability, launch and check payload: payload 1`] = `
+Object {
+  "clusterId": "starter-ca-central-1",
+  "gitOrganization": "",
+  "gitRepository": "my-test-app",
+  "project": Object {
+    "application": "my-test-app",
+    "parts": Array [
+      Object {
+        "capabilities": Array [
+          Object {
+            "module": "health",
             "props": undefined,
           },
           Object {
