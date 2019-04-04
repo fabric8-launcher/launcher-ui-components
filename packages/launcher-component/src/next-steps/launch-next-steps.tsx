@@ -23,8 +23,8 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
       onClose={props.onClose}
       aria-label="Your Application has been launched"
       actions={[
-        <Button key="launch-new" variant="secondary" onClick={props.onClose}>
-          Launch a new Application
+        <Button key="launch-new" variant="secondary" onClick={props.onClose} aria-label="Start a new Application">
+          Start a new Application
         </Button>,
       ]}
     >

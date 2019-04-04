@@ -70,9 +70,5 @@ describe('<ImportExistingFlow />', () => {
     expect(comp.getByLabelText('Download Application')).not.toHaveAttribute('disabled');
 
     await launchCheckPayloadAndProgress(comp, mockClient);
-
-    expect(comp.getByLabelText('Your Application has been launched')).toBeDefined();
-
-    expect(comp.getByLabelText('Console link').getAttribute('href')).toMatchSnapshot('Console link');
   });
 });
