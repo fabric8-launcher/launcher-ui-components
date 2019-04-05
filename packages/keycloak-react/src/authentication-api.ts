@@ -1,5 +1,5 @@
 export interface User {
-  token: string;
+  token: any | string;
   accountLink: object;
   userName: string;
   userPreferredName: string;

@@ -11,7 +11,7 @@ import {
   LauncherMenu,
 } from 'launcher-component';
 import { Layout } from './layout';
-import { authenticationMode, creatorApiUrl, keycloakConfig, launcherApiUrl, publicUrl } from './config';
+import { authenticationMode, creatorApiUrl, config, launcherApiUrl, publicUrl } from './config';
 import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContext, AuthRouter, newAuthApi, useAuthenticationApiStateProxy } from 'keycloak-react';
@@ -61,7 +61,7 @@ function HomePage(props: {}) {
   );
 }
 
-const authApi = newAuthApi(authenticationMode, keycloakConfig);
+const authApi = newAuthApi(authenticationMode, config);
 
 export function LauncherApp() {
   const proxyAuthApi = useAuthenticationApiStateProxy(authApi);
