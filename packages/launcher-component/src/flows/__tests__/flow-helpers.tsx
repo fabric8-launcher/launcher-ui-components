@@ -52,4 +52,25 @@ export async function launchCheckPayloadAndProgress(comp, mockClient) {
 
   // Resolve complete progress
   await flushPromises();
+
+  expect(comp.getByLabelText('Your Application has been launched')).toBeDefined();
+  expect(comp.getByLabelText('Start a new Application')).toBeDefined();
+  expect(comp.getByLabelText('Console link').getAttribute('href')).toMatchSnapshot('Console link');
+}
+
+export async function downloadCheckPayload(comp, mockClient) {
+  fireEvent.click(comp.getByLabelText('Download Application'));
+
+  expect(comp.getByLabelText('Waiting for server response...')).toBeDefined();
+
+  expect(mockClient.currentPayload).toMatchSnapshot('payload');
+
+  // Resolve download result
+  await flushPromises();
+
+  expect(comp.getByLabelText('Your Application is ready to be downloaded')).toBeDefined();
+
+  expect(comp.getByLabelText('Download link').getAttribute('href')).toMatchSnapshot('Download link');
+  expect(comp.getByLabelText('Start a new Application')).toBeDefined();
+
 }

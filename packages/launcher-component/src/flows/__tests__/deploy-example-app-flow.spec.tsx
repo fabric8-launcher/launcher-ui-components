@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'jest-dom/extend-expect';
 import { cleanup, render, fireEvent } from 'react-testing-library';
 import { DeployExampleAppFlow } from '../deploy-example-app-flow';
-import { flushPromises } from './flow-helpers';
+import { flushPromises, launchCheckPayloadAndProgress } from './flow-helpers';
 import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
 import { mockLauncherClient } from 'launcher-client';
 
@@ -67,7 +67,8 @@ describe('<DeployExampleAppFlow />', () => {
     await chooseExample(comp, 'circuit-breaker', 'vert.x', 'redhat');
     expect(comp.getByLabelText('example is configured')).toBeDefined();
 
-    fireEvent.click(comp.getByLabelText('Launch Application'));
-    expect(mockClient.currentPayload).toMatchSnapshot('payload');
+    await launchCheckPayloadAndProgress(comp, mockClient);
+
+    expect(comp.getByLabelText('Repository link').getAttribute('href')).toMatchSnapshot('Repository link');
   });
 });

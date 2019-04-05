@@ -16,9 +16,10 @@ export function DownloadNextSteps(props: DownloadNextStepsProps) {
       isOpen
       isLarge={false}
       onClose={props.onClose}
+      aria-label="Your Application is ready to be downloaded"
       actions={[
-        <Button key="launch-new" variant="secondary" onClick={props.onClose}>
-          Launch a new Application
+        <Button key="launch-new" variant="secondary" aria-label="Start a new Application" onClick={props.onClose}>
+          Start a new Application
         </Button>,
       ]}
     >
@@ -27,7 +28,7 @@ export function DownloadNextSteps(props: DownloadNextStepsProps) {
         <Text component={TextVariants.p}>
           You are ready to start working.
         </Text>
-        <ExternalLink href={props.downloadLink as string}>
+        <ExternalLink href={props.downloadLink as string} aria-label="Download link">
           <DownloadIcon/> Download .zip
         </ExternalLink>
         <Text component={TextVariants.h3}>Deploy it on OpenShift</Text>
