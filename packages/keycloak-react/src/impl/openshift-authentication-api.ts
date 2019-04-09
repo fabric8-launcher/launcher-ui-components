@@ -1,11 +1,13 @@
 import { AuthenticationApi } from '..';
 import { OptionalUser } from '../authentication-api';
+import axios from 'axios';
 
 export interface OpenshiftConfig {
-  id: string;
-  secret: string;
+  gitId: string;
+  gitSecret: string;
   client_id: string;
   url: string;
+  token_uri: string;
   redirect_uri?: string;
   response_type?: string;
 }
@@ -14,17 +16,6 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   private readonly storageKey = 'openshift-auth';
   private _user: OptionalUser;
   private onUserChangeListener?: (user: OptionalUser) => void = undefined;
-
-  private readonly oauth2 = require('simple-oauth2').create({
-    client: {
-      id: this.config.id,
-      secret: this.config.secret
-    },
-    auth: {
-      tokenHost: 'https://github.com',
-      authorizePath: '/login/oauth/authorize',
-    },
-  });
 
   constructor(private config: OpenshiftConfig) {
     if (!config.response_type) {
@@ -35,27 +26,42 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
 
   public async init(): Promise<OptionalUser> {
     const user = localStorage.getItem(this.storageKey);
+    let token: string = '';
     if (user) {
       try {
         this._user = JSON.parse(user);
+        token = this._user!.token;
       } catch {
         localStorage.removeItem(this.storageKey);
       }
       this.triggerUserChange();
     } else {
-      const queryString = location.href.substr(location.href.indexOf('#') + 1);
-      const fragmentParams = this.parseQuery(queryString);
+      const params = this.parseQuery(location.hash.substring(1));
 
-      if (fragmentParams.access_token) {
+      token = params.access_token;
+    }
+
+    if (token !== '') {
+      try {
+        const response = await axios.get(this.config.token_uri, {
+          headers:
+          {
+            'X-OpenShift-Authorization': `Bearer ${token}`,
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo'
+          }
+        });
+
         this._user = {
-          userName: 'user',
-          userPreferredName: 'user',
-          token: { header: 'X-OpenShift-Authorization', token: fragmentParams.access_token },
+          userName: response.data.name,
+          userPreferredName: response.data.name,
+          token: { header: 'X-OpenShift-Authorization', token },
           sessionState: '',
           accountLink: {},
         };
         localStorage.setItem(this.storageKey, JSON.stringify(this._user));
         this.triggerUserChange();
+      } catch (e) {
+        localStorage.removeItem(this.storageKey);
       }
     }
 
@@ -63,18 +69,20 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     const code = this.parseQuery(query).code;
 
     if (code) {
-      console.log('access_code', code);
+      const response = await axios.post('/launch/github/access_token',
+        { ...this.config, code, state: 'g~KC*#K(' }
+      );
+      console.log('access_code', response.data.access_token);
     }
     return this._user;
   }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
-
-    return this.oauth2.authorizationCode.authorizeURL({
-      redirect_uri: redirect,
-      scope: ['repo', 'admin:repo_hook'],
-      state: 'g~KC*#K(',
-    });
+    if (provider === 'github') {
+      return 'https://github.com/login/oauth/authorize?response_type=code&client_id=' +
+        `${this.config.gitId}&redirect_uri=${redirect || location.href}&scope=repo%2Cadmin%3Arepo_hook&state=g~KC*%23K(`;
+    }
+    return '';
   };
 
   public login = (): void => {
@@ -117,12 +125,13 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   }
 
   private parseQuery(queryString: string): { [key: string]: string } {
-    const params: { [key: string]: string } = {};
-    queryString.split('&').map(pairs => {
-      const pair = pairs.split('=');
-      params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
-    });
-
-    return params;
+    return queryString.split('&')
+      .reduce((initial, item) => {
+        if (item) {
+          const parts = item.split('=');
+          initial[parts[0]] = decodeURIComponent(parts[1] || '');
+        }
+        return initial;
+      }, {});
   }
 }
