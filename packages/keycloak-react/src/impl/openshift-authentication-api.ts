@@ -2,6 +2,8 @@ import { AuthenticationApi } from '..';
 import { OptionalUser } from '../authentication-api';
 
 export interface OpenshiftConfig {
+  id: string;
+  secret: string;
   client_id: string;
   url: string;
   redirect_uri?: string;
@@ -12,6 +14,17 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   private readonly storageKey = 'openshift-auth';
   private _user: OptionalUser;
   private onUserChangeListener?: (user: OptionalUser) => void = undefined;
+
+  private readonly oauth2 = require('simple-oauth2').create({
+    client: {
+      id: this.config.id,
+      secret: this.config.secret
+    },
+    auth: {
+      tokenHost: 'https://github.com',
+      authorizePath: '/login/oauth/authorize',
+    },
+  });
 
   constructor(private config: OpenshiftConfig) {
     if (!config.response_type) {
@@ -31,18 +44,13 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       this.triggerUserChange();
     } else {
       const queryString = location.href.substr(location.href.indexOf('#') + 1);
-      const fragmentParams: any = {};
-      const pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
-      for (const p of pairs) {
-        const pair = p.split('=');
-        fragmentParams[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
-      }
+      const fragmentParams = this.parseQuery(queryString);
 
       if (fragmentParams.access_token) {
         this._user = {
           userName: 'user',
           userPreferredName: 'user',
-          token: { header: 'X-OpenShift-Authorization', token: fragmentParams.access_token},
+          token: { header: 'X-OpenShift-Authorization', token: fragmentParams.access_token },
           sessionState: '',
           accountLink: {},
         };
@@ -50,11 +58,23 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
         this.triggerUserChange();
       }
     }
+
+    const query = location.href.substr(location.href.indexOf('?') + 1);
+    const code = this.parseQuery(query).code;
+
+    if (code) {
+      console.log('access_code', code);
+    }
     return this._user;
   }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
-    return '';
+
+    return this.oauth2.authorizationCode.authorizeURL({
+      redirect_uri: redirect,
+      scope: ['repo', 'admin:repo_hook'],
+      state: 'g~KC*#K(',
+    });
   };
 
   public login = (): void => {
@@ -67,6 +87,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
 
   public logout = (): void => {
     localStorage.removeItem(this.storageKey);
+    location.reload();
   };
 
   public getAccountManagementLink = () => {
@@ -93,5 +114,15 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (this.onUserChangeListener) {
       this.onUserChangeListener(this._user);
     }
+  }
+
+  private parseQuery(queryString: string): { [key: string]: string } {
+    const params: { [key: string]: string } = {};
+    queryString.split('&').map(pairs => {
+      const pair = pairs.split('=');
+      params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+    });
+
+    return params;
   }
 }

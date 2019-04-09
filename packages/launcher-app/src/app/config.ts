@@ -30,6 +30,8 @@ export const config = isKeycloakMode ? {
 } as KeycloakConfig : authenticationMode === 'openshift' ? {
   client_id: requireEnv(process.env.REACT_APP_OPENSHIFT_CLIENT_ID, 'openshiftClientId'),
   url: requireEnv(process.env.REACT_APP_OPENSHIFT_AUTH_URL, 'openshiftUrl'),
+  id: requireEnv(process.env.REACT_APP_GIT_CLIENT_ID, 'gitClientId'),
+  secret: requireEnv(process.env.REACT_APP_GIT_SECRET, 'gitSecret')
 } as OpenshiftConfig : undefined;
 
 const launcherClientApiMode = process.env.REACT_APP_CLIENT !== 'mock';
