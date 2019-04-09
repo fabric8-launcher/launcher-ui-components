@@ -28,6 +28,10 @@ interface ExamplePickerProps extends InputProps<ExamplePickerValue> {
   missions?: ExampleMission[];
 }
 
+function isDownloadOnly(version) {
+  return (!!version && (version.metadata.runsOn.indexOf('none') !== -1)) || false;
+}
+
 export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
   checkCompletion: value => !!value.missionId && !!value.runtimeId && !!value.versionId,
   Element: props => {
@@ -82,8 +86,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                   missionId: mission.id,
                   runtimeId,
                   versionId,
-                  downloadOnly: (version && (version.metadata.runsOn.indexOf('local') !== -1
-                    || version.metadata.runsOn.indexOf('none')) !== -1) || false
+                  downloadOnly: isDownloadOnly(version)
                 });
               };
               const selectedRuntime = (mission.runtime! as any).find(r => r.id === props.value.runtimeId);

@@ -1,23 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ExamplePicker /> download only for runsOn "local": Saved value 1`] = `
-Object {
-  "downloadOnly": true,
-  "missionId": "circuit-breaker",
-  "runtimeId": "nodejs",
-  "versionId": "community",
-}
-`;
-
-exports[`<ExamplePicker /> download only for runsOn "none": Saved value 1`] = `
-Object {
-  "downloadOnly": true,
-  "missionId": "circuit-breaker",
-  "runtimeId": "nodejs",
-  "versionId": "community",
-}
-`;
-
 exports[`<ExamplePicker /> renders the ExamplePicker correctly 1`] = `
 <DocumentFragment>
   <div
@@ -114,6 +96,33 @@ exports[`<ExamplePicker /> renders the ExamplePicker correctly 1`] = `
     </li>
   </ul>
 </DocumentFragment>
+`;
+
+exports[`<ExamplePicker /> should be downloadOnly for runsOn "none": Value with "none" 1`] = `
+Object {
+  "downloadOnly": true,
+  "missionId": "circuit-breaker",
+  "runtimeId": "nodejs",
+  "versionId": "community",
+}
+`;
+
+exports[`<ExamplePicker /> should not be downloadOnly with runsOn "!starter": Value with "!starter" 1`] = `
+Object {
+  "downloadOnly": false,
+  "missionId": "circuit-breaker",
+  "runtimeId": "nodejs",
+  "versionId": "community",
+}
+`;
+
+exports[`<ExamplePicker /> should not be downloadOnly with runsOn "local": Value with "local" 1`] = `
+Object {
+  "downloadOnly": false,
+  "missionId": "circuit-breaker",
+  "runtimeId": "nodejs",
+  "versionId": "community",
+}
 `;
 
 exports[`<ExamplePicker /> show the version dropdown: Component 1`] = `

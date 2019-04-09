@@ -9,10 +9,10 @@ describe('Filter examples', () => {
     const result = filter({ example: { mission: { name }, runtime: { name }, name } }, catalog) as Example[];
 
     expect(result.length).toBeDefined();
-    expect(result[0].name).toBe('Eclipse Vert.x - Istio - Circuit Breaker');
+    expect(result[0].name).toBe('Istio - Spring Boot - Security');
     expect(result[0].description).toBeUndefined();
-    expect((result[0].mission as ExampleMission).name).toBe('Istio - Circuit Breaker');
-    expect((result[0].runtime as ExampleRuntime).name).toBe('Eclipse Vert.x');
+    expect((result[0].mission as ExampleMission).name).toBe('Istio - Security');
+    expect((result[0].runtime as ExampleRuntime).name).toBe('Spring Boot');
   });
 
   it('should filter catalog on missions', () => {
@@ -63,7 +63,7 @@ describe('Filter examples', () => {
     const versions = (result[0] as any).version;
     expect(versions).toBeDefined();
     expect(versions.length).toBe(2);
-    expect(versions[0].name).toBe('3.5.4.redhat-00002 (RHOAR)');
+    expect(versions[0].name).toBe('3.6.3 (Community)');
     expect(versions[0].id).toBeUndefined();
   });
 
@@ -79,12 +79,12 @@ describe('Filter examples', () => {
     let result = filterExamples(catalog.boosters, 'starter');
 
     expect(result).toBeDefined();
-    expect(result.length).toBe(38);
+    expect(result.length).toBe(45);
 
     result = filterExamples(catalog.boosters, 'pro');
 
     expect(result).toBeDefined();
-    expect(result.length).toBe(77);
+    expect(result.length).toBe(92);
   });
 
 });

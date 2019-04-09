@@ -36,11 +36,15 @@ describe('<ExamplePicker />', () => {
     expect(comp.asFragment()).toMatchSnapshot('Component');
   });
 
-  it('download only for runsOn "local"', () => {
-    downloadOnlyTest('local');
+  it('should not be downloadOnly with runsOn "local"', () => {
+    downloadOnlyTest(['local']);
   });
 
-  it('download only for runsOn "none"', () => {
+  it('should not be downloadOnly with runsOn "!starter"', () => {
+    downloadOnlyTest(['!starter']);
+  });
+
+  it('should be downloadOnly for runsOn "none"', () => {
     downloadOnlyTest('none');
   });
 });
@@ -64,7 +68,7 @@ const downloadOnlyTest = runsOn => {
   fireEvent.change(comp.getByLabelText('Select Version'), { target: { value: 'community' } });
   fireEvent.click(comp.getByText('Save'));
   expect(handleSave).toHaveBeenCalledTimes(1);
-  expect(handleSave.mock.calls[0][0]).toMatchSnapshot('Saved value');
+  expect(handleSave.mock.calls[0][0]).toMatchSnapshot(`Value with "${runsOn}"`);
 };
 
 const missions: ExampleMission[] = [
