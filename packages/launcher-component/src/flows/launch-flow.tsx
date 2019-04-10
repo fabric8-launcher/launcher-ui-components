@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
-import { LaunchAppPayload, StatusMessage } from 'launcher-client';
+import { DownloadAppPayload, LaunchAppPayload, StatusMessage } from 'launcher-client';
 
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { HubNSpoke } from '../core/hub-n-spoke';
@@ -98,7 +98,8 @@ interface LaunchFlowProps {
   hint?: string;
   isReadyForLaunch: boolean;
   isReadyForDownload: boolean;
-  buildAppPayload: () => LaunchAppPayload;
+  buildDownloadAppPayload: () => DownloadAppPayload;
+  buildLaunchAppPayload: () => LaunchAppPayload;
   onCancel?: () => void;
   canDownload?: boolean;
 }
@@ -116,7 +117,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
 
     setRun({status: Status.RUNNING, statusMessages: []});
 
-    client.launch(props.buildAppPayload()).then((result) => {
+    client.launch(props.buildLaunchAppPayload()).then((result) => {
       setRun((prev) => ({...prev, result}));
       client.follow(result.id, result.events, {
         onMessage: (statusMessages) => {
@@ -141,7 +142,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
 
     setRun({status: Status.RUNNING, statusMessages: []});
 
-    client.download(props.buildAppPayload()).then((result) => {
+    client.download(props.buildDownloadAppPayload()).then((result) => {
       setRun((prev) => ({...prev, result, status: Status.DOWNLOADED}));
     }).catch(error => {
       setRun((prev) => ({...prev, status: Status.ERROR, error}));

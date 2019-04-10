@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
-import { toImportAppPayload } from './launcher-client-adapters';
+import { buildDownloadImportAppPayload, buildLaunchImportAppPayload } from './launcher-client-adapters';
 import { SrcRepositoryHub } from '../hubs/src-repository-hub';
 import { LaunchFlow, useAutoSetCluster } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ImportApp } from './types';
 
-const defaultImportApp = {
+const DEFAULT_IMPORT_APP = {
   srcRepository: {},
   deployment: {},
 };
@@ -35,7 +35,7 @@ function getFlowStatus(app: ImportApp) {
 }
 
 export function ImportExistingFlow(props: { onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<ImportApp>('import-existing-app', defaultImportApp);
+  const [app, setApp, clear] = useSessionStorageWithObject<ImportApp>('import-existing-app', DEFAULT_IMPORT_APP);
   const onCancel = () => {
     clear();
     props.onCancel!();
@@ -96,9 +96,13 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
       title="Import an Existing Application"
       items={items}
       {...flowStatus}
-      buildAppPayload={() => {
+      buildLaunchAppPayload={() => {
         clear();
-        return toImportAppPayload(app);
+        return buildLaunchImportAppPayload(app);
+      }}
+      buildDownloadAppPayload={() => {
+        clear();
+        return buildDownloadImportAppPayload(app);
       }}
       onCancel={onCancel}
     />
