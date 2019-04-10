@@ -16,16 +16,16 @@ export function newKCAuthApi(config: KeycloakConfig) { return new KeycloakAuthen
 export function newOpenshiftAuthApi(config: OpenshiftConfig) { return new OpenshiftAuthenticationApi(config); }
 export function newNoAuthApi() { return new NoAuthenticationApi(); }
 
-export function newAuthApi(authenticationMode?: string, config?: any): AuthenticationApi {
+export function newAuthApi(authenticationMode?: string, config?: OpenshiftConfig|KeycloakConfig): AuthenticationApi {
   switch (authenticationMode) {
     case 'no':
       return new NoAuthenticationApi();
     case 'mock':
       return new MockAuthenticationApi();
     case 'keycloak':
-      return new KeycloakAuthenticationApi(checkNotNull(config, 'keycloakConfig'));
+      return new KeycloakAuthenticationApi(checkNotNull(config as KeycloakConfig, 'keycloakConfig'));
     case 'openshift':
-      return new OpenshiftAuthenticationApi(checkNotNull(config, 'openshiftConfig'));
+      return new OpenshiftAuthenticationApi(checkNotNull(config as OpenshiftConfig, 'openshiftConfig'));
     default:
       throw new Error(`Invalid authentication mode: ${authenticationMode}`);
   }

@@ -1,5 +1,5 @@
 import { AuthenticationApi } from '..';
-import { OptionalUser } from '../authentication-api';
+import { OptionalUser, AuthorizationToken } from '../authentication-api';
 import axios from 'axios';
 
 export interface OpenshiftConfig {
@@ -31,7 +31,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (user) {
       try {
         this._user = JSON.parse(user);
-        token = this._user!.token.filter(t => t.header === this.openshiftAuthKey)[0].token;
+        token = (this._user!.token as AuthorizationToken[]).filter(t => t.header === this.openshiftAuthKey)[0].token;
       } catch {
         localStorage.removeItem(this.storageKey);
       }
@@ -74,7 +74,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       const response = await axios.post('/launch/github/access_token',
         { client_id: this.config.gitId, client_secret: this.config.gitSecret, code, state: '51DpNYJ2' }
       );
-      this._user!.token.push({ header: 'X-Git-Authorization', token: response.data.access_token });
+      (this._user!.token as AuthorizationToken[]).push({ header: 'X-Git-Authorization', token: response.data.access_token });
       localStorage.setItem(this.storageKey, JSON.stringify(this._user));
     }
     return this._user;
