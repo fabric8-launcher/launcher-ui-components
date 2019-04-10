@@ -9,6 +9,7 @@ export { AuthContext, useAuthApi, useAuthenticationApiStateProxy } from './auth-
 export { AuthRouter } from './auth-router';
 export { AuthenticationApi } from './authentication-api';
 export { KeycloakConfig } from './impl/keycloak-authentication-api';
+export { OpenshiftConfig } from './impl/openshift-authentication-api';
 
 export function newMockAuthApi() { return new MockAuthenticationApi(); }
 export function newKCAuthApi(config: KeycloakConfig) { return new KeycloakAuthenticationApi(config); }
