@@ -1,7 +1,17 @@
 import { ExampleApp, ImportApp, NewApp } from './types';
 import { convertToObject } from '../loaders/buildimage-loader';
 
-export function toNewAppPayload(app: NewApp) {
+export function buildLaunchNewAppPayload(app: NewApp) {
+  return {
+    ...buildDownloadNewAppPayload(app),
+    gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
+    gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
+    clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
+    projectName: app.name,
+  };
+}
+
+export function buildDownloadNewAppPayload(app: NewApp) {
   let parts: any[] = [];
 
   if (app.frontend.runtimePickerValue) {
@@ -39,9 +49,25 @@ export function toNewAppPayload(app: NewApp) {
 
   return {
     project: {
-      application: app.destRepository.userRepositoryPickerValue!.name!,
+      application: app.name,
       parts,
-    },
+    }
+  };
+}
+
+export function buildLaunchExampleAppPayload(app: ExampleApp) {
+  const parts: any[] = [];
+
+  parts.push({
+    category: 'example',
+    shared: {
+      mission: {id: app.example.examplePickerValue!.missionId!},
+      runtime: {name: app.example.examplePickerValue!.runtimeId!, version: app.example.examplePickerValue!.versionId!}
+    }
+  });
+
+  return {
+    ...buildDownloadExampleAppPayload(app),
     gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
     gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
     clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
@@ -49,7 +75,7 @@ export function toNewAppPayload(app: NewApp) {
   };
 }
 
-export function toExamplePayload(app: ExampleApp) {
+export function buildDownloadExampleAppPayload(app: ExampleApp) {
   const parts: any[] = [];
 
   parts.push({
@@ -62,23 +88,25 @@ export function toExamplePayload(app: ExampleApp) {
 
   return {
     project: {
-      application: app.destRepository.userRepositoryPickerValue!.name!,
+      application: app.name,
       parts,
     },
-    gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
-    gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
-    clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
-    projectName: app.destRepository.userRepositoryPickerValue!.name!,
   };
 }
 
-export function toImportAppPayload(app: ImportApp) {
+export function buildLaunchImportAppPayload(app: ImportApp) {
+  const downloadImportAppPayload = buildDownloadImportAppPayload(app);
+  return {
+    ...downloadImportAppPayload,
+    clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
+    projectName: downloadImportAppPayload.project.application,
+  };
+}
+
+export function buildDownloadImportAppPayload(app: ImportApp) {
   const parts: any[] = [];
   const url = app.srcRepository.gitUrlPickerValue!.url!;
-  const index = url.lastIndexOf('/');
-  const dotIndex = url.indexOf('.', index);
-  const name = url.substr(index + 1, dotIndex > 0 ? dotIndex - index - 1 : undefined)
-    .toLowerCase().replace(/[^a-z0-9.-]+/gi, '');
+  const name = extractNameFromRepositoryUrl(url);
 
   parts.push({
     category: 'import',
@@ -100,7 +128,13 @@ export function toImportAppPayload(app: ImportApp) {
       application: name,
       parts,
     },
-    clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
-    projectName: name,
   };
+}
+
+function extractNameFromRepositoryUrl(url) {
+  const index = url.lastIndexOf('/');
+  const dotIndex = url.indexOf('.', index);
+  const name = url.substr(index + 1, dotIndex > 0 ? dotIndex - index - 1 : undefined)
+    .toLowerCase().replace(/[^a-z0-9.-]+/gi, '');
+  return name;
 }

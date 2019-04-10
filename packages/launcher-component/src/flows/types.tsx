@@ -6,6 +6,7 @@ import { ExampleFormValue } from '../hubs/example-hub';
 import { SrcRepositoryFormValue } from '../hubs/src-repository-hub';
 
 export interface NewApp {
+  name: string;
   backend: BackendFormValue;
   frontend: FrontendFormValue;
   destRepository: DestRepositoryFormValue;
@@ -13,6 +14,7 @@ export interface NewApp {
 }
 
 export interface ExampleApp {
+  name: string;
   example: ExampleFormValue;
   destRepository: DestRepositoryFormValue;
   deployment: DeploymentFormValue;

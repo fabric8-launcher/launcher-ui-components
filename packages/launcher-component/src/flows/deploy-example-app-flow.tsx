@@ -2,13 +2,14 @@ import * as React from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 import { generate } from 'project-name-generator';
 import { DestRepositoryHub } from '../hubs/dest-repository-hub';
-import { toExamplePayload } from './launcher-client-adapters';
+import { buildDownloadExampleAppPayload, buildLaunchExampleAppPayload } from './launcher-client-adapters';
 import { ExampleHub } from '../hubs/example-hub';
 import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ExampleApp } from './types';
 
-const defaultExampleApp = {
+const DEFAULT_EXAMPLE_APP = {
+  name: 'example-app',
   example: {},
   destRepository: {},
   deployment: {},
@@ -52,9 +53,10 @@ function getFlowStatus(app: ExampleApp) {
 }
 
 export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('deploy-example-app', defaultExampleApp);
+  const defaultNewApp = {...DEFAULT_EXAMPLE_APP, name: props.appName || generate().dashed};
+  const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('deploy-example-app', defaultNewApp);
   const autoSetCluster = useAutoSetCluster(setApp);
-  const autoSetDestRepository = useAutoSetDestRepository(props.appName || generate().dashed, setApp);
+  const autoSetDestRepository = useAutoSetDestRepository(app.name, setApp);
 
   const onCancel = () => {
     clear();
@@ -139,9 +141,13 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
       title="Deploy an Example Application"
       items={items}
       {...flowStatus}
-      buildAppPayload={() => {
+      buildLaunchAppPayload={() => {
         clear();
-        return toExamplePayload(app);
+        return buildLaunchExampleAppPayload(app);
+      }}
+      buildDownloadAppPayload={() => {
+        clear();
+        return buildDownloadExampleAppPayload(app);
       }}
       onCancel={onCancel}
     />

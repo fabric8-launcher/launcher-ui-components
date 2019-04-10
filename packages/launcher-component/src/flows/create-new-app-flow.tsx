@@ -5,13 +5,14 @@ import { BackendHub } from '../hubs/backend-hub';
 import { FrontendHub, } from '../hubs/frontend-hub';
 import { DestRepositoryHub } from '../hubs/dest-repository-hub';
 import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
-import { toNewAppPayload } from './launcher-client-adapters';
+import { buildDownloadNewAppPayload, buildLaunchNewAppPayload } from './launcher-client-adapters';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/capabilities-loader';
 import { WelcomeAppHub } from '../hubs/welcome-app-hub';
 import { NewApp } from './types';
 
-const defaultCustomApp = {
+const DEFAULT_NEW_APP = {
+  name: 'my-app',
   backend: {capabilitiesPickerValue: {capabilities: readOnlyCapabilities}},
   frontend: {},
   destRepository: {},
@@ -48,9 +49,10 @@ function getFlowStatus(app: NewApp) {
 }
 
 export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('new-app-flow', defaultCustomApp);
+  const defaultNewApp = {...DEFAULT_NEW_APP, name: props.appName || generate().dashed};
+  const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('new-app-flow', defaultNewApp);
   const autoSetCluster = useAutoSetCluster(setApp);
-  const autoSetDestRepository = useAutoSetDestRepository(props.appName || generate().dashed, setApp);
+  const autoSetDestRepository = useAutoSetDestRepository(app.name, setApp);
 
   const onCancel = () => {
     clear();
@@ -165,9 +167,13 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       title="Create a New Application"
       items={items}
       {...getFlowStatus(app)}
-      buildAppPayload={() => {
+      buildLaunchAppPayload={() => {
         clear();
-        return toNewAppPayload(app);
+        return buildLaunchNewAppPayload(app);
+      }}
+      buildDownloadAppPayload={() => {
+        clear();
+        return buildDownloadNewAppPayload(app);
       }}
       onCancel={onCancel}
     />

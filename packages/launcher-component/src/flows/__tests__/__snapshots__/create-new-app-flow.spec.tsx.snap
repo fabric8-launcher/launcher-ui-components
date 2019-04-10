@@ -44,9 +44,6 @@ exports[`<CreateNewAppFlow /> Configure backend and check full download until ne
 
 exports[`<CreateNewAppFlow /> Configure backend and check full download until next steps: payload 1`] = `
 Object {
-  "clusterId": "starter-ca-central-1",
-  "gitOrganization": "",
-  "gitRepository": "my-test-app",
   "project": Object {
     "application": "my-test-app",
     "parts": Array [
@@ -78,7 +75,6 @@ Object {
       },
     ],
   },
-  "projectName": "my-test-app",
 }
 `;
 
