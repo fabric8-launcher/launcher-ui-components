@@ -255,4 +255,4 @@ export interface AuthorizationToken {
   token: string;
 }
 
-export type AuthorizationTokenProvider = () => Promise<AuthorizationToken | string | undefined>;
+export type AuthorizationTokenProvider = () => Promise<AuthorizationToken[] | string | undefined>;

@@ -160,8 +160,8 @@ export default class DefaultLauncherClient implements LauncherClient {
     if (typeof authorizationToken === 'string') {
       headers['Authorization'] = `Bearer ${authorizationToken}`;
     } else if (authorizationToken) {
-      const authToken = authorizationToken as AuthorizationToken;
-      headers[authToken.header] = `Bearer ${authToken.token}`;
+      const authToken = authorizationToken as AuthorizationToken[];
+      authToken.map(t => headers[t.header] = `Bearer ${t.token}`);
       headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo';
     }
     if (config.executionIndex) {
