@@ -27,15 +27,15 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
 
   public async init(): Promise<OptionalUser> {
     this._user = this.storedUser;
-    let token: string = '';
+    let token: string;
     if (this._user) {
       token = this.getLoginTokenFromUser(this._user);
     } else {
       const params = this.parseQuery(location.hash.substring(1));
-      token = params.access_token || '';
+      token = params.access_token;
     }
 
-    if (token !== '') {
+    if (token) {
       const username = await this.validateToken(token);
       if (!this._user) {
         this._user = {
