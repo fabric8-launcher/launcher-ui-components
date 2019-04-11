@@ -15,7 +15,7 @@ yarn run surge --project ./packages/launcher-app/build --domain ${DEPLOY_APP_DOM
 DEPLOY_WELCOME_APP_SUBDOMAIN=`echo "$PR_NUM-pr-launcher-welcome-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_WELCOME_APP_DOMAIN="https://${DEPLOY_WELCOME_APP_SUBDOMAIN}.surge.sh"
 yarn wa:build:mock-api
-yarn run surge --project ./packages/launcher-welcome-app/build --domain ${DEPLOYWELCOME__APP_DOMAIN};
+yarn run surge --project ./packages/launcher-welcome-app/build --domain ${DEPLOY_WELCOME_APP_SUBDOMAIN};
 
 DEPLOY_STORYBOOK_SUBDOMAIN=`echo "$PR_NUM-pr-storybook-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_STORYBOOK_DOMAIN="https://${DEPLOY_STORYBOOK_SUBDOMAIN}.surge.sh"
@@ -29,7 +29,7 @@ then
   # while the PR api requires that comments are made to specific files and specific commits
   GITHUB_PR_COMMENTS="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${PR_NUM}/comments"
   echo "Adding github PR comment ${GITHUB_PR_COMMENTS}"
-  curl -H "Authorization: token ${GH_PR_TOKEN}" --request POST ${GITHUB_PR_COMMENTS} --data '{"body":"This PR was deployed **with mocked data** in the following URLs for your appreciation:\n- Frontend: '${DEPLOY_APP_DOMAIN}'\n- Welcome App: '${DEPLOY_WELCOME_APP_DOMAIN}'- Storybook: '${DEPLOY_STORYBOOK_DOMAIN}'"}'
+  curl -H "Authorization: token ${GH_PR_TOKEN}" --request POST ${GITHUB_PR_COMMENTS} --data '{"body":"This PR was deployed **with mocked data** in the following URLs for your appreciation:\n- Frontend: '${DEPLOY_APP_DOMAIN}'\n- Welcome App: '${DEPLOY_WELCOME_APP_DOMAIN}'\n- Storybook: '${DEPLOY_STORYBOOK_DOMAIN}'"}'
 else
   echo "Already deployed ${DEPLOY_STORYBOOK_DOMAIN}"
 fi

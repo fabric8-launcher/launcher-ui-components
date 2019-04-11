@@ -7,11 +7,9 @@ jobs:
   build:
     docker:
       - image: circleci/node:10-browsers
-
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -35,25 +33,54 @@ jobs:
       # Run coverage
       - run: yarn codecov
 
+  deploy-preview:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
       # Run Deploy Preview if PR
       - run:
           name: Deploy Preview
           command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/upload_preview.sh; fi
 
-      # Push to Dockerhub if master branch
+  publish:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      # Push welcome-app to Dockerhub
       - run:
           name: Deploy Welcome Application to DockerHub
-          command: ./packages/launcher-welcome-app/docker_push.sh
-          filters:
-            branches:
-              only: master
+          command: yarn wa:build-and-deploy
 
-      # Publish storybook if master branch
+      # Publish component storybook
       - run:
           name: Publish Storybook
           command: yarn comp:storybook:publish
-          filters:
-            branches:
-              only: master
 
-
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy-preview:
+          requires:
+            - build
+      - publish:
+          requires:
+            - build
+#          filters:
+#            branches:
+#              only: master

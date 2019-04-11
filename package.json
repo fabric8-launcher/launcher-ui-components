@@ -32,6 +32,7 @@
     "wa:start": "yarn workspace launcher-welcome-app start",
     "wa:build": "yarn workspace launcher-welcome-app build",
     "wa:build:mock-api": "yarn workspace launcher-welcome-app build:mock-api",
+    "wa:build-and-deploy": "yarn wa:build && yarn workspace launcher-welcome-app image:deploy",
     "client:build": "yarn workspace launcher-client build",
     "kc:build": "yarn workspace keycloak-react build",
     "comp:build": "yarn workspace launcher-component build",
