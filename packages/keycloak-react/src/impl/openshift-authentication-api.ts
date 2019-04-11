@@ -13,8 +13,8 @@ export interface OpenshiftConfig {
 }
 
 export class OpenshiftAuthenticationApi implements AuthenticationApi {
+  public readonly storageKey = 'openshift-auth';
   private readonly openshiftAuthKey = 'X-OpenShift-Authorization';
-  private readonly storageKey = 'openshift-auth';
   private _user: OptionalUser;
   private onUserChangeListener?: (user: OptionalUser) => void = undefined;
 
@@ -26,56 +26,34 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   }
 
   public async init(): Promise<OptionalUser> {
-    const user = localStorage.getItem(this.storageKey);
+    this._user = this.storedUser;
     let token: string = '';
-    if (user) {
-      try {
-        this._user = JSON.parse(user);
-        token = (this._user!.token as AuthorizationToken[]).filter(t => t.header === this.openshiftAuthKey)[0].token;
-      } catch {
-        localStorage.removeItem(this.storageKey);
-      }
-      this.triggerUserChange();
+    if (this._user) {
+      token = this.getLoginTokenFromUser(this._user);
     } else {
       const params = this.parseQuery(location.hash.substring(1));
       token = params.access_token || '';
     }
 
     if (token !== '') {
-      try {
-        const response = await axios.get(this.config.token_uri, {
-          headers:
-          {
-            'X-OpenShift-Authorization': `Bearer ${token}`,
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo'
-          }
-        });
-
-        if (!this._user) {
-          this._user = {
-            userName: response.data.name,
-            userPreferredName: response.data.name,
-            token: [{ header: this.openshiftAuthKey, token }],
-            sessionState: '',
-            accountLink: {},
-          };
-          localStorage.setItem(this.storageKey, JSON.stringify(this._user));
-          this.triggerUserChange();
-        }
-      } catch (e) {
-        this.logout();
+      const username = await this.validateToken(token);
+      if (!this._user) {
+        this._user = {
+          userName: username,
+          userPreferredName: username,
+          token: [{ header: this.openshiftAuthKey, token }],
+          sessionState: '',
+          accountLink: {},
+        };
+        this.storeUser();
       }
     }
 
-    const query = location.href.substr(location.href.indexOf('?') + 1);
-    const code = this.parseQuery(query).code;
-
-    if (code) {
-      const response = await axios.post('/launch/github/access_token',
-        { client_id: this.config.gitId, client_secret: this.config.gitSecret, code, state: '51DpNYJ2' }
-      );
-      (this._user!.token as AuthorizationToken[]).push({ header: 'X-Git-Authorization', token: response.data.access_token });
-      localStorage.setItem(this.storageKey, JSON.stringify(this._user));
+    const gitAccessToken = await this.getGitHubAccessToken();
+    if (gitAccessToken && this._user) {
+      const tokens = this._user.token as AuthorizationToken[];
+      tokens.push({ header: 'X-Git-Authorization', token: gitAccessToken });
+      this.storeUser();
     }
     return this._user;
   }
@@ -125,6 +103,54 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (this.onUserChangeListener) {
       this.onUserChangeListener(this._user);
     }
+  }
+
+  private get storedUser(): OptionalUser | undefined {
+    const user = localStorage.getItem(this.storageKey);
+    try {
+      if (user) {
+        return JSON.parse(user);
+      }
+    } catch(e) {
+      console.warn('stored user was corrupte');
+      localStorage.removeItem(this.storageKey);
+    }
+    return undefined;
+  }
+
+  private getLoginTokenFromUser(user: OptionalUser) {
+    return (user!.token as AuthorizationToken[]).filter(t => t.header === this.openshiftAuthKey)[0].token;
+  }
+
+  private storeUser() {
+    localStorage.setItem(this.storageKey, JSON.stringify(this.user));
+    this.triggerUserChange();
+  }
+
+  private async validateToken(token: string): Promise<string> {
+    try {
+      const response = await axios.get(this.config.token_uri, {
+        headers: {
+          'X-OpenShift-Authorization': `Bearer ${token}`,
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo'
+        }
+      });
+      return response.data.name;
+    } catch (e) {
+      this.logout();
+    }
+    return '';
+  }
+
+  private async getGitHubAccessToken(): Promise<string> {
+    const query = location.href.substr(location.href.indexOf('?') + 1);
+    const code = this.parseQuery(query).code;
+    if (code) {
+      const response = await axios.post('/launch/github/access_token',
+        { client_id: this.config.gitId, client_secret: this.config.gitSecret, code, state: '51DpNYJ2' });
+      return response.data.access_token;
+    }
+    return '';
   }
 
   private parseQuery(queryString: string): { [key: string]: string } {
