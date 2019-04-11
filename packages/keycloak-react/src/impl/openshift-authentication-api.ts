@@ -39,8 +39,8 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       const username = await this.validateToken(token);
       if (!this._user) {
         this._user = {
-          userName: username,
-          userPreferredName: username,
+          userName: username || '',
+          userPreferredName: username || '',
           token: [{ header: this.openshiftAuthKey, token }],
           sessionState: '',
           accountLink: {},
@@ -129,7 +129,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     }
   }
 
-  private async validateToken(token: string): Promise<string> {
+  private async validateToken(token: string): Promise<string | undefined> {
     try {
       const response = await axios.get(this.config.token_uri, {
         headers: {
@@ -141,10 +141,10 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     } catch (e) {
       this.logout();
     }
-    return '';
+    return undefined;
   }
 
-  private async getGitHubAccessToken(): Promise<string> {
+  private async getGitHubAccessToken(): Promise<string | undefined> {
     const query = location.href.substr(location.href.indexOf('?') + 1);
     const code = this.parseQuery(query).code;
     if (code) {
@@ -152,7 +152,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
         { client_id: this.config.gitId, client_secret: this.config.gitSecret, code, state: '51DpNYJ2' });
       return response.data.access_token;
     }
-    return '';
+    return undefined;
   }
 
   private parseQuery(queryString: string): { [key: string]: string } {
