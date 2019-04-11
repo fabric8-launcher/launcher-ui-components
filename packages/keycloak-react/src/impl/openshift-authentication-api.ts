@@ -45,7 +45,6 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
           sessionState: '',
           accountLink: {},
         };
-        this.storeUser();
       }
     }
 
@@ -53,8 +52,9 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (gitAccessToken && this._user) {
       const tokens = this._user.token as AuthorizationToken[];
       tokens.push({ header: 'X-Git-Authorization', token: gitAccessToken });
-      this.storeUser();
     }
+
+    this.storeUser();
     return this._user;
   }
 
@@ -123,8 +123,10 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   }
 
   private storeUser() {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.user));
-    this.triggerUserChange();
+    if (this.user) {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.user));
+      this.triggerUserChange();
+    }
   }
 
   private async validateToken(token: string): Promise<string> {
