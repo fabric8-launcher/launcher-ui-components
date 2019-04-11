@@ -26,6 +26,7 @@
     "@types/react-router-dom": "4.3.1",
     "@types/react-copy-to-clipboard": "4.2.6",
     "react-scripts": "2.1.8",
-    "faker": "4.1.0"
+    "faker": "4.1.0",
+    "env-cmd": "8.0.2"
   }
 }

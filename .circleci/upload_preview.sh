@@ -15,7 +15,7 @@ yarn run surge --project ./packages/launcher-app/build --domain ${DEPLOY_APP_DOM
 DEPLOY_WELCOME_APP_SUBDOMAIN=`echo "$PR_NUM-pr-launcher-welcome-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_WELCOME_APP_DOMAIN="https://${DEPLOY_WELCOME_APP_SUBDOMAIN}.surge.sh"
 yarn wa:build:mock-api
-yarn run surge --project ./packages/launcher-welcome-app/build --domain ${DEPLOY_WELCOME_APP_SUBDOMAIN};
+yarn run surge --project ./packages/launcher-welcome-app/build --domain ${DEPLOY_WELCOME_APP_DOMAIN};
 
 DEPLOY_STORYBOOK_SUBDOMAIN=`echo "$PR_NUM-pr-storybook-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
 DEPLOY_STORYBOOK_DOMAIN="https://${DEPLOY_STORYBOOK_SUBDOMAIN}.surge.sh"
