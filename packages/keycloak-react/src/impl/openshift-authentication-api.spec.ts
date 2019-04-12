@@ -84,6 +84,7 @@ describe('Openshift authentication', () => {
     // given
     localStorage._STORE_[authentication.storageKey] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
     location.hash = '?code=githubcode'; // mock query part of url
+    mock.onGet(tokenUri).reply(200, '{"name": "developer"}');
     mock.onPost('/launch/github/access_token').reply(200, '{"access_token": "super"}');
 
     // when
