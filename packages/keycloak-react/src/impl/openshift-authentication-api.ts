@@ -47,7 +47,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       const params = this.parseQuery(location.hash.substring(1));
       token = params.access_token;
     }
-    const githubAccessToken = this.getUserGitHubAuthorizationToken();
+    const storedGitHubAccessToken = this.getUserGitHubAuthorizationToken();
     if (token) {
       try {
         const username = await this.validateToken(token);
@@ -55,7 +55,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
           userName: username,
           userPreferredName: username,
           token: [{header: OPENSHIFT_AUTH_HEADER_KEY, token},
-            {header: GIT_AUTH_HEADER_KEY, token: githubAccessToken || ''}],
+            {header: GIT_AUTH_HEADER_KEY, token: storedGitHubAccessToken || ''}],
           sessionState: '',
           accountLink: {},
         };
@@ -64,11 +64,11 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       }
     }
 
-    if(!githubAccessToken) {
-      const gitAccessToken = await this.getGitHubAccessToken();
-      if (gitAccessToken && this._user) {
+    if(!storedGitHubAccessToken) {
+      const githubAccessToken = await this.getGitHubAccessToken();
+      if (githubAccessToken && this._user) {
         const tokens = this._user.token as AuthorizationToken[];
-        tokens.find(t => t.header === GIT_AUTH_HEADER_KEY)!.token = gitAccessToken;
+        tokens.find(t => t.header === GIT_AUTH_HEADER_KEY)!.token = githubAccessToken;
       }
     }
 
