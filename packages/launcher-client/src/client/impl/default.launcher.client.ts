@@ -131,7 +131,7 @@ export default class DefaultLauncherClient implements LauncherClient {
 
   public async gitInfo(): Promise<GitInfo> {
     const requestConfig = await this.getRequestConfig();
-    if (this.containsEmptyAccessToken(requestConfig.headers)) {
+    if (this.containsEmptyGitAccessToken(requestConfig.headers)) {
       return Promise.reject({response: {status: 404}});
     }
     return await this.httpService.get<GitInfo>(this.config.launcherURL, '/services/git/user', requestConfig);
@@ -153,8 +153,8 @@ export default class DefaultLauncherClient implements LauncherClient {
     );
   }
 
-  private containsEmptyAccessToken(headers): boolean {
-    return !!Object.entries(headers).find(header => header[0] === 'X-Git-Authorization' && header[1] !== '');
+  private containsEmptyGitAccessToken(headers): boolean {
+    return !headers['X-Git-Authorization'];
   }
 
   private async getRequestConfig(config: { gitProvider?: string, executionIndex?: number, clusterId?: string } = {})

@@ -34,12 +34,16 @@ if (isKeycloakMode) {
 
 if (authenticationMode === 'openshift') {
   const config = authConfig as OpenshiftConfig;
-  config.client_id = requireEnv(process.env.REACT_APP_OPENSHIFT_CLIENT_ID, 'openshiftClientId');
-  config.url = requireEnv(process.env.REACT_APP_OPENSHIFT_AUTH_URL, 'openshiftUrl');
-  config.gitId = requireEnv(process.env.REACT_APP_GIT_CLIENT_ID, 'gitClientId');
-  config.gitSecret = requireEnv(process.env.REACT_APP_GIT_SECRET, 'gitClientSecret');
-  config.token_uri = requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl') + '/services/openshift/user';
-
+  config.openshift = {
+    clientId: requireEnv(process.env.REACT_APP_OPENSHIFT_CLIENT_ID, 'openshiftClientId'),
+    url: requireEnv(process.env.REACT_APP_OPENSHIFT_AUTH_URL, 'openshiftUrl'),
+    validateTokenUri: requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl') + '/services/openshift/user',
+  };
+  config.github = {
+    clientId: requireEnv(process.env.REACT_APP_GITHUB_CLIENT_ID, 'githubClientId'),
+    secret: requireEnv(process.env.REACT_APP_GITHUB_SECRET, 'githubSecret'),
+    validateTokenUri: getEnv(process.env.REACT_APP_GITHUB_VALIDATE_URI, 'githubValidateUri') || '/launch/github/access_token',
+  };
 }
 
 const launcherClientApiMode = process.env.REACT_APP_CLIENT !== 'mock';

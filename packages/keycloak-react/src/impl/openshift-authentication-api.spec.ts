@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdaptor from 'axios-mock-adapter';
-import { OpenshiftAuthenticationApi } from './openshift-authentication-api';
+import { OPENSHIFT_AUTH_STORAGE_KEY, OpenshiftAuthenticationApi } from './openshift-authentication-api';
 import { AuthorizationToken } from '../authentication-api';
 
 describe('Openshift authentication', () => {
@@ -54,7 +54,7 @@ describe('Openshift authentication', () => {
 
   it('should validate token of stored user', async done => {
     // given
-    localStorage._STORE_[authentication.storageKey] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
+    localStorage._STORE_[OPENSHIFT_AUTH_STORAGE_KEY] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
     mock.onGet(tokenUri).reply(200, 'ignored');
 
     // when
@@ -67,7 +67,7 @@ describe('Openshift authentication', () => {
 
   it('should logout on invalid token', async done => {
     // given
-    localStorage._STORE_[authentication.storageKey] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
+    localStorage._STORE_[OPENSHIFT_AUTH_STORAGE_KEY] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
     mock.onGet(tokenUri).reply(401);
     window.location.assign = jest.fn();
 
@@ -82,7 +82,7 @@ describe('Openshift authentication', () => {
 
   it('should fetch git access token', async done => {
     // given
-    localStorage._STORE_[authentication.storageKey] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
+    localStorage._STORE_[OPENSHIFT_AUTH_STORAGE_KEY] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
     location.hash = '?code=githubcode'; // mock query part of url
     mock.onGet(tokenUri).reply(200, '{"name": "developer"}');
     mock.onPost('/launch/github/access_token').reply(200, '{"access_token": "super"}');
