@@ -23,6 +23,19 @@ describe('Openshift authentication', () => {
     done();
   });
 
+  it('should create valid login url', async done => {
+    const redirectTestAuth = new OpenshiftAuthenticationApi({ url: 'http://auth', client_id: 'demo' } as any);
+    Object.defineProperty(window.location, 'assign', {
+      writable: true,
+      value: jest.fn()
+    });
+
+    await redirectTestAuth.login();
+
+    expect(window.location.assign).toBeCalledWith('http://auth?client_id=demo&response_type=token&redirect_uri=http%3A%2F%2Flocalhost%2F');
+    done();
+  });
+
   it('should get user when token on url', async done => {
     // given
     location.hash = '#access_token=1235';
