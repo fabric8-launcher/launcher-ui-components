@@ -1,8 +1,6 @@
-
 # Launcher Creator Welcome App
-[![Build Status](https://travis-ci.org/fabric8-launcher/launcher-creator-welcome-app.svg?branch=master)](https://travis-ci.org/fabric8-launcher/launcher-creator-welcome-app)
 
-This app is used aside of app created by the Launcher Creator. It gives a set of examples to directly start playing with new applications.
+This app is used aside of app created by the Launcher. It gives a set of examples to directly start playing with new applications.
 
 ## Dev
 
