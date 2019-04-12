@@ -6,19 +6,17 @@ PR_NUM=$(printf %s\\n "${URL_SPLIT[@]:(-1)}")
 # https://en.wikipedia.org/wiki/Domain_Name_System#Domain_name_syntax
 # So, just replace "/" or "." with "-"
 
-DEPLOY_APP_SUBDOMAIN=`echo "$PR_NUM-pr-launcher-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
+DEPLOY_APP_SUBDOMAIN=`echo "fabric8-launcher-frontend-pr-${PR_NUM}-app"`
 DEPLOY_APP_DOMAIN="https://${DEPLOY_APP_SUBDOMAIN}.surge.sh"
 ALREADY_DEPLOYED_APP=`yarn run surge list | grep ${DEPLOY_APP_SUBDOMAIN}`
 yarn app:build:mock-api
 yarn run surge --project ./packages/launcher-app/build --domain ${DEPLOY_APP_DOMAIN};
 
-DEPLOY_WELCOME_APP_SUBDOMAIN=`echo "$PR_NUM-pr-launcher-welcome-app-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
-DEPLOY_WELCOME_APP_DOMAIN="https://${DEPLOY_WELCOME_APP_SUBDOMAIN}.surge.sh"
+DEPLOY_WELCOME_APP_DOMAIN="https://fabric8-launcher-frontend-pr-${PR_NUM}-welcome-app.surge.sh"
 yarn wa:build:mock-api
 yarn run surge --project ./packages/launcher-welcome-app/build --domain ${DEPLOY_WELCOME_APP_DOMAIN};
 
-DEPLOY_STORYBOOK_SUBDOMAIN=`echo "$PR_NUM-pr-storybook-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_PROJECT_USERNAME}" | tr '[\/|\.]' '-' | cut -c1-253`
-DEPLOY_STORYBOOK_DOMAIN="https://${DEPLOY_STORYBOOK_SUBDOMAIN}.surge.sh"
+DEPLOY_STORYBOOK_DOMAIN="https://fabric8-launcher-frontend-pr-${PR_NUM}-storybook.surge.sh"
 yarn comp:storybook:build
 yarn run surge --project ./packages/launcher-component/storybook-static --domain ${DEPLOY_STORYBOOK_DOMAIN};
 
