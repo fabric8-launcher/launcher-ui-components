@@ -44,7 +44,7 @@ function HomePage(props: {}) {
             <Route path="/flow/new-app" exact component={CreateNewAppFlowRoute}/>
             <Route path="/flow/import-existing-app" exact component={ImportExistingFlowRoute}/>
             <Route path="/flow/deploy-example-app" exact component={DeployExampleAppFlowRoute}/>
-            <Redirect to="/home"/>
+            <Redirect to={{pathname: location.search ? location.search.substr('?request='.length) : '/home'}}/>
           </Switch>
         </div>
       </Layout>
