@@ -35,6 +35,17 @@ function HomePage(props: {}) {
   const ImportExistingFlowRoute = () => (<WithCancel>{onCancel => <ImportExistingFlow onCancel={onCancel}/>}</WithCancel>);
   const DeployExampleAppFlowRoute = () => (<WithCancel>{onCancel => <DeployExampleAppFlow onCancel={onCancel}/>}</WithCancel>);
 
+  const parseQuery = (queryString: string): { [key: string]: string } => {
+    return queryString.split('&')
+      .reduce((initial, item) => {
+        if (item) {
+          const parts = item.split('=');
+          initial[parts[0]] = decodeURIComponent(parts[1] || '');
+        }
+        return initial;
+      }, {} as { [key: string]: string });
+  };
+
   return (
     <BrowserRouter basename={publicUrl}>
       <Layout>
@@ -44,7 +55,7 @@ function HomePage(props: {}) {
             <Route path="/flow/new-app" exact component={CreateNewAppFlowRoute}/>
             <Route path="/flow/import-existing-app" exact component={ImportExistingFlowRoute}/>
             <Route path="/flow/deploy-example-app" exact component={DeployExampleAppFlowRoute}/>
-            <Redirect to={{pathname: location.search ? location.search.substr('?request='.length) : '/home'}}/>
+            <Redirect to={{pathname: location.search ? parseQuery(location.search.substr(1)).request : '/home'}}/>
           </Switch>
         </div>
       </Layout>
