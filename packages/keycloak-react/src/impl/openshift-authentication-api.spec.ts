@@ -5,7 +5,11 @@ import { AuthorizationToken } from '../authentication-api';
 
 describe('Openshift authentication', () => {
   const tokenUri = 'http://token_uri/';
-  const authentication = new OpenshiftAuthenticationApi({ token_uri: tokenUri } as any);
+  const authentication = new OpenshiftAuthenticationApi({
+      openshift: {validateTokenUri: tokenUri},
+      github: {validateTokenUri: '/launch/github/access_token'}
+    } as any
+  );
   const mock = new MockAdaptor(axios);
 
   beforeEach(() => {
@@ -24,7 +28,7 @@ describe('Openshift authentication', () => {
   });
 
   it('should create valid login url', async done => {
-    const redirectTestAuth = new OpenshiftAuthenticationApi({ url: 'http://auth', client_id: 'demo' } as any);
+    const redirectTestAuth = new OpenshiftAuthenticationApi({openshift: {url: 'http://auth', clientId: 'demo'}, github: {}} as any);
     Object.defineProperty(window.location, 'assign', {
       writable: true,
       value: jest.fn()
@@ -76,7 +80,7 @@ describe('Openshift authentication', () => {
 
     expect(localStorage.getItem).toBeCalled();
     expect(localStorage.removeItem).toBeCalled();
-    expect(window.location.assign).toBeCalledWith('/');
+    expect(authentication.user).toBeUndefined();
     done();
   });
 
@@ -117,9 +121,11 @@ export class LocalStorage {
       }),
     });
   }
+
   get length() {
     return Object.keys(this).length;
   }
+
   get _STORE_() {
     return this;
   }
