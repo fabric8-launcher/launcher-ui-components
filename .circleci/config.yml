@@ -1,29 +1,26 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
+version: 2.1
+
 jobs:
   build:
     docker:
       - image: circleci/node:10-browsers
-
     steps:
       - checkout
 
-      # Download and cache dependencies
+      # Use cache for dependencies
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
 
-      # Run install
-      - run: yarn install
-
-      # Save deps cache
       - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
 
       # Run build
       - run: yarn build
@@ -34,10 +31,53 @@ jobs:
       # Run coverage
       - run: yarn codecov
 
-      # Run Deploy Preview
+      # Store node_modules
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - project
+  deploy-preview:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      # Run Deploy Preview if PR
       - run:
           name: Deploy Preview
           command: if [ -n "$CIRCLE_PULL_REQUEST" ]; then .circleci/upload_preview.sh; fi
 
+  publish:
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - attach_workspace:
+          at: /home/circleci
 
+      - setup_remote_docker:
+          docker_layer_caching: true
 
+      # Push welcome-app to Dockerhub
+      - run:
+          name: Deploy Welcome Application to DockerHub
+          command: yarn wa:deploy
+
+      # Publish component storybook
+      - run:
+          name: Publish Storybook
+          command: yarn comp:storybook:publish
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy-preview:
+          requires:
+            - build
+      - publish:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

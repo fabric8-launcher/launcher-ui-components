@@ -7,7 +7,8 @@
     "packages/launcher-client",
     "packages/keycloak-react",
     "packages/launcher-component",
-    "packages/launcher-app"
+    "packages/launcher-app",
+    "packages/launcher-welcome-app"
   ],
   "dependencies": {
     "@patternfly/react-core": "2.10.9",
@@ -28,6 +29,10 @@
     "app:start:production-api": "yarn workspace launcher-app start:production-api",
     "app:start:mock-api": "yarn workspace launcher-app start:mock-api",
     "app:build": "yarn workspace launcher-app build",
+    "wa:start": "yarn workspace launcher-welcome-app start",
+    "wa:build": "yarn workspace launcher-welcome-app build",
+    "wa:build:mock-api": "yarn workspace launcher-welcome-app build:mock-api",
+    "wa:deploy": "yarn workspace launcher-welcome-app image:deploy",
     "client:build": "yarn workspace launcher-client build",
     "kc:build": "yarn workspace keycloak-react build",
     "comp:build": "yarn workspace launcher-component build",

@@ -1,0 +1,32 @@
+{
+  "name": "launcher-welcome-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:mock-api": "env-cmd .env.mock-api yarn build",
+    "test": "export CI=true && react-scripts test --passWithNoTests",
+    "image:deploy": "./docker_push.sh",
+    "eject": "react-scripts eject",
+    "start:prod": "run-s build serve"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "dependencies": {
+    "react-router-dom": "5.0.0",
+    "react-copy-to-clipboard":"5.0.1",
+    "react-json-pretty": "2.1.0",
+    "moment": "2.24.0"
+  },
+  "devDependencies": {
+    "@types/faker": "4.1.5",
+    "@types/moment": "2.13.0",
+    "@types/react-router-dom": "4.3.1",
+    "@types/react-copy-to-clipboard": "4.2.6",
+    "react-scripts": "2.1.8",
+    "faker": "4.1.0",
+    "env-cmd": "8.0.2"
+  }
+}
