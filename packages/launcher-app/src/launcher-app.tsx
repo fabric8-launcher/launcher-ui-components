@@ -16,6 +16,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContext, AuthRouter, newAuthApi, useAuthenticationApiStateProxy } from 'keycloak-react';
 import { useCreateLink } from './use-router';
+import queryString from 'query-string';
 
 function HomePage(props: {}) {
   const Menu = () => {
@@ -35,16 +36,7 @@ function HomePage(props: {}) {
   const ImportExistingFlowRoute = () => (<WithCancel>{onCancel => <ImportExistingFlow onCancel={onCancel}/>}</WithCancel>);
   const DeployExampleAppFlowRoute = () => (<WithCancel>{onCancel => <DeployExampleAppFlow onCancel={onCancel}/>}</WithCancel>);
 
-  const parseQuery = (queryString: string): { [key: string]: string } => {
-    return queryString.split('&')
-      .reduce((initial, item) => {
-        if (item) {
-          const parts = item.split('=');
-          initial[parts[0]] = decodeURIComponent(parts[1] || '');
-        }
-        return initial;
-      }, {} as { [key: string]: string });
-  };
+  const path = queryString.parse(location.search).request === '/' ? '/home' : queryString.parse(location.search).request as string;
 
   return (
     <BrowserRouter basename={publicUrl}>
@@ -55,7 +47,7 @@ function HomePage(props: {}) {
             <Route path="/flow/new-app" exact component={CreateNewAppFlowRoute}/>
             <Route path="/flow/import-existing-app" exact component={ImportExistingFlowRoute}/>
             <Route path="/flow/deploy-example-app" exact component={DeployExampleAppFlowRoute}/>
-            <Redirect to={{pathname: location.search ? parseQuery(location.search.substr(1)).request : '/home'}}/>
+            <Redirect to={{pathname: location.search ? path : '/home'}}/>
           </Switch>
         </div>
       </Layout>
