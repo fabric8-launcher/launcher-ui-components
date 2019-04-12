@@ -36,16 +36,21 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     }
 
     if (token) {
-      const username = await this.validateToken(token);
-      if (!this._user) {
-        this._user = {
-          userName: username,
-          userPreferredName: username,
+      try {
+        const username = await this.validateToken(token);
+        if (!this._user) {
+          this._user = {
+            userName: username,
+            userPreferredName: username,
             token: [{ header: this.openshiftAuthKey, token },
               { header: 'X-Git-Authorization', token: '' }],
-          sessionState: '',
-          accountLink: {},
-        };
+            sessionState: '',
+            accountLink: {},
+          };
+          this.storeUser();
+        }
+      } catch (e) {
+        this.logout();
       }
     }
 
@@ -53,9 +58,9 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (gitAccessToken && this._user) {
       const tokens = this._user.token as AuthorizationToken[];
       tokens.push({ header: 'X-Git-Authorization', token: gitAccessToken });
+      this.storeUser();
     }
 
-    this.storeUser();
     return this._user;
   }
 
@@ -131,18 +136,13 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   }
 
   private async validateToken(token: string): Promise<string> {
-    try {
-      const response = await axios.get(this.config.token_uri, {
-        headers: {
-          'X-OpenShift-Authorization': `Bearer ${token}`,
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo'
-        }
-      });
-      return response.data.name;
-    } catch (e) {
-      this.logout();
-    }
-    return '';
+    const response = await axios.get(this.config.token_uri, {
+      headers: {
+        'X-OpenShift-Authorization': `Bearer ${token}`,
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo'
+      }
+    });
+    return response.data.name;
   }
 
   private async getGitHubAccessToken(): Promise<string | undefined> {
