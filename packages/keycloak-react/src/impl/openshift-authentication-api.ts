@@ -41,7 +41,8 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
         this._user = {
           userName: username,
           userPreferredName: username,
-          token: [{ header: this.openshiftAuthKey, token }],
+            token: [{ header: this.openshiftAuthKey, token },
+              { header: 'X-Git-Authorization', token: '' }],
           sessionState: '',
           accountLink: {},
         };
