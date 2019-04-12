@@ -61,7 +61,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
     if (provider === 'github') {
       return 'https://github.com/login/oauth/authorize?response_type=code&client_id=' +
-        `${this.config.gitId}&redirect_uri=${redirect || location.href}&scope=repo%2Cadmin%3Arepo_hook&state=51DpNYJ2`;
+        `${this.config.gitId}&redirect_uri=${redirect || location.href}&scope=repo%2Cadmin%3Arepo_hook`;
     }
     return '';
   };
@@ -111,7 +111,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       if (user) {
         return JSON.parse(user);
       }
-    } catch(e) {
+    } catch (e) {
       console.warn('stored user was corrupte');
       localStorage.removeItem(this.storageKey);
     }
@@ -149,7 +149,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     const code = this.parseQuery(query).code;
     if (code) {
       const response = await axios.post('/launch/github/access_token',
-        { client_id: this.config.gitId, client_secret: this.config.gitSecret, code, state: '51DpNYJ2' });
+        { client_id: this.config.gitId, client_secret: this.config.gitSecret, code });
       return response.data.access_token;
     }
     return undefined;
