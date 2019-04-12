@@ -76,7 +76,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
 
   public logout = (): void => {
     localStorage.removeItem(this.storageKey);
-    location.reload();
+    location.assign('/');
   };
 
   public getAccountManagementLink = () => {

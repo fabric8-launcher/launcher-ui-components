@@ -69,14 +69,14 @@ describe('Openshift authentication', () => {
     // given
     localStorage._STORE_[authentication.storageKey] = '{"token":[{"header":"X-OpenShift-Authorization","token":"123"}]}';
     mock.onGet(tokenUri).reply(401);
-    window.location.reload = jest.fn();
+    window.location.assign = jest.fn();
 
     // when
     await authentication.init();
 
     expect(localStorage.getItem).toBeCalled();
     expect(localStorage.removeItem).toBeCalled();
-    expect(window.location.reload).toBeCalled();
+    expect(window.location.assign).toBeCalledWith('/');
     done();
   });
 
