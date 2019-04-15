@@ -30,11 +30,13 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (!config.openshift.responseType) {
       config.openshift.responseType = 'token';
     }
+
+    const url = this.stripQueryStringAndHashFromPath(location.href);
     if (!config.openshift.redirectUri) {
-      config.openshift.redirectUri = location.href;
+      config.openshift.redirectUri = url;
     }
     if (!config.github.redirectUri) {
-      config.github.redirectUri = location.href;
+      config.github.redirectUri = url;
     }
   }
 
@@ -167,6 +169,10 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       return response.data.access_token;
     }
     return undefined;
+  }
+
+  private stripQueryStringAndHashFromPath(url) {
+    return url.split('?')[0].split('#')[0];
   }
 
   private resetUrl() {
