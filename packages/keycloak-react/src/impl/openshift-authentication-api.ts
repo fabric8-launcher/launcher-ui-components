@@ -72,6 +72,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       }
     }
 
+    this.resetUrl();
     this.storeUser();
 
     return this._user;
@@ -166,6 +167,10 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       return response.data.access_token;
     }
     return undefined;
+  }
+
+  private resetUrl() {
+    history.pushState(undefined, document.title, location.pathname);
   }
 
   private getUserAuthorizationToken(tokenHeader: string): string | undefined {
