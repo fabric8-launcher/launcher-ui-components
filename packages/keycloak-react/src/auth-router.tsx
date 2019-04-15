@@ -12,14 +12,13 @@ interface AuthRouterProps {
 }
 
 export function AuthRouter(props: AuthRouterProps) {
-  const queryPrefix = '?request=';
   const authApi = useAuthApi();
   if (!authApi.user && authApi.enabled) {
     return (
       <BrowserRouter basename={props.basename}>
         <Switch>
           <Route path="/login" exact component={props.loginPage}/>
-          <Redirect to={{ pathname: '/login', search: queryPrefix + location.pathname }}/>
+          <Redirect to={{ pathname: '/login', search: `?request=${location.pathname}` }}/>
         </Switch>
       </BrowserRouter>
     );

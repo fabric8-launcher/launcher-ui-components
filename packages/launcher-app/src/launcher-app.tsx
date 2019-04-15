@@ -18,6 +18,14 @@ import { AuthContext, AuthRouter, newAuthApi, useAuthenticationApiStateProxy } f
 import { useCreateLink } from './use-router';
 import queryString from 'query-string';
 
+export function getRedirectPath(search: string): string {
+  if (!search) {
+    return '/home';
+  }
+  const requestParam = queryString.parse(search).request;
+  return requestParam === '/' ? '/home' : requestParam as string;
+}
+
 function HomePage(props: {}) {
   const Menu = () => {
     return (
@@ -36,8 +44,6 @@ function HomePage(props: {}) {
   const ImportExistingFlowRoute = () => (<WithCancel>{onCancel => <ImportExistingFlow onCancel={onCancel}/>}</WithCancel>);
   const DeployExampleAppFlowRoute = () => (<WithCancel>{onCancel => <DeployExampleAppFlow onCancel={onCancel}/>}</WithCancel>);
 
-  const path = queryString.parse(location.search).request === '/' ? '/home' : queryString.parse(location.search).request as string;
-
   return (
     <BrowserRouter basename={publicUrl}>
       <Layout>
@@ -47,7 +53,7 @@ function HomePage(props: {}) {
             <Route path="/flow/new-app" exact component={CreateNewAppFlowRoute}/>
             <Route path="/flow/import-existing-app" exact component={ImportExistingFlowRoute}/>
             <Route path="/flow/deploy-example-app" exact component={DeployExampleAppFlowRoute}/>
-            <Redirect to={{pathname: location.search ? path : '/home'}}/>
+            <Redirect to={{pathname: getRedirectPath(location.search)}}/>
           </Switch>
         </div>
       </Layout>
