@@ -154,7 +154,7 @@ export default class DefaultLauncherClient implements LauncherClient {
   }
 
   private containsEmptyGitAccessToken(headers): boolean {
-    return !headers['X-Git-Authorization'];
+    return headers['X-Git-Authorization'] === 'Bearer ';
   }
 
   private async getRequestConfig(config: { gitProvider?: string, executionIndex?: number, clusterId?: string } = {})
