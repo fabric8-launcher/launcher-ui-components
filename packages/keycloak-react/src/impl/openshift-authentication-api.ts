@@ -42,12 +42,12 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     this._user = this.storedUser;
     let token: string;
     if (this._user) {
-      token = this.getLoginTokenFromUser(this._user);
+      token = this.getUserAuthorizationToken(OPENSHIFT_AUTH_HEADER_KEY) || '';
     } else {
       const params = this.parseQuery(location.hash.substring(1));
       token = params.access_token;
     }
-    const storedGitHubAccessToken = this.getUserGitHubAuthorizationToken();
+    const storedGitHubAccessToken = this.getUserAuthorizationToken(GIT_AUTH_HEADER_KEY);
     if (token) {
       try {
         const username = await this.validateToken(token);
@@ -139,10 +139,6 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     return undefined;
   }
 
-  private getLoginTokenFromUser(user: OptionalUser) {
-    return (user!.token as AuthorizationToken[]).filter(t => t.header === OPENSHIFT_AUTH_HEADER_KEY)[0].token;
-  }
-
   private storeUser() {
     if (this.user) {
       localStorage.setItem(OPENSHIFT_AUTH_STORAGE_KEY, JSON.stringify(this.user));
@@ -172,8 +168,8 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     return undefined;
   }
 
-  private getUserGitHubAuthorizationToken() {
-    const token = this._user && (this._user.token as AuthorizationToken[]).find(t => t.header === GIT_AUTH_HEADER_KEY);
+  private getUserAuthorizationToken(tokenHeader: string): string | undefined {
+    const token = this._user && (this._user.token as AuthorizationToken[]).find(t => t.header === tokenHeader);
     return token && token.token;
   }
 
