@@ -1,24 +1,29 @@
-import { getRedirectPath } from './launcher-app';
+import { restoreHistory } from './launcher-app';
+
 describe('HomePage test', () => {
+
+  beforeEach(() => {
+    history.pushState = jest.fn();
+  });
 
   it('should home if root', () => {
     // given
     const search = '?request=/';
 
     // when
-    const path = getRedirectPath(search);
+    restoreHistory(search);
 
-    expect(path).toBe('/home');
+    expect(history.pushState).toBeCalledWith(undefined, document.title, '/home');
   });
 
-  it('should home if not set', () => {
+  it('should not restore if not set', () => {
     // given
     const search = '';
 
     // when
-    const path = getRedirectPath(search);
+    restoreHistory(search);
 
-    expect(path).toBe('/home');
+    expect(history.pushState).toBeCalledTimes(0);
   });
 
   it('should be request if set', () => {
@@ -26,8 +31,8 @@ describe('HomePage test', () => {
     const search = '?request=/super/path';
 
     // when
-    const path = getRedirectPath(search);
+    restoreHistory(search);
 
-    expect(path).toBe('/super/path');
+    expect(history.pushState).toBeCalledWith(undefined, document.title, '/super/path');
   });
 });
