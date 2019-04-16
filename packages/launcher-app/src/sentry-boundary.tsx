@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/browser';
 import { Component, ErrorInfo } from 'react';
 import * as React from 'react';
-import { sentryDsn } from './config';
+import { sentryDsn } from './app/config';
 
 if (sentryDsn) {
   console.info('Sentry is enabled');

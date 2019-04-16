@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { LauncherApp } from './launcher-app';
+import { LauncherApp } from './app/launcher-app';
 import * as serviceWorker from './service-worker';
 import { SentryBoundary } from './sentry-boundary';
 
