@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import './launcher-app.scss';
 import { LoginPage } from './login-page';
@@ -19,7 +19,9 @@ import { useRouter, createRouterLink, restoreRouterHistory } from './use-router'
 
 function Routes(props: {}) {
   const router = useRouter();
-  restoreRouterHistory(router);
+  useEffect(() => {
+    restoreRouterHistory(router);
+  }, []);
   const Menu = () => {
     return (
       <LauncherMenu
