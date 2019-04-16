@@ -1,6 +1,8 @@
 import { restoreRouterHistory, SimpleRouter } from "./use-router";
 import * as H from 'history';
 
+jest.useFakeTimers();
+
 describe('UseRouter test', () => {
   let router: SimpleRouter;
   beforeEach(() => {
@@ -10,14 +12,16 @@ describe('UseRouter test', () => {
     };
   });
 
-  it('should home if root', () => {
+  it('should call / if /', () => {
     // given
     router.location.search = '?request=/';
 
     // when
     restoreRouterHistory(router);
 
-    expect(router.history.push).toBeCalledWith('/home');
+    jest.runAllImmediates();
+
+    expect(router.history.push).toBeCalledWith('/');
   });
 
   it('should not restore if not set', () => {
@@ -26,6 +30,8 @@ describe('UseRouter test', () => {
 
     // when
     restoreRouterHistory(router);
+
+    jest.runAllImmediates();
 
     expect(router.history.push).toBeCalledTimes(0);
   });
@@ -36,6 +42,8 @@ describe('UseRouter test', () => {
 
     // when
     restoreRouterHistory(router);
+
+    jest.runAllImmediates();
 
     expect(router.history.push).toBeCalledWith('/super/path');
   });

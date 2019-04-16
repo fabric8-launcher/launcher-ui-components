@@ -39,6 +39,10 @@ export function restoreRouterHistory(router: SimpleRouter) {
   if (!search) {
     return;
   }
-  const requestParam = queryString.parse(search).request;
-  goToWithRouter(router, requestParam === '/' ? '/home' : requestParam as string);
+  const requestParam = queryString.parse(search).request as string;
+  if(requestParam) {
+    setImmediate(() => {
+      goToWithRouter(router, requestParam);
+    });
+  }
 }
