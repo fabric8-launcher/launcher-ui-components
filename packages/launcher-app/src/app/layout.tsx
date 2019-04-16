@@ -14,13 +14,14 @@ import { useState } from 'react';
 import logo from './assets/logo/RHD-logo.svg';
 import style from './layout.module.scss';
 import { useAuthApi } from 'keycloak-react';
-import { useCreateLink } from './use-router';
+import { createRouterLink, useRouter } from './use-router';
 import { BaseSyntheticEvent } from 'react';
 import { ReactNode } from 'react';
 
 export function Layout(props: { children: React.ReactNode }) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  const rootLink = useCreateLink('/');
+  const router = useRouter();
+  const rootLink = createRouterLink(router, '/');
   const auth = useAuthApi();
   const logout = (e: BaseSyntheticEvent) => {
     e.preventDefault();

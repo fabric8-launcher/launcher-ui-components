@@ -24,6 +24,7 @@
     "@sentry/browser": "5.0.8",
     "keycloak-react": "^1.0.0-alpha.0",
     "launcher-component": "^1.0.0-alpha.0",
+    "query-string": "6.4.2",
     "react-router-dom": "5.0.0"
   },
   "devDependencies": {

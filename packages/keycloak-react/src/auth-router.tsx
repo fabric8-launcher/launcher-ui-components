@@ -18,7 +18,7 @@ export function AuthRouter(props: AuthRouterProps) {
       <BrowserRouter basename={props.basename}>
         <Switch>
           <Route path="/login" exact component={props.loginPage}/>
-          <Redirect to="/login"/>
+          <Redirect to={{ pathname: '/login', search: `?request=${location.pathname}` }}/>
         </Switch>
       </BrowserRouter>
     );
