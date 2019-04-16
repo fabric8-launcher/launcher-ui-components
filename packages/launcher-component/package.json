@@ -10,7 +10,7 @@
     "test": "jest",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "storybook:build": "build-storybook -s public",
-    "storybook:publish": "storybook-to-ghpages"
+    "storybook:publish": "npx surge --project ./storybook-static --domain https://fabric8-launcher-component-storybook.surge.sh"
   },
   "dependencies": {
     "launcher-client": "^1.0.0-alpha.0",
@@ -18,11 +18,11 @@
     "react-use-sessionstorage": "1.0.2"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "5.0.6",
-    "@storybook/addon-links": "5.0.6",
-    "@storybook/addon-storysource": "5.0.6",
-    "@storybook/addons": "5.0.6",
-    "@storybook/react": "5.0.6",
+    "@storybook/addon-actions": "5.0.8",
+    "@storybook/addon-links": "5.0.8",
+    "@storybook/addon-storysource": "5.0.8",
+    "@storybook/addons": "5.0.8",
+    "@storybook/react": "5.0.8",
     "@storybook/storybook-deployer": "2.8.1",
     "@types/storybook__addon-actions": "3.4.2",
     "@types/storybook__react": "4.0.1",

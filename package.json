@@ -7,7 +7,8 @@
     "packages/launcher-client",
     "packages/keycloak-react",
     "packages/launcher-component",
-    "packages/launcher-app"
+    "packages/launcher-app",
+    "packages/launcher-welcome-app"
   ],
   "dependencies": {
     "@patternfly/react-core": "2.10.9",
@@ -28,13 +29,17 @@
     "app:start:production-api": "yarn workspace launcher-app start:production-api",
     "app:start:mock-api": "yarn workspace launcher-app start:mock-api",
     "app:build": "yarn workspace launcher-app build",
+    "wa:start": "yarn workspace launcher-welcome-app start",
+    "wa:build": "yarn workspace launcher-welcome-app build",
+    "wa:build:mock-api": "yarn workspace launcher-welcome-app build:mock-api",
+    "wa:deploy": "yarn workspace launcher-welcome-app image:deploy",
     "client:build": "yarn workspace launcher-client build",
     "kc:build": "yarn workspace keycloak-react build",
     "comp:build": "yarn workspace launcher-component build",
     "comp:test": "yarn workspace launcher-component test",
     "comp:storybook": "yarn workspace launcher-component storybook",
     "comp:storybook:build": "yarn workspace launcher-component storybook:build",
-    "comp:storybook:publish": "yarn workspace launcher-component storybook:publish"
+    "comp:storybook:publish": "yarn comp:storybook:build && yarn workspace launcher-component storybook:publish"
   },
   "browserslist": [
     ">0.2%",
@@ -48,7 +53,7 @@
     "@types/lodash": "4.14.123",
     "@types/node": "11.13.4",
     "@types/react": "16.8.13",
-    "@types/react-dom": "16.8.3",
+    "@types/react-dom": "16.8.4",
     "codecov": "3.3.0",
     "eslint": "5.16.0",
     "ghooks": "2.0.4",

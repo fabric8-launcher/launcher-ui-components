@@ -73,7 +73,7 @@ $ yarn build
 ```
 
 ### Storybook
-https://fabric8-launcher.github.io/launcher-frontend/
+https://fabric8-launcher-component-storybook.surge.sh
 
 ## Patternfly Doc
 http://patternfly-react.surge.sh/patternfly-4/
