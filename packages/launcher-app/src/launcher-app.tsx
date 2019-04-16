@@ -15,47 +15,44 @@ import { authenticationMode, creatorApiUrl, keycloakConfig, launcherApiUrl, publ
 import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContext, AuthRouter, newAuthApi, useAuthenticationApiStateProxy } from 'keycloak-react';
-import { useCreateLink } from './use-router';
-import queryString from 'query-string';
+import { useRouter, createRouterLink, restoreRouterHistory } from './use-router';
 
-export function restoreHistory(search: string) {
-  if (!search) {
-    return;
-  }
-  const requestParam = queryString.parse(search).request;
-  history.pushState(undefined, document.title, requestParam === '/' ? '/home' : requestParam as string);
-}
-
-function HomePage(props: {}) {
+function Routes(props: {}) {
+  const router = useRouter();
+  restoreRouterHistory(router);
   const Menu = () => {
     return (
       <LauncherMenu
-        createNewApp={useCreateLink('/flow/new-app')}
-        createExampleApp={useCreateLink('/flow/deploy-example-app')}
-        importExistingApp={useCreateLink('/flow/import-existing-app')}
+        createNewApp={createRouterLink(router, '/flow/new-app')}
+        createExampleApp={createRouterLink(router, '/flow/deploy-example-app')}
+        importExistingApp={createRouterLink(router, '/flow/import-existing-app')}
       />
     );
   };
   const WithCancel = (cancelProps: { children: (onCancel: () => void) => any }) => {
-    const rootLink = useCreateLink('/');
+    const rootLink = createRouterLink(router, '/');
     return cancelProps.children(rootLink.onClick);
   };
-  const CreateNewAppFlowRoute = () => (<WithCancel>{onCancel => <CreateNewAppFlow onCancel={onCancel}/>}</WithCancel>);
-  const ImportExistingFlowRoute = () => (<WithCancel>{onCancel => <ImportExistingFlow onCancel={onCancel}/>}</WithCancel>);
-  const DeployExampleAppFlowRoute = () => (<WithCancel>{onCancel => <DeployExampleAppFlow onCancel={onCancel}/>}</WithCancel>);
+  const CreateNewAppFlowRoute = () => (<WithCancel>{onCancel => <CreateNewAppFlow onCancel={onCancel} />}</WithCancel>);
+  const ImportExistingFlowRoute = () => (<WithCancel>{onCancel => <ImportExistingFlow onCancel={onCancel} />}</WithCancel>);
+  const DeployExampleAppFlowRoute = () => (<WithCancel>{onCancel => <DeployExampleAppFlow onCancel={onCancel} />}</WithCancel>);
+  return (
+    <Switch>
+      <Route path="/home" exact component={Menu} />
+      <Route path="/flow/new-app" exact component={CreateNewAppFlowRoute} />
+      <Route path="/flow/import-existing-app" exact component={ImportExistingFlowRoute} />
+      <Route path="/flow/deploy-example-app" exact component={DeployExampleAppFlowRoute} />
+      <Redirect to="/home" />
+    </Switch>
+  );
+}
 
-  restoreHistory(location.search);
+function HomePage(props: {}) {
   return (
     <BrowserRouter basename={publicUrl}>
       <Layout>
         <div className="launcher-container">
-          <Switch>
-            <Route path="/home" exact component={Menu}/>
-            <Route path="/flow/new-app" exact component={CreateNewAppFlowRoute}/>
-            <Route path="/flow/import-existing-app" exact component={ImportExistingFlowRoute}/>
-            <Route path="/flow/deploy-example-app" exact component={DeployExampleAppFlowRoute}/>
-            <Redirect to="/home"/>
-          </Switch>
+          <Routes />
         </div>
       </Layout>
     </BrowserRouter>
@@ -81,7 +78,7 @@ export function LauncherApp() {
           launcherUrl={launcherApiUrl}
         >
           <AuthRouter loginPage={LoginPage} basename={publicUrl}>
-            <HomePage/>
+            <HomePage />
           </AuthRouter>
         </LauncherClientProvider>
       </AuthContext.Provider>
