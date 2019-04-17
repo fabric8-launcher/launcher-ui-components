@@ -14,12 +14,12 @@
     "@patternfly/react-core": "2.10.9",
     "@patternfly/react-icons": "3.7.1",
     "classnames": "2.2.6",
-    "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react": "16.9.0-alpha.0",
+    "react-dom": "16.9.0-alpha.0"
   },
   "scripts": {
     "clean": "rm -rf build && find . -type d -name \"node_modules\" -exec rm -rf {} +",
-    "test": "yarn workspaces run test",
+    "test": "jest --silent",
     "libs:build": "yarn client:build && yarn kc:build && yarn comp:build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
     "build:prod": "yarn build && yarn comp:storybook:publish && lerna publish",

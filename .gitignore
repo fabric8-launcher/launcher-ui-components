@@ -6,7 +6,7 @@ node_modules/
 .pnp.js
 
 # testing
-/coverage
+coverage/
 
 # production
 build/
@@ -30,3 +30,5 @@ yarn-error.log*
 *.code-workspace
 
 .history/
+
+storybook-static/

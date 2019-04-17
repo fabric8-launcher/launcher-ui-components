@@ -8,7 +8,7 @@ interface Field {
   name: string;
   description: string;
   required: boolean;
-  values?: Array<{ id: string, name: string }>;
+  valuesWithEnums?: Array<{ id: string, name: string }>;
   type: string;
   default?: string;
 }
@@ -87,7 +87,7 @@ function CapabilityItem(props: CapabilityItemProps) {
                 id={f.id}
                 name={f.name}
                 description={f.description}
-                values={f.values!}
+                values={f.valuesWithEnums!}
                 required={f.required}
                 value={selectedValue}
                 onChange={onFieldChange}

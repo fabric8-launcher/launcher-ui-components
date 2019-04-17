@@ -2,14 +2,13 @@ import { act, fireEvent } from 'react-testing-library';
 import { waitForTick } from 'launcher-client';
 
 export async function flushPromises() {
-// FIXME: use the new await version when it's available https://github.com/facebook/react/pull/14853
-  act(() => {
+  await act(async () => {
     console.log('runAllTick()');
     jest.runAllTicks();
     jest.runOnlyPendingTimers();
     jest.runAllImmediates();
+    await waitForTick('act()');
   });
-  await waitForTick('act()');
 }
 
 export async function launchCheckPayloadAndProgress(comp, mockClient) {

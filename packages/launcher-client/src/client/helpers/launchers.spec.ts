@@ -1,7 +1,9 @@
 import exampleCatalog from '../data-examples/mock-example-catalog.json';
+import capabilities from '../data-examples/mock-capabilities.json';
+import enums from '../data-examples/mock-enums.json';
 
-import { Catalog, Example, ExampleMission, ExampleRuntime } from '../types';
-import { filter, filterExamples } from './launchers';
+import { Capability, Catalog, Enums, Example, ExampleMission, ExampleRuntime } from '../types';
+import { filter, filterExamples, propsWithValuesMapper } from './launchers';
 
 describe('Filter examples', () => {
   it('should filter catalog on examples', () => {
@@ -85,6 +87,11 @@ describe('Filter examples', () => {
 
     expect(result).toBeDefined();
     expect(result.length).toBe(92);
+  });
+
+  it('should map props with values correctly', () => {
+    const result = (capabilities as unknown as Capability[]).map(propsWithValuesMapper(enums as Enums));
+    expect(result).toMatchSnapshot();
   });
 
 });

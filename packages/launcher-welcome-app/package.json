@@ -6,7 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:mock-api": "env-cmd .env.mock-api yarn build",
-    "test": "export CI=true && react-scripts test --passWithNoTests",
+    "test": "jest --passWithNoTests",
     "image:deploy": "./docker_push.sh",
     "eject": "react-scripts eject",
     "start:prod": "run-s build serve"

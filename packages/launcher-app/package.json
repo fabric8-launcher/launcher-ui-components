@@ -8,7 +8,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:mock-api": "env-cmd .env.mock-api yarn build",
-    "test": "export CI=true && react-scripts test --passWithNoTests",
+    "test": "jest",
     "eject": "react-scripts eject",
     "start:mock-api": "env-cmd .env.mock-api yarn start",
     "start:staging-api": "env-cmd .env.staging-api yarn start",
