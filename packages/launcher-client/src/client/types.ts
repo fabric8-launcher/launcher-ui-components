@@ -126,7 +126,8 @@ export interface FieldProperty {
   required: boolean;
   default?: string;
   props?: FieldProperty[];
-  values?: PropertyValue[];
+  values?: string[];
+  valuesWithEnums?: PropertyValue[];
   shared?: boolean;
   enabledWhen?: {
     propId: string;

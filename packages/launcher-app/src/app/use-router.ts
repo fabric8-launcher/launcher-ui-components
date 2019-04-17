@@ -1,4 +1,4 @@
-import { __RouterContext, StaticContext, RouteComponentProps } from 'react-router';
+import { __RouterContext, RouteComponentProps } from 'react-router';
 import * as H from 'history';
 import { createLocation } from 'history';
 import { BaseSyntheticEvent, useContext } from 'react';

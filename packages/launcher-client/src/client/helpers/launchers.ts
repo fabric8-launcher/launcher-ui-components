@@ -8,7 +8,7 @@ export function fillPropsValuesWithEnums(propsContainer: { props?: FieldProperty
   const props = propsContainer.props.map(p => {
     return {
       ...fillPropsValuesWithEnums(p, enums),
-      values: enums[p.id],
+      valuesWithEnums: enums[p.id],
     };
   });
   return {

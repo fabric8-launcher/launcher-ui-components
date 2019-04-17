@@ -19,7 +19,7 @@
   },
   "scripts": {
     "clean": "rm -rf build && find . -type d -name \"node_modules\" -exec rm -rf {} +",
-    "test": "yarn workspaces run test",
+    "test": "jest",
     "libs:build": "yarn client:build && yarn kc:build && yarn comp:build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
     "build:prod": "yarn build && yarn comp:storybook:publish && lerna publish",

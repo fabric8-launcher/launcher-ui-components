@@ -22,7 +22,7 @@ export function capabilityMatcherByCategories(...categories: string[]) {
 
 export const readOnlyCapabilities = [{id: 'health', selected: true}];
 
-export function CapabilitiesLoader(props: { categories: string[], children: (capabilities: Capability[]) => any }) {
+export function CapabilitiesLoader(props: { categories: string[], runtime?: string, children: (capabilities: Capability[]) => any }) {
   const client = useLauncherClient();
   const itemsLoader = () => client.capabilities().then(c => {
     return client.enums().then(e => {
@@ -31,7 +31,7 @@ export function CapabilitiesLoader(props: { categories: string[], children: (cap
     });
   });
   return (
-    <DataLoader loader={itemsLoader}>
+    <DataLoader loader={itemsLoader} query={props.runtime}>
       {props.children}
     </DataLoader>
   );

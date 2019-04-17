@@ -28,3 +28,4 @@ yarn-error.log*
 *.swp
 .vscode/
 *.code-workspace
+.history
