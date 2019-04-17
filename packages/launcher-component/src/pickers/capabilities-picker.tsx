@@ -121,7 +121,7 @@ export const CapabilitiesPicker: Picker<CapabilitiesPickerProps, CapabilitiesPic
 
     return (
       <React.Fragment>
-        <DataList aria-label="select-capability" className="select-capabilities">
+        <DataList aria-label="Select capability" className="select-capabilities">
           {
             props.items.map((cap, i) => (
               <CapabilityItem

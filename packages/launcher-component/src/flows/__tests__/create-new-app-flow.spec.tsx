@@ -4,7 +4,8 @@ import { cleanup, fireEvent, render } from 'react-testing-library';
 import { CreateNewAppFlow } from '../create-new-app-flow';
 import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
 import { mockLauncherClient } from 'launcher-client';
-import { downloadCheckPayload, flushPromises, launchCheckPayloadAndProgress } from './flow-helpers';
+import { downloadCheckPayload, launchCheckPayloadAndProgress } from './flow-helpers';
+import { flushPromises } from '../../core/__tests__/test-helpers';
 
 afterEach(() => {
   console.log('cleanup()');
@@ -189,8 +190,6 @@ async function configureBackend(comp, runtime, ...capabilities: string[]) {
   fireEvent.click(comp.getByLabelText(`Choose ${runtime} as runtime`));
 
   // Resolve capabilities
-  await flushPromises();
-  // Resolve enums promises
   await flushPromises();
 
   capabilities.forEach(c => fireEvent.click(comp.getByLabelText(`Pick ${c} capability`)));

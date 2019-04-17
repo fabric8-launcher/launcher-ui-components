@@ -1,10 +1,11 @@
-import * as React from 'react';
 import 'jest-dom/extend-expect';
-import { cleanup, render, fireEvent } from 'react-testing-library';
-import { DeployExampleAppFlow } from '../deploy-example-app-flow';
-import { flushPromises, launchCheckPayloadAndProgress } from './flow-helpers';
-import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
 import { mockLauncherClient } from 'launcher-client';
+import * as React from 'react';
+import { cleanup, fireEvent, render } from 'react-testing-library';
+import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
+import { DeployExampleAppFlow } from '../deploy-example-app-flow';
+import { launchCheckPayloadAndProgress } from './flow-helpers';
+import { flushPromises } from '../../core/__tests__/test-helpers';
 
 afterEach(() => {
   console.log('cleanup()');
