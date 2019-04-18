@@ -18,7 +18,7 @@ export function DataLoader<T>(props: { loader: () => Promise<T>, deps?: any[], c
     setData(undefined);
     loadData(safety);
     return safety.unload;
-  }, (props.deps || []));
+  }, ([JSON.stringify(props.deps)] || []));
   if (!!data) {
     if (props.children instanceof Function) {
       return props.children(data.result);

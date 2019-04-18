@@ -132,6 +132,7 @@ describe('<CreateNewAppFlow />', () => {
 
     await downloadCheckPayload(comp, mockClient);
   });
+  
   it('Check that launch is working after download for the same application', async () => {
     const mockClient = mockLauncherClient();
     const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
@@ -189,7 +190,7 @@ async function configureBackend(comp, runtime, ...capabilities: string[]) {
 
   fireEvent.click(comp.getByLabelText(`Choose ${runtime} as runtime`));
 
-  // Resolve capabilities
+  // Resolve promises
   await flushPromises();
 
   capabilities.forEach(c => fireEvent.click(comp.getByLabelText(`Pick ${c} capability`)));
