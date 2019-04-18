@@ -1,15 +1,5 @@
-import { act, fireEvent } from 'react-testing-library';
-import { waitForTick } from 'launcher-client';
-
-export async function flushPromises() {
-  await act(async () => {
-    console.log('runAllTick()');
-    jest.runAllTicks();
-    jest.runOnlyPendingTimers();
-    jest.runAllImmediates();
-    await waitForTick('act()');
-  });
-}
+import { fireEvent } from 'react-testing-library';
+import { flushPromises } from '../../core/__tests__/test-helpers';
 
 export async function launchCheckPayloadAndProgress(comp, mockClient) {
   fireEvent.click(comp.getByLabelText('Launch Application'));

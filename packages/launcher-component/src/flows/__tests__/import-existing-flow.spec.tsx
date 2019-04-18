@@ -3,8 +3,9 @@ import 'jest-dom/extend-expect';
 import { cleanup, fireEvent, render } from 'react-testing-library';
 import { ImportExistingFlow } from '../import-existing-flow';
 import { mockLauncherClient } from 'launcher-client';
-import { flushPromises, launchCheckPayloadAndProgress } from './flow-helpers';
+import { launchCheckPayloadAndProgress } from './flow-helpers';
 import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
+import { flushPromises } from '../../core/__tests__/test-helpers';
 
 afterEach(() => {
   console.log('cleanup()');
