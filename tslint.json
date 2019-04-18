@@ -2,6 +2,7 @@
   "extends": ["tslint:recommended", "tslint-react"],
   "rules": {
     "max-classes-per-file": false,
+    "indent": [true, "spaces", 2],
     // Custom
     "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
     "interface-name": [false, "always-prefix"],

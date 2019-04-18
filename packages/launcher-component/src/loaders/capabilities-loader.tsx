@@ -1,4 +1,4 @@
-import { Capability, propsWithValuesMapper } from 'launcher-client';
+import { Capability, propsWithValuesMapper, checkNotNull } from 'launcher-client';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';
 import { CapabilityItem } from '../pickers/capabilities-picker';
@@ -20,18 +20,34 @@ export function capabilityMatcherByCategories(...categories: string[]) {
   return (c: Capability) => categories.indexOf(c.metadata.category) >= 0;
 }
 
-export const readOnlyCapabilities = [{id: 'health', selected: true}];
+export function getCapabilityRuntimeNameProp(c: Capability) {
+  const runtimeProp = checkNotNull(c.props.find(p => p.id === 'runtime'), 'runtime prop');
+  const runtimeProps = checkNotNull(runtimeProp.props, 'runtimeProps');
+  return checkNotNull(runtimeProps.find(p => p.id === 'name'), 'runtime name prop');
+}
+
+function capabilityMatcherForRuntime(runtime?: string) {
+  return (c: Capability) => {
+    if (!runtime) {
+      return true;
+    }
+    const runtimeNameProp = getCapabilityRuntimeNameProp(c);
+    return runtimeNameProp.values && runtimeNameProp.values.indexOf(runtime) >= 0;
+  };
+}
+
+export const readOnlyCapabilities = [{ id: 'health', selected: true }];
 
 export function CapabilitiesLoader(props: { categories: string[], runtime?: string, children: (capabilities: Capability[]) => any }) {
   const client = useLauncherClient();
-  const itemsLoader = () => client.capabilities().then(c => {
-    return client.enums().then(e => {
-      return c.filter(capabilityMatcherByCategories(...props.categories))
-        .map(propsWithValuesMapper(e));
-    });
-  });
+  const itemsLoader = async () => {
+    const [c, e] = await Promise.all([client.capabilities(), client.enums()]);
+    return c.filter(capabilityMatcherByCategories(...props.categories))
+      .map(propsWithValuesMapper(e))
+      .filter(capabilityMatcherForRuntime(props.runtime));
+  };
   return (
-    <DataLoader loader={itemsLoader} query={props.runtime}>
+    <DataLoader loader={itemsLoader} deps={[props.runtime, props.categories]}>
       {props.children}
     </DataLoader>
   );
