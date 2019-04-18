@@ -250,4 +250,9 @@ export interface DownloadAppResult {
   downloadLink: string;
 }
 
-export type AuthorizationTokenProvider = () => Promise<string | undefined>;
+export interface AuthorizationToken {
+  header: string;
+  token: string;
+}
+
+export type AuthorizationTokenProvider = () => Promise<AuthorizationToken[] | string | undefined>;

@@ -30,9 +30,13 @@ export function Layout(props: { children: React.ReactNode }) {
   let PageToolbar: ReactNode;
   if(auth.enabled && auth.user) {
     const userDropdownItems = [
-      <DropdownItem component="a" href={auth.getAccountManagementLink()} target="_blank" key="manage">Manage Account</DropdownItem>,
       <DropdownItem onClick={logout} key="logout">Logout</DropdownItem>,
     ];
+    if (auth.getAccountManagementLink()) {
+      userDropdownItems.push(
+        <DropdownItem component="a" href={auth.getAccountManagementLink()} target="_blank" key="manage">Manage Account</DropdownItem>
+      );
+    }
     PageToolbar = auth.enabled && auth.user && (
       <Toolbar>
         <ToolbarGroup>

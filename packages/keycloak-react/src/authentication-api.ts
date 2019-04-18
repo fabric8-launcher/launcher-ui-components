@@ -1,5 +1,10 @@
-export interface User {
+export interface AuthorizationToken {
+  header: string;
   token: string;
+}
+
+export interface User {
+  token: AuthorizationToken[] | string;
   accountLink: object;
   userName: string;
   userPreferredName: string;

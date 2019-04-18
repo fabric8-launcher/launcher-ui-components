@@ -1,10 +1,10 @@
 import { checkNotNull } from 'launcher-client';
-import { KeycloakConfig } from 'keycloak-react';
+import { KeycloakConfig, OpenshiftConfig } from 'keycloak-react';
 
 function getEnv(env: string | undefined, name: string): string | undefined {
-  const config = (window as any).GLOBAL_CONFIG;
-  if (config && config[name] && config[name].length > 0) {
-    return config[name];
+  const globalConfig = (window as any).GLOBAL_CONFIG;
+  if (globalConfig && globalConfig[name] && globalConfig[name].length > 0) {
+    return globalConfig[name];
   }
   if (env && env.length === 0) {
     return undefined;
@@ -23,11 +23,28 @@ export const authenticationMode = getEnv(process.env.REACT_APP_AUTHENTICATION, '
   || (keycloakUrl ? 'keycloak' : 'no');
 export const isKeycloakMode = authenticationMode === 'keycloak';
 
-export const keycloakConfig = isKeycloakMode ? {
-  clientId: requireEnv(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'keycloakClientId'),
-  realm: requireEnv(process.env.REACT_APP_KEYCLOAK_REALM, 'keycloakRealm'),
-  url: requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl'),
-} as KeycloakConfig : undefined;
+export const authConfig = {} as OpenshiftConfig|KeycloakConfig;
+
+if (isKeycloakMode) {
+  const config = authConfig as KeycloakConfig;
+  config.clientId = requireEnv(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'keycloakClientId');
+  config.realm = requireEnv(process.env.REACT_APP_KEYCLOAK_REALM, 'keycloakRealm');
+  config.url = requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl');
+}
+
+if (authenticationMode === 'openshift') {
+  const config = authConfig as OpenshiftConfig;
+  config.openshift = {
+    clientId: requireEnv(process.env.REACT_APP_OPENSHIFT_CLIENT_ID, 'openshiftClientId'),
+    url: requireEnv(process.env.REACT_APP_OPENSHIFT_AUTH_URL, 'openshiftUrl'),
+    validateTokenUri: requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl') + '/services/openshift/user',
+  };
+  config.github = {
+    clientId: requireEnv(process.env.REACT_APP_GITHUB_CLIENT_ID, 'githubClientId'),
+    secret: requireEnv(process.env.REACT_APP_GITHUB_SECRET, 'githubSecret'),
+    validateTokenUri: getEnv(process.env.REACT_APP_GITHUB_VALIDATE_URI, 'githubValidateUri') || '/launch/github/access_token',
+  };
+}
 
 const launcherClientApiMode = process.env.REACT_APP_CLIENT !== 'mock';
 

@@ -3,6 +3,7 @@ import { filter } from '../helpers/launchers';
 import { defaultAuthorizationTokenProvider, LauncherClient } from '../launcher.client';
 import {
   AnalyzeResult, AnyExample,
+  AuthorizationToken,
   AuthorizationTokenProvider,
   Capability,
   Catalog,
@@ -130,6 +131,9 @@ export default class DefaultLauncherClient implements LauncherClient {
 
   public async gitInfo(): Promise<GitInfo> {
     const requestConfig = await this.getRequestConfig();
+    if (this.containsEmptyGitAccessToken(requestConfig.headers)) {
+      return Promise.reject({response: {status: 404}});
+    }
     return await this.httpService.get<GitInfo>(this.config.launcherURL, '/services/git/user', requestConfig);
   }
 
@@ -149,6 +153,10 @@ export default class DefaultLauncherClient implements LauncherClient {
     );
   }
 
+  private containsEmptyGitAccessToken(headers): boolean {
+    return headers['X-Git-Authorization'] === 'Bearer ';
+  }
+
   private async getRequestConfig(config: { gitProvider?: string, executionIndex?: number, clusterId?: string } = {})
     : Promise<RequestConfig> {
     const authorizationToken = await this.authorizationTokenProvider();
@@ -156,8 +164,12 @@ export default class DefaultLauncherClient implements LauncherClient {
     if (config.gitProvider) {
       headers['X-Git-Provider'] = config.gitProvider;
     }
-    if (authorizationToken) {
+    if (typeof authorizationToken === 'string') {
       headers['Authorization'] = `Bearer ${authorizationToken}`;
+    } else if (authorizationToken) {
+      const authToken = authorizationToken as AuthorizationToken[];
+      authToken.map(t => headers[t.header] = `Bearer ${t.token}`);
+      headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo';
     }
     if (config.executionIndex) {
       headers['X-Execution-Step-Index'] = config.executionIndex;
