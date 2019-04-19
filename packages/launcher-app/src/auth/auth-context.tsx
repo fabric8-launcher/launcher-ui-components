@@ -4,7 +4,7 @@ import { AuthenticationApi } from './authentication-api';
 import NoAuthenticationApi from './impl/no-authentication-api';
 import AuthenticationApiReactStateProxy from './impl/authentication-api-react-state-proxy';
 
-export const AuthContext = React.createContext<AuthenticationApi>(new NoAuthenticationApi());
+export const AuthenticationApiContext = React.createContext<AuthenticationApi>(new NoAuthenticationApi());
 
 export function useAuthenticationApiStateProxy(authApi: AuthenticationApi): AuthenticationApi {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,6 +12,6 @@ export function useAuthenticationApiStateProxy(authApi: AuthenticationApi): Auth
   return new AuthenticationApiReactStateProxy(authApi, setIsLoggedIn);
 }
 
-export function useAuthApi(): AuthenticationApi {
-  return useContext(AuthContext);
+export function useAuthenticationApi(): AuthenticationApi {
+  return useContext(AuthenticationApiContext);
 }

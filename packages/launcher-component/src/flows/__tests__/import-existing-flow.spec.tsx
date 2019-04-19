@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render } from 'react-testing-library';
 import { ImportExistingFlow } from '../import-existing-flow';
 import { mockLauncherClient } from 'launcher-client';
 import { launchCheckPayloadAndProgress } from './flow-helpers';
-import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
+import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
 import { flushPromises } from '../../core/__tests__/test-helpers';
 
 afterEach(() => {
@@ -39,7 +39,7 @@ async function configureSrc(comp, url) {
 
 describe('<ImportExistingFlow />', () => {
   it('renders and initializes the ImportExistingFlow correctly', async () => {
-    const comp = render(<LauncherClientProvider><ImportExistingFlow /></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider><ImportExistingFlow /></LauncherDepsProvider>);
     expect(comp.getByLabelText('openshift-deployment is not configured')).toBeDefined();
 
     // Resolve data from auto loader
@@ -56,7 +56,7 @@ describe('<ImportExistingFlow />', () => {
 
   it('Configure source repository to import and check full launch until next steps popup', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><ImportExistingFlow /></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><ImportExistingFlow /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();

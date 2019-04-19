@@ -2,7 +2,7 @@ import { LauncherClient } from '../launcher.client';
 import {
   AnalyzeResult,
   AnyExample,
-  AuthorizationTokenProvider,
+  AuthorizationsProvider,
   Capability,
   Catalog,
   DownloadAppPayload,
@@ -28,12 +28,12 @@ export default class WithCacheLauncherClient implements LauncherClient {
   constructor(private readonly client: LauncherClient) {
   }
 
-  public get authorizationTokenProvider() {
-    return this.client.authorizationTokenProvider;
+  public get authorizationsProvider() {
+    return this.client.authorizationsProvider;
   }
 
-  public set authorizationTokenProvider(authorizationTokenProvider: AuthorizationTokenProvider) {
-    this.client.authorizationTokenProvider = authorizationTokenProvider;
+  public set authorizationsProvider(authorizationsProvider: AuthorizationsProvider) {
+    this.client.authorizationsProvider = authorizationsProvider;
   }
 
   public async capabilities(): Promise<Capability[]> {

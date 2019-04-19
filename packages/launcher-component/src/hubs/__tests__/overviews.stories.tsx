@@ -2,7 +2,7 @@ import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 import { FrontendHub } from '../frontend-hub';
 import { ExampleHub } from '../example-hub';
 import { SrcRepositoryHub } from '../src-repository-hub';
@@ -11,9 +11,9 @@ import { readOnlyCapabilities } from '../../loaders/capabilities-loader';
 
 storiesOf('Overviews', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('BackendOverview: empty', () => {
     return (

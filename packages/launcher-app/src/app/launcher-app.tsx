@@ -7,21 +7,25 @@ import {
   DataLoader,
   DeployExampleAppFlow,
   ImportExistingFlow,
-  LauncherClientProvider,
   LauncherMenu,
+  LauncherDepsProvider,
 } from 'launcher-component';
 import { Layout } from './layout';
 import { authenticationMode, creatorApiUrl, authConfig, launcherApiUrl, publicUrl } from './config';
 import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthContext, AuthRouter, newAuthApi, useAuthenticationApiStateProxy } from 'keycloak-react';
-import { useRouter, createRouterLink, restoreRouterHistory } from './use-router';
+import { useRouter, createRouterLink, getRequestedRoute, goToWithRouter } from '../router/use-router';
+import { useAuthenticationApiStateProxy, AuthenticationApiContext } from '../auth/auth-context';
+import { newAuthApi, AuthRouter } from '../auth/authentication-api-factory';
 
 function Routes(props: {}) {
   const router = useRouter();
-  useEffect(() => {
-    restoreRouterHistory(router);
-  }, []);
+  const requestedRoute = getRequestedRoute(router);
+  if(requestedRoute) {
+    useEffect(() => {
+      goToWithRouter(router, requestedRoute);
+    }, []);
+  }
   const Menu = () => {
     return (
       <LauncherMenu
@@ -68,22 +72,19 @@ export function LauncherApp() {
   const authLoader = () => {
     return proxyAuthApi.init().catch(e => console.error(e));
   };
-  const authorizationTokenProvider = async () => {
-    return proxyAuthApi.user && proxyAuthApi.user.token;
-  };
   return (
     <DataLoader loader={authLoader}>
-      <AuthContext.Provider value={proxyAuthApi}>
-        <LauncherClientProvider
-          authorizationTokenProvider={authorizationTokenProvider}
-          creatorUrl={creatorApiUrl}
-          launcherUrl={launcherApiUrl}
-        >
-          <AuthRouter loginPage={LoginPage} basename={publicUrl}>
-            <HomePage />
-          </AuthRouter>
-        </LauncherClientProvider>
-      </AuthContext.Provider>
-    </DataLoader>
+      <AuthenticationApiContext.Provider value={proxyAuthApi}>
+          <LauncherDepsProvider
+            authorizationsManager={proxyAuthApi}
+            creatorUrl={creatorApiUrl}
+            launcherUrl={launcherApiUrl}
+          >
+            <AuthRouter loginPage={LoginPage} basename={publicUrl}>
+              <HomePage />
+            </AuthRouter>
+          </LauncherDepsProvider>
+      </AuthenticationApiContext.Provider>
+    </DataLoader >
   );
 }

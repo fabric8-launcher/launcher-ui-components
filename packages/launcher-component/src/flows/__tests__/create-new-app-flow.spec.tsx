@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'jest-dom/extend-expect';
 import { cleanup, fireEvent, render } from 'react-testing-library';
 import { CreateNewAppFlow } from '../create-new-app-flow';
-import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
+import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
 import { mockLauncherClient } from 'launcher-client';
 import { downloadCheckPayload, launchCheckPayloadAndProgress } from './flow-helpers';
 import { flushPromises } from '../../core/__tests__/test-helpers';
@@ -16,7 +16,7 @@ jest.useFakeTimers();
 
 describe('<CreateNewAppFlow />', () => {
   it('renders and initializes the CreateNewAppFlow correctly', async () => {
-    const comp = render(<LauncherClientProvider><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
     expect(comp.getByLabelText('Loading dest-repository')).toBeDefined();
     expect(comp.getByLabelText('Loading openshift-deployment')).toBeDefined();
 
@@ -30,7 +30,7 @@ describe('<CreateNewAppFlow />', () => {
   });
   it('Configure backend and check full launch until next steps', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();
@@ -51,7 +51,7 @@ describe('<CreateNewAppFlow />', () => {
   });
   it('Configure frontend, launch and check payload', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();
@@ -69,7 +69,7 @@ describe('<CreateNewAppFlow />', () => {
 
   it('Configure frontend and backend, launch and check payload', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();
@@ -88,7 +88,7 @@ describe('<CreateNewAppFlow />', () => {
 
   it('Configure backend with multiple capabilities, launch and check payload', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();
@@ -104,7 +104,7 @@ describe('<CreateNewAppFlow />', () => {
 
   it('Configure backend with no capability, launch and check payload', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();
@@ -120,7 +120,7 @@ describe('<CreateNewAppFlow />', () => {
 
   it('Configure backend and check full download until next steps', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();
@@ -132,10 +132,10 @@ describe('<CreateNewAppFlow />', () => {
 
     await downloadCheckPayload(comp, mockClient);
   });
-  
+
   it('Check that launch is working after download for the same application', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><CreateNewAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();
@@ -159,7 +159,7 @@ describe('<CreateNewAppFlow />', () => {
   });
   it('check that cancel is working correctly', async () => {
     const onCancel = jest.fn();
-    const comp = render(<LauncherClientProvider><CreateNewAppFlow appName="my-test-app" onCancel={onCancel}/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider><CreateNewAppFlow appName="my-test-app" onCancel={onCancel} /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();

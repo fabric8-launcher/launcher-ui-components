@@ -7,8 +7,8 @@ import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
 import { Button } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
-import { useAuthApi } from 'keycloak-react';
 import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
+import { useAuthorizationManager } from '../contexts/authorization-context';
 
 export interface DestRepositoryFormValue {
   userRepositoryPickerValue?: UserRepositoryPickerValue;
@@ -21,7 +21,7 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
   checkCompletion: value => !!value.isProviderAuthorized
     && !!value.userRepositoryPickerValue && UserRepositoryPicker.checkCompletion(value.userRepositoryPickerValue),
   Overview: props => {
-    const auth = useAuthApi();
+    const auth = useAuthorizationManager();
     if (!optionalBool(props.value.isProviderAuthorized, true)) {
       return (
         <OverviewEmpty

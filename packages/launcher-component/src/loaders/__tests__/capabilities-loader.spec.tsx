@@ -1,7 +1,7 @@
 import { Capability, mockLauncherClient } from 'launcher-client';
 import * as React from 'react';
 import { cleanup, render } from 'react-testing-library';
-import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
+import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
 import { CapabilitiesLoader, getCapabilityRuntimeNameProp } from '../capabilities-loader';
 import { flushPromises } from '../../core/__tests__/test-helpers';
 
@@ -18,7 +18,7 @@ describe('<CapabilitiesLoader />', () => {
       <CapabilitiesLoader categories={['backend']}>
         {(capabilities) => mockContent(capabilities)}
       </CapabilitiesLoader>
-    ), { wrapper: LauncherClientProvider as React.FunctionComponent<{}> });
+    ), { wrapper: LauncherDepsProvider as React.FunctionComponent<{}> });
 
     // then we get all the backend capabilities
     await flushPromises();
@@ -31,7 +31,7 @@ describe('<CapabilitiesLoader />', () => {
   it('should return corresponding capabilities depending on the selected runtime', async () => {
     // given all capabilities are compatible with dotnet, only database is compatible with vertx
     const ClientWrapper: React.FunctionComponent<{}> = (props) => (
-      <LauncherClientProvider client={client}>{props.children}</LauncherClientProvider>
+      <LauncherDepsProvider client={client}>{props.children}</LauncherDepsProvider>
     );
     const mockContent = jest.fn();
     mockContent.mockReturnValue((<div aria-label="Capabilities are loaded">capabilities</div>));

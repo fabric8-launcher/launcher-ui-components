@@ -1,9 +1,10 @@
-import { AuthenticationApi, OptionalUser, User } from '../authentication-api';
+import { AuthenticationApi } from '../authentication-api';
+import { OptionalUser, User, Authorizations } from '../types';
 
 const mockUser: User = {
   userName: 'Anonymous',
   userPreferredName: 'Anonymous',
-  token: 'eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo',
+  authorizationsByProvider: { mock: { Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo` }},
   sessionState: 'sessionState',
   accountLink: {},
 };
@@ -23,6 +24,13 @@ export default class MockAuthenticationApi implements AuthenticationApi {
     this.triggerUserChange();
     return Promise.resolve(this._user);
   };
+
+  public async getAuthorizations(provider: string): Promise<Authorizations | undefined> {
+    if (!this._user) {
+      return;
+    }
+    return this._user.authorizationsByProvider['mock'];
+  }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
     return `https://authorize/${provider}`;

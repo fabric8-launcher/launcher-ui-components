@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitInfo } from 'launcher-client';
+import { GitInfo, AuthorizationError } from 'launcher-client';
 
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';
@@ -17,7 +17,7 @@ export const gitInfoLoader = async (client) => {
   try {
     return await client.gitInfo();
   } catch (error) {
-    if (error.response && error.response.status === 404) {
+    if (error instanceof AuthorizationError) {
       return Promise.resolve({} as GitInfo);
     }
     throw error;

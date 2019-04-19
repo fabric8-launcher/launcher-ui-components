@@ -1,6 +1,6 @@
 import {
   AnalyzeResult, AnyExample,
-  AuthorizationTokenProvider,
+  AuthorizationsProvider,
   Capability,
   Catalog,
   DownloadAppPayload,
@@ -18,10 +18,10 @@ import {
   StatusListener
 } from './types';
 
-export const defaultAuthorizationTokenProvider = async () => undefined;
+export const defaultAuthorizationsProvider = async () => undefined;
 
 export interface LauncherClient {
-  authorizationTokenProvider: AuthorizationTokenProvider;
+  authorizationsProvider: AuthorizationsProvider;
 
   exampleCatalog(): Promise<Catalog>;
 

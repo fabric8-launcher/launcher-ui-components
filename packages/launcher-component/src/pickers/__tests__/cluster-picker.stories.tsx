@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
 import { OpenshiftClustersLoader } from '../../loaders/openshiftcluster-loader';
 import { ClusterPicker } from '../cluster-picker';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 
 function authorizationLinkGenerator(id?: string) {
   if (!!id) {
@@ -16,9 +16,9 @@ function authorizationLinkGenerator(id?: string) {
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('ClusterPicker', () => {
     return (

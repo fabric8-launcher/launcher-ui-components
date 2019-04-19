@@ -250,9 +250,17 @@ export interface DownloadAppResult {
   downloadLink: string;
 }
 
-export interface AuthorizationToken {
-  header: string;
-  token: string;
+export interface Authorizations {
+  [headerName: string]: string;
 }
 
-export type AuthorizationTokenProvider = () => Promise<AuthorizationToken[] | string | undefined>;
+export type AuthorizationsProvider = (provider: string) => Promise<Authorizations | undefined>;
+
+export class AuthorizationError extends Error {
+  constructor(m: string, public readonly originalError?: any) {
+    super(m);
+
+    // Set the prototype explicitly.
+    Object.setPrototypeOf(this, AuthorizationError.prototype);
+  }
+}

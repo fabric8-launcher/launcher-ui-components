@@ -5,13 +5,13 @@ import { action } from '@storybook/addon-actions';
 import { CapabilitiesPicker } from '../capabilities-picker';
 import { FormPanel } from '../../core/form-panel/form-panel';
 import { CapabilitiesLoader, capabilityToItem, readOnlyCapabilities } from '../../loaders/capabilities-loader';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('CapabilitiesPicker', () => {
     return (
