@@ -13,7 +13,7 @@ interface AuthRouterProps {
 }
 
 function GuestRoutes(props: { loginPage: RouterComponent, basename?: string; }) {
-  const path = props.basename? location.pathname.replace(props.basename, '') : location.pathname;
+  const path = props.basename ? location.pathname.replace(props.basename, '/') : location.pathname;
   return (
     <Switch>
       <Route path="/login" exact component={props.loginPage} />
@@ -27,7 +27,7 @@ export function AuthRouter(props: AuthRouterProps) {
   if (!authApi.user && authApi.enabled) {
     return (
       <BrowserRouter basename={props.basename}>
-        <GuestRoutes loginPage={props.loginPage} />
+        <GuestRoutes {...props} />
       </BrowserRouter>
     );
   }
