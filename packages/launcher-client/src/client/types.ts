@@ -47,6 +47,8 @@ export class ExampleAppDescriptor {
       this.clusterId = launchPayload.clusterId;
       this.gitRepository = launchPayload.gitRepository;
       this.gitOrganization = launchPayload.gitOrganization;
+    } else {
+      this.projectName = payload.project.application;
     }
   }
 
