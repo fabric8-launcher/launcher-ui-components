@@ -11,7 +11,7 @@ export interface MavenSettingsPickerValue {
 interface MavenSettingsPickerProps extends InputProps<MavenSettingsPickerValue> {
 }
 
-const VALUE_REGEXP = /^[a-z][a-z0-9-\.]{3,63}$/;
+const VALUE_REGEXP = /^$|^[a-z][a-z0-9-\.]{3,63}$/;
 
 export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettingsPickerValue> = {
   checkCompletion: value => !!value.groupId && VALUE_REGEXP.test(value.groupId)
@@ -32,7 +32,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
             type="text"
             id="groupId"
             name="groupId"
-            aria-describedby="groupId"
+            aria-label="Maven groupId name"
             value={props.value.groupId}
             onChange={value => props.onChange({ ...props.value, groupId: value })}
             pattern={VALUE_REGEXP.source}
@@ -51,7 +51,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
             type="text"
             id="artifactId"
             name="artifactId"
-            aria-describedby="artifactId"
+            aria-label="Maven artifactId name"
             value={props.value.artifactId}
             onChange={value => props.onChange({ ...props.value, artifactId: value })}
             pattern={VALUE_REGEXP.source}
@@ -70,7 +70,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
             type="text"
             id="version"
             name="version"
-            aria-describedby="version"
+            aria-label="Maven version number"
             value={props.value.version}
             onChange={value => props.onChange({ ...props.value, version: value })}
             isValid={!!props.value.version}

@@ -10,8 +10,9 @@ export interface NodeJSSettingsPickerValue {
 interface NodeJSSettingsPickerProps extends InputProps<NodeJSSettingsPickerValue> {
 }
 
-const NAME_REGEXP = /^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
-const VERSION_REGEXP = /^.*[0-9]{1,5}\.[0-9]{1,5}\.[0-9]{1,5}$/;
+// @ts-ignore
+const VERSION_REGEXP = /^$|^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$/;
+const NAME_REGEXP = /^$|^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 
 export const NodeJSSettingsPicker: Picker<NodeJSSettingsPickerProps, NodeJSSettingsPickerValue> = {
   checkCompletion: value => !!value.name && NAME_REGEXP.test(value.name)
@@ -31,7 +32,7 @@ export const NodeJSSettingsPicker: Picker<NodeJSSettingsPickerProps, NodeJSSetti
             type="text"
             id="name"
             name="name"
-            aria-describedby="name"
+            aria-label="Nodejs package name"
             value={props.value.name}
             onChange={value => props.onChange({ ...props.value, name: value })}
             pattern={NAME_REGEXP.source}
@@ -42,7 +43,7 @@ export const NodeJSSettingsPicker: Picker<NodeJSSettingsPickerProps, NodeJSSetti
           label="Version"
           isRequired
           fieldId="version"
-          helperTextInvalid="Please provide a version number"
+          helperTextInvalid="Please provide a valid version number"
           isValid={VERSION_REGEXP.test(props.value.version || '')}
         >
           <TextInput
@@ -50,7 +51,7 @@ export const NodeJSSettingsPicker: Picker<NodeJSSettingsPickerProps, NodeJSSetti
             type="text"
             id="version"
             name="version"
-            aria-describedby="version"
+            aria-label="Nodejs version"
             value={props.value.version}
             onChange={value => props.onChange({ ...props.value, version: value })}
             isValid={VERSION_REGEXP.test(props.value.version || '')}
