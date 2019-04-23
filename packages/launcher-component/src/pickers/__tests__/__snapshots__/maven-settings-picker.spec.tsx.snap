@@ -14,12 +14,6 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         for="groupId"
       >
         GroupId
-        <span
-          aria-hidden="true"
-          class="pf-c-form__label-required"
-        >
-          *
-        </span>
       </label>
       <input
         aria-invalid="false"
@@ -27,7 +21,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         class="pf-c-form-control"
         id="groupId"
         name="groupId"
-        pattern="^$|^[a-z][a-z0-9-\\\\.]{3,63}$"
+        pattern="^[a-z][a-z0-9-\\\\.]{3,63}$"
         required=""
         type="text"
         value=""
@@ -41,12 +35,6 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         for="artifactId"
       >
         ArtifactId
-        <span
-          aria-hidden="true"
-          class="pf-c-form__label-required"
-        >
-          *
-        </span>
       </label>
       <input
         aria-invalid="false"
@@ -54,7 +42,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         class="pf-c-form-control"
         id="artifactId"
         name="artifactId"
-        pattern="^$|^[a-z][a-z0-9-\\\\.]{3,63}$"
+        pattern="^[a-z][a-z0-9-\\\\.]{3,63}$"
         required=""
         type="text"
         value=""
@@ -68,15 +56,9 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         for="version"
       >
         Version
-        <span
-          aria-hidden="true"
-          class="pf-c-form__label-required"
-        >
-          *
-        </span>
       </label>
       <input
-        aria-invalid="true"
+        aria-invalid="false"
         aria-label="Maven version number"
         class="pf-c-form-control"
         id="version"
@@ -85,13 +67,6 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         type="text"
         value=""
       />
-      <div
-        aria-live="polite"
-        class="pf-c-form__helper-text pf-m-error"
-        id="version-helper"
-      >
-        Please provide a version number
-      </div>
     </div>
   </form>
 </DocumentFragment>
@@ -115,12 +90,6 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           for="groupId"
         >
           GroupId
-          <span
-            aria-hidden="true"
-            class="pf-c-form__label-required"
-          >
-            *
-          </span>
         </label>
         <input
           aria-invalid="false"
@@ -128,7 +97,7 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           class="pf-c-form-control"
           id="groupId"
           name="groupId"
-          pattern="^$|^[a-z][a-z0-9-\\\\.]{3,63}$"
+          pattern="^[a-z][a-z0-9-\\\\.]{3,63}$"
           required=""
           type="text"
           value=""
@@ -142,12 +111,6 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           for="artifactId"
         >
           ArtifactId
-          <span
-            aria-hidden="true"
-            class="pf-c-form__label-required"
-          >
-            *
-          </span>
         </label>
         <input
           aria-invalid="false"
@@ -155,7 +118,7 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           class="pf-c-form-control"
           id="artifactId"
           name="artifactId"
-          pattern="^$|^[a-z][a-z0-9-\\\\.]{3,63}$"
+          pattern="^[a-z][a-z0-9-\\\\.]{3,63}$"
           required=""
           type="text"
           value=""
@@ -169,15 +132,9 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           for="version"
         >
           Version
-          <span
-            aria-hidden="true"
-            class="pf-c-form__label-required"
-          >
-            *
-          </span>
         </label>
         <input
-          aria-invalid="true"
+          aria-invalid="false"
           aria-label="Maven version number"
           class="pf-c-form-control"
           id="version"
@@ -186,13 +143,6 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           type="text"
           value=""
         />
-        <div
-          aria-live="polite"
-          class="pf-c-form__helper-text pf-m-error"
-          id="version-helper"
-        >
-          Please provide a version number
-        </div>
       </div>
     </form>
     <hr

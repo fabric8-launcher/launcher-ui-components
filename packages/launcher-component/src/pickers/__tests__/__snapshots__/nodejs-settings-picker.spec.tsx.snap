@@ -14,12 +14,6 @@ exports[`<NodeJSSettingsPicker /> renders the NodeJSSettingsPicker correctly 1`]
         for="name"
       >
         Name
-        <span
-          aria-hidden="true"
-          class="pf-c-form__label-required"
-        >
-          *
-        </span>
       </label>
       <input
         aria-invalid="false"
@@ -27,7 +21,7 @@ exports[`<NodeJSSettingsPicker /> renders the NodeJSSettingsPicker correctly 1`]
         class="pf-c-form-control"
         id="name"
         name="name"
-        pattern="^$|^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\\\\/)?[a-z0-9-~][a-z0-9-._~]*$"
+        pattern="^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\\\\/)?[a-z0-9-~][a-z0-9-._~]*$"
         required=""
         type="text"
         value=""
@@ -41,12 +35,6 @@ exports[`<NodeJSSettingsPicker /> renders the NodeJSSettingsPicker correctly 1`]
         for="version"
       >
         Version
-        <span
-          aria-hidden="true"
-          class="pf-c-form__label-required"
-        >
-          *
-        </span>
       </label>
       <input
         aria-invalid="false"
@@ -81,12 +69,6 @@ exports[`<NodeJSSettingsPicker /> show error for invalid data 1`] = `
           for="name"
         >
           Name
-          <span
-            aria-hidden="true"
-            class="pf-c-form__label-required"
-          >
-            *
-          </span>
         </label>
         <input
           aria-invalid="false"
@@ -94,7 +76,7 @@ exports[`<NodeJSSettingsPicker /> show error for invalid data 1`] = `
           class="pf-c-form-control"
           id="name"
           name="name"
-          pattern="^$|^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\\\\/)?[a-z0-9-~][a-z0-9-._~]*$"
+          pattern="^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\\\\/)?[a-z0-9-~][a-z0-9-._~]*$"
           required=""
           type="text"
           value=""
@@ -108,12 +90,6 @@ exports[`<NodeJSSettingsPicker /> show error for invalid data 1`] = `
           for="version"
         >
           Version
-          <span
-            aria-hidden="true"
-            class="pf-c-form__label-required"
-          >
-            *
-          </span>
         </label>
         <input
           aria-invalid="false"
