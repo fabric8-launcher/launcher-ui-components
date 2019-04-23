@@ -1,15 +1,13 @@
 import MockAuthenticationApi from './impl/mock-authentication-api';
-import { KeycloakAuthenticationApi, KeycloakConfig } from './impl/keycloak-authentication-api';
+import { KeycloakAuthenticationApi } from './impl/keycloak-authentication-api';
 import NoAuthenticationApi from './impl/no-authentication-api';
 import { AuthenticationApi } from './authentication-api';
 import { checkNotNull } from 'launcher-client';
-import { OpenshiftAuthenticationApi, OpenshiftConfig } from './impl/openshift-authentication-api';
+import { OpenshiftAuthenticationApi } from './impl/openshift-authentication-api';
+import { KeycloakConfig, OpenshiftConfig } from './types';
 
-export { AuthContext, useAuthApi, useAuthenticationApiStateProxy } from './auth-context';
+export { AuthenticationApiContext as AuthContext, useAuthenticationApi as useAuthApi, useAuthenticationApiStateProxy } from './auth-context';
 export { AuthRouter } from './auth-router';
-export { AuthenticationApi } from './authentication-api';
-export { KeycloakConfig } from './impl/keycloak-authentication-api';
-export { OpenshiftConfig } from './impl/openshift-authentication-api';
 
 export function newMockAuthApi() { return new MockAuthenticationApi(); }
 export function newKCAuthApi(config: KeycloakConfig) { return new KeycloakAuthenticationApi(config); }

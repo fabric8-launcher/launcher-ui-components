@@ -4,13 +4,13 @@ import { storiesOf } from '@storybook/react';
 import { CreateNewAppFlow } from '../create-new-app-flow';
 import { DeployExampleAppFlow } from '../deploy-example-app-flow';
 import { ImportExistingFlow } from '../import-existing-flow';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 
 storiesOf('Flows', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('CreateNewAppFlow', () => {
     return (

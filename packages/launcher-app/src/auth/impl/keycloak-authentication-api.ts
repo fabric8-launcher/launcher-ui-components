@@ -1,8 +1,9 @@
-import * as jsSHA from 'jssha';
-import * as _ from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
+import jsSHA from 'jssha';
 import Keycloak from 'keycloak-js';
-import { AuthenticationApi, OptionalUser } from '../authentication-api';
+import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+import { AuthenticationApi } from '../authentication-api';
+import { Authorizations, KeycloakConfig, OptionalUser } from '../types';
 
 interface StoredData {
   token: string;
@@ -10,16 +11,10 @@ interface StoredData {
   idToken?: string;
 }
 
-export interface KeycloakConfig {
-  clientId: string;
-  realm: string;
-  url: string;
-}
-
 function takeFirst<R>(fn: (...args: any) => Promise<R>): (...args: any) => Promise<R> {
-  let pending;
-  let resolve;
-  let reject;
+  let pending: Promise<R> | undefined;
+  let resolve: (val: R) => void;
+  let reject: (err: Error) => void;
   return function(...args) {
     if (!pending) {
       pending = new Promise((_resolve, _reject) => {
@@ -27,10 +22,10 @@ function takeFirst<R>(fn: (...args: any) => Promise<R>): (...args: any) => Promi
         reject = _reject;
       });
       fn(...args).then((val) => {
-        pending = null;
+        pending = undefined;
         resolve(val);
       }, error => {
-        pending = null;
+        pending = undefined;
         reject(error);
       });
     }
@@ -63,7 +58,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
   public init = (): Promise<OptionalUser> => {
     return new Promise((resolve, reject) => {
       const sessionKC = KeycloakAuthenticationApi.getStoredData();
-      this.keycloak.init({...sessionKC, checkLoginIframe: false})
+      this.keycloak.init({ ...sessionKC, checkLoginIframe: false })
         .error((e) => reject(e))
         .success(() => {
           this.initUser();
@@ -75,6 +70,13 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
       };
     });
   };
+
+  public async getAuthorizations(provider: string): Promise<Authorizations | undefined> {
+    if (!this._user) {
+      return;
+    }
+    return this._user.authorizationsByProvider['kc'];
+  }
 
   public get user() {
     return this._user;
@@ -144,7 +146,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
       this._user = {
         userName: 'Anonymous',
         userPreferredName: 'Anonymous',
-        token: 'eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo',
+        authorizationsByProvider: { kc: { Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo` } },
         sessionState: 'sessionState',
         accountLink: {},
       };
@@ -160,7 +162,7 @@ export class KeycloakAuthenticationApi implements AuthenticationApi {
       this._user = {
         userName: _.get(this.keycloak, 'tokenParsed.name'),
         userPreferredName: _.get(this.keycloak, 'tokenParsed.preferred_username'),
-        token: this.keycloak.token,
+        authorizationsByProvider: { kc: { Authorization: `Bearer ${this.keycloak.token}` } },
         sessionState: _.get(this.keycloak, 'tokenParsed.session_state'),
         accountLink: {},
       };

@@ -1,4 +1,5 @@
-import { AuthenticationApi, OptionalUser } from '../authentication-api';
+import { AuthenticationApi } from '../authentication-api';
+import { OptionalUser, Authorizations } from '../types';
 
 export default class AuthenticationApiReactStateProxy implements AuthenticationApi {
 
@@ -8,6 +9,10 @@ export default class AuthenticationApiReactStateProxy implements AuthenticationA
   public async init(): Promise<OptionalUser> {
     this.authApi.setOnUserChangeListener((changed) => this.setIsLoggedIn(!!changed));
     return await this.authApi.init();
+  }
+
+  public getAuthorizations = async (provider: string): Promise<Authorizations | undefined> => {
+    return this.authApi.getAuthorizations(provider);
   }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {

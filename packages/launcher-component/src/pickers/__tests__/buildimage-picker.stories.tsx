@@ -6,13 +6,13 @@ import { FormPanel } from '../../core/form-panel/form-panel';
 
 import { BuildImageAnalyzerLoader } from '../../loaders/buildimage-loader';
 import { BuildImagePicker } from '../buildimage-picker';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('BuildImagePicker', () => {
     return (

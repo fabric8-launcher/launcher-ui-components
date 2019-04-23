@@ -5,7 +5,6 @@
   "private": true,
   "workspaces": [
     "packages/launcher-client",
-    "packages/keycloak-react",
     "packages/launcher-component",
     "packages/launcher-app",
     "packages/launcher-welcome-app"
@@ -21,7 +20,7 @@
     "clean": "rm -rf build && find . -type d -name \"node_modules\" -exec rm -rf {} +",
     "test": "jest --silent -w=2",
     "test:verbose": "jest",
-    "libs:build": "yarn client:build && yarn kc:build && yarn comp:build",
+    "libs:build": "yarn client:build && yarn comp:build",
     "build": "rm -rf build && yarn workspaces run build && cp -r ./packages/launcher-app/build ./build",
     "build:prod": "yarn build && yarn comp:storybook:publish && lerna publish",
     "app:build:mock-api": "yarn workspace launcher-app run build:mock-api",
@@ -35,7 +34,6 @@
     "wa:build:mock-api": "yarn workspace launcher-welcome-app build:mock-api",
     "wa:deploy": "yarn workspace launcher-welcome-app image:deploy",
     "client:build": "yarn workspace launcher-client build",
-    "kc:build": "yarn workspace keycloak-react build",
     "comp:build": "yarn workspace launcher-component build",
     "comp:test": "yarn workspace launcher-component test",
     "comp:storybook": "yarn workspace launcher-component storybook",

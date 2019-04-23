@@ -4,13 +4,13 @@ import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
 import { GitInfoLoader } from '../../loaders/git-info-loader';
 import { UserRepositoryPicker } from '../user-repository-picker';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('UserRepositoryPicker', () => {
     return (

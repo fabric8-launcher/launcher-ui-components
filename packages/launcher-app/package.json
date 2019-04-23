@@ -22,13 +22,18 @@
   },
   "dependencies": {
     "@sentry/browser": "5.0.8",
-    "keycloak-react": "^1.0.0-alpha.0",
     "launcher-component": "^1.0.0-alpha.0",
     "query-string": "6.4.2",
-    "react-router-dom": "5.0.0"
+    "axios": "^0.18.0",
+    "jssha": "2.3.1",
+    "keycloak-js": "5.0.0",
+    "react-router-dom": "5.0.0",
+    "uuid": "3.3.2"
   },
   "devDependencies": {
     "@types/react-router-dom": "4.3.2",
+    "@types/jssha": "2.0.0",
+    "@types/uuid": "3.4.4",
     "env-cmd": "8.0.2",
     "react-scripts": "2.1.8"
   }

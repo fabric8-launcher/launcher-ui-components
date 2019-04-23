@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { DescriptiveHeader, SpecialValue } from '../core/stuff';
-import { FormPanel } from '../core/form-panel/form-panel';
-import { ClusterPicker, ClusterPickerValue } from '../pickers/cluster-picker';
-import { OpenshiftClusterLoader, OpenshiftClustersLoader } from '../loaders/openshiftcluster-loader';
-import { useAuthApi } from 'keycloak-react';
-import { FormHub } from '../core/types';
 import { Button } from '@patternfly/react-core';
+import * as React from 'react';
+import { useAuthorizationManager } from '../contexts/authorization-context';
+import { FormPanel } from '../core/form-panel/form-panel';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
 import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
+import { DescriptiveHeader, SpecialValue } from '../core/stuff';
+import { FormHub } from '../core/types';
+import { OpenshiftClusterLoader, OpenshiftClustersLoader } from '../loaders/openshiftcluster-loader';
+import { ClusterPicker, ClusterPickerValue } from '../pickers/cluster-picker';
 
 export interface DeploymentFormValue {
   clusterPickerValue?: ClusterPickerValue;
@@ -40,7 +40,7 @@ export const DeploymentHub: FormHub<DeploymentFormValue> = {
     );
   },
   Form: props => {
-    const authApi = useAuthApi();
+    const auth = useAuthorizationManager();
     return (
       <FormPanel
         id={DeploymentHub.id}
@@ -62,7 +62,7 @@ export const DeploymentHub: FormHub<DeploymentFormValue> = {
                     clusters={clusters}
                     value={inputProps.value.clusterPickerValue || {}}
                     onChange={(clusterPickerValue) => inputProps.onChange({...inputProps.value, clusterPickerValue})}
-                    authorizationLinkGenerator={(clusterId) => authApi.user ? authApi.generateAuthorizationLink(clusterId) : ''}
+                    authorizationLinkGenerator={(clusterId) => auth.generateAuthorizationLink(clusterId)}
                   />
                 )}
               </OpenshiftClustersLoader>

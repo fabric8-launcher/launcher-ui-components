@@ -7,14 +7,14 @@ import { FrontendHub } from '../frontend-hub';
 import { DestRepositoryHub } from '../dest-repository-hub';
 import { ExampleHub } from '../example-hub';
 import { SrcRepositoryHub } from '../src-repository-hub';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 import { readOnlyCapabilities } from '../../loaders/capabilities-loader';
 
 storiesOf('Forms', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('BackendForm', () => {
     return (

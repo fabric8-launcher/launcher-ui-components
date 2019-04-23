@@ -5,13 +5,13 @@ import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
 import { RuntimePicker } from '../runtime-picker';
 import { EnumsRuntimesLoaders } from '../../loaders/enums-runtimes-loaders';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('RuntimePicker: frontend', () => {
     return (

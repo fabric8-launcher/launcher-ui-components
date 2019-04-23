@@ -2,7 +2,7 @@ import 'jest-dom/extend-expect';
 import { mockLauncherClient } from 'launcher-client';
 import * as React from 'react';
 import { cleanup, fireEvent, render } from 'react-testing-library';
-import { LauncherClientProvider } from '../../contexts/launcher-client-provider';
+import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
 import { DeployExampleAppFlow } from '../deploy-example-app-flow';
 import { launchCheckPayloadAndProgress } from './flow-helpers';
 import { flushPromises } from '../../core/__tests__/test-helpers';
@@ -35,7 +35,7 @@ async function chooseExample(comp, mission, runtime, version) {
 
 describe('<DeployExampleAppFlow />', () => {
   it('renders and initializes the DeployExampleAppFlow correctly', async () => {
-    const comp = render(<LauncherClientProvider><DeployExampleAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider><DeployExampleAppFlow appName="my-test-app"/></LauncherDepsProvider>);
     expect(comp.getByLabelText('Loading dest-repository')).toBeDefined();
     expect(comp.getByLabelText('Loading openshift-deployment')).toBeDefined();
 
@@ -55,7 +55,7 @@ describe('<DeployExampleAppFlow />', () => {
   });
   it('Choose example backend and check full launch until next steps popup', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherClientProvider client={mockClient}><DeployExampleAppFlow appName="my-test-app"/></LauncherClientProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><DeployExampleAppFlow appName="my-test-app"/></LauncherDepsProvider>);
     expect(comp.getByLabelText('Loading dest-repository')).toBeDefined();
     expect(comp.getByLabelText('Loading openshift-deployment')).toBeDefined();
 

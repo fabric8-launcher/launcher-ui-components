@@ -14,14 +14,14 @@ import {
   TextVariants
 } from '@patternfly/react-core';
 import style from './login-page.module.scss';
-import { useAuthApi } from 'keycloak-react';
 import { Layout } from './layout';
 import { EnumsRuntimesLoaders } from 'launcher-component';
 import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
 import { PropertyValue } from 'launcher-client';
+import { useAuthenticationApi } from '../auth/auth-context';
 
 function LoginCard() {
-  const auth = useAuthApi();
+  const auth = useAuthenticationApi();
   return (
     <div className={style.loginCard}>
       <p className={style.loginText}>

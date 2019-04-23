@@ -33,13 +33,14 @@ export const createRouterLink = (router: BaseRouter, to: string) => {
   };
 };
 
-export function restoreRouterHistory(router: BaseRouter) {
+export function getRequestedRoute(router: BaseRouter) {
   const search = router.location.search;
   if (!search) {
     return;
   }
-  const requestParam = queryString.parse(search).request as string;
-  if(requestParam) {
-    goToWithRouter(router, requestParam);
+  const requestedRoute = (queryString.parse(search).request as string);
+  if(requestedRoute) {
+    return requestedRoute;
   }
+  return;
 }

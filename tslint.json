@@ -11,6 +11,7 @@
     "arrow-parens": false,
     "jsx-no-multiline-js": false,
     "jsx-no-lambda": false,
+    "prefer-template": true,
     "member-ordering": [
       true,
       {

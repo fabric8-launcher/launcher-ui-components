@@ -1,5 +1,5 @@
 /* test-code */
-import { defaultAuthorizationTokenProvider, LauncherClient } from '../launcher.client';
+import { defaultAuthorizationsProvider, LauncherClient } from '../launcher.client';
 import {
   AnalyzeResult, AnyExample,
   Capability,
@@ -58,7 +58,7 @@ const progressDef = {
 
 export default class MockLauncherClient implements LauncherClient {
 
-  public authorizationTokenProvider = defaultAuthorizationTokenProvider;
+  public authorizationsProvider = defaultAuthorizationsProvider;
 
   public currentPayload?: DownloadAppPayload | LaunchAppPayload;
 

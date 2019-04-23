@@ -1,9 +1,10 @@
-import { AuthenticationApi, OptionalUser, User } from '../authentication-api';
+import { AuthenticationApi } from '../authentication-api';
+import { OptionalUser, User, Authorizations } from '../types';
 
 const anonymousUser: User = {
   userName: 'Anonymous',
   userPreferredName: 'Anonymous',
-  token: 'eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo',
+  authorizationsByProvider: { default: { Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo` }},
   sessionState: 'sessionState',
   accountLink: {},
 };
@@ -18,6 +19,10 @@ export default class NoAuthenticationApi implements AuthenticationApi {
   public init(): Promise<OptionalUser> {
     this.triggerUserChange();
     return Promise.resolve(anonymousUser);
+  }
+
+  public async getAuthorizations(provider: string): Promise<Authorizations | undefined> {
+    return anonymousUser.authorizationsByProvider['default'];
   }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {

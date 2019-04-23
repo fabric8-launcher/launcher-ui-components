@@ -1,40 +1,51 @@
 import React, { useState } from 'react';
 import { LauncherClientContext } from './launcher-client-context';
-import { AuthorizationTokenProvider, cachedLauncherClient, checkNotNull, LauncherClient, mockLauncherClient } from 'launcher-client';
+import { cachedLauncherClient, checkNotNull, LauncherClient, mockLauncherClient } from 'launcher-client';
+import { AuthorizationsManager, AuthorizationManagerContext } from './authorization-context';
 
-interface LauncherClientProviderProps {
+interface LauncherDepsProvider {
   children: React.ReactNode;
   client?: LauncherClient;
+  authorizationsManager?: AuthorizationsManager;
   creatorUrl?: string;
   launcherUrl?: string;
-  authorizationTokenProvider?: AuthorizationTokenProvider;
 }
 
-function buildLauncherClient(props: LauncherClientProviderProps) {
-  if(props.client) {
+function buildLauncherClient(props: LauncherDepsProvider) {
+  if (props.client) {
     return props.client;
   }
   let client: LauncherClient;
   if (!!props.creatorUrl || !!props.launcherUrl) {
     checkNotNull(props.launcherUrl, 'launcherUrl');
     checkNotNull(props.creatorUrl, 'creatorUrl');
-    client = cachedLauncherClient({creatorUrl: props.creatorUrl!, launcherURL: props.launcherUrl!});
+    client = cachedLauncherClient({ creatorUrl: props.creatorUrl!, launcherURL: props.launcherUrl! });
   } else {
     client = mockLauncherClient();
   }
   return client;
 }
 
-export function LauncherClientProvider(props: LauncherClientProviderProps) {
-  const [client] = useState<LauncherClient>(buildLauncherClient(props));
-
-  if (props.authorizationTokenProvider) {
-    client.authorizationTokenProvider = props.authorizationTokenProvider;
+function buildAuthorizationManager(props: LauncherDepsProvider): AuthorizationsManager {
+  if (props.authorizationsManager) {
+    return props.authorizationsManager;
   }
+  return {
+    getAuthorizations: () => Promise.resolve({}),
+    generateAuthorizationLink: (provider?: string) => `http://mock-authorization/${provider}`
+  };
+}
+
+export function LauncherDepsProvider(props: LauncherDepsProvider) {
+  const [client] = useState<LauncherClient>(buildLauncherClient(props));
+  const [authorizationManager] = useState<AuthorizationsManager>(buildAuthorizationManager(props));
+  client.authorizationsProvider = authorizationManager.getAuthorizations;
 
   return (
     <LauncherClientContext.Provider value={client}>
-      {props.children}
+      <AuthorizationManagerContext.Provider value={authorizationManager}>
+        {props.children}
+      </AuthorizationManagerContext.Provider>
     </LauncherClientContext.Provider>
   );
 }

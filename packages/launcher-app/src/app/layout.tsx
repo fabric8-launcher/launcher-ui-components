@@ -13,16 +13,16 @@ import * as React from 'react';
 import { useState } from 'react';
 import logo from './assets/logo/RHD-logo.svg';
 import style from './layout.module.scss';
-import { useAuthApi } from 'keycloak-react';
-import { createRouterLink, useRouter } from './use-router';
+import { createRouterLink, useRouter } from '../router/use-router';
 import { BaseSyntheticEvent } from 'react';
 import { ReactNode } from 'react';
+import { useAuthenticationApi } from '../auth/auth-context';
 
 export function Layout(props: { children: React.ReactNode }) {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const router = useRouter();
   const rootLink = createRouterLink(router, '/');
-  const auth = useAuthApi();
+  const auth = useAuthenticationApi();
   const logout = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     auth.logout();
@@ -32,9 +32,10 @@ export function Layout(props: { children: React.ReactNode }) {
     const userDropdownItems = [
       <DropdownItem onClick={logout} key="logout">Logout</DropdownItem>,
     ];
-    if (auth.getAccountManagementLink()) {
-      userDropdownItems.push(
-        <DropdownItem component="a" href={auth.getAccountManagementLink()} target="_blank" key="manage">Manage Account</DropdownItem>
+    const accountManagementLink = auth.getAccountManagementLink();
+    if (accountManagementLink) {
+      userDropdownItems.unshift(
+        <DropdownItem component="a" href={accountManagementLink} target="_blank" key="manage">Manage Account</DropdownItem>
       );
     }
     PageToolbar = auth.enabled && auth.user && (

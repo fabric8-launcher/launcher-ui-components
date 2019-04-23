@@ -1,6 +1,6 @@
-import { restoreRouterHistory, BaseRouter, createRouterLink } from "./use-router";
+import { BaseRouter, createRouterLink, getRequestedRoute } from './use-router';
 import * as H from 'history';
-import { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent } from 'react';
 
 describe('useRouter tests', () => {
   let router: BaseRouter;
@@ -18,9 +18,9 @@ describe('useRouter tests', () => {
     router.location.search = '?request=/';
 
     // when
-    restoreRouterHistory(router);
+    const requestedRoute = getRequestedRoute(router);
 
-    expect(router.history.push).toBeCalledWith('/');
+    expect(requestedRoute).toBe('/');
   });
 
   it('should not restore if request not set', () => {
@@ -28,9 +28,9 @@ describe('useRouter tests', () => {
     router.location.search ='';
 
     // when
-    restoreRouterHistory(router);
+    const requestedRoute = getRequestedRoute(router);
 
-    expect(router.history.push).toBeCalledTimes(0);
+    expect(requestedRoute).toBeUndefined();
   });
 
   it('should not restore if request not empty', () => {
@@ -38,9 +38,9 @@ describe('useRouter tests', () => {
     router.location.search ='?request=';
 
     // when
-    restoreRouterHistory(router);
+    const requestedRoute = getRequestedRoute(router);
 
-    expect(router.history.push).toBeCalledTimes(0);
+    expect(requestedRoute).toBeUndefined();
   });
 
   it('restoreRouterHistory should redirect to request correctly with another path', () => {
@@ -48,9 +48,9 @@ describe('useRouter tests', () => {
     router.location.search ='?request=/super/path';
 
     // when
-    restoreRouterHistory(router);
+    const requestedRoute = getRequestedRoute(router);
 
-    expect(router.history.push).toBeCalledWith('/super/path');
+    expect(requestedRoute).toBe('/super/path');
   });
 
   it('createRouterLink should return a link correctly', () => {

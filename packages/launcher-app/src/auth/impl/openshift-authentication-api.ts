@@ -1,26 +1,13 @@
-import { AuthenticationApi } from '..';
-import { OptionalUser, AuthorizationToken } from '../authentication-api';
 import axios from 'axios';
+import { OpenshiftConfig, OptionalUser, Authorizations } from '../types';
+import { AuthenticationApi } from '../authentication-api';
 
-export interface OpenshiftConfig {
-  github: {
-    clientId: string;
-    secret: string;
-    validateTokenUri: string;
-    redirectUri?: string;
-  };
-  openshift: {
-    clientId: string;
-    url: string;
-    validateTokenUri: string;
-    responseType?: string;
-    redirectUri?: string;
-  };
-}
-
+export const AUTH_HEADER_KEY = 'Authorization';
 export const OPENSHIFT_AUTH_HEADER_KEY = 'X-OpenShift-Authorization';
 export const GIT_AUTH_HEADER_KEY = 'X-Git-Authorization';
 export const OPENSHIFT_AUTH_STORAGE_KEY = 'openshift-auth';
+
+const FAKE_AUTH_HEADER = `Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo`;
 
 export class OpenshiftAuthenticationApi implements AuthenticationApi {
   private _user: OptionalUser;
@@ -30,34 +17,30 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (!config.openshift.responseType) {
       config.openshift.responseType = 'token';
     }
-
-    const url = this.stripQueryStringAndHashFromPath(location.href);
-    if (!config.openshift.redirectUri) {
-      config.openshift.redirectUri = url;
-    }
-    if (!config.github.redirectUri) {
-      config.github.redirectUri = url;
-    }
   }
 
   public async init(): Promise<OptionalUser> {
     this._user = this.storedUser;
-    let token: string;
+    let openshiftAuthorizations: Authorizations | undefined;
     if (this._user) {
-      token = this.getUserAuthorizationToken(OPENSHIFT_AUTH_HEADER_KEY) || '';
+      openshiftAuthorizations = this._user.authorizationsByProvider.openshift;
     } else {
       const params = this.parseQuery(location.hash.substring(1));
-      token = params.access_token;
+      openshiftAuthorizations = {
+        [AUTH_HEADER_KEY]: FAKE_AUTH_HEADER,
+        [OPENSHIFT_AUTH_HEADER_KEY]: `Bearer ${params.access_token}`,
+      };
     }
-    const storedGitHubAccessToken = this.getUserAuthorizationToken(GIT_AUTH_HEADER_KEY);
-    if (token) {
+    if (openshiftAuthorizations) {
       try {
-        const username = await this.validateToken(token);
+        const username = await this.validateOpenShiftAuthorizations(openshiftAuthorizations);
         this._user = {
           userName: username,
           userPreferredName: username,
-          token: [{header: OPENSHIFT_AUTH_HEADER_KEY, token},
-            {header: GIT_AUTH_HEADER_KEY, token: storedGitHubAccessToken || ''}],
+          authorizationsByProvider: {
+            git: this.getProviderAuthorizations('git'),
+            openshift: openshiftAuthorizations,
+          },
           sessionState: '',
           accountLink: {},
         };
@@ -65,35 +48,49 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
         this.logout();
       }
     }
-
-    if(!storedGitHubAccessToken) {
+    const storedGitAuthorizations = this.getProviderAuthorizations('git');
+    if (!storedGitAuthorizations) {
       const githubAccessToken = await this.getGitHubAccessToken();
       if (githubAccessToken && this._user) {
-        const tokens = this._user.token as AuthorizationToken[];
-        tokens.find(t => t.header === GIT_AUTH_HEADER_KEY)!.token = githubAccessToken;
+        this._user.authorizationsByProvider.git = {
+          [AUTH_HEADER_KEY]: FAKE_AUTH_HEADER,
+          [GIT_AUTH_HEADER_KEY]: `Bearer ${githubAccessToken}`,
+        };
       }
     }
-
     this.resetUrl();
     this.storeUser();
 
     return this._user;
   }
 
-  public generateAuthorizationLink = (provider?: string, redirect: string = this.config.github.redirectUri!): string => {
+  public async getAuthorizations(provider: string): Promise<Authorizations | undefined> {
+    return this.getProviderAuthorizations(provider);
+  }
+
+  public getProviderAuthorizations(provider: string): Authorizations | undefined {
+    if (!this._user) {
+      return;
+    }
+    return this._user.authorizationsByProvider[provider];
+  }
+
+  public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
     if (provider === 'github') {
+      const redirectUri = redirect || this.cleanUrl(location.href);
       return 'https://github.com/login/oauth/authorize?response_type=code&client_id=' +
-        `${this.config.github.clientId}&redirect_uri=${redirect}&scope=repo%2Cadmin%3Arepo_hook`;
+        `${this.config.github.clientId}&redirect_uri=${redirectUri}&scope=repo%2Cadmin%3Arepo_hook`;
     }
     return '';
   };
 
   public login = (): void => {
     const conf = this.config.openshift;
+    const redirect = this.cleanUrl(location.href);
     const url = `${conf.url}` +
       `?client_id=${encodeURIComponent(conf.clientId)}` +
       `&response_type=${encodeURIComponent(conf.responseType!)}` +
-      `&redirect_uri=${encodeURIComponent(conf.redirectUri!)}`;
+      `&redirect_uri=${encodeURIComponent(redirect)}`;
     window.location.assign(url);
   };
 
@@ -149,12 +146,9 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     }
   }
 
-  private async validateToken(token: string): Promise<string> {
+  private async validateOpenShiftAuthorizations(authorizations: Authorizations): Promise<string> {
     const response = await axios.get(this.config.openshift.validateTokenUri, {
-      headers: {
-        'X-OpenShift-Authorization': `Bearer ${token}`,
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo'
-      }
+      headers: authorizations
     });
     return response.data.name;
   }
@@ -164,24 +158,22 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     const code = this.parseQuery(query).code;
     if (code) {
       const response = await axios.post(this.config.github.validateTokenUri,
-        {client_id: this.config.github.clientId, client_secret: this.config.github.secret, code},
-        {headers: {Accept: 'application/json'}});
+        { client_id: this.config.github.clientId, client_secret: this.config.github.secret, code },
+        { headers: { Accept: 'application/json' } });
       return response.data.access_token;
     }
     return undefined;
   }
 
-  private stripQueryStringAndHashFromPath(url) {
-    return url.split('?')[0].split('#')[0];
+  private cleanUrl(url: string) {
+    return url.split('#')[0]
+    .replace(/&code=[a-z0-9]+/, '') // code is in the middle of the query
+    .replace(/\?code=[a-z0-9]+&/, '?') // code is in the beginning of the query with multiple params
+    .replace(/\?code=[a-z0-9]+/, ''); // code is at the only param in the query
   }
 
   private resetUrl() {
-    history.pushState(undefined, document.title, location.pathname);
-  }
-
-  private getUserAuthorizationToken(tokenHeader: string): string | undefined {
-    const token = this._user && (this._user.token as AuthorizationToken[]).find(t => t.header === tokenHeader);
-    return token && token.token;
+    history.replaceState(undefined, document.title, this.cleanUrl(location.pathname));
   }
 
   private parseQuery(queryString: string): { [key: string]: string } {
@@ -189,6 +181,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
       .reduce((initial, item) => {
         if (item) {
           const parts = item.split('=');
+          // @ts-ignore
           initial[parts[0]] = decodeURIComponent(parts[1] || '');
         }
         return initial;

@@ -1,16 +1,16 @@
 import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
 import { storiesOf } from '@storybook/react';
-import { LauncherClientProvider } from '../..';
+import { LauncherDepsProvider } from '../..';
 import { LaunchNextSteps } from '../launch-next-steps';
 import { action } from '@storybook/addon-actions';
 import { DownloadNextSteps } from '../download-next-steps';
 
 storiesOf('Misc', module)
   .addDecorator((storyFn) => (
-    <LauncherClientProvider>
+    <LauncherDepsProvider>
       {storyFn()}
-    </LauncherClientProvider>
+    </LauncherDepsProvider>
   ))
   .add('LaunchNextSteps', () => {
     return (
