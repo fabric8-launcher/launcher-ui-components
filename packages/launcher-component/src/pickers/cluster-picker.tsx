@@ -64,8 +64,8 @@ export const ClusterPicker: Picker<ClusterPickerProps, ClusterPickerValue> = {
                 const connectedClusters = props.clusters.filter(c => c.connected);
                 if (connectedClusters.length >= 1) {
                   props.onChange({clusterId: connectedClusters[0].id, clusterType: connectedClusters[0].type});
+                  return (<Loader key={i}/>);
                 }
-                return (<Loader/>);
               }
               return (
                 <DataListItem
@@ -77,7 +77,7 @@ export const ClusterPicker: Picker<ClusterPickerProps, ClusterPickerValue> = {
                 >
                   <DataListCell width={1} style={{flex: 'none'}}>
                     <Radio
-                      aria-label={`Choose ${cluster.name} as cluster`}
+                      aria-label={`Choose ${cluster.id} as cluster`}
                       value={cluster.id}
                       checked={isSelected}
                       onChange={onChangeSelected}
