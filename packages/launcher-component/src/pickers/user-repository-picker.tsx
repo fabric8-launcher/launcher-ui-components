@@ -1,12 +1,13 @@
 import React from 'react';
-import { Form, FormGroup, FormSelect, FormSelectOption, Grid, GridItem, TextInput } from '@patternfly/react-core';
+import { Form, FormGroup, FormSelect, FormSelectOption, Grid, GridItem } from '@patternfly/react-core';
 import { GitInfo } from 'launcher-client';
 
 import { InputProps, Picker } from '../core/types';
-import style from './repository-picker.module.scss';
 import { BanIcon } from '@patternfly/react-icons';
+import { LaunchTextInput } from '../core/text-input/text-input';
+import style from './repository-picker.module.scss';
 
-const REPOSITORY_VALUE_REGEXP = new RegExp('^[a-z][a-z0-9-.]{3,63}$');
+const REPOSITORY_VALUE_REGEXP = /^[a-z][a-z0-9-.]{3,63}$/;
 
 export interface UserRepositoryPickerValue {
   org?: string;
@@ -86,27 +87,22 @@ export const UserRepositoryPicker: Picker<UserRepositoryPickerProps, UserReposit
                 )}
               </FormSelect>
             </FormGroup>
-            <FormGroup
+            <LaunchTextInput
               label="Repository"
               isRequired
-              fieldId="ghRepo"
               helperTextInvalid={helperRepoInvalid}
               isValid={UserRepositoryPicker.checkCompletion(props.value)}
-            >
-              <TextInput
-                isRequired
-                type="text"
-                id="ghRepo"
-                name="ghRepo-name"
-                placeholder="Select Repository"
-                aria-describedby="Select Repository"
-                onChange={value => onChange({ ...props.value, name: value })}
-                value={name}
-                pattern={REPOSITORY_VALUE_REGEXP.source}
-                title="Valid repository name"
-                isDisabled={!props.gitInfo.login}
-              />
-            </FormGroup>
+              type="text"
+              id="ghRepo"
+              name="ghRepo-name"
+              placeholder="Select Repository"
+              aria-label="Select Repository"
+              onChange={value => onChange({ ...props.value, name: value })}
+              value={name}
+              pattern={REPOSITORY_VALUE_REGEXP.source}
+              title="Valid repository name"
+              isDisabled={!props.gitInfo.login}
+            />
           </Form>
         </GridItem>
       </Grid>
