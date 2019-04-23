@@ -4,9 +4,9 @@ import { InputProps, Picker } from '../core/types';
 import { LaunchTextInput } from '../core/text-input/text-input';
 
 export interface MavenSettingsPickerValue {
-  groupId: string;
-  artifactId: string;
-  version: string;
+  groupId?: string;
+  artifactId?: string;
+  version?: string;
 }
 
 interface MavenSettingsPickerProps extends InputProps<MavenSettingsPickerValue> {
@@ -18,7 +18,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
   checkCompletion: value => !!value.groupId && VALUE_REGEXP.test(value.groupId)
     && !!value.artifactId && VALUE_REGEXP.test(value.artifactId) && !!value.version,
   Element: props => {
-    const isValid = (value: string) => VALUE_REGEXP.test(value || '');
+    const isValid = (value?: string) => !!value && VALUE_REGEXP.test(value || '');
     return (
       <Form>
         <LaunchTextInput
@@ -29,7 +29,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
           id="groupId"
           name="groupId"
           aria-label="Maven groupId name"
-          value={props.value.groupId}
+          value={props.value.groupId || ''}
           onChange={value => props.onChange({ ...props.value, groupId: value })}
           pattern={VALUE_REGEXP.source}
           isValid={isValid(props.value.groupId)}
@@ -42,7 +42,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
           id="artifactId"
           name="artifactId"
           aria-label="Maven artifactId name"
-          value={props.value.artifactId}
+          value={props.value.artifactId || ''}
           onChange={value => props.onChange({ ...props.value, artifactId: value })}
           pattern={VALUE_REGEXP.source}
           isValid={isValid(props.value.artifactId)}
@@ -55,7 +55,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
           id="version"
           name="version"
           aria-label="Maven version number"
-          value={props.value.version}
+          value={props.value.version || ''}
           onChange={value => props.onChange({ ...props.value, version: value })}
           isValid={!!props.value.version}
         />

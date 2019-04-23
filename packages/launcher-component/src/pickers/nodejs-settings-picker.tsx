@@ -4,14 +4,14 @@ import { InputProps, Picker } from '../core/types';
 import { LaunchTextInput } from '../core/text-input/text-input';
 
 export interface NodeJSSettingsPickerValue {
-  name: string;
-  version: string;
+  name?: string;
+  version?: string;
 }
 
 interface NodeJSSettingsPickerProps extends InputProps<NodeJSSettingsPickerValue> {
 }
 
-// @ts-ignore
+// tslint:disable-next-line:max-line-length
 const VERSION_REGEXP = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$/;
 const NAME_REGEXP = /^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 
@@ -29,7 +29,7 @@ export const NodeJSSettingsPicker: Picker<NodeJSSettingsPickerProps, NodeJSSetti
           id="name"
           name="name"
           aria-label="Nodejs package name"
-          value={props.value.name}
+          value={props.value.name || ''}
           onChange={value => props.onChange({ ...props.value, name: value })}
           pattern={NAME_REGEXP.source}
           isValid={NAME_REGEXP.test(props.value.name || '')}
@@ -42,7 +42,7 @@ export const NodeJSSettingsPicker: Picker<NodeJSSettingsPickerProps, NodeJSSetti
           id="version"
           name="version"
           aria-label="Nodejs version"
-          value={props.value.version}
+          value={props.value.version || ''}
           onChange={value => props.onChange({ ...props.value, version: value })}
           isValid={VERSION_REGEXP.test(props.value.version || '')}
         />
