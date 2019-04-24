@@ -8,6 +8,7 @@ import { ExampleHub } from '../example-hub';
 import { SrcRepositoryHub } from '../src-repository-hub';
 import { BackendHub } from '../backend-hub';
 import { readOnlyCapabilities } from '../../loaders/capabilities-loader';
+import { DestRepositoryHub } from '../dest-repository-hub';
 
 storiesOf('Overviews', module)
   .addDecorator((storyFn) => (
@@ -82,11 +83,27 @@ storiesOf('Overviews', module)
   .add('ImportOverview: selected', () => {
 
     const value = {
-      gitUrlPickerValue: {url: 'https://github.com/fabric8-launcher/launcher-frontend'},
-      buildImagePickerValue: {image: 'Java Code Builder'}
+      gitUrlPickerValue: { url: 'https://github.com/fabric8-launcher/launcher-frontend' },
+      buildImagePickerValue: { image: 'Java Code Builder' }
     };
 
     return (
-      <SrcRepositoryHub.Overview value={value} onClick={action('overview')}/>
+      <SrcRepositoryHub.Overview value={value} onClick={action('overview')} />
+    );
+  })
+  .add('Destination Overview: empty', () => {
+    return (
+      <DestRepositoryHub.Overview value={{}} onClick={action('overview')} />
+    );
+  })
+  .add('Destination Overview: selected', () => {
+
+    const value = {
+      userRepositoryPickerValue: { name: 'monkey', org: 'coding' },
+      isProviderAuthorized: true
+    };
+
+    return (
+      <DestRepositoryHub.Overview value={value} onClick={action('overview')} />
     );
   });
