@@ -2,6 +2,8 @@ import React, { useState, ReactNode, Fragment } from 'react';
 import { Button } from '@patternfly/react-core';
 import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
 
+import style from './toggle-panel.module.scss';
+
 interface TogglePanelProps {
   title: string;
   children: ReactNode;
@@ -19,7 +21,9 @@ export function TogglePanel(props: TogglePanelProps) {
       >
         {collapse ? <MinusCircleIcon /> : <PlusCircleIcon />} {props.title}
       </Button>
-      {collapse && props.children}
+      <div className={`${style.panel} ${(collapse ? style.expanded : '')}`}>
+        {props.children}
+      </div>
     </Fragment>
   );
 }
