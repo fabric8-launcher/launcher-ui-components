@@ -7,27 +7,27 @@ import { SourceMappingLink } from '../../../shared/components/SourceMappingLink'
 import { defaultIfEmpty } from '../../../shared/utils/Strings';
 import CapabilityCard from '../../components/CapabilityCard';
 import capabilitiesConfig from '../../config/capabilitiesConfig';
-import { DatabaseCapabilityApi, DATABASE_FRUIT_PATH } from './DatabaseCapabilityApi';
+import { DATABASE_FRUIT_PATH, mockDatabaseCapabilityApi } from './DatabaseCapabilityApi';
 
-interface DatabaseCapabilityProps {
-  databaseType: string;
-  apiService: DatabaseCapabilityApi;
+export interface DatabaseCapabilityProps {
+  databaseType?: string;
   sourceRepository?: {
     url: string;
     provider: string;
   };
-  extra: {
-    sourceMapping: {
-      dbEndpoint: string;
-    };
+  sourceMapping?: {
+    dbEndpoint: string;
   };
 }
 
-function GetFruits(props: { service: DatabaseCapabilityApi, addResult: addResultFn }) {
-  const url = props.service.getFruitsAbsoluteUrl();
+export const DatabaseCapabilityApiContext = React.createContext(mockDatabaseCapabilityApi);
+
+function GetFruits(props: { addResult: addResultFn }) {
+  const api = React.useContext(DatabaseCapabilityApiContext);
+  const url = api.getFruitsAbsoluteUrl();
   const execFetchFruits = async () => {
     try {
-      const result = await props.service.doFetchFruits();
+      const result = await api.doFetchFruits();
       props.addResult('GET', url, result);
     } catch (e) {
       props.addResult('GET', url, {
@@ -48,7 +48,8 @@ function GetFruits(props: { service: DatabaseCapabilityApi, addResult: addResult
   );
 }
 
-function PostFruit(props: { service: DatabaseCapabilityApi, addResult: addResultFn }) {
+function PostFruit(props: { addResult: addResultFn }) {
+  const api = React.useContext(DatabaseCapabilityApiContext);
   const [name, setName] = React.useState<string>('');
   const [stock, setStock] = React.useState<string>('');
 
@@ -57,7 +58,7 @@ function PostFruit(props: { service: DatabaseCapabilityApi, addResult: addResult
     stock: Number(defaultIfEmpty(stock, '10')),
   };
 
-  const url = props.service.getFruitsAbsoluteUrl();
+  const url = api.getFruitsAbsoluteUrl();
 
   const curlCommand = `curl -X POST '${url}' `
     + `--header 'Content-Type: application/json' `
@@ -65,7 +66,7 @@ function PostFruit(props: { service: DatabaseCapabilityApi, addResult: addResult
 
   const execPostFruit = async () => {
     try {
-      const result = await props.service.doPostFruit(fruitData);
+      const result = await api.doPostFruit(fruitData);
       props.addResult('POST', url, result);
     } catch (e) {
       props.addResult('POST', url, {
@@ -109,7 +110,8 @@ function PostFruit(props: { service: DatabaseCapabilityApi, addResult: addResult
   );
 }
 
-function PutFruit(props: { service: DatabaseCapabilityApi, addResult: addResultFn }) {
+function PutFruit(props: { addResult: addResultFn }) {
+  const api = React.useContext(DatabaseCapabilityApiContext);
   const [id, setId] = React.useState<string>('');
   const [name, setName] = React.useState<string>('');
   const [stock, setStock] = React.useState<string>('');
@@ -120,7 +122,7 @@ function PutFruit(props: { service: DatabaseCapabilityApi, addResult: addResultF
     stock: Number(defaultIfEmpty(stock, '10')),
   };
 
-  const url = `${props.service.getFruitsAbsoluteUrl()}/${fruitId}`;
+  const url = `${api.getFruitsAbsoluteUrl()}/${fruitId}`;
 
   const curlCommand = `curl -X PUT '${url}' `
     + `--header 'Content-Type: application/json' `
@@ -128,7 +130,7 @@ function PutFruit(props: { service: DatabaseCapabilityApi, addResult: addResultF
 
   const execPutFruit = async () => {
     try {
-      const result = await props.service.doPutFruit(fruitId, fruitData);
+      const result = await api.doPutFruit(fruitId, fruitData);
       props.addResult('PUT', url, result);
     } catch (e) {
       props.addResult('PUT', url, {
@@ -181,15 +183,16 @@ function PutFruit(props: { service: DatabaseCapabilityApi, addResult: addResultF
   );
 }
 
-function DeleteFruit(props: { service: DatabaseCapabilityApi, addResult: addResultFn }) {
+function DeleteFruit(props: { addResult: addResultFn }) {
+  const api = React.useContext(DatabaseCapabilityApiContext);
   const [id, setId] = React.useState<string>('');
 
   const fruitId = Number(defaultIfEmpty(id, '2'));
-  const url = `${props.service.getFruitsAbsoluteUrl()}/${fruitId}`;
+  const url = `${api.getFruitsAbsoluteUrl()}/${fruitId}`;
   const curlCommand = `curl -X DELETE '${url}' `;
   const execDeleteFruit = async () => {
     try {
-      const result = await props.service.doDeleteFruit(fruitId);
+      const result = await api.doDeleteFruit(fruitId);
       props.addResult('DELETE', url, { ...result, content: 'true' });
     } catch (e) {
       props.addResult('DELETE', url, {
@@ -238,14 +241,14 @@ export function DatabaseCapability(props: DatabaseCapabilityProps) {
               <SourceMappingLink
                 sourceRepository={props.sourceRepository}
                 name="dbEndpoint"
-                fileRepositoryLocation={props.extra.sourceMapping.dbEndpoint}
+                fileRepositoryLocation={props.sourceMapping && props.sourceMapping.dbEndpoint}
               />
             </RequestTitle>
           </GridItem>
-          <GetFruits service={props.apiService} addResult={addResult} />
-          <PostFruit service={props.apiService} addResult={addResult} />
-          <PutFruit service={props.apiService} addResult={addResult} />
-          <DeleteFruit service={props.apiService} addResult={addResult} />
+          <GetFruits addResult={addResult} />
+          <PostFruit addResult={addResult} />
+          <PutFruit addResult={addResult} />
+          <DeleteFruit addResult={addResult} />
           <GridItem span={12}>
             <RequestConsole name="Database" results={results} />
           </GridItem>

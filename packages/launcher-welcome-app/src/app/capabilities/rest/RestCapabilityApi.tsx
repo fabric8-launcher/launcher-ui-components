@@ -1,5 +1,4 @@
 import { HttpApi } from '../../../shared/utils/HttpApi';
-import { ApiFactoryFunction } from '../connectCapability';
 
 export interface RestCapabilityApi {
   getGreetingAbsoluteUrl(name: string): string;
@@ -29,7 +28,7 @@ class HttpRestCapabilityApi implements RestCapabilityApi {
   }
 }
 
-export class MockRestCapabilityApi implements RestCapabilityApi {
+class MockRestCapabilityApi implements RestCapabilityApi {
   public async doGetGreeting(name: string): Promise<{ content: string, time: number }> {
     return {content: `Hello ${(name || 'World')}!`, time: Date.now()};
   }
@@ -39,5 +38,8 @@ export class MockRestCapabilityApi implements RestCapabilityApi {
   }
 }
 
-export const restCapabilityApiFactory: ApiFactoryFunction<RestCapabilityApi> = ({httpApi, isMockMode}) =>
-  isMockMode ? new MockRestCapabilityApi() : new HttpRestCapabilityApi(httpApi);
+export const mockRestCapabilityApi: RestCapabilityApi = new MockRestCapabilityApi();
+
+export function newHttpRestCapabilityApi(httpApi: HttpApi): RestCapabilityApi {
+  return new HttpRestCapabilityApi(httpApi);
+}

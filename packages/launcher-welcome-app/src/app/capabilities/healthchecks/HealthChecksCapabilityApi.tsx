@@ -1,6 +1,5 @@
-import { HttpApi } from '../../../shared/utils/HttpApi';
-import { ApiFactoryFunction } from '../connectCapability';
 import * as faker from 'faker';
+import { HttpApi } from '../../../shared/utils/HttpApi';
 
 export interface HealthChecksCapabilityApi {
   getLivenessAbsoluteUrl(): string;
@@ -38,7 +37,7 @@ class HttpHealthChecksCapabilityApi implements HealthChecksCapabilityApi {
   }
 }
 
-export class MockHealthChecksCapabilityApi implements HealthChecksCapabilityApi {
+class MockHealthChecksCapabilityApi implements HealthChecksCapabilityApi {
   public getLivenessAbsoluteUrl(): string {
     return 'http://mocked.io/liveness';
   }
@@ -56,5 +55,8 @@ export class MockHealthChecksCapabilityApi implements HealthChecksCapabilityApi 
   }
 }
 
-export const healthChecksCapabilityApiFactory: ApiFactoryFunction<HealthChecksCapabilityApi> = ({httpApi, isMockMode}) =>
-  isMockMode ? new MockHealthChecksCapabilityApi() : new HttpHealthChecksCapabilityApi(httpApi);
+export const mockHealthChecksCapabilityApi: HealthChecksCapabilityApi = new MockHealthChecksCapabilityApi();
+
+export function newHttpHealthChecksCapabilityApi(httpApi: HttpApi): HealthChecksCapabilityApi {
+  return new HttpHealthChecksCapabilityApi(httpApi);
+}

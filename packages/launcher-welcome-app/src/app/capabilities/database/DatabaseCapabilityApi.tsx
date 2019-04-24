@@ -1,5 +1,4 @@
 import { HttpApi } from '../../../shared/utils/HttpApi';
-import { ApiFactoryFunction } from '../connectCapability';
 
 export interface Fruit {
   id: number;
@@ -21,7 +20,7 @@ export interface DatabaseCapabilityApi {
 
 export const DATABASE_FRUIT_PATH = '/api/fruits';
 
-export class HttpDatabaseCapabilityApi implements DatabaseCapabilityApi {
+class HttpDatabaseCapabilityApi implements DatabaseCapabilityApi {
 
   constructor(private readonly httpApi: HttpApi) {
   }
@@ -51,7 +50,7 @@ export class HttpDatabaseCapabilityApi implements DatabaseCapabilityApi {
   }
 }
 
-export class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
+class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
 
   private fruits: Fruit[] = [{
     id: 1,
@@ -97,5 +96,8 @@ export class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
   }
 }
 
-export const databaseCapabilityApiFactory: ApiFactoryFunction<DatabaseCapabilityApi> = ({httpApi, isMockMode}) =>
-  isMockMode ? new MockDatabaseCapabilityApi() : new HttpDatabaseCapabilityApi(httpApi);
+export const mockDatabaseCapabilityApi:DatabaseCapabilityApi = new MockDatabaseCapabilityApi();
+
+export function newHttpDatabaseCapabilityApi(httpApi: HttpApi): DatabaseCapabilityApi {
+  return new HttpDatabaseCapabilityApi(httpApi);
+}

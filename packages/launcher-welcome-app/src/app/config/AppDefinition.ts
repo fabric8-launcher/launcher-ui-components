@@ -1,7 +1,7 @@
 export interface CapabilityDefinition {
   module: string;
-  props: { [propId: string]: string; };
-  extra: { [propId: string]: string; };
+  props: { [propId: string]: any; };
+  extra: { [propId: string]: any; };
 }
 
 export interface EnumInfo {
@@ -11,7 +11,7 @@ export interface EnumInfo {
   icon: string;
   metadata: {
     language: string;
-  }
+  };
 }
 
 export interface ExtraInfo {
@@ -26,13 +26,13 @@ export interface Part {
   shared: {
     runtime?: {
       name: string;
-    },
+    };
     maven?: {
       groupId?: string;
       artifactId?: string;
       version?: string;
-    },
-  },
+    };
+  };
   extra: {
     category: 'backend' | 'frontend' | 'support';
     runtimeInfo?: ExtraInfo;
@@ -46,9 +46,9 @@ export interface AppDefinition {
 }
 
 export function adaptAppDefinition(data: any): AppDefinition {
-  const adapted = { 
-    ...data, 
-    parts: data.parts.filter((p:any) => p.extra.category !== 'support' )
+  const adapted = {
+    ...data,
+    parts: data.parts.filter((p: any) => p.extra.category !== 'support' )
   };
   return adapted as AppDefinition;
 }

@@ -2,22 +2,24 @@ import { Grid, GridItem } from '@patternfly/react-core';
 import * as React from 'react';
 import { ExternalLink } from '../../../shared/components/ExternalLink';
 import HttpRequest from '../../../shared/components/HttpRequest';
-import { useConsoleState, RequestConsole } from '../../../shared/components/RequestConsole';
+import { RequestConsole, useConsoleState } from '../../../shared/components/RequestConsole';
 import { RequestTitle } from '../../../shared/components/RequestTitle';
 import CapabilityCard from '../../components/CapabilityCard';
 import capabilitiesConfig from '../../config/capabilitiesConfig';
-import { HealthChecksCapabilityApi, HEALTHCHECKS_LIVENESS_PATH, HEALTHCHECKS_READINESS_PATH } from './HealthChecksCapabilityApi';
+import { HEALTHCHECKS_LIVENESS_PATH, HEALTHCHECKS_READINESS_PATH, mockHealthChecksCapabilityApi } from './HealthChecksCapabilityApi';
 
-interface HealthChecksCapabilityProps {
-  apiService: HealthChecksCapabilityApi;
+export interface HealthChecksCapabilityProps {
 }
 
+export const HealthChecksApiContext = React.createContext(mockHealthChecksCapabilityApi);
+
 export function HealthChecksCapability(props: HealthChecksCapabilityProps) {
+  const api = React.useContext(HealthChecksApiContext);
   const [results, addResult] = useConsoleState();
-  const url = props.apiService.getLivenessAbsoluteUrl();
+  const url = api.getLivenessAbsoluteUrl();
   const execGetLiveness = async () => {
     try {
-      const result = await props.apiService.doGetLiveness();
+      const result = await api.doGetLiveness();
       addResult('GET', url, result);
     } catch (e) {
       addResult('GET', url, {
@@ -28,7 +30,7 @@ export function HealthChecksCapability(props: HealthChecksCapabilityProps) {
   };
   const execGetReadiness = async () => {
     try {
-      const result = await props.apiService.doGetReadiness();
+      const result = await api.doGetReadiness();
       addResult('GET', url, result);
     } catch (e) {
       addResult('GET', url, {

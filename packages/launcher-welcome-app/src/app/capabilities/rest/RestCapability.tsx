@@ -1,34 +1,34 @@
 import { Grid, GridItem, TextInput } from '@patternfly/react-core';
 import * as React from 'react';
 import HttpRequest from '../../../shared/components/HttpRequest';
-import { RequestConsoleEntry, useConsoleState, RequestConsole } from '../../../shared/components/RequestConsole';
+import { RequestConsole, useConsoleState } from '../../../shared/components/RequestConsole';
 import { RequestTitle } from '../../../shared/components/RequestTitle';
 import { SourceMappingLink } from '../../../shared/components/SourceMappingLink';
 import CapabilityCard from '../../components/CapabilityCard';
 import capabilitiesConfig from '../../config/capabilitiesConfig';
-import { RestCapabilityApi, REST_GREETING_PATH } from './RestCapabilityApi';
+import { mockRestCapabilityApi, REST_GREETING_PATH } from './RestCapabilityApi';
 
-interface RestCapabilityProps {
-  apiService: RestCapabilityApi;
+export interface RestCapabilityProps {
   sourceRepository?: {
     url: string;
     provider: string;
   };
-  extra: {
-    sourceMapping: {
-      greetingEndpoint: string;
-    };
+  sourceMapping?: {
+    greetingEndpoint: string;
   };
 }
 
+export const RestCapabilityApiContext = React.createContext(mockRestCapabilityApi);
+
 export function RestCapability(props: RestCapabilityProps) {
+  const api = React.useContext(RestCapabilityApiContext);
   const [results, addResult] = useConsoleState();
   const [name, setName] = React.useState<string>('');
 
-  const url = props.apiService.getGreetingAbsoluteUrl(name);
+  const url = api.getGreetingAbsoluteUrl(name);
   const execGet = async () => {
     try {
-      const result = await props.apiService.doGetGreeting(name);
+      const result = await api.doGetGreeting(name);
       addResult('GET', url, result);
     } catch (e) {
       addResult('GET', url, {
@@ -55,7 +55,7 @@ export function RestCapability(props: RestCapabilityProps) {
               <SourceMappingLink
                 sourceRepository={props.sourceRepository}
                 name="greetingEndpoint"
-                fileRepositoryLocation={props.extra.sourceMapping.greetingEndpoint}
+                fileRepositoryLocation={props.sourceMapping && props.sourceMapping.greetingEndpoint}
               />
             </RequestTitle>
           </GridItem>

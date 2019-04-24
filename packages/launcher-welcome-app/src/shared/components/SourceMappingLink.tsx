@@ -8,9 +8,9 @@ export function SourceMappingLink(props: {
     provider: string;
   };
   name: string;
-  fileRepositoryLocation: string;
+  fileRepositoryLocation?: string;
 }) {
-  if (props.sourceRepository && props.sourceRepository.provider === 'GitHub') {
+  if (props.sourceRepository && props.sourceRepository.provider === 'GitHub' && props.fileRepositoryLocation) {
     const link = `${props.sourceRepository.url.replace('.git', '')}/blob/master/${props.fileRepositoryLocation}`;
     const fileName = props.fileRepositoryLocation.replace(/^.*\//, '');
     return (<span>{fileName} (<ExternalLink href={link}>view source</ExternalLink>)</span>);
