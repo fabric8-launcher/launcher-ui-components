@@ -17,6 +17,7 @@ export function TogglePanel(props: TogglePanelProps) {
         // @ts-ignore
         component="a"
         variant="link"
+        aria-label="Expand panel"
         onClick={() => setCollapse(!collapse)}
       >
         {collapse ? <MinusCircleIcon /> : <PlusCircleIcon />} {props.title}
