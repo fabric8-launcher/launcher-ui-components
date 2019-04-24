@@ -71,7 +71,7 @@ export function buildLaunchExampleAppPayload(app: ExampleApp) {
     gitRepository: app.destRepository.userRepositoryPickerValue!.name!,
     gitOrganization: app.destRepository.userRepositoryPickerValue!.org || '',
     clusterId: app.deployment.clusterPickerValue ? app.deployment.clusterPickerValue.clusterId! : '',
-    projectName: app.destRepository.userRepositoryPickerValue!.name!,
+    projectName: app.name!,
   };
 }
 
