@@ -46,8 +46,8 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
     }
     return (
       <OverviewComplete id={DestRepositoryHub.id} title={`Destination Repository is configured`}>
-        <SpecialValue>{valueToPath(props.value.userRepositoryPickerValue!)}</SpecialValue>
-        is configured as destination repository on GitHub.
+        <SpecialValue>{valueToPath(props.value.userRepositoryPickerValue!)}</SpecialValue> is configured
+        as destination repository on GitHub.
       </OverviewComplete>
     );
   },
