@@ -7,6 +7,7 @@ import { ExampleHub } from '../hubs/example-hub';
 import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ExampleApp } from './types';
+import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
 
 const DEFAULT_EXAMPLE_APP = {
   name: 'example-app',
@@ -138,7 +139,17 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
 
   return (
     <LaunchFlow
-      title="Deploy an Example Application"
+      title={(
+        <InlineTextInput
+          title="Example Application:"
+          id="appname"
+          name="appname"
+          placeholder="Name of the project"
+          aria-label="Application Project name"
+          value={app.name}
+          onChange={value => setApp(prev => ({ ...prev, name: value }))}
+        />
+      )}
       items={items}
       {...flowStatus}
       buildLaunchAppPayload={() => {

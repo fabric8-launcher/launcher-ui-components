@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ReactNode } from 'react';
 import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
 import { DownloadAppPayload, LaunchAppPayload, StatusMessage } from 'launcher-client';
 
@@ -93,7 +93,7 @@ interface RunState {
 }
 
 interface LaunchFlowProps {
-  title: string;
+  title: string | ReactNode;
   items: any[];
   hint?: string;
   isReadyForLaunch: boolean;

@@ -10,6 +10,7 @@ import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/capabilities-loader';
 import { WelcomeAppHub } from '../hubs/welcome-app-hub';
 import { NewApp } from './types';
+import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
 
 const DEFAULT_NEW_APP = {
   name: 'my-app',
@@ -164,7 +165,18 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
 
   return (
     <LaunchFlow
-      title="Create a New Application"
+      title={(
+        <InlineTextInput
+          title="New Application:"
+          type="text"
+          id="appname"
+          name="appname"
+          placeholder="Name of the project"
+          aria-label="Application Project name"
+          value={app.name}
+          onChange={value => setApp(prev => ({...prev, name: value}))}
+        />
+      )}
       items={items}
       {...getFlowStatus(app)}
       buildLaunchAppPayload={() => {
