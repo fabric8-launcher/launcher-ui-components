@@ -68,6 +68,7 @@ describe('<DeployExampleAppFlow />', () => {
     await chooseExample(comp, 'circuit-breaker', 'vert.x', 'redhat');
     expect(comp.getByLabelText('example is configured')).toBeDefined();
 
+    fireEvent.change(comp.getByLabelText('Application Project name'), { target: { value: 'deploy-example-name' } });
     await launchCheckPayloadAndProgress(comp, mockClient);
 
     expect(comp.getByLabelText('Repository link').getAttribute('href')).toMatchSnapshot('Repository link');

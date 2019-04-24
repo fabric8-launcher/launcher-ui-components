@@ -10,7 +10,7 @@ Object {
   "gitOrganization": "",
   "gitRepository": "my-test-app",
   "project": Object {
-    "application": "my-test-app",
+    "application": "deploy-example-name",
     "parts": Array [
       Object {
         "category": "example",
@@ -26,6 +26,6 @@ Object {
       },
     ],
   },
-  "projectName": "my-test-app",
+  "projectName": "deploy-example-name",
 }
 `;
