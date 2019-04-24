@@ -11,18 +11,14 @@ exports[`<InlineTextInput /> renders the InlineTextInput correctly 1`] = `
     >
       New Application:
     </h1>
-    <div
-      class="input"
-    >
-      <input
-        aria-invalid="false"
-        class="pf-c-form-control"
-        id="app"
-        title="New Application:"
-        type="text"
-        value=""
-      />
-    </div>
+    <input
+      aria-invalid="false"
+      class="pf-c-form-control"
+      id="app"
+      title="New Application:"
+      type="text"
+      value=""
+    />
   </div>
 </DocumentFragment>
 `;
