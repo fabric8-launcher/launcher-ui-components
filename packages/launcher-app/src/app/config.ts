@@ -37,7 +37,7 @@ if (authenticationMode === 'openshift') {
   config.openshift = {
     clientId: requireEnv(process.env.REACT_APP_OPENSHIFT_CLIENT_ID, 'openshiftClientId'),
     url: requireEnv(process.env.REACT_APP_OPENSHIFT_AUTH_URL, 'openshiftUrl'),
-    validateTokenUri: requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl') + '/services/openshift/user',
+    validateTokenUri: `${requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl')}/services/openshift/user`,
   };
   config.github = {
     clientId: requireEnv(process.env.REACT_APP_GITHUB_CLIENT_ID, 'githubClientId'),

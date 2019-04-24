@@ -1,6 +1,5 @@
 import { checkNotNull } from '../../shared/utils/Preconditions';
 import mockAppDefinition from './mockAppConfig';
-import { undefinedIfEmpty } from '../../shared/utils/Strings';
 import { AppDefinition, adaptAppDefinition } from './AppDefinition';
 import { getLocationAbsoluteUrl } from '../../shared/utils/Locations';
 
@@ -41,12 +40,12 @@ if (!isMockMode) {
     throw new Error('Error while parsing WelcomeApp config: ' + e.toString());
   }
 
-  appConfig.openshiftConsoleUrl = undefinedIfEmpty(INJECTED_CONFIG!.openshiftConsoleUrl);
-  const sourceRepositoryUrl = undefinedIfEmpty(INJECTED_CONFIG!.sourceRepositoryUrl);
+  appConfig.openshiftConsoleUrl = INJECTED_CONFIG!.openshiftConsoleUrl;
+  const sourceRepositoryUrl = INJECTED_CONFIG!.sourceRepositoryUrl;
   if (sourceRepositoryUrl) {
     appConfig.sourceRepository = {
       url: sourceRepositoryUrl,
-      provider: undefinedIfEmpty(INJECTED_CONFIG!.sourceRepositoryProvider)!,
+      provider: INJECTED_CONFIG!.sourceRepositoryProvider!,
     };
   }
 } else {

@@ -8,7 +8,7 @@ export interface RestCapabilityApi {
 }
 
 function buildGreetingPath(path: string, name: string) {
-  return name.length === 0 ? path : `${path}?name=${encodeURIComponent(name)}`;
+  return name ? `${path}?name=${encodeURIComponent(name)}` : path;
 }
 
 export const REST_GREETING_PATH = '/api/greeting';
@@ -31,7 +31,7 @@ class HttpRestCapabilityApi implements RestCapabilityApi {
 
 export class MockRestCapabilityApi implements RestCapabilityApi {
   public async doGetGreeting(name: string): Promise<{ content: string, time: number }> {
-    return {content: 'Hello ' + (name || 'World') + '!', time: Date.now()};
+    return {content: `Hello ${(name || 'World')}!`, time: Date.now()};
   }
 
   public getGreetingAbsoluteUrl(name: string): string {

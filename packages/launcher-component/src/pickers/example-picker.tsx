@@ -110,10 +110,10 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                   </DataListCell>
                   <DataListCell width={1} onClick={() => onChange()}><Title size="lg">{mission.name}</Title></DataListCell>
                   <DataListCell width={2} onClick={() => onChange()}>{mission.description}</DataListCell>
-                  <DataListContent aria-label={'Detail for ' + mission.id} isHidden={!isSelected}>
+                  <DataListContent aria-label={`Detail for ${mission.id}`} isHidden={!isSelected}>
                     <FormSelect
                       isDisabled={mission.runtime!.length === 1}
-                      id={mission.id + 'runtime-select'}
+                      id={`${mission.id}-runtime-select`}
                       value={props.value.runtimeId || ''}
                       onChange={r => onChange(r)}
                       aria-label="Select Runtime"
@@ -133,7 +133,7 @@ export const ExamplePicker: Picker<ExamplePickerProps, ExamplePickerValue> = {
                     </FormSelect>
                     {!!selectedRuntime &&
                     <FormSelect
-                        id={mission.id + 'version-select'}
+                        id={`${mission.id}-version-select`}
                         value={props.value.versionId}
                         onChange={value => onChange(selectedRuntime.id, value)}
                         aria-label="Select Version"

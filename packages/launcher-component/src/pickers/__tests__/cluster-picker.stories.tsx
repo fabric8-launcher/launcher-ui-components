@@ -8,10 +8,7 @@ import { ClusterPicker } from '../cluster-picker';
 import { LauncherDepsProvider } from '../..';
 
 function authorizationLinkGenerator(id?: string) {
-  if (!!id) {
-    return 'http://www.authorize-cluster.com/' + id;
-  }
-  return 'http://www.authorize-cluster.com/';
+  return `http://www.authorize-cluster.com/${id || ''}`;
 }
 
 storiesOf('Pickers', module)

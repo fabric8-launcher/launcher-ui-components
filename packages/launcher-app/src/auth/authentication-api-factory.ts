@@ -6,7 +6,7 @@ import { checkNotNull } from 'launcher-client';
 import { OpenshiftAuthenticationApi } from './impl/openshift-authentication-api';
 import { KeycloakConfig, OpenshiftConfig } from './types';
 
-export { AuthenticationApiContext as AuthContext, useAuthenticationApi as useAuthApi, useAuthenticationApiStateProxy } from './auth-context';
+export { AuthenticationApiContext, useAuthenticationApi, useAuthenticationApiStateProxy } from './auth-context';
 export { AuthRouter } from './auth-router';
 
 export function newMockAuthApi() { return new MockAuthenticationApi(); }
