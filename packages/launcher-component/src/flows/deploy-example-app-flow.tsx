@@ -54,7 +54,7 @@ function getFlowStatus(app: ExampleApp) {
 }
 
 export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () => void }) {
-  const defaultNewApp = {...DEFAULT_EXAMPLE_APP, name: props.appName || generate().dashed};
+  const defaultNewApp = { ...DEFAULT_EXAMPLE_APP, name: props.appName || generate().dashed };
   const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('deploy-example-app', defaultNewApp);
   const autoSetCluster = useAutoSetCluster(setApp);
   const autoSetDestRepository = useAutoSetDestRepository(app.name, setApp);
@@ -71,17 +71,17 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
       id: ExampleHub.id,
       title: ExampleHub.title,
       overview: {
-        component: ({edit}) => (
-          <ExampleHub.Overview value={app.example} onClick={edit}/>
+        component: ({ edit }) => (
+          <ExampleHub.Overview value={app.example} onClick={edit} />
         ),
         width: 'third',
       },
       form: {
-        component: ({close}) => (
+        component: ({ close }) => (
           <ExampleHub.Form
             initialValue={app.example}
             onSave={(example) => {
-              setApp((prev) => ({...prev, example}));
+              setApp((prev) => ({ ...prev, example }));
               close();
             }}
             onCancel={close}
@@ -94,17 +94,17 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
       title: DestRepositoryHub.title,
       loading: autoSetDestRepository.loading,
       overview: {
-        component: ({edit}) => (
-          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>
+        component: ({ edit }) => (
+          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit} />
         ),
         width: 'third',
       },
       form: autoSetDestRepository.showForm && {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DestRepositoryHub.Form
             initialValue={app.destRepository}
             onSave={(srcLocation) => {
-              setApp((prev) => ({...prev, destRepository: srcLocation}));
+              setApp((prev) => ({ ...prev, destRepository: srcLocation }));
               close();
             }}
             onCancel={close}
@@ -117,17 +117,17 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
       title: DeploymentHub.title,
       loading: autoSetCluster.loading,
       overview: {
-        component: ({edit}) => (
-          <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
+        component: ({ edit }) => (
+          <DeploymentHub.Overview value={app.deployment} onClick={edit} />
         ),
         width: 'third',
       },
       form: autoSetCluster.showForm && {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DeploymentHub.Form
             initialValue={app.deployment}
             onSave={(deployment) => {
-              setApp((prev) => ({...prev, deployment}));
+              setApp((prev) => ({ ...prev, deployment }));
               close();
             }}
             onCancel={close}
