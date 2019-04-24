@@ -1,24 +1,65 @@
 import { Button } from '@patternfly/react-core';
 import * as React from 'react';
 import { ReactNode } from 'react';
+import { Console } from './Console';
+import moment from 'moment';
+// @ts-ignore
+import JSONPretty from 'react-json-pretty';
 import './HttpRequest.scss';
 import ShellCommand from './ShellCommand';
 
-interface HttpRequestProps {
-  readonly method: string;
-  readonly name?: string;
-  readonly path: string;
-  readonly curlCommand?: string;
-  readonly children?: ReactNode;
+export type RequestMethod = 'GET' | 'POST' | 'DELETE' | 'PUT';
 
-  onExecute(): Promise<any>;
+export interface RequestResult { content?: any; time: number; error?: string; }
+
+export type onRequestResult = (method: RequestMethod, url: string, result: RequestResult) => void;
+
+export interface RequestEntry {
+  time: number;
+  url: string;
+  method: RequestMethod;
+  content?: any;
+  error?: string;
 }
 
-const HttpRequest: React.SFC<HttpRequestProps> = ({method, name, path, curlCommand, children, onExecute}: HttpRequestProps) => {
+export function useRequestsState(): [RequestEntry[], onRequestResult] {
+  const [requests, setRequests] = React.useState<RequestEntry[]>([]);
+  const addRequestEntry = (type: RequestMethod, url: string, result: RequestResult) => {
+    setRequests((prev) => [...prev, {
+      method: type,
+      ...result,
+      url,
+    }]);
+  };
+  return [requests, addRequestEntry];
+}
+
+interface HttpRequestProps {
+  readonly method: RequestMethod;
+  readonly name?: string;
+  readonly path: string;
+  readonly url : string;
+  readonly data?: object;
+  readonly children?: ReactNode;
+  onRequestResult: onRequestResult;
+  execute(): Promise<any>;
+}
+
+export function HttpRequest({method, name, path, url, data, children, execute, onRequestResult}: HttpRequestProps) {
   const title = `Execute ${(name || 'the request')}`;
   const safeExecute = () => {
-    onExecute().catch(e => console.error('Unhandled error', e));
+    execute()
+    .then(r => onRequestResult(method, url, r))
+    .catch(e => onRequestResult(method, url, {
+      time: Date.now(),
+      error: `An error occured while executing the request '${name}'`
+    }));
   };
+  let curlCommand = `curl -X '${method}'`
+  if((method === 'POST' || method === 'PUT') && data) {
+    curlCommand += `--header 'Content-Type: application/json' `
+    + `--data '${JSON.stringify(data)}'`;
+  }
   return (
     <div className={`http-request method-${method.toLowerCase()}`}>
       <div className="definition">
@@ -42,4 +83,28 @@ const HttpRequest: React.SFC<HttpRequestProps> = ({method, name, path, curlComma
   );
 };
 
-export default HttpRequest;
+
+export function RequestsConsole(props: { name: string, requests: RequestEntry[] }) {
+  const res = props.requests.map((r, i) => (
+    <React.Fragment key={i}>
+      <div>
+        <span className="prefix">$</span>&nbsp;
+        <span className="time">{moment(r.time).format('LTS')}</span>&nbsp;
+        <span className={`method method-${r.method.toLowerCase()}`}>{r.method}</span>&nbsp;
+        <span className="url">{r.url}</span>:
+      </div>
+      {!r.error ? (
+        <div aria-label={JSON.stringify(r.content!)}>
+          {(typeof r.content! === 'string') ? r.content! : <JSONPretty json={r.content!} />}
+        </div>
+      ) : (
+          <div className="error">{r.error}</div>
+        )}
+    </React.Fragment>
+  ));
+
+  return (
+    <Console name={props.name} content={res} />
+  );
+}
+

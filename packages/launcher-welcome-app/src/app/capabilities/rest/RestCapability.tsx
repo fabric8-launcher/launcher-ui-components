@@ -1,7 +1,6 @@
 import { Grid, GridItem, TextInput } from '@patternfly/react-core';
 import * as React from 'react';
-import HttpRequest from '../../../shared/components/HttpRequest';
-import { RequestConsole, useConsoleState } from '../../../shared/components/RequestConsole';
+import { HttpRequest, RequestsConsole, useRequestsState } from '../../../shared/components/HttpRequest';
 import { RequestTitle } from '../../../shared/components/RequestTitle';
 import { SourceMappingLink } from '../../../shared/components/SourceMappingLink';
 import CapabilityCard from '../../components/CapabilityCard';
@@ -22,21 +21,11 @@ export const RestCapabilityApiContext = React.createContext(mockRestCapabilityAp
 
 export function RestCapability(props: RestCapabilityProps) {
   const api = React.useContext(RestCapabilityApiContext);
-  const [results, addResult] = useConsoleState();
+  const [requests, addRequestEntry] = useRequestsState();
   const [name, setName] = React.useState<string>('');
 
   const url = api.getGreetingAbsoluteUrl(name);
-  const execGet = async () => {
-    try {
-      const result = await api.doGetGreeting(name);
-      addResult('GET', url, result);
-    } catch (e) {
-      addResult('GET', url, {
-        time: Date.now(),
-        error: 'An error occured while executing the request',
-      });
-    }
-  };
+  const execGet = () => api.doGetGreeting(name);
   return (
     <CapabilityCard module="rest">
       <CapabilityCard.Title>{capabilitiesConfig.rest.icon} {capabilitiesConfig.rest.name}</CapabilityCard.Title>
@@ -62,9 +51,10 @@ export function RestCapability(props: RestCapabilityProps) {
           <HttpRequest
             name="GET Greetings"
             method="GET"
+            url={url}
             path={`${REST_GREETING_PATH}?name=`}
-            curlCommand={`curl -X GET '${url}'`}
-            onExecute={execGet}
+            execute={execGet}
+            onRequestResult={addRequestEntry}
           >
             <TextInput
               id="http-api-param-name-input"
@@ -77,7 +67,7 @@ export function RestCapability(props: RestCapabilityProps) {
             />
           </HttpRequest>
           <GridItem span={12}>
-            <RequestConsole name="REST" results={results} />
+            <RequestsConsole name="REST" requests={requests} />
           </GridItem>
         </Grid>
       </CapabilityCard.Body>

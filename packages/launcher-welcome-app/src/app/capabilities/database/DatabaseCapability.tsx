@@ -1,7 +1,6 @@
 import { Grid, GridItem, TextInput } from '@patternfly/react-core';
 import * as React from 'react';
-import HttpRequest from '../../../shared/components/HttpRequest';
-import { addResultFn, RequestConsole, useConsoleState } from '../../../shared/components/RequestConsole';
+import { HttpRequest, onRequestResult, RequestsConsole, useRequestsState } from '../../../shared/components/HttpRequest';
 import { RequestTitle } from '../../../shared/components/RequestTitle';
 import { SourceMappingLink } from '../../../shared/components/SourceMappingLink';
 import { defaultIfEmpty } from '../../../shared/utils/Strings';
@@ -22,33 +21,22 @@ export interface DatabaseCapabilityProps {
 
 export const DatabaseCapabilityApiContext = React.createContext(mockDatabaseCapabilityApi);
 
-function GetFruits(props: { addResult: addResultFn }) {
+function GetFruits(props: { addRequestEntry: onRequestResult }) {
   const api = React.useContext(DatabaseCapabilityApiContext);
-  const url = api.getFruitsAbsoluteUrl();
-  const execFetchFruits = async () => {
-    try {
-      const result = await api.doFetchFruits();
-      props.addResult('GET', url, result);
-    } catch (e) {
-      props.addResult('GET', url, {
-        time: Date.now(),
-        error: 'An error occured while executing the request',
-      });
-    }
-  };
-
+  const execFetchFruits = () => api.doFetchFruits();
   return (
     <HttpRequest
       method="GET"
       name="GET Fruit"
       path={DATABASE_FRUIT_PATH}
-      curlCommand={`curl -X GET '${url}'`}
-      onExecute={execFetchFruits}
+      url={api.getFruitsAbsoluteUrl()}
+      execute={execFetchFruits}
+      onRequestResult={props.addRequestEntry}
     />
   );
 }
 
-function PostFruit(props: { addResult: addResultFn }) {
+function PostFruit(props: { addRequestEntry: onRequestResult }) {
   const api = React.useContext(DatabaseCapabilityApiContext);
   const [name, setName] = React.useState<string>('');
   const [stock, setStock] = React.useState<string>('');
@@ -58,31 +46,17 @@ function PostFruit(props: { addResult: addResultFn }) {
     stock: Number(defaultIfEmpty(stock, '10')),
   };
 
-  const url = api.getFruitsAbsoluteUrl();
-
-  const curlCommand = `curl -X POST '${url}' `
-    + `--header 'Content-Type: application/json' `
-    + `--data '${JSON.stringify(fruitData)}'`;
-
-  const execPostFruit = async () => {
-    try {
-      const result = await api.doPostFruit(fruitData);
-      props.addResult('POST', url, result);
-    } catch (e) {
-      props.addResult('POST', url, {
-        time: Date.now(),
-        error: 'An error occured while executing the request',
-      });
-    }
-  };
+  const execPostFruit = () => api.doPostFruit(fruitData);
 
   return (
     <HttpRequest
       name="POST Fruit"
       method="POST"
+      url={api.getFruitsAbsoluteUrl()}
       path={DATABASE_FRUIT_PATH}
-      curlCommand={curlCommand}
-      onExecute={execPostFruit}
+      data={fruitData}
+      execute={execPostFruit}
+      onRequestResult={props.addRequestEntry}
     >
       <span style={{ marginLeft: '98px' }}>
         Name:
@@ -110,7 +84,7 @@ function PostFruit(props: { addResult: addResultFn }) {
   );
 }
 
-function PutFruit(props: { addResult: addResultFn }) {
+function PutFruit(props: { addRequestEntry: onRequestResult }) {
   const api = React.useContext(DatabaseCapabilityApiContext);
   const [id, setId] = React.useState<string>('');
   const [name, setName] = React.useState<string>('');
@@ -122,31 +96,17 @@ function PutFruit(props: { addResult: addResultFn }) {
     stock: Number(defaultIfEmpty(stock, '10')),
   };
 
-  const url = `${api.getFruitsAbsoluteUrl()}/${fruitId}`;
-
-  const curlCommand = `curl -X PUT '${url}' `
-    + `--header 'Content-Type: application/json' `
-    + `--data '${JSON.stringify(fruitData)}'`;
-
-  const execPutFruit = async () => {
-    try {
-      const result = await api.doPutFruit(fruitId, fruitData);
-      props.addResult('PUT', url, result);
-    } catch (e) {
-      props.addResult('PUT', url, {
-        time: Date.now(),
-        error: 'An error occured while executing the request',
-      });
-    }
-  };
+  const execPutFruit = () => api.doPutFruit(fruitId, fruitData);
 
   return (
     <HttpRequest
       name="PUT Fruit"
       method="PUT"
       path={`${DATABASE_FRUIT_PATH}/`}
-      curlCommand={curlCommand}
-      onExecute={execPutFruit}
+      url={`${api.getFruitsAbsoluteUrl()}/${fruitId}`}
+      data={fruitData}
+      execute={execPutFruit}
+      onRequestResult={props.addRequestEntry}
     >
       <TextInput
         id="http-api-param-put-id-input"
@@ -183,32 +143,21 @@ function PutFruit(props: { addResult: addResultFn }) {
   );
 }
 
-function DeleteFruit(props: { addResult: addResultFn }) {
+function DeleteFruit(props: { addRequestEntry: onRequestResult }) {
   const api = React.useContext(DatabaseCapabilityApiContext);
   const [id, setId] = React.useState<string>('');
 
   const fruitId = Number(defaultIfEmpty(id, '2'));
-  const url = `${api.getFruitsAbsoluteUrl()}/${fruitId}`;
-  const curlCommand = `curl -X DELETE '${url}' `;
-  const execDeleteFruit = async () => {
-    try {
-      const result = await api.doDeleteFruit(fruitId);
-      props.addResult('DELETE', url, { ...result, content: 'true' });
-    } catch (e) {
-      props.addResult('DELETE', url, {
-        time: Date.now(),
-        error: 'An error occured while executing the request',
-      });
-    }
-  };
+  const execDeleteFruit = () => api.doDeleteFruit(fruitId);
 
   return (
     <HttpRequest
       name="DELETE Fruit"
       method="DELETE"
       path={`${DATABASE_FRUIT_PATH}/`}
-      curlCommand={curlCommand}
-      onExecute={execDeleteFruit}
+      url={`${api.getFruitsAbsoluteUrl()}/${fruitId}`}
+      execute={execDeleteFruit}
+      onRequestResult={props.addRequestEntry}
     >
       <TextInput
         id="http-api-param-delete-id-input"
@@ -224,7 +173,7 @@ function DeleteFruit(props: { addResult: addResultFn }) {
 }
 
 export function DatabaseCapability(props: DatabaseCapabilityProps) {
-  const [results, addResult] = useConsoleState();
+  const [requests, addRequestEntry] = useRequestsState();
   return (
     <CapabilityCard module="database">
       <CapabilityCard.Title>{capabilitiesConfig.database.icon} {capabilitiesConfig.database.name}</CapabilityCard.Title>
@@ -245,12 +194,12 @@ export function DatabaseCapability(props: DatabaseCapabilityProps) {
               />
             </RequestTitle>
           </GridItem>
-          <GetFruits addResult={addResult} />
-          <PostFruit addResult={addResult} />
-          <PutFruit addResult={addResult} />
-          <DeleteFruit addResult={addResult} />
+          <GetFruits addRequestEntry={addRequestEntry} />
+          <PostFruit addRequestEntry={addRequestEntry} />
+          <PutFruit addRequestEntry={addRequestEntry} />
+          <DeleteFruit addRequestEntry={addRequestEntry} />
           <GridItem span={12}>
-            <RequestConsole name="Database" results={results} />
+            <RequestsConsole name="Database" requests={requests} />
           </GridItem>
           <CapabilityCard.Separator />
         </Grid>

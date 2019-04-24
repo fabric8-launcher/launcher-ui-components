@@ -1,8 +1,7 @@
 import { Grid, GridItem } from '@patternfly/react-core';
 import * as React from 'react';
 import { ExternalLink } from '../../../shared/components/ExternalLink';
-import HttpRequest from '../../../shared/components/HttpRequest';
-import { RequestConsole, useConsoleState } from '../../../shared/components/RequestConsole';
+import { useRequestsState, HttpRequest, RequestsConsole } from '../../../shared/components/HttpRequest';
 import { RequestTitle } from '../../../shared/components/RequestTitle';
 import CapabilityCard from '../../components/CapabilityCard';
 import capabilitiesConfig from '../../config/capabilitiesConfig';
@@ -15,30 +14,9 @@ export const HealthChecksApiContext = React.createContext(mockHealthChecksCapabi
 
 export function HealthChecksCapability(props: HealthChecksCapabilityProps) {
   const api = React.useContext(HealthChecksApiContext);
-  const [results, addResult] = useConsoleState();
-  const url = api.getLivenessAbsoluteUrl();
-  const execGetLiveness = async () => {
-    try {
-      const result = await api.doGetLiveness();
-      addResult('GET', url, result);
-    } catch (e) {
-      addResult('GET', url, {
-        time: Date.now(),
-        error: 'An error occured while executing the request',
-      });
-    }
-  };
-  const execGetReadiness = async () => {
-    try {
-      const result = await api.doGetReadiness();
-      addResult('GET', url, result);
-    } catch (e) {
-      addResult('GET', url, {
-        time: Date.now(),
-        error: 'An error occured while executing the request',
-      });
-    }
-  };
+  const [requests, addRequestEntry] = useRequestsState();
+  const execGetLiveness = () => api.doGetLiveness();
+  const execGetReadiness = () =>  api.doGetReadiness();
   return (
     <CapabilityCard module="healthchecks">
       <CapabilityCard.Title>{capabilitiesConfig.healthchecks.icon} {capabilitiesConfig.healthchecks.name}</CapabilityCard.Title>
@@ -66,9 +44,10 @@ export function HealthChecksCapability(props: HealthChecksCapabilityProps) {
           <HttpRequest
             name="Liveness check"
             method="GET"
+            url={api.getLivenessAbsoluteUrl()}
             path={HEALTHCHECKS_LIVENESS_PATH}
-            curlCommand={`curl -X GET '${url}'`}
-            onExecute={execGetLiveness}
+            execute={execGetLiveness}
+            onRequestResult={addRequestEntry}
           />
           <GridItem span={12} className="http-request-service">
             <RequestTitle>Readiness</RequestTitle>
@@ -77,11 +56,12 @@ export function HealthChecksCapability(props: HealthChecksCapabilityProps) {
             name="Readiness check"
             method="GET"
             path={HEALTHCHECKS_READINESS_PATH}
-            curlCommand={`curl -X GET '${url}'`}
-            onExecute={execGetReadiness}
+            url={api.getReadinessAbsoluteUrl()}
+            execute={execGetReadiness}
+            onRequestResult={addRequestEntry}
           />
           <GridItem span={12}>
-            <RequestConsole name="HealthChecks" results={results} />
+            <RequestsConsole name="HealthChecks" requests={requests} />
           </GridItem>
         </Grid>
       </CapabilityCard.Body>

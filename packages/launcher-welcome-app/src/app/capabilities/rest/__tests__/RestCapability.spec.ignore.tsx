@@ -1,7 +1,7 @@
 import * as React from 'react';
-import RestCapability from '../RestCapability';
-import { MockRestCapabilityApi } from '../RestCapabilityApi';
 import { fireEvent, render } from 'react-testing-library';
+import { mockRestCapabilityApi } from '../RestCapabilityApi';
+import { RestCapability } from '../RestCapability';
 
 const extra = {
   sourceMapping: {
@@ -11,7 +11,7 @@ const extra = {
 
 describe('<RestCapability />', () => {
   it('check that initial render is correct', () => {
-    const component = render(<RestCapability apiService={new MockRestCapabilityApi()} extra={extra}/>);
+    const component = render(<RestCapability apiService={mockRestCapabilityApi} extra={extra}/>);
     expect(component).toMatchSnapshot();
   });
 
