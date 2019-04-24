@@ -4,7 +4,7 @@ import { generate } from 'project-name-generator';
 import { BackendHub } from '../hubs/backend-hub';
 import { FrontendHub, } from '../hubs/frontend-hub';
 import { DestRepositoryHub } from '../hubs/dest-repository-hub';
-import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository, NAME_REGEX } from './launch-flow';
 import { buildDownloadNewAppPayload, buildLaunchNewAppPayload } from './launcher-client-adapters';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/capabilities-loader';
@@ -21,6 +21,13 @@ const DEFAULT_NEW_APP = {
 };
 
 function getFlowStatus(app: NewApp) {
+  if (!NAME_REGEX.test(app.name)) {
+    return {
+      hint: 'You should enter a valid name for your application',
+      isReadyForDownload: false,
+      isReadyForLaunch: false
+    };
+  }
   if (!FrontendHub.checkCompletion(app.frontend) && !BackendHub.checkCompletion(app.backend)) {
     return {
       hint: 'You should configure a Frontend and/or a Backend for your application.',
@@ -175,6 +182,7 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
           aria-label="Application Project name"
           value={app.name}
           onChange={value => setApp(prev => ({...prev, name: value}))}
+          isValid={NAME_REGEX.test(app.name)}
         />
       )}
       items={items}

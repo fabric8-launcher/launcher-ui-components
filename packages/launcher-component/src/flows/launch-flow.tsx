@@ -17,6 +17,8 @@ enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
 }
 
+export const NAME_REGEX = /^[a-zA-Z](?!.*--)(?!.*__)[a-zA-Z0-9-_]{2,38}[a-zA-Z0-9]$/;
+
 export function useAutoSetDestRepository(defaultName: string, setApp) {
   const client = useLauncherClient();
   const [showForm, setShowForm] = useState(false);

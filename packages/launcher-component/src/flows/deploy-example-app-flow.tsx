@@ -4,7 +4,7 @@ import { generate } from 'project-name-generator';
 import { DestRepositoryHub } from '../hubs/dest-repository-hub';
 import { buildDownloadExampleAppPayload, buildLaunchExampleAppPayload } from './launcher-client-adapters';
 import { ExampleHub } from '../hubs/example-hub';
-import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository, NAME_REGEX } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ExampleApp } from './types';
 import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
@@ -17,6 +17,13 @@ const DEFAULT_EXAMPLE_APP = {
 };
 
 function getFlowStatus(app: ExampleApp) {
+  if (!NAME_REGEX.test(app.name)) {
+    return {
+      hint: 'You should enter a valid name for your application',
+      isReadyForDownload: false,
+      isReadyForLaunch: false
+    };
+  }
   if (!ExampleHub.checkCompletion(app.example)) {
     return {
       hint: 'You should select an example application.',
@@ -148,6 +155,7 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
           aria-label="Application Project name"
           value={app.name}
           onChange={value => setApp(prev => ({ ...prev, name: value }))}
+          isValid={NAME_REGEX.test(app.name)}
         />
       )}
       items={items}
