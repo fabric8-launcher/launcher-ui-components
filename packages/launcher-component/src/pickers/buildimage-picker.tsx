@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Alert, Button, DataList, DataListCell, DataListItem, Radio, Title } from '@patternfly/react-core';
+import { Alert, DataList, DataListCell, DataListItem, Radio, Title } from '@patternfly/react-core';
 import { BuilderImage } from 'launcher-client';
 import { InputProps, Picker } from '../core/types';
-import { PlusCircleIcon, MinusCircleIcon } from '@patternfly/react-icons';
 import { SpecialValue } from '../core/stuff';
+import { TogglePanel } from '../core/toggle-panel/toggle-panel';
 
 export interface BuildImagePickerValue {
   image?: string;
@@ -23,15 +23,7 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
         <p>
           For your codebase, our runtime detection algorithm suggest this image: <SpecialValue>{props.suggestedImageName}</SpecialValue>
         </p>
-        <Button
-          // @ts-ignore
-          component="a"
-          variant="link"
-          onClick={() => props.onChange({ ...props.value, advanced: !props.value.advanced })}
-        >
-          {props.value.advanced ? <MinusCircleIcon /> : <PlusCircleIcon />} Advanced settings
-        </Button>
-        {props.value.advanced &&
+        <TogglePanel title="Advanced settings">
           <div>
             <Alert variant="warning" title="Picking the wrong image may result in an failed deployment!" style={{ margin: '20px' }} />
             <DataList aria-label="select-buildImage">
@@ -70,7 +62,7 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
               }
             </DataList>
           </div>
-        }
+        </TogglePanel>
       </Fragment>
     );
   }
