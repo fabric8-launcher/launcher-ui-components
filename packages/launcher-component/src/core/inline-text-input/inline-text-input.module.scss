@@ -13,6 +13,7 @@
       outline: none;
       border-bottom-color: rgb(57, 165, 220);
     }
+    background: transparent;
   }
 }
 
@@ -20,7 +21,7 @@
     display: inline;
     &:hover {
       &:after {
-        content: '🖉';
+        content: '🖍️';
       }
     }
   }
