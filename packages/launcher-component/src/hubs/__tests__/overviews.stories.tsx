@@ -18,7 +18,7 @@ storiesOf('Overviews', module)
   ))
   .add('BackendOverview: empty', () => {
     return (
-      <BackendHub.Overview value={{capabilitiesPickerValue: {capabilities: readOnlyCapabilities}}} onClick={action('overview')}/>
+      <BackendHub.Overview value={{ capabilitiesPickerValue: { capabilities: readOnlyCapabilities } }} onClick={action('overview')} />
     );
   })
   .add('BackendOverview: selected', () => {
@@ -29,19 +29,19 @@ storiesOf('Overviews', module)
       },
       capabilitiesPickerValue: {
         capabilities: [
-          {id: 'welcome', selected: true},
-          {id: 'database', selected: true}
+          { id: 'welcome', selected: true },
+          { id: 'database', selected: true }
         ]
       },
     };
 
     return (
-      <BackendHub.Overview value={value} onClick={action('overview')}/>
+      <BackendHub.Overview value={value} onClick={action('overview')} />
     );
   })
   .add('FrontendOverview: empty', () => {
     return (
-      <FrontendHub.Overview value={{}} onClick={action('overview')}/>
+      <FrontendHub.Overview value={{}} onClick={action('overview')} />
     );
   })
   .add('FrontendOverview: selected', () => {
@@ -53,12 +53,12 @@ storiesOf('Overviews', module)
     };
 
     return (
-      <FrontendHub.Overview value={value} onClick={action('overview')}/>
+      <FrontendHub.Overview value={value} onClick={action('overview')} />
     );
   })
   .add('ExampleOverview: empty', () => {
     return (
-      <ExampleHub.Overview value={{}} onClick={action('overview')}/>
+      <ExampleHub.Overview value={{}} onClick={action('overview')} />
     );
   })
   .add('ExampleOverview: selected', () => {
@@ -72,12 +72,12 @@ storiesOf('Overviews', module)
     };
 
     return (
-      <ExampleHub.Overview value={value} onClick={action('overview')}/>
+      <ExampleHub.Overview value={value} onClick={action('overview')} />
     );
   })
   .add('ImportOverview: empty', () => {
     return (
-      <SrcRepositoryHub.Overview value={{}} onClick={action('overview')}/>
+      <SrcRepositoryHub.Overview value={{}} onClick={action('overview')} />
     );
   })
   .add('ImportOverview: selected', () => {
