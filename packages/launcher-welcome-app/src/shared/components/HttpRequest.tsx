@@ -5,6 +5,7 @@ import { Console } from './Console';
 import moment from 'moment-timezone';
 // @ts-ignore
 import JSONPretty from 'react-json-pretty';
+import 'react-json-pretty/themes/monikai.css';
 import './HttpRequest.scss';
 import ShellCommand from './ShellCommand';
 
