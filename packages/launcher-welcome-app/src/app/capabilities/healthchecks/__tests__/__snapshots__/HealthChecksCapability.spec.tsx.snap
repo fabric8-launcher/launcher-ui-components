@@ -500,7 +500,7 @@ exports[`<HealthChecksCapability /> check that liveness is working 1`] = `
                   <span
                     class="time"
                   >
-                    9:33:13 PM
+                    3:33:13 PM
                   </span>
                    
                   <span
@@ -783,7 +783,7 @@ exports[`<HealthChecksCapability /> check that readiness is working 1`] = `
                   <span
                     class="time"
                   >
-                    9:33:13 PM
+                    3:33:13 PM
                   </span>
                    
                   <span
