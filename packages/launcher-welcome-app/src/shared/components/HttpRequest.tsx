@@ -55,7 +55,7 @@ export function HttpRequest({ method, name, path, url, data, children, execute, 
         error: `An error occured while executing the request '${name}'`
       }));
   };
-  let curlCommand = `curl -X '${method}'`
+  let curlCommand = `curl -X ${method} '${url}'`
   if ((method === 'POST' || method === 'PUT') && data) {
     curlCommand += `--header 'Content-Type: application/json' `
       + `--data '${JSON.stringify(data)}'`;
