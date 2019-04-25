@@ -38,27 +38,27 @@ interface HttpRequestProps {
   readonly method: RequestMethod;
   readonly name?: string;
   readonly path: string;
-  readonly url : string;
+  readonly url: string;
   readonly data?: object;
   readonly children?: ReactNode;
   onRequestResult: onRequestResult;
   execute(): Promise<any>;
 }
 
-export function HttpRequest({method, name, path, url, data, children, execute, onRequestResult}: HttpRequestProps) {
+export function HttpRequest({ method, name, path, url, data, children, execute, onRequestResult }: HttpRequestProps) {
   const title = `Execute ${(name || 'the request')}`;
   const safeExecute = () => {
     execute()
-    .then(r => onRequestResult(method, url, r))
-    .catch(e => onRequestResult(method, url, {
-      time: Date.now(),
-      error: `An error occured while executing the request '${name}'`
-    }));
+      .then(r => onRequestResult(method, url, r))
+      .catch(e => onRequestResult(method, url, {
+        time: Date.now(),
+        error: `An error occured while executing the request '${name}'`
+      }));
   };
   let curlCommand = `curl -X '${method}'`
-  if((method === 'POST' || method === 'PUT') && data) {
+  if ((method === 'POST' || method === 'PUT') && data) {
     curlCommand += `--header 'Content-Type: application/json' `
-    + `--data '${JSON.stringify(data)}'`;
+      + `--data '${JSON.stringify(data)}'`;
   }
   return (
     <div className={`http-request method-${method.toLowerCase()}`}>
@@ -66,7 +66,7 @@ export function HttpRequest({method, name, path, url, data, children, execute, o
         <div className="http-request-def">
           <span className="http-request-method">{method}</span> <span className="http-request-path">{path}</span>
           {children}
-          {curlCommand && (<ShellCommand onlyButton={true} buttonText="Copy as curl" command={curlCommand}/>)}
+          {curlCommand && (<ShellCommand onlyButton={true} buttonText="Copy as curl" command={curlCommand} />)}
         </div>
       </div>
       <div className="action">
@@ -83,7 +83,6 @@ export function HttpRequest({method, name, path, url, data, children, execute, o
   );
 };
 
-
 export function RequestsConsole(props: { name: string, requests: RequestEntry[] }) {
   const res = props.requests.map((r, i) => (
     <React.Fragment key={i}>
@@ -93,13 +92,9 @@ export function RequestsConsole(props: { name: string, requests: RequestEntry[] 
         <span className={`method method-${r.method.toLowerCase()}`}>{r.method}</span>&nbsp;
         <span className="url">{r.url}</span>:
       </div>
-      {!r.error ? (
-        <div aria-label={JSON.stringify(r.content!)}>
-          {(typeof r.content! === 'string') ? r.content! : <JSONPretty json={r.content!} />}
-        </div>
-      ) : (
-          <div className="error">{r.error}</div>
-        )}
+      {r.error && (<div className="error">{r.error}</div>)}
+      {!r.error && typeof r.content === 'string' && (<div aria-label={r.content}>{r.content}</div>)}
+      {!r.error && typeof r.content !== 'string' && (<div aria-label={JSON.stringify(r.content)}><JSONPretty json={r.content!} /></div>)}
     </React.Fragment>
   ));
 

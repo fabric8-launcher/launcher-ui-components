@@ -24,7 +24,6 @@ export function RestCapability(props: RestCapabilityProps) {
   const [requests, addRequestEntry] = useRequestsState();
   const [name, setName] = React.useState<string>('');
 
-  const url = api.getGreetingAbsoluteUrl(name);
   const execGet = () => api.doGetGreeting(name);
   return (
     <CapabilityCard module="rest">
@@ -51,7 +50,7 @@ export function RestCapability(props: RestCapabilityProps) {
           <HttpRequest
             name="GET Greetings"
             method="GET"
-            url={url}
+            url={api.getGreetingAbsoluteUrl(name)}
             path={`${REST_GREETING_PATH}?name=`}
             execute={execGet}
             onRequestResult={addRequestEntry}
@@ -60,7 +59,7 @@ export function RestCapability(props: RestCapabilityProps) {
               id="http-api-param-name-input"
               aria-label="Greetings name input"
               value={name}
-              onChange={setName}
+              onChange={e => setName(e)}
               name="name"
               placeholder="World"
               className="http-request-param"

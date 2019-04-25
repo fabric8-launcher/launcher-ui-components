@@ -55,7 +55,11 @@ class MockHealthChecksCapabilityApi implements HealthChecksCapabilityApi {
   }
 }
 
-export const mockHealthChecksCapabilityApi: HealthChecksCapabilityApi = new MockHealthChecksCapabilityApi();
+export function newMockHealthChecksCapabilityApi(): HealthChecksCapabilityApi {
+  return new MockHealthChecksCapabilityApi();
+}
+
+export const mockHealthChecksCapabilityApi: HealthChecksCapabilityApi = newMockHealthChecksCapabilityApi();
 
 export function newHttpHealthChecksCapabilityApi(httpApi: HttpApi): HealthChecksCapabilityApi {
   return new HttpHealthChecksCapabilityApi(httpApi);

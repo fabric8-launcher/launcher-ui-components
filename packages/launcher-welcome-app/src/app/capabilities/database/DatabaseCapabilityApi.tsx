@@ -96,7 +96,9 @@ class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
   }
 }
 
-export const mockDatabaseCapabilityApi:DatabaseCapabilityApi = new MockDatabaseCapabilityApi();
+export function newMockDatabaseCapabilityApi():DatabaseCapabilityApi { return new MockDatabaseCapabilityApi(); }
+
+export const mockDatabaseCapabilityApi:DatabaseCapabilityApi = newMockDatabaseCapabilityApi();
 
 export function newHttpDatabaseCapabilityApi(httpApi: HttpApi): DatabaseCapabilityApi {
   return new HttpDatabaseCapabilityApi(httpApi);

@@ -38,7 +38,9 @@ class MockRestCapabilityApi implements RestCapabilityApi {
   }
 }
 
-export const mockRestCapabilityApi: RestCapabilityApi = new MockRestCapabilityApi();
+export function newMockRestCapabilityApi(): RestCapabilityApi { return new MockRestCapabilityApi(); }
+
+export const mockRestCapabilityApi = newMockRestCapabilityApi();
 
 export function newHttpRestCapabilityApi(httpApi: HttpApi): RestCapabilityApi {
   return new HttpRestCapabilityApi(httpApi);

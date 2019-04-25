@@ -63,7 +63,7 @@ function PostFruit(props: { addRequestEntry: onRequestResult }) {
         <TextInput
           id="http-api-param-post-name-input"
           value={name}
-          onChange={setName}
+          onChange={v => setName(v)}
           name="postName"
           placeholder="Coco"
           className="http-request-param"
@@ -74,7 +74,7 @@ function PostFruit(props: { addRequestEntry: onRequestResult }) {
         <TextInput
           id="http-api-param-post-stock-input"
           value={stock}
-          onChange={setStock}
+          onChange={v => setStock(v)}
           name="postStock"
           placeholder="10"
           className="http-request-param"
@@ -111,7 +111,7 @@ function PutFruit(props: { addRequestEntry: onRequestResult }) {
       <TextInput
         id="http-api-param-put-id-input"
         value={id}
-        onChange={setId}
+        onChange={v => setId(v)}
         name="putId"
         placeholder="2"
         className="http-request-param"
@@ -122,7 +122,7 @@ function PutFruit(props: { addRequestEntry: onRequestResult }) {
         <TextInput
           id="http-api-param-put-name-input"
           value={name}
-          onChange={setName}
+          onChange={v => setName(v)}
           name="putName"
           placeholder="Banana"
           className="http-request-param"
@@ -133,7 +133,7 @@ function PutFruit(props: { addRequestEntry: onRequestResult }) {
         <TextInput
           id="http-api-param-put-stock-input"
           value={stock}
-          onChange={setStock}
+          onChange={v => setStock(v)}
           name="putStock"
           placeholder="10"
           className="http-request-param"
@@ -162,7 +162,7 @@ function DeleteFruit(props: { addRequestEntry: onRequestResult }) {
       <TextInput
         id="http-api-param-delete-id-input"
         value={id}
-        onChange={setId}
+        onChange={v => setId(v)}
         name="deleteId"
         placeholder="2"
         className="http-request-param"
