@@ -50,21 +50,23 @@ class HttpDatabaseCapabilityApi implements DatabaseCapabilityApi {
   }
 }
 
+export const MOCK_FRUITS: Fruit[] = [{
+  id: 1,
+  name: 'Apple',
+  stock: 10
+}, {
+  id: 2,
+  name: 'Orange',
+  stock: 10
+}, {
+  id: 3,
+  name: 'Pear',
+  stock: 10
+}];
+
 class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
 
-  private fruits: Fruit[] = [{
-    id: 1,
-    name: 'Apple',
-    stock: 10
-  }, {
-    id: 2,
-    name: 'Orange',
-    stock: 10
-  }, {
-    id: 3,
-    name: 'Pear',
-    stock: 10
-  }];
+  private fruits: Fruit[] = MOCK_FRUITS;
 
   public getFruitsAbsoluteUrl(): string {
     return `http://mocked.io/api/fruits`;

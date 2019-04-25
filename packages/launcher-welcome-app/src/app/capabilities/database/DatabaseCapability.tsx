@@ -27,7 +27,7 @@ function GetFruits(props: { addRequestEntry: onRequestResult }) {
   return (
     <HttpRequest
       method="GET"
-      name="GET Fruit"
+      name="GET Fruits"
       path={DATABASE_FRUIT_PATH}
       url={api.getFruitsAbsoluteUrl()}
       execute={execFetchFruits}

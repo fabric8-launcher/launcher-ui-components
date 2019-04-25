@@ -19,14 +19,14 @@ describe('<HealthChecksCapability />', () => {
   it('check that readiness is working', async () => {
     const api = newMockHealthChecksCapabilityApi();
     const result = { content: 'OK', time: 1542793377 };
-    const doGetReadiness = jest.spyOn(api, 'doGetReadiness').mockResolvedValue(result);
+    const spy = jest.spyOn(api, 'doGetReadiness').mockResolvedValue(result);
     const Wrapper: React.FunctionComponent = (props) => (<HealthChecksApiContext.Provider value={api}>{props.children}</HealthChecksApiContext.Provider>)
     const component = render(<HealthChecksCapability />, { wrapper: Wrapper });
     fireEvent.click(component.getByLabelText('Execute Readiness check'));
     await act(async () => {
-      await doGetReadiness.mock.results[0];
+      await spy.mock.results[0];
     });
-    expect(doGetReadiness).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
     expect(component.getByLabelText(result.content));
     expect(component.asFragment()).toMatchSnapshot();
   });
@@ -34,14 +34,14 @@ describe('<HealthChecksCapability />', () => {
   it('check that liveness is working', async () => {
     const api = newMockHealthChecksCapabilityApi();
     const result = { content: 'OK', time: 1542793377 };
-    const doGetLiveness = jest.spyOn(api, 'doGetLiveness').mockResolvedValue(result);
+    const spy = jest.spyOn(api, 'doGetLiveness').mockResolvedValue(result);
     const Wrapper: React.FunctionComponent = (props) => (<HealthChecksApiContext.Provider value={api}>{props.children}</HealthChecksApiContext.Provider>)
     const component = render(<HealthChecksCapability />, { wrapper: Wrapper });
     fireEvent.click(component.getByLabelText('Execute Liveness check'));
     await act(async () => {
-      await doGetLiveness.mock.results[0];
+      await spy.mock.results[0];
     });
-    expect(doGetLiveness).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
     expect(component.getByLabelText(result.content));
     expect(component.asFragment()).toMatchSnapshot();
   });
