@@ -521,11 +521,6 @@ exports[`<HealthChecksCapability /> check that liveness is working 1`] = `
                 >
                   OK
                 </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
-                </div>
               </div>
             </div>
           </div>
@@ -803,11 +798,6 @@ exports[`<HealthChecksCapability /> check that readiness is working 1`] = `
                     http://mocked.io/readiness
                   </span>
                   :
-                </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
                 </div>
                 <div
                   aria-label="OK"

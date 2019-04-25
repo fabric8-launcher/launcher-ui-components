@@ -1474,11 +1474,6 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
                     </pre>
                   </div>
                 </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
-                </div>
               </div>
             </div>
           </div>
@@ -1977,11 +1972,6 @@ exports[`<DatabaseCapability /> check that a click on the POST button add a new 
 }
                     </pre>
                   </div>
-                </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
                 </div>
               </div>
             </div>
@@ -2482,11 +2472,6 @@ exports[`<DatabaseCapability /> check that a click on the POST button add a new 
                     </pre>
                   </div>
                 </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
-                </div>
               </div>
             </div>
           </div>
@@ -2986,11 +2971,6 @@ exports[`<DatabaseCapability /> check that a click on the PUT button update the 
                     </pre>
                   </div>
                 </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
-                </div>
               </div>
             </div>
           </div>
@@ -3489,11 +3469,6 @@ exports[`<DatabaseCapability /> check that a click on the PUT button update the 
 }
                     </pre>
                   </div>
-                </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
                 </div>
               </div>
             </div>

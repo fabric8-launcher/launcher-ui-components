@@ -201,11 +201,6 @@ exports[`<RestCapability /> check that a click on the GET button adds a Hello Wo
                 >
                   Hello World!
                 </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
-                </div>
               </div>
             </div>
           </div>
@@ -416,11 +411,6 @@ exports[`<RestCapability /> check that after typing a name, a click on the GET b
                   aria-label="Hello John!"
                 >
                   Hello John!
-                </div>
-                <div
-                  aria-label="OK"
-                >
-                  OK
                 </div>
               </div>
             </div>
