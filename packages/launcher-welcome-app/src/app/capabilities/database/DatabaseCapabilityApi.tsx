@@ -1,5 +1,4 @@
 import { HttpApi } from '../../../shared/utils/HttpApi';
-import { ApiFactoryFunction } from '../connectCapability';
 
 export interface Fruit {
   id: number;
@@ -21,7 +20,7 @@ export interface DatabaseCapabilityApi {
 
 export const DATABASE_FRUIT_PATH = '/api/fruits';
 
-export class HttpDatabaseCapabilityApi implements DatabaseCapabilityApi {
+class HttpDatabaseCapabilityApi implements DatabaseCapabilityApi {
 
   constructor(private readonly httpApi: HttpApi) {
   }
@@ -51,21 +50,23 @@ export class HttpDatabaseCapabilityApi implements DatabaseCapabilityApi {
   }
 }
 
-export class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
+export const MOCK_FRUITS: Fruit[] = [{
+  id: 1,
+  name: 'Apple',
+  stock: 10
+}, {
+  id: 2,
+  name: 'Orange',
+  stock: 10
+}, {
+  id: 3,
+  name: 'Pear',
+  stock: 10
+}];
 
-  private fruits: Fruit[] = [{
-    id: 1,
-    name: 'Apple',
-    stock: 10
-  }, {
-    id: 2,
-    name: 'Orange',
-    stock: 10
-  }, {
-    id: 3,
-    name: 'Pear',
-    stock: 10
-  }];
+class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
+
+  private fruits: Fruit[] = MOCK_FRUITS;
 
   public getFruitsAbsoluteUrl(): string {
     return `http://mocked.io/api/fruits`;
@@ -97,5 +98,10 @@ export class MockDatabaseCapabilityApi implements DatabaseCapabilityApi {
   }
 }
 
-export const databaseCapabilityApiFactory: ApiFactoryFunction<DatabaseCapabilityApi> = ({httpApi, isMockMode}) =>
-  isMockMode ? new MockDatabaseCapabilityApi() : new HttpDatabaseCapabilityApi(httpApi);
+export function newMockDatabaseCapabilityApi():DatabaseCapabilityApi { return new MockDatabaseCapabilityApi(); }
+
+export const mockDatabaseCapabilityApi:DatabaseCapabilityApi = newMockDatabaseCapabilityApi();
+
+export function newHttpDatabaseCapabilityApi(httpApi: HttpApi): DatabaseCapabilityApi {
+  return new HttpDatabaseCapabilityApi(httpApi);
+}

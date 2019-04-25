@@ -57,7 +57,8 @@ function getFlowStatus(app: NewApp) {
 }
 
 export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => void }) {
-  const defaultNewApp = { ...DEFAULT_NEW_APP, name: props.appName || generate().dashed };
+  const defaultAppName = props.appName || generate().dashed;
+  const defaultNewApp = {...DEFAULT_NEW_APP, name: defaultAppName};
   const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('new-app-flow', defaultNewApp);
   const autoSetCluster = useAutoSetCluster(setApp);
   const autoSetDestRepository = useAutoSetDestRepository(app.name, setApp);

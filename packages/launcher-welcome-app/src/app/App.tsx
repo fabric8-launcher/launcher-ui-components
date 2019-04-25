@@ -1,8 +1,5 @@
-import {
-  Brand, Button, ButtonVariant, Nav, NavItem, NavList, Page,
-  PageHeader, PageSection, PageSectionVariants, PageSidebar, Text, TextContent, Toolbar, ToolbarGroup, ToolbarItem
-} from '@patternfly/react-core';
-import { CogIcon, CloudIcon, CodeIcon, ServicesIcon, ScreenIcon } from '@patternfly/react-icons';
+import { Brand, Button, ButtonVariant, Nav, NavItem, NavList, Page, PageHeader, PageSection, PageSectionVariants, PageSidebar, Text, TextContent, Toolbar, ToolbarGroup, ToolbarItem } from '@patternfly/react-core';
+import { CloudIcon, CodeIcon, CogIcon, ScreenIcon, ServicesIcon } from '@patternfly/react-icons';
 import { global_breakpoint_md as breakpointMd } from '@patternfly/react-tokens';
 import * as _ from 'lodash';
 import * as React from 'react';
@@ -10,13 +7,13 @@ import logo from '../assets/logo/RHD-logo.svg';
 import { getLocationAbsoluteUrl } from '../shared/utils/Locations';
 import { checkNotNull } from '../shared/utils/Preconditions';
 import './App.scss';
-import capabilitiesCardsMapping from './capabilities/capabilitiesCardsMapping';
+import { Capability } from './capabilities/Capability';
 import appConfig from './config/appConfig';
+import { Part } from './config/AppDefinition';
 import capabilitiesConfig from './config/capabilitiesConfig';
-import { PartInfo } from './infos/PartInfo';
 import { CloudDeploymentInfo } from './infos/CloudDeploymentInfo';
 import { CodeBaseInfo } from './infos/CodeBaseInfo';
-import { Part } from './config/AppDefinition';
+import { PartInfo } from './infos/PartInfo';
 
 const appDefinition = checkNotNull(appConfig.definition, 'appConfig.definition');
 const backendPart = appDefinition.parts.find(t => t.extra.category === 'backend') as Part;
@@ -40,21 +37,21 @@ export default class App extends React.Component<{}, { isNavOpen: boolean }> {
       <Nav onSelect={this.onNavSelect} onToggle={this.onNavToggle} aria-label="Nav">
         <NavList>
           <NavItem to={`#cloud-deployment-info`}>
-            <CloudIcon className="with-text"/> Cloud Deployment
+            <CloudIcon className="with-text" /> Cloud Deployment
           </NavItem>
           {appConfig.sourceRepository && (
             <NavItem to={`#codebase-info`}>
-              <CodeIcon className="with-text"/> Codebase
+              <CodeIcon className="with-text" /> Codebase
             </NavItem>
           )}
           {frontendPart && (
             <NavItem to={`#frontend-tier-info`}>
-              <ScreenIcon className="with-text"/> Frontend
+              <ScreenIcon className="with-text" /> Frontend
             </NavItem>
           )}
           {backendPart && (
             <NavItem to={`#backend-tier-info`}>
-              <ServicesIcon className="with-text"/> Backend
+              <ServicesIcon className="with-text" /> Backend
             </NavItem>
           )}
           {_.values(capabilitiesConfig).filter(this.showCapability).map(c => (
@@ -70,7 +67,7 @@ export default class App extends React.Component<{}, { isNavOpen: boolean }> {
         <ToolbarGroup>
           <ToolbarItem>
             <Button id="nav-toggle" aria-label="Overflow actions" variant={ButtonVariant.plain}>
-              <CogIcon/>
+              <CogIcon />
             </Button>
           </ToolbarItem>
         </ToolbarGroup>
@@ -79,14 +76,14 @@ export default class App extends React.Component<{}, { isNavOpen: boolean }> {
 
     const Header = (
       <PageHeader
-        logo={<Brand src={logo} alt="Red Hat"/>}
+        logo={<Brand src={logo} alt="Red Hat" />}
         toolbar={PageToolbar}
         showNavToggle
         onNavToggle={this.onNavToggle}
       />
     );
 
-    const Sidebar = <PageSidebar nav={PageNav} isNavOpen={this.state.isNavOpen}/>;
+    const Sidebar = <PageSidebar nav={PageNav} isNavOpen={this.state.isNavOpen} />;
 
     return (
       <React.Fragment>
@@ -107,7 +104,7 @@ export default class App extends React.Component<{}, { isNavOpen: boolean }> {
               openshiftConsoleUrl={appConfig.openshiftConsoleUrl!}
             />
             {appConfig.sourceRepository && (
-              <CodeBaseInfo sourceRepository={appConfig.sourceRepository}/>
+              <CodeBaseInfo sourceRepository={appConfig.sourceRepository} />
             )}
             {frontendPart && (
               <PartInfo {...this.createPartInfoProps(frontendPart)} />
@@ -116,11 +113,10 @@ export default class App extends React.Component<{}, { isNavOpen: boolean }> {
               <PartInfo {...this.createPartInfoProps(backendPart)} />
             )}
             {_.values(capabilitiesConfig).filter(this.showCapability).map(c => {
-              const CapabilityComponent = capabilitiesCardsMapping[c.module];
-              const capabilityDefinition = capabilityDefinitionByModule[c.module];
-              const props = capabilityDefinition ? {...capabilityDefinition.props, extra: capabilityDefinition.extra} : {};
+              const capabilityDefinition = capabilityDefinitionByModule[c.module] || {};
+              const props = { module: c.module, ...capabilityDefinition.props, ...capabilityDefinition.extra };
               return (
-                <CapabilityComponent {...props} key={c.module}/>
+                <Capability {...props} key={c.module} />
               );
             })}
           </PageSection>
@@ -133,7 +129,7 @@ export default class App extends React.Component<{}, { isNavOpen: boolean }> {
     return {
       subfolderName: part.subFolderName,
       category: part.extra.category,
-      runtimeInfo: {...part.extra.runtimeInfo!},
+      runtimeInfo: { ...part.extra.runtimeInfo! },
     };
   };
 

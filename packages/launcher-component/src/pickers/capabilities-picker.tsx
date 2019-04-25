@@ -63,7 +63,7 @@ function CapabilityItem(props: CapabilityItemProps) {
         <img src={props.icon}/>
       </DataListCell>
       <DataListCell width={1} onClick={toggleSelect} style={{cursor: 'pointer'}}>
-        <Title size="lg" id={elId} aria-label={'Pick ' + props.id + ' capability'}>{props.name}</Title>
+        <Title size="lg" id={elId} aria-label={`Pick ${props.id} capability`}>{props.name}</Title>
       </DataListCell>
       <DataListCell
         width={3}

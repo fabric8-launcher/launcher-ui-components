@@ -83,7 +83,7 @@ exports[`<ExamplePicker /> renders the ExamplePicker correctly 1`] = `
           aria-label="Select Runtime"
           class="pf-c-form-control"
           disabled=""
-          id="circuit-breakerruntime-select"
+          id="circuit-breaker-runtime-select"
         >
           <option
             class=""
@@ -211,7 +211,7 @@ exports[`<ExamplePicker /> show the version dropdown: Component 1`] = `
             aria-label="Select Runtime"
             class="pf-c-form-control"
             disabled=""
-            id="circuit-breakerruntime-select"
+            id="circuit-breaker-runtime-select"
           >
             <option
               class=""
@@ -224,7 +224,7 @@ exports[`<ExamplePicker /> show the version dropdown: Component 1`] = `
             aria-invalid="false"
             aria-label="Select Version"
             class="pf-c-form-control"
-            id="circuit-breakerversion-select"
+            id="circuit-breaker-version-select"
           >
             <option
               class=""

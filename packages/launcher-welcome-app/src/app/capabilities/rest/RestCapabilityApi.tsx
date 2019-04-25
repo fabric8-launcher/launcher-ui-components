@@ -1,5 +1,4 @@
 import { HttpApi } from '../../../shared/utils/HttpApi';
-import { ApiFactoryFunction } from '../connectCapability';
 
 export interface RestCapabilityApi {
   getGreetingAbsoluteUrl(name: string): string;
@@ -8,7 +7,7 @@ export interface RestCapabilityApi {
 }
 
 function buildGreetingPath(path: string, name: string) {
-  return name.length === 0 ? path : `${path}?name=${encodeURIComponent(name)}`;
+  return name ? `${path}?name=${encodeURIComponent(name)}` : path;
 }
 
 export const REST_GREETING_PATH = '/api/greeting';
@@ -29,9 +28,9 @@ class HttpRestCapabilityApi implements RestCapabilityApi {
   }
 }
 
-export class MockRestCapabilityApi implements RestCapabilityApi {
+class MockRestCapabilityApi implements RestCapabilityApi {
   public async doGetGreeting(name: string): Promise<{ content: string, time: number }> {
-    return {content: 'Hello ' + (name || 'World') + '!', time: Date.now()};
+    return {content: `Hello ${(name || 'World')}!`, time: Date.now()};
   }
 
   public getGreetingAbsoluteUrl(name: string): string {
@@ -39,5 +38,10 @@ export class MockRestCapabilityApi implements RestCapabilityApi {
   }
 }
 
-export const restCapabilityApiFactory: ApiFactoryFunction<RestCapabilityApi> = ({httpApi, isMockMode}) =>
-  isMockMode ? new MockRestCapabilityApi() : new HttpRestCapabilityApi(httpApi);
+export function newMockRestCapabilityApi(): RestCapabilityApi { return new MockRestCapabilityApi(); }
+
+export const mockRestCapabilityApi = newMockRestCapabilityApi();
+
+export function newHttpRestCapabilityApi(httpApi: HttpApi): RestCapabilityApi {
+  return new HttpRestCapabilityApi(httpApi);
+}
