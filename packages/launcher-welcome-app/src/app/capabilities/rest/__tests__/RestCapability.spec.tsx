@@ -11,6 +11,10 @@ const extra = {
 
 jest.useFakeTimers();
 
+beforeAll(() => {
+  process.env.TZ = 'UTC';
+})
+
 afterEach(() => {
   console.log('cleanup()');
   cleanup();

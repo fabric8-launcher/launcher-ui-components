@@ -93,8 +93,9 @@ export function RequestsConsole(props: { name: string, requests: RequestEntry[] 
         <span className="url">{r.url}</span>:
       </div>
       {r.error && (<div className="error">{r.error}</div>)}
-      {!r.error && typeof r.content === 'string' && (<div aria-label={r.content}>{r.content}</div>)}
-      {!r.error && typeof r.content !== 'string' && (<div aria-label={JSON.stringify(r.content)}><JSONPretty json={r.content!} /></div>)}
+      {!r.error && !!r.content && typeof r.content === 'string' && (<div aria-label={r.content}>{r.content}</div>)}
+      {!r.error && !!r.content && typeof r.content !== 'string' && (<div aria-label={JSON.stringify(r.content)}><JSONPretty json={r.content!} /></div>)}
+      {!r.error && (<div aria-label="OK">OK</div>)}
     </React.Fragment>
   ));
 

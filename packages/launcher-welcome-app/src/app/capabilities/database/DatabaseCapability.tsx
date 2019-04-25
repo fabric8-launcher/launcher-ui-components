@@ -66,6 +66,7 @@ function PostFruit(props: { addRequestEntry: onRequestResult }) {
           onChange={v => setName(v)}
           name="postName"
           placeholder="Coco"
+          aria-label="Fruit to create"
           className="http-request-param"
         />
       </span>
@@ -77,6 +78,7 @@ function PostFruit(props: { addRequestEntry: onRequestResult }) {
           onChange={v => setStock(v)}
           name="postStock"
           placeholder="10"
+          aria-label="Stock to create"
           className="http-request-param"
         />
       </span>
@@ -115,6 +117,7 @@ function PutFruit(props: { addRequestEntry: onRequestResult }) {
         name="putId"
         placeholder="2"
         className="http-request-param"
+        aria-label="Fruit ID to update"
         style={{ width: '40px' }}
       />
       <span style={{ marginLeft: '50px' }}>
@@ -125,6 +128,7 @@ function PutFruit(props: { addRequestEntry: onRequestResult }) {
           onChange={v => setName(v)}
           name="putName"
           placeholder="Banana"
+          aria-label="New fruit name"
           className="http-request-param"
         />
       </span>
@@ -136,6 +140,7 @@ function PutFruit(props: { addRequestEntry: onRequestResult }) {
           onChange={v => setStock(v)}
           name="putStock"
           placeholder="10"
+          aria-label="New fruit stock"
           className="http-request-param"
         />
       </span>
@@ -166,6 +171,7 @@ function DeleteFruit(props: { addRequestEntry: onRequestResult }) {
         name="deleteId"
         placeholder="2"
         className="http-request-param"
+        aria-label="Fruit ID to delete"
         style={{ width: '40px' }}
       />
     </HttpRequest>

@@ -1,5 +1,911 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<DatabaseCapability /> check that a click on the DELETE button delete the default fruit in the console 1`] = `
+<DocumentFragment>
+  <article
+    class="pf-c-card capability-card"
+    id="database-capability"
+  >
+    <div
+      class="pf-c-card__header capability-card-header"
+    >
+      <svg
+        aria-hidden="true"
+        class="with-text"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"
+          transform=""
+        />
+      </svg>
+       Relational Persistence
+    </div>
+    <div
+      class="pf-c-card__body capability-card-body"
+    >
+      <div
+        class="pf-l-grid"
+      >
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          As a starting point for your development, we have created a table and populated it with some data. We've additionally exposed CRUD operations via the following endpoints to give you a system that works end to end.
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col http-request-service"
+        >
+          <svg
+            aria-hidden="true"
+            class="with-text"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 448 512"
+            width="1em"
+          >
+            <path
+              d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+              transform=""
+            />
+          </svg>
+           
+          <span
+            title="src/main/java/org/your/DbEndpoint.java"
+          >
+            <svg
+              aria-hidden="true"
+              class="with-text"
+              fill="currentColor"
+              height="1em"
+              role="img"
+              style="vertical-align: -0.125em;"
+              viewBox="0 0 448 512"
+              width="1em"
+            >
+              <path
+                d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+                transform=""
+              />
+            </svg>
+             dbEndpoint
+          </span>
+        </div>
+        <div
+          class="http-request method-get"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                GET
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute GET Fruits"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute GET Fruits"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-post"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                POST
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <span
+                style="margin-left: 98px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="Fruit to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-name-input"
+                  name="postName"
+                  placeholder="Coco"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="Stock to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-stock-input"
+                  name="postStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute POST Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute POST Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-put"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                PUT
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to update"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-put-id-input"
+                name="putId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <span
+                style="margin-left: 50px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit name"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-name-input"
+                  name="putName"
+                  placeholder="Banana"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit stock"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-stock-input"
+                  name="putStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute PUT Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute PUT Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-delete"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                DELETE
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to delete"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-delete-id-input"
+                name="deleteId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute DELETE Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute DELETE Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          <div
+            aria-label="Database Console"
+            class="console"
+          >
+            <div
+              class="console-content expanded"
+            >
+              <span
+                class="placeholder"
+              >
+                <span
+                  class="prefix"
+                >
+                  &gt;_
+                </span>
+                  Use the 'Execute' button(s) above to get things started in this console...
+              </span>
+              <div
+                class="console-content-row"
+              >
+                <div>
+                  <span
+                    class="prefix"
+                  >
+                    $
+                  </span>
+                   
+                  <span
+                    class="time"
+                  >
+                    9:33:13 PM
+                  </span>
+                   
+                  <span
+                    class="method method-delete"
+                  >
+                    DELETE
+                  </span>
+                   
+                  <span
+                    class="url"
+                  >
+                    http://mocked.io/api/fruits/2
+                  </span>
+                  :
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`<DatabaseCapability /> check that a click on the DELETE button delete the selected fruit in the console 1`] = `
+<DocumentFragment>
+  <article
+    class="pf-c-card capability-card"
+    id="database-capability"
+  >
+    <div
+      class="pf-c-card__header capability-card-header"
+    >
+      <svg
+        aria-hidden="true"
+        class="with-text"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"
+          transform=""
+        />
+      </svg>
+       Relational Persistence
+    </div>
+    <div
+      class="pf-c-card__body capability-card-body"
+    >
+      <div
+        class="pf-l-grid"
+      >
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          As a starting point for your development, we have created a table and populated it with some data. We've additionally exposed CRUD operations via the following endpoints to give you a system that works end to end.
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col http-request-service"
+        >
+          <svg
+            aria-hidden="true"
+            class="with-text"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 448 512"
+            width="1em"
+          >
+            <path
+              d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+              transform=""
+            />
+          </svg>
+           
+          <span
+            title="src/main/java/org/your/DbEndpoint.java"
+          >
+            <svg
+              aria-hidden="true"
+              class="with-text"
+              fill="currentColor"
+              height="1em"
+              role="img"
+              style="vertical-align: -0.125em;"
+              viewBox="0 0 448 512"
+              width="1em"
+            >
+              <path
+                d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+                transform=""
+              />
+            </svg>
+             dbEndpoint
+          </span>
+        </div>
+        <div
+          class="http-request method-get"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                GET
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute GET Fruits"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute GET Fruits"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-post"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                POST
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <span
+                style="margin-left: 98px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="Fruit to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-name-input"
+                  name="postName"
+                  placeholder="Coco"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="Stock to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-stock-input"
+                  name="postStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute POST Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute POST Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-put"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                PUT
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to update"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-put-id-input"
+                name="putId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <span
+                style="margin-left: 50px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit name"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-name-input"
+                  name="putName"
+                  placeholder="Banana"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit stock"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-stock-input"
+                  name="putStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute PUT Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute PUT Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-delete"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                DELETE
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to delete"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-delete-id-input"
+                name="deleteId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value="3"
+              />
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute DELETE Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute DELETE Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          <div
+            aria-label="Database Console"
+            class="console"
+          >
+            <div
+              class="console-content expanded"
+            >
+              <span
+                class="placeholder"
+              >
+                <span
+                  class="prefix"
+                >
+                  &gt;_
+                </span>
+                  Use the 'Execute' button(s) above to get things started in this console...
+              </span>
+              <div
+                class="console-content-row"
+              >
+                <div>
+                  <span
+                    class="prefix"
+                  >
+                    $
+                  </span>
+                   
+                  <span
+                    class="time"
+                  >
+                    9:33:13 PM
+                  </span>
+                   
+                  <span
+                    class="method method-delete"
+                  >
+                    DELETE
+                  </span>
+                   
+                  <span
+                    class="url"
+                  >
+                    http://mocked.io/api/fruits/3
+                  </span>
+                  :
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
 exports[`<DatabaseCapability /> check that a click on the GET button list the fruits in the console 1`] = `
 <DocumentFragment>
   <article
@@ -163,6 +1069,7 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
                 Name:
                 <input
                   aria-invalid="false"
+                  aria-label="Fruit to create"
                   class="pf-c-form-control http-request-param"
                   id="http-api-param-post-name-input"
                   name="postName"
@@ -177,6 +1084,7 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
                 Stock:
                 <input
                   aria-invalid="false"
+                  aria-label="Stock to create"
                   class="pf-c-form-control http-request-param"
                   id="http-api-param-post-stock-input"
                   name="postStock"
@@ -242,6 +1150,7 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
               </span>
               <input
                 aria-invalid="false"
+                aria-label="Fruit ID to update"
                 class="pf-c-form-control http-request-param"
                 id="http-api-param-put-id-input"
                 name="putId"
@@ -256,6 +1165,7 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
                 Name:
                 <input
                   aria-invalid="false"
+                  aria-label="New fruit name"
                   class="pf-c-form-control http-request-param"
                   id="http-api-param-put-name-input"
                   name="putName"
@@ -270,6 +1180,7 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
                 Stock:
                 <input
                   aria-invalid="false"
+                  aria-label="New fruit stock"
                   class="pf-c-form-control http-request-param"
                   id="http-api-param-put-stock-input"
                   name="putStock"
@@ -335,6 +1246,7 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
               </span>
               <input
                 aria-invalid="false"
+                aria-label="Fruit ID to delete"
                 class="pf-c-form-control http-request-param"
                 id="http-api-param-delete-id-input"
                 name="deleteId"
@@ -411,7 +1323,7 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
                   <span
                     class="time"
                   >
-                    3:33:13 PM
+                    9:33:13 PM
                   </span>
                    
                   <span
@@ -561,6 +1473,2027 @@ exports[`<DatabaseCapability /> check that a click on the GET button list the fr
 ]
                     </pre>
                   </div>
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`<DatabaseCapability /> check that a click on the POST button add a new fruit in the console 1`] = `
+<DocumentFragment>
+  <article
+    class="pf-c-card capability-card"
+    id="database-capability"
+  >
+    <div
+      class="pf-c-card__header capability-card-header"
+    >
+      <svg
+        aria-hidden="true"
+        class="with-text"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"
+          transform=""
+        />
+      </svg>
+       Relational Persistence
+    </div>
+    <div
+      class="pf-c-card__body capability-card-body"
+    >
+      <div
+        class="pf-l-grid"
+      >
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          As a starting point for your development, we have created a table and populated it with some data. We've additionally exposed CRUD operations via the following endpoints to give you a system that works end to end.
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col http-request-service"
+        >
+          <svg
+            aria-hidden="true"
+            class="with-text"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 448 512"
+            width="1em"
+          >
+            <path
+              d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+              transform=""
+            />
+          </svg>
+           
+          <span
+            title="src/main/java/org/your/DbEndpoint.java"
+          >
+            <svg
+              aria-hidden="true"
+              class="with-text"
+              fill="currentColor"
+              height="1em"
+              role="img"
+              style="vertical-align: -0.125em;"
+              viewBox="0 0 448 512"
+              width="1em"
+            >
+              <path
+                d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+                transform=""
+              />
+            </svg>
+             dbEndpoint
+          </span>
+        </div>
+        <div
+          class="http-request method-get"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                GET
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute GET Fruits"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute GET Fruits"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-post"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                POST
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <span
+                style="margin-left: 98px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="Fruit to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-name-input"
+                  name="postName"
+                  placeholder="Coco"
+                  type="text"
+                  value="Passion"
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="Stock to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-stock-input"
+                  name="postStock"
+                  placeholder="10"
+                  type="text"
+                  value="15"
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute POST Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute POST Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-put"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                PUT
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to update"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-put-id-input"
+                name="putId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <span
+                style="margin-left: 50px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit name"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-name-input"
+                  name="putName"
+                  placeholder="Banana"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit stock"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-stock-input"
+                  name="putStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute PUT Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute PUT Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-delete"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                DELETE
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to delete"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-delete-id-input"
+                name="deleteId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute DELETE Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute DELETE Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          <div
+            aria-label="Database Console"
+            class="console"
+          >
+            <div
+              class="console-content expanded"
+            >
+              <span
+                class="placeholder"
+              >
+                <span
+                  class="prefix"
+                >
+                  &gt;_
+                </span>
+                  Use the 'Execute' button(s) above to get things started in this console...
+              </span>
+              <div
+                class="console-content-row"
+              >
+                <div>
+                  <span
+                    class="prefix"
+                  >
+                    $
+                  </span>
+                   
+                  <span
+                    class="time"
+                  >
+                    9:33:13 PM
+                  </span>
+                   
+                  <span
+                    class="method method-post"
+                  >
+                    POST
+                  </span>
+                   
+                  <span
+                    class="url"
+                  >
+                    http://mocked.io/api/fruits
+                  </span>
+                  :
+                </div>
+                <div
+                  aria-label="{\\"id\\":4,\\"name\\":\\"Passion\\",\\"stock\\":15}"
+                >
+                  <div>
+                    <pre
+                      class="__json-pretty__"
+                    >
+                      {
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        id
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        4
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        name
+                      </span>
+                      ": 
+                      <span
+                        class="__json-string__"
+                      >
+                        "Passion"
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        stock
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        15
+                      </span>
+                      
+}
+                    </pre>
+                  </div>
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`<DatabaseCapability /> check that a click on the POST button add a new fruit with default in the console 1`] = `
+<DocumentFragment>
+  <article
+    class="pf-c-card capability-card"
+    id="database-capability"
+  >
+    <div
+      class="pf-c-card__header capability-card-header"
+    >
+      <svg
+        aria-hidden="true"
+        class="with-text"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"
+          transform=""
+        />
+      </svg>
+       Relational Persistence
+    </div>
+    <div
+      class="pf-c-card__body capability-card-body"
+    >
+      <div
+        class="pf-l-grid"
+      >
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          As a starting point for your development, we have created a table and populated it with some data. We've additionally exposed CRUD operations via the following endpoints to give you a system that works end to end.
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col http-request-service"
+        >
+          <svg
+            aria-hidden="true"
+            class="with-text"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 448 512"
+            width="1em"
+          >
+            <path
+              d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+              transform=""
+            />
+          </svg>
+           
+          <span
+            title="src/main/java/org/your/DbEndpoint.java"
+          >
+            <svg
+              aria-hidden="true"
+              class="with-text"
+              fill="currentColor"
+              height="1em"
+              role="img"
+              style="vertical-align: -0.125em;"
+              viewBox="0 0 448 512"
+              width="1em"
+            >
+              <path
+                d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+                transform=""
+              />
+            </svg>
+             dbEndpoint
+          </span>
+        </div>
+        <div
+          class="http-request method-get"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                GET
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute GET Fruits"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute GET Fruits"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-post"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                POST
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <span
+                style="margin-left: 98px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="Fruit to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-name-input"
+                  name="postName"
+                  placeholder="Coco"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="Stock to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-stock-input"
+                  name="postStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute POST Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute POST Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-put"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                PUT
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to update"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-put-id-input"
+                name="putId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <span
+                style="margin-left: 50px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit name"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-name-input"
+                  name="putName"
+                  placeholder="Banana"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit stock"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-stock-input"
+                  name="putStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute PUT Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute PUT Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-delete"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                DELETE
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to delete"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-delete-id-input"
+                name="deleteId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute DELETE Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute DELETE Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          <div
+            aria-label="Database Console"
+            class="console"
+          >
+            <div
+              class="console-content expanded"
+            >
+              <span
+                class="placeholder"
+              >
+                <span
+                  class="prefix"
+                >
+                  &gt;_
+                </span>
+                  Use the 'Execute' button(s) above to get things started in this console...
+              </span>
+              <div
+                class="console-content-row"
+              >
+                <div>
+                  <span
+                    class="prefix"
+                  >
+                    $
+                  </span>
+                   
+                  <span
+                    class="time"
+                  >
+                    9:33:13 PM
+                  </span>
+                   
+                  <span
+                    class="method method-post"
+                  >
+                    POST
+                  </span>
+                   
+                  <span
+                    class="url"
+                  >
+                    http://mocked.io/api/fruits
+                  </span>
+                  :
+                </div>
+                <div
+                  aria-label="{\\"id\\":4,\\"name\\":\\"Coco\\",\\"stock\\":10}"
+                >
+                  <div>
+                    <pre
+                      class="__json-pretty__"
+                    >
+                      {
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        id
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        4
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        name
+                      </span>
+                      ": 
+                      <span
+                        class="__json-string__"
+                      >
+                        "Coco"
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        stock
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        10
+                      </span>
+                      
+}
+                    </pre>
+                  </div>
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`<DatabaseCapability /> check that a click on the PUT button update the default fruit in the console 1`] = `
+<DocumentFragment>
+  <article
+    class="pf-c-card capability-card"
+    id="database-capability"
+  >
+    <div
+      class="pf-c-card__header capability-card-header"
+    >
+      <svg
+        aria-hidden="true"
+        class="with-text"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"
+          transform=""
+        />
+      </svg>
+       Relational Persistence
+    </div>
+    <div
+      class="pf-c-card__body capability-card-body"
+    >
+      <div
+        class="pf-l-grid"
+      >
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          As a starting point for your development, we have created a table and populated it with some data. We've additionally exposed CRUD operations via the following endpoints to give you a system that works end to end.
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col http-request-service"
+        >
+          <svg
+            aria-hidden="true"
+            class="with-text"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 448 512"
+            width="1em"
+          >
+            <path
+              d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+              transform=""
+            />
+          </svg>
+           
+          <span
+            title="src/main/java/org/your/DbEndpoint.java"
+          >
+            <svg
+              aria-hidden="true"
+              class="with-text"
+              fill="currentColor"
+              height="1em"
+              role="img"
+              style="vertical-align: -0.125em;"
+              viewBox="0 0 448 512"
+              width="1em"
+            >
+              <path
+                d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+                transform=""
+              />
+            </svg>
+             dbEndpoint
+          </span>
+        </div>
+        <div
+          class="http-request method-get"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                GET
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute GET Fruits"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute GET Fruits"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-post"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                POST
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <span
+                style="margin-left: 98px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="Fruit to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-name-input"
+                  name="postName"
+                  placeholder="Coco"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="Stock to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-stock-input"
+                  name="postStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute POST Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute POST Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-put"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                PUT
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to update"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-put-id-input"
+                name="putId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <span
+                style="margin-left: 50px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit name"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-name-input"
+                  name="putName"
+                  placeholder="Banana"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit stock"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-stock-input"
+                  name="putStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute PUT Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute PUT Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-delete"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                DELETE
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to delete"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-delete-id-input"
+                name="deleteId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute DELETE Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute DELETE Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          <div
+            aria-label="Database Console"
+            class="console"
+          >
+            <div
+              class="console-content expanded"
+            >
+              <span
+                class="placeholder"
+              >
+                <span
+                  class="prefix"
+                >
+                  &gt;_
+                </span>
+                  Use the 'Execute' button(s) above to get things started in this console...
+              </span>
+              <div
+                class="console-content-row"
+              >
+                <div>
+                  <span
+                    class="prefix"
+                  >
+                    $
+                  </span>
+                   
+                  <span
+                    class="time"
+                  >
+                    9:33:13 PM
+                  </span>
+                   
+                  <span
+                    class="method method-put"
+                  >
+                    PUT
+                  </span>
+                   
+                  <span
+                    class="url"
+                  >
+                    http://mocked.io/api/fruits/2
+                  </span>
+                  :
+                </div>
+                <div
+                  aria-label="{\\"id\\":2,\\"name\\":\\"Banana\\",\\"stock\\":10}"
+                >
+                  <div>
+                    <pre
+                      class="__json-pretty__"
+                    >
+                      {
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        id
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        2
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        name
+                      </span>
+                      ": 
+                      <span
+                        class="__json-string__"
+                      >
+                        "Banana"
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        stock
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        10
+                      </span>
+                      
+}
+                    </pre>
+                  </div>
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`<DatabaseCapability /> check that a click on the PUT button update the selected fruit in the console 1`] = `
+<DocumentFragment>
+  <article
+    class="pf-c-card capability-card"
+    id="database-capability"
+  >
+    <div
+      class="pf-c-card__header capability-card-header"
+    >
+      <svg
+        aria-hidden="true"
+        class="with-text"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"
+          transform=""
+        />
+      </svg>
+       Relational Persistence
+    </div>
+    <div
+      class="pf-c-card__body capability-card-body"
+    >
+      <div
+        class="pf-l-grid"
+      >
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          As a starting point for your development, we have created a table and populated it with some data. We've additionally exposed CRUD operations via the following endpoints to give you a system that works end to end.
+        </div>
+        <div
+          class="capability-card-separator"
+        >
+          <hr />
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col http-request-service"
+        >
+          <svg
+            aria-hidden="true"
+            class="with-text"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 448 512"
+            width="1em"
+          >
+            <path
+              d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+              transform=""
+            />
+          </svg>
+           
+          <span
+            title="src/main/java/org/your/DbEndpoint.java"
+          >
+            <svg
+              aria-hidden="true"
+              class="with-text"
+              fill="currentColor"
+              height="1em"
+              role="img"
+              style="vertical-align: -0.125em;"
+              viewBox="0 0 448 512"
+              width="1em"
+            >
+              <path
+                d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"
+                transform=""
+              />
+            </svg>
+             dbEndpoint
+          </span>
+        </div>
+        <div
+          class="http-request method-get"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                GET
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute GET Fruits"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute GET Fruits"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-post"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                POST
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits
+              </span>
+              <span
+                style="margin-left: 98px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="Fruit to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-name-input"
+                  name="postName"
+                  placeholder="Coco"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="Stock to create"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-post-stock-input"
+                  name="postStock"
+                  placeholder="10"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute POST Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute POST Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-put"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                PUT
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to update"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-put-id-input"
+                name="putId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value="2"
+              />
+              <span
+                style="margin-left: 50px;"
+              >
+                Name:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit name"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-name-input"
+                  name="putName"
+                  placeholder="Banana"
+                  type="text"
+                  value="Passion"
+                />
+              </span>
+              <span
+                style="margin-left: 50px;"
+              >
+                Stock:
+                <input
+                  aria-invalid="false"
+                  aria-label="New fruit stock"
+                  class="pf-c-form-control http-request-param"
+                  id="http-api-param-put-stock-input"
+                  name="putStock"
+                  placeholder="10"
+                  type="text"
+                  value="22"
+                />
+              </span>
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute PUT Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute PUT Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="http-request method-delete"
+        >
+          <div
+            class="definition"
+          >
+            <div
+              class="http-request-def"
+            >
+              <span
+                class="http-request-method"
+              >
+                DELETE
+              </span>
+               
+              <span
+                class="http-request-path"
+              >
+                /api/fruits/
+              </span>
+              <input
+                aria-invalid="false"
+                aria-label="Fruit ID to delete"
+                class="pf-c-form-control http-request-param"
+                id="http-api-param-delete-id-input"
+                name="deleteId"
+                placeholder="2"
+                style="width: 40px;"
+                type="text"
+                value=""
+              />
+              <button
+                class="pf-c-button pf-m-primary copy-button"
+                title="Copy as curl"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 384 512"
+                  width="1em"
+                >
+                  <path
+                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    transform=""
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="action"
+          >
+            <button
+              aria-label="Execute DELETE Fruit"
+              class="pf-c-button pf-m-primary http-request-button"
+              title="Execute DELETE Fruit"
+              type="button"
+            >
+              Execute
+            </button>
+          </div>
+        </div>
+        <div
+          class="pf-l-grid__item pf-m-12-col"
+        >
+          <div
+            aria-label="Database Console"
+            class="console"
+          >
+            <div
+              class="console-content expanded"
+            >
+              <span
+                class="placeholder"
+              >
+                <span
+                  class="prefix"
+                >
+                  &gt;_
+                </span>
+                  Use the 'Execute' button(s) above to get things started in this console...
+              </span>
+              <div
+                class="console-content-row"
+              >
+                <div>
+                  <span
+                    class="prefix"
+                  >
+                    $
+                  </span>
+                   
+                  <span
+                    class="time"
+                  >
+                    9:33:13 PM
+                  </span>
+                   
+                  <span
+                    class="method method-put"
+                  >
+                    PUT
+                  </span>
+                   
+                  <span
+                    class="url"
+                  >
+                    http://mocked.io/api/fruits/2
+                  </span>
+                  :
+                </div>
+                <div
+                  aria-label="{\\"id\\":2,\\"name\\":\\"Passion\\",\\"stock\\":22}"
+                >
+                  <div>
+                    <pre
+                      class="__json-pretty__"
+                    >
+                      {
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        id
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        2
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        name
+                      </span>
+                      ": 
+                      <span
+                        class="__json-string__"
+                      >
+                        "Passion"
+                      </span>
+                      ,
+  "
+                      <span
+                        class="__json-key__"
+                      >
+                        stock
+                      </span>
+                      ": 
+                      <span
+                        class="__json-value__"
+                      >
+                        22
+                      </span>
+                      
+}
+                    </pre>
+                  </div>
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
                 </div>
               </div>
             </div>
@@ -745,6 +3678,7 @@ Object {
                     Name:
                     <input
                       aria-invalid="false"
+                      aria-label="Fruit to create"
                       class="pf-c-form-control http-request-param"
                       id="http-api-param-post-name-input"
                       name="postName"
@@ -759,6 +3693,7 @@ Object {
                     Stock:
                     <input
                       aria-invalid="false"
+                      aria-label="Stock to create"
                       class="pf-c-form-control http-request-param"
                       id="http-api-param-post-stock-input"
                       name="postStock"
@@ -824,6 +3759,7 @@ Object {
                   </span>
                   <input
                     aria-invalid="false"
+                    aria-label="Fruit ID to update"
                     class="pf-c-form-control http-request-param"
                     id="http-api-param-put-id-input"
                     name="putId"
@@ -838,6 +3774,7 @@ Object {
                     Name:
                     <input
                       aria-invalid="false"
+                      aria-label="New fruit name"
                       class="pf-c-form-control http-request-param"
                       id="http-api-param-put-name-input"
                       name="putName"
@@ -852,6 +3789,7 @@ Object {
                     Stock:
                     <input
                       aria-invalid="false"
+                      aria-label="New fruit stock"
                       class="pf-c-form-control http-request-param"
                       id="http-api-param-put-stock-input"
                       name="putStock"
@@ -917,6 +3855,7 @@ Object {
                   </span>
                   <input
                     aria-invalid="false"
+                    aria-label="Fruit ID to delete"
                     class="pf-c-form-control http-request-param"
                     id="http-api-param-delete-id-input"
                     name="deleteId"
@@ -1157,6 +4096,7 @@ Object {
                   Name:
                   <input
                     aria-invalid="false"
+                    aria-label="Fruit to create"
                     class="pf-c-form-control http-request-param"
                     id="http-api-param-post-name-input"
                     name="postName"
@@ -1171,6 +4111,7 @@ Object {
                   Stock:
                   <input
                     aria-invalid="false"
+                    aria-label="Stock to create"
                     class="pf-c-form-control http-request-param"
                     id="http-api-param-post-stock-input"
                     name="postStock"
@@ -1236,6 +4177,7 @@ Object {
                 </span>
                 <input
                   aria-invalid="false"
+                  aria-label="Fruit ID to update"
                   class="pf-c-form-control http-request-param"
                   id="http-api-param-put-id-input"
                   name="putId"
@@ -1250,6 +4192,7 @@ Object {
                   Name:
                   <input
                     aria-invalid="false"
+                    aria-label="New fruit name"
                     class="pf-c-form-control http-request-param"
                     id="http-api-param-put-name-input"
                     name="putName"
@@ -1264,6 +4207,7 @@ Object {
                   Stock:
                   <input
                     aria-invalid="false"
+                    aria-label="New fruit stock"
                     class="pf-c-form-control http-request-param"
                     id="http-api-param-put-stock-input"
                     name="putStock"
@@ -1329,6 +4273,7 @@ Object {
                 </span>
                 <input
                   aria-invalid="false"
+                  aria-label="Fruit ID to delete"
                   class="pf-c-form-control http-request-param"
                   id="http-api-param-delete-id-input"
                   name="deleteId"
