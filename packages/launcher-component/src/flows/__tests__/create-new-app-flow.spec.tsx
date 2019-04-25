@@ -114,6 +114,8 @@ describe('<CreateNewAppFlow />', () => {
     await configureBackend(comp, 'quarkus');
     expect(comp.getByLabelText('backend is configured')).toBeDefined();
 
+    fireEvent.change(comp.getByLabelText('Application Project name'), { target: { value: 'new-application-name' } });
+
     fireEvent.click(comp.getByLabelText('Launch Application'));
     expect(mockClient.currentPayload).toMatchSnapshot('payload');
   });

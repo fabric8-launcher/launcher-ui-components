@@ -104,7 +104,7 @@ function HubFormCard(props: HubFormCardProps) {
 }
 
 interface HubAndSpokeProps {
-  title: string;
+  title: string | React.ReactNode;
   items: HubItem[];
   toolbar?: React.ReactNode;
   error?: any;
@@ -148,7 +148,9 @@ export function HubNSpoke(props: HubAndSpokeProps) {
   return (
     <div className={style.hubNSpoke}>
       <HubContext.Provider value={hub}>
-        <Text component={TextVariants.h1} className="hub-and-spoke-title">{props.title}</Text>
+        {typeof props.title === 'string' &&
+        <Text component={TextVariants.h1} className="hub-and-spoke-title">{props.title}</Text>}
+        {typeof props.title !== 'string' && props.title}
         {!hub.selected && props.error && (
           <AlertError error={props.error}/>
         )}

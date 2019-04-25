@@ -4,22 +4,30 @@ import { generate } from 'project-name-generator';
 import { BackendHub } from '../hubs/backend-hub';
 import { FrontendHub, } from '../hubs/frontend-hub';
 import { DestRepositoryHub } from '../hubs/dest-repository-hub';
-import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository, NAME_REGEX } from './launch-flow';
 import { buildDownloadNewAppPayload, buildLaunchNewAppPayload } from './launcher-client-adapters';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/capabilities-loader';
 import { WelcomeAppHub } from '../hubs/welcome-app-hub';
 import { NewApp } from './types';
+import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
 
 const DEFAULT_NEW_APP = {
   name: 'my-app',
-  backend: {capabilitiesPickerValue: {capabilities: readOnlyCapabilities}},
+  backend: { capabilitiesPickerValue: { capabilities: readOnlyCapabilities } },
   frontend: {},
   destRepository: {},
   deployment: {},
 };
 
 function getFlowStatus(app: NewApp) {
+  if (!NAME_REGEX.test(app.name)) {
+    return {
+      hint: 'You should enter a valid name for your application',
+      isReadyForDownload: false,
+      isReadyForLaunch: false
+    };
+  }
   if (!FrontendHub.checkCompletion(app.frontend) && !BackendHub.checkCompletion(app.backend)) {
     return {
       hint: 'You should configure a Frontend and/or a Backend for your application.',
@@ -49,7 +57,7 @@ function getFlowStatus(app: NewApp) {
 }
 
 export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => void }) {
-  const defaultNewApp = {...DEFAULT_NEW_APP, name: props.appName || generate().dashed};
+  const defaultNewApp = { ...DEFAULT_NEW_APP, name: props.appName || generate().dashed };
   const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('new-app-flow', defaultNewApp);
   const autoSetCluster = useAutoSetCluster(setApp);
   const autoSetDestRepository = useAutoSetDestRepository(app.name, setApp);
@@ -64,17 +72,17 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       id: FrontendHub.id,
       title: FrontendHub.title,
       overview: {
-        component: ({edit}) => (
-          <FrontendHub.Overview value={app.frontend} onClick={edit}/>
+        component: ({ edit }) => (
+          <FrontendHub.Overview value={app.frontend} onClick={edit} />
         ),
         width: 'third',
       },
       form: {
-        component: ({close}) => (
+        component: ({ close }) => (
           <FrontendHub.Form
             initialValue={app.frontend}
             onSave={(frontend) => {
-              setApp((prev) => ({...prev, frontend}));
+              setApp((prev) => ({ ...prev, frontend }));
               close();
             }}
             onCancel={close}
@@ -86,17 +94,17 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       id: BackendHub.id,
       title: BackendHub.title,
       overview: {
-        component: ({edit}) => (
-          <BackendHub.Overview value={app.backend} onClick={edit}/>
+        component: ({ edit }) => (
+          <BackendHub.Overview value={app.backend} onClick={edit} />
         ),
         width: 'third',
       },
       form: {
-        component: ({close}) => (
+        component: ({ close }) => (
           <BackendHub.Form
             initialValue={app.backend}
             onSave={(backend) => {
-              setApp((prev) => ({...prev, backend}));
+              setApp((prev) => ({ ...prev, backend }));
               close();
             }}
             onCancel={close}
@@ -109,7 +117,7 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       title: WelcomeAppHub.title,
       overview: {
         component: () => (
-          <WelcomeAppHub.Overview/>
+          <WelcomeAppHub.Overview />
         ),
         width: 'third',
       }
@@ -119,17 +127,17 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       title: DestRepositoryHub.title,
       loading: autoSetDestRepository.loading,
       overview: {
-        component: ({edit}) => (
-          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>
+        component: ({ edit }) => (
+          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit} />
         ),
         width: 'half',
       },
       form: autoSetDestRepository.showForm && {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DestRepositoryHub.Form
             initialValue={app.destRepository}
             onSave={(srcLocation) => {
-              setApp((prev) => ({...prev, destRepository: srcLocation}));
+              setApp((prev) => ({ ...prev, destRepository: srcLocation }));
               close();
             }}
             onCancel={close}
@@ -142,17 +150,17 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       title: DeploymentHub.title,
       loading: autoSetCluster.loading,
       overview: {
-        component: ({edit}) => (
-          <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
+        component: ({ edit }) => (
+          <DeploymentHub.Overview value={app.deployment} onClick={edit} />
         ),
         width: 'half',
       },
       form: autoSetCluster.showForm && {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DeploymentHub.Form
             initialValue={app.deployment}
             onSave={(deployment) => {
-              setApp(prev => ({...prev, deployment}));
+              setApp(prev => ({ ...prev, deployment }));
               close();
             }}
             onCancel={close}
@@ -164,7 +172,20 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
 
   return (
     <LaunchFlow
-      title="Create a New Application"
+      title={(
+        <InlineTextInput
+          prefix="New Application:"
+          type="text"
+          id="appname"
+          name="appname"
+          placeholder="Name of the project"
+          aria-label="Application Project name"
+          title="Application name"
+          value={app.name}
+          onChange={value => setApp(prev => ({...prev, name: value}))}
+          isValid={NAME_REGEX.test(app.name)}
+        />
+      )}
       items={items}
       {...getFlowStatus(app)}
       buildLaunchAppPayload={() => {

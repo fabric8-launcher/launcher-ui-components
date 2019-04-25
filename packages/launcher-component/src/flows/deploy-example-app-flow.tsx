@@ -4,9 +4,10 @@ import { generate } from 'project-name-generator';
 import { DestRepositoryHub } from '../hubs/dest-repository-hub';
 import { buildDownloadExampleAppPayload, buildLaunchExampleAppPayload } from './launcher-client-adapters';
 import { ExampleHub } from '../hubs/example-hub';
-import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository, NAME_REGEX } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ExampleApp } from './types';
+import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
 
 const DEFAULT_EXAMPLE_APP = {
   name: 'example-app',
@@ -16,6 +17,13 @@ const DEFAULT_EXAMPLE_APP = {
 };
 
 function getFlowStatus(app: ExampleApp) {
+  if (!NAME_REGEX.test(app.name)) {
+    return {
+      hint: 'You should enter a valid name for your application',
+      isReadyForDownload: false,
+      isReadyForLaunch: false
+    };
+  }
   if (!ExampleHub.checkCompletion(app.example)) {
     return {
       hint: 'You should select an example application.',
@@ -53,7 +61,7 @@ function getFlowStatus(app: ExampleApp) {
 }
 
 export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () => void }) {
-  const defaultNewApp = {...DEFAULT_EXAMPLE_APP, name: props.appName || generate().dashed};
+  const defaultNewApp = { ...DEFAULT_EXAMPLE_APP, name: props.appName || generate().dashed };
   const [app, setApp, clear] = useSessionStorageWithObject<ExampleApp>('deploy-example-app', defaultNewApp);
   const autoSetCluster = useAutoSetCluster(setApp);
   const autoSetDestRepository = useAutoSetDestRepository(app.name, setApp);
@@ -70,17 +78,17 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
       id: ExampleHub.id,
       title: ExampleHub.title,
       overview: {
-        component: ({edit}) => (
-          <ExampleHub.Overview value={app.example} onClick={edit}/>
+        component: ({ edit }) => (
+          <ExampleHub.Overview value={app.example} onClick={edit} />
         ),
         width: 'third',
       },
       form: {
-        component: ({close}) => (
+        component: ({ close }) => (
           <ExampleHub.Form
             initialValue={app.example}
             onSave={(example) => {
-              setApp((prev) => ({...prev, example}));
+              setApp((prev) => ({ ...prev, example }));
               close();
             }}
             onCancel={close}
@@ -93,17 +101,17 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
       title: DestRepositoryHub.title,
       loading: autoSetDestRepository.loading,
       overview: {
-        component: ({edit}) => (
-          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit}/>
+        component: ({ edit }) => (
+          <DestRepositoryHub.Overview value={app.destRepository} onClick={edit} />
         ),
         width: 'third',
       },
       form: autoSetDestRepository.showForm && {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DestRepositoryHub.Form
             initialValue={app.destRepository}
             onSave={(srcLocation) => {
-              setApp((prev) => ({...prev, destRepository: srcLocation}));
+              setApp((prev) => ({ ...prev, destRepository: srcLocation }));
               close();
             }}
             onCancel={close}
@@ -116,17 +124,17 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
       title: DeploymentHub.title,
       loading: autoSetCluster.loading,
       overview: {
-        component: ({edit}) => (
-          <DeploymentHub.Overview value={app.deployment} onClick={edit}/>
+        component: ({ edit }) => (
+          <DeploymentHub.Overview value={app.deployment} onClick={edit} />
         ),
         width: 'third',
       },
       form: autoSetCluster.showForm && {
-        component: ({close}) => (
+        component: ({ close }) => (
           <DeploymentHub.Form
             initialValue={app.deployment}
             onSave={(deployment) => {
-              setApp((prev) => ({...prev, deployment}));
+              setApp((prev) => ({ ...prev, deployment }));
               close();
             }}
             onCancel={close}
@@ -138,7 +146,19 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
 
   return (
     <LaunchFlow
-      title="Deploy an Example Application"
+      title={(
+        <InlineTextInput
+          prefix="Example Application:"
+          id="appname"
+          name="appname"
+          placeholder="Name of the project"
+          aria-label="Application Project name"
+          title="Application name"
+          value={app.name}
+          onChange={value => setApp(prev => ({ ...prev, name: value }))}
+          isValid={NAME_REGEX.test(app.name)}
+        />
+      )}
       items={items}
       {...flowStatus}
       buildLaunchAppPayload={() => {
