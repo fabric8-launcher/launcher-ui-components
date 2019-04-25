@@ -500,7 +500,7 @@ exports[`<HealthChecksCapability /> check that liveness is working 1`] = `
                   <span
                     class="time"
                   >
-                    3:33:13 PM
+                    8:33:13 PM
                   </span>
                    
                   <span
@@ -515,6 +515,11 @@ exports[`<HealthChecksCapability /> check that liveness is working 1`] = `
                     http://mocked.io/liveness
                   </span>
                   :
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
                 </div>
                 <div
                   aria-label="OK"
@@ -783,7 +788,7 @@ exports[`<HealthChecksCapability /> check that readiness is working 1`] = `
                   <span
                     class="time"
                   >
-                    3:33:13 PM
+                    8:33:13 PM
                   </span>
                    
                   <span
@@ -798,6 +803,11 @@ exports[`<HealthChecksCapability /> check that readiness is working 1`] = `
                     http://mocked.io/readiness
                   </span>
                   :
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
                 </div>
                 <div
                   aria-label="OK"

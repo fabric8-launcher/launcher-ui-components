@@ -2,12 +2,15 @@ import * as React from 'react';
 import { act, fireEvent, render, cleanup } from 'react-testing-library';
 import { RestCapability, RestCapabilityApiContext } from '../RestCapability';
 import { newMockRestCapabilityApi } from '../RestCapabilityApi';
+import moment from 'moment-timezone';
 
 const extra = {
   sourceMapping: {
     greetingEndpoint: 'src/main/java/org/your/GreetingApi.java',
   },
 };
+
+moment.tz.setDefault('UTC');
 
 jest.useFakeTimers();
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { act, cleanup, fireEvent, render } from 'react-testing-library';
 import { DatabaseCapability, DatabaseCapabilityApiContext } from '../DatabaseCapability';
 import { MOCK_FRUITS, newMockDatabaseCapabilityApi } from '../DatabaseCapabilityApi';
+import moment from 'moment-timezone';
 
 const extra = {
     sourceMapping: {
@@ -15,9 +16,7 @@ const extra = {
 
 jest.useFakeTimers();
 
-beforeAll(() => {
-    process.env.TZ = 'UTC';
-})
+moment.tz.setDefault('UTC');
 
 afterEach(() => {
     console.log('cleanup()');

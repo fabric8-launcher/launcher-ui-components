@@ -2,12 +2,11 @@ import * as React from 'react';
 import { fireEvent, render, act, cleanup } from 'react-testing-library';
 import { newMockHealthChecksCapabilityApi } from '../HealthChecksCapabilityApi';
 import { HealthChecksCapability, HealthChecksApiContext } from '../HealthChecksCapability';
+import moment from 'moment-timezone';
 
 jest.useFakeTimers();
 
-beforeAll(() => {
-  process.env.TZ = 'UTC';
-})
+moment.tz.setDefault('UTC');
 
 afterEach(() => {
   console.log('cleanup()');

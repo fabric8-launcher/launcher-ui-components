@@ -2,7 +2,7 @@ import { Button } from '@patternfly/react-core';
 import * as React from 'react';
 import { ReactNode } from 'react';
 import { Console } from './Console';
-import moment from 'moment';
+import moment from 'moment-timezone';
 // @ts-ignore
 import JSONPretty from 'react-json-pretty';
 import './HttpRequest.scss';

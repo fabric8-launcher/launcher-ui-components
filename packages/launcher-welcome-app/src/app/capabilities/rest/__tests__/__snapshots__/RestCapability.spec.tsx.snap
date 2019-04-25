@@ -180,7 +180,7 @@ exports[`<RestCapability /> check that a click on the GET button adds a Hello Wo
                   <span
                     class="time"
                   >
-                    3:33:13 PM
+                    8:33:13 PM
                   </span>
                    
                   <span
@@ -200,6 +200,11 @@ exports[`<RestCapability /> check that a click on the GET button adds a Hello Wo
                   aria-label="Hello World!"
                 >
                   Hello World!
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
                 </div>
               </div>
             </div>
@@ -391,7 +396,7 @@ exports[`<RestCapability /> check that after typing a name, a click on the GET b
                   <span
                     class="time"
                   >
-                    3:33:13 PM
+                    8:33:13 PM
                   </span>
                    
                   <span
@@ -411,6 +416,11 @@ exports[`<RestCapability /> check that after typing a name, a click on the GET b
                   aria-label="Hello John!"
                 >
                   Hello John!
+                </div>
+                <div
+                  aria-label="OK"
+                >
+                  OK
                 </div>
               </div>
             </div>
