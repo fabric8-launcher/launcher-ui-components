@@ -49,7 +49,12 @@ const mockAppDefinition = {
         },
         {
           module: 'rest',
-          props: {},
+          props: {
+            sourceRepository: {
+              provider: 'github',
+              url: 'https://github.com/org/name.git'
+            }
+          },
           extra: {
             sourceMapping: {
               greetingEndpoint: 'src/main/java/io/openshift/booster/http/HttpApplication.java'

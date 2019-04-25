@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ExternalLink } from './ExternalLink';
-import { AngleDoubleRightIcon } from '@patternfly/react-icons';
 
 export function SourceMappingLink(props: {
   sourceRepository?: {
@@ -10,10 +9,10 @@ export function SourceMappingLink(props: {
   name: string;
   fileRepositoryLocation?: string;
 }) {
-  if (props.sourceRepository && props.sourceRepository.provider === 'GitHub' && props.fileRepositoryLocation) {
+  if (!!props.sourceRepository && props.sourceRepository && props.sourceRepository.provider.toLowerCase() === 'github' && props.fileRepositoryLocation) {
     const link = `${props.sourceRepository.url.replace('.git', '')}/blob/master/${props.fileRepositoryLocation}`;
     const fileName = props.fileRepositoryLocation.replace(/^.*\//, '');
     return (<span>{fileName} (<ExternalLink href={link}>view source</ExternalLink>)</span>);
   }
-  return (<span title={props.fileRepositoryLocation}><AngleDoubleRightIcon className="with-text"/> {props.name}</span>);
+  return (<span title={props.fileRepositoryLocation || props.name}>{props.name}</span>);
 }
