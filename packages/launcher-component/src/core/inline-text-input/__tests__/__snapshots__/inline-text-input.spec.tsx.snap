@@ -8,9 +8,7 @@ exports[`<InlineTextInput /> renders the InlineTextInput correctly 1`] = `
     <h1
       class=""
       data-pf-content="true"
-    >
-      New Application:
-    </h1>
+    />
     <input
       aria-invalid="false"
       class="pf-c-form-control"

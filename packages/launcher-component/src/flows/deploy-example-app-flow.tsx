@@ -148,11 +148,12 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
     <LaunchFlow
       title={(
         <InlineTextInput
-          title="Example Application:"
+          prefix="Example Application:"
           id="appname"
           name="appname"
           placeholder="Name of the project"
           aria-label="Application Project name"
+          title="Application name"
           value={app.name}
           onChange={value => setApp(prev => ({ ...prev, name: value }))}
           isValid={NAME_REGEX.test(app.name)}

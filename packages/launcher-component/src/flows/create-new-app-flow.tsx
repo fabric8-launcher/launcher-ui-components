@@ -174,12 +174,13 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
     <LaunchFlow
       title={(
         <InlineTextInput
-          title="New Application:"
+          prefix="New Application:"
           type="text"
           id="appname"
           name="appname"
           placeholder="Name of the project"
           aria-label="Application Project name"
+          title="Application name"
           value={app.name}
           onChange={value => setApp(prev => ({...prev, name: value}))}
           isValid={NAME_REGEX.test(app.name)}
