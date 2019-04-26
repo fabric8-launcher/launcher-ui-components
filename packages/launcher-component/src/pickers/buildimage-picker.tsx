@@ -21,11 +21,11 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
     return (
       <Fragment>
         <p>
-          For your codebase, our runtime detection algorithm suggest this image: <SpecialValue>{props.suggestedImageName}</SpecialValue>
+          For your codebase, our runtime detection algorithm suggests to use this builder image: <SpecialValue>{props.suggestedImageName}</SpecialValue>
         </p>
         <TogglePanel title="Advanced settings">
           <div>
-            <Alert variant="warning" title="Picking the wrong image may result in an failed deployment!" style={{ margin: '20px' }} />
+            <Alert variant="warning" title="Picking the wrong builder image may result in a failed deployment!" style={{ margin: '20px' }} />
             <DataList aria-label="select-buildImage">
               {props.builderImages.map((image, index) => {
                 const isSelected = props.value.image === image.id;
