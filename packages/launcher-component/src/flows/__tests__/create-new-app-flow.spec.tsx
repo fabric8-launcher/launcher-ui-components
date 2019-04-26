@@ -190,7 +190,7 @@ async function configureBackend(comp, runtime, ...capabilities: string[]) {
   // Resolve runtimes
   await flushPromises();
 
-  fireEvent.click(comp.getByLabelText(`Choose ${runtime} as runtime`));
+  fireEvent.change(comp.getByLabelText(`Select Runtime`), { target: { value: runtime } });
 
   // Resolve promises
   await flushPromises();
