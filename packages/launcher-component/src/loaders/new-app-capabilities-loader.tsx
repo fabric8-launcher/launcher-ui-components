@@ -38,7 +38,7 @@ function capabilityMatcherForRuntime(runtime?: string) {
 
 export const readOnlyCapabilities = [{ id: 'health', selected: true }];
 
-export function CapabilitiesLoader(props: { categories: string[], runtime?: string, children: (capabilities: Capability[]) => any }) {
+export function NewAppCapabilitiesLoader(props: { categories: string[], runtime?: string, children: (capabilities: Capability[]) => any }) {
   const client = useLauncherClient();
   const itemsLoader = async () => {
     const [c, e] = await Promise.all([client.capabilities(), client.enums()]);
@@ -53,10 +53,10 @@ export function CapabilitiesLoader(props: { categories: string[], runtime?: stri
   );
 }
 
-export function CapabilitiesByModuleLoader(props: { categories: string[], children: (capabilitiesById: Map<string, Capability>) => any }) {
+export function NewAppCapabilitiesByModuleLoader(props: { categories: string[], children: (capabilitiesById: Map<string, Capability>) => any }) {
   return (
-    <CapabilitiesLoader categories={props.categories} >
+    <NewAppCapabilitiesLoader categories={props.categories} >
       {(capabilities) => props.children(new Map(capabilities.map(c => [c.module, c] as [string, Capability])))}
-    </CapabilitiesLoader>
+    </NewAppCapabilitiesLoader>
   );
 }

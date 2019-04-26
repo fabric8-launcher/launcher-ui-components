@@ -2,22 +2,22 @@ import { Capability, mockLauncherClient } from 'launcher-client';
 import * as React from 'react';
 import { cleanup, render } from 'react-testing-library';
 import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
-import { CapabilitiesLoader, getCapabilityRuntimeNameProp } from '../capabilities-loader';
+import { NewAppCapabilitiesLoader, getCapabilityRuntimeNameProp } from '../new-app-capabilities-loader';
 import { flushPromises } from '../../core/__tests__/test-helpers';
 
 afterEach(cleanup);
 
 jest.useFakeTimers();
 
-describe('<CapabilitiesLoader />', () => {
+describe('<NewAppCapabilitiesLoader />', () => {
   it('should return corresponding capabilities depending on the selected categories', async () => {
     // when we ask for all the backend capabilities
     const mockContent = jest.fn();
     mockContent.mockReturnValue((<div aria-label="Capabilities are loaded">capabilities</div>));
     const comp = render((
-      <CapabilitiesLoader categories={['backend']}>
+      <NewAppCapabilitiesLoader categories={['backend']}>
         {(capabilities) => mockContent(capabilities)}
-      </CapabilitiesLoader>
+      </NewAppCapabilitiesLoader>
     ), { wrapper: LauncherDepsProvider as React.FunctionComponent<{}> });
 
     // then we get all the backend capabilities
@@ -50,9 +50,9 @@ describe('<CapabilitiesLoader />', () => {
 
     // when selected runtime is vertx
     const comp = render((
-      <CapabilitiesLoader categories={categories} runtime="vertx">
+      <NewAppCapabilitiesLoader categories={categories} runtime="vertx">
         {(capabilities) => mockContent(capabilities)}
-      </CapabilitiesLoader>
+      </NewAppCapabilitiesLoader>
     ), { wrapper: ClientWrapper });
 
     // then we have only the database capability
@@ -66,9 +66,9 @@ describe('<CapabilitiesLoader />', () => {
 
     // when selected runtime change to dotnet
     comp.rerender(
-      <CapabilitiesLoader categories={categories} runtime="dotnet">
+      <NewAppCapabilitiesLoader categories={categories} runtime="dotnet">
         {(capabilities) => mockContent(capabilities)}
-      </CapabilitiesLoader>
+      </NewAppCapabilitiesLoader>
     );
 
     // then all the capabilities are returned

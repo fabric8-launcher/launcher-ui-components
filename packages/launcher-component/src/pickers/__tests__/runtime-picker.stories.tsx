@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
 import { RuntimePicker } from '../runtime-picker';
-import { EnumsRuntimesLoaders } from '../../loaders/enums-runtimes-loaders';
+import { NewAppRuntimesLoader } from '../../loaders/new-app-runtimes-loaders';
 import { LauncherDepsProvider } from '../..';
 
 storiesOf('Pickers', module)
@@ -15,7 +15,7 @@ storiesOf('Pickers', module)
   ))
   .add('RuntimePicker: frontend', () => {
     return (
-      <EnumsRuntimesLoaders category="frontend">
+      <NewAppRuntimesLoader category="frontend">
         {items => (
           <FormPanel
             initialValue={{}}
@@ -27,12 +27,12 @@ storiesOf('Pickers', module)
               (inputProps) => (<RuntimePicker.Element {...inputProps} items={items}/>)}
           </FormPanel>
         )}
-      </EnumsRuntimesLoaders>
+      </NewAppRuntimesLoader>
     );
   })
   .add('RuntimePicker: backend', () => {
     return (
-      <EnumsRuntimesLoaders category="backend">
+      <NewAppRuntimesLoader category="backend">
         {items => (
           <FormPanel
             initialValue={{}}
@@ -44,6 +44,6 @@ storiesOf('Pickers', module)
               (inputProps) => (<RuntimePicker.Element {...inputProps} items={items}/>)}
           </FormPanel>
         )}
-      </EnumsRuntimesLoaders>
+      </NewAppRuntimesLoader>
     );
   });

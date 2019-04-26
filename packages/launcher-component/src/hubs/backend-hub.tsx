@@ -2,8 +2,8 @@ import { CapabilitiesPicker, CapabilitiesPickerValue } from '../pickers/capabili
 import { DescriptiveHeader, Separator, SpecialValue } from '../core/stuff';
 import * as React from 'react';
 import { RuntimePicker, RuntimePickerValue } from '../pickers/runtime-picker';
-import { EnumsRuntimesLoaders, RuntimeLoader } from '../loaders/enums-runtimes-loaders';
-import { CapabilitiesByModuleLoader, CapabilitiesLoader, capabilityToItem } from '../loaders/capabilities-loader';
+import { NewAppRuntimesLoader, NewAppRuntimeLoader } from '../loaders/new-app-runtimes-loaders';
+import { NewAppCapabilitiesByModuleLoader, NewAppCapabilitiesLoader, capabilityToItem } from '../loaders/new-app-capabilities-loader';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
 import { Button, List, ListItem, Split, SplitItem, Text, TextVariants } from '@patternfly/react-core';
@@ -36,7 +36,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
       );
     }
     return (
-      <RuntimeLoader id={props.value.runtimePickerValue!.id!}>
+      <NewAppRuntimeLoader id={props.value.runtimePickerValue!.id!}>
         {runtime => (
           <OverviewComplete id={BackendHub.id} title={`Your ${runtime!.name} backend is configured`}>
             <Split>
@@ -44,7 +44,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
                 <img src={runtime!.icon} style={{marginRight: '20px', height: '75px'}}/>
               </SplitItem>
               <SplitItem isMain={true}>
-                <CapabilitiesByModuleLoader categories={['backend', 'support']}>
+                <NewAppCapabilitiesByModuleLoader categories={['backend', 'support']}>
                   {capabilitiesById => (
                     <div style={{textAlign: 'left'}}>
                       <Text component={TextVariants.p} style={{marginBottom: '10px'}}>Featuring</Text>
@@ -64,12 +64,12 @@ export const BackendHub: FormHub<BackendFormValue> = {
                       </List>
                     </div>
                   )}
-                </CapabilitiesByModuleLoader>
+                </NewAppCapabilitiesByModuleLoader>
               </SplitItem>
             </Split>
           </OverviewComplete>
         )}
-      </RuntimeLoader>
+      </NewAppRuntimeLoader>
     );
   },
   Form: props => {
@@ -91,7 +91,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
                        If you're looking to expose an HTTP API or interact with services like a database,
                        choosing one here will hook that together for you."
               />
-              <EnumsRuntimesLoaders category="backend">
+              <NewAppRuntimesLoader category="backend">
                 {(items) => (
                   <RuntimePicker.Element
                     items={items}
@@ -99,7 +99,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
                     onChange={(runtimePickerValue) => inputProps.onChange({...inputProps.value, runtimePickerValue})}
                   />
                 )}
-              </EnumsRuntimesLoaders>
+              </NewAppRuntimesLoader>
               {inputProps.value.runtimePickerValue && RuntimePicker.checkCompletion(inputProps.value.runtimePickerValue) && (
                 <React.Fragment>
                   <Separator/>
@@ -110,7 +110,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
      services, and OpenShift together end-to-end. When done, our friendly Welcome Application will show you how
      everything works."
                   />
-                  <CapabilitiesLoader categories={['backend']} runtime={inputProps.value.runtimePickerValue.id}>
+                  <NewAppCapabilitiesLoader categories={['backend']} runtime={inputProps.value.runtimePickerValue.id}>
                     {(capabilities) => (
                       <CapabilitiesPicker.Element
                         items={capabilities.map(capabilityToItem)}
@@ -118,7 +118,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
                         onChange={(capabilitiesPickerValue) => inputProps.onChange({...inputProps.value, capabilitiesPickerValue})}
                       />
                     )}
-                  </CapabilitiesLoader>
+                  </NewAppCapabilitiesLoader>
                 </React.Fragment>
               )}
             </React.Fragment>
