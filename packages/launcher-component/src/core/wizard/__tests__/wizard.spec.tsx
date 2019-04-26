@@ -1,6 +1,9 @@
 import * as React from 'react';
+import 'jest-dom/extend-expect';
 import { Wizard, WizardStep, WizardButton } from '../wizard';
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent, cleanup } from 'react-testing-library';
+
+afterEach(() => cleanup());
 
 describe('<Wizard />', () => {
   it('renders the wizard with one step', () => {
