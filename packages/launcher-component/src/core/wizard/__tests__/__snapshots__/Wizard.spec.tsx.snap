@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Wizard /> renders the wizard with one step 1`] = `
+<div
+  className="wizard"
+>
+  <ul>
+    <WizardStep
+      completed={false}
+      locked={false}
+      selected={true}
+      title="my first step"
+    />
+  </ul>
+</div>
+`;
+
+exports[`<Wizard.Button /> renders the button disabled 1`] = `
+<Button
+  aria-label={null}
+  className="wizard-button"
+  component="button"
+  isActive={false}
+  isBlock={false}
+  isDisabled={true}
+  isFocus={false}
+  isHover={false}
+  type="button"
+  variant="primary"
+>
+  <CheckIcon
+    color="currentColor"
+    size="sm"
+    title={null}
+  />
+   
+  Launch
+</Button>
+`;
+
+exports[`<Wizard.Button /> renders the button with type launch 1`] = `
+<Button
+  aria-label={null}
+  className="wizard-button"
+  component="button"
+  isActive={false}
+  isBlock={false}
+  isDisabled={false}
+  isFocus={false}
+  isHover={false}
+  type="button"
+  variant="primary"
+>
+  <CheckIcon
+    color="currentColor"
+    size="sm"
+    title={null}
+  />
+   
+  Launch
+</Button>
+`;
+
+exports[`<Wizard.Button /> renders the button with type next 1`] = `
+<Button
+  aria-label={null}
+  className="wizard-button"
+  component="button"
+  isActive={false}
+  isBlock={false}
+  isDisabled={false}
+  isFocus={false}
+  isHover={false}
+  type="button"
+  variant="secondary"
+>
+  <ArrowAltCircleRightIcon
+    color="currentColor"
+    size="sm"
+    title={null}
+  />
+   
+  Next
+</Button>
+`;
+
+exports[`<Wizard.Step /> renders the step as completed 1`] = `
+<li
+  className="completed"
+>
+  <a
+    href="#"
+    onClick={[Function]}
+  >
+    my first step
+    <i
+      className="ico fa fa-check ico-green"
+    />
+  </a>
+</li>
+`;
+
+exports[`<Wizard.Step /> renders the step as completed and locked 1`] = `
+<li
+  className="locked"
+>
+  <a
+    href="#"
+    onClick={[Function]}
+  >
+    my first step
+    <i
+      className="ico fa fa-lock ico-muted"
+    />
+  </a>
+</li>
+`;
