@@ -56,7 +56,7 @@ export const SrcRepositoryHub: FormHub<SrcRepositoryFormValue> = {
             <React.Fragment>
               <DescriptiveHeader
                 title="Source Location"
-                description="You can choose the source repository to import you application from."
+                description="You can choose the source repository to import your application from."
               />
               <GitUrlPicker.Element
                 value={inputProps.value.gitUrlPickerValue || {}}
