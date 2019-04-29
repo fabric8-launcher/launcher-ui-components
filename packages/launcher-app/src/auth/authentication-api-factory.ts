@@ -22,7 +22,7 @@ export function newAuthApi(authenticationMode?: string, config?: OpenshiftConfig
       return new MockAuthenticationApi();
     case 'keycloak':
       return new KeycloakAuthenticationApi(checkNotNull(config as KeycloakConfig, 'keycloakConfig'));
-    case 'openshift':
+    case 'oauth-openshift':
       return new OpenshiftAuthenticationApi(checkNotNull(config as OpenshiftConfig, 'openshiftConfig'));
     default:
       throw new Error(`Invalid authentication mode: ${authenticationMode}`);

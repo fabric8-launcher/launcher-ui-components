@@ -11,7 +11,7 @@ import {
   LauncherDepsProvider,
 } from 'launcher-component';
 import { Layout } from './layout';
-import { authenticationMode, creatorApiUrl, authConfig, launcherApiUrl, publicUrl } from './config';
+import { authMode, creatorApiUrl, authConfig, launcherApiUrl, publicUrl } from './config';
 import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { useRouter, createRouterLink, getRequestedRoute, goToWithRouter } from '../router/use-router';
@@ -65,7 +65,7 @@ function HomePage(props: {}) {
   );
 }
 
-const authApi = newAuthApi(authenticationMode, authConfig);
+const authApi = newAuthApi(authMode, authConfig);
 
 export function LauncherApp() {
   const proxyAuthApi = useAuthenticationApiStateProxy(authApi);
