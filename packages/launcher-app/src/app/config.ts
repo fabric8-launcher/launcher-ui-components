@@ -48,7 +48,7 @@ function getAuthConfig(authMode: string): KeycloakConfig | OpenshiftConfig | und
         github: {
           clientId: requireEnv(process.env.REACT_APP_OAUTH_GITHUB_CLIENT_ID, 'githubOAuthClientId'),
           secret: requireEnv(process.env.REACT_APP_OAUTH_GITHUB_SECRET, 'githubOAuthSecret'),
-          validateTokenUri: getEnv(process.env.REACT_APP_GITHUB_VALIDATE_URI, 'githubValidateUri') || '/launch/github/access_token',
+          validateTokenUri: getEnv(process.env.REACT_APP_OAUTH_GITHUB_VALIDATE_URI, 'githubOAuthValidateUri') || '/launch/github/access_token',
         }
       } as OpenshiftConfig;
     case 'mock':
