@@ -7,7 +7,7 @@ import { DestRepositoryHub } from '../hubs/dest-repository-hub';
 import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository, NAME_REGEX } from './launch-flow';
 import { buildDownloadNewAppPayload, buildLaunchNewAppPayload } from './launcher-client-adapters';
 import { DeploymentHub } from '../hubs/deployment-hub';
-import { readOnlyCapabilities } from '../loaders/capabilities-loader';
+import { readOnlyCapabilities } from '../loaders/new-app-capabilities-loader';
 import { WelcomeAppHub } from '../hubs/welcome-app-hub';
 import { NewApp } from './types';
 import { InlineTextInput } from '../core/inline-text-input/inline-text-input';

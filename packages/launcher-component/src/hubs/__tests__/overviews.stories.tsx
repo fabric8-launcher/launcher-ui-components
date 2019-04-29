@@ -7,7 +7,7 @@ import { FrontendHub } from '../frontend-hub';
 import { ExampleHub } from '../example-hub';
 import { SrcRepositoryHub } from '../src-repository-hub';
 import { BackendHub } from '../backend-hub';
-import { readOnlyCapabilities } from '../../loaders/capabilities-loader';
+import { readOnlyCapabilities } from '../../loaders/new-app-capabilities-loader';
 import { DestRepositoryHub } from '../dest-repository-hub';
 
 storiesOf('Overviews', module)

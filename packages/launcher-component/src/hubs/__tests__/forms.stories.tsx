@@ -8,7 +8,7 @@ import { DestRepositoryHub } from '../dest-repository-hub';
 import { ExampleHub } from '../example-hub';
 import { SrcRepositoryHub } from '../src-repository-hub';
 import { LauncherDepsProvider } from '../..';
-import { readOnlyCapabilities } from '../../loaders/capabilities-loader';
+import { readOnlyCapabilities } from '../../loaders/new-app-capabilities-loader';
 
 storiesOf('Forms', module)
   .addDecorator((storyFn) => (

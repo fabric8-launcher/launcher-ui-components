@@ -1,7 +1,7 @@
 import { DescriptiveHeader } from '../core/stuff';
 import * as React from 'react';
 import { RuntimePicker, RuntimePickerValue } from '../pickers/runtime-picker';
-import { EnumsRuntimesLoaders, RuntimeLoader } from '../loaders/enums-runtimes-loaders';
+import { NewAppRuntimesLoader, NewAppRuntimeLoader } from '../loaders/new-app-runtimes-loaders';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { FormHub } from '../core/types';
 import { Button } from '@patternfly/react-core';
@@ -29,13 +29,13 @@ export const FrontendHub: FormHub<FrontendFormValue> = {
       );
     }
     return (
-      <RuntimeLoader id={props.value.runtimePickerValue!.id!}>
+      <NewAppRuntimeLoader id={props.value.runtimePickerValue!.id!}>
         {runtime => (
           <OverviewComplete id={FrontendHub.id} title={`Your ${runtime!.name} frontend is configured`}>
             <img src={runtime!.icon} style={{margin: '5px auto', height: '160px'}}/>
           </OverviewComplete>
         )}
-      </RuntimeLoader>
+      </NewAppRuntimeLoader>
     );
   },
   Form: props => (
@@ -53,7 +53,7 @@ export const FrontendHub: FormHub<FrontendFormValue> = {
               description="You may optionally select a frontend application to bootstrap your web-based development.
                         These options scaffold a starting point in your framework of choice."
             />
-            <EnumsRuntimesLoaders category="frontend">
+            <NewAppRuntimesLoader category="frontend">
               {(items) => (
                 <RuntimePicker.Element
                   items={items}
@@ -61,7 +61,7 @@ export const FrontendHub: FormHub<FrontendFormValue> = {
                   onChange={(runtimePickerValue) => inputProps.onChange({...inputProps.value, runtimePickerValue})}
                 />
               )}
-            </EnumsRuntimesLoaders>
+            </NewAppRuntimesLoader>
           </React.Fragment>
         )}
     </FormPanel>

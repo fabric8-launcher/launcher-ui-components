@@ -15,7 +15,7 @@ import {
 } from '@patternfly/react-core';
 import style from './login-page.module.scss';
 import { Layout } from './layout';
-import { EnumsRuntimesLoaders } from 'launcher-component';
+import { NewAppRuntimesLoader } from 'launcher-component';
 import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
 import { PropertyValue } from 'launcher-client';
 import { useAuthenticationApi } from '../auth/auth-context';
@@ -69,9 +69,9 @@ export const LoginPage = () => (
       </TextContent>
     </PageSection>
     <PageSection variant={PageSectionVariants.light} className={style.container}>
-      <EnumsRuntimesLoaders category="backend">
+      <NewAppRuntimesLoader category="backend">
         {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id} />))}
-      </EnumsRuntimesLoaders>
+      </NewAppRuntimesLoader>
     </PageSection>
     <PageSection variant={PageSectionVariants.light}>
       <TextContent>
@@ -79,9 +79,9 @@ export const LoginPage = () => (
       </TextContent>
     </PageSection>
     <PageSection variant={PageSectionVariants.light} className={style.container}>
-      <EnumsRuntimesLoaders category="frontend">
+      <NewAppRuntimesLoader category="frontend">
         {runtimes => runtimes.map(r => (<Runtime {...r} key={r.id} />))}
-      </EnumsRuntimesLoaders>
+      </NewAppRuntimesLoader>
     </PageSection>
   </Layout>
 );

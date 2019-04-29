@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { CapabilitiesPicker } from '../capabilities-picker';
 import { FormPanel } from '../../core/form-panel/form-panel';
-import { CapabilitiesLoader, capabilityToItem, readOnlyCapabilities } from '../../loaders/capabilities-loader';
+import { NewAppCapabilitiesLoader, capabilityToItem, readOnlyCapabilities } from '../../loaders/new-app-capabilities-loader';
 import { LauncherDepsProvider } from '../..';
 
 storiesOf('Pickers', module)
@@ -15,7 +15,7 @@ storiesOf('Pickers', module)
   ))
   .add('CapabilitiesPicker', () => {
     return (
-      <CapabilitiesLoader categories={['backend', 'support']}>
+      <NewAppCapabilitiesLoader categories={['backend', 'support']}>
         {capabilities => (
           <FormPanel
             initialValue={{ capabilities: readOnlyCapabilities }}
@@ -27,6 +27,6 @@ storiesOf('Pickers', module)
               (inputProps) => (<CapabilitiesPicker.Element {...inputProps} items={capabilities.map(capabilityToItem)}/>)}
           </FormPanel>
         )}
-      </CapabilitiesLoader>
+      </NewAppCapabilitiesLoader>
     );
   });
