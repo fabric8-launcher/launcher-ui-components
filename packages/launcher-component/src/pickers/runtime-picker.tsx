@@ -1,6 +1,8 @@
-import { InputProps, Picker } from '../core/types';
-import ItemPicker from '../core/item-picker/item-picker';
 import * as React from 'react';
+import { Fragment } from 'react';
+import { InputProps, Picker } from '../core/types';
+import { FormSelect, FormSelectOption, FormGroup, Form, Grid, GridItem } from '@patternfly/react-core';
+import ItemPicker from '../core/item-picker/item-picker';
 
 export interface RuntimePickerValue {
   id?: string;
@@ -34,16 +36,61 @@ export const RuntimePicker: Picker<RuntimePickerProps, RuntimePickerValue> = {
         props.onChange({});
         return;
       }
-      props.onChange({id});
+      props.onChange({ id });
     };
     const value = props.value.id || (canSelectNone ? noneItem.id : undefined);
+    const selectedRuntime = props.items.find(r => r.id === props.value.id);
     return (
-      <ItemPicker
-        value={value}
-        onChange={onChange}
-        items={canSelectNone ? props.items.concat(noneItem) : props.items}
-        group="runtime"
-      />
+      <Fragment>
+        {props.items.length < 5 &&
+          <ItemPicker
+            value={value}
+            onChange={onChange}
+            items={canSelectNone ? props.items.concat(noneItem) : props.items}
+            group="runtime"
+          />
+        }
+        {props.items.length >= 5 &&
+          <Grid gutter="sm">
+            <GridItem sm={12} md={6}>
+              <Form>
+                <FormGroup
+                  label="Runtime"
+                  fieldId="runtime-select"
+                >
+                  <FormSelect
+                    id="runtime-select"
+                    value={value}
+                    onChange={value => onChange(value)}
+                    aria-label="Select Runtime"
+                  >
+                    <FormSelectOption
+                      value=""
+                      label="None"
+                    />
+                    {props.items.map((runtime, index) => (
+                      <FormSelectOption
+                        key={index}
+                        value={runtime.id}
+                        label={runtime.name}
+                      />
+                    ))
+                    }
+                  </FormSelect>
+                </FormGroup>
+              </Form>
+            </GridItem>
+            <GridItem sm={12} md={6}>
+              {selectedRuntime &&
+                <Fragment>
+                  <img src={selectedRuntime.icon} style={{ display: 'block', margin: 'auto', height: '75px' }} />
+                  <p>{selectedRuntime.description}</p>
+                </Fragment>
+              }
+            </GridItem>
+          </Grid>
+        }
+      </Fragment>
     );
   }
 };
