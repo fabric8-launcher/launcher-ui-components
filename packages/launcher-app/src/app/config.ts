@@ -16,35 +16,56 @@ function requireEnv(env: string | undefined, name: string): string {
   return checkNotNull(getEnv(env, name), `process.env.${name}`);
 }
 
+function getAuthMode(keycloakUrl?: string, openshiftOAuthUrl?: string) {
+  const authMode = getEnv(process.env.REACT_APP_AUTHENTICATION, 'authMode');
+  if (authMode) {
+    return authMode;
+  }
+  if (keycloakUrl) {
+    return 'keycloak';
+  }
+  if (openshiftOAuthUrl) {
+    return 'oauth-openshift'
+  }
+  return 'no';
+}
+
+function getAuthConfig(authMode: string): KeycloakConfig | OpenshiftConfig | undefined {
+  switch (authMode) {
+    case 'keycloak':
+      return {
+        clientId: requireEnv(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'keycloakClientId'),
+        realm: requireEnv(process.env.REACT_APP_KEYCLOAK_REALM, 'keycloakRealm'),
+        url: requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl'),
+      } as KeycloakConfig;
+    case 'oauth-openshift':
+      return {
+        openshift: {
+          clientId: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_CLIENT_ID, 'openshiftClientId'),
+          url: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_URL, 'openshiftOAuthUrl'),
+          validateTokenUri: `${requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl')}/services/openshift/user`,
+        },
+        github: {
+          clientId: requireEnv(process.env.REACT_APP_OAUTH_GITHUB_CLIENT_ID, 'githubOAuthClientId'),
+          secret: requireEnv(process.env.REACT_APP_OAUTH_GITHUB_SECRET, 'githubOAuthSecret'),
+          validateTokenUri: getEnv(process.env.REACT_APP_OAUTH_GITHUB_VALIDATE_URI, 'githubOAuthValidateUri') || '/launch/github/access_token',
+        }
+      } as OpenshiftConfig;
+    case 'mock':
+    case 'no':
+      return undefined;
+    default:
+      throw new Error(`${authMode} is not supported.`);
+  }
+}
+
 export const publicUrl = process.env.PUBLIC_URL && `${process.env.PUBLIC_URL}/`;
 
 export const keycloakUrl = getEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl');
-export const authenticationMode = getEnv(process.env.REACT_APP_AUTHENTICATION, 'authMode')
-  || (keycloakUrl ? 'keycloak' : 'no');
-export const isKeycloakMode = authenticationMode === 'keycloak';
+export const openshiftOAuthUrl = getEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_URL, 'openshiftOAuthUrl');
+export const authMode = getAuthMode(keycloakUrl, openshiftOAuthUrl)
 
-export const authConfig = {} as OpenshiftConfig|KeycloakConfig;
-
-if (isKeycloakMode) {
-  const config = authConfig as KeycloakConfig;
-  config.clientId = requireEnv(process.env.REACT_APP_KEYCLOAK_CLIENT_ID, 'keycloakClientId');
-  config.realm = requireEnv(process.env.REACT_APP_KEYCLOAK_REALM, 'keycloakRealm');
-  config.url = requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl');
-}
-
-if (authenticationMode === 'openshift') {
-  const config = authConfig as OpenshiftConfig;
-  config.openshift = {
-    clientId: requireEnv(process.env.REACT_APP_OPENSHIFT_CLIENT_ID, 'openshiftClientId'),
-    url: requireEnv(process.env.REACT_APP_OPENSHIFT_AUTH_URL, 'openshiftUrl'),
-    validateTokenUri: `${requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl')}/services/openshift/user`,
-  };
-  config.github = {
-    clientId: requireEnv(process.env.REACT_APP_GITHUB_CLIENT_ID, 'githubClientId'),
-    secret: requireEnv(process.env.REACT_APP_GITHUB_SECRET, 'githubSecret'),
-    validateTokenUri: getEnv(process.env.REACT_APP_GITHUB_VALIDATE_URI, 'githubValidateUri') || '/launch/github/access_token',
-  };
-}
+export const authConfig = getAuthConfig(authMode);
 
 const launcherClientApiMode = process.env.REACT_APP_CLIENT !== 'mock';
 
