@@ -153,18 +153,30 @@
     {
       "id": "community",
       "name": "Community"
+    },
+    {
+      "id": "redhat",
+      "name": "Red Hat"
     }
   ],
   "runtime.version.thorntail": [
     {
       "id": "community",
       "name": "Community"
+    },
+    {
+      "id": "redhat",
+      "name": "Red Hat"
     }
   ],
   "runtime.version.wildfly": [
     {
       "id": "community",
       "name": "Community"
+    },
+    {
+      "id": "redhat",
+      "name": "Red Hat"
     }
   ],
   "runtime.version.vertx": [
@@ -177,6 +189,10 @@
     {
       "id": "community",
       "name": "Community"
+    },
+    {
+      "id": "redhat",
+      "name": "Red Hat"
     }
   ],
   "runtime.version.react": [
