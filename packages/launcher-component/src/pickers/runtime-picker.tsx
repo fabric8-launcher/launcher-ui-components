@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Fragment } from 'react';
 import { InputProps, Picker } from '../core/types';
-import { FormSelect, FormSelectOption, FormGroup, Form, Grid, GridItem } from '@patternfly/react-core';
+import { FormSelect, FormSelectOption, FormGroup, Form, Grid, GridItem, Card, CardFooter, CardHeader, Radio, Title, CardBody, Gallery, GalleryItem } from '@patternfly/react-core';
 import { Runtime } from '../loaders/new-app-runtimes-loaders';
-import ItemPicker from '../core/item-picker/item-picker';
+
+import style from './runtime-picker.module.scss';
+import classNames from 'classnames';
 
 export interface RuntimePickerValue {
   runtimeId?: string;
@@ -40,15 +42,60 @@ export const RuntimePicker: Picker<RuntimePickerProps, RuntimePickerValue> = {
       props.onChange({ ...props.value, runtimeId, versionId });
     };
     const value = props.value.runtimeId || (canSelectNone ? noneItem.id : undefined);
+    const items = canSelectNone ? props.items.concat(noneItem) : props.items;
+    const selected = (id) => id === props.value.runtimeId || (id === noneItem.id && !props.value.runtimeId);
     return (
       <Fragment>
         {props.items.length < 5 &&
-          <ItemPicker
-            value={value}
-            onChange={onChange}
-            items={canSelectNone ? props.items.concat(noneItem) : props.items}
-            group="runtime"
-          />
+          <Gallery gutter="md">
+            {
+              items.map((runtime, i) => (
+                <GalleryItem key={i}>
+                  <Card className={classNames(style.card, { [style.selected]: selected(runtime.id) })}>
+                    <CardHeader onClick={() => onChange(runtime.id)} className={style.header}>
+                      <Radio
+                        aria-label={`Choose ${runtime.id} as runtime`}
+                        value={runtime.id}
+                        checked={selected(runtime.id)}
+                        onChange={() => onChange(runtime.id)}
+                        name="runtime"
+                        id={`radio-choose-${runtime.id}-as-runtime`}
+                      />
+                      <Title size="lg">{runtime.name}</Title>
+                    </CardHeader>
+                    <CardBody onClick={() => onChange(runtime.id)} className={style.body}>
+                      <img src={runtime.icon} />
+                      <p>
+                        {runtime.description}
+                      </p>
+                    </CardBody>
+                    <CardFooter style={runtime.versions.length === 0 ? { visibility: 'hidden' } : {}}>
+                      <FormGroup
+                        label="Version"
+                        fieldId="version-select"
+                      >
+                        <FormSelect
+                          id="version-select"
+                          value={props.value.versionId}
+                          onChange={versionId => onChange(runtime.id, versionId)}
+                          aria-label="Select version"
+                        >
+                          {runtime.versions.length !== 0 && runtime.versions.map((version, index) => (
+                            <FormSelectOption
+                              key={index}
+                              value={version.id}
+                              label={version.name}
+                            />
+                          ))
+                          }
+                        </FormSelect>
+                      </FormGroup>
+                    </CardFooter>
+                  </Card>
+                </GalleryItem>
+              ))
+            }
+          </Gallery>
         }
         {props.items.length >= 5 &&
           <Grid gutter="sm">
