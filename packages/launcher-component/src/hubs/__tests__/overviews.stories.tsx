@@ -9,6 +9,7 @@ import { SrcRepositoryHub } from '../src-repository-hub';
 import { BackendHub } from '../backend-hub';
 import { readOnlyCapabilities } from '../../loaders/new-app-capabilities-loader';
 import { DestRepositoryHub } from '../dest-repository-hub';
+import { DeploymentHub } from '../deployment-hub';
 
 storiesOf('Overviews', module)
   .addDecorator((storyFn) => (
@@ -106,4 +107,20 @@ storiesOf('Overviews', module)
     return (
       <DestRepositoryHub.Overview value={value} onClick={action('overview')} />
     );
+  })
+  .add('DeploymentHub Overview: empty', () => {
+    return (
+      <DeploymentHub.Overview value={{}} onClick={action('overview')} />
+    );
+  })
+  .add('DeploymentHub Overview: selected', () => {
+
+    const value = {
+      clusterPickerValue: { clusterId: 'starter-ca-central-1', clusterType: 'starter'},
+    };
+
+    return (
+      <DeploymentHub.Overview value={value} onClick={action('overview')} />
+    );
   });
+
