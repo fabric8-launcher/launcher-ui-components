@@ -37,6 +37,31 @@ exports[`<ItemPicker /> renders the ItemPicker correctly 1`] = `
           <img />
           <p />
         </div>
+        <div
+          class="pf-c-card__footer"
+        >
+          <div
+            class="pf-c-form__group"
+          >
+            <label
+              class="pf-c-form__label"
+              for="version-select"
+            >
+              Version
+            </label>
+            <select
+              aria-invalid="false"
+              aria-label="Select version"
+              class="pf-c-form-control"
+              id="version-select"
+            >
+              <option
+                class=""
+                value="none"
+              />
+            </select>
+          </div>
+        </div>
       </article>
     </div>
     <div>
@@ -70,6 +95,31 @@ exports[`<ItemPicker /> renders the ItemPicker correctly 1`] = `
         >
           <img />
           <p />
+        </div>
+        <div
+          class="pf-c-card__footer"
+        >
+          <div
+            class="pf-c-form__group"
+          >
+            <label
+              class="pf-c-form__label"
+              for="version-select"
+            >
+              Version
+            </label>
+            <select
+              aria-invalid="false"
+              aria-label="Select version"
+              class="pf-c-form-control"
+              id="version-select"
+            >
+              <option
+                class=""
+                value="none"
+              />
+            </select>
+          </div>
         </div>
       </article>
     </div>

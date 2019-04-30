@@ -1,29 +1,28 @@
 import * as React from 'react';
-import { Card, CardBody, CardHeader, Gallery, GalleryItem, Radio, Title } from '@patternfly/react-core';
+import { Card, CardBody, CardHeader, Gallery, GalleryItem, Radio, Title, CardFooter, FormGroup, FormSelect, FormSelectOption } from '@patternfly/react-core';
 import { InputProps } from '../types';
 import style from './item-picker.module.scss';
 import classNames from 'classnames';
+import { Runtime } from '../../loaders/new-app-runtimes-loaders';
 
-export interface ViewItem {
-  id: string;
-  name: string;
-  description?: string;
-  icon?: string;
-}
-
-interface ListItemProps extends ViewItem {
+interface ListItemProps extends Runtime {
   selected?: boolean;
+  versionId?: string;
   group: string;
-  onSelect: (id: string) => void;
+  onSelect: (id: string, versionId?: string) => void;
 }
 
 function ListItem(props: ListItemProps) {
-  const {onSelect, selected = false} = props;
+  const { onSelect, selected = false } = props;
   const doOnSelect = (sel) => {
-    onSelect(props.id);
+    let versionId = props.versionId;
+    if (!versionId) {
+      versionId = props.versions[0].id;
+    }
+    onSelect(props.id, versionId);
   };
   return (
-    <Card onClick={doOnSelect} className={classNames(style.card, {[style.selected]: selected})}>
+    <Card onClick={doOnSelect} className={classNames(style.card, { [style.selected]: selected })}>
       <CardHeader className={style.header}>
         <Radio
           aria-label={`Choose ${props.id} as ${props.group}`}
@@ -36,18 +35,40 @@ function ListItem(props: ListItemProps) {
         <Title size="lg">{props.name}</Title>
       </CardHeader>
       <CardBody className={style.body}>
-        <img src={props.icon}/>
+        <img src={props.icon} />
         <p>
           {props.description}
         </p>
       </CardBody>
+      {props.versions.length !== 0 && <CardFooter>
+        <FormGroup
+          label="Version"
+          fieldId="version-select"
+        >
+          <FormSelect
+            id="version-select"
+            value={props.versionId}
+            onChange={versionId => onSelect(props.id, versionId)}
+            aria-label="Select version"
+          >
+            {props.versions.map((version, index) => (
+              <FormSelectOption
+                key={index}
+                value={version.id}
+                label={version.name}
+              />
+            ))
+            }
+          </FormSelect>
+        </FormGroup>
+      </CardFooter>}
     </Card>
   );
 }
 
 interface ItemPickerProps extends InputProps<string | undefined> {
   group: string;
-  items?: ViewItem[];
+  items?: Runtime[];
 }
 
 function ItemPicker(props: ItemPickerProps) {

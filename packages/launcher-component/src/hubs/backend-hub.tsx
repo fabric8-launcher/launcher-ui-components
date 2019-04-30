@@ -36,7 +36,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
       );
     }
     return (
-      <NewAppRuntimeLoader id={props.value.runtimePickerValue!.id!}>
+      <NewAppRuntimeLoader id={props.value.runtimePickerValue!.runtimeId!}>
         {runtime => (
           <OverviewComplete id={BackendHub.id} title={`Your ${runtime!.name} backend is configured`}>
             <Split>
@@ -110,7 +110,7 @@ export const BackendHub: FormHub<BackendFormValue> = {
      services, and OpenShift together end-to-end. When done, our friendly Welcome Application will show you how
      everything works."
                   />
-                  <NewAppCapabilitiesLoader categories={['backend']} runtime={inputProps.value.runtimePickerValue.id}>
+                  <NewAppCapabilitiesLoader categories={['backend']} runtime={inputProps.value.runtimePickerValue.runtimeId}>
                     {(capabilities) => (
                       <CapabilitiesPicker.Element
                         items={capabilities.map(capabilityToItem)}

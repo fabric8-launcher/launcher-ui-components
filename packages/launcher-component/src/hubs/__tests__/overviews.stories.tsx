@@ -25,7 +25,7 @@ storiesOf('Overviews', module)
 
     const value = {
       runtimePickerValue: {
-        id: 'vertx'
+        runtimeId: 'vertx'
       },
       capabilitiesPickerValue: {
         capabilities: [
@@ -48,7 +48,7 @@ storiesOf('Overviews', module)
 
     const value = {
       runtimePickerValue: {
-        id: 'react'
+        runtimeId: 'react'
       }
     };
 
