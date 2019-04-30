@@ -99,7 +99,7 @@ export const RuntimePicker: Picker<RuntimePickerProps, RuntimePickerValue> = {
                 </FormGroup>}
               </Form>
             </GridItem>
-            <GridItem sm={12} md={6}>
+            <GridItem sm={12} md={4}>
               {selectedRuntime &&
                 <Fragment>
                   <img src={selectedRuntime.icon} style={{ display: 'block', margin: 'auto', height: '75px' }} />
