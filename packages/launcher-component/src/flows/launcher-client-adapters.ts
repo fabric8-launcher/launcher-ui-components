@@ -34,8 +34,8 @@ export function buildDownloadNewAppPayload(app: NewApp) {
       category: 'backend',
       shared: {
         runtime: {
-          name: app.frontend.runtimePickerValue!.runtimeId,
-          version: app.frontend.runtimePickerValue!.versionId
+          name: app.backend.runtimePickerValue!.runtimeId,
+          version: app.backend.runtimePickerValue!.versionId
         }
       },
       capabilities: app.backend.capabilitiesPickerValue!.capabilities!
