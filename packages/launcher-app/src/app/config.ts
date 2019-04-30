@@ -41,7 +41,7 @@ function getAuthConfig(authMode: string): KeycloakConfig | OpenshiftConfig | und
     case 'oauth-openshift':
       return {
         openshift: {
-          clientId: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_CLIENT_ID, 'openshiftClientId'),
+          clientId: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_CLIENT_ID, 'openshiftOAuthClientId'),
           url: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_URL, 'openshiftOAuthUrl'),
           validateTokenUri: `${requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl')}/services/openshift/user`,
         },
