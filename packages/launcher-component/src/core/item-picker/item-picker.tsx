@@ -40,7 +40,7 @@ function ListItem(props: ListItemProps) {
           {props.description}
         </p>
       </CardBody>
-      {props.versions.length !== 0 && <CardFooter>
+      <CardFooter style={props.versions.length === 0 ? { visibility: 'hidden' } : {}}>
         <FormGroup
           label="Version"
           fieldId="version-select"
@@ -61,7 +61,7 @@ function ListItem(props: ListItemProps) {
             }
           </FormSelect>
         </FormGroup>
-      </CardFooter>}
+      </CardFooter>
     </Card>
   );
 }
