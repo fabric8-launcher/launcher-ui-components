@@ -24,11 +24,12 @@ const noneItem: Runtime = {
 };
 
 export const RuntimePicker: Picker<RuntimePickerProps, RuntimePickerValue> = {
-  checkCompletion: value => !!value.runtimeId,
+  checkCompletion: value => !!value.runtimeId && !!value.versionId,
   Element: props => {
     const canSelectNone = props.canSelectNone !== false;
     const selectedRuntime = props.items.find(r => r.id === props.value.runtimeId);
     const onChange = (runtimeId = props.value.runtimeId, versionId?: string) => {
+      const selectedRuntime = props.items.find(r => r.id === runtimeId);
       if (runtimeId === noneItem.id) {
         props.onChange({});
         return;

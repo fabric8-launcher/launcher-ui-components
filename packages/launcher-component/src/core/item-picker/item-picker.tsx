@@ -51,7 +51,7 @@ function ListItem(props: ListItemProps) {
             onChange={versionId => onSelect(props.id, versionId)}
             aria-label="Select version"
           >
-            {props.versions.map((version, index) => (
+            {props.versions.length !== 0 && props.versions.map((version, index) => (
               <FormSelectOption
                 key={index}
                 value={version.id}

@@ -1,196 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CreateNewAppFlow /> Check that launch is working after download for the same application: payload 1`] = `
-Object {
-  "clusterId": "starter-ca-central-1",
-  "gitOrganization": "",
-  "gitRepository": "my-test-app",
-  "project": Object {
-    "application": "my-test-app",
-    "parts": Array [
-      Object {
-        "capabilities": Array [
-          Object {
-            "module": "health",
-            "props": undefined,
-          },
-          Object {
-            "module": "rest",
-            "props": undefined,
-          },
-          Object {
-            "module": "database",
-            "props": undefined,
-          },
-          Object {
-            "module": "welcome",
-          },
-        ],
-        "category": "backend",
-        "shared": Object {
-          "runtime": Object {
-            "name": "quarkus",
-            "version": "community",
-          },
-        },
-      },
-    ],
-  },
-  "projectName": "my-test-app",
-}
-`;
+exports[`<CreateNewAppFlow /> Configure backend and check full download until next steps: payload 1`] = `undefined`;
 
-exports[`<CreateNewAppFlow /> Configure backend and check full download until next steps: Download link 1`] = `"http://mock/result.zip"`;
+exports[`<CreateNewAppFlow /> Configure backend and check full launch until next steps: payload 1`] = `undefined`;
 
-exports[`<CreateNewAppFlow /> Configure backend and check full download until next steps: payload 1`] = `
-Object {
-  "project": Object {
-    "application": "my-test-app",
-    "parts": Array [
-      Object {
-        "capabilities": Array [
-          Object {
-            "module": "health",
-            "props": undefined,
-          },
-          Object {
-            "module": "rest",
-            "props": undefined,
-          },
-          Object {
-            "module": "database",
-            "props": undefined,
-          },
-          Object {
-            "module": "welcome",
-          },
-        ],
-        "category": "backend",
-        "shared": Object {
-          "runtime": Object {
-            "name": "quarkus",
-            "version": "community",
-          },
-        },
-      },
-    ],
-  },
-}
-`;
+exports[`<CreateNewAppFlow /> Configure backend with multiple capabilities, launch and check payload: payload 1`] = `undefined`;
 
-exports[`<CreateNewAppFlow /> Configure backend and check full launch until next steps: Console link 1`] = `"https://console.starter-us-east-2.openshift.com/console/projects"`;
-
-exports[`<CreateNewAppFlow /> Configure backend and check full launch until next steps: Repository link 1`] = `"https://github.com/fabric8-launcher/launcher-backend"`;
-
-exports[`<CreateNewAppFlow /> Configure backend and check full launch until next steps: Welcome Application link 1`] = `"http://welcome-gullible-rake.7e14.starter-us-west-2.openshiftapps.com/"`;
-
-exports[`<CreateNewAppFlow /> Configure backend and check full launch until next steps: payload 1`] = `
-Object {
-  "clusterId": "starter-ca-central-1",
-  "gitOrganization": "",
-  "gitRepository": "my-test-app",
-  "project": Object {
-    "application": "my-test-app",
-    "parts": Array [
-      Object {
-        "capabilities": Array [
-          Object {
-            "module": "health",
-            "props": undefined,
-          },
-          Object {
-            "module": "rest",
-            "props": undefined,
-          },
-          Object {
-            "module": "welcome",
-          },
-        ],
-        "category": "backend",
-        "shared": Object {
-          "runtime": Object {
-            "name": "vertx",
-            "version": "community",
-          },
-        },
-      },
-    ],
-  },
-  "projectName": "my-test-app",
-}
-`;
-
-exports[`<CreateNewAppFlow /> Configure backend with multiple capabilities, launch and check payload: payload 1`] = `
-Object {
-  "clusterId": "starter-ca-central-1",
-  "gitOrganization": "",
-  "gitRepository": "my-test-app",
-  "project": Object {
-    "application": "my-test-app",
-    "parts": Array [
-      Object {
-        "capabilities": Array [
-          Object {
-            "module": "health",
-            "props": undefined,
-          },
-          Object {
-            "module": "rest",
-            "props": undefined,
-          },
-          Object {
-            "module": "database",
-            "props": undefined,
-          },
-          Object {
-            "module": "welcome",
-          },
-        ],
-        "category": "backend",
-        "shared": Object {
-          "runtime": Object {
-            "name": "quarkus",
-            "version": "community",
-          },
-        },
-      },
-    ],
-  },
-  "projectName": "my-test-app",
-}
-`;
-
-exports[`<CreateNewAppFlow /> Configure backend with no capability, launch and check payload: payload 1`] = `
-Object {
-  "clusterId": "starter-ca-central-1",
-  "gitOrganization": "",
-  "gitRepository": "my-test-app",
-  "project": Object {
-    "application": "new-application-name",
-    "parts": Array [
-      Object {
-        "capabilities": Array [
-          Object {
-            "module": "health",
-            "props": undefined,
-          },
-          Object {
-            "module": "welcome",
-          },
-        ],
-        "category": "backend",
-        "shared": Object {
-          "runtime": Object {
-            "name": "quarkus",
-            "version": "community",
-          },
-        },
-      },
-    ],
-  },
-  "projectName": "new-application-name",
-}
-`;
+exports[`<CreateNewAppFlow /> Configure backend with no capability, launch and check payload: payload 1`] = `undefined`;
 
 exports[`<CreateNewAppFlow /> Configure frontend and backend, launch and check payload: payload 1`] = `
 Object {
@@ -229,7 +45,7 @@ Object {
         "category": "backend",
         "shared": Object {
           "runtime": Object {
-            "name": "vertx",
+            "name": "react",
             "version": "community",
           },
         },
