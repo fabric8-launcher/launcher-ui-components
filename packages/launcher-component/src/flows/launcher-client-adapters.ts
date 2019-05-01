@@ -18,7 +18,10 @@ export function buildDownloadNewAppPayload(app: NewApp) {
     parts.push({
       category: 'frontend',
       shared: {
-        runtime: {name: app.frontend.runtimePickerValue!.id, version: 'community'}
+        runtime: {
+          name: app.frontend.runtimePickerValue!.runtimeId,
+          version: app.frontend.runtimePickerValue!.versionId
+        }
       },
       capabilities: [{
         module: 'web-app'
@@ -30,7 +33,10 @@ export function buildDownloadNewAppPayload(app: NewApp) {
     parts.push({
       category: 'backend',
       shared: {
-        runtime: {name: app.backend.runtimePickerValue!.id, version: 'community'}
+        runtime: {
+          name: app.backend.runtimePickerValue!.runtimeId,
+          version: app.backend.runtimePickerValue!.versionId
+        }
       },
       capabilities: app.backend.capabilitiesPickerValue!.capabilities!
         .filter(c => c.selected)
