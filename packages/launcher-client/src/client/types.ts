@@ -111,6 +111,7 @@ export interface OpenShiftCluster {
   id: string;
   name: string;
   type: string;
+  consoleUrl?: string;
 }
 
 export interface GitInfo {

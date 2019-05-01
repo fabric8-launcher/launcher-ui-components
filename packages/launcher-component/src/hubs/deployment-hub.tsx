@@ -8,6 +8,7 @@ import { DescriptiveHeader, SpecialValue } from '../core/stuff';
 import { FormHub } from '../core/types';
 import { OpenshiftClusterLoader, OpenshiftClustersLoader } from '../loaders/openshiftcluster-loader';
 import { ClusterPicker, ClusterPickerValue } from '../pickers/cluster-picker';
+import { ExternalLink } from '../next-steps/external-link';
 
 export interface DeploymentFormValue {
   clusterPickerValue?: ClusterPickerValue;
@@ -33,7 +34,11 @@ export const DeploymentHub: FormHub<DeploymentFormValue> = {
       <OpenshiftClusterLoader clusterId={props.value.clusterPickerValue!.clusterId!}>
         {result => (
           <OverviewComplete id={DeploymentHub.id} title="OpenShift Deployment is configured">
-            You application will be deployed to the <SpecialValue>{result!.name}</SpecialValue> OpenShift cluster.
+            You application will be deployed to the
+            {result!.consoleUrl && <ExternalLink style={{padding: '6px'}} href={result!.consoleUrl}>
+              <SpecialValue>{result!.name}</SpecialValue>
+            </ExternalLink>} OpenShift cluster.
+            {!result!.consoleUrl && <SpecialValue>{result!.name}</SpecialValue>}
           </OverviewComplete>
         )}
       </OpenshiftClusterLoader>
