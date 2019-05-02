@@ -1,11 +1,13 @@
 import * as React from 'react';
+import { generate } from 'project-name-generator';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import { buildDownloadImportAppPayload, buildLaunchImportAppPayload } from './launcher-client-adapters';
 import { SrcRepositoryHub } from '../hubs/src-repository-hub';
-import { LaunchFlow, useAutoSetCluster } from './launch-flow';
+import { LaunchFlow, useAutoSetCluster, NAME_REGEX } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ImportApp } from './types';
+import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
 
 const DEFAULT_IMPORT_APP = {
   srcRepository: {},
@@ -34,8 +36,10 @@ function getFlowStatus(app: ImportApp) {
   };
 }
 
-export function ImportExistingFlow(props: { onCancel?: () => void }) {
-  const [app, setApp, clear] = useSessionStorageWithObject<ImportApp>('import-existing-app', DEFAULT_IMPORT_APP);
+export function ImportExistingFlow(props: { appName?: string; onCancel?: () => void }) {
+  const defaultAppName = props.appName || generate().dashed;
+  const defaultImportApp = {...DEFAULT_IMPORT_APP, name: defaultAppName};
+  const [app, setApp, clear] = useSessionStorageWithObject<ImportApp>('import-existing-app', defaultImportApp);
   const onCancel = () => {
     clear();
     props.onCancel!();
@@ -93,7 +97,21 @@ export function ImportExistingFlow(props: { onCancel?: () => void }) {
 
   return (
     <LaunchFlow
-      title="Import an Existing Application"
+      title={(
+        <InlineTextInput
+          prefix="Import an Existing Application:"
+          type="text"
+          id="appname"
+          name="appname"
+          placeholder="Name of the project"
+          aria-label="Application Project name"
+          title="Application name"
+          value={app.name}
+          onChange={value => setApp(prev => ({...prev, name: value}))}
+          isValid={NAME_REGEX.test(app.name)}
+        />
+      )}
+
       items={items}
       {...flowStatus}
       buildLaunchAppPayload={() => {
