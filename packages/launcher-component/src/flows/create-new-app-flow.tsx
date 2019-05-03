@@ -10,7 +10,7 @@ import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/new-app-capabilities-loader';
 import { WelcomeAppHub } from '../hubs/welcome-app-hub';
 import { NewApp } from './types';
-import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
+import { ProjectNameInput } from '../core/project-name-input/project-name-input';
 
 const DEFAULT_NEW_APP = {
   name: 'my-app',
@@ -58,7 +58,7 @@ function getFlowStatus(app: NewApp) {
 
 export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => void }) {
   const defaultAppName = props.appName || generate().dashed;
-  const defaultNewApp = {...DEFAULT_NEW_APP, name: defaultAppName};
+  const defaultNewApp = { ...DEFAULT_NEW_APP, name: defaultAppName };
   const [app, setApp, clear] = useSessionStorageWithObject<NewApp>('new-app-flow', defaultNewApp);
   const autoSetCluster = useAutoSetCluster(setApp);
   const autoSetDestRepository = useAutoSetDestRepository(app.name, setApp);
@@ -174,17 +174,10 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
   return (
     <LaunchFlow
       title={(
-        <InlineTextInput
+        <ProjectNameInput
           prefix="New Application:"
-          type="text"
-          id="appname"
-          name="appname"
-          placeholder="Name of the project"
-          aria-label="Application Project name"
-          title="Application name"
           value={app.name}
-          onChange={value => setApp(prev => ({...prev, name: value}))}
-          isValid={NAME_REGEX.test(app.name)}
+          onChange={value => setApp(prev => ({ ...prev, name: value }))}
         />
       )}
       items={items}
@@ -200,5 +193,4 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       onCancel={onCancel}
     />
   );
-
 }
