@@ -175,7 +175,7 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
     <LaunchFlow
       title={(
         <ProjectNameInput
-          prefix="New Application:"
+          prefix="Create New Application as:"
           value={app.name}
           onChange={value => setApp(prev => ({ ...prev, name: value }))}
         />
