@@ -101,8 +101,9 @@ export default class DefaultLauncherClient implements LauncherClient {
       endpoint = Locations.joinPath(this.config.launcherURL, '/launcher');
       p = ExampleAppDescriptor.toExampleAppDescriptor(payload);
     }
+
     const authorizations = {
-      ...(await this.requireGitAuthorizations()),
+      ...(payload.gitRepository ? await this.requireGitAuthorizations() : {}),
       ...(await this.requireOpenShiftAuthorizations())
     };
     const requestConfig = await this.getRequestConfig({ clusterId: payload.clusterId, authorizations });
