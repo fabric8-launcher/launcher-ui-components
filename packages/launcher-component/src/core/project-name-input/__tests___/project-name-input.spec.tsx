@@ -26,11 +26,10 @@ describe('<ProjectNameInput />', () => {
   it('renders the warning if the project name already exists', async () => {
     const comp = render(
       <LauncherDepsProvider client={mockClient}>
-        <ProjectNameInput prefix="New Application:" />
+        <ProjectNameInput prefix="New Application:" value="my-project" />
       </LauncherDepsProvider>
     );
-    const input = comp.getByLabelText(`Application Project name`);
-    fireEvent.change(input, { target: { value: 'my-project' } });
+    const input = comp.getByLabelText('Application Project name');
     fireEvent.blur(input);
     await flushPromises();
 
