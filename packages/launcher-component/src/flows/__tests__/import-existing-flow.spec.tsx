@@ -39,7 +39,7 @@ async function configureSrc(comp, url) {
 
 describe('<ImportExistingFlow />', () => {
   it('renders and initializes the ImportExistingFlow correctly', async () => {
-    const comp = render(<LauncherDepsProvider><ImportExistingFlow /></LauncherDepsProvider>);
+    const comp = render(<LauncherDepsProvider><ImportExistingFlow appName="my-test-app" /></LauncherDepsProvider>);
     expect(comp.getByLabelText('openshift-deployment is not configured')).toBeDefined();
 
     // Resolve data from auto loader
@@ -56,7 +56,7 @@ describe('<ImportExistingFlow />', () => {
 
   it('Configure source repository to import and check full launch until next steps popup', async () => {
     const mockClient = mockLauncherClient();
-    const comp = render(<LauncherDepsProvider client={mockClient}><ImportExistingFlow /></LauncherDepsProvider>);
+    const comp = render(<LauncherDepsProvider client={mockClient}><ImportExistingFlow appName="my-test-app" /></LauncherDepsProvider>);
 
     // Resolve data from auto loader
     await flushPromises();

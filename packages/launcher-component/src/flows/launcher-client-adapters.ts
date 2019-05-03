@@ -111,8 +111,6 @@ export function buildLaunchImportAppPayload(app: ImportApp) {
 
 export function buildDownloadImportAppPayload(app: ImportApp) {
   const parts: any[] = [];
-  const url = app.srcRepository.gitUrlPickerValue!.url!;
-  const name = extractNameFromRepositoryUrl(url);
 
   parts.push({
     category: 'import',
@@ -131,16 +129,8 @@ export function buildDownloadImportAppPayload(app: ImportApp) {
 
   return {
     project: {
-      application: name,
+      application: app.name,
       parts,
     },
   };
-}
-
-function extractNameFromRepositoryUrl(url) {
-  const index = url.lastIndexOf('/');
-  const dotIndex = url.indexOf('.', index);
-  const name = url.substr(index + 1, dotIndex > 0 ? dotIndex - index - 1 : undefined)
-    .toLowerCase().replace(/[^a-z0-9.-]+/gi, '');
-  return name;
 }

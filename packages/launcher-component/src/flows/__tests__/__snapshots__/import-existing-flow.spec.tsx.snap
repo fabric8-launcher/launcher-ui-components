@@ -6,7 +6,7 @@ exports[`<ImportExistingFlow /> Configure source repository to import and check 
 Object {
   "clusterId": "starter-ca-central-1",
   "project": Object {
-    "application": "nodejs-rest-http",
+    "application": "my-test-app",
     "parts": Array [
       Object {
         "capabilities": Array [
@@ -26,6 +26,6 @@ Object {
       },
     ],
   },
-  "projectName": "nodejs-rest-http",
+  "projectName": "my-test-app",
 }
 `;

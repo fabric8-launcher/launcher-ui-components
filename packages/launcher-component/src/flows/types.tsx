@@ -21,6 +21,7 @@ export interface ExampleApp {
 }
 
 export interface ImportApp {
+  name: string;
   srcRepository: SrcRepositoryFormValue;
   deployment: DeploymentFormValue;
 }
