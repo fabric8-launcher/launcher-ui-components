@@ -15,7 +15,7 @@ export function ProjectNameInput(props: ProjectNameInputProps) {
   const validateProjectName = async (projectName: string) => {
     const result = await client.ocExistsProject(projectName);
     if (result.exists) {
-      setWarning('Warning this project exists! Make sure you are the owner.');
+      setWarning('Warning this project exists! Make sure you have write access.');
     } else {
       setWarning(undefined);
     }

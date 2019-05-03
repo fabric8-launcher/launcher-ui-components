@@ -33,7 +33,7 @@ describe('<ProjectNameInput />', () => {
     fireEvent.blur(input);
     await flushPromises();
 
-    expect(comp.getByText('Warning this project exists! Make sure you are the owner.')).toBeDefined();
+    expect(comp.getByText('Warning this project exists! Make sure you have write access.')).toBeDefined();
     expect(comp.asFragment()).toMatchSnapshot();
   });
 });
