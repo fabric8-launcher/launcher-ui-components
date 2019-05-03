@@ -106,7 +106,7 @@ export function ImportExistingFlow(props: { appName?: string; onCancel?: () => v
     <LaunchFlow
       title={(
         <ProjectNameInput
-          prefix="Import an Existing Application:"
+          prefix="Import an Existing Application as:"
           value={app.name}
           onChange={value => setApp(prev => ({...prev, name: value}))}
         />
