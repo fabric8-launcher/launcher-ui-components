@@ -1,8 +1,9 @@
-import React, { useState, ReactNode, Fragment } from 'react';
+import React, { ReactNode, Fragment } from 'react';
 import { Button } from '@patternfly/react-core';
 import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
 
 import style from './toggle-panel.module.scss';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 interface TogglePanelProps {
   title: string;
@@ -10,7 +11,7 @@ interface TogglePanelProps {
 }
 
 export function TogglePanel(props: TogglePanelProps) {
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useSessionStorageWithObject(props.title, false);
   return (
     <Fragment>
       <Button

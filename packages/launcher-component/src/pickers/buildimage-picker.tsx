@@ -18,10 +18,12 @@ interface BuildImageProps extends InputProps<BuildImagePickerValue> {
 export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = {
   checkCompletion: value => !!value.image,
   Element: props => {
+    const imageName = props.builderImages.find(i => i.id == props.value.image)!.name;
     return (
       <Fragment>
         <p>
           For your codebase, our runtime detection algorithm suggests to use this builder image: <SpecialValue>{props.suggestedImageName}</SpecialValue>
+          <br/>Currently selected: <SpecialValue>{imageName || props.suggestedImageName}</SpecialValue>
         </p>
         <TogglePanel title="Advanced settings">
           <div>
