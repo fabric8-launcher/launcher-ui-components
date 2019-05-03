@@ -7,7 +7,7 @@ import { ExampleHub } from '../hubs/example-hub';
 import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository, NAME_REGEX } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ExampleApp } from './types';
-import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
+import { ProjectNameInput } from '../core/project-name-input/project-name-input';
 
 const DEFAULT_EXAMPLE_APP = {
   name: 'example-app',
@@ -147,16 +147,10 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
   return (
     <LaunchFlow
       title={(
-        <InlineTextInput
+        <ProjectNameInput
           prefix="Example Application:"
-          id="appname"
-          name="appname"
-          placeholder="Name of the project"
-          aria-label="Application Project name"
-          title="Application name"
           value={app.name}
           onChange={value => setApp(prev => ({ ...prev, name: value }))}
-          isValid={NAME_REGEX.test(app.name)}
         />
       )}
       items={items}

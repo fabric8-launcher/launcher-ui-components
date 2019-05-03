@@ -17,6 +17,9 @@ exports[`<InlineTextInput /> renders the InlineTextInput correctly 1`] = `
       type="text"
       value=""
     />
+    <span
+      style="display: block; color: rgb(240, 171, 0); padding-top: 5px;"
+    />
   </div>
 </DocumentFragment>
 `;

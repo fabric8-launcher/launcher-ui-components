@@ -7,7 +7,7 @@ import { SrcRepositoryHub } from '../hubs/src-repository-hub';
 import { LaunchFlow, useAutoSetCluster, NAME_REGEX } from './launch-flow';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { ImportApp } from './types';
-import { InlineTextInput } from '../core/inline-text-input/inline-text-input';
+import { ProjectNameInput } from '../core/project-name-input/project-name-input';
 
 const DEFAULT_IMPORT_APP = {
   srcRepository: {},
@@ -15,6 +15,13 @@ const DEFAULT_IMPORT_APP = {
 };
 
 function getFlowStatus(app: ImportApp) {
+  if (!NAME_REGEX.test(app.name)) {
+    return {
+      hint: 'You should enter a valid name for your application',
+      isReadyForDownload: false,
+      isReadyForLaunch: false
+    };
+  }
   if (!SrcRepositoryHub.checkCompletion(app.srcRepository)) {
     return {
       hint: 'You should configure the source repository.',
@@ -98,17 +105,10 @@ export function ImportExistingFlow(props: { appName?: string; onCancel?: () => v
   return (
     <LaunchFlow
       title={(
-        <InlineTextInput
+        <ProjectNameInput
           prefix="Import an Existing Application:"
-          type="text"
-          id="appname"
-          name="appname"
-          placeholder="Name of the project"
-          aria-label="Application Project name"
-          title="Application name"
           value={app.name}
           onChange={value => setApp(prev => ({...prev, name: value}))}
-          isValid={NAME_REGEX.test(app.name)}
         />
       )}
 

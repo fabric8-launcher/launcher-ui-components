@@ -16,7 +16,6 @@ import {
   LaunchAppPayload,
   LaunchAppResult,
   LauncherClientConfig,
-  OCExistsProjectPayload,
   OpenShiftCluster,
   PropertyValue,
   StatusListener,
@@ -180,11 +179,11 @@ export default class DefaultLauncherClient implements LauncherClient {
     }
   }
 
-  public async ocExistsProject(payload: OCExistsProjectPayload): Promise<ExistsResult> {
+  public async ocExistsProject(projectName: string): Promise<ExistsResult> {
     const authorizations = await this.requireOpenShiftAuthorizations();
     const requestConfig = await this.getRequestConfig({ authorizations });
     return await this.httpService.head<ExistsResult>(this.config.launcherURL,
-      `/services/openshift/projects/${payload.projectName}`,
+      `/services/openshift/projects/${projectName}`,
       requestConfig
     );
   }

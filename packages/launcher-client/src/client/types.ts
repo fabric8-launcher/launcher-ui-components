@@ -195,11 +195,6 @@ export function toRuntime(arg: string) {
   return { name: parts[0], version: parts.length > 1 ? parts[1] : undefined };
 }
 
-export interface OCExistsProjectPayload {
-  projectName: string;
-  clusterId: string;
-}
-
 export interface GitRepositoryExistsPayload {
   repositoryName: string;
   gitProvider?: string;
