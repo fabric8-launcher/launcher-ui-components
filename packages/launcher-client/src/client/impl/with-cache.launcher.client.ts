@@ -14,7 +14,6 @@ import {
   GitRepositoryExistsPayload,
   LaunchAppPayload,
   LaunchAppResult,
-  OCExistsProjectPayload,
   OpenShiftCluster,
   PropertyValue,
   StatusListener
@@ -97,8 +96,8 @@ export default class WithCacheLauncherClient implements LauncherClient {
     return this.client.download(payload);
   }
 
-  public async ocExistsProject(payload: OCExistsProjectPayload): Promise<ExistsResult> {
-    return this.client.ocExistsProject(payload);
+  public async ocExistsProject(projectName: string): Promise<ExistsResult> {
+    return this.client.ocExistsProject(projectName);
   }
 
   public follow(id: string, events: Array<{ name: string }>, listener: StatusListener) {

@@ -13,7 +13,6 @@ import {
   GitRepositoryExistsPayload,
   LaunchAppPayload,
   LaunchAppResult,
-  OCExistsProjectPayload,
   OpenShiftCluster,
   PropertyValue,
   StatusListener
@@ -156,9 +155,9 @@ export default class MockLauncherClient implements LauncherClient {
     }));
   }
 
-  public async ocExistsProject(payload: OCExistsProjectPayload): Promise<ExistsResult> {
+  public async ocExistsProject(projectName: string): Promise<ExistsResult> {
     await waitForTick('ocExistsProject()', 300);
-    return {exists: false};
+    return {exists: projectName === 'my-project'};
   }
 
 }

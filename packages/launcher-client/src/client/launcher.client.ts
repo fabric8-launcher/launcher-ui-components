@@ -12,7 +12,6 @@ import {
   GitRepositoryExistsPayload,
   LaunchAppPayload,
   LaunchAppResult,
-  OCExistsProjectPayload,
   OpenShiftCluster,
   PropertyValue,
   StatusListener
@@ -42,7 +41,7 @@ export interface LauncherClient {
 
   follow(id: string, events: Array<{ name: string }>, listener: StatusListener);
 
-  ocExistsProject(payload: OCExistsProjectPayload): Promise<ExistsResult>;
+  ocExistsProject(projectName: string): Promise<ExistsResult>;
 
   ocClusters(): Promise<OpenShiftCluster[]>;
 
