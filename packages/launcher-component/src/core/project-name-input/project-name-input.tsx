@@ -12,12 +12,16 @@ interface ProjectNameInputProps {
 export function ProjectNameInput(props: ProjectNameInputProps) {
   const client = useLauncherClient();
   const [warning, setWarning] = useState();
+
+  const isValid = (value: string) => NAME_REGEX.test(value);
   const validateProjectName = async (projectName: string) => {
-    const result = await client.ocExistsProject(projectName);
-    if (result.exists) {
-      setWarning('Warning this project exists! Make sure you have write access.');
-    } else {
-      setWarning(undefined);
+    if (isValid(projectName)) {
+      const result = await client.ocExistsProject(projectName);
+      if (result.exists) {
+        setWarning('Warning this project exists! Make sure you have write access.');
+      } else {
+        setWarning(undefined);
+      }
     }
   }
   return (
@@ -29,7 +33,7 @@ export function ProjectNameInput(props: ProjectNameInputProps) {
       aria-label="Application Project name"
       title="Application name"
       value={props.value || ''}
-      isValid={NAME_REGEX.test(props.value || '')}
+      isValid={isValid(props.value || '')}
       onBlur={() => validateProjectName(props.value || '')}
       warning={warning}
       {...props}
