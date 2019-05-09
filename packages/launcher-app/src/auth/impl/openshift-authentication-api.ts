@@ -79,7 +79,7 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     if (provider === 'github') {
       const redirectUri = redirect || this.cleanUrl(location.href);
       return 'https://github.com/login/oauth/authorize?response_type=code&client_id=' +
-        `${this.config.github.clientId}&redirect_uri=${redirectUri}&scope=repo%2Cadmin%3Arepo_hook`;
+        `${this.config.github.clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=repo%2Cadmin%3Arepo_hook`;
     }
     return '';
   };
