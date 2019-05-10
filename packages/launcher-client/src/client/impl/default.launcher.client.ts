@@ -182,10 +182,18 @@ export default class DefaultLauncherClient implements LauncherClient {
   public async ocExistsProject(projectName: string): Promise<ExistsResult> {
     const authorizations = await this.requireOpenShiftAuthorizations();
     const requestConfig = await this.getRequestConfig({ authorizations });
-    return await this.httpService.head<ExistsResult>(this.config.launcherURL,
-      `/services/openshift/projects/${projectName}`,
-      requestConfig
-    );
+    try {
+      return await this.httpService.head<ExistsResult>(this.config.launcherURL,
+        `/services/openshift/projects/${projectName}`,
+        requestConfig
+      );
+    } catch (e) {
+      if (e.response && e.response.status === 404) {
+        return Promise.resolve({ exists: false } as ExistsResult);
+      } else {
+        throw e;
+      }
+    }
   }
 
   private async requireGitAuthorizations() {
