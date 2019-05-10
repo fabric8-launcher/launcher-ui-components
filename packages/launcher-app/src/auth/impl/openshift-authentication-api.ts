@@ -50,11 +50,11 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     }
     const storedGitAuthorizations = this.getProviderAuthorizations('git');
     if (!storedGitAuthorizations) {
-      const githubAccessToken = await this.getGitHubAccessToken();
-      if (githubAccessToken && this._user) {
+      const gitAccessToken = await this.getGitAccessToken();
+      if (gitAccessToken && this._user) {
         this._user.authorizationsByProvider.git = {
           [AUTH_HEADER_KEY]: FAKE_AUTH_HEADER,
-          [GIT_AUTH_HEADER_KEY]: `Bearer ${githubAccessToken}`,
+          [GIT_AUTH_HEADER_KEY]: `Bearer ${gitAccessToken}`,
         };
       }
     }
@@ -76,11 +76,17 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
   }
 
   public generateAuthorizationLink = (provider?: string, redirect?: string): string => {
-    if (provider === 'github') {
+    const gitProvider = provider || this.config.gitProvider;
+    if (gitProvider === 'github') {
       const redirectUri = redirect || this.cleanUrl(location.href);
       return 'https://github.com/login/oauth/authorize?response_type=code&client_id=' +
-        `${this.config.github.clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=repo%2Cadmin%3Arepo_hook`;
+        `${this.config.github!.clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=repo%2Cadmin%3Arepo_hook`;
     }
+    if (gitProvider === 'gitea') {
+      return `${this.config.gitea!.url}?response_type=code&client_id=` +
+        `${this.config.gitea!.clientId}&redirect_uri=${encodeURIComponent(this.config.gitea!.redirectUri)}`;
+    }
+
     return '';
   };
 
@@ -153,12 +159,19 @@ export class OpenshiftAuthenticationApi implements AuthenticationApi {
     return response.data.name;
   }
 
-  private async getGitHubAccessToken(): Promise<string | undefined> {
+  private async getGitAccessToken(): Promise<string | undefined> {
     const query = location.href.substr(location.href.indexOf('?') + 1);
     const code = this.parseQuery(query).code;
     if (code) {
-      const response = await axios.post(this.config.github.validateTokenUri,
-        { client_id: this.config.github.clientId, client_secret: this.config.github.secret, code },
+      const data: any = { code };
+      const provider = this.config.gitProvider;
+      data.client_id = this.config[provider]!.clientId ;
+      data.client_secret = this.config[provider]!.secret;
+      if (provider === 'gitea') {
+        data.redirect_uri = this.config.gitea!.redirectUri;
+        data.grant_type = 'authorization_code';
+      }
+      const response = await axios.post(this.config[provider]!.validateTokenUri, data,
         { headers: { Accept: 'application/json' } });
       return response.data.access_token;
     }

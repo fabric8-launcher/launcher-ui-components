@@ -26,8 +26,8 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
       return (
         <OverviewEmpty
           id={`${DestRepositoryHub.id}-unauthorized`}
-          title="You need to authorize GitHub."
-          action={<ButtonLink href={auth.generateAuthorizationLink('github')}>Authorize</ButtonLink>}
+          title="You need to authorize Git."
+          action={<ButtonLink href={auth.generateAuthorizationLink()}>Authorize</ButtonLink>}
         >
           Once authorized, you will be able to choose a repository provider and a location...
         </OverviewEmpty>
@@ -47,7 +47,7 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
     return (
       <OverviewComplete id={DestRepositoryHub.id} title={`Destination Repository is configured`}>
         <SpecialValue>{valueToPath(props.value.userRepositoryPickerValue!)}</SpecialValue> is configured
-        as destination repository on GitHub.
+        as destination repository on Git.
       </OverviewComplete>
     );
   },
@@ -64,8 +64,7 @@ export const DestRepositoryHub: FormHub<DestRepositoryFormValue> = {
           (inputProps) => (
             <React.Fragment>
               <DescriptiveHeader
-                description="You can select where your application source code will be located,
-               for now the only available provider is GitHub."
+                description="You can select where your application source code will be located."
               />
               <GitInfoLoader>
                 {(gitInfo) => (
