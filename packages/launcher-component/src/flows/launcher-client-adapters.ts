@@ -47,10 +47,8 @@ export function buildDownloadNewAppPayload(app: NewApp) {
   if (parts.length > 1) {
     parts = [
       ...parts.map(p => ({...p, subFolderName: p.category})),
-      {category: 'support', subFolderName: 'support', capabilities: [{module: 'welcome'}]}
+      {category: 'support', subFolderName: 'support', capabilities: []}
     ];
-  } else {
-    parts[0].capabilities.push({module: 'welcome'});
   }
 
   return {

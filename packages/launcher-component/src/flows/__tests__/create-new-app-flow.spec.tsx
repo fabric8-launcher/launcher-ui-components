@@ -222,7 +222,6 @@ async function configureFrontend(comp, runtime) {
 function checkInitialStatus(comp) {
   expect(comp.getByLabelText('dest-repository is configured')).toBeDefined();
   expect(comp.getByLabelText('openshift-deployment is configured')).toBeDefined();
-  expect(comp.getByLabelText('welcome-app is configured')).toBeDefined();
 
   expect(comp.getByLabelText('backend is not configured')).toBeDefined();
   expect(comp.getByLabelText('frontend is not configured')).toBeDefined();

@@ -8,7 +8,6 @@ import { LaunchFlow, useAutoSetCluster, useAutoSetDestRepository, NAME_REGEX } f
 import { buildDownloadNewAppPayload, buildLaunchNewAppPayload } from './launcher-client-adapters';
 import { DeploymentHub } from '../hubs/deployment-hub';
 import { readOnlyCapabilities } from '../loaders/new-app-capabilities-loader';
-import { WelcomeAppHub } from '../hubs/welcome-app-hub';
 import { NewApp } from './types';
 import { ProjectNameInput } from '../core/project-name-input/project-name-input';
 
@@ -76,7 +75,7 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
         component: ({ edit }) => (
           <FrontendHub.Overview value={app.frontend} onClick={edit} />
         ),
-        width: 'third',
+        width: 'half',
       },
       form: {
         component: ({ close }) => (
@@ -98,7 +97,7 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
         component: ({ edit }) => (
           <BackendHub.Overview value={app.backend} onClick={edit} />
         ),
-        width: 'third',
+        width: 'half',
       },
       form: {
         component: ({ close }) => (
@@ -111,16 +110,6 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
             onCancel={close}
           />
         ),
-      }
-    },
-    {
-      id: WelcomeAppHub.id,
-      title: WelcomeAppHub.title,
-      overview: {
-        component: () => (
-          <WelcomeAppHub.Overview />
-        ),
-        width: 'third',
       }
     },
     {

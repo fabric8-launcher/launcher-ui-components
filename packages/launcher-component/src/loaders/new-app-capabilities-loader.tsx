@@ -28,7 +28,7 @@ export function getCapabilityRuntimeNameProp(c: Capability) {
 
 function capabilityMatcherForRuntime(runtime?: string) {
   return (c: Capability) => {
-    if (!runtime) {
+    if (!runtime || c.props.length === 0) {
       return true;
     }
     const runtimeNameProp = getCapabilityRuntimeNameProp(c);
@@ -36,7 +36,7 @@ function capabilityMatcherForRuntime(runtime?: string) {
   };
 }
 
-export const readOnlyCapabilities = [{ id: 'health', selected: true }];
+export const readOnlyCapabilities = [{ id: 'health', selected: true }, { id: 'welcome', selected: true }];
 
 export function NewAppCapabilitiesLoader(props: { categories: string[], runtime?: string, children: (capabilities: Capability[]) => any }) {
   const client = useLauncherClient();

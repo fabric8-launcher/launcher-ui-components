@@ -15,15 +15,16 @@ Object {
             "props": undefined,
           },
           Object {
+            "module": "welcome",
+            "props": undefined,
+          },
+          Object {
             "module": "rest",
             "props": undefined,
           },
           Object {
             "module": "database",
             "props": undefined,
-          },
-          Object {
-            "module": "welcome",
           },
         ],
         "category": "backend",
@@ -54,15 +55,16 @@ Object {
             "props": undefined,
           },
           Object {
+            "module": "welcome",
+            "props": undefined,
+          },
+          Object {
             "module": "rest",
             "props": undefined,
           },
           Object {
             "module": "database",
             "props": undefined,
-          },
-          Object {
-            "module": "welcome",
           },
         ],
         "category": "backend",
@@ -99,11 +101,12 @@ Object {
             "props": undefined,
           },
           Object {
-            "module": "rest",
+            "module": "welcome",
             "props": undefined,
           },
           Object {
-            "module": "welcome",
+            "module": "rest",
+            "props": undefined,
           },
         ],
         "category": "backend",
@@ -135,15 +138,16 @@ Object {
             "props": undefined,
           },
           Object {
+            "module": "welcome",
+            "props": undefined,
+          },
+          Object {
             "module": "rest",
             "props": undefined,
           },
           Object {
             "module": "database",
             "props": undefined,
-          },
-          Object {
-            "module": "welcome",
           },
         ],
         "category": "backend",
@@ -176,6 +180,7 @@ Object {
           },
           Object {
             "module": "welcome",
+            "props": undefined,
           },
         ],
         "category": "backend",
@@ -222,6 +227,10 @@ Object {
             "props": undefined,
           },
           Object {
+            "module": "welcome",
+            "props": undefined,
+          },
+          Object {
             "module": "rest",
             "props": undefined,
           },
@@ -236,11 +245,7 @@ Object {
         "subFolderName": "backend",
       },
       Object {
-        "capabilities": Array [
-          Object {
-            "module": "welcome",
-          },
-        ],
+        "capabilities": Array [],
         "category": "support",
         "subFolderName": "support",
       },
@@ -262,9 +267,6 @@ Object {
         "capabilities": Array [
           Object {
             "module": "web-app",
-          },
-          Object {
-            "module": "welcome",
           },
         ],
         "category": "frontend",
