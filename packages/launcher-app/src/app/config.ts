@@ -39,18 +39,31 @@ function getAuthConfig(authMode: string): KeycloakConfig | OpenshiftConfig | und
         url: requireEnv(process.env.REACT_APP_KEYCLOAK_URL, 'keycloakUrl'),
       } as KeycloakConfig;
     case 'oauth-openshift':
-      return {
+      const base: OpenshiftConfig = {
         openshift: {
           clientId: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_CLIENT_ID, 'openshiftOAuthClientId'),
           url: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_URL, 'openshiftOAuthUrl'),
           validateTokenUri: `${requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl')}/services/openshift/user`,
         },
-        github: {
+        gitProvider: requireEnv(process.env.REACT_APP_GIT_PROVIDER, 'gitProvider') === 'github' ? 'github' : 'gitea',
+      };
+      if (base.gitProvider === 'github') {
+        base.github = {
           clientId: requireEnv(process.env.REACT_APP_OAUTH_GITHUB_CLIENT_ID, 'githubOAuthClientId'),
           secret: requireEnv(process.env.REACT_APP_OAUTH_GITHUB_SECRET, 'githubOAuthSecret'),
           validateTokenUri: getEnv(process.env.REACT_APP_OAUTH_GITHUB_VALIDATE_URI, 'githubOAuthValidateUri') || '/launch/github/access_token',
-        }
-      } as OpenshiftConfig;
+        };
+      }
+      if (base.gitProvider === 'gitea') {
+        base.gitea = {
+          clientId: requireEnv(process.env.REACT_APP_OAUTH_GITEA_CLIENT_ID, 'giteaOAuthClientId'),
+          secret: requireEnv(process.env.REACT_APP_OAUTH_GITEA_SECRET, 'giteaOAuthSecret'),
+          url: requireEnv(process.env.REACT_APP_OAUTH_GITEA_URL, 'giteaOAuthUrl'),
+          redirectUri: requireEnv(process.env.REACT_APP_OAUTH_GITEA_REDIRECT_URL, 'giteaOAuthRedirectUrl'),
+          validateTokenUri: requireEnv(process.env.REACT_APP_OAUTH_GITEA_VALIDATE_URI, 'giteaOAuthValidateUri'),
+        };
+      }
+      return base;
     case 'mock':
     case 'no':
       return undefined;

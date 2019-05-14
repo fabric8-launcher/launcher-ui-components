@@ -5,7 +5,15 @@ export interface KeycloakConfig {
 }
 
 export interface OpenshiftConfig {
-  github: {
+  gitProvider: 'gitea' | 'github';
+  gitea?: {
+    clientId: string;
+    secret: string;
+    url: string;
+    redirectUri: string;
+    validateTokenUri: string;
+  };
+  github?: {
     clientId: string;
     secret: string;
     validateTokenUri: string;
