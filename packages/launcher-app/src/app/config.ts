@@ -58,8 +58,8 @@ function getAuthConfig(authMode: string): KeycloakConfig | OpenshiftConfig | und
         base.gitea = {
           clientId: requireEnv(process.env.REACT_APP_OAUTH_GITEA_CLIENT_ID, 'giteaOAuthClientId'),
           secret: requireEnv(process.env.REACT_APP_OAUTH_GITEA_SECRET, 'giteaOAuthSecret'),
-          url: requireEnv(process.env.REACT_APP_OAUTH_GITEA_URL, 'geteaOAuthUrl'),
-          redirectUri: requireEnv(process.env.REACT_APP_OAUTH_GITEA_REDIRECT_URL, 'geteaOAuthRedirectUrl'),
+          url: requireEnv(process.env.REACT_APP_OAUTH_GITEA_URL, 'giteaOAuthUrl'),
+          redirectUri: requireEnv(process.env.REACT_APP_OAUTH_GITEA_REDIRECT_URL, 'giteaOAuthRedirectUrl'),
           validateTokenUri: requireEnv(process.env.REACT_APP_OAUTH_GITEA_VALIDATE_URI, 'giteaOAuthValidateUri'),
         };
       }
