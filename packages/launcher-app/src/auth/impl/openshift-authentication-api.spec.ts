@@ -12,9 +12,9 @@ describe('Openshift authentication', () => {
   const tokenUri = 'http://token_uri/';
   const authentication = new OpenshiftAuthenticationApi({
     openshift: { validateTokenUri: tokenUri },
-    github: { validateTokenUri: '/launch/github/access_token' }
-  } as any
-  );
+    github: { validateTokenUri: '/launch/github/access_token' },
+    gitProvider: 'github'
+  } as any);
   const mock = new MockAdaptor(axios);
 
   beforeEach(() => {
@@ -110,7 +110,7 @@ describe('Openshift authentication', () => {
       .toBe('http://www.url.fr/?request=/flow/new-app');
   });
 
-  it('should fetch git access token', async () => {
+  it('should fetch github access token', async () => {
     // given
     localStorage._STORE_[OPENSHIFT_AUTH_STORAGE_KEY] = JSON.stringify({
       authorizationsByProvider: {
@@ -133,6 +133,37 @@ describe('Openshift authentication', () => {
     expect(user!.authorizationsByProvider.openshift![OPENSHIFT_AUTH_HEADER_KEY]).toBe('Bearer 123');
     expect(user!.authorizationsByProvider.git![GIT_AUTH_HEADER_KEY]).toBe('Bearer super');
   });
+
+  it('should fetch gitea access token', async () => {
+    // given
+    localStorage._STORE_[OPENSHIFT_AUTH_STORAGE_KEY] = JSON.stringify({
+      authorizationsByProvider: {
+        openshift: {
+          [AUTH_HEADER_KEY]: 123,
+          [OPENSHIFT_AUTH_HEADER_KEY]: `Bearer 123`,
+        }
+      }
+    });
+    location.hash = '?code=giteacode'; // mock query part of url
+    mock.onGet(tokenUri).reply(200, '{"name": "developer"}');
+    mock.onPost('/launch/gitea/access_token').reply(200, '{"access_token": "gitea is also super"}');
+
+    const authentication = new OpenshiftAuthenticationApi({
+      openshift: { validateTokenUri: tokenUri },
+      gitea: { validateTokenUri: '/launch/gitea/access_token' },
+      gitProvider: 'gitea'
+    } as any);
+
+    // when
+    const user = await authentication.init();
+
+    expect(user).toBeDefined();
+    expect(user!.authorizationsByProvider.openshift).toBeDefined();
+    expect(user!.authorizationsByProvider.openshift).toBeDefined();
+    expect(user!.authorizationsByProvider.openshift![OPENSHIFT_AUTH_HEADER_KEY]).toBe('Bearer 123');
+    expect(user!.authorizationsByProvider.git![GIT_AUTH_HEADER_KEY]).toBe('Bearer gitea is also super');
+  });
+
 });
 
 export class FakeLocalStorage {
