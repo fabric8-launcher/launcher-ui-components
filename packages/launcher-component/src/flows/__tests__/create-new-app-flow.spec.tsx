@@ -159,6 +159,20 @@ describe('<CreateNewAppFlow />', () => {
     fireEvent.click(comp.getByLabelText('Launch Application'));
     expect(mockClient.currentPayload).toMatchSnapshot('payload');
   });
+
+  it('Check that welcome app can be unselected', async () => {
+    const mockClient = mockLauncherClient();
+    const comp = render(<LauncherDepsProvider client={mockClient}><CreateNewAppFlow appName="my-test-app" /></LauncherDepsProvider>);
+
+    fireEvent.click(comp.getByLabelText('Open welcome-app editor'));
+    fireEvent.click(comp.getByLabelText('welcome app check'));
+
+    fireEvent.click(comp.getByLabelText('Save welcome-app'));
+
+    expect(comp.getAllByText('Welcome Application is disabled')).toBeDefined();
+    expect(comp.asFragment()).toMatchSnapshot();
+  });
+
   it('check that cancel is working correctly', async () => {
     const onCancel = jest.fn();
     const comp = render(<LauncherDepsProvider><CreateNewAppFlow appName="my-test-app" onCancel={onCancel} /></LauncherDepsProvider>);
@@ -222,7 +236,6 @@ async function configureFrontend(comp, runtime) {
 function checkInitialStatus(comp) {
   expect(comp.getByLabelText('dest-repository is configured')).toBeDefined();
   expect(comp.getByLabelText('openshift-deployment is configured')).toBeDefined();
-  expect(comp.getByLabelText('welcome-app is configured')).toBeDefined();
 
   expect(comp.getByLabelText('backend is not configured')).toBeDefined();
   expect(comp.getByLabelText('frontend is not configured')).toBeDefined();

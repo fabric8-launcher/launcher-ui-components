@@ -4,6 +4,7 @@ import { DestRepositoryFormValue } from '../hubs/dest-repository-hub';
 import { DeploymentFormValue } from '../hubs/deployment-hub';
 import { ExampleFormValue } from '../hubs/example-hub';
 import { SrcRepositoryFormValue } from '../hubs/src-repository-hub';
+import { WelcomeFormValue } from '../hubs/welcome-app-hub';
 
 export interface NewApp {
   name: string;
@@ -11,6 +12,7 @@ export interface NewApp {
   frontend: FrontendFormValue;
   destRepository: DestRepositoryFormValue;
   deployment: DeploymentFormValue;
+  welcomeApp: WelcomeFormValue;
 }
 
 export interface ExampleApp {

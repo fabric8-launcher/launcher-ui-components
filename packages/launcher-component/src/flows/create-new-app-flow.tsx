@@ -18,6 +18,7 @@ const DEFAULT_NEW_APP = {
   frontend: {},
   destRepository: {},
   deployment: {},
+  welcomeApp: { selected: true }
 };
 
 function getFlowStatus(app: NewApp) {
@@ -117,10 +118,22 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
       id: WelcomeAppHub.id,
       title: WelcomeAppHub.title,
       overview: {
-        component: () => (
-          <WelcomeAppHub.Overview />
+        component: ({ edit }) => (
+          <WelcomeAppHub.Overview value={app.welcomeApp} onClick={edit} />
         ),
         width: 'third',
+      },
+      form: {
+        component: ({ close }) => (
+          <WelcomeAppHub.Form
+            initialValue={app.welcomeApp}
+            onSave={(welcomeApp) => {
+              setApp((prev) => ({ ...prev, welcomeApp }));
+              close();
+            }}
+            onCancel={close}
+          />
+        ),
       }
     },
     {
