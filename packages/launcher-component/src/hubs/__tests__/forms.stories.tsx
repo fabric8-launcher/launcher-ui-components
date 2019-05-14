@@ -9,6 +9,7 @@ import { ExampleHub } from '../example-hub';
 import { SrcRepositoryHub } from '../src-repository-hub';
 import { LauncherDepsProvider } from '../..';
 import { readOnlyCapabilities } from '../../loaders/new-app-capabilities-loader';
+import { WelcomeAppHub } from '../welcome-app-hub';
 
 storiesOf('Forms', module)
   .addDecorator((storyFn) => (
@@ -43,5 +44,10 @@ storiesOf('Forms', module)
   .add('SrcRepositoryForm', () => {
     return (
       <SrcRepositoryHub.Form initialValue={{}} onSave={action('save')} onCancel={action('cancel')}/>
+    );
+  })
+  .add('WelcomeAppForm', () => {
+    return (
+      <WelcomeAppHub.Form initialValue={{}} onSave={action('save')} onCancel={action('cancel')}/>
     );
   });
