@@ -45,7 +45,7 @@ function getAuthConfig(authMode: string): KeycloakConfig | OpenshiftConfig | und
           url: requireEnv(process.env.REACT_APP_OAUTH_OPENSHIFT_URL, 'openshiftOAuthUrl'),
           validateTokenUri: `${requireEnv(process.env.REACT_APP_LAUNCHER_API_URL, 'launcherApiUrl')}/services/openshift/user`,
         },
-        gitProvider: requireEnv(process.env.REACT_APP_GIT_PROVIDER, 'gitProvider') === 'github' ? 'github' : 'gitea',
+        gitProvider: (getEnv(process.env.REACT_APP_GIT_PROVIDER, 'gitProvider') || 'github') === 'github' ? 'github' : 'gitea',
       };
       if (base.gitProvider === 'github') {
         base.github = {
