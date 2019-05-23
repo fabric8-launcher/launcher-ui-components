@@ -235,6 +235,13 @@ export interface BuilderImage {
   };
 }
 
+export interface DependencyItem {
+  id: string; // groupId:artifactId
+  name: string;
+  description: string;
+  category: string;
+}
+
 export interface AnalyzeResult {
   image: string;
   builderImages: BuilderImage[];

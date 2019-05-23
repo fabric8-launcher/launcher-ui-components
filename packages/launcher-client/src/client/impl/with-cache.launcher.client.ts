@@ -16,7 +16,8 @@ import {
   LaunchAppResult,
   OpenShiftCluster,
   PropertyValue,
-  StatusListener
+  StatusListener,
+  DependencyItem
 } from '../types';
 import { filter } from '../..';
 import lscache from 'lscache';
@@ -110,5 +111,9 @@ export default class WithCacheLauncherClient implements LauncherClient {
 
   public async launch(payload: LaunchAppPayload): Promise<LaunchAppResult> {
     return this.client.launch(payload);
+  }
+
+  public async dependencyItems(): Promise<DependencyItem[]> {
+    return this.client.dependencyItems();
   }
 }

@@ -22,7 +22,8 @@ import {
   StatusMessage,
   Authorizations,
   AuthorizationsProvider,
-  AuthorizationError
+  AuthorizationError,
+  DependencyItem
 } from '../types';
 import { HttpService, RequestConfig } from '../http.service';
 
@@ -194,6 +195,10 @@ export default class DefaultLauncherClient implements LauncherClient {
         throw e;
       }
     }
+  }
+
+  public async dependencyItems(): Promise<DependencyItem[]> {
+    return await this.httpService.get('someurl', 'some-endpoint', await this.getRequestConfig());
   }
 
   private async requireGitAuthorizations() {
