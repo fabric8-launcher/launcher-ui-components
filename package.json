@@ -7,6 +7,7 @@
     "packages/launcher-client",
     "packages/launcher-component",
     "packages/launcher-app",
+    "packages/quarkus-launcher-app",
     "packages/launcher-welcome-app"
   ],
   "dependencies": {
@@ -28,6 +29,7 @@
     "app:start:local-api": "yarn workspace launcher-app start:local-api",
     "app:start:production-api": "yarn workspace launcher-app start:production-api",
     "app:start:mock-api": "yarn workspace launcher-app start:mock-api",
+    "quarkus-app:start": "yarn workspace quarkus-launcher-app start",
     "app:build": "yarn workspace launcher-app build",
     "wa:start": "yarn workspace launcher-welcome-app start",
     "wa:build": "yarn workspace launcher-welcome-app build",

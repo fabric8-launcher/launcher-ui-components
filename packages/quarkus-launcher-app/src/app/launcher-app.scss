@@ -1,0 +1,24 @@
+.launcher-container {
+  background-color: #EDEDED;
+  padding: 20px 20px 100px;
+}
+
+.quarkus-form-container {
+  width: 600px;
+  margin: 50px auto;
+
+  .pf-c-form-control {
+    border: none;
+    border-bottom: 2px solid #BBE1F2;
+  }
+  
+  .pf-c-form-control:focus {
+    border: none;
+    border-bottom: 2px solid #4A97E8;
+    outline: none;
+  }
+
+  .pf-c-form__label {
+    color: #54626B
+  }
+}

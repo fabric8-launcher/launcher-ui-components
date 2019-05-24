@@ -1,9 +1,9 @@
-import React, { ReactNode, Fragment } from 'react';
 import { Button } from '@patternfly/react-core';
-import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
-
-import style from './toggle-panel.module.scss';
+import { CaretSquareDownIcon, CaretSquareUpIcon } from '@patternfly/react-icons';
+import React, { Fragment, ReactNode } from 'react';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
+import style from './toggle-panel.module.scss';
+
 
 interface TogglePanelProps {
   title: string;
@@ -14,6 +14,9 @@ export function TogglePanel(props: TogglePanelProps) {
   const [collapse, setCollapse] = useSessionStorageWithObject(props.title, false);
   return (
     <Fragment>
+      <div className={`${style.panel} ${(collapse ? style.expanded : '')}`}>
+        {props.children}
+      </div>
       <Button
         // @ts-ignore
         component="a"
@@ -21,11 +24,8 @@ export function TogglePanel(props: TogglePanelProps) {
         aria-label="Expand panel"
         onClick={() => setCollapse(!collapse)}
       >
-        {collapse ? <MinusCircleIcon /> : <PlusCircleIcon />} {props.title}
+        {collapse ? (<span><CaretSquareUpIcon /> Fewer</span>) : (<span><CaretSquareDownIcon /> More</span>)} {props.title}
       </Button>
-      <div className={`${style.panel} ${(collapse ? style.expanded : '')}`}>
-        {props.children}
-      </div>
     </Fragment>
   );
 }
