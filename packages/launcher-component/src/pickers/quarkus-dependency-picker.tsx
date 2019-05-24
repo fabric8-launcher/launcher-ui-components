@@ -99,7 +99,7 @@ export const QuarkusDependencyPicker: Picker<QuarkusDependencyPickerProps, Quark
                   />
                 ))
               }
-              { filter && !result.length && <Title size="xs">No result.</Title>}
+              { filter && !result.length && <Title size="xs" style={{paddingTop: '10px'}}>No result.</Title>}
             </div>
           </GridItem>
           <GridItem span={4}>
