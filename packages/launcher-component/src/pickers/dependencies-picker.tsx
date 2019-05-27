@@ -12,11 +12,11 @@ export interface DependencyValue {
   category?: string;
 }
 
-export interface QuarkusDependencyPickerValue {
+export interface QuarkusDependenciesPickerValue {
   dependencies?: string[];
 }
 
-interface QuarkusDependencyPickerProps extends InputProps<QuarkusDependencyPickerValue> {
+interface QuarkusDependencyPickerProps extends InputProps<QuarkusDependenciesPickerValue> {
   items: DependencyItem[];
 }
 
@@ -25,14 +25,15 @@ enum OperationType {
   Remove,
 }
 
-interface DependencyItemProps extends DependencyItem, InputProps<DependencyValue> {
+interface DependencyItemProps extends DependencyItem {
   operation?: OperationType;
+  onClick(id: string): void;
 }
 
 function DependencyItemComponent(props: DependencyItemProps) {
   const [active, setActive] = useState(false);
-  const onChange = () => {
-    props.onChange({ ...props });
+  const onClick = () => {
+    props.onClick(props.id);
   };
 
   return (
@@ -40,7 +41,7 @@ function DependencyItemComponent(props: DependencyItemProps) {
       className={`${style.item} ${active ? style.active : ''}`}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      onClick={onChange}
+      onClick={onClick}
     >
       <Stack style={{ position: 'relative' }}>
         <StackItem isMain>
@@ -55,21 +56,22 @@ function DependencyItemComponent(props: DependencyItemProps) {
   )
 }
 
-export const QuarkusDependencyPicker: Picker<QuarkusDependencyPickerProps, QuarkusDependencyPickerValue> = {
-  checkCompletion: (value: QuarkusDependencyPickerValue) => !!value.dependencies && value.dependencies.length > 0,
+export const DependenciesPicker: Picker<QuarkusDependencyPickerProps, QuarkusDependenciesPickerValue> = {
+  checkCompletion: (value: QuarkusDependenciesPickerValue) => !!value.dependencies && value.dependencies.length > 0,
   Element: (props: QuarkusDependencyPickerProps) => {
     const [filter, setFilter] = useState('');
     const dependencies = props.value.dependencies || [];
-    const dependenciesValuesById = new Map(dependencies.map(id => [id, props.items.find(d => d.id === id)]));
+    const dependenciesSet = new Set(dependencies);
+    const dependencyItemById = new Map(props.items.map(item => [item.id, item]));
 
-    const onChange = (value: DependencyItemProps) => {
-      if (value.operation === OperationType.Add) {
-        const { operation, ...changed } = value;
-        dependenciesValuesById.set(value.id, changed);
-      } else {
-        dependenciesValuesById.delete(value.id);
-      }
-      props.onChange({ dependencies: Array.from(dependenciesValuesById.keys()) });
+    const addDep = (id: string) => {
+      dependenciesSet.add(id);
+      props.onChange({ dependencies: Array.from(dependenciesSet) });
+    };
+
+    const removeDep = (id: string) => {
+      dependenciesSet.delete(id);
+      props.onChange({ dependencies: Array.from(dependenciesSet) });
     };
 
     const filterFunction = (d: DependencyItem) =>
@@ -94,30 +96,30 @@ export const QuarkusDependencyPicker: Picker<QuarkusDependencyPickerProps, Quark
                     operation={OperationType.Add}
                     {...dep}
                     key={i}
-                    value={dependenciesValuesById.get(dep.id) || { id: dep.id }}
-                    onChange={onChange}
+                    onClick={addDep}
                   />
                 ))
               }
-              { filter && !result.length && <Title size="xs" style={{paddingTop: '10px'}}>No result.</Title>}
+              {filter && !result.length && <Title size="xs" style={{ paddingTop: '10px' }}>No result.</Title>}
             </div>
           </GridItem>
-          <GridItem span={4}>
-            <Title size="md">Selected:</Title>
-            <div className={style.quarkusDependencyList}>
-              {
-                Array.from(dependenciesValuesById.values()).map((selected, i) => (
-                  <DependencyItemComponent
-                    operation={OperationType.Remove}
-                    {...selected as DependencyItem}
-                    key={i}
-                    value={selected || { id: '' }}
-                    onChange={onChange}
-                  />
-                ))
-              }
-            </div>
-          </GridItem>
+          {dependencies.length > 0 && (
+            <GridItem span={4}>
+              <Title size="md">Selected:</Title>
+              <div className={style.quarkusDependencyList}>
+                {
+                  dependencies.map((selected, i) => (
+                    <DependencyItemComponent
+                      operation={OperationType.Remove}
+                      {...dependencyItemById.get(selected)!}
+                      key={i}
+                      onClick={removeDep}
+                    />
+                  ))
+                }
+              </div>
+            </GridItem>
+          )}
         </Grid>
       </Fragment>
     );

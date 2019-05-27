@@ -2,27 +2,6 @@
 
 exports[`<TogglePanel /> renders the TogglePanel correctly 1`] = `
 <DocumentFragment>
-  <a
-    aria-disabled="false"
-    aria-label="Expand panel"
-    class="pf-c-button pf-m-link"
-  >
-    <svg
-      aria-hidden="true"
-      fill="currentColor"
-      height="1em"
-      role="img"
-      style="vertical-align: -0.125em;"
-      viewBox="0 0 512 512"
-      width="1em"
-    >
-      <path
-        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
-        transform=""
-      />
-    </svg>
-     TogglePanel
-  </a>
   <div
     class="panel "
   >
@@ -30,32 +9,35 @@ exports[`<TogglePanel /> renders the TogglePanel correctly 1`] = `
       the panel content
     </p>
   </div>
-</DocumentFragment>
-`;
-
-exports[`<TogglePanel /> show the edition panel for the clicked hub 1`] = `
-<DocumentFragment>
   <a
     aria-disabled="false"
     aria-label="Expand panel"
     class="pf-c-button pf-m-link"
   >
-    <svg
-      aria-hidden="true"
-      fill="currentColor"
-      height="1em"
-      role="img"
-      style="vertical-align: -0.125em;"
-      viewBox="0 0 512 512"
-      width="1em"
-    >
-      <path
-        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zM124 296c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h264c6.6 0 12 5.4 12 12v56c0 6.6-5.4 12-12 12H124z"
-        transform=""
-      />
-    </svg>
+    <span>
+      <svg
+        aria-hidden="true"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zM92.5 220.5l123 123c4.7 4.7 12.3 4.7 17 0l123-123c7.6-7.6 2.2-20.5-8.5-20.5H101c-10.7 0-16.1 12.9-8.5 20.5z"
+          transform=""
+        />
+      </svg>
+       More
+    </span>
      TogglePanel
   </a>
+</DocumentFragment>
+`;
+
+exports[`<TogglePanel /> show the edition panel for the clicked hub 1`] = `
+<DocumentFragment>
   <div
     class="panel expanded"
   >
@@ -65,5 +47,29 @@ exports[`<TogglePanel /> show the edition panel for the clicked hub 1`] = `
       the panel content
     </p>
   </div>
+  <a
+    aria-disabled="false"
+    aria-label="Expand panel"
+    class="pf-c-button pf-m-link"
+  >
+    <span>
+      <svg
+        aria-hidden="true"
+        fill="currentColor"
+        height="1em"
+        role="img"
+        style="vertical-align: -0.125em;"
+        viewBox="0 0 448 512"
+        width="1em"
+      >
+        <path
+          d="M0 432V80c0-26.51 21.49-48 48-48h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48zm355.515-140.485l-123.03-123.03c-4.686-4.686-12.284-4.686-16.971 0L92.485 291.515c-7.56 7.56-2.206 20.485 8.485 20.485h246.059c10.691 0 16.045-12.926 8.486-20.485z"
+          transform=""
+        />
+      </svg>
+       Fewer
+    </span>
+     TogglePanel
+  </a>
 </DocumentFragment>
 `;

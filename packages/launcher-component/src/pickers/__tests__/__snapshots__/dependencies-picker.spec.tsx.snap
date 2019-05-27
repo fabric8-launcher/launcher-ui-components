@@ -21,18 +21,6 @@ exports[`<QuarkusDependencyPicker /> renders the QuarkusDependencyPicker correct
         class="quarkusDependencyList"
       />
     </div>
-    <div
-      class="pf-l-grid__item pf-m-4-col"
-    >
-      <h1
-        class="pf-c-title pf-m-md"
-      >
-        Selected:
-      </h1>
-      <div
-        class="quarkusDependencyList"
-      />
-    </div>
   </div>
 </DocumentFragment>
 `;
@@ -58,18 +46,6 @@ exports[`<QuarkusDependencyPicker /> select values and save 1`] = `
         class="quarkusDependencyList"
       />
     </div>
-    <div
-      class="pf-l-grid__item pf-m-4-col"
-    >
-      <h1
-        class="pf-c-title pf-m-md"
-      >
-        Selected:
-      </h1>
-      <div
-        class="quarkusDependencyList"
-      />
-    </div>
   </div>
 </DocumentFragment>
 `;
@@ -92,18 +68,6 @@ exports[`<QuarkusDependencyPicker /> show results for valid search 1`] = `
       />
       <div
         aria-label="Select dependencies"
-        class="quarkusDependencyList"
-      />
-    </div>
-    <div
-      class="pf-l-grid__item pf-m-4-col"
-    >
-      <h1
-        class="pf-c-title pf-m-md"
-      >
-        Selected:
-      </h1>
-      <div
         class="quarkusDependencyList"
       />
     </div>

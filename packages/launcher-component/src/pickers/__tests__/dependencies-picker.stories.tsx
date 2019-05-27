@@ -6,7 +6,7 @@ import { FormPanel } from '../../core/form-panel/form-panel';
 import { LauncherDepsProvider } from '../..';
 
 import { QuarkusDependencyLoader } from '../../loaders/quarkus-dependency-loader';
-import { QuarkusDependencyPicker } from '../quarkus-dependency-picker';
+import { DependenciesPicker } from '../dependencies-picker';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (
@@ -14,18 +14,18 @@ storiesOf('Pickers', module)
       {storyFn()}
     </LauncherDepsProvider>
   ))
-  .add('QuarkusDependencyPicker', () => {
+  .add('DependenciesPicker', () => {
     return (
       <QuarkusDependencyLoader>
         {dependencies => (
           <FormPanel
             initialValue={{}}
-            validator={QuarkusDependencyPicker.checkCompletion}
+            validator={DependenciesPicker.checkCompletion}
             onSave={action('save')}
             onCancel={action('cancel')}
           >
             {
-              (inputProps) => (<QuarkusDependencyPicker.Element {...inputProps} items={dependencies}/>)}
+              (inputProps) => (<DependenciesPicker.Element {...inputProps} items={dependencies}/>)}
           </FormPanel>
         )}
       </QuarkusDependencyLoader>

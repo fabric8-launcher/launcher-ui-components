@@ -6,3 +6,4 @@ export * from './contexts/launcher-client-provider';
 export * from './loaders/new-app-runtimes-loaders';
 export * from './core/data-loader/data-loader';
 export * from './pickers/maven-settings-picker';
+export * from './pickers/dependencies-picker';

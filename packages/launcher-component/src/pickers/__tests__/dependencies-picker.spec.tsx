@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "react-testing-library";
-import { QuarkusDependencyPicker } from "../quarkus-dependency-picker";
+import { DependenciesPicker } from "../dependencies-picker";
 
 describe('<QuarkusDependencyPicker />', () => {
 
@@ -20,12 +20,12 @@ describe('<QuarkusDependencyPicker />', () => {
   ]
 
   it('renders the QuarkusDependencyPicker correctly', () => {
-    const comp = render(<QuarkusDependencyPicker.Element items={items} value={{}} onChange={() => { }} />);
+    const comp = render(<DependenciesPicker.Element items={items} value={{}} onChange={() => { }} />);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('show results for valid search', async () => {
-    const comp = render(<QuarkusDependencyPicker.Element items={items} value={{}} onChange={() => {}} />);
+    const comp = render(<DependenciesPicker.Element items={items} value={{}} onChange={() => {}} />);
 
     const searchField = comp.getByLabelText('Search dependencies');
     fireEvent.change(searchField, { target: { value: 'CDI' } });
@@ -36,7 +36,7 @@ describe('<QuarkusDependencyPicker />', () => {
 
   it('select values and save', async () => {
     const handleChange = jest.fn();
-    const comp = render(<QuarkusDependencyPicker.Element items={items} value={{}} onChange={handleChange} />);
+    const comp = render(<DependenciesPicker.Element items={items} value={{}} onChange={handleChange} />);
 
     const searchField = comp.getByLabelText('Search dependencies');
     fireEvent.change(searchField, { target: { value: 'Netty' } });
