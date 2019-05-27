@@ -14,7 +14,7 @@ export function TogglePanel(props: TogglePanelProps) {
   const [collapse, setCollapse] = useSessionStorageWithObject(props.title, false);
   return (
     <Fragment>
-      <div className={`${style.panel} ${(collapse ? style.expanded : '')}`}>
+      <div className={`${style.panel} ${(collapse ? style.expanded : '')}`} style={!collapse ? {overflow: 'hidden'} : {}}>
         {props.children}
       </div>
       <Button
