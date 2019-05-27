@@ -11,7 +11,7 @@
     border: none;
     border-bottom: 2px solid #BBE1F2;
   }
-
+  
   .pf-c-form-control:focus {
     border: none;
     border-bottom: 2px solid #4A97E8;
@@ -20,15 +20,5 @@
 
   .pf-c-form__label {
     color: #54626B
-  }
-
-  .labels {
-    background-color: #ccc;
-  }
-
-  label {
-    position: relative;
-    left: -110px;
-    top: 2em;
   }
 }
