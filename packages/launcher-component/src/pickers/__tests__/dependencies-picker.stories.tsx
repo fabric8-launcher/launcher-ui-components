@@ -1,12 +1,12 @@
-import React from 'react';
 import '@patternfly/react-core/dist/styles/base.css';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { FormPanel } from '../../core/form-panel/form-panel';
+import { storiesOf } from '@storybook/react';
+import React from 'react';
 import { LauncherDepsProvider } from '../..';
+import { FormPanel } from '../../core/form-panel/form-panel';
+import { EnumLoader } from '../../loaders/enum-loader';
+import { DependenciesPicker, DependencyItem } from '../dependencies-picker';
 
-import { QuarkusDependencyLoader } from '../../loaders/quarkus-dependency-loader';
-import { DependenciesPicker } from '../dependencies-picker';
 
 storiesOf('Pickers', module)
   .addDecorator((storyFn) => (
@@ -16,7 +16,7 @@ storiesOf('Pickers', module)
   ))
   .add('DependenciesPicker', () => {
     return (
-      <QuarkusDependencyLoader>
+      <EnumLoader name="quarkus-extensions">
         {dependencies => (
           <FormPanel
             initialValue={{}}
@@ -25,9 +25,9 @@ storiesOf('Pickers', module)
             onCancel={action('cancel')}
           >
             {
-              (inputProps) => (<DependenciesPicker.Element {...inputProps} items={dependencies}/>)}
+              (inputProps) => (<DependenciesPicker.Element {...inputProps} items={dependencies as DependencyItem[]}/>)}
           </FormPanel>
         )}
-      </QuarkusDependencyLoader>
+      </EnumLoader>
     );
   });

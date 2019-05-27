@@ -16,7 +16,6 @@ import {
   OpenShiftCluster,
   PropertyValue,
   StatusListener,
-  DependencyItem
 } from '../types';
 
 import capabilities from '../data-examples/mock-capabilities.json';
@@ -26,7 +25,7 @@ import gitUser from '../data-examples/mock-git-user.json';
 import exampleCatalog from '../data-examples/mock-example-catalog.json';
 import analyzeResult from '../data-examples/mock-import-analyze.json';
 import gitProviders from '../data-examples/mock-git-providers.json';
-import dependencyItems from '../data-examples/mock-dependency-items.json';
+import quarkusExtensions from '../data-examples/mock-quarkus-extensions.json';
 import { filter } from '../..';
 import { waitForTick } from '../helpers/mock-helpers';
 
@@ -82,6 +81,9 @@ export default class MockLauncherClient implements LauncherClient {
 
   public async enum(id: string): Promise<PropertyValue[]> {
     await waitForTick(`enum(${id})`, 300);
+    if(id === 'quarkus-extensions') {
+      return quarkusExtensions;
+    }
     return enums[id];
   }
 
@@ -160,11 +162,6 @@ export default class MockLauncherClient implements LauncherClient {
   public async ocExistsProject(projectName: string): Promise<ExistsResult> {
     await waitForTick('ocExistsProject()', 300);
     return {exists: projectName === 'my-project'};
-  }
-
-  public async dependencyItems(): Promise<DependencyItem[]> {
-    await waitForTick('dependencyItems()', 300);
-    return dependencyItems;
   }
 }
 /* end-test-code */

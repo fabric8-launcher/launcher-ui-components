@@ -1,10 +1,9 @@
+import { DependenciesPicker, EnumLoader, MavenSettingsPicker, DependencyItem, Separator } from 'launcher-component';
 import * as React from 'react';
-import { MavenSettingsPicker } from 'launcher-component';
 
 interface QuarkusFormProps { }
 
 const validator = () => true;
-
 
 interface Project {
     metadata: {
@@ -33,9 +32,14 @@ export function QuarkusForm(props: QuarkusFormProps) {
 
 
     const setMetadata = (metadata: any) => setProject((prev) => ({ ...prev, metadata }));
+    const setDependencies = (val: { dependencies: string[] }) => setProject((prev) => ({ ...prev, dependencies: val.dependencies }));
     return (
         <div className="quarkus-form-container">
             <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} />
+            <Separator />
+            <EnumLoader name="quarkus-extensions">
+                {extensions => (<DependenciesPicker.Element items={extensions as DependencyItem[]} value={{ dependencies: project.dependencies }} onChange={setDependencies} />)}
+            </EnumLoader>
         </div>
     );
 }

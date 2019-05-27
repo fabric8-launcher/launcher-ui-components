@@ -9,13 +9,13 @@ describe('<QuarkusDependencyPicker />', () => {
       "id": "io.quarkus:quarkus-arc",
       "description": "Build time CDI dependency injection",
       "name": "ArC",
-      "category": "Core"
+      "metadata": { "category": "Core" }
     },
     {
       "name": "Netty",
       "description": "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
       "id": "io.quarkus:quarkus-netty",
-      "category": "Web"
+      "metadata": { "category": "Web" }
     },
   ]
 

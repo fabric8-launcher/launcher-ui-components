@@ -15,7 +15,6 @@ import {
   OpenShiftCluster,
   PropertyValue,
   StatusListener,
-  DependencyItem
 } from './types';
 
 export const defaultAuthorizationsProvider = async () => undefined;
@@ -52,5 +51,4 @@ export interface LauncherClient {
 
   gitInfo(): Promise<GitInfo>;
 
-  dependencyItems(): Promise<DependencyItem[]>;
 }

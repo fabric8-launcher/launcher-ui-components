@@ -12,13 +12,13 @@ exports[`<QuarkusDependencyPicker /> renders the QuarkusDependencyPicker correct
         aria-invalid="false"
         aria-label="Search dependencies"
         class="pf-c-form-control"
-        placeholder="CDI, Netty, Hibernate, Vert.x..."
+        placeholder="Core, Web..."
         type="text"
         value=""
       />
       <div
         aria-label="Select dependencies"
-        class="quarkusDependencyList"
+        class="dependencyList"
       />
     </div>
   </div>
@@ -37,13 +37,13 @@ exports[`<QuarkusDependencyPicker /> select values and save 1`] = `
         aria-invalid="false"
         aria-label="Search dependencies"
         class="pf-c-form-control"
-        placeholder="CDI, Netty, Hibernate, Vert.x..."
+        placeholder="Core, Web..."
         type="text"
         value=""
       />
       <div
         aria-label="Select dependencies"
-        class="quarkusDependencyList"
+        class="dependencyList"
       />
     </div>
   </div>
@@ -62,13 +62,13 @@ exports[`<QuarkusDependencyPicker /> show results for valid search 1`] = `
         aria-invalid="false"
         aria-label="Search dependencies"
         class="pf-c-form-control"
-        placeholder="CDI, Netty, Hibernate, Vert.x..."
+        placeholder="Core, Web..."
         type="text"
         value=""
       />
       <div
         aria-label="Select dependencies"
-        class="quarkusDependencyList"
+        class="dependencyList"
       />
     </div>
   </div>

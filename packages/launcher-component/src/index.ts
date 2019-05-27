@@ -4,6 +4,8 @@ export * from './flows/import-existing-flow';
 export * from './flows/deploy-example-app-flow';
 export * from './contexts/launcher-client-provider';
 export * from './loaders/new-app-runtimes-loaders';
+export * from './loaders/enum-loader';
 export * from './core/data-loader/data-loader';
 export * from './pickers/maven-settings-picker';
 export * from './pickers/dependencies-picker';
+export * from './core/stuff';

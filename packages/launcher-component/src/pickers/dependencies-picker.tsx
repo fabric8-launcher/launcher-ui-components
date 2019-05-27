@@ -1,15 +1,14 @@
 import { Grid, GridItem, Stack, StackItem, TextInput, Title } from "@patternfly/react-core";
 import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
-import { DependencyItem } from "launcher-client";
 import React, { Fragment, useState } from "react";
 import { InputProps, Picker } from "../core/types";
 import style from './dependencies.module.scss';
 
-export interface DependencyValue {
+export interface DependencyItem {
   id: string;
-  name?: string;
-  description?: string;
-  category?: string;
+  name: string;
+  description: string;
+  metadata: { category: string; };
 }
 
 export interface DependenciesPickerValue {
@@ -46,7 +45,7 @@ function DependencyItemComponent(props: DependencyItemProps) {
       <Stack style={{ position: 'relative' }}>
         <StackItem isMain>
           <Title size="sm" aria-label={`Pick ${props.id} dependency`}>{props.name}</Title>
-          <span className={style.category}>{props.category}</span>
+          <span className={style.category}>{props.metadata.category}</span>
           {active && (props.operation === OperationType.Add ?
             <PlusIcon className={style.icon} /> : <TimesIcon className={style.icon} />)}
         </StackItem>
@@ -76,16 +75,17 @@ export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPic
 
     const filterFunction = (d: DependencyItem) =>
       filter !== '' && (d.description.toLowerCase().includes(filter.toLowerCase())
-        || d.name.toLowerCase().includes(filter.toLowerCase()));
+        || d.name.toLowerCase().includes(filter.toLowerCase())
+        || d.metadata.category.toLowerCase().includes(filter.toLowerCase()));
     const result = props.items.filter(filterFunction);
-
+    const categories = new Set(props.items.map(i => i.metadata.category));
     return (
       <Fragment>
         <Grid gutter="md">
           <GridItem span={8}>
             <TextInput
               aria-label="Search dependencies"
-              placeholder="CDI, Netty, Hibernate, Vert.x..."
+              placeholder={ `${Array.from(categories).join(', ')}...`}
               value={filter}
               onChange={value => setFilter(value)}
             />
