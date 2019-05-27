@@ -3,7 +3,7 @@ import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
 import { DependencyItem } from "launcher-client";
 import React, { Fragment, useState } from "react";
 import { InputProps, Picker } from "../core/types";
-import style from './quarkus-dependency.module.scss';
+import style from './dependencies.module.scss';
 
 export interface DependencyValue {
   id: string;
@@ -12,11 +12,11 @@ export interface DependencyValue {
   category?: string;
 }
 
-export interface QuarkusDependenciesPickerValue {
+export interface DependenciesPickerValue {
   dependencies?: string[];
 }
 
-interface QuarkusDependencyPickerProps extends InputProps<QuarkusDependenciesPickerValue> {
+interface DependenciesPickerProps extends InputProps<DependenciesPickerValue> {
   items: DependencyItem[];
 }
 
@@ -56,9 +56,9 @@ function DependencyItemComponent(props: DependencyItemProps) {
   )
 }
 
-export const DependenciesPicker: Picker<QuarkusDependencyPickerProps, QuarkusDependenciesPickerValue> = {
-  checkCompletion: (value: QuarkusDependenciesPickerValue) => !!value.dependencies && value.dependencies.length > 0,
-  Element: (props: QuarkusDependencyPickerProps) => {
+export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPickerValue> = {
+  checkCompletion: (value: DependenciesPickerValue) => !!value.dependencies && value.dependencies.length > 0,
+  Element: (props: DependenciesPickerProps) => {
     const [filter, setFilter] = useState('');
     const dependencies = props.value.dependencies || [];
     const dependenciesSet = new Set(dependencies);
@@ -89,7 +89,7 @@ export const DependenciesPicker: Picker<QuarkusDependencyPickerProps, QuarkusDep
               value={filter}
               onChange={value => setFilter(value)}
             />
-            <div aria-label="Select dependencies" className={style.quarkusDependencyList}>
+            <div aria-label="Select dependencies" className={style.dependencyList}>
               {
                 result.map((dep, i) => (
                   <DependencyItemComponent
@@ -106,7 +106,7 @@ export const DependenciesPicker: Picker<QuarkusDependencyPickerProps, QuarkusDep
           {dependencies.length > 0 && (
             <GridItem span={4}>
               <Title size="md">Selected:</Title>
-              <div className={style.quarkusDependencyList}>
+              <div className={style.dependencyList}>
                 {
                   dependencies.map((selected, i) => (
                     <DependencyItemComponent
