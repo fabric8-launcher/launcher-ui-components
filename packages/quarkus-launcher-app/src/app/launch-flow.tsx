@@ -42,7 +42,7 @@ export function LaunchFlow(props: LaunchFlowProps) {
       {run.status === Status.RUNNING && (
         <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults}/>)}
       {!run.error && run.status === Status.DOWNLOADED
-      && (<NextSteps onClose={() => {}} downloadLink={run.result.downloadLink}/>)}
+      && (<NextSteps downloadLink={run.result.downloadLink}/>)}
     </React.Fragment>
   );
 }

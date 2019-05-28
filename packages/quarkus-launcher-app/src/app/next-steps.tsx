@@ -1,24 +1,25 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Button, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { DownloadIcon } from '@patternfly/react-icons';
 import { ExternalLink } from 'launcher-component';
 import { FixedModal } from 'launcher-component';
 
 interface NextStepsProps {
-  onClose: () => void;
   downloadLink?: string;
 }
 
 export function NextSteps(props: NextStepsProps) {
+  const [open, setOpen] = useState(true);
+  const close = () => setOpen(false);
   return (
     <FixedModal
       title="Your Application is Ready"
-      isOpen
+      isOpen={open}
       isLarge={false}
-      onClose={props.onClose}
+      onClose={close}
       aria-label="Your Application is ready to be downloaded"
       actions={[
-        <Button key="launch-new" variant="secondary" aria-label="Start a new Application" onClick={props.onClose}>
+        <Button key="launch-new" variant="secondary" aria-label="Start a new Application" onClick={close}>
           Start a new Application
         </Button>,
       ]}
