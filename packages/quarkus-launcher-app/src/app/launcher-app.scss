@@ -49,6 +49,17 @@ body {
       max-width: 1000px;
     }
   }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    .form {
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+      button {
+        padding: 12px 32px;
+      }
+    }
+  }
 }
 
 @media (max-width: 900px) {

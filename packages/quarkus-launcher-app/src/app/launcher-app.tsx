@@ -1,16 +1,17 @@
-import { LauncherDepsProvider } from 'launcher-component';
 import React from 'react';
+import { LauncherDepsProvider } from 'launcher-component';
 import { launcherApiUrl } from './config';
+import { LaunchFlow } from './launch-flow';
+
 import '@patternfly/react-core/dist/styles/base.css';
 import './launcher-app.scss';
-import { QuarkusForm } from './quarkus-form';
 
 export function LauncherApp() {
   return (
-          <LauncherDepsProvider
-            launcherUrl={launcherApiUrl}
-          >
-            <QuarkusForm />
-          </LauncherDepsProvider>
+    <LauncherDepsProvider
+      launcherUrl={launcherApiUrl}
+    >
+      <LaunchFlow />
+    </LauncherDepsProvider>
   );
 }
