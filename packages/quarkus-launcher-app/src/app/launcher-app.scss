@@ -52,9 +52,11 @@ body {
   .footer {
     position: fixed;
     bottom: 0;
+    min-width: 100%;
     .form {
       border-top: 1px solid #ccc;
       padding-top: 20px;
+      background-color: #fff;
       button {
         padding: 12px 32px;
       }
