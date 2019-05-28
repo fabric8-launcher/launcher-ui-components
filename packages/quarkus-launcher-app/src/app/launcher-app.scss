@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM88R8AApUByU2MEcEAAAAASUVORK5CYII=);
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk4BH7DwABWQEjeBQ2bAAAAABJRU5ErkJggg==);
   background-repeat: repeat-y;
   background-size: 275px 1px;
 }
@@ -37,6 +37,7 @@ body {
     .header {
       h3 {
         font-weight: 700;
+        color: #fff;
       }
       width: 280px;
       text-align: right;
