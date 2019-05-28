@@ -6,7 +6,7 @@ exports[`<QuarkusDependencyPicker /> renders the QuarkusDependencyPicker correct
     class="pf-l-grid pf-m-gutter"
   >
     <div
-      class="pf-l-grid__item pf-m-8-col"
+      class="pf-l-grid__item pf-m-12-col-on-sm pf-m-6-col-on-md"
     >
       <input
         aria-invalid="false"
@@ -31,7 +31,7 @@ exports[`<QuarkusDependencyPicker /> select values and save 1`] = `
     class="pf-l-grid pf-m-gutter"
   >
     <div
-      class="pf-l-grid__item pf-m-8-col"
+      class="pf-l-grid__item pf-m-12-col-on-sm pf-m-6-col-on-md"
     >
       <input
         aria-invalid="false"
@@ -56,7 +56,7 @@ exports[`<QuarkusDependencyPicker /> show results for valid search 1`] = `
     class="pf-l-grid pf-m-gutter"
   >
     <div
-      class="pf-l-grid__item pf-m-8-col"
+      class="pf-l-grid__item pf-m-12-col-on-sm pf-m-6-col-on-md"
     >
       <input
         aria-invalid="false"

@@ -30,6 +30,7 @@
     "app:start:production-api": "yarn workspace launcher-app start:production-api",
     "app:start:mock-api": "yarn workspace launcher-app start:mock-api",
     "quarkus-app:start": "yarn workspace quarkus-launcher-app start",
+    "quarkus-app:build": "yarn workspace quarkus-launcher-app build",
     "app:build": "yarn workspace launcher-app build",
     "wa:start": "yarn workspace launcher-welcome-app start",
     "wa:build": "yarn workspace launcher-welcome-app build",
