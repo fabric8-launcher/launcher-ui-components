@@ -35,11 +35,25 @@ export function QuarkusForm(props: QuarkusFormProps) {
   const setDependencies = (val: { dependencies: string[] }) => setProject((prev) => ({ ...prev, dependencies: val.dependencies }));
   return (
     <div className="quarkus-form-container">
-      <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} />
+      <div className="row">
+        <div className="header">
+          <h3>Project Metadata</h3>
+        </div>
+        <div className="form">
+          <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} />
+        </div>
+      </div>
       <Separator />
-      <EnumLoader name="quarkus-extensions">
-        {extensions => (<DependenciesPicker.Element items={extensions as DependencyItem[]} value={{ dependencies: project.dependencies }} onChange={setDependencies} />)}
-      </EnumLoader>
+      <div className="row">
+        <div className="header">
+          <h3>Extensions</h3>
+        </div>
+        <div className="form">
+          <EnumLoader name="quarkus-extensions">
+            {extensions => (<DependenciesPicker.Element items={extensions as DependencyItem[]} value={{ dependencies: project.dependencies }} onChange={setDependencies} />)}
+          </EnumLoader>
+        </div>
+      </div>
     </div>
   );
 }

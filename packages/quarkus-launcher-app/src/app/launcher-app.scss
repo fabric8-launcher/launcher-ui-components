@@ -3,15 +3,20 @@
   padding: 20px 20px 100px;
 }
 
+body {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM88R8AApUByU2MEcEAAAAASUVORK5CYII=);
+  background-repeat: repeat-y;
+  background-size: 275px 1px;
+}
+
 .quarkus-form-container {
-  width: 600px;
   margin: 50px auto;
 
   .pf-c-form-control {
     border: none;
     border-bottom: 2px solid #BBE1F2;
   }
-  
+
   .pf-c-form-control:focus {
     border: none;
     border-bottom: 2px solid #4A97E8;
@@ -20,5 +25,58 @@
 
   .pf-c-form__label {
     color: #54626B
+  }
+
+  .pf-c-form {
+    max-width: 500px;
+  }
+
+  .row {
+    display: flex;
+    min-width: 900px;
+    .header {
+      h3 {
+        font-weight: 700;
+      }
+      width: 280px;
+      text-align: right;
+      padding: 8px 32px 8px 0;
+      flex: 280px 0 0;
+    }
+    .form {
+      padding: 8px 0 8px 32px;
+      flex: 2;
+      max-width: 1000px;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  body {
+      background: 0 0;
+      padding-bottom: 94px;
+      min-width: 0;
+  }
+
+  .quarkus-form-container {
+    .row {
+      display: block;
+      max-width: none;
+      min-width: 0;
+      padding: 16px;
+
+      .header {
+        text-align: left;
+        padding: 0;
+        max-width: none;
+        min-width: 0;
+      }
+
+      .form {
+        padding: 0;
+        max-width: none;
+        min-width: 0;
+      }
+    }
   }
 }

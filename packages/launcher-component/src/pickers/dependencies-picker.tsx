@@ -82,7 +82,7 @@ export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPic
     return (
       <Fragment>
         <Grid gutter="md">
-          <GridItem span={6}>
+          <GridItem sm={12} md={6}>
             <TextInput
               aria-label="Search dependencies"
               placeholder={ `${Array.from(categories).join(', ')}...`}
@@ -104,7 +104,7 @@ export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPic
             </div>
           </GridItem>
           {dependencies.length > 0 && (
-            <GridItem span={6}>
+            <GridItem sm={12} md={6}>
               <Title size="md">Selected:</Title>
               <div className={style.dependencyList}>
                 {
