@@ -21,7 +21,11 @@ export function DependencyListPicker(props: DependencyListPickerProps) {
   const dependencies = props.value.dependencies || [];
   const dependenciesSet = new Set(dependencies);
   const addDep = (id: string) => {
-    dependenciesSet.add(id);
+    if (!dependenciesSet.has(id)) {
+      dependenciesSet.add(id);
+    } else {
+      dependenciesSet.delete(id);
+    }
     props.onChange({ dependencies: Array.from(dependenciesSet) });
   };
 return (
