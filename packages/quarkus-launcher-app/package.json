@@ -14,9 +14,10 @@
   },
   "dependencies": {
     "@sentry/browser": "5.0.8",
+    "axios": "^0.18.0",
     "launcher-component": "^1.0.0-alpha.0",
     "query-string": "6.4.2",
-    "axios": "^0.18.0"
+    "react-hotkeys": "^1.1.4"
   },
   "devDependencies": {
     "@types/react-router-dom": "4.3.2",
