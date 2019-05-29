@@ -43,14 +43,21 @@ body {
     display: flex;
     min-width: 900px;
     .header {
-      h3 {
-        font-weight: 700;
-        color: #fff;
-      }
       width: 280px;
       text-align: right;
       padding: 8px 32px 8px 0;
       flex: 280px 0 0;
+      h3 {
+        font-weight: 700;
+        color: #fff;
+      }
+      .pf-m-link {
+        color: cyan;
+        text-decoration: underline;
+      }
+      .pf-m-link:hover, .pf-m-link:active, .pf-m-link:focus {
+        color: teal;
+      }
     }
     .form {
       padding: 8px 0 8px 32px;
@@ -103,6 +110,14 @@ body {
         padding: 0;
         max-width: none;
         min-width: 0;
+
+        .pf-m-link {
+          color: #007bba;
+          text-decoration: none;
+        }
+        .pf-m-link:hover, .pf-m-link:active, .pf-m-link:focus {
+          color: #004080;
+        }
       }
 
       .form {
