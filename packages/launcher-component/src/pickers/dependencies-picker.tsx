@@ -1,4 +1,4 @@
-import { Grid, GridItem, Stack, StackItem, TextInput, Title } from "@patternfly/react-core";
+import { Grid, GridItem, Stack, StackItem, TextInput, Title, Tooltip } from "@patternfly/react-core";
 import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
 import React, { Fragment, useState } from "react";
 import { InputProps, Picker } from "../core/types";
@@ -17,6 +17,7 @@ export interface DependenciesPickerValue {
 
 interface DependenciesPickerProps extends InputProps<DependenciesPickerValue> {
   items: DependencyItem[];
+  placeholder: string;
 }
 
 enum OperationType {
@@ -83,12 +84,14 @@ export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPic
       <Fragment>
         <Grid gutter="md">
           <GridItem sm={12} md={6}>
-            <TextInput
-              aria-label="Search dependencies"
-              placeholder={ `${Array.from(categories).join(', ')}...`}
-              value={filter}
-              onChange={value => setFilter(value)}
-            />
+            <Tooltip position="right" content={`${Array.from(categories).join(', ')}`}>
+              <TextInput
+                aria-label="Search dependencies"
+                placeholder={props.placeholder}
+                value={filter}
+                onChange={value => setFilter(value)}
+              />
+            </Tooltip>
             <div aria-label="Select dependencies" className={style.dependencyList}>
               {
                 result.map((dep, i) => (

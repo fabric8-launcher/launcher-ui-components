@@ -72,7 +72,12 @@ export function QuarkusForm(props: QuarkusFormProps) {
                 />
               </div>
               <div className="form">
-                <DependenciesPicker.Element items={extensions as DependencyItem[]} value={{ dependencies: project.dependencies }} onChange={setDependencies} />
+                <DependenciesPicker.Element
+                  items={extensions as DependencyItem[]}
+                  value={{ dependencies: project.dependencies }}
+                  onChange={setDependencies}
+                  placeholder="RESTEasy, Hibernate ORM, Web..."
+                />
               </div>
             </Fragment>
           )}
