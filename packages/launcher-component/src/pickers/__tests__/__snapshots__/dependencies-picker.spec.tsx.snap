@@ -12,7 +12,7 @@ exports[`<QuarkusDependencyPicker /> renders the QuarkusDependencyPicker correct
         aria-invalid="false"
         aria-label="Search dependencies"
         class="pf-c-form-control"
-        placeholder="Core, Web..."
+        placeholder=""
         type="text"
         value=""
       />
@@ -37,7 +37,7 @@ exports[`<QuarkusDependencyPicker /> select values and save 1`] = `
         aria-invalid="false"
         aria-label="Search dependencies"
         class="pf-c-form-control"
-        placeholder="Core, Web..."
+        placeholder=""
         type="text"
         value=""
       />
@@ -62,7 +62,7 @@ exports[`<QuarkusDependencyPicker /> show results for valid search 1`] = `
         aria-invalid="false"
         aria-label="Search dependencies"
         class="pf-c-form-control"
-        placeholder="Core, Web..."
+        placeholder=""
         type="text"
         value=""
       />
