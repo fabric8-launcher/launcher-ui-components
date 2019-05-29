@@ -12,6 +12,14 @@ body {
 .quarkus-form-container {
   margin: 50px auto;
 
+  .brand-image {
+    background-image: url('/quarkus_logo_horizontal.svg');
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    height: 35px;
+    padding-left: 15px;
+  }
+
   .pf-c-form-control {
     border: none;
     border-bottom: 2px solid #BBE1F2;
@@ -73,6 +81,17 @@ body {
   }
 
   .quarkus-form-container {
+    margin: 25px auto;
+    .brand-image {
+      background-image: url('/quarkus_logo_horizontal_default.svg');
+      height: 25px;
+      padding-left: 15px;
+    }
+
+    .footer {
+      position: initial;
+    }
+
     .row {
       display: block;
       max-width: none;

@@ -42,6 +42,7 @@ export function QuarkusForm(props: QuarkusFormProps) {
   const setDependencies = (val: { dependencies: string[] }) => setProject((prev) => ({ ...prev, dependencies: val.dependencies }));
   return (
     <div className="quarkus-form-container">
+      <div className="brand-image" />
       <div className="row">
         <div className="header">
           <h3>Project Metadata</h3>
