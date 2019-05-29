@@ -48,7 +48,7 @@ return (
               <Title size="lg">{name}</Title>
               {
                 dependencyGroups[name].map(dep => (
-                  <FormGroup fieldId={dep.id}>
+                  <FormGroup fieldId={dep.id} key={dep.id}>
                     <Checkbox
                       id={dep.id}
                       name={dep.id}
