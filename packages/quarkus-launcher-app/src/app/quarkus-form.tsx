@@ -1,6 +1,7 @@
 import { DependenciesPicker, EnumLoader, MavenSettingsPicker, DependencyItem, Separator } from 'launcher-component';
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Button } from '@patternfly/react-core';
+import { DependencyListPicker } from './dependency-list-picker';
 
 interface QuarkusFormProps {
   onSave: (project: Project) => void;
@@ -21,6 +22,9 @@ interface Project {
 }
 
 export function QuarkusForm(props: QuarkusFormProps) {
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
+
   const [project, setProject] = useState<Project>({
     metadata: {
       groupId: 'com.example',
@@ -53,16 +57,26 @@ export function QuarkusForm(props: QuarkusFormProps) {
         </div>
       </div>
       <div className="row">
-        <div className="header">
-          <h3>Extensions</h3>
-        </div>
-        <div className="form">
-          <EnumLoader name="quarkus-extensions">
-            {extensions => (
-              <DependenciesPicker.Element items={extensions as DependencyItem[]} value={{ dependencies: project.dependencies }} onChange={setDependencies} />
-            )}
-          </EnumLoader>
-        </div>
+        <EnumLoader name="quarkus-extensions">
+          {extensions => (
+            <Fragment>
+              <div className="header">
+                <h3>Extensions</h3>
+                <Button variant="link" onClick={() => setOpen(true)}>See all</Button>
+                <DependencyListPicker
+                  isOpen={open}
+                  close={close}
+                  extensions={extensions as DependencyItem[]}
+                  value={{ dependencies: project.dependencies }}
+                  onChange={setDependencies}
+                />
+              </div>
+              <div className="form">
+                <DependenciesPicker.Element items={extensions as DependencyItem[]} value={{ dependencies: project.dependencies }} onChange={setDependencies} />
+              </div>
+            </Fragment>
+          )}
+        </EnumLoader>
       </div>
       <div className="row footer">
         <div className="header"></div>

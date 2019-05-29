@@ -12,3 +12,4 @@ export * from './pickers/dependencies-picker';
 export * from './core/stuff';
 export * from './next-steps/processing-app';
 export * from './next-steps/external-link';
+export * from './core/types';
