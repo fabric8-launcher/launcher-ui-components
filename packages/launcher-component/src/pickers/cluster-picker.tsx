@@ -11,7 +11,7 @@ import {
   Title
 } from '@patternfly/react-core';
 import { OpenshiftIcon } from '@patternfly/react-icons';
-import { OpenShiftCluster } from 'launcher-client';
+import { OpenShiftCluster } from '@launcher/client';
 
 import { InputProps, Picker } from '../core/types';
 import { Loader } from '../core/stuff';

@@ -15,9 +15,9 @@ import {
 } from '@patternfly/react-core';
 import style from './login-page.module.scss';
 import { Layout } from './layout';
-import { NewAppRuntimesLoader } from 'launcher-component';
+import { NewAppRuntimesLoader } from '@launcher/component';
 import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
-import { PropertyValue } from 'launcher-client';
+import { PropertyValue } from '@launcher/client';
 import { useAuthenticationApi } from '../auth/auth-context';
 
 function LoginCard() {

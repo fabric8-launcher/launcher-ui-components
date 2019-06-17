@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, cleanup } from 'react-testing-library';
-import { mockLauncherClient } from 'launcher-client';
+import { mockLauncherClient } from '@launcher/client';
 import { LauncherDepsProvider } from '../../..';
 import { flushPromises } from '../../__tests__/test-helpers';
 

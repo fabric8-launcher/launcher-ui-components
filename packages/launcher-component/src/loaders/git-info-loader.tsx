@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitInfo, AuthorizationError } from 'launcher-client';
+import { GitInfo, AuthorizationError } from '@launcher/client';
 
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';

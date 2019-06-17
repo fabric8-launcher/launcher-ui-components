@@ -1,4 +1,4 @@
-import { PropertyValue } from 'launcher-client';
+import { PropertyValue } from '@launcher/client';
 import React from 'react';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';

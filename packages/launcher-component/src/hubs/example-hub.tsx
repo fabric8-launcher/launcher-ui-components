@@ -6,7 +6,7 @@ import { ExamplePicker, ExamplePickerValue } from '../pickers/example-picker';
 import { FormHub } from '../core/types';
 import { Button } from '@patternfly/react-core';
 import { OverviewComplete } from '../core/hub-n-spoke/overview-complete';
-import { ExampleMission } from 'launcher-client';
+import { ExampleMission } from '@launcher/client';
 import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
 
 export interface ExampleFormValue {

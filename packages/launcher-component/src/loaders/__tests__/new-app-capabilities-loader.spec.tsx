@@ -1,4 +1,4 @@
-import { Capability, mockLauncherClient } from 'launcher-client';
+import { Capability, mockLauncherClient } from '@launcher/client';
 import * as React from 'react';
 import { cleanup, render } from 'react-testing-library';
 import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';

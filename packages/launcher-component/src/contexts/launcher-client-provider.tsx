@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LauncherClientContext } from './launcher-client-context';
-import { cachedLauncherClient, checkNotNull, LauncherClient, mockLauncherClient } from 'launcher-client';
+import { cachedLauncherClient, checkNotNull, LauncherClient, mockLauncherClient } from '@launcher/client';
 import { AuthorizationsManager, AuthorizationManagerContext } from './authorization-context';
 
 interface LauncherDepsProvider {

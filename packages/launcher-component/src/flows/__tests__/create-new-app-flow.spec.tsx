@@ -3,7 +3,7 @@ import 'jest-dom/extend-expect';
 import { cleanup, fireEvent, render } from 'react-testing-library';
 import { CreateNewAppFlow } from '../create-new-app-flow';
 import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
-import { mockLauncherClient } from 'launcher-client';
+import { mockLauncherClient } from '@launcher/client';
 import { downloadCheckPayload, launchCheckPayloadAndProgress } from './flow-helpers';
 import { flushPromises } from '../../core/__tests__/test-helpers';
 

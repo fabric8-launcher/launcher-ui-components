@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DataLoader } from '../core/data-loader/data-loader';
 import { useLauncherClient } from '../contexts/launcher-client-context';
-import { AnyExample, constructModel, filter, ExampleMission } from 'launcher-client';
+import { AnyExample, constructModel, filter, ExampleMission } from '@launcher/client';
 
 export function ExamplesLoaderWithFilter(props: { query: { missionId?: string, runtimeId?: string }, children: (obj: AnyExample) => any }) {
   const client = useLauncherClient();

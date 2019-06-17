@@ -9,7 +9,7 @@ import {
   ImportExistingFlow,
   LauncherMenu,
   LauncherDepsProvider,
-} from 'launcher-component';
+} from '@launcher/component';
 import { Layout } from './layout';
 import { authMode, creatorApiUrl, authConfig, launcherApiUrl, publicUrl } from './config';
 import { Redirect, Route, Switch } from 'react-router';

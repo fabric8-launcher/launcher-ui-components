@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { checkNotNull, LauncherClient } from 'launcher-client';
+import { checkNotNull, LauncherClient } from '@launcher/client';
 
 export const LauncherClientContext = React.createContext<LauncherClient | undefined>(undefined);
 

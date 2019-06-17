@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cleanup, render, fireEvent } from 'react-testing-library';
 import { ClusterPicker } from '../cluster-picker';
-import { OpenShiftCluster } from 'launcher-client';
+import { OpenShiftCluster } from '@launcher/client';
 
 afterEach(cleanup);
 

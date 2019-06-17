@@ -1,4 +1,4 @@
-import { Capability, propsWithValuesMapper, checkNotNull } from 'launcher-client';
+import { Capability, propsWithValuesMapper, checkNotNull } from '@launcher/client';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';
 import { CapabilityItem } from '../pickers/capabilities-picker';
