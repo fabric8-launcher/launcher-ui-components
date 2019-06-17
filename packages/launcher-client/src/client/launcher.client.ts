@@ -14,7 +14,7 @@ import {
   LaunchAppResult,
   OpenShiftCluster,
   PropertyValue,
-  StatusListener
+  StatusListener,
 } from './types';
 
 export const defaultAuthorizationsProvider = async () => undefined;
@@ -50,4 +50,5 @@ export interface LauncherClient {
   gitRepositoryExists(payload: GitRepositoryExistsPayload): Promise<ExistsResult>;
 
   gitInfo(): Promise<GitInfo>;
+
 }

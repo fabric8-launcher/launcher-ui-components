@@ -1,4 +1,4 @@
-import { checkNotNull } from 'launcher-client';
+import { checkNotNull } from '@launcher/client';
 import { OpenshiftConfig, KeycloakConfig } from '../auth/types';
 
 function getEnv(env: string | undefined, name: string): string | undefined {

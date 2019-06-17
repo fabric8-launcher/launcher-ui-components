@@ -12,7 +12,7 @@ import {
   Split,
   SplitItem
 } from '@patternfly/react-core';
-import { ExampleRuntime, ExampleMission } from 'launcher-client';
+import { ExampleRuntime, ExampleMission } from '@launcher/client';
 import { InputProps, Picker } from '../core/types';
 import _ from 'lodash';
 

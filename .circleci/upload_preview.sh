@@ -20,6 +20,10 @@ DEPLOY_STORYBOOK_DOMAIN="https://fabric8-launcher-frontend-pr-${PR_NUM}-storyboo
 yarn comp:storybook:build
 yarn run surge --project ./packages/launcher-component/storybook-static --domain ${DEPLOY_STORYBOOK_DOMAIN};
 
+DEPLOY_QUARKUS_DOMAIN="https://fabric8-launcher-frontend-pr-${PR_NUM}-quarkus-app.surge.sh"
+yarn quarkus-app:build
+yarn run surge --project ./packages/quarkus-launcher-app/build --domain ${DEPLOY_QUARKUS_DOMAIN};
+
 if [ -z "$ALREADY_DEPLOYED_APP" ]
 then
   # Using the Issues api instead of the PR api

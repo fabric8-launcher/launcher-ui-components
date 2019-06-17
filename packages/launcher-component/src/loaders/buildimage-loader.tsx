@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { AnalyzeResult, BuilderImage } from 'launcher-client';
+import { AnalyzeResult, BuilderImage } from '@launcher/client';
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { DataLoader } from '../core/data-loader/data-loader';
 

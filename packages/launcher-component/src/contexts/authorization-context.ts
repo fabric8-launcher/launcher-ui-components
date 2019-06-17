@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { checkNotNull, Authorizations } from 'launcher-client';
+import { checkNotNull, Authorizations } from '@launcher/client';
 
 export interface AuthorizationsManager {
     getAuthorizations: (provider: string) => Promise<Authorizations | undefined>;

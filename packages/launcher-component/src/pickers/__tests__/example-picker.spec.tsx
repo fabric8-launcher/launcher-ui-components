@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cleanup, render, fireEvent } from 'react-testing-library';
 import { ExamplePicker } from '../example-picker';
-import { ExampleMission } from 'launcher-client';
+import { ExampleMission } from '@launcher/client';
 import { FormPanel } from '../../core/form-panel/form-panel';
 
 afterEach(cleanup);

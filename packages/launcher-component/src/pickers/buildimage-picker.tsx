@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Alert, DataList, DataListCell, DataListItem, Radio, Title } from '@patternfly/react-core';
-import { BuilderImage } from 'launcher-client';
+import { BuilderImage } from '@launcher/client';
 import { InputProps, Picker } from '../core/types';
 import { SpecialValue } from '../core/stuff';
 import { TogglePanel } from '../core/toggle-panel/toggle-panel';

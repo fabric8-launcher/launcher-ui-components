@@ -19,7 +19,7 @@ describe('<MavenSettingsPicker />', () => {
         onSave={handleSave}
         onCancel={() => {}}
       >
-        {(inputProps) => (<MavenSettingsPicker.Element {...inputProps}/>)}
+        {(inputProps) => (<MavenSettingsPicker.Element {...inputProps} showVersion />)}
       </FormPanel>
     );
 

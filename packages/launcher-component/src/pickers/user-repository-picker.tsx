@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, FormSelect, FormSelectOption, Grid, GridItem } from '@patternfly/react-core';
-import { GitInfo } from 'launcher-client';
+import { GitInfo } from '@launcher/client';
 
 import { InputProps, Picker } from '../core/types';
 import { BanIcon } from '@patternfly/react-icons';

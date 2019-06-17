@@ -1,30 +1,8 @@
-import { Locations } from '../helpers/locations';
 import { filter } from '../helpers/launchers';
-import { defaultAuthorizationsProvider, LauncherClient } from '../launcher.client';
-import {
-  AnalyzeResult, AnyExample,
-  Capability,
-  Catalog,
-  DownloadAppPayload,
-  DownloadAppResult,
-  Enums,
-  ExampleAppDescriptor,
-  ExistsResult,
-  GitInfo,
-  GitProvider,
-  GitRepositoryExistsPayload,
-  LaunchAppPayload,
-  LaunchAppResult,
-  LauncherClientConfig,
-  OpenShiftCluster,
-  PropertyValue,
-  StatusListener,
-  StatusMessage,
-  Authorizations,
-  AuthorizationsProvider,
-  AuthorizationError
-} from '../types';
+import { Locations } from '../helpers/locations';
 import { HttpService, RequestConfig } from '../http.service';
+import { defaultAuthorizationsProvider, LauncherClient } from '../launcher.client';
+import { AnalyzeResult, AnyExample, AuthorizationError, Authorizations, AuthorizationsProvider, Capability, Catalog, DownloadAppPayload, DownloadAppResult, Enums, ExampleAppDescriptor, ExistsResult, GitInfo, GitProvider, GitRepositoryExistsPayload, LaunchAppPayload, LaunchAppResult, LauncherClientConfig, OpenShiftCluster, PropertyValue, StatusListener, StatusMessage } from '../types';
 
 interface RequestConfigOptions {
   gitProvider?: string;

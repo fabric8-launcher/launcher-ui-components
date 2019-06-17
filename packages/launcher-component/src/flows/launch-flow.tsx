@@ -1,6 +1,6 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import { Button, Toolbar, ToolbarGroup } from '@patternfly/react-core';
-import { DownloadAppPayload, LaunchAppPayload, StatusMessage } from 'launcher-client';
+import { DownloadAppPayload, LaunchAppPayload, StatusMessage } from '@launcher/client';
 
 import { useLauncherClient } from '../contexts/launcher-client-context';
 import { HubNSpoke } from '../core/hub-n-spoke';

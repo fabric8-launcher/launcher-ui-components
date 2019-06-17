@@ -16,7 +16,7 @@ import {
   LaunchAppResult,
   OpenShiftCluster,
   PropertyValue,
-  StatusListener
+  StatusListener,
 } from '../types';
 import { filter } from '../..';
 import lscache from 'lscache';
