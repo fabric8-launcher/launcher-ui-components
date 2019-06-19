@@ -29,7 +29,7 @@
     "@types/storybook__react": "4.0.1",
     "awesome-typescript-loader": "5.2.1",
     "react-docgen-typescript-loader": "3.1.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "3.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"

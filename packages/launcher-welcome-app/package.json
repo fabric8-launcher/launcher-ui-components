@@ -25,7 +25,7 @@
     "@types/moment-timezone": "0.5.12",
     "@types/react-router-dom": "4.3.2",
     "@types/react-copy-to-clipboard": "4.2.6",
-    "react-scripts": "2.1.8",
+    "react-scripts": "3.0.1",
     "faker": "4.1.0",
     "env-cmd": "8.0.2"
   }
