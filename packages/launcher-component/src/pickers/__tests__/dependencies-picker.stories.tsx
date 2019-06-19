@@ -25,7 +25,7 @@ storiesOf('Pickers', module)
             onCancel={action('cancel')}
           >
             {
-              (inputProps) => (<DependenciesPicker.Element {...inputProps} items={dependencies as DependencyItem[]}/>)}
+              (inputProps) => (<DependenciesPicker.Element {...inputProps} items={dependencies as DependencyItem[]} placeholder="cat1, cat2, ..."/>)}
           </FormPanel>
         )}
       </EnumLoader>
