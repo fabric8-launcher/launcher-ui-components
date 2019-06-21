@@ -65,7 +65,7 @@ jobs:
       # Publish libs
       - run:
           name: Publish Libs
-          command: yarn publish
+          command: yarn libs:publish
 
 workflows:
   version: 2
