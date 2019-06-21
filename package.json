@@ -73,9 +73,5 @@
     "tslint": "5.15.0",
     "tslint-react": "4.0.0",
     "typescript": "3.4.3"
-  },
-  "resolutions": {
-    "fsevents": "2.0.6",
-    "iltorb": "2.4.3"
   }
 }
