@@ -57,12 +57,14 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
 
-      # Push welcome-app to Dockerhub
       - run:
           name: Deploy Welcome Application to DockerHub
           command: yarn wa:deploy
+      
+      - run:
+          name: Authenticate with npm registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
 
-      # Publish libs
       - run:
           name: Publish Libs
           command: yarn libs:publish
