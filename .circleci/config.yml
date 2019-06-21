@@ -62,10 +62,10 @@ jobs:
           name: Deploy Welcome Application to DockerHub
           command: yarn wa:deploy
 
-      # Publish component storybook
+      # Publish libs
       - run:
-          name: Publish Storybook
-          command: yarn comp:storybook:publish
+          name: Publish Libs
+          command: yarn publish
 
 workflows:
   version: 2
