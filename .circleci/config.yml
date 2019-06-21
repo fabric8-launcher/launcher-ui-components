@@ -67,10 +67,10 @@ jobs:
       
       - run:
           name: Avoid hosts unknown for github
-          commands: 
-            - mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-            - git config --global user.email $GITHUB_EMAIL
-            - git config --global user.name $GITHUB_USER
+          command: |
+            mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+            git config --global user.email $GITHUB_EMAIL
+            git config --global user.name $GITHUB_USER
 
       - run:
           name: Publish Libs
