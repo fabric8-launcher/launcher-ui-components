@@ -14,7 +14,6 @@ export interface MavenSettingsPickerValue {
 }
 
 interface MavenSettingsPickerProps extends InputProps<MavenSettingsPickerValue> {
-  showVersion?: boolean;
   showMoreOptions?: boolean;
 }
 
@@ -53,34 +52,21 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
           pattern={VALUE_REGEXP.source}
           isValid={isValid(props.value.artifactId)}
         />
-        {optionalBool(props.showVersion, false) && (
-          <LaunchTextInput
-            label="Version"
-            helperTextInvalid="Please provide a version number"
-            isRequired
-            type="text"
-            id="version"
-            name="version"
-            aria-label="Maven version number"
-            value={props.value.version || ''}
-            onChange={value => props.onChange({ ...props.value, version: value })}
-            isValid={!!props.value.version}
-          />
-        )}
+        
         {optionalBool(props.showMoreOptions, true) && (
           <TogglePanel title="Options">
             <div className="pf-c-form">
               <LaunchTextInput
-                label="Name"
-                helperTextInvalid="Please provide a name"
+                label="Version"
+                helperTextInvalid="Please provide a version number"
                 isRequired
                 type="text"
-                id="name"
-                name="name"
-                aria-label="Maven name"
-                value={props.value.name || ''}
-                onChange={value => props.onChange({ ...props.value, name: value })}
-                isValid={true}
+                id="version"
+                name="version"
+                aria-label="Maven version number"
+                value={props.value.version || ''}
+                onChange={value => props.onChange({ ...props.value, version: value })}
+                isValid={!!props.value.version}
               />
               <LaunchTextInput
                 label="Description"

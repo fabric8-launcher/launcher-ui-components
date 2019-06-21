@@ -19,7 +19,7 @@ describe('<MavenSettingsPicker />', () => {
         onSave={handleSave}
         onCancel={() => {}}
       >
-        {(inputProps) => (<MavenSettingsPicker.Element {...inputProps} showVersion />)}
+        {(inputProps) => (<MavenSettingsPicker.Element {...inputProps} showMoreOptions />)}
       </FormPanel>
     );
 
@@ -27,6 +27,8 @@ describe('<MavenSettingsPicker />', () => {
     fireEvent.change(groupIdField, { target: { value: 'invalid name' } });
     const artifactIdField = comp.getByLabelText('Maven artifactId name');
     fireEvent.change(artifactIdField, { target: { value: 'invalid name' } });
+    const toggleButton = comp.getByLabelText('Expand panel');
+    fireEvent.click(toggleButton);
     const versionField = comp.getByLabelText('Maven version number');
     fireEvent.change(versionField, { target: { value: '1' } });
     expect(comp.asFragment()).toMatchSnapshot();

@@ -58,16 +58,16 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         >
           <label
             class="pf-c-form__label"
-            for="name"
+            for="version"
           >
-            Name
+            Version
           </label>
           <input
             aria-invalid="false"
-            aria-label="Maven name"
+            aria-label="Maven version number"
             class="pf-c-form-control"
-            id="name"
-            name="name"
+            id="version"
+            name="version"
             required=""
             type="text"
             value=""
@@ -195,26 +195,6 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
         />
       </div>
       <div
-        class="pf-c-form__group"
-      >
-        <label
-          class="pf-c-form__label"
-          for="version"
-        >
-          Version
-        </label>
-        <input
-          aria-invalid="false"
-          aria-label="Maven version number"
-          class="pf-c-form-control"
-          id="version"
-          name="version"
-          required=""
-          type="text"
-          value="1"
-        />
-      </div>
-      <div
         class="panel "
       >
         <div
@@ -225,16 +205,16 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           >
             <label
               class="pf-c-form__label"
-              for="name"
+              for="version"
             >
-              Name
+              Version
             </label>
             <input
               aria-invalid="false"
-              aria-label="Maven name"
+              aria-label="Maven version number"
               class="pf-c-form-control"
-              id="name"
-              name="name"
+              id="version"
+              name="version"
               required=""
               type="text"
               value=""
