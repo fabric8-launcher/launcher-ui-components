@@ -13,8 +13,11 @@ export interface MavenSettingsPickerValue {
   packageName?: string;
 }
 
+type SettingField = 'groupId' | 'artifactId' | 'version' | 'description' | 'packageName';
+
 interface MavenSettingsPickerProps extends InputProps<MavenSettingsPickerValue> {
   showMoreOptions?: boolean;
+  visibleFields?: SettingField[];
 }
 
 const VALUE_REGEXP = /^[a-z][a-z0-9-\.]{3,63}$/;
@@ -24,9 +27,11 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
     && !!value.artifactId && VALUE_REGEXP.test(value.artifactId) && !!value.version,
   Element: props => {
     const isValid = (value?: string) => !!value && VALUE_REGEXP.test(value || '');
+    const visibleFields = props.visibleFields ? new Set(props.visibleFields) 
+    : new Set(['groupId', 'artifactId', 'version', 'description', 'packageName']);
     return (
       <div className="pf-c-form">
-        <LaunchTextInput
+        {visibleFields.has('groupId') && <LaunchTextInput
           label="Group"
           isRequired
           helperTextInvalid="Please provide a valid groupId"
@@ -38,8 +43,8 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
           onChange={value => props.onChange({ ...props.value, groupId: value })}
           pattern={VALUE_REGEXP.source}
           isValid={isValid(props.value.groupId)}
-        />
-        <LaunchTextInput
+        />}
+        {visibleFields.has('artifactId') && <LaunchTextInput
           label="Artifact"
           isRequired
           helperTextInvalid="Please provide a valid artifactId"
@@ -51,12 +56,12 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
           onChange={value => props.onChange({ ...props.value, artifactId: value })}
           pattern={VALUE_REGEXP.source}
           isValid={isValid(props.value.artifactId)}
-        />
+        />}
         
         {optionalBool(props.showMoreOptions, true) && (
           <TogglePanel title="Options">
             <div className="pf-c-form">
-              <LaunchTextInput
+            {visibleFields.has('version') && <LaunchTextInput
                 label="Version"
                 helperTextInvalid="Please provide a version number"
                 isRequired
@@ -67,8 +72,8 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
                 value={props.value.version || ''}
                 onChange={value => props.onChange({ ...props.value, version: value })}
                 isValid={!!props.value.version}
-              />
-              <LaunchTextInput
+              />}
+              {visibleFields.has('description') && <LaunchTextInput
                 label="Description"
                 helperTextInvalid="Please provide a description"
                 isRequired
@@ -79,8 +84,8 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
                 value={props.value.description || ''}
                 onChange={value => props.onChange({ ...props.value, description: value })}
                 isValid={true}
-              />
-              <LaunchTextInput
+              />}
+              {visibleFields.has('packageName') && <LaunchTextInput
                 label="Package Name"
                 helperTextInvalid="Please provide a package name"
                 isRequired
@@ -91,7 +96,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
                 value={props.value.packageName || ''}
                 onChange={value => props.onChange({ ...props.value, packageName: value })}
                 isValid={true}
-              />
+              />}
             </div>
           </TogglePanel>
         )}
