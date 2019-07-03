@@ -3,6 +3,7 @@ import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
 import React, { Fragment, useState } from "react";
 import { InputProps, Picker } from "../core/types";
 import style from './dependencies.module.scss';
+import { useAnalytics } from '../analytics';
 
 export interface DependencyItem {
   id: string;
@@ -60,6 +61,7 @@ export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPic
   checkCompletion: (value: DependenciesPickerValue) => !!value.dependencies && value.dependencies.length > 0,
   Element: (props: DependenciesPickerProps) => {
     const [filter, setFilter] = useState('');
+    const analytics = useAnalytics();
     const dependencies = props.value.dependencies || [];
     const dependenciesSet = new Set(dependencies);
     const dependencyItemById = new Map(props.items.map(item => [item.id, item]));
@@ -67,11 +69,13 @@ export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPic
     const addDep = (id: string) => {
       dependenciesSet.add(id);
       props.onChange({ dependencies: Array.from(dependenciesSet) });
+      analytics.event('Picker', 'Add-Dependency', id);
     };
 
     const removeDep = (id: string) => {
       dependenciesSet.delete(id);
       props.onChange({ dependencies: Array.from(dependenciesSet) });
+      analytics.event('Picker', 'Remove-Dependency', id)
     };
 
     const filterFunction = (d: DependencyItem) =>

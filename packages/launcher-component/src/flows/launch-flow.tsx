@@ -12,6 +12,7 @@ import { effectSafety } from '../core/stuff';
 import { ProcessingApp } from '../next-steps/processing-app';
 import { DownloadNextSteps } from '../next-steps/download-next-steps';
 import { LaunchNextSteps } from '../next-steps/launch-next-steps';
+import { useAnalytics } from '../analytics/analytics-context';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -95,6 +96,7 @@ interface RunState {
 }
 
 interface LaunchFlowProps {
+  id: string;
   title: string | ReactNode;
   items: any[];
   hint?: string;
@@ -109,6 +111,10 @@ interface LaunchFlowProps {
 export function LaunchFlow(props: LaunchFlowProps) {
   const [run, setRun] = useState<RunState>({status: Status.EDITION, statusMessages: []});
   const client = useLauncherClient();
+  const analytics = useAnalytics();
+  
+  useEffect(() => analytics.event('Flow', 'Open', props.id), []);
+
   const canDownload = props.canDownload === undefined || props.canDownload;
   const onCancel = props.onCancel || (() => {
   });

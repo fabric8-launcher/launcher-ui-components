@@ -146,6 +146,7 @@ export function DeployExampleAppFlow(props: { appName?: string; onCancel?: () =>
 
   return (
     <LaunchFlow
+      id="deploy-example-app"
       title={(
         <ProjectNameInput
           prefix="Create Example Application as:"

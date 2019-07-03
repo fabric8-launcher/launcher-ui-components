@@ -4,6 +4,7 @@ export * from './flows/import-existing-flow';
 export * from './flows/deploy-example-app-flow';
 export * from './contexts/launcher-client-provider';
 export * from './contexts/launcher-client-context';
+export * from './analytics';
 export * from './loaders/new-app-runtimes-loaders';
 export * from './loaders/enum-loader';
 export * from './core/data-loader/data-loader';
