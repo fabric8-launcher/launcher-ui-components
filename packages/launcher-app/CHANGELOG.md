@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/fabric8-launcher/launcher-frontend/compare/v1.1.0...v1.2.0) (2019-07-03)
+
+**Note:** Version bump only for package @launcher/app
+
+
+
+
+
 # [1.1.0](https://github.com/fabric8-launcher/launcher-frontend/compare/v1.0.0...v1.1.0) (2019-06-27)
 
 **Note:** Version bump only for package @launcher/app

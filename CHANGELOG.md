@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/fabric8-launcher/launcher-frontend/compare/v1.1.0...v1.2.0) (2019-07-03)
+
+
+### Features
+
+* introduce analytics context ([#1313](https://github.com/fabric8-launcher/launcher-frontend/issues/1313)) ([427753c](https://github.com/fabric8-launcher/launcher-frontend/commit/427753c))
+
+
+
+
+
 # [1.1.0](https://github.com/fabric8-launcher/launcher-frontend/compare/v1.0.0...v1.1.0) (2019-06-27)
 
 
