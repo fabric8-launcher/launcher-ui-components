@@ -186,6 +186,7 @@ export function CreateNewAppFlow(props: { appName?: string; onCancel?: () => voi
 
   return (
     <LaunchFlow
+      id="create-new-app"
       title={(
         <ProjectNameInput
           prefix="Create New Application as:"
