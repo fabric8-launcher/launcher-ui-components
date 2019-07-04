@@ -10,8 +10,8 @@ class LoggingAnalytics implements Analytics {
         console.log(`analytics>pageview(${path})`)
     }
 
-    event(name: string, action: string, label?: string, value?: number, params?: object) {
-        console.log(`analytics>event(${name}, ${action}, ${label}, ${value})`)
+    event(category: string, action: string, label?: string, value?: number, params?: object) {
+        console.log(`analytics>event(${category}, ${action}, ${label}, ${value})`)
     }
 }
 export const AnalyticsContext = React.createContext<Analytics>(new LoggingAnalytics());
