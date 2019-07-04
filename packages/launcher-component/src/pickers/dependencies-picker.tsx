@@ -1,6 +1,6 @@
 import { Grid, GridItem, Stack, StackItem, TextInput, Title, Tooltip } from "@patternfly/react-core";
 import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { InputProps, Picker } from "../core/types";
 import style from './dependencies.module.scss';
 import { useAnalytics } from '../analytics';
@@ -85,50 +85,49 @@ export const DependenciesPicker: Picker<DependenciesPickerProps, DependenciesPic
     const result = props.items.filter(filterFunction);
     const categories = new Set(props.items.map(i => i.metadata.category));
     return (
-      <Fragment>
-        <Grid gutter="md">
+      <Grid gutter="md" className="dependencies-picker">
+        <GridItem sm={12} md={6}>
+          <Tooltip position="right" content={`${Array.from(categories).join(', ')}`}>
+            <TextInput
+              aria-label="Search dependencies"
+              placeholder={props.placeholder}
+              className="search-depencencies-input"
+              value={filter}
+              onChange={value => setFilter(value)}
+            />
+          </Tooltip>
+          <div aria-label="Select dependencies" className={`${style.dependencyList} available-dependencies`}>
+            {
+              result.map((dep, i) => (
+                <DependencyItemComponent
+                  operation={OperationType.Add}
+                  {...dep}
+                  key={i}
+                  onClick={addDep}
+                />
+              ))
+            }
+            {filter && !result.length && <Title size="xs" style={{ paddingTop: '10px' }}>No result.</Title>}
+          </div>
+        </GridItem>
+        {dependencies.length > 0 && (
           <GridItem sm={12} md={6}>
-            <Tooltip position="right" content={`${Array.from(categories).join(', ')}`}>
-              <TextInput
-                aria-label="Search dependencies"
-                placeholder={props.placeholder}
-                value={filter}
-                onChange={value => setFilter(value)}
-              />
-            </Tooltip>
-            <div aria-label="Select dependencies" className={style.dependencyList}>
+            <Title size="md">Selected:</Title>
+            <div className={`${style.dependencyList} selected-dependencies`}>
               {
-                result.map((dep, i) => (
+                dependencies.map((selected, i) => (
                   <DependencyItemComponent
-                    operation={OperationType.Add}
-                    {...dep}
+                    operation={OperationType.Remove}
+                    {...dependencyItemById.get(selected)!}
                     key={i}
-                    onClick={addDep}
+                    onClick={removeDep}
                   />
                 ))
               }
-              {filter && !result.length && <Title size="xs" style={{ paddingTop: '10px' }}>No result.</Title>}
             </div>
           </GridItem>
-          {dependencies.length > 0 && (
-            <GridItem sm={12} md={6}>
-              <Title size="md">Selected:</Title>
-              <div className={style.dependencyList}>
-                {
-                  dependencies.map((selected, i) => (
-                    <DependencyItemComponent
-                      operation={OperationType.Remove}
-                      {...dependencyItemById.get(selected)!}
-                      key={i}
-                      onClick={removeDep}
-                    />
-                  ))
-                }
-              </div>
-            </GridItem>
-          )}
-        </Grid>
-      </Fragment>
+        )}
+      </Grid>
     );
   }
 }
