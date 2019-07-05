@@ -39,7 +39,7 @@ function DependencyItemComponent(props: DependencyItemProps) {
 
   return (
     <div
-      className={`${style.item} ${active ? style.active : ''}`}
+      className={`${style.item} ${active ? style.active : ''} dependency-item`}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       onClick={onClick}
