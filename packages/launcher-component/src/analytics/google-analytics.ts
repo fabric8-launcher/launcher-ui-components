@@ -1,4 +1,5 @@
 import { Analytics } from './analytics';
+/* global ga */
 
 /**
  * In order to use this implementation, the following script need to be added to the index.html

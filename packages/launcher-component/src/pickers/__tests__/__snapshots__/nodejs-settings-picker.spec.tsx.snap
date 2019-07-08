@@ -13,7 +13,11 @@ exports[`<NodeJSSettingsPicker /> renders the NodeJSSettingsPicker correctly 1`]
         class="pf-c-form__label"
         for="name"
       >
-        Name
+        <span
+          class="pf-c-form__label-text"
+        >
+          Name
+        </span>
       </label>
       <input
         aria-invalid="false"
@@ -34,7 +38,11 @@ exports[`<NodeJSSettingsPicker /> renders the NodeJSSettingsPicker correctly 1`]
         class="pf-c-form__label"
         for="version"
       >
-        Version
+        <span
+          class="pf-c-form__label-text"
+        >
+          Version
+        </span>
       </label>
       <input
         aria-invalid="false"
@@ -68,10 +76,14 @@ exports[`<NodeJSSettingsPicker /> show error for invalid data 1`] = `
           class="pf-c-form__label"
           for="name"
         >
-          Name
+          <span
+            class="pf-c-form__label-text"
+          >
+            Name
+          </span>
         </label>
         <input
-          aria-invalid="false"
+          aria-invalid="true"
           aria-label="Nodejs package name"
           class="pf-c-form-control"
           id="name"
@@ -79,8 +91,15 @@ exports[`<NodeJSSettingsPicker /> show error for invalid data 1`] = `
           pattern="^(?=.{1,214}$)(?:@[a-z0-9-~][a-z0-9-._~]*\\\\/)?[a-z0-9-~][a-z0-9-._~]*$"
           required=""
           type="text"
-          value=""
+          value="invalid name"
         />
+        <div
+          aria-live="polite"
+          class="pf-c-form__helper-text pf-m-error"
+          id="name-helper"
+        >
+          Please provide a valid name
+        </div>
       </div>
       <div
         class="pf-c-form__group"
@@ -89,18 +108,29 @@ exports[`<NodeJSSettingsPicker /> show error for invalid data 1`] = `
           class="pf-c-form__label"
           for="version"
         >
-          Version
+          <span
+            class="pf-c-form__label-text"
+          >
+            Version
+          </span>
         </label>
         <input
-          aria-invalid="false"
+          aria-invalid="true"
           aria-label="Nodejs version"
           class="pf-c-form-control"
           id="version"
           name="version"
           required=""
           type="text"
-          value=""
+          value="1"
         />
+        <div
+          aria-live="polite"
+          class="pf-c-form__helper-text pf-m-error"
+          id="version-helper"
+        >
+          Please provide a valid version number
+        </div>
       </div>
     </form>
     <hr

@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 import { FormPanel } from '../../core/form-panel/form-panel';
 
 import { MavenSettingsPicker } from '../maven-settings-picker';
+
+afterEach(cleanup);
 
 describe('<MavenSettingsPicker />', () => {
   it('renders the MavenSettingsPicker correctly', () => {

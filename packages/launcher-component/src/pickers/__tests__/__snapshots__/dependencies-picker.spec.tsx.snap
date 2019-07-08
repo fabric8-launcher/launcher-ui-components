@@ -39,12 +39,42 @@ exports[`<QuarkusDependencyPicker /> select values and save 1`] = `
         class="pf-c-form-control search-depencencies-input"
         placeholder=""
         type="text"
-        value=""
+        value="Netty"
       />
       <div
         aria-label="Select dependencies"
         class="dependencyList available-dependencies"
-      />
+      >
+        <div
+          class="item  dependency-item"
+        >
+          <div
+            class="pf-l-stack"
+            style="position: relative;"
+          >
+            <div
+              class="pf-l-stack__item pf-m-fill"
+            >
+              <h1
+                aria-label="Pick io.quarkus:quarkus-netty dependency"
+                class="pf-c-title"
+              >
+                Netty
+              </h1>
+              <span
+                class="category"
+              >
+                Web
+              </span>
+            </div>
+            <div
+              class="pf-l-stack__item"
+            >
+              Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -64,12 +94,42 @@ exports[`<QuarkusDependencyPicker /> show results for valid search 1`] = `
         class="pf-c-form-control search-depencencies-input"
         placeholder=""
         type="text"
-        value=""
+        value="CDI"
       />
       <div
         aria-label="Select dependencies"
         class="dependencyList available-dependencies"
-      />
+      >
+        <div
+          class="item  dependency-item"
+        >
+          <div
+            class="pf-l-stack"
+            style="position: relative;"
+          >
+            <div
+              class="pf-l-stack__item pf-m-fill"
+            >
+              <h1
+                aria-label="Pick io.quarkus:quarkus-arc dependency"
+                class="pf-c-title"
+              >
+                ArC
+              </h1>
+              <span
+                class="category"
+              >
+                Core
+              </span>
+            </div>
+            <div
+              class="pf-l-stack__item"
+            >
+              Build time CDI dependency injection
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>

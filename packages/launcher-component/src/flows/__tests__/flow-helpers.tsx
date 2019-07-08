@@ -1,4 +1,4 @@
-import { fireEvent } from 'react-testing-library';
+import { fireEvent } from '@testing-library/react';
 import { flushPromises } from '../../core/__tests__/test-helpers';
 
 export async function launchCheckPayloadAndProgress(comp, mockClient) {

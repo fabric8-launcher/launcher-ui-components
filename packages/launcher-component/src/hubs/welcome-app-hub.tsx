@@ -3,7 +3,7 @@ import { OverviewEmpty } from '../core/hub-n-spoke/overview-empty';
 import { FormHub } from '../core/types';
 import { FormPanel } from '../core/form-panel/form-panel';
 import { DescriptiveHeader } from '../core/stuff';
-import { DataListItem, DataListCheck, DataListCell, Title, Button, DataList } from '@patternfly/react-core';
+import { DataListItem, DataListCheck, DataListCell, Title, Button, DataList, DataListItemRow } from '@patternfly/react-core';
 
 export interface WelcomeFormValue {
   selected?: boolean;
@@ -46,16 +46,18 @@ export const WelcomeAppHub: FormHub<WelcomeFormValue> = {
                 />
                 <DataList aria-label="select-welcome-app">
                   <DataListItem aria-labelledby="welcome app" style={inputProps.value.selected ? { borderLeft: '2px solid #007bba' } : {}}>
-                    <DataListCheck
-                      aria-labelledby="welcome app check"
-                      aria-label="welcome app check"
-                      name="Selection item check"
-                      onChange={onChange}
-                      checked={inputProps.value.selected}
-                    />
-                    <DataListCell width={3} onClick={onChange} style={{ cursor: 'pointer' }}>
-                      <Title size="lg" id="welcome app check" aria-label="Pick welcome app capability">Welcome app</Title>
-                    </DataListCell>
+                    <DataListItemRow>
+                      <DataListCheck
+                        aria-labelledby="welcome app check"
+                        aria-label="welcome app check"
+                        name="Selection item check"
+                        onChange={onChange}
+                        checked={!!inputProps.value.selected}
+                      />
+                      <DataListCell width={3} onClick={onChange} style={{ cursor: 'pointer' }}>
+                        <Title size="lg" id="welcome app check" aria-label="Pick welcome app capability">Welcome app</Title>
+                      </DataListCell>
+                    </DataListItemRow>
                   </DataListItem>
                 </DataList>
               </React.Fragment>

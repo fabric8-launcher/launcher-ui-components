@@ -20,7 +20,7 @@ interface MavenSettingsPickerProps extends InputProps<MavenSettingsPickerValue> 
   visibleFields?: SettingField[];
 }
 
-const VALUE_REGEXP = /^[a-z][a-z0-9-\.]{3,63}$/;
+const VALUE_REGEXP = /^[a-z][a-z0-9-.]{3,63}$/;
 
 export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettingsPickerValue> = {
   checkCompletion: value => !!value.groupId && VALUE_REGEXP.test(value.groupId)

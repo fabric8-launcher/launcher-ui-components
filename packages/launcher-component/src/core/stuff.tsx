@@ -1,8 +1,8 @@
-import { Alert, AlertVariant, Button, ButtonProps, Modal, ModalProps, Title } from '@patternfly/react-core';
-import * as React from 'react';
-
-import style from './stuff.module.scss';
+import { Alert, AlertVariant, Button, ButtonProps, Title } from '@patternfly/react-core';
 import { InProgressIcon } from '@patternfly/react-icons';
+import * as React from 'react';
+import style from './stuff.module.scss';
+
 
 export function optionalBool(val: (boolean | undefined), defaultValue: boolean): boolean {
   return val === undefined ? defaultValue : val!;
@@ -19,9 +19,7 @@ export function Spin(props: { children: React.ReactNode }) {
 export function Loader(props: { 'aria-label'?: string; error?: any; }) {
   return (
     <div className={style.loader} aria-label={props['aria-label']}>
-      {!props || !props!.error &&
-      <Spin><InProgressIcon/></Spin>
-      }
+      {!props || (!props!.error && (<Spin><InProgressIcon/></Spin>))}
       {props && props.error &&
       <AlertError error={props.error}/>
       }
@@ -61,17 +59,6 @@ export function AlertError(props: { error: any }) {
       {props.error.message || props.error.toString()}
     </Alert>
   );
-}
-
-export class FixedModal extends React.Component<ModalProps> {
-
-  public componentWillUnmount(): void {
-    document.body.classList.remove('pf-c-backdrop__open');
-  }
-
-  public render() {
-    return <Modal {...this.props} />;
-  }
 }
 
 export interface EffectSafety {

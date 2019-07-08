@@ -16,7 +16,7 @@ Object {
         "category": "example",
         "shared": Object {
           "mission": Object {
-            "id": "crud",
+            "id": "circuit-breaker",
           },
           "runtime": Object {
             "name": "vert.x",

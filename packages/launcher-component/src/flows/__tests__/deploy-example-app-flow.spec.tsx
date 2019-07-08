@@ -1,7 +1,7 @@
 import 'jest-dom/extend-expect';
 import { mockLauncherClient } from '@launcher/client';
 import * as React from 'react';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
 import { DeployExampleAppFlow } from '../deploy-example-app-flow';
 import { launchCheckPayloadAndProgress } from './flow-helpers';

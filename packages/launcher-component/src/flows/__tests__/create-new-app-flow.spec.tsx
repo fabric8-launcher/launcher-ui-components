@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'jest-dom/extend-expect';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { CreateNewAppFlow } from '../create-new-app-flow';
 import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
 import { mockLauncherClient } from '@launcher/client';

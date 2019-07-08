@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { Button, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Button, Modal, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { ClusterIcon, CodeIcon, GiftIcon } from '@patternfly/react-icons';
-import { ExternalLink } from './external-link';
-import { FixedModal } from '../core/stuff';
+import * as React from 'react';
 import { Fragment } from 'react';
+import { ExternalLink } from './external-link';
 
 interface LaunchNextStepsProps {
   links?: { [x: string]: string | undefined };
@@ -16,7 +15,7 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
   const consoleLink = links['OPENSHIFT_CREATE'];
   const welcomeLink = links['welcome'];
   return (
-    <FixedModal
+    <Modal
       title="Your Application deployment has started"
       isOpen
       isLarge={false}
@@ -55,6 +54,6 @@ export function LaunchNextSteps(props: LaunchNextStepsProps) {
           <CodeIcon/> Clone your new codebase
         </ExternalLink>)}
       </TextContent>
-    </FixedModal>
+    </Modal>
   );
 }

@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Button, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Button, Text, TextContent, TextVariants, Modal } from '@patternfly/react-core';
 import { DownloadIcon } from '@patternfly/react-icons';
 import { ExternalLink } from './external-link';
-import { FixedModal } from '../core/stuff';
 
 interface DownloadNextStepsProps {
   onClose: () => void;
@@ -11,7 +10,7 @@ interface DownloadNextStepsProps {
 
 export function DownloadNextSteps(props: DownloadNextStepsProps) {
   return (
-    <FixedModal
+    <Modal
       title="Your Application is Ready"
       isOpen
       isLarge={false}
@@ -41,6 +40,6 @@ export function DownloadNextSteps(props: DownloadNextStepsProps) {
           Those examples are there to get you started,<br/>
           soon it will be time for you to remove them and start developing your awesome application.</Text>
       </TextContent>
-    </FixedModal>
+    </Modal>
   );
 }

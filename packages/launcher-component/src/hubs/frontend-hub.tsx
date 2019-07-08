@@ -32,7 +32,7 @@ export const FrontendHub: FormHub<FrontendFormValue> = {
       <NewAppRuntimeLoader id={props.value.runtimePickerValue!.runtimeId!}>
         {runtime => (
           <OverviewComplete id={FrontendHub.id} title={`Your ${runtime!.name} frontend is configured`}>
-            <img src={runtime!.icon} style={{margin: '5px auto', height: '160px'}}/>
+            <img src={runtime!.icon} style={{margin: '5px auto', height: '160px'}} alt={runtime!.name}/>
           </OverviewComplete>
         )}
       </NewAppRuntimeLoader>

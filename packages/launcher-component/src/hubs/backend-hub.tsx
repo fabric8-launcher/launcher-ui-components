@@ -40,21 +40,22 @@ export const BackendHub: FormHub<BackendFormValue> = {
         {runtime => (
           <OverviewComplete id={BackendHub.id} title={`Your ${runtime!.name} backend is configured`}>
             <Split>
-              <SplitItem isMain={false}>
-                <img src={runtime!.icon} style={{marginRight: '20px', height: '75px'}}/>
+              <SplitItem isFilled={false}>
+                <img src={runtime!.icon} style={{marginRight: '20px', height: '75px'}} alt={runtime!.name}/>
               </SplitItem>
-              <SplitItem isMain={true}>
+              <SplitItem isFilled={true}>
                 <NewAppCapabilitiesByModuleLoader categories={['backend', 'support']}>
                   {capabilitiesById => (
                     <div style={{textAlign: 'left'}}>
                       <Text component={TextVariants.p} style={{marginBottom: '10px'}}>Featuring</Text>
-                      <List variant="grid" style={{listStyleType: 'none'}}>
+                      <List style={{listStyleType: 'none'}}>
                         {props.value.capabilitiesPickerValue!.capabilities!.filter(c => c.selected)
                           .map(c => (
                               <ListItem key={c.id}>
                                 <img
                                   src={capabilitiesById.get(c.id)!.metadata.icon}
                                   style={{marginRight: '10px', verticalAlign: 'middle'}}
+                                  alt={capabilitiesById.get(c.id)!.name}
                                 />
                                 <SpecialValue>{capabilitiesById.get(c.id)!.name}</SpecialValue>
                               </ListItem>

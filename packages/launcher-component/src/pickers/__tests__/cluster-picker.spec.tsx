@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cleanup, render, fireEvent } from 'react-testing-library';
+import { cleanup, render, fireEvent } from '@testing-library/react';
 import { ClusterPicker } from '../cluster-picker';
 import { OpenShiftCluster } from '@launcher/client';
 

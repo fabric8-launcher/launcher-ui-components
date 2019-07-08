@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 
 import { NodeJSSettingsPicker } from '../nodejs-settings-picker';
 import { FormPanel } from '../../core/form-panel/form-panel';
+
+afterEach(cleanup);
 
 describe('<NodeJSSettingsPicker />', () => {
   it('renders the NodeJSSettingsPicker correctly', () => {

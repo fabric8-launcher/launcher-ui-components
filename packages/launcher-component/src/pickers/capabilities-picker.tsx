@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataList, DataListCell, DataListCheck, DataListContent, DataListItem, Title } from '@patternfly/react-core';
+import { DataList, DataListCell, DataListCheck, DataListContent, DataListItem, Title, DataListItemRow } from '@patternfly/react-core';
 import { CapabilityFieldEnumPicker } from './capability-field-enum-picker';
 import { InputProps, Picker } from '../core/types';
 
@@ -33,11 +33,11 @@ type CapabilityItemProps = CapabilityItem & InputProps<CapabilityValue>;
 
 function CapabilityItem(props: CapabilityItemProps) {
   const onChangeSelected = (selected) => {
-    props.onChange({...props.value, selected});
+    props.onChange({ ...props.value, selected });
   };
 
   const onChangeData = (data) => {
-    props.onChange({...props.value, data});
+    props.onChange({ ...props.value, data });
   };
   const elId = `toggle-capability-props-form-${props.id}`;
   const fields = (props.fields || []).filter(f => f.type === 'enum');
@@ -48,36 +48,38 @@ function CapabilityItem(props: CapabilityItemProps) {
   };
   return (
     <DataListItem aria-labelledby={props.id} isExpanded={props.value.selected}>
-      <DataListCheck
-        aria-labelledby={elId}
-        name="Selection item check"
-        onChange={onChangeSelected}
-        checked={props.value.selected}
-        isDisabled={props.disabled}
-      />
-      <DataListCell
-        width={1}
-        style={{flex: 'none', cursor: 'pointer'}}
-        onClick={toggleSelect}
-      >
-        <img src={props.icon}/>
-      </DataListCell>
-      <DataListCell width={1} onClick={toggleSelect} style={{cursor: 'pointer'}}>
-        <Title size="lg" id={elId} aria-label={`Pick ${props.id} capability`}>{props.name}</Title>
-      </DataListCell>
-      <DataListCell
-        width={3}
-        onClick={toggleSelect}
-        style={{cursor: 'pointer'}}
-      >
-        {props.description}
-      </DataListCell>
+      <DataListItemRow>
+        <DataListCheck
+          aria-labelledby={elId}
+          name="Selection item check"
+          onChange={onChangeSelected}
+          checked={props.value.selected}
+          isDisabled={props.disabled}
+        />
+        <DataListCell
+          width={1}
+          style={{ flex: 'none', cursor: 'pointer' }}
+          onClick={toggleSelect}
+        >
+          <img src={props.icon} alt={props.name} />
+        </DataListCell>
+        <DataListCell width={1} onClick={toggleSelect} style={{ cursor: 'pointer' }}>
+          <Title size="lg" id={elId} aria-label={`Pick ${props.id} capability`}>{props.name}</Title>
+        </DataListCell>
+        <DataListCell
+          width={3}
+          onClick={toggleSelect}
+          style={{ cursor: 'pointer' }}
+        >
+          {props.description}
+        </DataListCell>
+      </DataListItemRow>
       {fields.length > 0 && props.value.selected && (
         <DataListContent isHidden={!props.value.selected} aria-label={`capability-props-form-${props.id}`}>
           {fields.map(f => {
             const selectedValue = (props.value.data && props.value.data[f.id]) || f.default;
             const onFieldChange = (v) => {
-              const newData = {...props.value.data, [f.id]: v};
+              const newData = { ...props.value.data, [f.id]: v };
               onChangeData(newData);
             };
             return (
@@ -111,12 +113,12 @@ interface CapabilitiesPickerProps extends InputProps<CapabilitiesPickerValue> {
 export const CapabilitiesPicker: Picker<CapabilitiesPickerProps, CapabilitiesPickerValue> = {
   checkCompletion: (value: CapabilitiesPickerValue) => !!value.capabilities && value.capabilities.filter(c => c.selected).length > 0,
   Element: (props: CapabilitiesPickerProps) => {
-    const capabilities = props.value.capabilities || [];
+    const capabilities = props.value.capabilities || [];
     const capabilitiesValuesById = new Map(capabilities.map(i => [i.id, i] as [string, CapabilityValue]));
 
     const onChange = (value: CapabilityValue) => {
-      capabilitiesValuesById.set(value.id, {...capabilitiesValuesById.get(value.id)!, ...value});
-      props.onChange({capabilities: Array.from(capabilitiesValuesById.values())});
+      capabilitiesValuesById.set(value.id, { ...capabilitiesValuesById.get(value.id)!, ...value });
+      props.onChange({ capabilities: Array.from(capabilitiesValuesById.values()) });
     };
 
     return (
@@ -127,7 +129,7 @@ export const CapabilitiesPicker: Picker<CapabilitiesPickerProps, CapabilitiesPic
               <CapabilityItem
                 {...cap}
                 key={i}
-                value={capabilitiesValuesById.get(cap.id) || {id: cap.id, selected: false}}
+                value={capabilitiesValuesById.get(cap.id) || { id: cap.id, selected: false }}
                 onChange={onChange}
               />
             ))

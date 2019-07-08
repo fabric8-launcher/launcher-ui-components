@@ -37,7 +37,7 @@ export const GitUrlPicker: Picker<GitUrlPickerProps, GitUrlPickerValue> = {
     }, []);
     return (
       <Split>
-        <SplitItem isMain>
+        <SplitItem isFilled>
           <FormGroup
             fieldId="git-url-picker"
             isValid={isValid(props.value.temp)}
@@ -58,7 +58,7 @@ export const GitUrlPicker: Picker<GitUrlPickerProps, GitUrlPickerValue> = {
             />
           </FormGroup>
         </SplitItem>
-        <SplitItem isMain={false}>
+        <SplitItem isFilled={false}>
           {!check && <Button
             onClick={changeValue}
             isDisabled={!isValid(props.value.temp)}
