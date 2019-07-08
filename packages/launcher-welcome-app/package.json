@@ -1,6 +1,6 @@
 {
   "name": "@launcher/welcome-app",
-  "version": "1.0.0",
+  "version": "1.3.2",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
