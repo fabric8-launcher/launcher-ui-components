@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cleanup, render, fireEvent } from 'react-testing-library';
+import { cleanup, render, fireEvent } from '@testing-library/react';
 import { ExamplePicker } from '../example-picker';
 import { ExampleMission } from '@launcher/client';
 import { FormPanel } from '../../core/form-panel/form-panel';

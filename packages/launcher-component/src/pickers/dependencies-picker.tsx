@@ -45,13 +45,13 @@ function DependencyItemComponent(props: DependencyItemProps) {
       onClick={onClick}
     >
       <Stack style={{ position: 'relative' }}>
-        <StackItem isMain>
+        <StackItem isFilled>
           <Title size="sm" aria-label={`Pick ${props.id} dependency`}>{props.name}</Title>
           <span className={style.category}>{props.metadata.category}</span>
           {active && (props.operation === OperationType.Add ?
             <PlusIcon className={style.icon} /> : <TimesIcon className={style.icon} />)}
         </StackItem>
-        <StackItem isMain={false}>{props.description}</StackItem>
+        <StackItem isFilled={false}>{props.description}</StackItem>
       </Stack>
     </div>
   )

@@ -13,7 +13,11 @@ exports[`<DotNetSettingsPicker /> renders the DotNetSettingsPicker correctly 1`]
         class="pf-c-form__label"
         for="name"
       >
-        Namespace
+        <span
+          class="pf-c-form__label-text"
+        >
+          Namespace
+        </span>
       </label>
       <input
         aria-invalid="false"
@@ -34,7 +38,11 @@ exports[`<DotNetSettingsPicker /> renders the DotNetSettingsPicker correctly 1`]
         class="pf-c-form__label"
         for="version"
       >
-        Version
+        <span
+          class="pf-c-form__label-text"
+        >
+          Version
+        </span>
       </label>
       <input
         aria-invalid="false"
@@ -68,7 +76,11 @@ exports[`<DotNetSettingsPicker /> show error for invalid data 1`] = `
           class="pf-c-form__label"
           for="name"
         >
-          Namespace
+          <span
+            class="pf-c-form__label-text"
+          >
+            Namespace
+          </span>
         </label>
         <input
           aria-invalid="false"
@@ -79,7 +91,7 @@ exports[`<DotNetSettingsPicker /> show error for invalid data 1`] = `
           pattern="^[a-zA-Z_].*$"
           required=""
           type="text"
-          value=""
+          value="invalid name"
         />
       </div>
       <div
@@ -89,18 +101,29 @@ exports[`<DotNetSettingsPicker /> show error for invalid data 1`] = `
           class="pf-c-form__label"
           for="version"
         >
-          Version
+          <span
+            class="pf-c-form__label-text"
+          >
+            Version
+          </span>
         </label>
         <input
-          aria-invalid="false"
+          aria-invalid="true"
           aria-label=".Net version"
           class="pf-c-form-control"
           id="version"
           name="version"
           required=""
           type="text"
-          value=""
+          value="1"
         />
+        <div
+          aria-live="polite"
+          class="pf-c-form__helper-text pf-m-error"
+          id="version-helper"
+        >
+          Please provide a valid version number
+        </div>
       </div>
     </form>
     <hr

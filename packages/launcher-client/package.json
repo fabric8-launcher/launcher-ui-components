@@ -31,8 +31,8 @@
   "devDependencies": {
     "@types/axios": "0.14.0",
     "@types/lscache": "1.0.29",
-    "@types/node": "11.13.4",
-    "axios-mock-adapter": "1.16.0",
+    "@types/node": "12.0.12",
+    "axios-mock-adapter": "1.17.0",
     "rollup-plugin-json": "4.0.0",
     "rollup-plugin-strip-code": "0.2.6"
   },

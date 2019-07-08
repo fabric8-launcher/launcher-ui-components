@@ -14,7 +14,7 @@ export function InlineTextInput(props: InlineTextInputProps) {
   return (
     <div className={style.title}>
       <Text component={TextVariants.h1}>{props.prefix}</Text>
-      <TextInput {...props} type="text" onMouseEnter={() => setHint(!hint)} onMouseLeave={() => setHint(!hint)} />
+      <TextInput {...props as any} type="text" onMouseEnter={() => setHint(!hint)} onMouseLeave={() => setHint(!hint)} />
       {hint && <EditAltIcon />}
       <span style={{display: 'block', color: '#f0ab00', paddingTop: '5px'}}>{props.warning}</span>
     </div>

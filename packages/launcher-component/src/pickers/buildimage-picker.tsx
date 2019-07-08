@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Alert, DataList, DataListCell, DataListItem, Radio, Title } from '@patternfly/react-core';
+import { Alert, DataList, DataListCell, DataListItem, Radio, Title, DataListItemRow } from '@patternfly/react-core';
 import { BuilderImage } from '@launcher/client';
 import { InputProps, Picker } from '../core/types';
 import { SpecialValue } from '../core/stuff';
@@ -18,12 +18,13 @@ interface BuildImageProps extends InputProps<BuildImagePickerValue> {
 export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = {
   checkCompletion: value => !!value.image,
   Element: props => {
-    const imageName = props.builderImages.find(i => i.id == props.value.image)!.name;
+    const refImage = props.builderImages.find(i => i.id == props.value.image);
+    const imageName = (refImage && refImage.name) || props.suggestedImageName;
     return (
       <Fragment>
         <p>
           For your codebase, our runtime detection algorithm suggests to use this builder image: <SpecialValue>{props.suggestedImageName}</SpecialValue>
-          <br/>Currently selected: <SpecialValue>{imageName || props.suggestedImageName}</SpecialValue>
+          <br />Currently selected: <SpecialValue>{imageName}</SpecialValue>
         </p>
         <TogglePanel title="Advanced settings">
           <div>
@@ -42,22 +43,24 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
                     key={index}
                     style={isSelected ? { borderLeft: '2px solid #007bba' } : {}}
                   >
-                    <DataListCell width={1} style={{ flex: 'none' }}>
-                      <Radio
-                        aria-label={`Choose ${image.name}`}
-                        value={image.id}
-                        checked={isSelected}
-                        onChange={onChangeSelected}
-                        name="image"
-                        id={`radio-choose-${image.id}`}
-                      />
-                    </DataListCell>
-                    <DataListCell width={1} onClick={onChangeSelected} style={{ cursor: 'pointer' }}>
-                      <Title size="lg">{image.name}</Title>
-                    </DataListCell>
-                    <DataListCell width={2} onClick={onChangeSelected} style={{ cursor: 'pointer' }}>
-                      {image.id}
-                    </DataListCell>
+                    <DataListItemRow>
+                      <DataListCell width={1} style={{ flex: 'none' }}>
+                        <Radio
+                          aria-label={`Choose ${image.name}`}
+                          value={image.id}
+                          isChecked={isSelected}
+                          onChange={onChangeSelected}
+                          name="image"
+                          id={`radio-choose-${image.id}`}
+                        />
+                      </DataListCell>
+                      <DataListCell width={1} onClick={onChangeSelected} style={{ cursor: 'pointer' }}>
+                        <Title size="lg">{image.name}</Title>
+                      </DataListCell>
+                      <DataListCell width={2} onClick={onChangeSelected} style={{ cursor: 'pointer' }}>
+                        {image.id}
+                      </DataListCell>
+                    </DataListItemRow>
                   </DataListItem>
                 );
               })

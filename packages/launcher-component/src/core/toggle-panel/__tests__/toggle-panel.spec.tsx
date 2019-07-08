@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TogglePanel } from '../toggle-panel';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 

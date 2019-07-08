@@ -37,7 +37,7 @@ export const ExampleHub: FormHub<ExampleFormValue> = {
           const runtime = (result as ExampleMission).runtime![0];
           return (<OverviewComplete id={ExampleHub.id} title={`Your example will be ${result.name} using:`}>
             {runtime.icon &&
-              <img src={runtime.icon} style={{ margin: '5px auto', height: '160px' }} />}
+              <img src={runtime.icon} style={{ margin: '5px auto', height: '160px' }} alt={runtime.name} />}
             {!runtime.icon &&
               <h1>{runtime.name}</h1>}
           </OverviewComplete>);

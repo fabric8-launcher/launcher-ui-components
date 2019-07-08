@@ -1,12 +1,14 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 
 import { FormPanel } from '../../core/form-panel/form-panel';
 import { DotNetSettingsPicker } from '../dotnet-settings-picker';
 
+afterEach(cleanup);
+
 describe('<DotNetSettingsPicker />', () => {
   it('renders the DotNetSettingsPicker correctly', () => {
-    const comp = render(<DotNetSettingsPicker.Element value={{name: '', version: ''}} onChange={() => {}}/>);
+    const comp = render(<DotNetSettingsPicker.Element value={{namespace: '', version: ''}} onChange={() => {}}/>);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 

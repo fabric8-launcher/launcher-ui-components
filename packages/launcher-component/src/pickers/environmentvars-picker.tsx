@@ -26,7 +26,7 @@ export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, Environme
         {entries.map((entry, index) => {
             return (
               <Split key={'split' + index} gutter="sm">
-                <SplitItem isMain key={'split-name' + index}>
+                <SplitItem isFilled key={'split-name' + index}>
                   <TextInput
                     isRequired
                     type="text"
@@ -44,7 +44,7 @@ export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, Environme
                     value={entry[0]}
                   />
                 </SplitItem>
-                <SplitItem isMain key={'split-value' + index}>
+                <SplitItem isFilled key={'split-value' + index}>
                   <TextInput
                     isRequired
                     type="text"
@@ -60,7 +60,7 @@ export const EnvironmentVarsPicker: Picker<EnvironmentVarsPickerProps, Environme
                     value={entry[1]}
                   />
                 </SplitItem>
-                <SplitItem isMain={false} key={'split-button' + index}>
+                <SplitItem isFilled={false} key={'split-button' + index}>
                   <Button
                     onClick={() => {
                       let newEntries: string[][];

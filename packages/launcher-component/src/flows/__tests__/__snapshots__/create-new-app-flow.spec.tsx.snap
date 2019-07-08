@@ -106,15 +106,13 @@ exports[`<CreateNewAppFlow /> Check that welcome app can be unselected 1`] = `
       <div
         class="pf-c-alert__description"
       >
-        <p>
-          You should configure a Frontend and/or a Backend for your application.
-        </p>
+        You should configure a Frontend and/or a Backend for your application.
       </div>
       <div
         class="pf-c-alert__action"
       >
         <button
-          aria-label="Close Info alert: What should I do?"
+          aria-label="Close Info alert: alert: What should I do?"
           class="pf-c-button pf-m-plain"
           type="button"
         >
@@ -177,7 +175,7 @@ exports[`<CreateNewAppFlow /> Check that welcome app can be unselected 1`] = `
         >
           <div
             aria-label="frontend is not configured"
-            class="pf-c-empty-state"
+            class="pf-c-empty-state styles.modifiers.lg"
           >
             <h1
               class="pf-c-title pf-m-lg"
@@ -237,7 +235,7 @@ exports[`<CreateNewAppFlow /> Check that welcome app can be unselected 1`] = `
         >
           <div
             aria-label="backend is not configured"
-            class="pf-c-empty-state"
+            class="pf-c-empty-state styles.modifiers.lg"
           >
             <h1
               class="pf-c-title pf-m-lg"
@@ -297,7 +295,7 @@ exports[`<CreateNewAppFlow /> Check that welcome app can be unselected 1`] = `
         >
           <div
             aria-label="welcome-app is not configured"
-            class="pf-c-empty-state"
+            class="pf-c-empty-state styles.modifiers.lg"
           >
             <h1
               class="pf-c-title pf-m-lg"

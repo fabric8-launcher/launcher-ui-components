@@ -56,7 +56,7 @@ export const RuntimePicker: Picker<RuntimePickerProps, RuntimePickerValue> = {
                       <Radio
                         aria-label={`Choose ${runtime.id} as runtime`}
                         value={runtime.id}
-                        checked={selected(runtime.id)}
+                        isChecked={selected(runtime.id)}
                         onChange={() => onChange(runtime.id)}
                         name="runtime"
                         id={`radio-choose-${runtime.id}-as-runtime`}
@@ -64,7 +64,7 @@ export const RuntimePicker: Picker<RuntimePickerProps, RuntimePickerValue> = {
                       <Title size="lg">{runtime.name}</Title>
                     </CardHeader>
                     <CardBody onClick={() => onChange(runtime.id)} className={style.body}>
-                      <img src={runtime.icon} />
+                      <img src={runtime.icon} alt={runtime.name} />
                       <p>
                         {runtime.description}
                       </p>

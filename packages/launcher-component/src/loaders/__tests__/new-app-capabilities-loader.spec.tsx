@@ -1,6 +1,6 @@
 import { Capability, mockLauncherClient } from '@launcher/client';
 import * as React from 'react';
-import { cleanup, render } from 'react-testing-library';
+import { cleanup, render } from '@testing-library/react';
 import { LauncherDepsProvider } from '../../contexts/launcher-client-provider';
 import { NewAppCapabilitiesLoader, getCapabilityRuntimeNameProp } from '../new-app-capabilities-loader';
 import { flushPromises } from '../../core/__tests__/test-helpers';

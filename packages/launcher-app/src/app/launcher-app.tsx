@@ -21,11 +21,13 @@ import { newAuthApi, AuthRouter } from '../auth/authentication-api-factory';
 function Routes(props: {}) {
   const router = useRouter();
   const requestedRoute = getRequestedRoute(router);
-  if(requestedRoute) {
-    useEffect(() => {
+
+  useEffect(() => {
+    if (requestedRoute) {
       goToWithRouter(router, requestedRoute);
-    }, []);
-  }
+    }
+  }, [router, requestedRoute]);
+
   const Menu = () => {
     return (
       <LauncherMenu
@@ -75,15 +77,15 @@ export function LauncherApp() {
   return (
     <DataLoader loader={authLoader}>
       <AuthenticationApiContext.Provider value={proxyAuthApi}>
-          <LauncherDepsProvider
-            authorizationsManager={proxyAuthApi}
-            creatorUrl={creatorApiUrl}
-            launcherUrl={launcherApiUrl}
-          >
-            <AuthRouter loginPage={LoginPage} basename={publicUrl}>
-              <HomePage />
-            </AuthRouter>
-          </LauncherDepsProvider>
+        <LauncherDepsProvider
+          authorizationsManager={proxyAuthApi}
+          creatorUrl={creatorApiUrl}
+          launcherUrl={launcherApiUrl}
+        >
+          <AuthRouter loginPage={LoginPage} basename={publicUrl}>
+            <HomePage />
+          </AuthRouter>
+        </LauncherDepsProvider>
       </AuthenticationApiContext.Provider>
     </DataLoader >
   );

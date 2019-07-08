@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { HubNSpoke } from '..';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { mockItems } from './mock-items';
 
 afterEach(cleanup);

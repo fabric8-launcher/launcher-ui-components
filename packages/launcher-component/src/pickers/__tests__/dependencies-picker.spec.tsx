@@ -1,6 +1,8 @@
-import React from "react";
-import { render, fireEvent } from "react-testing-library";
-import { DependenciesPicker } from "../dependencies-picker";
+import React from 'react';
+import { render, fireEvent, cleanup } from '@testing-library/react';
+import { DependenciesPicker } from '../dependencies-picker';
+
+afterEach(cleanup);
 
 describe('<QuarkusDependencyPicker />', () => {
 
@@ -25,7 +27,7 @@ describe('<QuarkusDependencyPicker />', () => {
   });
 
   it('show results for valid search', async () => {
-    const comp = render(<DependenciesPicker.Element placeholder="" items={items} value={{}} onChange={() => {}} />);
+    const comp = render(<DependenciesPicker.Element placeholder="" items={items} value={{}} onChange={() => { }} />);
 
     const searchField = comp.getByLabelText('Search dependencies');
     fireEvent.change(searchField, { target: { value: 'CDI' } });

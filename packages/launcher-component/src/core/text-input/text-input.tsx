@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { TextInput, FormGroup, TextInputProps, FormGroupProps, Omit } from '@patternfly/react-core';
+import { TextInput, FormGroup, TextInputProps } from '@patternfly/react-core';
 import { useAnalytics } from '../../analytics';
 
-interface LaunchTextInputProps extends Omit<TextInputProps & FormGroupProps, 'fieldId' | 'id'> {
+interface LaunchTextInputProps extends TextInputProps {
   id: string;
+  helperTextInvalid: string;
 }
 
 export function LaunchTextInput(props: LaunchTextInputProps) {
@@ -28,7 +29,7 @@ export function LaunchTextInput(props: LaunchTextInputProps) {
           }
         }}
         isValid={isValid || !isDirty}
-        {...rest}
+        {...rest as any}
       />
     </FormGroup>
   );
