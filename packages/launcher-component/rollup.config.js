@@ -25,7 +25,7 @@ const config = {
     plugins: [
         peerDepsExternal(),
         postcss({
-            modules: true
+            autoModules: true
         }),
         tslint({
             include: './src/**/*.tsx?'
