@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/fabric8-launcher/launcher-ui-components/compare/v1.4.2...v1.4.3) (2019-07-12)
+
+
+### Bug Fixes
+
+* change open label in maven settings picker ([#1323](https://github.com/fabric8-launcher/launcher-ui-components/issues/1323)) ([2d78f5e](https://github.com/fabric8-launcher/launcher-ui-components/commit/2d78f5e))
+
+
+
+
+
 ## [1.4.2](https://github.com/fabric8-launcher/launcher-ui-components/compare/v1.4.1...v1.4.2) (2019-07-12)
 
 **Note:** Version bump only for package @launcher/component
