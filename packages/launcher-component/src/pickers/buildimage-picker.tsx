@@ -26,7 +26,7 @@ export const BuildImagePicker: Picker<BuildImageProps, BuildImagePickerValue> = 
           For your codebase, our runtime detection algorithm suggests to use this builder image: <SpecialValue>{props.suggestedImageName}</SpecialValue>
           <br />Currently selected: <SpecialValue>{imageName}</SpecialValue>
         </p>
-        <TogglePanel title="Advanced settings">
+        <TogglePanel id="build-image-advanced-settings" openLabel="Show Advanced Settings">
           <div>
             <Alert variant="warning" title="Picking the wrong builder image may result in a failed deployment!" style={{ margin: '20px' }} />
             <DataList aria-label="select-buildImage">

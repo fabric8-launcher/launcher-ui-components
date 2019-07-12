@@ -5,7 +5,7 @@ import { TogglePanel } from '../toggle-panel';
 
 storiesOf('Core', module)
   .add('TogglePanel', () => (
-    <TogglePanel title="Click here to expand!">
+    <TogglePanel id="toggle">
       <div>
         <h1>Title</h1>
         <p>
