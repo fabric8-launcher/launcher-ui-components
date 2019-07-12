@@ -15,7 +15,7 @@ storiesOf('Pickers', module)
         onCancel={action('cancel')}
       >
         {
-          (inputProps) => (<MavenSettingsPicker.Element {...inputProps} showMoreOptions />)}
+          (inputProps) => (<MavenSettingsPicker.Element {...inputProps} showMoreOptions  mode="horizontal"/>)}
       </FormPanel>
     );
   });
