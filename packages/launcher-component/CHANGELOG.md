@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/fabric8-launcher/launcher-ui-components/compare/v1.4.0...v1.4.1) (2019-07-12)
+
+
+### Bug Fixes
+
+* prepare publish to reduce size of modules ([#1321](https://github.com/fabric8-launcher/launcher-ui-components/issues/1321)) ([6510588](https://github.com/fabric8-launcher/launcher-ui-components/commit/6510588))
+
+
+
+
+
 # [1.4.0](https://github.com/fabric8-launcher/launcher-ui-components/compare/v1.3.2...v1.4.0) (2019-07-12)
 
 
