@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/fabric8-launcher/launcher-ui-components/compare/v1.3.2...v1.4.0) (2019-07-12)
+
+
+### Features
+
+* introduce horizontal toggle-panel mode ([#1320](https://github.com/fabric8-launcher/launcher-ui-components/issues/1320)) ([3f91951](https://github.com/fabric8-launcher/launcher-ui-components/commit/3f91951))
+
+
+
+
+
 ## [1.3.2](https://github.com/fabric8-launcher/launcher-frontend/compare/v1.3.1...v1.3.2) (2019-07-08)
 
 **Note:** Version bump only for package launcher-frontend
