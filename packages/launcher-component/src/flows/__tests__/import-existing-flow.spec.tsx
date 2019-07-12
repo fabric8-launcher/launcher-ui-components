@@ -24,7 +24,7 @@ async function configureSrc(comp, url) {
   // Resolve fetch url
   await flushPromises();
 
-  fireEvent.click(comp.getByText('Advanced settings'));
+  fireEvent.click(comp.getByText('Show Advanced Settings'));
   expect(comp.getByLabelText('select-buildImage')).toBeDefined();
 
   fireEvent.click(comp.getByLabelText('Choose Java Code Builder'));
