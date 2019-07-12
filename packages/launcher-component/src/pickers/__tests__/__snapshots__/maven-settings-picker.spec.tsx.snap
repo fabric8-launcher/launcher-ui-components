@@ -162,7 +162,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
               transform=""
             />
           </svg>
-           Open
+           Configure more options
         </span>
       </a>
     </div>
