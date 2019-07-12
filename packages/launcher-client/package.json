@@ -18,7 +18,8 @@
     "npm": ">= 5.5.0"
   },
   "scripts": {
-    "build": "rm -rf ./build && rollup -c",
+    "build": "rm -rf ./build && rollup -c && yarn prepack",
+    "prepack": "rm -rf ./dist && mkdir dist && cp ./package.json ./dist && cp -R ./build ./dist",
     "test": "jest",
     "semantic-release": "semantic-release"
   },
@@ -38,5 +39,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "publishConfig": {
+    "directory": "dist"
   }
 }

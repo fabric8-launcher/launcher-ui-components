@@ -6,7 +6,8 @@
   "module": "build/esm/index.js",
   "types": "build/types/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./build && rollup -c",
+    "build": "rm -rf ./build && rollup -c && yarn prepack",
+    "prepack": "rm -rf ./dist && mkdir dist && cp ./package.json ./dist && cp -R ./build ./dist",
     "test": "jest",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "storybook:build": "build-storybook -s public",
@@ -34,5 +35,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "publishConfig": {
+    "directory": "dist"
   }
 }
