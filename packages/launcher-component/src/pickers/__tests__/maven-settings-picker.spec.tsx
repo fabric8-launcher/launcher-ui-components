@@ -29,7 +29,7 @@ describe('<MavenSettingsPicker />', () => {
     fireEvent.change(groupIdField, { target: { value: 'invalid name' } });
     const artifactIdField = comp.getByLabelText('Maven artifactId name');
     fireEvent.change(artifactIdField, { target: { value: 'invalid name' } });
-    const toggleButton = comp.getByLabelText('Expand panel');
+    const toggleButton = comp.getByLabelText('Toggle panel');
     fireEvent.click(toggleButton);
     const versionField = comp.getByLabelText('Maven version number');
     fireEvent.change(versionField, { target: { value: '1' } });
