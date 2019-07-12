@@ -64,7 +64,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
         </div>
 
         {optionalBool(props.showMoreOptions, true) && (
-          <TogglePanel id="maven-settings-extended" mode={mode}>
+          <TogglePanel id="maven-settings-extended" mode={mode} openLabel="Configure more options">
             <div className="extended-settings pf-c-form">
               {visibleFields.has('version') && <LaunchTextInput
                 label="Version"
