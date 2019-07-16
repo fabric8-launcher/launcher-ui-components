@@ -32,6 +32,7 @@
     "@storybook/storybook-deployer": "2.8.1",
     "@storybook/theming": "5.1.9",
     "@testing-library/react": "8.0.4",
+    "@testing-library/jest-dom": "4.0.0",
     "@types/classnames": "2.2.7",
     "@types/google.analytics": "0.0.40",
     "@types/react": "16.8.23",
@@ -41,7 +42,7 @@
     "awesome-typescript-loader": "5.2.1",
     "node-sass": "4.12.0",
     "react-docgen-typescript-loader": "3.1.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "3.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"
