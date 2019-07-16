@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "license": "Apache-2.0",
   "private": true,
-  "workspaces": ["packages/launcher-client", "packages/launcher-component"],
+  "workspaces": [
+    "packages/launcher-client",
+    "packages/launcher-component"
+  ],
   "scripts": {
     "clean": "rm -rf build && find . -type d -name \"node_modules\" -exec rm -rf {} +",
     "test": "jest --silent -w=2",
@@ -25,14 +28,14 @@
   ],
   "devDependencies": {
     "@types/jest": "24.0.15",
-    "@types/lodash": "4.14.123",
+    "@types/lodash": "4.14.136",
     "@types/node": "11.13.4",
     "codecov": "3.5.0",
     "eslint": "5.16.0",
     "ghooks": "2.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "24.8.0",
-    "jest-dom": "3.5.0",
+    "jest-dom": "4.0.0",
     "lerna": "3.15.0",
     "rollup": "1.16.6",
     "rollup-plugin-babel": "4.3.3",
@@ -47,5 +50,11 @@
     "tslint": "5.18.0",
     "tslint-react": "4.0.0",
     "typescript": "3.4.3"
+  },
+  "dependencies": {
+    "lodash": "4.17.14"
+  },
+  "resolutions": {
+    "lodash": "4.17.14"
   }
 }
