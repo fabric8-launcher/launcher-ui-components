@@ -1,4 +1,4 @@
-import 'jest-dom/extend-expect';
+import '@testing-library/jest-dom/extend-expect';
 import { mockLauncherClient } from '@launcher/client';
 import * as React from 'react';
 import { cleanup, fireEvent, render } from '@testing-library/react';

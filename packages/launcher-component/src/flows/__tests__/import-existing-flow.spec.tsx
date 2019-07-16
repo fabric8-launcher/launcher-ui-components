@@ -1,5 +1,5 @@
 import * as React from 'react';
-import 'jest-dom/extend-expect';
+import '@testing-library/jest-dom/extend-expect';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import { ImportExistingFlow } from '../import-existing-flow';
 import { mockLauncherClient } from '@launcher/client';
