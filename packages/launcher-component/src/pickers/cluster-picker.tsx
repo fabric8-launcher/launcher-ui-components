@@ -10,7 +10,10 @@ import {
   Radio,
   Title,
   DataListItemRow,
-  DataListAction
+  DataListAction,
+  FormGroup,
+  TextInput,
+  Form
 } from '@patternfly/react-core';
 import { OpenshiftIcon } from '@patternfly/react-icons';
 import { OpenShiftCluster } from '@launcher/client';
@@ -20,6 +23,8 @@ import { Loader } from '../core/stuff';
 
 export interface ClusterPickerValue {
   clusterId?: string;
+  clusterUrl?: string;
+  clusterToken?: string;
   clusterType?: string;
 }
 
@@ -100,7 +105,7 @@ export const ClusterPicker: Picker<ClusterPickerProps, ClusterPickerValue> = {
                       <Title size="md" style={!cluster.connected ? { color: '#ccc' } : {}}>{cluster.name}</Title>
                     </DataListCell>
                     {!cluster.connected && (
-                      <DataListAction aria-label="Authorize cluster action"  aria-labelledby="authorize-link-action" id="authorize-link-action" width={1}>
+                      <DataListAction aria-label="Authorize cluster action" aria-labelledby="authorize-link-action" id="authorize-link-action" width={1}>
                         <Button
                           // @ts-ignore
                           component="a"
@@ -117,6 +122,40 @@ export const ClusterPicker: Picker<ClusterPickerProps, ClusterPickerValue> = {
             })
           }
         </DataList>
+        <hr />
+        <Form>
+          <FormGroup
+            label="Cluster API Url"
+            fieldId="cluster-url-picker"
+            helperTextInvalid="Please provide a valid url that uses http"
+          >
+            <TextInput
+              isRequired
+              type="text"
+              id="cluster-url-picker"
+              name="cluster-url-picker"
+              aria-label="Cluster url"
+              placeholder="Type the cluster api url"
+              onChange={value => props.onChange({ ...props.value, clusterUrl: value })}
+              value={props.value.clusterUrl || ''}
+            />
+          </FormGroup>
+          <FormGroup
+            label="Cluster Token"
+            fieldId="cluster-token-picker"
+          >
+            <TextInput
+              isRequired
+              type="text"
+              id="cluster-token-picker"
+              name="cluster-token-picker"
+              aria-label="Cluster token"
+              placeholder="Type the api token"
+              onChange={value => props.onChange({ ...props.value, clusterToken: value })}
+              value={props.value.clusterToken || ''}
+            />
+          </FormGroup>
+        </Form>
       </React.Fragment>
     );
   }
