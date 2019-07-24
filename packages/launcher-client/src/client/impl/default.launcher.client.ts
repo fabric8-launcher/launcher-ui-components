@@ -210,7 +210,7 @@ export default class DefaultLauncherClient implements LauncherClient {
       headers['X-OpenShift-Cluster-URL'] = config.clusterUrl;
     }
     if (config.clusterToken) {
-      headers['X-OpenShift-Authorization'] = config.clusterUrl;
+      headers['X-OpenShift-Authorization'] = config.clusterToken;
     }
     return { headers };
   }
