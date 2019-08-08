@@ -16,22 +16,16 @@ $ yarn install
 
 ## Development
 
-### Start Storybook dev server (launcher-component)
+### Start Storybook dev server
 ```bash
 $ yarn comp:storybook
 ```
 
-### Build the libraries
-All at once:
+### Build the library
 ```bash
 $ yarn build
 ```
 
-Or:
-```bash
-$ yarn client:build
-$ yarn comp:build
-```
 
 ## Test
 

@@ -14,7 +14,6 @@
     "storybook:publish": "npx surge --project ./storybook-static --domain https://fabric8-launcher-component-storybook.surge.sh"
   },
   "dependencies": {
-    "@launcher/client": "^1.4.1",
     "@patternfly/react-core": "3.58.1",
     "@patternfly/react-icons": "3.10.6",
     "classnames": "2.2.6",
