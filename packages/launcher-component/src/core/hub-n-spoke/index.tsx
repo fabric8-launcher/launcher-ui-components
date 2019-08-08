@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Fragment, ReactElement, useContext, useState } from 'react';
-import { Alert, AlertActionCloseButton, AlertVariant, Button, Grid, GridItem, Text, TextVariants } from '@patternfly/react-core';
-import { EditIcon, WindowCloseIcon } from '@patternfly/react-icons';
+import { Alert, AlertActionCloseButton, AlertVariant, Button, Grid, GridItem, Text, TextVariants, EmptyState, Title, EmptyStateBody } from '@patternfly/react-core';
+import { EditIcon, WindowCloseIcon, CheckCircleIcon } from '@patternfly/react-icons';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 
 import style from './hub-n-spoke.module.scss';
@@ -168,5 +168,28 @@ export function HubNSpoke(props: HubAndSpokeProps) {
         {!hub.selected && props.toolbar}
       </HubContext.Provider>
     </div>
+  );
+}
+
+export function OverviewComplete(props: { id: string; title: string; children?: React.ReactNode }) {
+  return (
+    <div className={style.overviewComplete} aria-label={`${props.id} is configured`}>
+      <Title size="lg" className={style.overviewCompleteTitle}>
+        <CheckCircleIcon className={style.checkComplete}/>{props.title}
+      </Title>
+      {props.children && (<div className={style.overviewCompleteBody}>{props.children}</div>)}
+    </div>
+  );
+}
+
+export function OverviewEmpty(props: { id: string; title: string; action: React.ReactNode; children?: React.ReactNode }) {
+  return (
+    <EmptyState aria-label={`${props.id} is not configured`}>
+      <Title size="lg">{props.title}</Title>
+      <EmptyStateBody>
+        {props.children}
+      </EmptyStateBody>
+      {props.action}
+    </EmptyState>
   );
 }
