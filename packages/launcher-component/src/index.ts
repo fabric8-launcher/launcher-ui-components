@@ -4,3 +4,8 @@ export * from './pickers/maven-settings-picker';
 export * from './pickers/dependencies-picker';
 export * from './core/stuff';
 export * from './core/types';
+export * from './core/form-panel/form-panel';
+export * from './core/hub-n-spoke';
+export * from './core/inline-text-input/inline-text-input';
+export * from './core/text-input/text-input';
+export * from './core/toggle-panel/toggle-panel';

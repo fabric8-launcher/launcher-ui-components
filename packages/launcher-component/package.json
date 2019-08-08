@@ -17,7 +17,6 @@
     "@patternfly/react-core": "3.58.1",
     "@patternfly/react-icons": "3.10.6",
     "classnames": "2.2.6",
-    "project-name-generator": "2.1.7",
     "react": "16.9.0-alpha.0",
     "react-dom": "16.9.0-alpha.0",
     "react-use-sessionstorage": "1.0.2"
