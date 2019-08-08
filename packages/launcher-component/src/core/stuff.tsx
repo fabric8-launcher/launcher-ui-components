@@ -1,7 +1,8 @@
 import { Alert, AlertVariant, Button, ButtonProps, Title } from '@patternfly/react-core';
-import { InProgressIcon } from '@patternfly/react-icons';
+import { InProgressIcon, ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
 import * as React from 'react';
 import style from './stuff.module.scss';
+import { CSSProperties } from 'react';
 
 
 export function optionalBool(val: (boolean | undefined), defaultValue: boolean): boolean {
@@ -77,4 +78,23 @@ export function effectSafety(): EffectSafety {
     }
   };
   return { callSafely, unload };
+}
+
+export function ExternalLink(props: {
+  'aria-label'?: string;
+  children: React.ReactNode;
+  href: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <Button
+      style={props.style}
+      component="a"
+      variant="link"
+      href={props.href}
+      aria-label={props['aria-label']}
+      target={'_blank'}
+    >
+        {props.children} <ExternalLinkSquareAltIcon />
+    </Button>);
 }
