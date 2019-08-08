@@ -4,7 +4,6 @@
   "license": "Apache-2.0",
   "private": true,
   "workspaces": [
-    "packages/launcher-client",
     "packages/launcher-component"
   ],
   "scripts": {
@@ -12,8 +11,7 @@
     "test": "jest --silent -w=2",
     "test:verbose": "jest",
     "libs:publish": "lerna publish --conventional-commits --yes && yarn comp:storybook:publish",
-    "build": "yarn client:build && yarn comp:build",
-    "client:build": "yarn workspace @launcher/client build",
+    "build": "yarn comp:build",
     "comp:build": "yarn workspace @launcher/component build",
     "comp:test": "yarn workspace @launcher/component test",
     "comp:storybook": "yarn workspace @launcher/component storybook",
