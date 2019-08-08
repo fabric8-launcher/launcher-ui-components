@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/fabric8-launcher/launcher-ui-components/compare/v1.4.5...v2.0.0) (2019-08-08)
+
+
+### Bug Fixes
+
+* add exports ([#1327](https://github.com/fabric8-launcher/launcher-ui-components/issues/1327)) ([d3f1ac2](https://github.com/fabric8-launcher/launcher-ui-components/commit/d3f1ac2))
+
+
+### BREAKING CHANGES
+
+* most of the components have been moved to the unified repo
+
+
+
+
+
 ## [1.4.5](https://github.com/fabric8-launcher/launcher-ui-components/compare/v1.4.4...v1.4.5) (2019-08-08)
 
 **Note:** Version bump only for package @launcher/component
