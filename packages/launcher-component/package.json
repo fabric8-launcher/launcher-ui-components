@@ -1,6 +1,6 @@
 {
   "name": "@launcher/component",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "Apache-2.0",
   "main": "build/index.js",
   "module": "build/esm/index.js",
@@ -19,9 +19,6 @@
   "devDependencies": {
     "@patternfly/react-core": "^3.58.1",
     "@patternfly/react-icons": "^3.10.6",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-use-sessionstorage": "^1.0.2",
     "@storybook/addon-actions": "5.1.11",
     "@storybook/addon-links": "5.1.11",
     "@storybook/addon-storysource": "5.1.11",
@@ -38,8 +35,11 @@
     "@types/storybook__react": "4.0.2",
     "awesome-typescript-loader": "5.2.1",
     "node-sass": "4.12.0",
+    "react": "^16.9.0",
     "react-docgen-typescript-loader": "3.1.1",
-    "react-scripts": "3.1.0"
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.0",
+    "react-use-sessionstorage": "^1.0.2"
   },
   "eslintConfig": {
     "extends": "react-app"

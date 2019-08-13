@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.3...v2.0.4) (2019-08-13)
+
+
+### Bug Fixes
+
+* make react part of the consumer choice ([b0f8f29](https://github.com/fabric8-launcher/launcher-ui-components/commit/b0f8f29))
+
+
+
+
+
 ## [2.0.3](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.2...v2.0.3) (2019-08-13)
 
 
