@@ -25,15 +25,15 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/jest": "24.0.15",
+    "@types/jest": "24.0.17",
     "@types/lodash": "4.14.136",
     "@types/node": "11.13.4",
     "codecov": "3.5.0",
-    "eslint": "5.16.0",
+    "eslint": "6.1.0",
     "ghooks": "2.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "24.8.0",
-    "lerna": "3.15.0",
+    "lerna": "3.16.4",
     "rollup": "1.16.6",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-commonjs": "10.0.1",
