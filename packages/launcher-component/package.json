@@ -14,14 +14,14 @@
     "storybook:publish": "npx surge --project ./storybook-static --domain https://fabric8-launcher-component-storybook.surge.sh"
   },
   "dependencies": {
-    "@patternfly/react-core": "3.58.1",
-    "@patternfly/react-icons": "3.10.6",
-    "classnames": "2.2.6",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "react-use-sessionstorage": "1.0.2"
+    "classnames": "^2.2.6"
   },
   "devDependencies": {
+    "@patternfly/react-core": "^3.58.1",
+    "@patternfly/react-icons": "^3.10.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-use-sessionstorage": "^1.0.2",
     "@storybook/addon-actions": "5.1.11",
     "@storybook/addon-links": "5.1.11",
     "@storybook/addon-storysource": "5.1.11",
