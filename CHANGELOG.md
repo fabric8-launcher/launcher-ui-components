@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.2...v2.0.3) (2019-08-13)
+
+
+### Bug Fixes
+
+* update react to 16.9.0 ([b1c6bfb](https://github.com/fabric8-launcher/launcher-ui-components/commit/b1c6bfb))
+
+
+
+
+
 ## [2.0.2](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.1...v2.0.2) (2019-08-08)
 
 
