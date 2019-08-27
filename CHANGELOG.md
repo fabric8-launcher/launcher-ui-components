@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.5](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.4...v2.0.5) (2019-08-27)
+
+
+### Bug Fixes
+
+* rename maven-settings-picker to gav-picker ([#1330](https://github.com/fabric8-launcher/launcher-ui-components/issues/1330)) ([ac5ca44](https://github.com/fabric8-launcher/launcher-ui-components/commit/ac5ca44))
+
+
+
+
+
 ## [2.0.4](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.3...v2.0.4) (2019-08-13)
 
 
