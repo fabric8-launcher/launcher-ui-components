@@ -3,19 +3,19 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { FormPanel } from '../../core/form-panel/form-panel';
 
-import { MavenSettingsPicker } from '../maven-settings-picker';
+import { GAVPicker } from '../gav-picker';
 
 storiesOf('Pickers', module)
-  .add('MavenSettingsPicker ', () => {
+  .add('GAVPicker ', () => {
     return (
       <FormPanel
         initialValue={{}}
-        validator={MavenSettingsPicker.checkCompletion}
+        validator={GAVPicker.checkCompletion}
         onSave={action('save')}
         onCancel={action('cancel')}
       >
         {
-          (inputProps) => (<MavenSettingsPicker.Element {...inputProps} showMoreOptions  mode="horizontal"/>)}
+          (inputProps) => (<GAVPicker.Element {...inputProps} showMoreOptions  mode="horizontal"/>)}
       </FormPanel>
     );
   });

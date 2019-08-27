@@ -3,9 +3,9 @@ import { optionalBool } from '../core/stuff';
 import { LaunchTextInput } from '../core/text-input/text-input';
 import { TogglePanel } from '../core/toggle-panel/toggle-panel';
 import { InputProps, Picker } from '../core/types';
-import './maven-settings-picker.scss';
+import './gav-picker.scss';
 
-export interface MavenSettingsPickerValue {
+export interface GAVPickerValue {
   groupId?: string;
   artifactId?: string;
   version?: string;
@@ -16,7 +16,7 @@ export interface MavenSettingsPickerValue {
 
 type SettingField = 'groupId' | 'artifactId' | 'version' | 'description' | 'packageName';
 
-interface MavenSettingsPickerProps extends InputProps<MavenSettingsPickerValue> {
+interface GAVPickerProps extends InputProps<GAVPickerValue> {
   showMoreOptions?: boolean;
   visibleFields?: SettingField[];
   mode?: 'vertical' | 'horizontal';
@@ -24,7 +24,7 @@ interface MavenSettingsPickerProps extends InputProps<MavenSettingsPickerValue> 
 
 const VALUE_REGEXP = /^[a-z][a-z0-9-.]{3,63}$/;
 
-export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettingsPickerValue> = {
+export const GAVPicker: Picker<GAVPickerProps, GAVPickerValue> = {
   checkCompletion: value => !!value.groupId && VALUE_REGEXP.test(value.groupId)
     && !!value.artifactId && VALUE_REGEXP.test(value.artifactId) && !!value.version,
   Element: props => {
@@ -33,7 +33,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
       : new Set(['groupId', 'artifactId', 'version', 'description', 'packageName']);
     const mode = props.mode || 'vertical';
     return (
-      <div className={`maven-settings-picker ${mode}`}>
+      <div className={`gav-picker ${mode}`}>
         <div className="base-settings pf-c-form">
           {visibleFields.has('groupId') && <LaunchTextInput
             label="Group"
@@ -42,7 +42,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
             type="text"
             id="groupId"
             name="groupId"
-            aria-label="Maven groupId name"
+            aria-label="Edit groupId"
             value={props.value.groupId || ''}
             onChange={value => props.onChange({ ...props.value, groupId: value })}
             pattern={VALUE_REGEXP.source}
@@ -55,7 +55,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
             type="text"
             id="artifactId"
             name="artifactId"
-            aria-label="Maven artifactId name"
+            aria-label="Edit artifactId"
             value={props.value.artifactId || ''}
             onChange={value => props.onChange({ ...props.value, artifactId: value })}
             pattern={VALUE_REGEXP.source}
@@ -64,7 +64,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
         </div>
 
         {optionalBool(props.showMoreOptions, true) && (
-          <TogglePanel id="maven-settings-extended" mode={mode} openLabel="Configure more options">
+          <TogglePanel id="gav-extended" mode={mode} openLabel="Configure more options">
             <div className="extended-settings pf-c-form">
               {visibleFields.has('version') && <LaunchTextInput
                 label="Version"
@@ -73,7 +73,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
                 type="text"
                 id="version"
                 name="version"
-                aria-label="Maven version number"
+                aria-label="Edit version"
                 value={props.value.version || ''}
                 onChange={value => props.onChange({ ...props.value, version: value })}
                 isValid={!!props.value.version}
@@ -85,7 +85,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
                 type="text"
                 id="description"
                 name="description"
-                aria-label="Maven description"
+                aria-label="Edit description"
                 value={props.value.description || ''}
                 onChange={value => props.onChange({ ...props.value, description: value })}
                 isValid={true}
@@ -97,7 +97,7 @@ export const MavenSettingsPicker: Picker<MavenSettingsPickerProps, MavenSettings
                 type="text"
                 id="packageName"
                 name="packageName"
-                aria-label="Maven package name"
+                aria-label="Edit package name"
                 value={props.value.packageName || ''}
                 onChange={value => props.onChange({ ...props.value, packageName: value })}
                 isValid={true}

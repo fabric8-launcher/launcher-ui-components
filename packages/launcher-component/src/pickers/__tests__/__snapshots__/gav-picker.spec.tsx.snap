@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] = `
+exports[`<GAVPicker /> renders the GAVPicker correctly 1`] = `
 <DocumentFragment>
   <div
-    class="maven-settings-picker vertical"
+    class="gav-picker vertical"
   >
     <div
       class="base-settings pf-c-form"
@@ -23,7 +23,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         </label>
         <input
           aria-invalid="false"
-          aria-label="Maven groupId name"
+          aria-label="Edit groupId"
           class="pf-c-form-control"
           id="groupId"
           name="groupId"
@@ -48,7 +48,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
         </label>
         <input
           aria-invalid="false"
-          aria-label="Maven artifactId name"
+          aria-label="Edit artifactId"
           class="pf-c-form-control"
           id="artifactId"
           name="artifactId"
@@ -80,7 +80,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
           </label>
           <input
             aria-invalid="false"
-            aria-label="Maven version number"
+            aria-label="Edit version"
             class="pf-c-form-control"
             id="version"
             name="version"
@@ -104,7 +104,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
           </label>
           <input
             aria-invalid="false"
-            aria-label="Maven description"
+            aria-label="Edit description"
             class="pf-c-form-control"
             id="description"
             name="description"
@@ -128,7 +128,7 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
           </label>
           <input
             aria-invalid="false"
-            aria-label="Maven package name"
+            aria-label="Edit package name"
             class="pf-c-form-control"
             id="packageName"
             name="packageName"
@@ -170,14 +170,14 @@ exports[`<MavenSettingsPicker /> renders the MavenSettingsPicker correctly 1`] =
 </DocumentFragment>
 `;
 
-exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
+exports[`<GAVPicker /> show error for invalid data 1`] = `
 <DocumentFragment>
   <div
     class="form-panel"
     style="padding: 20px;"
   >
     <div
-      class="maven-settings-picker vertical"
+      class="gav-picker vertical"
     >
       <div
         class="base-settings pf-c-form"
@@ -197,14 +197,14 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           </label>
           <input
             aria-invalid="true"
-            aria-label="Maven groupId name"
+            aria-label="Edit groupId"
             class="pf-c-form-control"
             id="groupId"
             name="groupId"
             pattern="^[a-z][a-z0-9-.]{3,63}$"
             required=""
             type="text"
-            value="invalid name"
+            value="invalid value"
           />
           <div
             aria-live="polite"
@@ -229,14 +229,14 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
           </label>
           <input
             aria-invalid="true"
-            aria-label="Maven artifactId name"
+            aria-label="Edit artifactId"
             class="pf-c-form-control"
             id="artifactId"
             name="artifactId"
             pattern="^[a-z][a-z0-9-.]{3,63}$"
             required=""
             type="text"
-            value="invalid name"
+            value="invalid value"
           />
           <div
             aria-live="polite"
@@ -268,7 +268,7 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
             </label>
             <input
               aria-invalid="false"
-              aria-label="Maven version number"
+              aria-label="Edit version"
               class="pf-c-form-control"
               id="version"
               name="version"
@@ -292,7 +292,7 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
             </label>
             <input
               aria-invalid="false"
-              aria-label="Maven description"
+              aria-label="Edit description"
               class="pf-c-form-control"
               id="description"
               name="description"
@@ -316,7 +316,7 @@ exports[`<MavenSettingsPicker /> show error for invalid data 1`] = `
             </label>
             <input
               aria-invalid="false"
-              aria-label="Maven package name"
+              aria-label="Edit package name"
               class="pf-c-form-control"
               id="packageName"
               name="packageName"
