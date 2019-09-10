@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { TextInput, FormGroup, TextInputProps } from '@patternfly/react-core';
 import { useAnalytics } from '../../analytics';
 
-interface LaunchTextInputProps extends TextInputProps {
+interface ExtendedTextInputProps extends TextInputProps {
   id: string;
   helperTextInvalid: string;
 }
 
-export function LaunchTextInput(props: LaunchTextInputProps) {
+export function ExtendedTextInput(props: ExtendedTextInputProps) {
   const [isDirty, setIsDirty] = useState(false);
   const { onChange, isValid, helperTextInvalid, label, ...rest } = props;
   const analytics = useAnalytics();
