@@ -1,7 +1,5 @@
 export * from './analytics';
 export * from './core/data-loader/data-loader';
-export * from './pickers/gav-picker';
-export * from './pickers/dependencies-picker';
 export * from './core/stuff';
 export * from './core/types';
 export * from './core/form-panel/form-panel';
