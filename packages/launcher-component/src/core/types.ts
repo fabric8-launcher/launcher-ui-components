@@ -5,6 +5,12 @@ export interface InputProps<T> {
   onChange: (T) => void;
 }
 
+export interface InputPropsWithValidation<T> {
+  value: T;
+  isValid: boolean;
+  onChange: (value: T, isValid: boolean) => void;
+}
+
 export interface FormProps<T> {
   initialValue: T;
   onSave?(value: T);
