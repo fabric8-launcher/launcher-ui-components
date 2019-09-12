@@ -11,11 +11,12 @@ export function ExtendedTextInput(props: ExtendedTextInputProps) {
   const [isDirty, setIsDirty] = useState(false);
   const { onChange, isValid, helperTextInvalid, label, ...rest } = props;
   const analytics = useAnalytics();
+  const valid = (!isDirty && !props.value) || isValid 
   return (
     <FormGroup
       fieldId={props.id}
       label={label}
-      isValid={isValid || !isDirty}
+      isValid={valid}
       helperTextInvalid={helperTextInvalid}
     >
       <TextInput
@@ -28,7 +29,7 @@ export function ExtendedTextInput(props: ExtendedTextInputProps) {
             onChange(value, event);
           }
         }}
-        isValid={isValid || !isDirty}
+        isValid={valid}
         {...rest as any}
       />
     </FormGroup>
