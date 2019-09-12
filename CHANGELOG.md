@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.8](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.7...v2.0.8) (2019-09-12)
+
+
+### Bug Fixes
+
+* ExtendedTextInput can be invalid when untouched ([#1333](https://github.com/fabric8-launcher/launcher-ui-components/issues/1333)) ([1f3cceb](https://github.com/fabric8-launcher/launcher-ui-components/commit/1f3cceb))
+
+
+
+
+
 ## [2.0.7](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.6...v2.0.7) (2019-09-12)
 
 **Note:** Version bump only for package launcher-ui-tooling
