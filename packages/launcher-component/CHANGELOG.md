@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.7](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.6...v2.0.7) (2019-09-12)
+
+**Note:** Version bump only for package @launcher/component
+
+
+
+
+
 ## [2.0.6](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.5...v2.0.6) (2019-09-10)
 
 **Note:** Version bump only for package @launcher/component
