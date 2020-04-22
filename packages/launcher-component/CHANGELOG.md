@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.10](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.9...v2.0.10) (2020-04-22)
+
+
+### Bug Fixes
+
+* add declaration of the ga function ([d86b5e3](https://github.com/fabric8-launcher/launcher-ui-components/commit/d86b5e3))
+
+
+
+
+
 ## [2.0.9](https://github.com/fabric8-launcher/launcher-ui-components/compare/v2.0.8...v2.0.9) (2020-04-22)
 
 **Note:** Version bump only for package @launcher/component
