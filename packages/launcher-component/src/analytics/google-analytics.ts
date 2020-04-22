@@ -1,5 +1,6 @@
 import { Analytics } from './analytics';
 /* global ga */
+declare const ga: (method: string, type: string, category?: string, action?: string, label?: string, value?: number, params?: object) => void;
 
 /**
  * In order to use this implementation, the following script need to be added to the index.html
