@@ -25,7 +25,8 @@ export class GoogleAnalytics implements Analytics {
     }
 
     pageview(path: string) {
-        ga('send', 'pageview', path);
+        ga('set', 'page', path);
+        ga('send', 'pageview');
     }
 
     event(category: string, action: string, label?: string, value?: number, params?: object) {
